@@ -110,6 +110,11 @@ License: You must have a valid license purchased only from themeforest(the above
 										<div class="form-group m-form__group">
 											<input class="form-control m-input m-login__form-input--last" type="password" placeholder="Password" name="password">
 										</div>
+										@if (session('thongbao'))
+										<div class="thongbao" style="color: red">
+											{{session('thongbao')}}
+										</div>
+										@endif
 										<div class="row m-login__form-sub">
 											<div class="col m--align-left">
 												<label class="m-checkbox m-checkbox--focus">

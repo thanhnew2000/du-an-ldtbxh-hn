@@ -15,7 +15,7 @@ class AuthController extends Controller
     	if(Auth::attempt(["phone_number"=>$phone_number,"password"=>$password],$remember)){
     		 return redirect('dashboard');
     	}else{
-    		 return redirect('/');
+    		 return redirect()->back()->with('thongbao','Tài khoản hoặc mật khẩu không đúng');
     	}
     }
 
