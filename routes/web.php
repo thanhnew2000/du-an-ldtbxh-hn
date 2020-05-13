@@ -13,16 +13,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+
 Route::get('/', function () {
-    return view('welcome');
-});
-
-
-Route::get('/login', function () {
      return view('login');
-});
+})->middleware("CheckLogin");
+
+Route::post('/post_login','AuthController@login')->name('post_login');
+Route::get('/logout','AuthController@logout');
 
 
 Route::get('/dashboard', function () {
      return view('index');
-});
+})->middleware("CheckLogout");
+
+Route::get('/getdatauser','AuthController@getdata');

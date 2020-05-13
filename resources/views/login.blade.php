@@ -102,9 +102,10 @@ License: You must have a valid license purchased only from themeforest(the above
 									<div class="m-login__head">
 										<h3 class="m-login__title">Sign In To Admin</h3>
 									</div>
-									<form class="m-login__form m-form" action="">
+									<form class="m-login__form m-form" action="{{ route('post_login') }}" method="post">
+										{{ csrf_field() }} 
 										<div class="form-group m-form__group">
-											<input class="form-control m-input" type="text" placeholder="Email" name="email" autocomplete="off">
+											<input class="form-control m-input" type="text" placeholder="Phone number" name="phone" autocomplete="off">
 										</div>
 										<div class="form-group m-form__group">
 											<input class="form-control m-input m-login__form-input--last" type="password" placeholder="Password" name="password">
@@ -121,7 +122,8 @@ License: You must have a valid license purchased only from themeforest(the above
 											</div>
 										</div>
 										<div class="m-login__form-action">
-											<button id="m_login_signin_submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air">Sign In</button>
+											<button  class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air">Sign In</button>
+											<!-- <button id="m_login_signin_submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air">Sign In</button> -->
 										</div>
 									</form>
 								</div>
