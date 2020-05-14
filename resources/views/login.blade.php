@@ -100,15 +100,15 @@ License: You must have a valid license purchased only from themeforest(the above
 								</div>
 								<div class="m-login__signin">
 									<div class="m-login__head">
-										<h3 class="m-login__title">Sign In To Admin</h3>
+										<h3 class="m-login__title">Đăng nhập vào quản trị viên</h3>
 									</div>
 									<form class="m-login__form m-form" action="{{ route('post_login') }}" method="post">
 										{{ csrf_field() }} 
 										<div class="form-group m-form__group">
-											<input class="form-control m-input" type="text" placeholder="Phone number" name="phone" autocomplete="off">
+											<input class="form-control m-input" type="text" placeholder="Số điện thoại hoặc email" name="phone" autocomplete="off">
 										</div>
 										<div class="form-group m-form__group">
-											<input class="form-control m-input m-login__form-input--last" type="password" placeholder="Password" name="password">
+											<input class="form-control m-input m-login__form-input--last" type="password" placeholder="Mật khẩu" name="password">
 										</div>
 										@if (session('thongbao'))
 										<div class="thongbao" style="color: red">
@@ -118,16 +118,16 @@ License: You must have a valid license purchased only from themeforest(the above
 										<div class="row m-login__form-sub">
 											<div class="col m--align-left">
 												<label class="m-checkbox m-checkbox--focus">
-													<input type="checkbox" name="remember"> Remember me
+													<input type="checkbox" name="remember"> Ghi nhớ đăng nhập
 													<span></span>
 												</label>
 											</div>
 											<div class="col m--align-right">
-												<a href="javascript:;" id="m_login_forget_password" class="m-link">Forget Password ?</a>
+												<a href="javascript:;" id="m_login_forget_password" class="m-link">Quên mật khẩu ?</a>
 											</div>
 										</div>
 										<div class="m-login__form-action">
-											<button  class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air">Sign In</button>
+											<button  class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air">Đăng nhập</button>
 											<!-- <button id="m_login_signin_submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air">Sign In</button> -->
 										</div>
 									</form>
@@ -167,28 +167,30 @@ License: You must have a valid license purchased only from themeforest(the above
 								</div>
 								<div class="m-login__forget-password">
 									<div class="m-login__head">
-										<h3 class="m-login__title">Forgotten Password ?</h3>
-										<div class="m-login__desc">Enter your email to reset your password:</div>
+										<h3 class="m-login__title">Đã quên mật khẩu ?</h3>
+										<div class="m-login__desc">Nhập email của bạn để thiết lập lại mật khẩu của bạn:</div>
 									</div>
-									<form class="m-login__form m-form" action="">
+									<form class="m-login__form m-form" method="post" action="">
+										{{ csrf_field() }} 
 										<div class="form-group m-form__group">
 											<input class="form-control m-input" type="text" placeholder="Email" name="email" id="m_email" autocomplete="off">
 										</div>
+										<div id="thongbaoloi" style="margin-top: 20px; color: red"></div>
 										<div class="m-login__form-action">
-											<button id="m_login_forget_password_submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air">Request</button>
-											<button id="m_login_forget_password_cancel" class="btn btn-outline-focus m-btn m-btn--pill m-btn--custom">Cancel</button>
+											<div id="" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air" onclick="forgot_pass()" >Yêu cầu</div>
+											<button id="m_login_forget_password_cancel" class="btn btn-outline-focus m-btn m-btn--pill m-btn--custom">Hủy bỏ</button>
 										</div>
 									</form>
 								</div>
 							</div>
 						</div>
 						<div class="m-stack__item m-stack__item--center">
-							<div class="m-login__account">
+					<!-- 		<div class="m-login__account">
 								<span class="m-login__account-msg">
 									Don't have an account yet ?
 								</span>&nbsp;&nbsp;
 								<a href="javascript:;" id="m_login_signup" class="m-link m-link--focus m-login__account-link">Sign Up</a>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>
@@ -282,8 +284,24 @@ License: You must have a valid license purchased only from themeforest(the above
 
 		<!--begin::Page Scripts -->
 		<script src="{!! asset('assets/snippets/custom/pages/user/login.js') !!}" type="text/javascript"></script>
-
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 		<!--end::Page Scripts -->
+		<script type="text/javascript">
+			function forgot_pass(){
+				alert($("#m_email").val());
+				axios.post('/quen-mat-khau', {
+				    email: $("#m_email").val(),
+				  })
+		  .then(function (response) {
+		  	console.log(response.data.thongbao)
+		   $("#thongbaoloi").html(response.data.thongbao)
+		  })
+		  .catch(function (error) {
+		    console.log(error);
+		  });
+			}
+			
+		</script>
 	</body>
 
 	<!-- end::Body -->

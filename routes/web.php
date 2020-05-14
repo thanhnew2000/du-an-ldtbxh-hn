@@ -22,12 +22,14 @@ Route::get('/', function () {
      return view('login');
 })->middleware("CheckLogin");
 
-Route::post('/post_login','AuthController@login')->name('post_login');
+Route::post('/dang-nhap','AuthController@login')->name('post_login');
 Route::get('/logout','AuthController@logout');
+Route::post('/quen-mat-khau','AuthController@forgot_pass')->name('forgot_pass');
 
 
 Route::get('/dashboard', function () {
      return view('index');
 })->middleware("CheckLogout");
+
 
 Route::get('/getdatauser','AuthController@getdata');
