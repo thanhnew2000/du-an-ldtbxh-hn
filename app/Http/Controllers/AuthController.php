@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Support\Facades\DB;
 use App\User;
+use Carbon\Carbon;
+use Mail;
 class AuthController extends Controller
 {
     public function login(Request $request){
@@ -31,8 +33,58 @@ class AuthController extends Controller
         $email = $request->email;
         $checkUser = User::where("email",$email)->first();
         if(!$checkUser){
-            return response()->json(['thongbao'=>"Địa chỉ email không tồn tại"],200);
+            return response()->json(['thongbaoloi'=>"Địa chỉ email không tồn tại"],200);
         }
+        $code = bcrypt(md5(time().$email));
+        $checkUser->code = $code;
+        $checkUser->time_code= Carbon::now();
+        $checkUser->save();
+        $toemail = $checkUser->email;
+        
+        $url = route('link_reset_password',['code'=>$checkUser->code,'email'=>$email]);
+        $data=[
+            'route'=>$url
+        ];
+        Mail::send('email_reset_pass',$data,function($message) use ($toemail) {
+            $message->to($toemail,'Reset password')->subject('Lấy lại mật khẩu');
+        });
 
+        return response()->json(['thongbaothanhcong'=>"Thành công ! Vui lòng kiểm tra email để thay đổi mật khẩu"],200);
+
+
+    }
+    public function reset_pass(Request $request){
+        $code = $request->code;
+        $email= $request->email;
+        $checkUser = User::where([
+            "code" => $code,
+            "email" => $email
+        ])->first();
+        if($checkUser){
+           return view('reset_pass');
+        }else{
+            return redirect()->back()->with('thongbao','Lỗi xác thực không thành công');         
+        }
+    }
+    public function post_reset_pass(Request $request){
+        $code = $request->code;
+        $email= $request->email;
+        $checkUser = User::where([
+            "code" => $code,
+            "email" => $email
+        ])->first();
+
+        $hethan =Carbon::parse($checkUser->time_code);
+        $hientai= Carbon::now();
+
+        // dd(!$hientai->diffInMinutes($hethan)>=1440);
+
+        if(!$checkUser || $hientai->diffInMinutes($hethan)>=1440){
+         return redirect()->back()->with('thongbao','Lỗi xác thực không thành công');
+        };
+
+        $checkUser->password = bcrypt($request->password);
+        $checkUser->save();
+        return redirect()->route('login')->with('success','Mật khẩu đã được thay đổi thành công, Mời bạn đăng nhập');
     }
 }

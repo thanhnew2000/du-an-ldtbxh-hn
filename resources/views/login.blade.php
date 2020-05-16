@@ -115,6 +115,11 @@ License: You must have a valid license purchased only from themeforest(the above
 											{{session('thongbao')}}
 										</div>
 										@endif
+										@if (session('success'))
+										<div class="thongbao" style="color: green">
+											{{session('success')}}
+										</div>
+										@endif
 										<div class="row m-login__form-sub">
 											<div class="col m--align-left">
 												<label class="m-checkbox m-checkbox--focus">
@@ -170,6 +175,7 @@ License: You must have a valid license purchased only from themeforest(the above
 										<h3 class="m-login__title">Đã quên mật khẩu ?</h3>
 										<div class="m-login__desc">Nhập email của bạn để thiết lập lại mật khẩu của bạn:</div>
 									</div>
+									<div id="thongbaothanhcong" style="margin-top: 20px; color: green"></div>
 									<form class="m-login__form m-form" method="post" action="">
 										{{ csrf_field() }} 
 										<div class="form-group m-form__group">
@@ -288,13 +294,15 @@ License: You must have a valid license purchased only from themeforest(the above
 		<!--end::Page Scripts -->
 		<script type="text/javascript">
 			function forgot_pass(){
-				alert($("#m_email").val());
+				// alert($("#m_email").val());
 				axios.post('/quen-mat-khau', {
 				    email: $("#m_email").val(),
 				  })
 		  .then(function (response) {
-		  	console.log(response.data.thongbao)
-		   $("#thongbaoloi").html(response.data.thongbao)
+		  	$("#thongbaoloi").html("")
+		   $("#thongbaothanhcong").html("")
+		   $("#thongbaoloi").html(response.data.thongbaoloi)
+		   $("#thongbaothanhcong").html(response.data.thongbaothanhcong)
 		  })
 		  .catch(function (error) {
 		    console.log(error);

@@ -20,13 +20,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
      return view('login');
-})->middleware("CheckLogin");
+})->name('login')->middleware("CheckLogin");
 
 Route::post('/dang-nhap','AuthController@login')->name('post_login');
 Route::get('/logout','AuthController@logout');
 Route::post('/quen-mat-khau','AuthController@forgot_pass')->name('forgot_pass');
-
-
+Route::get('/thay-doi-mat-khau','AuthController@reset_pass')->name('link_reset_password');
+Route::post('/thay-doi-mat-khau','AuthController@post_reset_pass');
 Route::get('/dashboard', function () {
      return view('index');
 })->middleware("CheckLogout");
