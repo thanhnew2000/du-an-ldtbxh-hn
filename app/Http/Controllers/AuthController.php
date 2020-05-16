@@ -43,7 +43,8 @@ class AuthController extends Controller
         
         $url = route('link_reset_password',['code'=>$checkUser->code,'email'=>$email]);
         $data=[
-            'route'=>$url
+            'route'=>$url,
+            'title'=>"Lấy lại mật khẩu"
         ];
         Mail::send('email_reset_pass',$data,function($message) use ($toemail) {
             $message->to($toemail,'Reset password')->subject('Lấy lại mật khẩu');
@@ -97,11 +98,20 @@ class AuthController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->phone_number = $request->phone;
-        $user->password = bcrypt($request->password);
-        $user->avatar = $request->image;
+        $code = bcrypt(md5(time().$request->email));
+        $user->password=bcrypt(md5(time().$request->email));
+        $user->code = $code;
+        $user->time_code= Carbon::now();
         $user->save();
-        $image = $request->image;
-        $image->move('upload', $image->getClientOriginalName());
+        $email = $user->email;
+        $url = route('link_reset_password',['code'=>$user->code,'email'=>$email]);
+        $data=[
+            'route'=>$url,
+            'title'=>"Tài khoản đăng ký thành công vui"
+        ];
+        Mail::send('email_reset_pass',$data,function($message) use ($email) {
+            $message->to($email,'Reset password')->subject('Bạn đã được đăng ký tài khoản');
+        });
         return redirect()->back()->with('thongbao','Đăng ký tài khoản thành công');
     }
 

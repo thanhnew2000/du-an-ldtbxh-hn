@@ -50,25 +50,6 @@
 													<input class="form-control m-input" type="text" placeholder="Vui lòng nhập họ tên" name="name">
 												</div>
 											</div>
-											<div class="form-group m-form__group row">
-												<label for="example-search-input" class="col-2 col-form-label">Mật khẩu</label>
-												<div class="col-10">
-													<input id="password" class="form-control m-input" type="password" placeholder="Nhập mật khẩu" name="password">
-												</div>
-											</div>
-											<div class="form-group m-form__group row">
-												<label for="example-email-input" class="col-2 col-form-label">Nhập lại mật khẩu</label>
-												<div class="col-10">
-													<input class="form-control m-input" type="password" placeholder="Nhập lại mật khẩu" name="password_confirm">
-												</div>
-											</div>
-											<div class="form-group m-form__group row">
-												<label for="example-url-input" class="col-2 col-form-label">Ảnh đại diên</label>
-									<div class="col-10">
-													<input type="file" name="image" class="form-control m-input" id="customFile">
-												
-												</div>
-											</div>
 											@if (session('thongbao'))
 										<div class="thongbao" style="color: green; text-align: center;">
 											{{session('thongbao')}}
@@ -140,17 +121,6 @@
                     required: true,
                     minlength: 6,
                     maxlength: 30
-                },
-                password: {
-                    required: true,
-                    minlength: 6,
-                    maxlength: 25
-                },
-                password_confirm: {
-			      equalTo: "#password"
-			    },
-			    image: {
-                    extension: "jpg|png|jpeg|gif"
                 }
             },
             messages: {
@@ -170,17 +140,6 @@
                     required: "Vui lòng nhập họ tên",
                     minlength: "Họ tên ít nhất 6 ký tự",
                     maxlength: "Họ tên không được vượt quá 40 ký tự"
-                },
-                password: {
-                    required: "Vui lòng nhập địa chỉ",
-                    minlength: "Mật khẩu ít nhất 6 ký tự",
-                    maxlength: "Mật khẩu không được lớn hơn 25 ký tự"
-                },
-                password_confirm: {
-                	equalTo: "Mật khẩu bạn nhập lại không giống nhau"
-                },
-                 image: {
-                    extension: "Hãy chọn file định dạng ảnh (jpg|png|jpeg|gif)"
                 }
                 
             }

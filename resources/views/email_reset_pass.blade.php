@@ -467,7 +467,7 @@ body{background-color:#f0f0f0}.logo a:hover,.logo a:focus{color:#859bb1 !importa
         
             <div style="Margin-left: 20px;Margin-right: 20px;">
       <div style="mso-line-height-rule: exactly;mso-text-raise: 11px;vertical-align: middle;">
-        <h1 style="Margin-top: 0;Margin-bottom: 0;font-style: normal;font-weight: normal;color: #565656;font-size: 30px;line-height: 38px;text-align: center;"><strong>Thay &#273;&#7893;i m&#7853;t kh&#7849;u c&#7911;a b&#7841;n</strong></h1><p style="Margin-top: 20px;Margin-bottom: 0;">&nbsp;Thank you for being a valued Secure bot customer. Your opinion is very important to us and would like to get your feedback on how we're doing.</p><p style="Margin-top: 20px;Margin-bottom: 20px;">The information you provide will help us to improve our customer experience for you and the entire Secure bot community.</p>
+        <h1 style="Margin-top: 0;Margin-bottom: 0;font-style: normal;font-weight: normal;color: #565656;font-size: 30px;line-height: 38px;text-align: center;"><strong>{{$title}}</strong></h1><p style="Margin-top: 20px;Margin-bottom: 0;">&nbsp;Thank you for being a valued Secure bot customer. Your opinion is very important to us and would like to get your feedback on how we're doing.</p><p style="Margin-top: 20px;Margin-bottom: 20px;">The information you provide will help us to improve our customer experience for you and the entire Secure bot community.</p>
       </div>
     </div>
         
