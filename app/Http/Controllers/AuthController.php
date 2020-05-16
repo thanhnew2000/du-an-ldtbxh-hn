@@ -88,7 +88,36 @@ class AuthController extends Controller
         return redirect()->route('login')->with('success','Mật khẩu đã được thay đổi thành công, Mời bạn đăng nhập');
     }
 
-    public function dangkytaikhoan(){
+    public function getdangkytaikhoan(){
         return view('dang_ky');
     }
+
+    public function dangkytaikhoan(Request $request){
+        $user = new User;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->phone_number = $request->phone;
+        $user->password = bcrypt($request->password);
+        $user->avatar = $request->image;
+        $user->save();
+        $image = $request->image;
+        $image->move('upload', $image->getClientOriginalName());
+        return redirect()->back()->with('thongbao','Đăng ký tài khoản thành công');
+    }
+
+    public function checkemail(Request $request){
+        $email = $request->name;
+        $queryUser = User::where('email', $email);
+        $numberEmail = $queryUser->count();
+        echo $numberEmail == 0 ? "true" : "false";
+    }
+
+    public function checkphone(Request $request){
+        $phone = $request->name;
+        $queryUser = User::where('phone_number', $phone);
+        $numberPhone = $queryUser->count();
+        echo $numberPhone == 0 ? "true" : "false";
+    }
+
+
 }
