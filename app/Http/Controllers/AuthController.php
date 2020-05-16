@@ -119,5 +119,19 @@ class AuthController extends Controller
         echo $numberPhone == 0 ? "true" : "false";
     }
 
+    public function getdoimatkhau(){
+        $user = Auth::user();
+        $email= $user->email;
+        return view('doi_mat_khau', compact('email'));
+    }
+
+    public function doimatkhau(Request $request){
+        $user = Auth::user();
+        $user->password = bcrypt($request->password);
+        $user->save();
+        Auth::logout();
+        return redirect()->route('login')->with('success','Mật khẩu đã được thay đổi thành công, Mời bạn đăng nhập');
+    }
+
 
 }
