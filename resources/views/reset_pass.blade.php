@@ -70,7 +70,7 @@ License: You must have a valid license purchased only from themeforest(the above
 									<div class="m-login__head">
 										<h3 class="m-login__title">Lấy lại mật khẩu</h3>
 									</div>
-									<form class="m-login__form m-form" action="" method="post">
+									<form onsubmit="return validate()" class="m-login__form m-form" action="" method="post">
 										{{ csrf_field() }} 
 										<div class="form-group m-form__group">
 											<input class="form-control m-input" type="password" placeholder="Mật khẩu mới" name="password" autocomplete="off">
@@ -83,6 +83,9 @@ License: You must have a valid license purchased only from themeforest(the above
 											{{session('thongbao')}}
 										</div>
 										@endif
+										<div class="thongbao1" style="color: red">
+											{{session('thongbao')}}
+										</div>
 										<div class="row m-login__form-sub">
 										</div>
 										<div class="m-login__form-action">
@@ -134,6 +137,17 @@ License: You must have a valid license purchased only from themeforest(the above
 
 		<!--begin::Page Scripts -->
 		<script src="{!! asset('assets/snippets/custom/pages/user/login.js') !!}" type="text/javascript"></script>
+		<script type="text/javascript">
+			function validate(){
+				var pass = $("[name='password']").val()
+				var pass_comfirm = $("[name='password_comfirm']").val()
+				if(pass!=pass_comfirm){
+					$(".thongbao1").html("Mật khẩu bạn nhập không giống nhau")
+					return false
+				}
+				return true
+			}
+		</script>
 		<!--end::Page Scripts -->
 	</body>
 

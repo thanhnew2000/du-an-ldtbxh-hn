@@ -87,4 +87,8 @@ class AuthController extends Controller
         $checkUser->save();
         return redirect()->route('login')->with('success','Mật khẩu đã được thay đổi thành công, Mời bạn đăng nhập');
     }
+
+    public function dangkytaikhoan(){
+        return view('dang_ky');
+    }
 }
