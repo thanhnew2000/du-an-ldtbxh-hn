@@ -23,11 +23,27 @@ Route::get('/', function () {
 })->name('login')->middleware("CheckLogin");
 
 Route::post('/dang-nhap','AuthController@login')->name('post_login');
+
 Route::get('/logout','AuthController@logout');
+
 Route::post('/quen-mat-khau','AuthController@forgot_pass')->name('forgot_pass');
+
 Route::get('/thay-doi-mat-khau','AuthController@reset_pass')->name('link_reset_password');
+
 Route::post('/thay-doi-mat-khau','AuthController@post_reset_pass');
-Route::get('/dang-ky-tai-khoan','AuthController@dangkytaikhoan');
+
+Route::get('/dang-ky-tai-khoan','AuthController@getdangkytaikhoan');
+
+Route::post('/dang-ky-tai-khoan','AuthController@dangkytaikhoan')->name("dangkytaikhoan");
+
+Route::get('/doi-mat-khau','AuthController@getdoimatkhau');
+
+Route::post('/doi-mat-khau','AuthController@doimatkhau')->name("doimatkhau");
+
+Route::post('/check-email','AuthController@checkemail')->name('check-email');
+
+Route::post('/check-phone','AuthController@checkphone')->name('check-phone');
+
 Route::get('/dashboard', function () {
      return view('index');
 })->middleware("CheckLogout");

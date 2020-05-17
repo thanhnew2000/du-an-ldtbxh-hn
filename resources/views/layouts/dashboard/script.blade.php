@@ -82,3 +82,5 @@
 		<script src="{!! asset('assets/app/js/dashboard.js') !!}" type="text/javascript"></script>
 
 		<!--end::Page Scripts -->
+		<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/additional-methods.min.js"></script>
