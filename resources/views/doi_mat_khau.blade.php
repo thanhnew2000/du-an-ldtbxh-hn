@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', "Đăng kí tài khoản")
+@section('title', "Đổi mật khẩu")
 @section('style')
 <style type="text/css">
 	.error{
@@ -27,7 +27,7 @@
 									</div>
 
 									<!--begin::Form-->
-									<form id="validate-dangky" method="post" action="{{ route('doimatkhau') }}" class="m-form m-form--fit m-form--label-align-right"  enctype="multipart/form-data">
+									<form id="validate-dangky" onsubmit="return validateForm()"  method="post" action="{{ route('doimatkhau') }}" class="m-form m-form--fit m-form--label-align-right"  enctype="multipart/form-data">
 										{{ csrf_field() }} 
 										<div class="m-portlet__body">
 											<div class="form-group m-form__group row">
@@ -37,20 +37,34 @@
 												</div>
 											</div>
 											<div class="form-group m-form__group row">
+												<label for="example-search-input" class="col-2 col-form-label">Mật khẩu cũ</label>
+												<div class="col-10">
+													<input id="password_old" class="form-control m-input" type="password" placeholder="Nhập mật khẩu cũ" name="password_old">
+													<label id="password_old-error" class="error" for="password"></label>
+												</div>
+											</div>
+											<div class="form-group m-form__group row">
 												<label for="example-search-input" class="col-2 col-form-label">Mật khẩu</label>
 												<div class="col-10">
 													<input id="password" class="form-control m-input" type="password" placeholder="Nhập mật khẩu" name="password">
+													<label id="password-error" class="error" for="password"></label>
 												</div>
 											</div>
 											<div class="form-group m-form__group row">
 												<label for="example-email-input" class="col-2 col-form-label">Nhập lại mật khẩu</label>
 												<div class="col-10">
-													<input class="form-control m-input" type="password" placeholder="Nhập lại mật khẩu" name="password_confirm">
+													<input class="form-control m-input" type="password" placeholder="Nhập lại mật khẩu" id ="password_confirm" name="password_confirm">
+													<label id="password_confirm-error" class="error" for="password_confirm"></label>
 												</div>
 											</div>
 											@if (session('thongbao'))
 										<div class="thongbao" style="color: green; text-align: center;">
 											{{session('thongbao')}}
+										</div>
+										@endif
+										@if (session('thongbaoloi'))
+										<div class="thongbao" style="color: red; text-align: center;">
+											{{session('thongbaoloi')}}
 										</div>
 										@endif
 										</div>
@@ -76,32 +90,35 @@
 @endsection
 @section('script') 
 <script type="text/javascript">
-	$(document).ready(function() {
-        $("#validate-dangky").validate({
-            rules: {
+function validateForm()
+{
+			var re = /^(?=.*[a-z])(?=.*\d)[a-zA-Z\d]{6,30}$/;
+			var check = re.test($("#password").val())
+			if($("#password_old").val()==""){
+				$("#password_old-error").html("Mật khẩu cũ không được để rỗng")
+				return false;
+			}
+			else if($("#password").val()==""){
+				$("#password_old-error").html("")
+				$("#password-error").html("Mật khẩu không được để rỗng")
+				return false;
+			}
+			else if(!check){
+				$("#password-error").html("Mật khẩu phải từ 6 đến 30 ký tự chứa ít nhất chữ 1 chữ thường và 1 chữ số")
+				return false;
+			}
+			else if($("#password").val()!=$("#password_confirm").val()){
+				$("#password-error").html("")
+				$("#password_confirm-error").html("Mật khẩu bạn nhập lại không khớp nhau")
+				return false;
+			}
+			else{
+				$("#password_confirm-error").html("")
+				return true;
+			}
+			return true;
+}
 
-                password: {
-                    required: true,
-                    minlength: 6,
-                    maxlength: 25
-                },
-                password_confirm: {
-			      equalTo: "#password"
-			    }
-            },
-            messages: {
-                password: {
-                    required: "Vui lòng nhập địa chỉ",
-                    minlength: "Mật khẩu ít nhất 6 ký tự",
-                    maxlength: "Mật khẩu không được lớn hơn 25 ký tự"
-                },
-                password_confirm: {
-                	equalTo: "Mật khẩu bạn nhập lại không giống nhau"
-                }
-                
-            }
-        });
-    });
 </script>
 
 @endsection   

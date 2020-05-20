@@ -467,7 +467,7 @@ body{background-color:#f0f0f0}.logo a:hover,.logo a:focus{color:#859bb1 !importa
         
             <div style="Margin-left: 20px;Margin-right: 20px;">
       <div style="mso-line-height-rule: exactly;mso-text-raise: 11px;vertical-align: middle;">
-        <h1 style="Margin-top: 0;Margin-bottom: 0;font-style: normal;font-weight: normal;color: #565656;font-size: 30px;line-height: 38px;text-align: center;"><strong>{{$title}}</strong></h1><p style="Margin-top: 20px;Margin-bottom: 0;">&nbsp;Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi, đây là email xác nhận yêu cầu lấy lại mật khẩu của bạn, Nếu thực sự bạn không tạo ra một yêu cầu như vậy xin hãy bỏ qua email này. Yêu cầu sẽ hết hạn sau 1 ngày , xin chân trọng cảm ơn </p>
+        <h1 style="Margin-top: 0;Margin-bottom: 0;font-style: normal;font-weight: normal;color: #565656;font-size: 30px;line-height: 38px;text-align: center;"><strong>{{$title}}</strong></h1><p style="Margin-top: 20px;Margin-bottom: 0;">&nbsp;Đây là email xác nhật tạo tài khoản của bạn vui lòng click vào đường dấn phía dưới để thiết lập mật khẩu .</p>
       </div>
     </div>
         

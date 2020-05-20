@@ -18,7 +18,7 @@ License: You must have a valid license purchased only from themeforest(the above
 	<!-- begin::Head -->
 	<head>
 		<meta charset="utf-8" />
-		<title>Metronic | Login Page - 1</title>
+		<title>Thiết lập mật khẩu</title>
 		<meta name="description" content="Latest updates and statistic charts">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
 
@@ -47,6 +47,11 @@ License: You must have a valid license purchased only from themeforest(the above
 
 		<!--end::Global Theme Styles -->
 		<link rel="shortcut icon" href="{!! asset('assets/demo/media/img/logo/favicon.ico') !!}" />
+		<style>
+		.error{
+		color: red !important;
+	}
+		</style>
 	</head>
 
 	<!-- end::Head -->
@@ -68,15 +73,17 @@ License: You must have a valid license purchased only from themeforest(the above
 								</div>
 								<div class="m-login__signin">
 									<div class="m-login__head">
-										<h3 class="m-login__title">Lấy lại mật khẩu</h3>
+										<h3 class="m-login__title">Thiết lập mật khẩu</h3>
 									</div>
-									<form onsubmit="return validate()" class="m-login__form m-form" action="" method="post">
+									<form onsubmit="return validateForm()" class="m-login__form m-form" action="" method="post">
 										{{ csrf_field() }} 
 										<div class="form-group m-form__group">
-											<input class="form-control m-input" type="password" placeholder="Mật khẩu mới" name="password" autocomplete="off">
+											<input id="password" class="form-control m-input" type="password" placeholder="Mật khẩu mới" name="password" autocomplete="off">
+											<label id="password-error" class="error" for="password"></label>
 										</div>
 										<div class="form-group m-form__group">
-											<input class="form-control m-input m-login__form-input--last" type="password" placeholder="Nhập lại mật khẩu" name="password_comfirm">
+											<input id="password_confirm" class="form-control m-input m-login__form-input--last" type="password" placeholder="Nhập lại mật khẩu" name="password_comfirm">
+											<label id="password_confirm-error" class="error" for="password_confirm"></label>
 										</div>
 										@if (session('thongbao'))
 										<div class="thongbao" style="color: red">
@@ -138,15 +145,29 @@ License: You must have a valid license purchased only from themeforest(the above
 		<!--begin::Page Scripts -->
 		<script src="{!! asset('assets/snippets/custom/pages/user/login.js') !!}" type="text/javascript"></script>
 		<script type="text/javascript">
-			function validate(){
-				var pass = $("[name='password']").val()
-				var pass_comfirm = $("[name='password_comfirm']").val()
-				if(pass!=pass_comfirm){
-					$(".thongbao1").html("Mật khẩu bạn nhập không giống nhau")
-					return false
+			function validateForm()
+{
+				var re = /^(?=.*[a-z])(?=.*\d)[a-zA-Z\d]{6,30}$/;
+				var check = re.test($("#password").val())
+				if($("#password").val()==""){
+					$("#password-error").html("Mật khẩu không được để rỗng")
+					return false;
 				}
-				return true
-			}
+				else if(!check){
+					$("#password-error").html("Mật khẩu phải từ 6 đến 30 ký tự chứa ít nhất chữ 1 chữ thường và 1 chữ số")
+					return false;
+				}
+				else if($("#password").val()!=$("#password_confirm").val()){
+					$("#password-error").html("")
+					$("#password_confirm-error").html("Mật khẩu bạn nhập lại không khớp nhau")
+					return false;
+				}
+				else{
+					$("#password_confirm-error").html("")
+					return true;
+				}
+				return true;
+}
 		</script>
 		<!--end::Page Scripts -->
 	</body>

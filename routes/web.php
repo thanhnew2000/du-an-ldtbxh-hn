@@ -24,7 +24,7 @@ Route::get('/', function () {
 
 Route::post('/dang-nhap','AuthController@login')->name('post_login');
 
-Route::get('/logout','AuthController@logout');
+Route::get('/logout','AuthController@logout')->middleware("CheckLogout");
 
 Route::post('/quen-mat-khau','AuthController@forgot_pass')->name('forgot_pass');
 
@@ -32,13 +32,17 @@ Route::get('/thay-doi-mat-khau','AuthController@reset_pass')->name('link_reset_p
 
 Route::post('/thay-doi-mat-khau','AuthController@post_reset_pass');
 
-Route::get('/dang-ky-tai-khoan','AuthController@getdangkytaikhoan');
+Route::get('/dang-ky-tai-khoan','AuthController@getdangkytaikhoan')->middleware("CheckLogout");
 
 Route::post('/dang-ky-tai-khoan','AuthController@dangkytaikhoan')->name("dangkytaikhoan");
 
-Route::get('/doi-mat-khau','AuthController@getdoimatkhau');
+Route::get('/doi-mat-khau','AuthController@getdoimatkhau')->middleware("CheckLogout");
 
 Route::post('/doi-mat-khau','AuthController@doimatkhau')->name("doimatkhau");
+
+Route::get('/cap-nhat-tai-khoan','AuthController@getcapnhattaikhoan')->middleware("CheckLogout");
+
+Route::post('/cap-nhat-tai-khoan','AuthController@capnhattaikhoan')->name('capnhattaikhoan');
 
 Route::post('/check-email','AuthController@checkemail')->name('check-email');
 

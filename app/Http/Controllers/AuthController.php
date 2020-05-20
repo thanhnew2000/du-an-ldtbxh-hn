@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 use App\User;
 use Carbon\Carbon;
 use Mail;
+use Illuminate\Support\Str;
+use Hash;
 class AuthController extends Controller
 {
     public function login(Request $request){
@@ -84,7 +86,8 @@ class AuthController extends Controller
          return redirect()->back()->with('thongbao','Lỗi xác thực không thành công');
         };
 
-        $checkUser->password = bcrypt($request->password);
+        $checkUser->password = Hash::make($request->password);
+        $checkUser->email_verified_at = Carbon::now();
         $checkUser->save();
         return redirect()->route('login')->with('success','Mật khẩu đã được thay đổi thành công, Mời bạn đăng nhập');
     }
@@ -98,6 +101,7 @@ class AuthController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->phone_number = $request->phone;
+        $user->avatar = "user.png";
         $code = bcrypt(md5(time().$request->email));
         $user->password=bcrypt(md5(time().$request->email));
         $user->code = $code;
@@ -107,9 +111,9 @@ class AuthController extends Controller
         $url = route('link_reset_password',['code'=>$user->code,'email'=>$email]);
         $data=[
             'route'=>$url,
-            'title'=>"Tài khoản đăng ký thành công vui"
+            'title'=>"Tài khoản được đăng ký thành công"
         ];
-        Mail::send('email_reset_pass',$data,function($message) use ($email) {
+        Mail::send('email_dang_ky',$data,function($message) use ($email) {
             $message->to($email,'Reset password')->subject('Bạn đã được đăng ký tài khoản');
         });
         return redirect()->back()->with('thongbao','Đăng ký tài khoản thành công');
@@ -118,6 +122,11 @@ class AuthController extends Controller
     public function checkemail(Request $request){
         $email = $request->name;
         $queryUser = User::where('email', $email);
+        $id = isset($request->id) ? $request->id : -1;
+        if($id != -1){
+	        $queryUser->where('id', '!=', $id);
+        }
+        
         $numberEmail = $queryUser->count();
         echo $numberEmail == 0 ? "true" : "false";
     }
@@ -125,6 +134,10 @@ class AuthController extends Controller
     public function checkphone(Request $request){
         $phone = $request->name;
         $queryUser = User::where('phone_number', $phone);
+        $id = isset($request->id) ? $request->id : -1;
+        if($id != -1){
+	        $queryUser->where('id', '!=', $id);
+        }
         $numberPhone = $queryUser->count();
         echo $numberPhone == 0 ? "true" : "false";
     }
@@ -137,10 +150,39 @@ class AuthController extends Controller
 
     public function doimatkhau(Request $request){
         $user = Auth::user();
-        $user->password = bcrypt($request->password);
+        if(!Hash::check($request->password_old, $user->password)){
+            return redirect()->back()->with('thongbaoloi','Xác nhận mật khẩu không chính xác');
+        }
+        $user->password = Hash::make($request->password);
         $user->save();
         Auth::logout();
         return redirect()->route('login')->with('success','Mật khẩu đã được thay đổi thành công, Mời bạn đăng nhập');
+    }
+
+
+    public function getcapnhattaikhoan(){
+        $user = Auth::user();
+        return view('cap_nhat_tai_khoan',  compact('user'));
+    }
+
+    public function capnhattaikhoan(Request $request){
+        $user = Auth::user();
+        if(!Hash::check($request->password, $user->password)){
+            return redirect()->back()->with('thongbaoloi','Xác nhận mật khẩu không chính xác');
+        }
+        $user->email=$request->email;
+        $user->phone_number=$request->phone;
+        $user->name=$request->name;
+        $get_avatar =$request->file("avatar");
+        if($get_avatar){
+            $new_avatar=Str::random(40).'.'.$get_avatar->getClientOriginalExtension();
+            $get_avatar->move("uploads/avatars",$new_avatar);
+        }else{
+            $new_avatar = $user->avatar;
+        }
+        $user->avatar=$new_avatar;
+        $user->save();
+        return redirect()->back()->with('thongbao','Cập nhật tài khoản thành công');
     }
 
 
