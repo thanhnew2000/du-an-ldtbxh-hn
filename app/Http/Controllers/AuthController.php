@@ -10,7 +10,8 @@ use Carbon\Carbon;
 use Mail;
 use Illuminate\Support\Str;
 use Hash;
-use Storage;
+use App\Http\Requests\ResetPassWordEmail;
+
 class AuthController extends Controller
 {
     public function login(Request $request){
@@ -86,15 +87,24 @@ class AuthController extends Controller
         if(!$checkUser || $hientai->diffInMinutes($hethan)>=1440){
          return redirect()->back()->with('thongbao','Lỗi xác thực không thành công');
         };
+
         $checkUser->password = Hash::make($request->password);
         $checkUser->email_verified_at = Carbon::now();
         $checkUser->save();
         return redirect()->route('login')->with('success','Mật khẩu đã được thay đổi thành công, Mời bạn đăng nhập');
     }
-   
 
     
-    
 
+    public function checkphone(Request $request){
+        $phone = $request->name;
+        $queryUser = User::where('phone_number', $phone);
+        $id = isset($request->id) ? $request->id : -1;
+        if($id != -1){
+	        $queryUser->where('id', '!=', $id);
+        }
+        $numberPhone = $queryUser->count();
+        echo $numberPhone == 0 ? "true" : "false";
+    }
 
 }
