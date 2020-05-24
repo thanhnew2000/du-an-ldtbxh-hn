@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', "Đăng kí tài khoản")
+@section('title', "Cập nhật tài khoản")
 @section('style')
 <style type="text/css">
 	.error {
@@ -22,41 +22,65 @@
 								<i class="la la-gear"></i>
 							</span>
 							<h3 class="m-portlet__head-text">
-								Đăng ký tài khoản mới
+								Cập nhật tài khoản
 							</h3>
 						</div>
 					</div>
 				</div>
 
 				<!--begin::Form-->
-				<form id="validate-dangky" method="post" action="{{ route('dangkytaikhoan') }}"
+				<form id="validate-capnhat" method="post" action="{{ route('capnhattaikhoan') }}"
 					class="m-form m-form--fit m-form--label-align-right" enctype="multipart/form-data">
 					{{ csrf_field() }}
 					<div class="m-portlet__body">
 						<div class="form-group m-form__group row">
 							<label for="example-text-input" class="col-2 col-form-label">Email</label>
 							<div class="col-10">
-								<input class="form-control m-input" type="text" placeholder="Nhập email"
-									id="example-text-input" name="email">
+								<input class="form-control m-input" value="{{$user->email}}" type="text"
+									placeholder="Nhập email" id="example-text-input" name="email">
 							</div>
 						</div>
+						<input type="text" hidden name="id" value="{{ $user->id }}">
 						<div class="form-group m-form__group row">
 							<label for="example-text-input" class="col-2 col-form-label">Số điện thoại</label>
 							<div class="col-10">
-								<input class="form-control m-input" type="text" placeholder="Nhập số điện thoại"
-									name="phone">
+								<input class="form-control m-input" type="text" value="{{$user->phone_number}}"
+									placeholder="Nhập số điện thoại" name="phone">
 							</div>
 						</div>
 						<div class="form-group m-form__group row">
 							<label for="example-text-input" class="col-2 col-form-label">Họ và tên</label>
 							<div class="col-10">
-								<input class="form-control m-input" type="text" placeholder="Vui lòng nhập họ tên"
-									name="name">
+								<input class="form-control m-input" value="{{$user->name}}" type="text"
+									placeholder="Vui lòng nhập họ tên" name="name">
+							</div>
+						</div>
+
+						<div class="form-group m-form__group row">
+							<label for="example-text-input" class="col-2 col-form-label">Ảnh đại diên</label>
+							<div class="col-10">
+								<input onchange="showimages(this)" class="form-control m-input" type="file"
+									name="avatar">
+							</div>
+						</div>
+						<div class="img" style="text-align: center;">
+							<img width="200px" id="showavatar" src="{!! asset('storage/'.$user->avatar) !!}">
+						</div>
+						<div class="form-group m-form__group row">
+							<label for="example-text-input" class="col-2 col-form-label">Mật khẩu xác nhận</label>
+							<div class="col-10">
+								<input class="form-control m-input" type="password"
+									placeholder="Vui lòng nhập mật khẩu để xác nhận" name="password">
 							</div>
 						</div>
 						@if (session('thongbao'))
 						<div class="thongbao" style="color: green; text-align: center;">
 							{{session('thongbao')}}
+						</div>
+						@endif
+						@if (session('thongbaoloi'))
+						<div class="thongbao" style="color: red; text-align: center;">
+							{{session('thongbaoloi')}}
 						</div>
 						@endif
 						@if ($errors->any())
@@ -75,7 +99,7 @@
 								<div class="col-2">
 								</div>
 								<div class="col-10">
-									<button type="submit" class="btn btn-success">Đăng ký tài khoản</button>
+									<button type="submit" class="btn btn-success">Cập nhật tài khoản</button>
 									<!-- <button type="reset" class="btn btn-secondary">Hủy</button> -->
 								</div>
 							</div>
@@ -91,8 +115,18 @@
 @endsection
 @section('script')
 <script type="text/javascript">
+	function showimages(element) {
+            var file = element.files[0];
+                var reader = new FileReader();
+                reader.onloadend = function() {
+                    $('#showavatar').attr('src', reader.result);
+                    // console.log('RESULT', reader.result)
+                }
+                reader.readAsDataURL(file);
+            }
+        
 	$(document).ready(function() {
-        $("#validate-dangky").validate({
+        $("#validate-capnhat").validate({
             rules: {
                 email: {
                 	required: true,
@@ -107,7 +141,10 @@
 				        	_token: '{{csrf_token()}}',
 				            name: function() {
 				                return $( "input[name='email']" ).val();
-				            }
+				            },
+							id: function() {
+                                return $("input[name='id']").val();
+                            }
 				        }
 				    }
                 },
@@ -126,7 +163,10 @@
 				        	_token: '{{csrf_token()}}',
 				            name: function() {
 				                return $( "input[name='phone']" ).val();
-				            }
+				            },
+							id: function() {
+                                return $("input[name='id']").val();
+                            }
 				        }
 				    }
                 },
@@ -134,6 +174,12 @@
                     required: true,
                     minlength: 6,
                     maxlength: 30
+                },
+				avatar: {
+                    extension: "jpg|png|jpeg|gif"
+                },
+				password: {
+                    required: true,
                 }
             },
             messages: {
@@ -153,6 +199,12 @@
                     required: "Vui lòng nhập họ tên",
                     minlength: "Họ tên ít nhất 6 ký tự",
                     maxlength: "Họ tên không được vượt quá 40 ký tự"
+                },
+                avatar: {
+                    extension: "Hãy chọn file định dạng ảnh (jpg|png|jpeg|gif)"
+                },
+				password: {
+                    required: "Vui lòng xác nhận mật khẩu",
                 }
                 
             }

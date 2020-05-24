@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\DB;
 use App\User;
 use Carbon\Carbon;
 use Mail;
+use Illuminate\Support\Str;
+use Hash;
+use App\Http\Requests\ResetPassWordEmail;
+
 class AuthController extends Controller
 {
     public function login(Request $request){
@@ -67,7 +71,7 @@ class AuthController extends Controller
             return redirect()->back()->with('thongbao','Lỗi xác thực không thành công');         
         }
     }
-    public function post_reset_pass(Request $request){
+    public function post_reset_pass(ResetPassWordEmail $request){
         $code = $request->code;
         $email= $request->email;
         $checkUser = User::where([
@@ -84,64 +88,23 @@ class AuthController extends Controller
          return redirect()->back()->with('thongbao','Lỗi xác thực không thành công');
         };
 
-        $checkUser->password = bcrypt($request->password);
+        $checkUser->password = Hash::make($request->password);
+        $checkUser->email_verified_at = Carbon::now();
         $checkUser->save();
         return redirect()->route('login')->with('success','Mật khẩu đã được thay đổi thành công, Mời bạn đăng nhập');
     }
 
-    public function getdangkytaikhoan(){
-        return view('dang_ky');
-    }
-
-    public function dangkytaikhoan(Request $request){
-        $user = new User;
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->phone_number = $request->phone;
-        $code = bcrypt(md5(time().$request->email));
-        $user->password=bcrypt(md5(time().$request->email));
-        $user->code = $code;
-        $user->time_code= Carbon::now();
-        $user->save();
-        $email = $user->email;
-        $url = route('link_reset_password',['code'=>$user->code,'email'=>$email]);
-        $data=[
-            'route'=>$url,
-            'title'=>"Tài khoản đăng ký thành công vui"
-        ];
-        Mail::send('email_reset_pass',$data,function($message) use ($email) {
-            $message->to($email,'Reset password')->subject('Bạn đã được đăng ký tài khoản');
-        });
-        return redirect()->back()->with('thongbao','Đăng ký tài khoản thành công');
-    }
-
-    public function checkemail(Request $request){
-        $email = $request->name;
-        $queryUser = User::where('email', $email);
-        $numberEmail = $queryUser->count();
-        echo $numberEmail == 0 ? "true" : "false";
-    }
+    
 
     public function checkphone(Request $request){
         $phone = $request->name;
         $queryUser = User::where('phone_number', $phone);
+        $id = isset($request->id) ? $request->id : -1;
+        if($id != -1){
+	        $queryUser->where('id', '!=', $id);
+        }
         $numberPhone = $queryUser->count();
         echo $numberPhone == 0 ? "true" : "false";
     }
-
-    public function getdoimatkhau(){
-        $user = Auth::user();
-        $email= $user->email;
-        return view('doi_mat_khau', compact('email'));
-    }
-
-    public function doimatkhau(Request $request){
-        $user = Auth::user();
-        $user->password = bcrypt($request->password);
-        $user->save();
-        Auth::logout();
-        return redirect()->route('login')->with('success','Mật khẩu đã được thay đổi thành công, Mời bạn đăng nhập');
-    }
-
 
 }

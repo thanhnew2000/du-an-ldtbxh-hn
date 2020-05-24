@@ -22,31 +22,34 @@ Route::get('/', function () {
      return view('login');
 })->name('login')->middleware("CheckLogin");
 
+
+
 Route::post('/dang-nhap','AuthController@login')->name('post_login');
 
 Route::get('/logout','AuthController@logout');
 
-Route::post('/quen-mat-khau','AuthController@forgot_pass')->name('forgot_pass');
+Route::post('/quen-mat-khau-gui-mail','AuthController@forgot_pass')->name('forgot_pass');
 
-Route::get('/thay-doi-mat-khau','AuthController@reset_pass')->name('link_reset_password');
+Route::get('/quen-mat-khau','AuthController@reset_pass')->name('link_reset_password');
 
-Route::post('/thay-doi-mat-khau','AuthController@post_reset_pass');
-
-Route::get('/dang-ky-tai-khoan','AuthController@getdangkytaikhoan');
-
-Route::post('/dang-ky-tai-khoan','AuthController@dangkytaikhoan')->name("dangkytaikhoan");
-
-Route::get('/doi-mat-khau','AuthController@getdoimatkhau');
-
-Route::post('/doi-mat-khau','AuthController@doimatkhau')->name("doimatkhau");
-
-Route::post('/check-email','AuthController@checkemail')->name('check-email');
-
-Route::post('/check-phone','AuthController@checkphone')->name('check-phone');
-
-Route::get('/dashboard', function () {
-     return view('index');
-})->middleware("CheckLogout");
+Route::post('/quen-mat-khau','AuthController@post_reset_pass');
 
 
-Route::get('/getdatauser','AuthController@getdata');
+Route::group(['middleware' => 'auth'], function () {
+     Route::get('/dashboard', function () {
+          return view('index');
+     })->name('dashboard');
+
+     Route::get('/tao-tai-khoan','UserController@getdangkytaikhoan')->name("dangkytaikhoan");
+     Route::post('/tao-tai-khoan','UserController@dangkytaikhoan');
+
+     Route::get('/doi-mat-khau','UserController@getdoimatkhau')->name("doimatkhau");
+     Route::post('/doi-mat-khau','UserController@doimatkhau');
+     
+     Route::get('/thong-tin-tai-khoan','UserController@getcapnhattaikhoan')->name('capnhattaikhoan');
+     Route::post('/thong-tin-tai-khoan','UserController@capnhattaikhoan');
+
+     Route::post('/check-email','UserController@checkemail')->name('check-email');
+     Route::post('/check-phone','UserController@checkphone')->name('check-phone');
+});
+
