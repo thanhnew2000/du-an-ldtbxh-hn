@@ -45,7 +45,7 @@ class AuthController extends Controller
         $checkUser->save();
         $toemail = $checkUser->email;
         
-        $url = route('link_reset_password',['code'=>$checkUser->code,'email'=>$email]);
+        $url = route('account.link_reset_password',['code'=>$checkUser->code,'email'=>$email]);
         $data=[
             'route'=>$url,
             'title'=>"Lấy lại mật khẩu"
@@ -66,7 +66,7 @@ class AuthController extends Controller
             "email" => $email
         ])->first();
         if($checkUser){
-           return view('reset_pass');
+           return view('account.reset_pass');
         }else{
             return redirect()->back()->with('thongbao','Lỗi xác thực không thành công');         
         }
