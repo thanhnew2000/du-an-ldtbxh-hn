@@ -89,7 +89,7 @@ License: You must have a valid license purchased only from themeforest(the above
 	<!--RTL version:<link href="{!! asset('assets/demo/base/style.bundle.rtl.css') !!}" rel="stylesheet" type="text/css" />-->
 
 	<!--end::Global Theme Styles -->
-	<link rel="shortcut icon" href="{!! asset('assets/demo/media/img/logo/favicon.ico') !!}" />
+	<link rel="shortcut icon" href="{!! asset('storage/logo/logo.png') !!}" />
 </head>
 
 <!-- end::Head -->
@@ -109,13 +109,13 @@ License: You must have a valid license purchased only from themeforest(the above
 						<div class="m-login__wrapper">
 							<div class="m-login__logo">
 								<a href="#">
-									<img src="{!! asset('assets/app/media/img/logos/logo-2.png') !!}">
+									<img src="{!! asset('storage/images/logo.png') !!}">
 								</a>
 							</div>
 							<div class="m-login__signin">
-								<div class="m-login__head">
-									<h3 class="m-login__title">Đăng nhập vào quản trị viên</h3>
-								</div>
+								{{-- <div class="m-login__head">
+									<h3 class="m-login__title">Bộ lao động và thương binh xã hội</h3>
+								</div> --}}
 								<form class="m-login__form m-form" action="{{ route('post_login') }}" method="post">
 									{{ csrf_field() }}
 									<div class="form-group m-form__group">
@@ -232,13 +232,14 @@ License: You must have a valid license purchased only from themeforest(the above
 				</div>
 			</div>
 			<div class="m-grid__item m-grid__item--fluid m-grid m-grid--center m-grid--hor m-grid__item--order-tablet-and-mobile-1	m-login__content m-grid-item--center"
-				style="background-image: url(assets/app/media/img//bg/bg-4.jpg)">
-				<div class="m-grid__item">
+				style="background-image: url({!! asset('storage/images/login-img.png') !!});background-size: 100% 100%;">
+				{{-- background-image: url({!! asset('storage/images/login-img.png') !!});background-size: cover; --}}
+				{{-- <div class="m-grid__item">
 					<h3 class="m-login__welcome">Join Our Community</h3>
 					<p class="m-login__msg">
 						Lorem ipsum dolor sit amet, coectetuer adipiscing<br>elit sed diam nonummy et nibh euismod
 					</p>
-				</div>
+				</div> --}}
 			</div>
 		</div>
 	</div>

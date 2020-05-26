@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-     return view('login');
+     return view('account.login');
 })->name('login')->middleware("CheckLogin");
 
 
@@ -36,9 +36,7 @@ Route::post('/quen-mat-khau','AuthController@post_reset_pass');
 
 
 Route::group(['middleware' => 'auth'], function () {
-     Route::get('/dashboard', function () {
-          return view('index');
-     })->name('dashboard');
+     Route::get('/dashboard','AnalysisController@index')->name('dashboard');
 
      Route::get('/tao-tai-khoan','UserController@getdangkytaikhoan')->name("dangkytaikhoan");
      Route::post('/tao-tai-khoan','UserController@dangkytaikhoan');

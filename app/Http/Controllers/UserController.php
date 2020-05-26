@@ -17,7 +17,7 @@ use App\Http\Requests\UpdateAccount;
 class UserController extends Controller
 {
     public function getdangkytaikhoan(){
-        return view('dang_ky');
+        return view('account.dang_ky');
     }
 
     public function dangkytaikhoan(RegisterAccount $request){
@@ -37,7 +37,7 @@ class UserController extends Controller
             'route'=>$url,
             'title'=>"Tài khoản được đăng ký thành công"
         ];
-        Mail::send('email_dang_ky',$data,function($message) use ($email) {
+        Mail::send('account.email_dang_ky',$data,function($message) use ($email) {
             $message->to($email,'Reset password')->subject('Bạn đã được đăng ký tài khoản');
         });
         return redirect()->back()->with('thongbao','Đăng ký tài khoản thành công');
@@ -45,7 +45,7 @@ class UserController extends Controller
 
     public function getcapnhattaikhoan(){
         $user = Auth::user();
-        return view('cap_nhat_tai_khoan',  compact('user'));
+        return view('account.cap_nhat_tai_khoan',  compact('user'));
     }
 
     public function capnhattaikhoan(UpdateAccount $request){
@@ -69,7 +69,7 @@ class UserController extends Controller
     public function getdoimatkhau(){
         $user = Auth::user();
         $email= $user->email;
-        return view('doi_mat_khau', compact('email'));
+        return view('account.doi_mat_khau', compact('email'));
     }
 
     //đổi mật khẩu khi login
