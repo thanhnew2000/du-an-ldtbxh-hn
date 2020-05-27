@@ -109,7 +109,7 @@ License: You must have a valid license purchased only from themeforest(the above
 						<div class="m-login__wrapper">
 							<div class="m-login__logo">
 								<a href="#">
-									<img src="{!! asset('storage/images/logo.png') !!}">
+									<img src="{!! asset('images/logo.png') !!}">
 								</a>
 							</div>
 							<div class="m-login__signin">
@@ -232,7 +232,7 @@ License: You must have a valid license purchased only from themeforest(the above
 				</div>
 			</div>
 			<div class="m-grid__item m-grid__item--fluid m-grid m-grid--center m-grid--hor m-grid__item--order-tablet-and-mobile-1	m-login__content m-grid-item--center"
-				style="background-image: url({!! asset('storage/images/login-img.png') !!});background-size: 100% 100%;">
+				style="background-image: url({!! asset('images/login-img.png') !!});background-size: 100% 100%;">
 				{{-- background-image: url({!! asset('storage/images/login-img.png') !!});background-size: cover; --}}
 				{{-- <div class="m-grid__item">
 					<h3 class="m-login__welcome">Join Our Community</h3>
