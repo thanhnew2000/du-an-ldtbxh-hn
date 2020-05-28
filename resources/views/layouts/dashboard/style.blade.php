@@ -11,7 +11,6 @@
             }
           });
         </script>
-
         <!--end::Web font -->
 
         <!--begin:: Global Mandatory Vendors -->
@@ -64,4 +63,4 @@
         <!--RTL version:<link href="assets/vendors/custom/fullcalendar/fullcalendar.bundle.rtl.css') !!}" rel="stylesheet" type="text/css" />-->
 
         <!--end::Page Vendors Styles -->
-        <link rel="shortcut icon" href="{!! asset('assets/demo/media/img/logo/favicon.ico') !!}" />
+        <link rel="shortcut icon" href="{!! asset('storage/logo/logo.png') !!}" />
