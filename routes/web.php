@@ -50,9 +50,10 @@ Route::group(['middleware' => 'auth'], function () {
      Route::post('/check-email', 'UserController@checkemail')->name('check-email');
      Route::post('/check-phone', 'UserController@checkphone')->name('check-phone');
 
-<<<<<<< HEAD
+// <<<<<<< HEAD
+     Route::get('/csdt', 'CsdtController@index')->name('csdt-list');
 });
-=======
+// =======
 
 Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'account'], function(){
@@ -64,7 +65,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     });
      Route::group(['prefix' => 'coso'], function(){
-     Route::get('/danh-sach-co-so-dao-tao', 'CoSoController@danhsachcosodaotao');
+     Route::get('/danh-sach-co-so-dao-tao', 'CsdtController@index');
      Route::get('/danh-sach-chi-nhanh', 'CoSoController@danhsachchinhanh');
 
      });
@@ -135,4 +136,4 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 
->>>>>>> master
+// >>>>>>> master
