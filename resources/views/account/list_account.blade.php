@@ -143,7 +143,7 @@
 					<!-- end- fillter -->
 
 					<!-- begin- action -->
-					<section class="action-nav d-flex align-items-center justify-content-between mt-4	">
+					{{--  <section class="action-nav d-flex align-items-center justify-content-between mt-4	">
 						<div class="action-template col-3 d-flex justify-content-between">
 							<a href="#"><i class="fa fa-download" aria-hidden="true"></i>
 								Tải xuống
@@ -154,7 +154,7 @@
 						<div class="btn">
 							<button class="btn btn-outline-primary">Thêm mới</button>
 						</div>
-					</section>
+					</section>  --}}
 					<!-- end- action -->
         <div class="row">
  
@@ -241,7 +241,7 @@
                                             {{-- <td><button  type="submit" onclick="destroyUser({{ $user->id }})" class="btn btn-outline-danger"><i class="flaticon-delete"></i></button>
                                                 
                                             </td> --}}
-                                            <td><a href="{{ url('account/show/$user->id') }}">Chi tiết</a></td>
+                                            <td><a href="{{ url('account/edit/'.$user->id) }}">Sửa</a></td>
                                         </tr>
                                         @endforeach
                                         
@@ -288,7 +288,7 @@
             console.log('Đang thay đổi status');
 
             axios.post('/account/edit-status', {
-                id: $id,
+                id: $id
             })
             .then(function (response) {
                 console.log(response);
@@ -303,7 +303,7 @@
 
         function destroyUser($id){
 
-        axios.delete('account/destroyUser', {
+        axios.delete('account/destroy', {
         })
         .then(function (response) {
             console.log(response);

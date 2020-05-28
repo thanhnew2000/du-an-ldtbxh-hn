@@ -53,17 +53,19 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::group(['prefix' => 'account'], function(){
-         Route::get('/quan-ly-tai-khoan', 'UserController@getAccounts');
-         Route::get('/quan-ly-quyen-truy-cap', 'AccountController@quanlyquyentruycap');
-         Route::get('/phan-quyen-tai-khoan', 'AccountController@phanquyentaikhoan');
-         Route::get('/cap-nhat-thong-tin-ca-nhan', 'AccountController@capnhatthongtincanhan');
-         Route::get('/thay-doi-mat-khau', 'AccountController@thaydoimatkhau');
 
-         Route::post('/edit-status', 'UserController@editstatus')->name('account.editstatus');
-         Route::get('/show/{id}', 'UserController@show')->name('account.show');
+    Route::group(['prefix' => 'account'], function(){
+
+         Route::get('/list', 'AccountController@index')->name('account.list');
+         Route::post('/edit-status', 'AccountController@editstatus')->name('account.editstatus');
+         Route::get('/create', 'AccountController@create')->name('account.create');
+         Route::post('/store', 'AccountController@store')->name('account.store');
+         Route::get('/edit/{id}', 'AccountController@edit')->name('account.edit');
+         
 
     });
+
+
      Route::group(['prefix' => 'coso'], function(){
      Route::get('/danh-sach-co-so-dao-tao', 'CoSoController@danhsachcosodaotao');
      Route::get('/danh-sach-chi-nhanh', 'CoSoController@danhsachchinhanh');

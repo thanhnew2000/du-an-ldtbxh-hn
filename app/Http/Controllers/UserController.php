@@ -108,39 +108,7 @@ class UserController extends Controller
     }
 
 
-    public function getAccounts(){
-        $users = User::paginate(10);
-        return view('account.list_account',compact('users'));
-    }
-
-    public function show(){
-    return "okff";
-    }
-
-    public function editstatus(Request $request){
-       
-        $id = $request->id;
-        $user = User::find($id);
-
-        if($user->status == 1){
-            $user->status = 0;
-        }else{
-            $user->status = 1;
-        }
-
-        $user->save();
-
-
-       
-    }
-
-
-    public function destroyUser($id){
-
-        $user = User::find($id);
-        $user->delete();
-  
-    }
+   
 
 
 }

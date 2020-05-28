@@ -3,26 +3,58 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
+use Illuminate\Support\Facades\DB;
+use App\User;
+use Carbon\Carbon;
+use Mail;
+use Illuminate\Support\Str;
+use Hash;
+use Storage;
+use App\Http\Requests\ResetPassWord;
+use App\Http\Requests\RegisterAccount;
+use App\Http\Requests\UpdateAccount;
 
 class AccountController extends Controller
 {
-    public function quanlytaikhoan(){
-        return view('account.quan_ly_tai_khoan');
+    
+    public function index(){
+        $users = User::paginate(10);
+        return view('account.list_account',compact('users'));
     }
-    public function quanlyquyentruycap(){
-        return view('account.quan_ly_quyen_truy_cap');
 
+    public function create(){
+        return "create account";
     }
-    public function phanquyentaikhoan(){
-        return view('account.phan_quyen_truy_cap');
 
+    public function store(Request $request){
+        return "store account";
     }
-    public function capnhatthongtincanhan(){
-        return view('account.cap_nhat_thong_tin_ca_nhan');
 
+    public function edit($id){
+    dd($id);
     }
-    public function thaydoimatkhau(){
-        return view('account.thay_doi_mat_khau');
 
+    public function update(Request $request){
+        return "update account";
+    }
+
+    public function editstatus(Request $request){   
+        $id = $request->id;
+        $user = User::find($id);
+
+        if($user->status == 1){
+            $user->status = 0;
+        }else{
+            $user->status = 1;
+        }
+
+        $user->save();  
+    }
+
+
+    public function destroy($id){
+        $user = User::find($id);
+        $user->delete();
     }
 }
