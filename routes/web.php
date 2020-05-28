@@ -54,11 +54,14 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'account'], function(){
-         Route::get('/quan-ly-tai-khoan', 'AccountController@quanlytaikhoan');
+         Route::get('/quan-ly-tai-khoan', 'UserController@getAccounts');
          Route::get('/quan-ly-quyen-truy-cap', 'AccountController@quanlyquyentruycap');
          Route::get('/phan-quyen-tai-khoan', 'AccountController@phanquyentaikhoan');
          Route::get('/cap-nhat-thong-tin-ca-nhan', 'AccountController@capnhatthongtincanhan');
          Route::get('/thay-doi-mat-khau', 'AccountController@thaydoimatkhau');
+
+         Route::post('/edit-status', 'UserController@editstatus')->name('account.editstatus');
+         Route::get('/show/{id}', 'UserController@show')->name('account.show');
 
     });
      Route::group(['prefix' => 'coso'], function(){
