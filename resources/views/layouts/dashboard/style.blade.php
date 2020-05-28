@@ -11,7 +11,6 @@
             }
           });
         </script>
-
         <!--end::Web font -->
 
         <!--begin:: Global Mandatory Vendors -->
