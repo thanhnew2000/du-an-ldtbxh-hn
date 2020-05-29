@@ -58,7 +58,7 @@ Route::group(['middleware' => 'auth'], function () {
          Route::get('/quan-ly-quyen-truy-cap', 'AccountController@quanlyquyentruycap');
          Route::get('/phan-quyen-tai-khoan', 'AccountController@phanquyentaikhoan');
          Route::get('/cap-nhat-thong-tin-ca-nhan', 'AccountController@capnhatthongtincanhan');
-         Route::get('/thay-doi-mat-khau', 'AccountController@thaydoimatkhau');
+         Route::get('/doi-mat-khau', 'AccountController@thaydoimatkhau');
 
     });
      Route::group(['prefix' => 'coso'], function(){
@@ -94,18 +94,18 @@ Route::group(['middleware' => 'auth'], function () {
      });
 
      Route::group(['prefix' => 'extractreport'], function(){
-          Route::get('/danh-sach-doi-ngu-nha-giao', 'ExtractController@danhsachnhagiao');
-          Route::get('/danh-sach-doi-ngu-quan-ly', 'ExtractController@danhsachquanly');
-          Route::get('/tong-hop-sinh-vien-dang-theo-hoc', 'ExtractController@tonghopsvdanghoc');
-          Route::get('/tong-hop-thuc-hien-chinh-sach-cho-sinh-vien', 'ExtractController@tonghopchinhsachsv');
-          Route::get('/tong-hop-ket-qua-tuyen-sinh', 'ExtractController@tonghopkqtuyensinh');
-          Route::get('/tong-hop-xay-dung-chuong-trinh-giao-trinh', 'ExtractController@tonghopxdchuongtrinh');
-          Route::get('/tong-hop-ket-qua-tot-nghiep', 'ExtractController@tonghopkqtotnghiep');
-          Route::get('/tong-hop-dao-tao-nghe-cho-nguoi-khuyet-tat', 'ExtractController@tonghopdaotaonguoikhuyettat');
-          Route::get('/tong-hop-dao-tao-nghe-cho-thanh-nien', 'ExtractController@tonghopdaotaothanhnien');
-          Route::get('/tong-hop-dao-tao-nghe-voi-doanh-nghiep', 'ExtractController@tonghopdaotaovoidoanhnghiep');
-          Route::get('/tong-hop-hop-tac-quoc-te', 'ExtractController@tonghophoptacquocte');
-          Route::get('/tong-hop-dang-ky-chi-tieu-tuyen-sinh', 'ExtractController@tonghoptuyensinh');
+          Route::get('/danh-sach-doi-ngu-nha-giao', 'ExtractReportController@danhsachnhagiao');
+          Route::get('/danh-sach-doi-ngu-quan-ly', 'ExtractReportController@danhsachquanly');
+          Route::get('/tong-hop-sinh-vien-dang-theo-hoc', 'ExtractReportController@tonghopsvdanghoc');
+          Route::get('/tong-hop-thuc-hien-chinh-sach-cho-sinh-vien', 'ExtractReportController@tonghopchinhsachsv');
+          Route::get('/tong-hop-ket-qua-tuyen-sinh', 'ExtractReportController@tonghopkqtuyensinh');
+          Route::get('/tong-hop-xay-dung-chuong-trinh-giao-trinh', 'ExtractReportController@tonghopxdchuongtrinh');
+          Route::get('/tong-hop-ket-qua-tot-nghiep', 'ExtractReportController@tonghopkqtotnghiep');
+          Route::get('/tong-hop-dao-tao-nghe-cho-nguoi-khuyet-tat', 'ExtractReportController@tonghopdaotaonguoikhuyettat');
+          Route::get('/tong-hop-dao-tao-nghe-cho-thanh-nien', 'ExtractReportController@tonghopdaotaothanhnien');
+          Route::get('/tong-hop-dao-tao-nghe-voi-doanh-nghiep', 'ExtractReportController@tonghopdaotaovoidoanhnghiep');
+          Route::get('/tong-hop-hop-tac-quoc-te', 'ExtractReportController@tonghophoptacquocte');
+          Route::get('/tong-hop-dang-ky-chi-tieu-tuyen-sinh', 'ExtractReportController@tonghoptuyensinh');
 
  
      });
