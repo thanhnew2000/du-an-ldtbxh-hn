@@ -14,9 +14,10 @@ class CsdtController extends Controller
         $this->CsdtService = $CsdtService;
     }
 
-    public function index(){
+    public function index()
+    {
         $data = $this->CsdtService->getCsdt();
-//        dd($data);
+        //        dd($data);
         return view('pages.co_so_dao_tao.list', compact('data'));
     }
 }

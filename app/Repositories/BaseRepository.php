@@ -9,18 +9,21 @@ use App\Repositories\RepositoryInterface;
 
 abstract class BaseRepository implements RepositoryInterface
 {
+    //model muốn tương tác
     protected $table;
-
+    //Khởi tạo
     public function __construct()
     {
         $this->setTable();
     }
 
+    //Lấy model tương tác
     abstract public function getTable();
 
-    public function setTable(){
-    $this->table = DB::table($this->getTable());
-//        dd($this->table);
+    public function setTable()
+    {
+        $this->table = DB::table($this->getTable());
+        //        dd($this->table);
     }
 
     public function getAll()
@@ -45,12 +48,12 @@ abstract class BaseRepository implements RepositoryInterface
     {
         // dd($attributes);
         return $this->table
-            ->where('id',$id)
+            ->where('id', $id)
             ->update($attributes);
     }
 
     public function delete($id)
     {
-        return $this->table->where('id',$id)->delete();
+        return $this->table->where('id', $id)->delete();
     }
 }
