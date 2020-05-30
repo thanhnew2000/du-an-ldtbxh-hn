@@ -17,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// 2020-05-30 - thienth - chuyển check-email, check-phone sang api
+Route::post('/check-email','UserController@checkemail')->name('check-email');
+Route::post('/check-phone','UserController@checkphone')->name('check-phone');

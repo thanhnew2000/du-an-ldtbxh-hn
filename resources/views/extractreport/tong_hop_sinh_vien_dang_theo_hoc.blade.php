@@ -52,7 +52,7 @@
                     Tải lên file Excel</a>
         </div>
         <div class="btn">
-        <a href="{{route('Extract.add')}}"><p class="btn btn-outline-primary">Thêm mới</p></a>
+        <a href="{{route('xuatbc.them-so-sv')}}"><p class="btn btn-outline-primary">Thêm mới</p></a>
         </div>
     </section>
     <section class="container pt-3 ">
@@ -85,7 +85,7 @@
                             <td>{{$qlsv->so_luong_sv_So_cap}}</td>
                             <td>{{$qlsv->so_luong_sv_he_khac}}</td>
                             <td>
-                                <a href="{{ route('Extract.edit', ['qlsv'=>$qlsv->id])}}">Chỉnh sửa</a>
+                                <a href="{{ route('xuatbc.sua-so-sv', ['id'=>$qlsv->id])}}">Chỉnh sửa</a>
                             </td>
                             <td>
                                 <a href="">Chi tiết</a>
