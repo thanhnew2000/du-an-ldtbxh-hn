@@ -80,7 +80,7 @@ License: You must have a valid license purchased only from themeforest(the above
 	<!--RTL version:<link href="{!! asset('assets/demo/base/style.bundle.rtl.css') !!}" rel="stylesheet" type="text/css" />-->
 
 	<!--end::Global Theme Styles -->
-	<link rel="shortcut icon" href="{!! asset('storage/logo/logo.png') !!}" />
+	<link rel="shortcut icon" href="{!! asset('images/favicon.png') !!}" />
 	<link rel="stylesheet" href="{!!asset('css/login.css')!!}" type="text/css"/>
 </head>
 
