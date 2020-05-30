@@ -50,10 +50,7 @@ Route::group(['middleware' => 'auth'], function () {
      Route::post('/check-email', 'UserController@checkemail')->name('check-email');
      Route::post('/check-phone', 'UserController@checkphone')->name('check-phone');
 
-// <<<<<<< HEAD
-     Route::get('/csdt', 'CsdtController@index')->name('csdt-list');
 });
-// =======
 
 Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'account'], function(){
@@ -66,7 +63,12 @@ Route::group(['middleware' => 'auth'], function () {
     });
      Route::group(['prefix' => 'coso'], function(){
      Route::get('/danh-sach-co-so-dao-tao', 'CsdtController@index');
+     Route::get('/them-co-so-dao-tao', 'CsdtController@themCsdt')->name('them_co_so');
      Route::get('/danh-sach-chi-nhanh', 'CoSoController@danhsachchinhanh');
+     Route::get('/chi-tiet-co-so/{id}', 'CsdtController@chi_tiet_co_so')->name('chi_tiet_co_so');
+     Route::get('/sua-co-so/{id}', 'CsdtController@suaCsdt')->name('sua_co_so');
+     Route::any('/saveEdit/{id}', 'CsdtController@saveEdit')->name('saveEdit');
+
 
      });
 
@@ -74,7 +76,7 @@ Route::group(['middleware' => 'auth'], function () {
           Route::get('/danh-sach-nganh-nghe', 'CareerController@danhsachnganhnghe');
           Route::get('/thiet-lap-chi-tieu-tuyen-sinh', 'CareerController@thietlapchitieutuyensinh');
           Route::get('/thiet-lap-nghe-cho-co-so-dao-tao', 'CareerController@thietlapnghechocosodaotao');
- 
+
      });
 
      Route::group(['prefix' => 'importreport'], function(){
@@ -93,7 +95,7 @@ Route::group(['middleware' => 'auth'], function () {
           Route::get('/phe-duyet-bao-cao', 'ImportReportController@pheduyetbaocao');
 
 
- 
+
      });
 
      Route::group(['prefix' => 'extractreport'], function(){
@@ -110,7 +112,7 @@ Route::group(['middleware' => 'auth'], function () {
           Route::get('/tong-hop-hop-tac-quoc-te', 'ExtractController@tonghophoptacquocte');
           Route::get('/tong-hop-dang-ky-chi-tieu-tuyen-sinh', 'ExtractController@tonghoptuyensinh');
 
- 
+
      });
 
      Route::group(['prefix' => 'chart'], function(){
@@ -119,21 +121,17 @@ Route::group(['middleware' => 'auth'], function () {
           Route::get('/bieu-do-sinh-vien-dang-theo-hoc', 'ChartController@bdsvdanghoc');
           Route::get('/bieu-do-so-luong-tot-nghiep', 'ChartController@bdsoluongtotnghiep');
           Route::get('/bieu-do-hop-tac-quoc-te', 'ChartController@bdhoptacquocte');
- 
+
      });
      Route::group(['prefix' => 'news'], function(){
           Route::get('/danh-sach-tin-tuc', 'NewsController@danhsachtintuc');
           Route::get('/chi-tiet-tin-tuc', 'NewsController@chitiettintuc');
           Route::get('/quan-ly-tin-tuc', 'NewsController@quanlytintuc');
- 
+
      });
      Route::group(['prefix' => 'feedback'], function(){
           Route::get('/nhan-tin-bao-loi-he-thong', 'FeedbackController@nhantinbaoloi');
- 
+
      });
 
 });
-
-
-
-// >>>>>>> master
