@@ -2,15 +2,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
 
         <!--begin::Web font -->
-        <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
-        <script>
-            WebFont.load({
-            google: {"families":["Poppins:300,400,500,600,700","Roboto:300,400,500,600,700"]},
-            active: function() {
-                sessionStorage.fonts = true;
-            }
-          });
-        </script>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
         <!--end::Web font -->
 
         <!--begin:: Global Mandatory Vendors -->
@@ -19,6 +11,7 @@
         <!--end:: Global Mandatory Vendors -->
 
         <!--begin:: Global Optional Vendors -->
+        <link href="{!! asset('vendors/_customize/csdt.list.css') !!}" rel="stylesheet" type="text/css" />
         <link href="{!! asset('vendors/tether/dist/css/tether.css') !!}" rel="stylesheet" type="text/css" />
         <link href="{!! asset('vendors/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css') !!}" rel="stylesheet" type="text/css" />
         <link href="{!! asset('vendors/bootstrap-datetime-picker/css/bootstrap-datetimepicker.min.css') !!}" rel="stylesheet" type="text/css" />
@@ -63,4 +56,5 @@
         <!--RTL version:<link href="assets/vendors/custom/fullcalendar/fullcalendar.bundle.rtl.css') !!}" rel="stylesheet" type="text/css" />-->
 
         <!--end::Page Vendors Styles -->
-        <link rel="shortcut icon" href="{!! asset('storage/logo/logo.png') !!}" />
+        <link rel="shortcut icon" href="{!! asset('images/favicon.png') !!}" />
+        <link rel="stylesheet" href="{!!asset('css/login.css')!!}" type="text/css"/>

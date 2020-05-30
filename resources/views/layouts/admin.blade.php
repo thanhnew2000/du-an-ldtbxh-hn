@@ -34,5 +34,11 @@
 	<!-- start script -->
 	@include('layouts.dashboard.script')
 	@yield('script')
+	<script>
+		$(document).ready(function(){
+			var avatarImgUrl = $('.m-topbar__userpic>img').attr('src');
+            SystemUtil.defaultImgUrl(avatarImgUrl, '.m-topbar__userpic>img', "{!! asset('uploads/avatars/user.png') !!}");
+		});
+	</script>
 	<!-- end script -->
 </html>
