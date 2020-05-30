@@ -8,7 +8,12 @@
 								<div class="m-stack__item m-stack__item--middle m-brand__logo" style="width: 60%;">
 									<a href="{{url('dashboard')}}" class="m-brand__logo-wrapper">
 									<img style="width: 35%; text-align: center" alt="" src="{!! asset('images/logo1.png') !!}">
-									<span style="color: white">BLĐTB & XH</span>
+									<span id ="bldtb" style="color: white; ">BLĐTB & XH</span>
+									<style>
+									 .m-brand__logo-wrapper:hover{
+										 text-decoration:none;
+									 }
+									</style>
 								</a>
 								</div>
 								<div class="m-stack__item m-stack__item--middle m-brand__tools">

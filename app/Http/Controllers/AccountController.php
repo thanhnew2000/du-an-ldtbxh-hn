@@ -14,7 +14,7 @@ class AccountController extends Controller
 
     }
     public function phanquyentaikhoan(){
-        return view('account.phan_quyen_truy_cap');
+        return view('account.phan_quyen_tai_khoan');
 
     }
     public function capnhatthongtincanhan(){
@@ -22,7 +22,7 @@ class AccountController extends Controller
 
     }
     public function thaydoimatkhau(){
-        return view('account.thay_doi_mat_khau');
+        return view('account.doi_mat_khau');
 
     }
 }
