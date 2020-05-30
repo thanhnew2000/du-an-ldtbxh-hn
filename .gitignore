@@ -12,3 +12,5 @@ npm-debug.log
 yarn-error.log
 !/public/storage/images/logo.png
 !/public/storage/images/login-img.png
+.idea/*
+.idea/vcs.xml

@@ -36,7 +36,7 @@
 						<div class="form-group m-form__group row">
 							<label for="example-text-input" class="col-2 col-form-label">Email</label>
 							<div class="col-10">
-								<input class="form-control m-input" value="{{$user->email}}" type="text"
+								<input class="form-control m-input" disabled value="{{$user->email}}" type="text"
 									placeholder="Nhập email" id="example-text-input" name="email">
 							</div>
 						</div>
