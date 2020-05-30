@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', "Danh sách tài khoản")
+@section('title', "Tạo kết quả tốt nghiệp")
 
 @section('content')
 <div class="m-content">
@@ -14,7 +14,7 @@
                                 <i class="la la-gear"></i>
                             </span>
                             <h3 class="m-portlet__head-text">
-                                Kết quả tốt nghiệp
+                               Tạo kết quả tốt nghiệp
                             </h3>
                         </div>
                     </div>

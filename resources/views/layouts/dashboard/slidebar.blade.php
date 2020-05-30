@@ -17,8 +17,8 @@
 										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('account/quan-ly-tai-khoan')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Quản lý tài khoản</span></a></li>
 										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('account/quan-ly-quyen-truy-cap')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Quản lý quyền truy cập</span></a></li>
 										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('account/phan-quyen-tai-khoan')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Phân quyền tài khoản</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('account/cap-nhat-thong-tin-ca-nhan')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Cập nhật thông tin cá nhân</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('account/thay-doi-mat-khau')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Thay đổi mật khẩu</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('thong-tin-tai-khoan')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Cập nhật thông tin cá nhân</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('doi-mat-khau')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Thay đổi mật khẩu</span></a></li>
 									</ul>
 								</div>
 							</li>

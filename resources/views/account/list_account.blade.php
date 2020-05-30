@@ -90,57 +90,7 @@
 
     <!-- END: Subheader -->
     <div class="m-content">
-        <!-- begin- fillter -->
-					<section class="fillter-area">
-						<div class="fillter-title">
-							<h4>Bộ lọc</h4>
-						</div>
-
-						<div class="fillter-form">
-							<form action="">
-								<div class="d-flex container pt-3">
-									<div class="form-group col-6 d-flex justify-content-around align-items-center">
-										<label for="" class="fillter-name">Tên cơ sở</label>
-										<select class="form-control col-8" name="" id="">
-											<option value="" selected disabled>Chọn cơ sở</option>
-											<option>FPT Polytecnic</option>
-											<option>Cao Đẳng du lịch</option>
-											<option>Cao đẳng bách khoa</option>
-										</select>
-									</div>
-
-									<div class="form-group col-6 d-flex justify-content-around align-items-center">
-										<span for="" class="fillter-name">Loại hình cơ sở</span>
-										<select class="form-control col-8" name="" id="">
-											<option value="" selected disabled>Chọn loại hình cơ sở</option>
-											<option>Công lập</option>
-											<option>Có vốn đầu tư nước ngoài</option>
-											<option>Tư thục</option>
-										</select>
-									</div>
-								</div>
-
-								<div class="d-flex container pt-3">
-									<div class="form-group col-6 d-flex justify-content-around align-items-center">
-										<span for="" class="fillter-name">Mã đơn vị</span>
-										<select class="form-control col-8" name="" id="">
-											<option value="" selected disabled>Mã đơn vị</option>
-											<option>Công lập</option>
-											<option>Có vốn đầu tư nước ngoài</option>
-											<option>Tư thục</option>
-										</select>
-									</div>
-								</div>
-
-								<div class="d-flex justify-content-between container pt-3 mb-5 col-3">
-									<button type="submit" class="btn btn-primary btn-fillter">Tìm kiếm</button>
-									<button type="submit" class="btn btn-danger btn-fillter">Hủy</button>
-								</div>
-
-							</form>
-						</div>
-					</section>
-					<!-- end- fillter -->
+                    
 
 					<!-- begin- action -->
 					{{--  <section class="action-nav d-flex align-items-center justify-content-between mt-4	">
@@ -161,9 +111,10 @@
 					
 			
             <div class="col-xl-12">
+                
 
                 <!--begin::Portlet-->
-                <div class="m-portlet">
+                <div class="m-portlet m-3">
                     <div class="m-portlet__head">
                         <div class="m-portlet__head-caption">
                             <div class="m-portlet__head-title">
@@ -176,13 +127,58 @@
                         <div class="m-portlet__head-caption">
                             <div class="m-portlet__head-title">
                                 <h3 class="m-portlet__head-text">
-                                   <a href="#" class="btn btn-outline-success">Thêm</a>
+                                   <a href="{{ url('tao-tai-khoan') }}" class="btn btn-outline-success">Thêm</a>
                                 </h3>
                             </div>
                             
                         </div>
                     </div>
                     <div class="m-portlet__body">
+                        <!-- begin- fillter -->
+					<section class="fillter-area">
+						<div class="fillter-title">
+							<h4>Bộ lọc</h4>
+						</div>
+
+						<div class="fillter-form">
+							<form action="">
+								<div class="d-flex container pt-3">
+                                    <div class="form-group col-6 d-flex justify-content-around align-items-center">
+										<span for="" class="fillter-name">Trạng thái</span>
+										<select class="form-control col-8" name="status" id="">
+											<option value="" selected disabled>Enable</option>
+											<option>Disable</option>
+										
+										</select>
+									</div>
+									<div class="form-group col-6 d-flex justify-content-around align-items-center">
+
+										<input type="text" class="form-control">
+                                        
+									</div>
+
+									
+								</div>
+
+								<div class="d-flex container pt-3">
+									<div class="form-group col-6 d-flex justify-content-around align-items-center">
+										<span for="" class="fillter-name">Rules</span>
+										<select class="form-control col-8" name="" id="">
+											<option value="" selected disabled>1</option>
+                                            <option value="" >2</option>
+                                            <option value="" >3</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="d-flex justify-content-between container pt-3 mb-5 col-3">
+									<button type="submit" class="btn btn-primary btn-fillter">Tìm kiếm</button>
+								</div>
+
+							</form>
+						</div>
+					</section>
+					<!-- end- fillter -->
 
                         <!--begin::Section-->
                         <div class="m-section">
@@ -198,6 +194,7 @@
                                             <th>Email</th>
                                             <th>Phone</th>
                                             <th>Created_At</th>
+                                            <th>Update_At</th>
                                             <th>Enable</th>
                                             <th>Action</th>
 
@@ -213,16 +210,19 @@
                                             <th scope="row">{{ $i }}</th>
                                             @php
                                             $i++;
-                                            $date = date_create($user->created_at);
-                                            $created_at = date_format($date, 'd-m-Y');
+                                            $c_at = date_create($user->created_at);
+                                            $created_at = date_format($c_at, 'd-m-Y');
+                                            $u_at = date_create($user->updated_at);
+                                            $updated_at = date_format($u_at, 'd-m-Y');
                                             @endphp
                                             <td>{{ $user->id }}</td>
                                             <td>{{ $user->name }}</td>
-                                            <td><img width="100" src="" alt="avatar"></td>
+                                            <td><img width="100" src="{!! asset('storage/'.$user->avatar) !!}" alt="avatar"></td>
                                             <td>{{ $user->email }}</td>
                                             
                                             <td class="float-right">{{ $user->phone_number }}</td>
                                             <td>{{ $created_at }}</td>
+                                            <td>{{ $updated_at }}</td>
                                         
                                             <td>
                                                 <form class="m-form">

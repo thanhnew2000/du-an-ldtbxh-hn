@@ -34,6 +34,8 @@ Route::get('/quen-mat-khau','AuthController@reset_pass')->name('link_reset_passw
 
 Route::post('/quen-mat-khau','AuthController@post_reset_pass');
 
+Route::view('create_kq_tot_nghiep', 'danhsachyeucau.create_kq_tot_nghiep');
+Route::view('view_kq_tot_nghiep', 'danhsachyeucau.view_kq_tot_nghiep');
 
 Route::group(['middleware' => 'auth'], function () {
      Route::get('/dashboard','AnalysisController@index')->name('dashboard');
@@ -56,11 +58,13 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'account'], function(){
 
-         Route::get('/list', 'AccountController@index')->name('account.list');
+         Route::get('/quan-ly-tai-khoan', 'AccountController@index')->name('account.list');
          Route::post('/edit-status', 'AccountController@editstatus')->name('account.editstatus');
          Route::get('/create', 'AccountController@create')->name('account.create');
          Route::post('/store', 'AccountController@store')->name('account.store');
          Route::get('/edit/{id}', 'AccountController@edit')->name('account.edit');
+         Route::post('/update', 'AccountController@updateID')->name('account.update');
+         Route::post('/check-email-update','AccountController@checkEmailUpdate')->name('account.check_email_update');
          
 
     });
@@ -79,24 +83,24 @@ Route::group(['middleware' => 'auth'], function () {
  
      });
 
-     Route::group(['prefix' => 'importreport'], function(){
-          Route::get('/quan-ly-giao-vien', 'ImportReportController@quanlygiaovien');
-          Route::get('/doi-ngu-can-bo-quan-ly', 'ImportReportController@doingucanboquanly');
-          Route::get('/thuc-hien-chinh-sach-cho-sinh-vien', 'ImportReportController@chinhsachchosinhvien');
-          Route::get('/ket-qua-tuyen-sinh', 'ImportReportController@ketquatuyensinh');
-          Route::get('/xay-dung-chuong-trinh-giao-trinh', 'ImportReportController@xaydungchuongtrinh');
-          Route::get('/ket-qua-tot-nghiep', 'ImportReportController@ketquatotnghiep');
-          Route::get('/dao-tao-nghe-cho-nguoi-khuyet-tat', 'ImportReportController@daotaonguoikhuyetat');
-          Route::get('/dao-tao-nghe-cho-thanh-nien', 'ImportReportController@daotaothanhnien');
-          Route::get('/ket-qua-dao-tao-nghe-gan-voi-doanh-nghiep', 'ImportReportController@ketquadaotaovoidoanhnghiep');
-          Route::get('/lien-ket-dao-tao', 'ImportReportController@lienketdaotao');
-          Route::get('/thiet-lap-deadline-bao-cao-theo-dot', 'ImportReportController@deadlinebaocao');
-          Route::get('/kiem-soat-tien-do-nop-bao-cao', 'ImportReportController@tiendonopbaocao');
-          Route::get('/phe-duyet-bao-cao', 'ImportReportController@pheduyetbaocao');
+     // Route::group(['prefix' => 'importreport'], function(){
+     //      Route::get('/quan-ly-giao-vien', 'ImportReportController@quanlygiaovien');
+     //      Route::get('/doi-ngu-can-bo-quan-ly', 'ImportReportController@doingucanboquanly');
+     //      Route::get('/thuc-hien-chinh-sach-cho-sinh-vien', 'ImportReportController@chinhsachchosinhvien');
+     //      Route::get('/ket-qua-tuyen-sinh', 'ImportReportController@ketquatuyensinh');
+     //      Route::get('/xay-dung-chuong-trinh-giao-trinh', 'ImportReportController@xaydungchuongtrinh');
+     //      Route::get('/ket-qua-tot-nghiep', 'ImportReportController@ketquatotnghiep');
+     //      Route::get('/dao-tao-nghe-cho-nguoi-khuyet-tat', 'ImportReportController@daotaonguoikhuyetat');
+     //      Route::get('/dao-tao-nghe-cho-thanh-nien', 'ImportReportController@daotaothanhnien');
+     //      Route::get('/ket-qua-dao-tao-nghe-gan-voi-doanh-nghiep', 'ImportReportController@ketquadaotaovoidoanhnghiep');
+     //      Route::get('/lien-ket-dao-tao', 'ImportReportController@lienketdaotao');
+     //      Route::get('/thiet-lap-deadline-bao-cao-theo-dot', 'ImportReportController@deadlinebaocao');
+     //      Route::get('/kiem-soat-tien-do-nop-bao-cao', 'ImportReportController@tiendonopbaocao');
+     //      Route::get('/phe-duyet-bao-cao', 'ImportReportController@pheduyetbaocao');
 
 
  
-     });
+     // });
 
      Route::group(['prefix' => 'extractreport'], function(){
           Route::get('/danh-sach-doi-ngu-nha-giao', 'ExtractController@danhsachnhagiao');

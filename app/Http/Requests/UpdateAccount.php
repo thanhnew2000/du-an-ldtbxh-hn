@@ -28,7 +28,8 @@ class UpdateAccount extends FormRequest
         return [
             'email' => 'required|email|unique:users,email,' . $user->id,
             'phone' => 'required|digits:10|unique:users,phone_number,' . $user->id,
-            'name'  => 'required|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/|min:6|max:40',
+            // 'name'  => 'required|alpha|min:6|max:40',
+            'name'  => 'required|regex:/^[\pL\s\-]+$/u|min:6|max:40',
             'avatar' => 'mimes:jpeg,jpg,png,gif|max:10000',
             'password' => 'required',
         ];
@@ -44,7 +45,8 @@ class UpdateAccount extends FormRequest
             'phone.digits' => 'Vui lòng nhập số có độ dài 10 ký tự',  
             'phone.unique' => 'Số điện thoại đã tồn tại',  
             'name.required' => 'Vui lòng nhập họ tên', 
-            'name.regex' => 'Tên phải là chữ', 
+            // 'name.alpha' => 'Tên phải là chữ',
+            'name.regex' => 'Tên không chứa số hoặc ký tự đặc biệt', 
             'name.min' => 'Họ tên ít nhất 6 ký tự',  
             'name.max' => 'Họ tên không được vượt quá 40 ký tự', 
             'avatar.mimes' => 'Hãy chọn file định dạng ảnh (jpg|png|jpeg|gif)', 
