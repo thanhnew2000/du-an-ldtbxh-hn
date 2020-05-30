@@ -23,16 +23,7 @@ License: You must have a valid license purchased only from themeforest(the above
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
 
 	<!--begin::Web font -->
-	<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
-	<script>
-		WebFont.load({
-            google: {"families":["Poppins:300,400,500,600,700","Roboto:300,400,500,600,700"]},
-            active: function() {
-                sessionStorage.fonts = true;
-            }
-          });
-	</script>
-
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 	<!--end::Web font -->
 
 	<!--begin:: Global Mandatory Vendors -->
@@ -90,6 +81,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
 	<!--end::Global Theme Styles -->
 	<link rel="shortcut icon" href="{!! asset('storage/logo/logo.png') !!}" />
+	<link rel="stylesheet" href="{!!asset('css/login.css')!!}" type="text/css"/>
 </head>
 
 <!-- end::Head -->
@@ -113,9 +105,9 @@ License: You must have a valid license purchased only from themeforest(the above
 								</a>
 							</div>
 							<div class="m-login__signin">
-								{{-- <div class="m-login__head">
-									<h3 class="m-login__title">Bộ lao động và thương binh xã hội</h3>
-								</div> --}}
+								<div class="m-login__head">
+									<h3 class="m-login__title">Đăng nhập</h3>
+								</div>
 								<form class="m-login__form m-form" action="{{ route('post_login') }}" method="post">
 									{{ csrf_field() }}
 									<div class="form-group m-form__group">
