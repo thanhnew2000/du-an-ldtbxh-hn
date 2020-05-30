@@ -29,16 +29,13 @@ class AccountController extends Controller
     }
 
     public function store(RegisterAccount $request){
-    
 
     }
 
     public function edit($id){
-    $user = User::find($id);
-    return view('account.edit_account',compact('user'));
+        $user = User::find($id);
+        return view('account.edit_account',compact('user'));
     }
-
-
 
     public function updateID(Request $request){
         $id = $request->id;
@@ -76,7 +73,6 @@ class AccountController extends Controller
         return redirect()->back()->with('thongbao','Cập nhật thành công !');
         // return redirect()->route('account.list');
 
-
     }
 
     public function editstatus(Request $request){   
@@ -96,10 +92,5 @@ class AccountController extends Controller
     public function checkEmailUpdate(Request $request){
 
 
-        
-
     }
-
-
-
 }

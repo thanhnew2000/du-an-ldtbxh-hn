@@ -54,7 +54,9 @@ class UserController extends Controller
         if(!Hash::check($request->password, $user->password)){
             return redirect()->back()->with('thongbaoloi','Xác nhận mật khẩu không chính xác');
         }
-        $user->email=$request->email;
+        
+        // 2020-05-30 - ThienTH - không cho cập nhật
+        // $user->email=$request->email;
         $user->phone_number=$request->phone;
         $user->name=$request->name;
         $get_avatar =$request->file("avatar");
