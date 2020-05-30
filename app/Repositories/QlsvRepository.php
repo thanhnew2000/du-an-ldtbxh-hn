@@ -17,8 +17,8 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
     {
         return $this->table
             ->join('co_so_dao_tao', 'co_so_dao_tao.id', '=', 'sv_dang_quan_ly.co_so_id')
-            ->join('nganh_nghe', 'nganh_nghe.id', '=', 'sv_dang_quan_li.nghe_id')
-            ->join('co_so_dao_tao', 'loai_hinh_co_so.ma_loai_hinh_co_so', '=', 'sv_dang_quan_ly.')
+            // ->join('nganh_nghe', 'nganh_nghe.id', '=', 'sv_dang_quan_li.nghe_id')
+            // ->join('co_so_dao_tao', 'loai_hinh_co_so.ma_loai_hinh_co_so', '=', 'sv_dang_quan_ly.')
             ->select(
                 'sv_dang_quan_ly.*',
                 'co_so_dao_tao.ten',
