@@ -45,12 +45,12 @@ class AuthController extends Controller
         $checkUser->save();
         $toemail = $checkUser->email;
         
-        $url = route('account.link_reset_password',['code'=>$checkUser->code,'email'=>$email]);
+        $url = route('link_reset_password',['code'=>$checkUser->code,'email'=>$email]);
         $data=[
             'route'=>$url,
             'title'=>"Lấy lại mật khẩu"
         ];
-        Mail::send('email_reset_pass',$data,function($message) use ($toemail) {
+        Mail::send('account.email_reset_pass',$data,function($message) use ($toemail) {
             $message->to($toemail,'Reset password')->subject('Lấy lại mật khẩu');
         });
 
