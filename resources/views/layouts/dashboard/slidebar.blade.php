@@ -4,74 +4,43 @@
 					<!-- BEGIN: Aside Menu -->
 					<div id="m_ver_menu" class="m-aside-menu m-aside-menu--skin-dark m-aside-menu--submenu-skin-dark m-scroller ps ps--active-y" m-menu-vertical="1" m-menu-scrollable="1" m-menu-dropdown-timeout="500" style="position: relative; height: 314px; overflow: hidden;">
 						<ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
-							<li class="m-menu__item  m-menu__item--active" aria-haspopup="true"><a href="index.html" class="m-menu__link "><i class="m-menu__link-icon flaticon-line-graph"></i><span class="m-menu__link-title"> <span class="m-menu__link-wrap"> <span class="m-menu__link-text">Dashboard</span>
+							<li class="m-menu__item  m-menu__item--active" aria-haspopup="true"><a href="{{url('dashboard')}}" class="m-menu__link "><i class="m-menu__link-icon flaticon-line-graph"></i><span class="m-menu__link-title"> <span class="m-menu__link-wrap"> <span class="m-menu__link-text">Dashboard</span>
 											<span class="m-menu__link-badge"><span class="m-badge m-badge--danger">2</span></span> </span></span></a></li>
 							<li class="m-menu__section ">
 								<h4 class="m-menu__section-text">Components</h4>
 								<i class="m-menu__section-icon flaticon-more-v2"></i>
 							</li>
-							<li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-layers"></i><span class="m-menu__link-text">Base</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
+							<li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-layers"></i><span class="m-menu__link-text">Quản lý tài khoản</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
 								<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 									<ul class="m-menu__subnav">
 										<li class="m-menu__item  m-menu__item--parent" aria-haspopup="true"><span class="m-menu__link"><span class="m-menu__link-text">Base</span></span></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/base/state.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">State Colors</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/base/typography.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Typography</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/base/stack.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Stack</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/base/tables.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Tables</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/base/progress.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Progress</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/base/modal.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Modal</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/base/alerts.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Alerts</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/base/popover.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Popover</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/base/tooltip.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Tooltip</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/base/blockui.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Block UI</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/base/spinners.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Spinners</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/base/scrollable.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Scrollable</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/base/dropdown.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Dropdown</span></a></li>
-										<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Tabs</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
-											<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
-												<ul class="m-menu__subnav">
-													<li class="m-menu__item " aria-haspopup="true"><a href="components/base/tabs/bootstrap.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Bootstrap Tabs</span></a></li>
-													<li class="m-menu__item " aria-haspopup="true"><a href="components/base/tabs/line.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Line Tabs</span></a></li>
-												</ul>
-											</div>
-										</li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/base/accordions.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Accordions</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/base/navs.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Navs</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/base/lists.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Lists</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/base/treeview.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Tree View</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/base/bootstrap-notify.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Bootstrap Notify</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/base/toastr.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Toastr</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/base/sweetalert2.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">SweetAlert2</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('account/quan-ly-tai-khoan')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Quản lý tài khoản</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('account/quan-ly-quyen-truy-cap')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Quản lý quyền truy cập</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('account/phan-quyen-tai-khoan')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Phân quyền tài khoản</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('account/cap-nhat-thong-tin-ca-nhan')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Cập nhật thông tin cá nhân</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('account/doi-mat-khau')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Thay đổi mật khẩu</span></a></li>
 									</ul>
 								</div>
 							</li>
-							<li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-share"></i><span class="m-menu__link-text">Icons</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
+							<li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-share"></i><span class="m-menu__link-text">Quản lý cơ sở đào tạo</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
 								<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 									<ul class="m-menu__subnav">
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/icons/flaticon.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Flaticon</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/icons/fontawesome5.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Fontawesome 5</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/icons/lineawesome.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Lineawesome</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/icons/socicons.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Socicons</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('coso/danh-sach-co-so-dao-tao')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Danh sách cơ sở đào tạo</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('coso/danh-sach-chi-nhanh')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Danh sách chi nhánh</span></a></li>
+
 									</ul>
 								</div>
 							</li>
-							<li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-web"></i><span class="m-menu__link-text">Buttons</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
+							<li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-web"></i><span class="m-menu__link-text">Quản lý ngành nghề</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
 								<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 									<ul class="m-menu__subnav">
-										<li class="m-menu__item  m-menu__item--parent" aria-haspopup="true"><span class="m-menu__link"><span class="m-menu__link-text">Buttons</span></span></li>
-										<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Button Base</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
-											<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
-												<ul class="m-menu__subnav">
-													<li class="m-menu__item " aria-haspopup="true"><a href="components/buttons/base/default.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Default Style</span></a></li>
-													<li class="m-menu__item " aria-haspopup="true"><a href="components/buttons/base/square.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Square Style</span></a></li>
-													<li class="m-menu__item " aria-haspopup="true"><a href="components/buttons/base/pill.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Pill Style</span></a></li>
-													<li class="m-menu__item " aria-haspopup="true"><a href="components/buttons/base/air.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Air Style</span></a></li>
-												</ul>
-											</div>
+										
+										<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="{{url('career/danh-sach-nganh-nghe')}}" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Danh sách ngành nghề</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
+											
 										</li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/buttons/group.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Button Group</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/buttons/dropdown.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Button Dropdown</span></a></li>
-										<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Button Icon</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('career/thiet-lap-chi-tieu-tuyen-sinh')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Thiết lập chỉ tiêu tuyển sinh</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('career/thiet-lap-nghe-cho-co-so-dao-tao')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Thiết lập nghề cho cơ sở đào tạo</span></a></li>
+										<!-- <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Button Icon</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
 											<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 												<ul class="m-menu__subnav">
 													<li class="m-menu__item " aria-haspopup="true"><a href="components/buttons/icon/lineawesome.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Lineawesome
@@ -81,62 +50,83 @@
 													<li class="m-menu__item " aria-haspopup="true"><a href="components/buttons/icon/flaticon.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Flaticon Icons</span></a></li>
 												</ul>
 											</div>
-										</li>
+										</li> -->
 									</ul>
 								</div>
 							</li>
-							<li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-interface-1"></i><span class="m-menu__link-text">Portlets</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
+							<li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-interface-1"></i><span class="m-menu__link-text">Nhập báo cáo cho cơ sở</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
 								<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 									<ul class="m-menu__subnav">
 										<li class="m-menu__item  m-menu__item--parent" aria-haspopup="true"><span class="m-menu__link"><span class="m-menu__link-text">Portlets</span></span></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/portlets/base.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Base Portlets</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/portlets/advanced.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Advanced Portlets</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/portlets/creative.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Creative Portlets</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/portlets/tabbed.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Tabbed Portlets</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/portlets/draggable.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Draggable Portlets</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/portlets/tools.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Portlet Tools</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/portlets/sticky-head.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Sticky Head</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('importreport/quan-ly-giao-vien')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Quản lý giáo viên</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('importreport/doi-ngu-can-bo-quan-ly')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Đội ngũ cán bộ quản lý</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('importreport/thuc-hien-chinh-sach-cho-sinh-vien')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Thực hiện chính sách cho sinh viên</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('importreport/ket-qua-tuyen-sinh')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Kết quả tuyển sinh</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('importreport/xay-dung-chuong-trinh-giao-trinh')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Xây dựng chương trình / giáo trình</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('importreport/ket-qua-tot-nghiep')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Kết quả tốt nghiệp</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('importreport/dao-tao-nghe-cho-nguoi-khuyet-tat')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Đào tạo nghề cho người khuyết tật</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('importreport/dao-tao-nghe-cho-thanh-nien')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Đào tạo nghề cho thanh niên</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('importreport/ket-qua-dao-tao-nghe-gan-voi-doanh-nghiep')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Kết quả tốt nghiệp đào tạo nghề gắn với doanh nghiệp</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('importreport/lien-ket-dao-tao')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Liên kết đào tạo</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('importreport/thiet-lap-deadline-bao-cao-theo-dot')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Thiết lập deadline báo cáo theo đợt</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('importreport/kiem-soat-tien-do-nop-bao-cao')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Kiểm soát tiến độ nộp báo cáo</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('importreport/phe-duyet-bao-cao')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Phê duyệt báo cáo</span></a></li>
+										
+
 									</ul>
 								</div>
 							</li>
-							<li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-interface-6"></i><span class="m-menu__link-text">Timeline</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
+							<li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-interface-6"></i><span class="m-menu__link-text">Tổng hợp trích xuất báo cáo</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
 								<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 									<ul class="m-menu__subnav">
 										<li class="m-menu__item  m-menu__item--parent" aria-haspopup="true"><span class="m-menu__link"><span class="m-menu__link-text">Timeline</span></span></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/timeline/timeline-1.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Timeline 1</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/timeline/timeline-2.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Timeline 2</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('extractreport/danh-sach-doi-ngu-nha-giao')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Danh sách đội ngũ nhà giáo</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('extractreport/danh-sach-doi-ngu-quan-ly')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Danh sách đội ngũ quản lý</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('extractreport/tong-hop-sinh-vien-dang-theo-hoc')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Tổng hợp sinh viên đang theo học</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('extractreport/tong-hop-thuc-hien-chinh-sach-cho-sinh-vien')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Tổng hợp thực hiện chính sách cho SV</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('tong-hop-so-lieu-tuyen-sinh')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Tổng hợp kết quả tuyển sinh</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('extractreport/tong-hop-xay-dung-chuong-trinh-giao-trinh')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Tổng hợp xd chương trình, giáo trình</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('extractreport/tong-hop-ket-qua-tot-nghiep')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Tổng hợp kết quả tốt nghiệp</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('extractreport/tong-hop-dao-tao-nghe-cho-nguoi-khuyet-tat')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Tổng hợp đào tạo nghề cho người khuyết tật</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('extractreport/tong-hop-dao-tao-nghe-cho-thanh-nien')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Tổng hợp đào tạo nghề cho thanh niên</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('extractreport/tong-hop-dao-tao-nghe-voi-doanh-nghiep')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Tổng hợp đào tạo nghề với doanh nghiệp</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('extractreport/tong-hop-hop-tac-quoc-te')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Tổng hợp hợp tác quốc tế</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('extractreport/tong-hop-dang-ky-chi-tieu-tuyen-sinh')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Tổng hợp đăng ký chỉ tiêu tuyển sinh</span></a></li>
+
+ 
 									</ul>
 								</div>
 							</li>
-							<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-network"></i><span class="m-menu__link-text">Widgets</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
+							<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-network"></i><span class="m-menu__link-text">Thống kê / biểu đồ</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
 								<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 									<ul class="m-menu__subnav">
 										<li class="m-menu__item  m-menu__item--parent" aria-haspopup="true"><span class="m-menu__link"><span class="m-menu__link-text">Widgets</span></span></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/widgets/general.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">General Widgets</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/widgets/chart.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Chart Widgets</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('chart/bieu-do-bao-cao-ngan-sach')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Biểu đồ báo cáo ngân sách</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('chart/bieu-do-ket-qua-tuyen-sinh')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Biểu đồ kết quả tuyển sinh</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('chart/bieu-do-sinh-vien-dang-theo-hoc')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Biểu đồ sinh viên đang theo học</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('chart/bieu-do-so-luong-tot-nghiep')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Biểu đồ số lượng tốt nghiệp</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('chart/bieu-do-hop-tac-quoc-te')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Biểu đồ hợp tác quốc tế</span></a></li>
+
 									</ul>
 								</div>
 							</li>
-							<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-calendar"></i><span class="m-menu__link-text">Calendar</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
+							<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-calendar"></i><span class="m-menu__link-text">Bảng tin điện tử</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
 								<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 									<ul class="m-menu__subnav">
 										<li class="m-menu__item  m-menu__item--parent" aria-haspopup="true"><span class="m-menu__link"><span class="m-menu__link-text">Calendar</span></span></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/calendar/basic.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Basic Calendar</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/calendar/list-view.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">List Views</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/calendar/google.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Google Calendar</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/calendar/external-events.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">External
-													Events</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/calendar/background-events.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Background
-													Events</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('news/danh-sach-tin-tuc')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Danh sách tin tức</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('news/chi-tiet-tin-tuc')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Chi tiết tin tức</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('news/quan-ly-tin-tuc')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Quản lý tin tức</span></a></li>
+										
 									</ul>
 								</div>
 							</li>
-							<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-diagram"></i><span class="m-menu__link-text">Charts</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
+							<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-diagram"></i><span class="m-menu__link-text">Phản hồi / Báo lỗi hệ thống</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
 								<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 									<ul class="m-menu__subnav">
 										<li class="m-menu__item  m-menu__item--parent" aria-haspopup="true"><span class="m-menu__link"><span class="m-menu__link-text">Charts</span></span></li>
-										<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">amCharts</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
-											<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
+										<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="{{url('feedback/nhan-tin-bao-loi-he-thong')}}" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Nhắn tin báo lỗi hệ thống</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
+											<!-- <div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 												<ul class="m-menu__subnav">
 													<li class="m-menu__item " aria-haspopup="true"><a href="components/charts/amcharts/charts.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">amCharts
 																Charts</span></a></li>
@@ -144,15 +134,13 @@
 																Stock Charts</span></a></li>
 													<li class="m-menu__item " aria-haspopup="true"><a href="components/charts/amcharts/maps.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">amCharts Maps</span></a></li>
 												</ul>
-											</div>
+											</div> -->
 										</li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/charts/flotcharts.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Flot Charts</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/charts/google-charts.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Google Charts</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="components/charts/morris-charts.html" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Morris Charts</span></a></li>
+										
 									</ul>
 								</div>
 							</li>
-							<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-placeholder-1"></i><span class="m-menu__link-text">Maps</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
+							<!-- <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-placeholder-1"></i><span class="m-menu__link-text">Maps</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
 								<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 									<ul class="m-menu__subnav">
 										<li class="m-menu__item  m-menu__item--parent" aria-haspopup="true"><span class="m-menu__link"><span class="m-menu__link-text">Maps</span></span></li>
@@ -493,7 +481,7 @@
 										</li>
 									</ul>
 								</div>
-							</li>
+							</li> -->
 						</ul>
 					<div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; height: 314px; right: 4px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 90px;"></div></div></div>
 

@@ -45,11 +45,16 @@ class AuthController extends Controller
         $checkUser->save();
         $toemail = $checkUser->email;
         
+        // 2020-05-30 - thienth 
+        // update account.link_reset_password => link_reset_password
         $url = route('link_reset_password',['code'=>$checkUser->code,'email'=>$email]);
         $data=[
             'route'=>$url,
             'title'=>"Lấy lại mật khẩu"
         ];
+
+        // 2020-05-30 - thienth 
+        // update email_reset_pass => account.email_reset_pass
         Mail::send('account.email_reset_pass',$data,function($message) use ($toemail) {
             $message->to($toemail,'Reset password')->subject('Lấy lại mật khẩu');
         });

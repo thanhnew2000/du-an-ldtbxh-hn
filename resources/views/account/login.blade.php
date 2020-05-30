@@ -24,16 +24,7 @@ License: You must have a valid license purchased only from themeforest(the above
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
 
 	<!--begin::Web font -->
-	<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
-	<script>
-		WebFont.load({
-            google: {"families":["Poppins:300,400,500,600,700","Roboto:300,400,500,600,700"]},
-            active: function() {
-                sessionStorage.fonts = true;
-            }
-          });
-	</script>
-
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 	<!--end::Web font -->
 
 	<!--begin:: Global Mandatory Vendors -->
@@ -90,7 +81,8 @@ License: You must have a valid license purchased only from themeforest(the above
 	<!--RTL version:<link href="{!! asset('assets/demo/base/style.bundle.rtl.css') !!}" rel="stylesheet" type="text/css" />-->
 
 	<!--end::Global Theme Styles -->
-	<link rel="shortcut icon" href="{!! asset('storage/logo/logo.png') !!}" />
+	<link rel="shortcut icon" href="{!! asset('images/favicon.png') !!}" />
+	<link rel="stylesheet" href="{!!asset('css/login.css')!!}" type="text/css"/>
 </head>
 
 <!-- end::Head -->
@@ -110,13 +102,13 @@ License: You must have a valid license purchased only from themeforest(the above
 						<div class="m-login__wrapper">
 							<div class="m-login__logo">
 								<a href="#">
-									<img src="{!! asset('storage/images/logo.png') !!}">
+									<img src="{!! asset('images/logo.png') !!}">
 								</a>
 							</div>
 							<div class="m-login__signin">
-								{{-- <div class="m-login__head">
-									<h3 class="m-login__title">Bộ lao động và thương binh xã hội</h3>
-								</div> --}}
+								<div class="m-login__head">
+									<h3 class="m-login__title">Đăng nhập</h3>
+								</div>
 								<form class="m-login__form m-form" action="{{ route('post_login') }}" method="post">
 									{{ csrf_field() }}
 									<div class="form-group m-form__group">
@@ -233,7 +225,7 @@ License: You must have a valid license purchased only from themeforest(the above
 				</div>
 			</div>
 			<div class="m-grid__item m-grid__item--fluid m-grid m-grid--center m-grid--hor m-grid__item--order-tablet-and-mobile-1	m-login__content m-grid-item--center"
-				style="background-image: url({!! asset('storage/images/login-img.png') !!});background-size: 100% 100%;">
+				style="background-image: url({!! asset('images/login-img.png') !!});background-size: 100% 100%;">
 				{{-- background-image: url({!! asset('storage/images/login-img.png') !!});background-size: cover; --}}
 				{{-- <div class="m-grid__item">
 					<h3 class="m-login__welcome">Join Our Community</h3>
