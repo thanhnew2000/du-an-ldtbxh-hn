@@ -6,11 +6,12 @@ use Illuminate\Http\Request;
 
 class CoSoController extends Controller
 {
-    public function danhsachcosodaotao(){
+    public function danhsachcosodaotao()
+    {
         return view('coso.danh_sach_co_so_dao_tao');
     }
-    public function danhsachchinhanh(){
+    public function danhsachchinhanh()
+    {
         return view('coso.danh_sach_chi_nhanh');
     }
-    
 }

@@ -75,7 +75,15 @@ Route::group(['middleware' => 'auth'], function () {
      Route::group(['prefix' => 'extractreport'], function(){
           Route::get('/danh-sach-doi-ngu-nha-giao', 'ExtractReportController@danhsachnhagiao');
           Route::get('/danh-sach-doi-ngu-quan-ly', 'ExtractReportController@danhsachquanly');
-          Route::get('/tong-hop-sinh-vien-dang-theo-hoc', 'ExtractReportController@tonghopsvdanghoc');
+
+          // cuong nc - tổng hợp sinh viên đang theo học
+          Route::get('/tong-hop-sinh-vien-dang-theo-hoc', 'ExtractController@tonghopsvdanghoc');
+          Route::get('/them-so-lieu-sinh-vien', 'ExtractController@add')->name('Extract.add');
+          Route::post('/saveAdd', 'ExtractController@saveAdd')->name('saveadd');
+          Route::get('/sua-so-lieu-sinh-vien/{qlsv}',  'ExtractController@edit')->name('Extract.edit');
+          Route::post('/saveEdit/{id}', 'ExtractController@saveEdit')->name('Edit');
+          // end cuong nc - tổng hợp sinh viên đang theo học
+
           Route::get('/tong-hop-thuc-hien-chinh-sach-cho-sinh-vien', 'ExtractReportController@tonghopchinhsachsv');
           Route::get('/tong-hop-ket-qua-tuyen-sinh', 'ExtractReportController@tonghopkqtuyensinh');
           Route::get('/tong-hop-xay-dung-chuong-trinh-giao-trinh', 'ExtractReportController@tonghopxdchuongtrinh');
