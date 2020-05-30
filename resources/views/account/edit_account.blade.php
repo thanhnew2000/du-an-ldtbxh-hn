@@ -1,0 +1,192 @@
+@extends('layouts.admin')
+@section('title', "Sửa tài khoản")
+@section('style')
+<style type="text/css">
+	.error {
+		color: red;
+	}
+</style>
+@endsection
+@section('content')
+<div class="m-content">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <!--begin::Portlet-->
+            <div class="m-portlet m-portlet--tab">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+                            <span class="m-portlet__head-icon m--hide">
+                                <i class="la la-gear"></i>
+                            </span>
+                            <h3 class="m-portlet__head-text">
+                                Edit tài khoản
+                            </h3>
+                            
+                            
+                        </div>
+                       
+                     
+                    </div>
+                    <div class="m-portlet__head-caption " style="width:400px">
+                        
+                        @if (session('thongbao'))
+						<div class="thongbao" style="color: green; text-align: center;">
+                             
+                            <h4 class="m-portlet__head-text text-success">
+                                {{session('thongbao')}}
+                            </h4>
+						</div>
+						@endif
+                     
+                    </div>
+                </div>
+
+
+                <!--begin::Form-->
+                <form id="validate-form-update" class="m-form m-form--fit m-form--label-align-left" action="{{ url('account/update/') }}" method="POST" >
+                    <div class="m-portlet__body">
+                    
+                        {{ csrf_field() }}
+
+                        <input class="form-control m-input" type="hidden" name="id" value="{{ $user->id }}" >
+
+                 
+                  
+
+                        <div class="form-group m-form__group row">
+                            <label  class="col-4 col-form-label">Họ và tên</label>
+                            <div class="col-6">
+                                <input class="form-control m-input" type="text" name="name" value="{{ $user->name }}" placeholder="Nhập Họ và Tên">
+                                @if ($errors->has('name'))
+                                <span class="text-danger">{{ $errors->first('name') }}</span>
+                                    
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group row">
+                            <label  class="col-4 col-form-label">Email</label>
+                            <div class="col-6">
+                                <input class="form-control m-input" type="text" name="email"  value="{{ $user->email }}" placeholder="Nhập Email">
+                                @if ($errors->has('email'))
+                                <span class="text-danger">{{ $errors->first('email') }}</span>
+                                    
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group row">
+                            <label  class="col-4 col-form-label">Số điện thoại</label>
+                            <div class="col-6">
+                                <input class="form-control m-input" type="text" name="phone" value="{{ $user->phone_number }}" placeholder="Nhập Số điện thoại">
+                                @if ($errors->has('phone'))
+                                <span class="text-danger">{{ $errors->first('phone') }}</span>
+                                    
+                                @endif
+                            </div>
+                        </div>
+                        
+                        
+                
+                    </div>
+                    <div class="m-portlet__foot m-portlet__foot--fit">
+                        <div class="m-form__actions">
+                            <div class="row">
+                         
+                                <div class="col-12 d-flex justify-content-center">
+                                  
+                                    <a href="{{ url('account/quan-ly-tai-khoan') }}" class="btn btn-danger">Hủy</a>&nbsp&nbsp&nbsp
+                                    <button type="submit"  class="btn btn-success">Update</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!--end::Portlet-->
+
+        </div>
+    </div>
+</div>
+
+
+@endsection
+
+@section('script')
+<script type="text/javascript">
+	$(document).ready(function() {
+        $("#validate-form-update").validate({
+            rules: {
+                email: {
+                	required: true,
+      				email: true,
+			    	remote: {
+			    		headers: {
+					        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					    },
+				        url: "{{ route('check-email') }}",
+				        type: "post",
+				        data: {
+				        	_token: '{{csrf_token()}}',
+				            name: function() {
+				                return $( "input[name='email']" ).val();
+				            },
+							id: function() {
+                                return $("input[name='id']").val();
+                            }
+				        }
+				    }
+                },
+                phone:{
+                	required: true,
+      				number: true,
+      				minlength:10,
+      				maxlength:10,
+  					remote: {
+			    		headers: {
+					        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					    },
+				        url: "{{ route('check-phone') }}",
+				        type: "post",
+				        data: {
+				        	_token: '{{csrf_token()}}',
+				            name: function() {
+				                return $( "input[name='phone']" ).val();
+				            },
+							id: function() {
+                                return $("input[name='id']").val();
+                            }
+				        }
+				    }
+                },
+                name: {
+                    required: true,
+                    minlength: 6,
+                    maxlength: 30
+                }
+            },
+            messages: {
+                email: {
+                	required: "Vui lòng nhập địa chỉ email",
+                	email: "Vui lòng nhập đúng định dạng email",
+                	remote: "Địa chỉ email đã tồn tại"
+                },
+                phone: {
+                	required: "Vui lòng nhập số điện thoại",
+                	number: "Vui lòng nhập số",
+                	minlength: "Số điện thoại phải nhập 10 ký tự",
+                    maxlength: "Số điện thoại phải nhập 10 ký tự",
+                    remote: "Số điện thoại đã tồn tại"
+                },
+                name: {
+                    required: "Vui lòng nhập họ tên",
+                    minlength: "Họ tên ít nhất 6 ký tự",
+                    maxlength: "Họ tên không được vượt quá 40 ký tự"
+                }
+                
+            }
+        });
+    });
+</script>
+
+@endsection
