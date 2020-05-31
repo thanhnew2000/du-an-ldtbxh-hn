@@ -28,7 +28,7 @@ class UpdateAccountId extends FormRequest
         return [
             'email' => 'required|email',
             'phone' => 'required|digits:10',
-            'name'  => 'required|alpha'
+            'name'  => 'required|regex:/^[\pL\s\-]+$/u'
 
             
         ];
@@ -42,7 +42,7 @@ class UpdateAccountId extends FormRequest
             'phone.required' => 'Vui lòng nhập số điện thoại',
             'phone.digits' => 'Vui lòng nhập số có độ dài 10 ký tự',  
             'name.required' => 'Vui lòng nhập họ tên', 
-            'name.alpha' => 'Tên phải là chữ'
+            'name.regex' => 'Tên phải không chứa số và ký tự đặc biệt'
  
         ];
     }

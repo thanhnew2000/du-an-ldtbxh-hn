@@ -11,7 +11,7 @@
         <section class="container pt-3 ">
             <div class="m-section ">
                 <div class="m-section__content ">
-                <form method="post" action="{{route('Edit',['id'=>$qlsv->id])}}">
+                <form method="post" action="{{route('xuatbc.sua-so-sv', ['id'=> $qlsv->id])}}">
                     <div class="d-flex container pt-3">
                         <div class="form-group col-6 d-flex justify-content-around align-items-center">
                             <label for="" class="fillter-name col-3">Tên Cơ Sở</label>

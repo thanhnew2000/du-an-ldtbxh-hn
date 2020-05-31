@@ -29,7 +29,7 @@
 				</div>
 
 				<!--begin::Form-->
-				<form id="validate-dangky" method="post" action="{{ route('dangkytaikhoan') }}"
+				<form id="validate-dangky" method="post" action="{{ route('account.tao-tk') }}"
 					class="m-form m-form--fit m-form--label-align-right" enctype="multipart/form-data">
 					{{ csrf_field() }}
 					<div class="m-portlet__body">
