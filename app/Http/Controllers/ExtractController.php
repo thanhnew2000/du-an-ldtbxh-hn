@@ -97,6 +97,6 @@ class ExtractController extends Controller
     }
     public function tonghoptuyensinh()
     {
-        return view('extractreport.tong_hop_dang_ky_chi_tieu_tuyen_sinh');
+        return view('solieutuyensinh.tong_hop_so_lieu_tuyen_sinh');
     }
 }
