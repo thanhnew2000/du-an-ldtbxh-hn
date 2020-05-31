@@ -30,15 +30,20 @@ class CsdtController extends Controller
     }
 
     public function themCsdt(){
-        return view('coso.them_co_so');
+        $qd = DB::table('quyet_dinh_thanh_lap_csdt')->get();
+        $coquan = DB::table('co_quan_chu_quan')->get();
+        $loaihinh = DB::table('loai_hinh_co_so')->get();
+        return view('coso.them_co_so', ['qd'=>$qd, 'coquan'=>$coquan, 'loaihinh'=>$loaihinh]);
+        
     }
 
     public function suaCsdt($id){
         $data = $this->CsdtService->getSingleCsdt($id);
         $parent= DB::table('co_quan_chu_quan')->get();
         $loai_coso = DB::table('loai_hinh_co_so')->get();
+        $qd = DB::table('quyet_dinh_thanh_lap_csdt')->get();
         //    dd($data);
-            return view('coso.sua_co_so',['data' => $data, 'parent' => $parent], ['loai_coso' => $loai_coso]);
+            return view('coso.sua_co_so',['data' => $data, 'parent' => $parent], ['loai_coso' => $loai_coso,'qd'=>$qd]);
     }
 
     public function saveEdit($id, Request $request){

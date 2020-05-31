@@ -58,6 +58,11 @@
     font-size: 1rem;
 }
 
+.form-control,
+.custom-file {
+    border: 1px solid #888888;
+}
+
 .logo-csdt {
     max-width: 150px;
     max-height: 150px;

@@ -17,12 +17,17 @@
             <div class="row d-flex justify-content-between">
                 <div class="form-group d-flex justify-content-between align-items-center col-5">
                     <label for="" class="form-name">Tên cơ sở đào tạo <span class="text-danger">(*)</span></label>
-                    <input type="text" class="form-control col-8" name="ten_coso" value="{{ $item->csdt_ten }}">
+                    <input type="text" class="form-control col-8" name="ten" value="{{ $item->csdt_ten }}">
                 </div>
 
                 <div class="form-group d-flex justify-content-between align-items-center col-5">
                     <label for="" class="form-name">Quyết định <span class="text-danger">(*)</span></label>
-                    <input type="text" class="form-control col-8" name="quyet_dinh" value="{{ $item->qd_ten}}">
+                    <select class="form-control col-8" name="quyet_dinh_id" id="">
+                        <option disabled selected {{ $item->quyet_dinh_id }}>{{ $item->qd_ten }}</option>
+                        @foreach ($qd as $quyetdinh)
+                        <option value="{{ $quyetdinh->id }}">{{ $quyetdinh->ten }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
 
@@ -71,6 +76,18 @@
                     <input type="text" class="form-control col-8" name="dia_chi" value="{{ $item->dia_chi }}">
                 </div>
             </div>
+            <div class="row d-flex justify-content-between">
+                <div class="form-group d-flex justify-content-between align-items-center col-5">
+                    <label for="" class="form-name">Tên quốc tế <span class="text-danger">(*)</span></label>
+                    <input type="text" class="form-control col-8" name="ten_quoc_te" value="{{ $item->ten_quoc_te }}">
+                </div>
+
+
+                <div class="form-group d-flex justify-content-between align-items-center col-5">
+                    <label for="" class="form-name">Fax</label>
+                    <input type="text" class="form-control col-8" name="Fax" value="{{ $item->fax }}">
+                </div>
+            </div>
 
             <div class="row d-flex justify-content-between">
                 <div class="form-group d-flex justify-content-between align-items-center col-5">
@@ -82,27 +99,19 @@
 
                 </div>
 
-                {{-- <div class="form-group d-flex justify-content-between align-items-center col-5">
-                    <label for="" class="form-name">Trạng thái <span class="text-danger">(*)</span></label>
-                    <div class="form-check form-check-inline">
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="status" id="" checked
-                                value="checkedValue">
-                            Active
-                        </label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="status" id="" value="checkedValue">
-                            Deactive
-                        </label>
-                    </div>
-                </div> --}}
+                <div class="form-group d-flex justify-content-end align-items-center col-5">
+                    <img src="{{ $item->logo }}" class="col-8" alt="">
+                </div>
+
+
             </div>
 
-            <div class="row d-flex justify-content-start">
-                <div class="form-group d-flex justify-content-center align-items-center col-5">
-                    <img src="{{ $item->logo }}" class="col-5" alt="">
+            <div class="row">
+                <div class="form-group col-lg-12">
+                    <label for="" class="form-name col-1">Ghi chú</label>
+                    <textarea class="form-control text-left col-12" name="ghi_chu" placeholder="Nội dung..." rows="4">
+                        {{ $item->ghi_chu }}
+                    </textarea>
                 </div>
             </div>
             @empty

@@ -62,7 +62,7 @@ Route::group(['middleware' => 'auth'], function () {
      Route::group(['prefix' => 'coso'], function(){
      Route::get('/danh-sach-co-so-dao-tao', 'CsdtController@index');
      Route::get('/them-co-so-dao-tao', 'CsdtController@themCsdt')->name('them_co_so');
-     Route::get('/danh-sach-chi-nhanh', 'CoSoController@danhsachchinhanh');
+     // Route::get('/danh-sach-chi-nhanh', 'CoSoController@danhsachchinhanh');
      Route::get('/chi-tiet-co-so/{id}', 'CsdtController@chi_tiet_co_so')->name('chi_tiet_co_so');
      Route::get('/sua-co-so/{id}', 'CsdtController@suaCsdt')->name('sua_co_so');
      Route::any('/saveEdit/{id}', 'CsdtController@saveEdit')->name('saveEdit');
