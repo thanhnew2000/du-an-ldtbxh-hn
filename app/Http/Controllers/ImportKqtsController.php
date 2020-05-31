@@ -26,6 +26,8 @@ class ImportKqtsController extends Controller
             // vòng for này để check lỗi nếu có thì cho hết lỗi vào các array $error, $vitri, $yeucau
             for($i = 2; $i < count($data); $i++){  
                 $rowNumber = $i+1;
+                $nghe = explode(' - ', $data[$i][23]);
+                $id_nghe = array_pop($nghe);
       
                 if($data[$i][0]==null || is_string($data[$i][1]) ){
                   array_push($error,$data[$i][0]);
@@ -119,8 +121,8 @@ class ImportKqtsController extends Controller
                     array_push($error,$data[$i][22]);
                     array_push($vitri,'W'.$rowNumber);
                  }
-                 if($data[$i][23]==null || is_string($data[$i][23])){
-                    array_push($error,$data[$i][23]);
+                 if($id_nghe==null){
+                    array_push($error,$id_nghe);
                     array_push($vitri,'X'.$rowNumber);
                  }
                  if($data[$i][24]==null || is_string($data[$i][24])){
@@ -177,7 +179,7 @@ class ImportKqtsController extends Controller
                         'so_luong_sv_dan_toc_khac'=>$data[$i][21],
                         'so_luong_sv_ho_khau_HN_khac'=>$data[$i][22],
                         'co_so_id'=>$id_truong,
-                        'nghe_id'=>$data[$i][23],
+                        'nghe_id'=>$id_nghe,
                         'tong_so_tuyen_sinh'=>$data[$i][24],
                         'ke_hoach_tuyen_sinh_cao_dang'=>$data[$i][25],
                         'ke_hoach_tuyen_sinh_trung_cap'=>$data[$i][26],
@@ -215,6 +217,8 @@ class ImportKqtsController extends Controller
                 // vòng for này để check lỗi nếu có thì cho hết lỗi vào các array $error, $vitri, $yeucau
                 for($i = 2; $i < count($data); $i++){  
                     $rowNumber = $i+1;
+                    $nghe = explode(' - ', $data[$i][23]);
+                    $id_nghe = array_pop($nghe);
           
                     if($data[$i][0]==null || is_string($data[$i][1]) ){
                       array_push($error,$data[$i][0]);
@@ -308,8 +312,8 @@ class ImportKqtsController extends Controller
                         array_push($error,$data[$i][22]);
                         array_push($vitri,'W'.$rowNumber);
                      }
-                     if($data[$i][23]==null || is_string($data[$i][23])){
-                        array_push($error,$data[$i][23]);
+                     if($id_nghe==null){
+                        array_push($error,$id_nghe);
                         array_push($vitri,'X'.$rowNumber);
                      }
                      if($data[$i][24]==null || is_string($data[$i][24])){

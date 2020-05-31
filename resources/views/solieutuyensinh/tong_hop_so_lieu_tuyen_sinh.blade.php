@@ -191,7 +191,7 @@
 				$("#file_import_id").change(function() {
 						var fileExtension = ['xlsx'];
 						if($("#file_import_id")[0].files.length === 0){
-							$('#echoLoi').text('Nhập đê ko ăn đấm đấy');
+							$('#echoLoi').text('Hãy nhập file excel');
 						}else if($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
 							$message = "Hãy nhập file excel : "+fileExtension.join(', ');
 							$('#echoLoi').text($message);
@@ -229,7 +229,7 @@
 											$('#my_form_kqts_import')[0].reset();
 										}
 								}).catch(function (error) {
-									window.location.reload();
+									// window.location.reload();
 									console.log(error);
 								});
 						}
@@ -237,7 +237,7 @@
 
 			    function validateMyForm(){
 						if($("#file_import_id")[0].files.length === 0){
-							$('#echoLoi').text('Nhập đê ko ăn đấm đấy');
+							$('#echoLoi').text('Hãy nhập file excel');
 							return false;
 						}else{
 							// document.querySelector('.loading').style.display='block';
