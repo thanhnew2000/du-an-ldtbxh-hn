@@ -21,6 +21,11 @@ Route::group(['prefix' => 'chinh-sach-cho-sinh-vien'], function(){
 
 Route::group(['prefix' => 'ket-qua-tuyen-sinh'], function(){
     Route::get('/', 'ImportReportController@ketquatuyensinh')->name('nhapbc.ket-qua-ts');
+
+    Route::post('import-kq-sv', 'ImportKqtsController@importFile')->name('import.ket-qua-ts');
+    Route::post('import-error-kq-sv', 'ImportKqtsController@importError')->name('import.error.ket-qua-ts');
+
+
 });
 
 Route::group(['prefix' => 'xd-chuong-trinh-giao-trinh'], function(){

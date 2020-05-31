@@ -55,10 +55,14 @@
     </section>
     <div class="row mb-5 bieumau">
         <div class="col-lg-2">
-            <a href=""><i class="la la-download">Tải xuống biểu mẫu</i></a>
+            <a href="javascript:" data-toggle="modal" data-target="#exampleModal">
+                <i class="fa fa-download" aria-hidden="true"></i>
+              Tải xuống biểu mẫu
+            </a>
         </div>
         <div class="col-lg-2">
-            <a href=""><i class="la la-upload">Tải lên file excel</i></a>
+            <a href="javascript:" data-toggle="modal" id="upImport-file" data-target="#exampleModalImport"><i class="fa fa-upload" aria-hidden="true"></i>
+                Tải lên file Excel</a>
         </div>
         <div class="col-lg-8 " style="text-align: right">
         <a href="{{route('themsolieutuyensinh')}}"><button type="button" class="btn btn-secondary">Thêm mới</button></a> 
@@ -115,6 +119,136 @@
     <div class="row phantrang">
         {{$data->links()}}
     </div>
+
+
+<form action="{{route('layformbieumausinhvien')}}" method="post">
+        @csrf
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Hãy chọn trường</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                       <select name="id_cs" class="form-control">
+                           @foreach($co_so_dao_tao as $csdt)
+                           <option value="{{$csdt->id}}">{{$csdt->ten}}</option>
+                           @endforeach
+                       </select>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                        <button type="submit" onclick="clickDownloadTemplate()" class="btn btn-primary">Tải</a>
+                      </div>
+                    </div>
+            </div>
+        </div>
+    </form>
+
+    <form action="{{route('import.error.ket-qua-ts')}}" id="my_form_kqts_import" method="post" enctype="multipart/form-data" onsubmit="return validateMyForm();">
+        @csrf
+        <div class="modal fade " id="exampleModalImport" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Import file</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <input type="file" id="file_import_id" name="file_import">
+                      </div>
+                      <div class="modal-footer">
+                        <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoi">
+                        </p>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                        <button type="button" class="btn btn-primary" id="submitTai">Tảii</a>
+                        <button style="display:none" type="submit" class="btn btn-primary" id="submitTaiok">Tải ok</a>
+                      </div>
+                    </div>
+            </div>
+            </div>
+        </form>
+
+
+
+
     
 </div>
+
 @endsection
+@section('script')
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+
+     
+    
+
+				$("#file_import_id").change(function() {
+						var fileExtension = ['xlsx'];
+						if($("#file_import_id")[0].files.length === 0){
+							$('#echoLoi').text('Nhập đê ko ăn đấm đấy');
+						}else if($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+							$message = "Hãy nhập file excel : "+fileExtension.join(', ');
+							$('#echoLoi').text($message);
+							return false;
+						}else{
+							$('#echoLoi').text('');
+				}
+				});
+
+   				// 	 });
+				
+					$("#submitTai").click(function(event){
+						var fileExtension = ['xlsx', 'xls'];
+						if(	$('#echoLoi').text() != ''){
+							console.log('abc');
+						}
+						else{
+							// document.querySelector('.loading').style.display='block';
+							$('#exampleModalImport').modal('hide');
+							var formData = new FormData();
+							var fileExcel = document.querySelector('#file_import_id');
+							formData.append("file", fileExcel.files[0]);
+
+							axios.post("{{route('import.ket-qua-ts')}}", formData,{
+								headers: {
+             						   'Content-Type': 'multipart/form-data',
+           					     }
+							}).then(function (response) {
+										if(response.data == 'ok'){
+											window.location.reload();
+											console.log('Ahihi');
+										}else{
+											$('#submitTaiok').trigger('click');
+											// document.querySelector('.loading').style.display='none';
+											$('#my_form_kqts_import')[0].reset();
+										}
+								}).catch(function (error) {
+									window.location.reload();
+									console.log(error);
+								});
+						}
+						});
+
+			    function validateMyForm(){
+						if($("#file_import_id")[0].files.length === 0){
+							$('#echoLoi').text('Nhập đê ko ăn đấm đấy');
+							return false;
+						}else{
+							// document.querySelector('.loading').style.display='block';
+							$('#exampleModalImport').modal('hide');
+							return true;
+						}						
+             }
+
+             function clickDownloadTemplate(){
+                $('#exampleModal').modal('hide');
+             }
+ </script>
+@endsection
+

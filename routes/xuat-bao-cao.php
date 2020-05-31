@@ -51,6 +51,10 @@ Route::group(['prefix' => 'ket-qua-tuyen-sinh'], function(){
     Route::get('/them-so-lieu-tuyen-sinh','SoLieuTuyenSinh@themsolieutuyensinh')->name('themsolieutuyensinh');
     Route::post('/them-so-lieu-tuyen-sinh','SoLieuTuyenSinh@postthemsolieutuyensinh')->name('postthemsolieutuyensinh');
     Route::post('/get-ma-nganh-nghe','SoLieuTuyenSinh@getmanganhnghe');
+    
+
+    Route::post('form-nhap-sv','ExportSVController@exportFormNhapSinhVien')->name('layformbieumausinhvien');
+
 
 });
 

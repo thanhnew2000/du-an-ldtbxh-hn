@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 use App\Services\SoLieuTuyenSinhService;
 class SoLieuTuyenSinh extends Controller
 {
@@ -19,8 +19,8 @@ class SoLieuTuyenSinh extends Controller
     {
         $limit =4;
         $data = $this->SoLieuTuyenSinhService->getSoLuongTuyenSinh($limit);
-      
-       return view('solieutuyensinh.tong_hop_so_lieu_tuyen_sinh',compact('data','limit'));
+       $co_so_dao_tao =  DB::table('co_so_dao_tao')->get();
+       return view('solieutuyensinh.tong_hop_so_lieu_tuyen_sinh',compact('data','limit','co_so_dao_tao'));
     }
 
 
