@@ -79,7 +79,9 @@ class SoLieuTuyenSinhService extends AppService
 
     public function getDataSeachCoSo($id)
     {
-        return $data = $this->repository->getDataSeachCoSo($id);
+        $data = $this->repository->getDataSeachCoSo($id);
+        $data->ketquatuyensinh = $data->so_luong_sv_Cao_dang+$data->so_luong_sv_Trung_cap+$data->so_luong_sv_So_cap+$data->so_luong_sv_he_khac;
+        return $data;
     }
 
 }

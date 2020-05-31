@@ -139,8 +139,8 @@
               <td><input type="number" required min="0" step="1" value="{{$datatuyensinhid->ke_hoach_tuyen_sinh_khac}}" name="ke_hoach_tuyen_sinh_khac"  class="form-control" id="inputEmail4"></td>
             </tr>
             <tr>
-              <td>Tổng số kế hoạch tuyển sinh</td>
-              <td><input rowspan="2" value="{{$datatuyensinhid->tong_so_tuyen_sinh}}" name="tong_so_tuyen_sinh" type="number" required min="0" step="1"  class="form-control" id="inputEmail4"></td>
+              <td colspan="2">Tổng số kế hoạch tuyển sinh</td>
+              <td colspan="3"><input style="width: 300px;" value="{{$datatuyensinhid->tong_so_tuyen_sinh}}" name="tong_so_tuyen_sinh" type="number" required min="0" step="1"  class="form-control" id="inputEmail4"></td>
             </tr>
           </tbody>
         </table>
@@ -154,7 +154,7 @@
   @endif
 <div class="row mt-4" style="float: right">
   <div class="col-md-12">
-    <button type="button" class="btn btn-danger mr-5">Hủy</button>
+    <button type="button" class="btn btn-danger mr-5"><a style="color: white" href="{{route('solieutuyensinh')}}">Hủy</a></button>
   <button type="submit" class="btn btn-primary">Cập nhật</button>
   
 </div>

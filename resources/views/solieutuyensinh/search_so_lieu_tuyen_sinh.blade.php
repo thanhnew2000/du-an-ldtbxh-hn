@@ -78,7 +78,6 @@
         <table class="table">
             <thead >
               <tr>
-                <th scope="col">STT</th>
                 <th scope="col">Tên cơ sở đào tạo</th>
                 <th scope="col">Loại hình cơ sở</th>
                 <th scope="col">Kết quả tuyển sinh <br> Cao Đẳng</th>
@@ -87,41 +86,19 @@
                 <th scope="col">Kết quả tuyển sinh <br> Khác</th>
                 <th scope="col">Kết quả tuyển sinh</th>
                 <th scope="col">Kế hoạch tuyển sinh</th>
-                <th scope="col">Trạng thái</th>
-                <th scope="col">Chỉnh sửa</th>
-                <th scope="col">Thao tác</th>
               </tr>
             </thead>
-            <tbody>
-            {{-- @php
-                if (!isset($_GET['page'])) {
-                  $i=1;
-                }else {
-                    $i = $limit*($_GET['page']-1)+1;
-                }
-             
-            @endphp --}}
-                @foreach ($data as $item)               
+            <tbody>              
                 <tr>
-                    <td>1</td>
-                <td>{{$item->ten}}</td>
-                    <td>{{$item->loai_hinh_co_so}}</td>
-                    <td>{{$item->so_luong_sv_Cao_dang}}</td>
-                    <td>{{$item->so_luong_sv_Trung_cap}}</td>
-                    <td>{{$item->so_luong_sv_So_cap}}</td>
-                <td>{{$item->so_luong_sv_he_khac}}</td>
-                    <td>{{$item->ketquatuyensinh}}</td>
-                    <td>{{$item->tong_so_tuyen_sinh}}</td>
-                <td>{{$item->trang_thai}}</td>
-                    <td> 
-                        @if ($item->trang_thai<3)
-                        <a href="{{route('suasolieutuyensinh',['id'=>$item->id])}}">Sửa</a>
-                        @endif               
-                        
-                    </td>
-                    <td><a href="{{route('chitietsolieutuyensinh',['id'=>$item->id])}}">Chi tiết</a></td>
+                <td>{{$data->ten}}</td>
+                    <td>{{$data->loai_hinh_co_so}}</td>
+                    <td>{{$data->so_luong_sv_Cao_dang}}</td>
+                    <td>{{$data->so_luong_sv_Trung_cap}}</td>
+                    <td>{{$data->so_luong_sv_So_cap}}</td>
+                <td>{{$data->so_luong_sv_he_khac}}</td>
+                    <td>{{$data->ketquatuyensinh}}</td>
+                    <td>{{$data->tong_so_tuyen_sinh}}</td>
                   </tr>
-                @endforeach
              
       
             </tbody>
@@ -129,7 +106,7 @@
         </div>
     </div>
     <div class="row phantrang">
-        {{$data->links()}}
+      
     </div>
     
 </div>

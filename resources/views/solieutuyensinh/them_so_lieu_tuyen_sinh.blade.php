@@ -164,8 +164,8 @@
                   id="inputEmail4"></td>
             </tr>
             <tr>
-              <td>Tổng số kế hoạch tuyển sinh</td>
-              <td><input rowspan="2" name="tong_so_tuyen_sinh" type="number" required min="0" step="1"
+              <td  colspan="2">Tổng số kế hoạch tuyển sinh</td>
+              <td  colspan="3"><input style="width: 300px;"  name="tong_so_tuyen_sinh" type="number" required min="0" step="1"
                   class="form-control" id="inputEmail4"></td>
             </tr>
           </tbody>
@@ -180,7 +180,7 @@
     @endif
     <div class="row mt-4" style="float: right">
       <div class="col-md-12">
-        <button type="button" class="btn btn-danger mr-5"><a style="color: white" href="">Hủy</a></button>
+      <button type="button" class="btn btn-danger mr-5"><a style="color: white" href="{{route('solieutuyensinh')}}">Hủy</a></button>
         <button type="submit" class="btn btn-primary">Thêm mới</button>
 
       </div>
