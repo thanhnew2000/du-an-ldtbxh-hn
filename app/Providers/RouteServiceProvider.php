@@ -46,6 +46,19 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
+        $this->mapAccountRoutes();
+
+        $this->mapProfileRoutes();
+
+        $this->mapCoSoDaoTaoRoutes();
+
+        $this->mapNganhNgheRoutes();
+
+        $this->mapXuatBaoCaoRoutes();
+
+        $this->mapNhapBaoCaoRoutes();
+
+
         //
     }
 
@@ -61,6 +74,60 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/web.php'));
+    }
+
+    // 2020-05-30 - thienth - chia thêm route account
+    protected function mapAccountRoutes()
+    {
+        Route::middleware('web', 'auth')
+            ->prefix('account')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/account.php'));
+    }
+
+    // 2020-05-30 - thienth - chia thêm route profile
+    protected function mapProfileRoutes()
+    {
+        Route::middleware('web', 'auth')
+            ->prefix('thong-tin-tai-khoan')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/profile.php'));
+    }
+
+    // 2020-05-30 - thienth - chia thêm route co-so-dao-tao
+    protected function mapCoSoDaoTaoRoutes()
+    {
+        Route::middleware('web', 'auth')
+            ->prefix('co-so-dao-tao')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/co-so-dao-tao.php'));
+    }
+
+    // 2020-05-30 - thienth - chia thêm route nganh-nghe
+    protected function mapNganhNgheRoutes()
+    {
+        Route::middleware('web', 'auth')
+            ->prefix('nganh-nghe')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/nganh-nghe.php'));
+    }
+
+    // 2020-05-30 - thienth - chia thêm route xuat-bao-cao
+    protected function mapXuatBaoCaoRoutes()
+    {
+        Route::middleware('web', 'auth')
+            ->prefix('xuat-bao-cao')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/xuat-bao-cao.php'));
+    }
+
+    // 2020-05-30 - thienth - chia thêm route nhap-bao-cao
+    protected function mapNhapBaoCaoRoutes()
+    {
+        Route::middleware('web', 'auth')
+            ->prefix('nhap-bao-cao')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/nhap-bao-cao.php'));
     }
 
     /**

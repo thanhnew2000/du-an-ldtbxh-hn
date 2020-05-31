@@ -15,6 +15,9 @@
       </div>
     </div>
     <div class="col-md-12">
+      <div class="row">
+
+    
         <div class="form-group col-5 d-flex justify-content-around align-items-center">
           <label for="" class="fillter-name col-4">Tên cơ sở đào tạo <span class="batbuoc">*</span></label>
           <select class="form-control col-8" required name="co_so_id" id="co_so_dao_tao">
@@ -31,6 +34,27 @@
             <option value="" selected >Mã ngành nghề</option>
           </select>
         </div>
+      </div>
+      <div class="row">
+
+    
+        <div class="form-group col-5 d-flex justify-content-around align-items-center">
+          <label for="" class="fillter-name col-4">Tên cơ sở đào tạo <span class="batbuoc">*</span></label>
+          <select class="form-control col-8" required name="co_so_id" id="co_so_dao_tao">
+            <option value="">Chọn</option>
+            @foreach ($data as $item)
+          <option value="{{$item->id}}" >{{$item->ten}}</option>
+            @endforeach
+           
+          </select>
+        </div>
+        <div class="form-group col-5 d-flex justify-content-around align-items-center">
+          <label for="" class="fillter-name col-4">Mã ngành nghề <span class="batbuoc">*</span></label>
+          <select disabled class="form-control col-8" name="nghe_id" id="">
+            <option value="" selected >Mã ngành nghề</option>
+          </select>
+        </div>
+      </div>
         <div class="form-group col-5 d-flex justify-content-around align-items-center">
           <label for="" class="fillter-name col-4">Báo cáo url<span class="batbuoc">*</span></label>
           <input type="text"class="form-control col-8" required name="bao_cao_url" id="exampleInputEmail1" aria-describedby="emailHelp">

@@ -1,8 +1,7 @@
 .m-content,.btn{
     font-family: Roboto ;
     font-style: normal;
-    font-weight: bold;
-    font-size: 14px;
+    font-size: 12px;
     line-height: 16px;
 }
 .fillter-area {
@@ -29,6 +28,9 @@ height: auto;
     width: 100px;
     height: 35px;
 }
+table{
+    font-size: 12px !important;
+}
 thead{
     background-color: #1F3247;
     color: white;
@@ -38,8 +40,7 @@ thead tr{
    text-align: center;
 }
 thead tr th{
-    padding: 0px !important;
-    line-height: 50px;
+    vertical-align: top !important;
     border-right: 1px solid #DEDEDE;
 }
 tbody tr:nth-child(even) {
@@ -50,8 +51,6 @@ tbody tr{
     text-align: center;
 }
 tbody tr td{
-   padding: 0px !important;
-   line-height: 50px;  
    border-right: 1px solid #DEDEDE;
 }
 .phantrang{
@@ -65,29 +64,6 @@ tbody tr td{
 .bieumau{
     line-height: 40px;
 }
-table{
+/* table{
     width: 200% !important;
-}
-.scoll-x{
-    overflow-x: auto;
-}
-@media screen and (max-width: 430px) {
-
-table{
-    width: 200% !important;
-}
-.scoll-x{
-    overflow-x: auto;
-}
-}
-
-@media screen and (max-width: 320px) {
-
-    table{
-        width: 300% !important;
-    }
-    .scoll-x{
-        overflow-x: auto;
-    }
-
-}
+} */

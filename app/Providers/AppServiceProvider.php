@@ -15,8 +15,8 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(
-            \App\Repositories\SoLieuTuyenSinhInterface::class,
-            \App\Repositories\SoLieuTuyenSinhRepository::class
+            \App\Repositories\BaseRepository::class,
+            \App\Repositories\RepositoryInterface::class
         );
     }
 

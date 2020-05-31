@@ -72,10 +72,10 @@
                 <th scope="col">STT</th>
                 <th scope="col">Tên cơ sở đào tạo</th>
                 <th scope="col">Loại hình cơ sở</th>
-                <th scope="col">Kết quả tuyển sinh Cao Đẳng</th>
-                <th scope="col">Kết quả tuyển sinh Trung Cấp</th>
-                <th scope="col">Kết quả tuyển sinh Sơ đẳng</th>
-                <th scope="col">Kết quả tuyển sinh Khác</th>
+                <th scope="col">Kết quả tuyển sinh <br> Cao Đẳng</th>
+                <th scope="col">Kết quả tuyển sinh <br> Trung Cấp</th>
+                <th scope="col">Kết quả tuyển sinh <br> Sơ đẳng</th>
+                <th scope="col">Kết quả tuyển sinh <br> Khác</th>
                 <th scope="col">Kết quả tuyển sinh</th>
                 <th scope="col">Kế hoạch tuyển sinh</th>
                 <th scope="col">Chỉnh sửa</th>

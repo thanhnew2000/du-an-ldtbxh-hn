@@ -1,9 +1,13 @@
-<?php 
+<?php
+
 namespace App\Services;
 
+use Carbon\Carbon;
+
 use App\Repositories\RepositoryInterface;
+
 abstract  class AppService
-{   
+{
     //Repositry muon tuong tac
     protected $repository;
 
@@ -15,19 +19,19 @@ abstract  class AppService
     }
     //Lay repository tuong ung
     public function getRepository()
-    {   
+    {
         return $this->repository->getRepository();
-
     }
 
-    public function setRepository(){
+    public function setRepository()
+    {
         $this->repository = app()->make(
             $this->getRepository()
         );
     }
-    
+
     public function getAll()
-    {   
+    {
         return $this->repository->getAll();
     }
 
@@ -37,27 +41,25 @@ abstract  class AppService
     }
 
     public function create($request)
-    {   
+
+    {
         $attributes = $request->all();
-        //dd($attributes);
+        // dd($attributes);
         unset($attributes['_token']);
         return $this->repository->create($attributes);
     }
 
     public function update($id, $request)
-    {   
+    {
         $attributes = $request->all();
         //dd($attributes);
         unset($attributes['_token']);
-        
-        return $this->repository->update($id, $attributes);
 
+        return $this->repository->update($id, $attributes);
     }
 
     public function delete($id)
-    {   
+    {
         return $this->repository->delete($id);
     }
 }
-
- ?>

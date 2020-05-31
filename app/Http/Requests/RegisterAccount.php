@@ -26,7 +26,7 @@ class RegisterAccount extends FormRequest
         return [
             'email' => 'required|unique:users,email|email',
             'phone' => 'required|digits:10|unique:users,phone_number',
-            'name'  => 'required|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/|min:6|max:40',
+            'name'  => 'required|regex:/^[\pL\s\-]+$/u|min:6|max:40',
             
         ];
     }
@@ -41,7 +41,7 @@ class RegisterAccount extends FormRequest
             'phone.digits' => 'Vui lòng nhập số có độ dài 10 ký tự',  
             'phone.unique' => 'Số điện thoại đã tồn tại',  
             'name.required' => 'Vui lòng nhập họ tên', 
-            'name.regex' => 'Tên phải là chữ', 
+            'name.regex' => 'Tên không chứa số và ký tự đặc biệt',
             'name.min' => 'Họ tên ít nhất 6 ký tự',  
             'name.max' => 'Họ tên không được vượt quá 40 ký tự', 
         ];
