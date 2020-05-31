@@ -93,17 +93,17 @@
               </tr>
             </thead>
             <tbody>
-            @php
+            {{-- @php
                 if (!isset($_GET['page'])) {
                   $i=1;
                 }else {
                     $i = $limit*($_GET['page']-1)+1;
                 }
              
-            @endphp
+            @endphp --}}
                 @foreach ($data as $item)               
                 <tr>
-                    <td>{{$i++}}</td>
+                    <td>1</td>
                 <td>{{$item->ten}}</td>
                     <td>{{$item->loai_hinh_co_so}}</td>
                     <td>{{$item->so_luong_sv_Cao_dang}}</td>

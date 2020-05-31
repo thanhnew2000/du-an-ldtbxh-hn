@@ -13,8 +13,7 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 	}
 
 	public function getSoLuongTuyenSinh($limit){
-		$nam= Carbon::now()->year;
-		return $this->table->where('nam', '=', $nam)->join('co_so_dao_tao', 'tuyen_sinh.co_so_id', '=', 'co_so_dao_tao.id')
+		return $this->table->join('co_so_dao_tao', 'tuyen_sinh.co_so_id', '=', 'co_so_dao_tao.id')
 		->join('loai_hinh_co_so', 'co_so_dao_tao.ma_loai_hinh_co_so', '=', 'loai_hinh_co_so.id')
 		->select('tuyen_sinh.*', 'co_so_dao_tao.ten','loai_hinh_co_so.loai_hinh_co_so')
 		->paginate($limit);
@@ -55,6 +54,54 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 		->join('nganh_nghe', 'tuyen_sinh.nghe_id', '=', 'nganh_nghe.id')
 		->select('tuyen_sinh.*', 'nganh_nghe.ten_nganh_nghe')->get()->first();
 		return $result;
+	}
+	public function getCheckTonTaiSoLieuTuyenSinh($arrcheck)
+	{
+			$kiem_tra = $this->table->where($arrcheck)->select('tuyen_sinh.id','tuyen_sinh.trang_thai')->first();
+			if($kiem_tra!=null){
+				if($kiem_tra->trang_thai >= 3){
+					return 'tontai';
+				};
+			}
+			return $kiem_tra;
+	}
+
+	public function getDataSeachCoSo($id)
+	{
+		// $data = DB::select('select 
+		// 						ts.*,
+		// 						csdt.ten,
+		// 						lhcs.loai_hinh_co_so
+		// 					FROM tuyen_sinh as ts 
+		// 					join co_so_dao_tao as csdt
+		// 						on ts.co_so_id = csdt.id
+		// 					join loai_hinh_co_so as lhcs
+		// 						on csdt.ma_loai_hinh_co_so = lhcs.id
+		// 					WHERE ts.co_so_id = ?
+		// 					GROUP BY ts.co_so_id', [$id]);
+
+		// $data =  $this->table
+		// 	->select(
+		// 		'tuyen_sinh.id', 
+		// 		'tuyen_sinh.nam', 
+		// 		'tuyen_sinh.dot', 
+		// 		'tuyen_sinh.so_luong_sv_Cao_dang', 
+		// 		'co_so_dao_tao.ten',
+		// 		'loai_hinh_co_so.loai_hinh_co_so')
+		// 	->join('co_so_dao_tao', 'tuyen_sinh.co_so_id', '=', 'co_so_dao_tao.id')
+		// 	->join('loai_hinh_co_so', 'co_so_dao_tao.ma_loai_hinh_co_so', '=', 'loai_hinh_co_so.id')
+		// 	->groupBy(
+		// 		'tuyen_sinh.co_so_id', 
+		// 		// 'tuyen_sinh.id', 
+		// 		// 'tuyen_sinh.nam',
+		// 		// 'tuyen_sinh.dot',
+		// 		// 'tuyen_sinh.so_luong_sv_Cao_dang',
+		// 		// 'co_so_dao_tao.ten',
+		// 		// 'loai_hinh_co_so.loai_hinh_co_so'
+		// 		)
+		// 	->having('tuyen_sinh.co_so_id', '=', $id)
+		// 	->get();
+		dd($id);
 	}
 
 }

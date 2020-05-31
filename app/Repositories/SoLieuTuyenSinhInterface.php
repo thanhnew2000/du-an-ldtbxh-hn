@@ -9,6 +9,8 @@ interface SoLieuTuyenSinhInterface
 	public function getmanganhnghe($id);
 	public function postthemsolieutuyensinh($getdata);
 	public function getsuasolieutuyensinh($id);
+	public function getCheckTonTaiSoLieuTuyenSinh($arrcheck);
+	public function getDataSeachCoSo($id);
 }
 
 
