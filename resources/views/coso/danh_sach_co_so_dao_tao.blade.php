@@ -46,7 +46,7 @@
 
                 <div class="d-flex justify-content-between container pt-3 mb-5 col-3">
                     <button type="submit" class="btn btn-primary btn-fillter">Tìm kiếm</button>
-                    <button type="submit" class="btn btn-danger btn-fillter">Hủy</button>
+                    <button type="reset" class="btn btn-danger btn-fillter">Hủy</button>
                 </div>
 
             </form>
@@ -64,7 +64,7 @@
                 Tải lên file Excel</a>
         </div>
         <div class="btn">
-            <a href="{{route('them_co_so')}}" class="btn btn-outline-primary">Thêm mới</a>
+            <a href="{{route('csdt.them')}}" class="btn btn-outline-primary">Thêm mới</a>
         </div>
     </section>
     <!-- end- action -->
@@ -97,12 +97,12 @@
                             <td>{{$csdt->qd_ten}}</td>
                             <td>{{$csdt->dia_chi}}</td>
                             <td>
-                                <a href="{{route('sua_co_so', ['id'=> $csdt->id])}}"
+                                <a href="{{route('csdt.sua', ['id'=> $csdt->id])}}"
                                     class="btn btn-outline-primary">Sửa</a>
                             </td>
                             <td>
-                                <a href="{{route('chi_tiet_co_so', ['id'=> $csdt->id])}}"
-                                    class="btn btn-outline-info">Chi tiết</a>
+                                <a href="{{route('csdt.chitiet', ['id'=> $csdt->id])}}" class="btn btn-outline-info">Chi
+                                    tiết</a>
                             </td>
                         </tr>
                         @endforeach

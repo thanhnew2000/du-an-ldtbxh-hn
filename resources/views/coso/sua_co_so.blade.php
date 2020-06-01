@@ -11,8 +11,9 @@
     </div>
 
     <section class="add-csdt-area container p-5">
+        <p>{{$mess ?? ''}}</p>
         @forelse ($data as $item)
-        <form action="{{ route('saveEdit', ['id'=> $item->id]) }}" enctype="multipart/form-data" method="POST">
+        <form action="{{ route('saveEditCsdt', ['id'=> $item->id]) }}" enctype="multipart/form-data" method="POST">
             {{ csrf_field() }}
             <div class="row d-flex justify-content-between">
                 <div class="form-group d-flex justify-content-between align-items-center col-5">

@@ -42,8 +42,9 @@
     line-height: 28px;
 }
 
-.add-csdt-area {
-    background-color: #FFFFFF;
+.main-form {
+    padding: 1.5rem 0;
+    background-color: #fafafa;
     border-radius: 10px;
 }
 
