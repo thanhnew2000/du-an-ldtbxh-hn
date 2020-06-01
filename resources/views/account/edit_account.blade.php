@@ -20,7 +20,7 @@
                                 <i class="la la-gear"></i>
                             </span>
                             <h3 class="m-portlet__head-text">
-                                Edit tài khoản
+                                Chỉnh sửa tài khoản
                             </h3>
                             
                             
@@ -44,7 +44,7 @@
 
 
                 <!--begin::Form-->
-                <form id="validate-form-update" class="m-form m-form--fit m-form--label-align-left" action="{{ url('account/update/') }}" method="POST" >
+                <form id="validate-form-update" class="m-form m-form--fit m-form--label-align-left" action="{{ route('account.update') }}" method="POST" >
                     <div class="m-portlet__body">
                     
                         {{ csrf_field() }}
@@ -60,16 +60,6 @@
                                 <input class="form-control m-input" type="text" name="name" value="{{ $user->name }}" placeholder="Nhập Họ và Tên">
                                 @if ($errors->has('name'))
                                 <span class="text-danger">{{ $errors->first('name') }}</span>
-                                    
-                                @endif
-                            </div>
-                        </div>
-                        <div class="form-group m-form__group row">
-                            <label  class="col-4 col-form-label">Email</label>
-                            <div class="col-6">
-                                <input class="form-control m-input" type="text" name="email"  value="{{ $user->email }}" placeholder="Nhập Email">
-                                @if ($errors->has('email'))
-                                <span class="text-danger">{{ $errors->first('email') }}</span>
                                     
                                 @endif
                             </div>
@@ -94,7 +84,7 @@
                          
                                 <div class="col-12 d-flex justify-content-center">
                                   
-                                    <a href="{{ url('account/quan-ly-tai-khoan') }}" class="btn btn-danger">Hủy</a>&nbsp&nbsp&nbsp
+                                    <a href="{{ route('account.list') }}" class="btn btn-danger">Hủy</a>&nbsp&nbsp&nbsp
                                     <button type="submit"  class="btn btn-success">Update</button>
                                 </div>
                             </div>
@@ -117,26 +107,6 @@
 	$(document).ready(function() {
         $("#validate-form-update").validate({
             rules: {
-                email: {
-                	required: true,
-      				email: true,
-			    	remote: {
-			    		headers: {
-					        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-					    },
-				        url: "{{ route('check-email') }}",
-				        type: "post",
-				        data: {
-				        	_token: '{{csrf_token()}}',
-				            name: function() {
-				                return $( "input[name='email']" ).val();
-				            },
-							id: function() {
-                                return $("input[name='id']").val();
-                            }
-				        }
-				    }
-                },
                 phone:{
                 	required: true,
       				number: true,
@@ -162,15 +132,23 @@
                 name: {
                     required: true,
                     minlength: 6,
-                    maxlength: 30
+                    maxlength: 30,
+                    remote: {
+			    		headers: {
+					        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					    },
+				        url: "{{ route('account.check-name') }}",
+				        type: "post",
+				        data: {
+				        	_token: '{{csrf_token()}}',
+				            name: function() {
+				                return $( "input[name='name']" ).val();
+				            }
+				        }
+				    }
                 }
             },
             messages: {
-                email: {
-                	required: "Vui lòng nhập địa chỉ email",
-                	email: "Vui lòng nhập đúng định dạng email",
-                	remote: "Địa chỉ email đã tồn tại"
-                },
                 phone: {
                 	required: "Vui lòng nhập số điện thoại",
                 	number: "Vui lòng nhập số",
@@ -181,7 +159,8 @@
                 name: {
                     required: "Vui lòng nhập họ tên",
                     minlength: "Họ tên ít nhất 6 ký tự",
-                    maxlength: "Họ tên không được vượt quá 40 ký tự"
+                    maxlength: "Họ tên không được vượt quá 40 ký tự",
+                    remote: "Họ và tên không hợp lệ"
                 }
                 
             }

@@ -30,7 +30,11 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        ///Phuc kiem tra id role keyword 10:11 - 01/06/20
+        Route::pattern('id', '[0-9]+');
+        Route::pattern('role', '[0-9]+');
+        Route::pattern('status', '[0-9]+');
+        Route::pattern('keyword', '.*');
 
         parent::boot();
     }
