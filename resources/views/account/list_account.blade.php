@@ -61,7 +61,7 @@ table{
 						</div>
 
 						<div class="fillter-form" style="padding-bottom:1rem;">
-							<form method="GET" action="{{ route('account.search') }}">
+							<form method="GET" action="{{ route('account.search') }}" >
                                
                                 
 								<div class="d-flex container pt-3 ">
@@ -92,7 +92,7 @@ table{
                                     <div class="input-group">
                                         <input type="text" class="form-control" name="keyword" placeholder="Search term..." id="keyword">
                                         <span class="input-group-btn">
-                                            <button class="btn btn-outline-drak border btn-sm"  type="submit"><i class="fas fa-search" aria-hidden="true"></i></button>
+                                            <button class="btn btn-outline-drak border btn-sm"   type="submit"><i class="fas fa-search" aria-hidden="true"></i></button>
                                         </span>
                                     </div>
 								</div>
@@ -244,6 +244,28 @@ table{
             console.log(error);
         });
         }
+
+        // function search(){
+        //     console.log('Đang Search');
+
+        //     // var t = $( "select[name='status']" ).val();
+   
+
+        //     var data={
+        //         'status': $( "select[name='status']" ).val(),
+        //         'keyword': $( "input[name='keyword']" ).val()
+        //     }
+        //     console.log(data);
+        //     axios.post("{{ route('account.search') }}", data)
+        //     // .then(function (response) {
+        //     //     console.log(response);
+        //     //     console.log('Thay đổi status THÀNH CÔNG');
+        //     // })
+        //     // .catch(function (error) {
+        //     //     console.log(error);
+        //     // });
+
+        // }
 
     
 
