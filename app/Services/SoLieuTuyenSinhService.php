@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace App\Services;
 
 use Illuminate\Http\Request;
@@ -51,7 +51,7 @@ class SoLieuTuyenSinhService extends AppService
 
         return $data;
     }
-    
+
     public function getChiTietSoLuongTuyenSinh($nam, $dot, $coSoId){
         $data = $this->repository->getChiTietSoLuongTuyenSinh($nam, $dot, $coSoId);
         $data->ketquatuyensinh = $data->so_luong_sv_Cao_dang+$data->so_luong_sv_Trung_cap+$data->so_luong_sv_So_cap+$data->so_luong_sv_he_khac;
@@ -60,7 +60,7 @@ class SoLieuTuyenSinhService extends AppService
     public function getTenCoSoDaoTao(){
         return $this->repository->getTenCoSoDaoTao();
     }
-    
+
     public function getmanganhnghe($id){
         $data = $this->repository->getmanganhnghe($id);
         return $data;
@@ -98,4 +98,4 @@ class SoLieuTuyenSinhService extends AppService
     }
 
 }
- ?> 
+ ?>

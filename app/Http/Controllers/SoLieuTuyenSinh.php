@@ -31,7 +31,7 @@ class SoLieuTuyenSinh extends Controller
 
     public function searchCoSoTongHopSoLieuTuyenSinh(Request $request)
     {
-        $data = $this->SoLieuTuyenSinhService->getDataSeachCoSo($request->co_so_id);  
+        $data = $this->SoLieuTuyenSinhService->getDataSeachCoSo($request->co_so_id);
         $data_co_so =  $this->SoLieuTuyenSinhService->getTenCoSoDaoTao();
        return view('solieutuyensinh.search_so_lieu_tuyen_sinh',compact('data','data_co_so'));
     }
@@ -66,7 +66,7 @@ class SoLieuTuyenSinh extends Controller
     }
 
     public function getmanganhnghe(Request $request)
-    {   
+    {
         $data = $this->SoLieuTuyenSinhService->getmanganhnghe($request->id);
         return $data;
     }
@@ -87,6 +87,6 @@ class SoLieuTuyenSinh extends Controller
         }else{
             return $urledit = route('suasolieutuyensinh', ['id' => $getdata->id]);
         }
-        
+
     }
 }

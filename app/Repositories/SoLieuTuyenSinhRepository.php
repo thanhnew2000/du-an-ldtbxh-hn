@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace App\Repositories;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\BaseRepository;
@@ -13,6 +13,7 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 
 	public function getSoLuongTuyenSinh($params, $limit = 10)
 	{
+		// dd($params);
 		$query = $this->table
 			->join('co_so_dao_tao', 'tuyen_sinh.co_so_id', '=', 'co_so_dao_tao.id')
 			->join('loai_hinh_co_so', 'co_so_dao_tao.ma_loai_hinh_co_so', '=', 'loai_hinh_co_so.id')
@@ -34,13 +35,15 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 			->where('tuyen_sinh.nam', $params['nam'])
 			->where('tuyen_sinh.dot', $params['dot']);
 
-		if (isset($params['loai_hinh'])) {
+		if (isset($params['loai_hinh']) && $params['loai_hinh'] != 0) {
 			$query->where('loai_hinh_co_so.id', $params['loai_hinh']);
 		}
 
-		if (isset($params['co_so_id'])) {
+		if (isset($params['co_so_id']) && $params['co_so_id'] != null) {
 			$query->where('tuyen_sinh.co_so_id', $params['co_so_id']);
 		}
+
+		// dd($query->toSql());
 
 		return $query->groupBy('co_so_id')->paginate($limit);
 	}
