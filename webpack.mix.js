@@ -12,4 +12,5 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
+    .js('resources/js/so_lieu_tuyen_sinh/tong_hop_so_lieu.js', 'public/js/so_lieu_tuyen_sinh')
     .sass('resources/sass/app.scss', 'public/css');

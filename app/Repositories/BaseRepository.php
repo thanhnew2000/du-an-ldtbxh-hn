@@ -1,16 +1,15 @@
 <?php
 
-
 namespace App\Repositories;
-
 
 use Illuminate\Support\Facades\DB;
 use App\Repositories\RepositoryInterface;
 
 abstract class BaseRepository implements RepositoryInterface
 {
-    //model muốn tương tác
+    //table muốn tương tác
     protected $table;
+
     //Khởi tạo
     public function __construct()
     {
@@ -23,14 +22,14 @@ abstract class BaseRepository implements RepositoryInterface
     public function setTable()
     {
         $this->table = DB::table($this->getTable());
-        //        dd($this->table);
     }
 
     public function getAll()
     {
-        $result =  $this->table->get();
+        $result = $this->table->get();
         return $result;
     }
+
     public function getById($id)
     {
         $result = $this->table->find($id);
@@ -46,7 +45,6 @@ abstract class BaseRepository implements RepositoryInterface
 
     public function update($id, $attributes = [])
     {
-        // dd($attributes);
         return $this->table
             ->where('id', $id)
             ->update($attributes);
