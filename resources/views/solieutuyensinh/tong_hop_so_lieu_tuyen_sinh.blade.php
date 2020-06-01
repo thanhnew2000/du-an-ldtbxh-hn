@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('title', "Tổng hợp số liệu tuyển sinh")
 @section('style')
-<link href="{!! asset('styletuyensinh/showtuyensinh.css') !!}" rel="stylesheet" type="text/css" />
+<link href="{!! asset('tuyensinh/css/showtuyensinh.css') !!}" rel="stylesheet" type="text/css" />
 @endsection
 @section('content')
 <div class="m-content">
@@ -10,15 +10,16 @@
             <h4>Bộ lọc</h4>
         </div>
         <div class="fillter-form">
-            <form action="">
+        <form action="{{route('searchCoSoTongHopSoLieuTuyenSinh')}}" method="get">
                 <div class="d-flex container pt-3">
                     <div class="form-group col-md-6 col-12 d-flex justify-content-around align-items-center">
                         <label for="" class="fillter-name col-4">Tên cơ sở</label>
-                        <select class="form-control col-8" name="" id="">
+                      
+                        <select class="form-control col-8" name="co_so_id" id="">
                             <option value="" selected disabled>Chọn cơ sở</option>
-                            <option>FPT Polytecnic</option>
-                            <option>Cao Đẳng du lịch</option>
-                            <option>Cao đẳng bách khoa</option>
+                            @foreach ($data_co_so as $item)
+                                <option value="{{$item->id}}" >{{$item->ten}}</option>
+                            @endforeach
                         </select>
                     </div>
 
@@ -35,12 +36,20 @@
 
                 <div class="d-flex container pt-3">
                     <div class="form-group col-md-6 col-12 d-flex justify-content-around align-items-center">
-                        <span for="" class="fillter-name col-4">Mã ngành nghề</span>
+                        <span for="" class="fillter-name col-4">Năm</span>
                         <select class="form-control col-8" name="" id="">
-                            <option value="" selected disabled>Mã đơn vị</option>
-                            <option>Công lập</option>
-                            <option>Có vốn đầu tư nước ngoài</option>
-                            <option>Tư thục</option>
+                            <option value="" selected>Chọn</option>
+                            <option value="2020">2020</option>
+                            <option value="2019">2019</option>
+                            <option value="2018">2018</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6 col-12 d-flex justify-content-around align-items-center">
+                        <span for="" class="fillter-name col-4">Đợt</span>
+                        <select class="form-control col-8" name="" id="">
+                            <option value="" selected>Chọn</option>
+                            <option value="1">Đợt 1</option>
+                            <option value="2">Đợt 2</option>
                         </select>
                     </div>
                 </div>
@@ -82,6 +91,7 @@
                 <th scope="col">Kết quả tuyển sinh <br> Khác</th>
                 <th scope="col">Kết quả tuyển sinh</th>
                 <th scope="col">Kế hoạch tuyển sinh</th>
+                <th scope="col">Trạng thái</th>
                 <th scope="col">Chỉnh sửa</th>
                 <th scope="col">Thao tác</th>
               </tr>
@@ -106,7 +116,13 @@
                 <td>{{$item->so_luong_sv_he_khac}}</td>
                     <td>{{$item->ketquatuyensinh}}</td>
                     <td>{{$item->tong_so_tuyen_sinh}}</td>
-                    <td><a href="{{route('suasolieutuyensinh',['id'=>$item->id])}}">Sửa</a></td>
+                <td>{{$item->trang_thai}}</td>
+                    <td> 
+                        @if ($item->trang_thai<3)
+                        <a href="{{route('suasolieutuyensinh',['id'=>$item->id])}}">Sửa</a>
+                        @endif               
+                        
+                    </td>
                     <td><a href="{{route('chitietsolieutuyensinh',['id'=>$item->id])}}">Chi tiết</a></td>
                   </tr>
                 @endforeach

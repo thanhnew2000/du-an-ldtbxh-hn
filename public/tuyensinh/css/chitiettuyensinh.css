@@ -1,8 +1,7 @@
 .m-content,.btn{
     font-family: Roboto ;
     font-style: normal;
-    font-weight: bold;
-    font-size: 14px;
+    font-size: 12px !important;
     line-height: 16px;
 }
 .fillter-area {
@@ -29,7 +28,9 @@ height: auto;
     width: 100px;
     height: 35px;
 }
-
+table{
+    font-size: 12px !important;
+  }
 thead {
 background-color: #1F3247;
 color: white;
@@ -37,7 +38,7 @@ color: white;
 
 
 thead tr th {
-padding: 0px !important;
+
 text-align: center;
 /* line-height: 50px; */
 border-right: 1px solid #DEDEDE;
@@ -56,9 +57,6 @@ thead .row2 th{
     line-height: 30px;
 }
 
-.table {
-width: 200%;
-}
 tbody tr:nth-child(even) {
 background: #C5D5E4
 }

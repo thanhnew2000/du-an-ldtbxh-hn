@@ -1,70 +1,13 @@
 @extends('layouts.admin')
 @section('title', "Chi tiết số liệu tuyển sinh")
 @section('style')
-<link href="{!! asset('styletuyensinh/chitiettuyensinh.css') !!}" rel="stylesheet" type="text/css" />
+<link href="{!! asset('tuyensinh/css/chitiettuyensinh.css') !!}" rel="stylesheet" type="text/css" />
 @endsection
 @section('content')
 <div class="m-content">
-    <section class="fillter-area  mb-5">
-        <div class="fillter-title">
-            <h4>Bộ lọc</h4>
-        </div>
-        <div class="fillter-form">
-            <form action="">
-                <div class="d-flex container pt-3">
-                    <div class="form-group col-6 d-flex justify-content-around align-items-center">
-                        <label for="" class="fillter-name col-4">Tên cơ sở</label>
-                        <select class="form-control col-8" name="" id="">
-                            <option value="" selected disabled>Chọn cơ sở</option>
-                            <option>FPT Polytecnic</option>
-                            <option>Cao Đẳng du lịch</option>
-                            <option>Cao đẳng bách khoa</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group col-6 d-flex justify-content-around align-items-center">
-                        <span for="" class="fillter-name col-4">Loại hình cơ sở</span>
-                        <select class="form-control col-8" name="" id="">
-                            <option value="" selected disabled>Chọn loại hình cơ sở</option>
-                            <option>Công lập</option>
-                            <option>Có vốn đầu tư nước ngoài</option>
-                            <option>Tư thục</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="d-flex container pt-3">
-                    <div class="form-group col-6 d-flex justify-content-around align-items-center">
-                        <span for="" class="fillter-name col-4">Mã ngành nghề</span>
-                        <select class="form-control col-8" name="" id="">
-                            <option value="" selected disabled>Mã đơn vị</option>
-                            <option>Công lập</option>
-                            <option>Có vốn đầu tư nước ngoài</option>
-                            <option>Tư thục</option>
-                        </select>
-                    </div>
-                </div>
-       
-
-                <div class="d-flex justify-content-between container pt-3 mb-5 col-3">
-                    <button type="submit" class="btn btn-primary btn-fillter">Tìm kiếm</button>
-                    <button type="submit" class="btn btn-danger btn-fillter">Hủy</button>
-                </div>
-
-            </form>
-        </div>
-    </section>
-    <div class="row mb-5 bieumau">
-        <div class="col-lg-2">
-            <a href=""><i class="la la-download">Tải xuống biểu mẫu</i></a>
-        </div>
-        <div class="col-lg-2">
-            <a href=""><i class="la la-upload">Tải lên file excel</i></a>
-        </div>
-        <div class="col-lg-8 " style="text-align: right">
-        <a href="{{route('themsolieutuyensinh')}}"><button type="button" class="btn btn-secondary">Thêm mới</button></a> 
-        </div>
-    </div>
+<div class="row">
+    <h2>Chi tiết tuyển sinh</h2>
+</div>
     <div class="row">
     <div class="col-md-12 pt-3 ">
         <div class="m-section ">

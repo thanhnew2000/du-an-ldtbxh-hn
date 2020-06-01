@@ -1,7 +1,7 @@
 @extends('layouts.admin')
-@section('title', "Thêm số liệu tuyển sinh")
+@section('title', "Sửa số liệu tuyển sinh")
 @section('style')
-<link href="{!! asset('styletuyensinh/suatuyensinh.css') !!}" rel="stylesheet" type="text/css" />
+<link href="{!! asset('tuyensinh/css/suatuyensinh.css') !!}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('content')
@@ -15,9 +15,10 @@
       </div>
     </div>
     <div class="col-md-12">
-        <div class="form-group col-5 d-flex justify-content-around align-items-center">
-          <label for="" class="fillter-name col-4">Tên cơ sở đào tạo <span class="batbuoc">*</span></label>
-          <select class="form-control col-8" required name="co_so_id" id="co_so_dao_tao">
+      <div class="row">
+        <div class="form-group col-6 p-2 d-flex justify-content-around align-items-center">
+          <label for="" class="fillter-name col-3">Tên cơ sở đào tạo <span class="batbuoc">*</span></label>
+          <select class="form-control col-9" disabled name="" id="co_so_dao_tao">
             <option value="">Chọn</option>
             @foreach ($data as $item)
             <option {{($item->id == $datatuyensinhid->co_so_id ) ? 'selected' : ''}} value="{{$item->id}}" >{{$item->ten}}</option>
@@ -25,16 +26,38 @@
            
           </select>
         </div>
-        <div class="form-group col-5 d-flex justify-content-around align-items-center">
-          <label for="" class="fillter-name col-4">Mã ngành nghề <span class="batbuoc">*</span></label>
-          <select disabled class="form-control col-8" name="nghe_id" id="ma_nganh_nghe">
+        <div class="form-group col-6 p-2 d-flex justify-content-around align-items-center">
+          <label for="" class="fillter-name col-3">Mã ngành nghề <span class="batbuoc">*</span></label>
+          <select disabled class="form-control col-9"  name="" id="ma_nganh_nghe">
           <option value="" selected >{{$datatuyensinhid->ten_nganh_nghe}}</option>
           </select>
         </div>
-        <div class="form-group col-5 d-flex justify-content-around align-items-center">
-          <label for="" class="fillter-name col-4">Báo cáo url<span class="batbuoc">*</span></label>
-          <input type="text"class="form-control col-8" required  value="{{$datatuyensinhid->bao_cao_url}}" name="bao_cao_url" id="exampleInputEmail1" aria-describedby="emailHelp">
+      </div>
+      <div class="row">
+        <div class="form-group col-6  p-2 d-flex justify-content-around align-items-center">
+          <label for="" class="fillter-name col-3">Năm tuyển sinh<span class="batbuoc">*</span></label>
+          <select class="form-control col-9" disabled required name="nam" id="nam">
+            <option value="">Chọn</option>
+            <option {{( $datatuyensinhid->nam ==2020 ) ? 'selected' : ''}} value="2020">2020</option>
+            <option {{( $datatuyensinhid->nam ==2019 ) ? 'selected' : ''}} value="2019">2019</option>
+            <option {{( $datatuyensinhid->nam ==2018 ) ? 'selected' : ''}}value="2018">2018</option>
+          </select>
         </div>
+        <div class="form-group col-6  p-2 d-flex justify-content-around align-items-center">
+          <label for="" class="fillter-name col-3">Đợt tuyển sinh<span class="batbuoc">*</span></label>
+          <select class="form-control col-9" disabled name="" id="dot">
+            <option value="" selected>Chọn</option>
+            <option {{( $datatuyensinhid->dot ==1 ) ? 'selected' : ''}} value="1">Đợt 1</option>
+            <option {{( $datatuyensinhid->dot ==2 ) ? 'selected' : ''}} value="2">Đợt 2</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-6 p-2 d-flex justify-content-around align-items-center">
+          <label for="" class="fillter-name col-3">Báo cáo url<span class="batbuoc">*</span></label>
+          <input type="text"class="form-control col-9" required  value="{{$datatuyensinhid->bao_cao_url}}" name="bao_cao_url" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+      </div>
     </div>
   </div>
   <div class="row">
@@ -116,8 +139,8 @@
               <td><input type="number" required min="0" step="1" value="{{$datatuyensinhid->ke_hoach_tuyen_sinh_khac}}" name="ke_hoach_tuyen_sinh_khac"  class="form-control" id="inputEmail4"></td>
             </tr>
             <tr>
-              <td>Tổng số kế hoạch tuyển sinh</td>
-              <td><input rowspan="2" value="{{$datatuyensinhid->tong_so_tuyen_sinh}}" name="tong_so_tuyen_sinh" type="number" required min="0" step="1"  class="form-control" id="inputEmail4"></td>
+              <td colspan="2">Tổng số kế hoạch tuyển sinh</td>
+              <td colspan="3"><input style="width: 300px;" value="{{$datatuyensinhid->tong_so_tuyen_sinh}}" name="tong_so_tuyen_sinh" type="number" required min="0" step="1"  class="form-control" id="inputEmail4"></td>
             </tr>
           </tbody>
         </table>
@@ -131,7 +154,7 @@
   @endif
 <div class="row mt-4" style="float: right">
   <div class="col-md-12">
-    <button type="button" class="btn btn-danger mr-5">Hủy</button>
+    <button type="button" class="btn btn-danger mr-5"><a style="color: white" href="{{route('solieutuyensinh')}}">Hủy</a></button>
   <button type="submit" class="btn btn-primary">Cập nhật</button>
   
 </div>
@@ -140,28 +163,4 @@
 </div>
 @endsection
 @section('script')
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script>
-      $("#co_so_dao_tao" ).change(function() {
-        axios.post('/get-ma-nganh-nghe', {
-				    id:  $("#co_so_dao_tao").val(),
-				  })
-        .then(function (response) {
-          var htmldata = ''
-          response.data.forEach(element => {
-            htmldata+=`<option value="${element.id}" >${element.ten_nganh_nghe}</option>`   
-          });
-          if ($("#co_so_dao_tao").val()=='') {
-            $('#ma_nganh_nghe').attr('disabled',true)
-          }else{
-            $('#ma_nganh_nghe').attr('disabled',false)
-          }
-          
-          $('#ma_nganh_nghe').html(htmldata);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-      });
-    </script>
 @endsection
