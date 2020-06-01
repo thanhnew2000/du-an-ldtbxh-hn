@@ -14,7 +14,7 @@
                 <div class="d-flex container pt-3">
                     <div class="form-group col-md-6 col-12 d-flex justify-content-around align-items-center">
                         <label for="" class="fillter-name col-4">Tên cơ sở</label>
-                      
+
                         <select class="form-control col-8" name="co_so_id" id="">
                             <option value="" selected disabled>Chọn cơ sở</option>
                             @foreach ($data_co_so as $item)
@@ -74,7 +74,7 @@
                 Tải lên file Excel</a>
         </div>
         <div class="col-lg-8 " style="text-align: right">
-        <a href="{{route('themsolieutuyensinh')}}"><button type="button" class="btn btn-secondary">Thêm mới</button></a> 
+        <a href="{{route('themsolieutuyensinh')}}"><button type="button" class="btn btn-secondary">Thêm mới</button></a>
         </div>
     </div>
     <div class="row">
@@ -103,9 +103,9 @@
                 }else {
                     $i = $limit*($_GET['page']-1)+1;
                 }
-             
+
             @endphp
-                @foreach ($data as $item)               
+                @foreach ($data as $item)
                 <tr>
                     <td>{{$i++}}</td>
                 <td>{{$item->ten}}</td>
@@ -117,17 +117,17 @@
                     <td>{{$item->ketquatuyensinh}}</td>
                     <td>{{$item->tong_so_tuyen_sinh}}</td>
                 <td>{{$item->trang_thai}}</td>
-                    <td> 
+                    <td>
                         @if ($item->trang_thai<3)
                         <a href="{{route('suasolieutuyensinh',['id'=>$item->id])}}">Sửa</a>
-                        @endif               
-                        
+                        @endif
+
                     </td>
                     <td><a href="{{route('chitietsolieutuyensinh',['id'=>$item->id])}}">Chi tiết</a></td>
                   </tr>
                 @endforeach
-             
-      
+
+
             </tbody>
           </table>
         </div>
@@ -150,7 +150,7 @@
                       </div>
                       <div class="modal-body">
                        <select name="id_cs" class="form-control">
-                           @foreach($co_so_dao_tao as $csdt)
+                           @foreach($data_co_so as $csdt)
                            <option value="{{$csdt->id}}">{{$csdt->ten}}</option>
                            @endforeach
                        </select>
@@ -193,7 +193,7 @@
 
 
 
-    
+
 </div>
 
 @endsection
@@ -201,8 +201,8 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
 
-     
-    
+
+
 
 				$("#file_import_id").change(function() {
 						var fileExtension = ['xlsx'];
@@ -218,7 +218,7 @@
 				});
 
    				// 	 });
-				
+
 					$("#submitTai").click(function(event){
 						var fileExtension = ['xlsx', 'xls'];
 						if(	$('#echoLoi').text() != ''){
@@ -259,7 +259,7 @@
 							// document.querySelector('.loading').style.display='block';
 							$('#exampleModalImport').modal('hide');
 							return true;
-						}						
+						}
              }
 
              function clickDownloadTemplate(){
@@ -267,4 +267,3 @@
              }
  </script>
 @endsection
-
