@@ -18,19 +18,24 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 			->join('co_so_dao_tao', 'tuyen_sinh.co_so_id', '=', 'co_so_dao_tao.id')
 			->join('loai_hinh_co_so', 'co_so_dao_tao.ma_loai_hinh_co_so', '=', 'loai_hinh_co_so.id')
 			->join('trang_thai', 'tuyen_sinh.trang_thai', '=', 'trang_thai.id')
+			->join('devvn_quanhuyen', 'co_so_dao_tao.maqh', '=', 'devvn_quanhuyen.maqh')
+			->join('devvn_xaphuongthitran', 'co_so_dao_tao.xaid', '=', 'devvn_xaphuongthitran.xaid')
 			->select([
 				DB::raw("
 					SUM(tuyen_sinh.so_luong_sv_Cao_dang) as so_luong_sv_Cao_dang,
 					SUM(tuyen_sinh.so_luong_sv_Trung_cap) as so_luong_sv_Trung_cap,
 					SUM(tuyen_sinh.so_luong_sv_So_cap) as so_luong_sv_So_cap,
 					SUM(tuyen_sinh.so_luong_sv_he_khac) as so_luong_sv_he_khac,
-					SUM(tuyen_sinh.tong_so_tuyen_sinh) as tong_so_tuyen_sinh
+					SUM(tuyen_sinh.tong_so_tuyen_sinh) as tong_so_tuyen_sinh,
+					SUM(tuyen_sinh.tong_so_tuyen_sinh_cac_trinh_do) as tong_so_tuyen_sinh_cac_trinh_do
 				"),
 				'trang_thai.ten_trang_thai as trang_thai',
 				'trang_thai.id as trang_thai_id',
 				'co_so_dao_tao.id',
 				'co_so_dao_tao.ten',
-				'loai_hinh_co_so.loai_hinh_co_so'
+				'loai_hinh_co_so.loai_hinh_co_so',
+				'devvn_quanhuyen.name as quan_huyen',
+				'devvn_xaphuongthitran.name as xa_phuong',
 			])
 			->where('tuyen_sinh.nam', $params['nam'])
 			->where('tuyen_sinh.dot', $params['dot']);
@@ -42,22 +47,27 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 		if (isset($params['co_so_id']) && $params['co_so_id'] != null) {
 			$query->where('tuyen_sinh.co_so_id', $params['co_so_id']);
 		}
+		if (isset($params['devvn_quanhuyen']) && $params['devvn_quanhuyen'] != null) {
+			$query->where('co_so_dao_tao.maqh', $params['devvn_quanhuyen']);
+		}
+		if (isset($params['devvn_xaphuongthitran']) && $params['devvn_xaphuongthitran'] != null) {
+			$query->where('co_so_dao_tao.xaid', $params['devvn_xaphuongthitran']);
+		}
 
-		// dd($query->toSql());
+		// dd($query->groupBy('co_so_id')->toSql());
 
 		return $query->groupBy('co_so_id')->paginate($limit);
 	}
 
-	public function getChiTietSoLuongTuyenSinh($nam, $dot, $coSoId)
+	public function getChiTietSoLuongTuyenSinh($coSoId,$limit)
 	{
 		return $this->table
 			->where('tuyen_sinh.co_so_id', '=', $coSoId)
-			->where('tuyen_sinh.nam', '=', $nam)
-			->where('tuyen_sinh.dot', '=', $dot)
 			->join('co_so_dao_tao', 'tuyen_sinh.co_so_id', '=', 'co_so_dao_tao.id')
 			->join('loai_hinh_co_so', 'co_so_dao_tao.ma_loai_hinh_co_so', '=', 'loai_hinh_co_so.id')
 			->select('tuyen_sinh.*', 'co_so_dao_tao.ten','loai_hinh_co_so.loai_hinh_co_so')
-			->first();
+			->paginate($limit);
+
 
 	}
 
@@ -117,6 +127,39 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 					'co_so_dao_tao.ten',
 					'loai_hinh_co_so.loai_hinh_co_so',
 					)->first();
+	}
+
+	public function getCoSoTuyenSinhTheoLoaiHinh($id)
+	{	
+		if($id==0){
+			$data = DB::table('co_so_dao_tao')
+			->select('co_so_dao_tao.id', 'co_so_dao_tao.ten')->get();
+			return $data;
+		}else{
+			$data = DB::table('co_so_dao_tao')
+			->where('ma_loai_hinh_co_so', '=', $id)
+			->select('co_so_dao_tao.id', 'co_so_dao_tao.ten')->get();
+			return $data;
+		}
+	}
+
+	public function getTenQuanHuyen()
+	{
+		return DB::table('devvn_quanhuyen')->get();
+	}
+
+	public function getXaPhuongTheoQuanHuyen($id)
+	{	
+		if($id==0){
+			$data = DB::table('devvn_xaphuongthitran')
+			->select('devvn_xaphuongthitran.xaid', 'devvn_xaphuongthitran.name')->get();
+			return $data;
+		}else{
+			$data = DB::table('devvn_xaphuongthitran')
+			->where('maqh', '=', $id)
+			->select('devvn_xaphuongthitran.xaid', 'devvn_xaphuongthitran.name')->get();
+			return $data;
+		}
 	}
 
 }
