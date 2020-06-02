@@ -61,27 +61,28 @@ table{
 						</div>
 
 						<div class="fillter-form" style="padding-bottom:1rem;">
-							<form method="GET" action="{{ route('account.search') }}" >
+							<form method="GET"  >
                                
                                 
 								<div class="d-flex container pt-3 ">
                                     <div class=" form-group col-6 d-flex justify-content-around align-items-center">
 										<span for="" class="fillter-name">Trạng thái</span>
 										<select class="form-control col-8" name="status" id="status">
-											<option value="1" selected >Kích hoạt</option>
-											<option value="0">Khóa</option>
+                                            <option value=""  selected >All</option>
+											<option value="1" @if($status==1) selected @endif >Kích hoạt</option>
+											<option value="2" @if($status==2) selected @endif>Khóa</option>
 										
 										</select>
 									</div>
 									
                                     <div class=" form-group col-6 d-flex justify-content-around align-items-center">
-										<span for="" class="fillter-name">Chức quyền</span>
+										<span for="" class="fillter-name">Quyền hạn</span>
 										<select class="form-control col-8" name="role" id="role">
-											<option value="1" selected >All</option>
-                                            <option value="2" >Actor1</option>
-                                            <option value="3" >Actor2</option>
-                                            <option value="4" >Actor3</option>
-                                            <option value="5" >Actor4</option>
+											<option value=""  selected >All</option>
+                                            <option value="1" @if($role==1) selected @endif>Actor1</option>
+                                            <option value="2" @if($role==2) selected @endif>Actor2</option>
+                                            <option value="3" @if($role==3) selected @endif>Actor3</option>
+                                            <option value="4" @if($role==4) selected @endif>Actor4</option>
                                             
 										</select>
 									</div>
@@ -90,7 +91,7 @@ table{
                                 </div>
                                  <div class="d-flex container pt-3">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" name="keyword" placeholder="Search term..." id="keyword">
+                                        <input type="text" class="form-control" value="{{ $keyword }}" name="keyword" placeholder="Search term..." id="keyword">
                                         <span class="input-group-btn">
                                             <button class="btn btn-outline-drak border btn-sm"   type="submit"><i class="fas fa-search" aria-hidden="true"></i></button>
                                         </span>
@@ -128,16 +129,25 @@ table{
                                     <tbody>
                                             @php
                                             $i = 1;
+                                            function displayAvatar($avatarImg) 
+                                                {                                  
+                                                    if($avatarImg != null) {
+                                                        return asset('storage/'.$avatarImg);
+                                                    }
+                                                    return asset('images/avatardefault.jpg');
+                                                }
                                             @endphp
 
                                         @foreach ($users as $user)
+                                    
+                                        
                                         <tr>
                                             <th scope="row">{{ $i }}</th>
                                             @php
                                             $i++;
                                             @endphp
                                             <td>{{ $user->name }}</td>
-                                            <td><img width="100" src="{!! asset('storage/'.$user->avatar) !!}" alt="avatar"></td>
+                                             <td><img width="60" id="showavatar" src="{!! displayAvatar($user->avatar) !!}" alt="avatar"></td>
                                             <td>{{ $user->email }}</td>
                                             
                                             <td class="float-right">{{ $user->phone_number }}</td>
@@ -212,6 +222,21 @@ table{
 
 <script>
 
+            function showimages(element) {
+                
+            var file = element.files[0];
+                var reader = new FileReader();
+                reader.onloadend = function() {
+                    $('#showavatar').attr('src', reader.result);
+                    // console.log('RESULT', reader.result)
+                }
+                reader.readAsDataURL(file);
+
+                $('#showavatar').attr('src', reader.result);
+            }
+
+           
+
   
         
 
@@ -233,39 +258,7 @@ table{
 
 
 
-        function destroyUser($id){
-
-        axios.delete('account/destroy', {
-        })
-        .then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-        }
-
-        // function search(){
-        //     console.log('Đang Search');
-
-        //     // var t = $( "select[name='status']" ).val();
-   
-
-        //     var data={
-        //         'status': $( "select[name='status']" ).val(),
-        //         'keyword': $( "input[name='keyword']" ).val()
-        //     }
-        //     console.log(data);
-        //     axios.post("{{ route('account.search') }}", data)
-        //     // .then(function (response) {
-        //     //     console.log(response);
-        //     //     console.log('Thay đổi status THÀNH CÔNG');
-        //     // })
-        //     // .catch(function (error) {
-        //     //     console.log(error);
-        //     // });
-
-        // }
+     
 
     
 
