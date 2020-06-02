@@ -96,6 +96,9 @@
                 </table>
                 </form>
             </div>
+            <div>
+                {{$data->links()}}
+            </div>
         </div>
 
     </section>

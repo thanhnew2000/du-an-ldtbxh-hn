@@ -15,6 +15,10 @@ class QlsvService extends AppService
         return \App\Repositories\QlsvRepository::class;
     }
 
+    public function Pagination()
+    {
+    }
+
     public function getQlsv()
     {
         $data =  $this->repository->getQlsv();
