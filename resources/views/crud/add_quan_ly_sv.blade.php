@@ -9,7 +9,7 @@
         </div>
 
     <div class="fillter-form">
-        <form method="POST" action="saveAdd">
+        <form method="POST" action="{{route('xuatbc.them-so-sv')}}">
                 <div class="d-flex container pt-3">
                     <div class="form-group col-6 d-flex justify-content-around align-items-center">
                         <label for="" class="fillter-name col-3">Tên Cơ Sở</label>
