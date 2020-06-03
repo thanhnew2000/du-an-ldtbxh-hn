@@ -9,7 +9,7 @@
 
     <div class="col-md-12 mb-4">
         <div class="titile-head">
-            <h2>Chỉnh sửa kết quả tốt nghiệp</h2>
+            <h2>Thêm mới kết quả tốt nghiệp</h2>
         </div>
     </div>
     <div class="content p-5" style="background-color: #ffffff ; ">
@@ -83,7 +83,7 @@
 
             <button type="reset" class="col-1 btn btn-danger mr-5">Hủy</button>
 
-            <button type="submit" class="col-1 btn btn-primary ">Cập nhật</button>
+            <button type="submit" class="col-1 btn btn-primary ">Thêm mới</button>
 
         </div>
     </div>

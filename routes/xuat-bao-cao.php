@@ -71,7 +71,9 @@ Route::group(['prefix' => 'ket-qua-tot-nghiep'], function(){
     Route::get('/chi-tiet-tong-hop-ket-qua-tot-nghiep', 'ExtractController@chitiettonghopkqtotnghiep')
         ->name('xuatbc.chi-tiet-tong-hop');  
     Route::get('/sua-tong-hop-ket-qua-tot-nghiep', 'ExtractController@suatonghopkqtotnghiep')
-        ->name('xuatbc.sua-tong-hop');  
+        ->name('xuatbc.sua-tong-hop');
+    Route::get('/them-tong-hop-ket-qua-tot-nghiep', 'ExtractController@themtonghopkqtotnghiep')
+        ->name('xuatbc.them-tong-hop');   
 });
 
 Route::group(['prefix' => 'dao-tao-nghe-nguoi-khuyet-tat'], function(){

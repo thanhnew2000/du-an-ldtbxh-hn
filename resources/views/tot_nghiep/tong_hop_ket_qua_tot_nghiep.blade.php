@@ -27,7 +27,7 @@
                                 <label class="col-lg-2 col-form-label">Tên cơ sở:</label>
                                 <div class="col-lg-8">
                                     <input type="text" class="form-control m-input"
-                                    placeholder="Nhập mã hoặc tên ngành nghề" name="keyword">
+                                        placeholder="Nhập mã hoặc tên ngành nghề" name="keyword">
                                 </div>
                             </div>
                         </div>
@@ -39,7 +39,7 @@
                                         <option>Chọn tên cơ sở</option>
                                         <option>Trung cấp</option>
                                     </select>
-                                   
+
                                 </div>
                             </div>
                         </div>
@@ -52,7 +52,7 @@
                                         <option>Chọn đợt</option>
                                         <option>Trung cấp</option>
                                     </select>
-                                   
+
                                 </div>
                             </div>
                         </div>
@@ -65,7 +65,7 @@
                                         <option>Chọn đợt</option>
                                         <option>Trung cấp</option>
                                     </select>
-                                   
+
                                 </div>
                             </div>
                         </div>
@@ -80,6 +80,15 @@
             </div>
         </form>
     </div>
+    <section class="action-nav d-flex align-items-center justify-content-between mt-4 mb-4">
+        <div class="action-template col-3 d-flex justify-content-between">
+            <a href="#"><i class="fa fa-download" aria-hidden="true"></i>
+                Tải xuống
+                biêu mẫu</a>
+            <a href="#"><i class="fa fa-upload" aria-hidden="true"></i>
+                Tải lên file Excel</a>
+        </div>
+    </section>
     <div class="m-portlet">
         <div class="m-portlet__body">
             <div class="col-12 form-group m-form__group d-flex justify-content-end">
@@ -101,22 +110,20 @@
                     <th>Hệ đào tạo</th>
                     <th>Tổng số sinh viên tốt nghiệp</th>
                     <th>
-                        <a href="#" class="btn btn-success btn-sm">Thêm mới</a>
+                        <a href="{{ route('xuatbc.them-tong-hop') }}" class="btn btn-success btn-sm">Thêm mới</a>
                     </th>
                 </thead>
                 <tbody>
-
                     <tr>
                         <td>1</td>
                         <td>CNTT</td>
                         <td>23</td>
                         <td>23</td>
                         <td>23</td>
-                        <td>200</td>
+                        <td>200 </td>
                         <td>
                             <a href="{{ route('xuatbc.chi-tiet-tong-hop') }}" class="btn btn-info btn-sm">Chi tiết</a>
                             <a href="{{ route('xuatbc.sua-tong-hop') }}" class="btn btn-primary btn-sm">Cập nhật</a>
-
                         </td>
                     </tr>
 

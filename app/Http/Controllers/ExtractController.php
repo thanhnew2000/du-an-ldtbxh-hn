@@ -91,6 +91,10 @@ class ExtractController extends Controller
     {
         return view('tot_nghiep.sua_tong_hop_ket_qua_tot_nghiep');
     }
+    public function themtonghopkqtotnghiep()
+    {
+        return view('tot_nghiep.them_tong_hop_ket_qua_tot_nghiep');
+    }
     public function tonghopdaotaonguoikhuyettat()
     {
         return view('extractreport.tong_hop_dao_tao_nghe_cho_nguoi_khuyet_tat');

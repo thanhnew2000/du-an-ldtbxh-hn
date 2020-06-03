@@ -1,4 +1,3 @@
-
 @extends('layouts.admin')
 @section('content')
 <div class="m-content container-fluid">
