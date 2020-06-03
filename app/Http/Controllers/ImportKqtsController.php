@@ -422,6 +422,7 @@ class ImportKqtsController extends Controller
            
                         $worksheet->getStyle('B'.$stt)->getProtection()->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED);
                         $worksheet->getStyle('C'.$stt)->getProtection()->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED);
+                        $worksheet->getStyle('D'.$stt)->getProtection()->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED);
                         $worksheet->getStyle('E'.$stt)->getProtection()->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED);
                         $worksheet->getStyle('F'.$stt)->getProtection()->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED);
                         $worksheet->getStyle('G'.$stt)->getProtection()->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED);

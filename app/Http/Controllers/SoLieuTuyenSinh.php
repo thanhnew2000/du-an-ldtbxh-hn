@@ -30,12 +30,13 @@ class SoLieuTuyenSinh extends Controller
         $params = request()->all();
         $data = $this->SoLieuTuyenSinhService->getSoLuongTuyenSinh($params);
         $loaiHinh = $this->SoLieuTuyenSinhService->getListLoaiHinh();
-
+        $co_so_dao_tao =  DB::table('co_so_dao_tao')->get();
         $data->appends(request()->input())->links();
         return view('solieutuyensinh.tong_hop_so_lieu_tuyen_sinh', [
             'data' => $data,
             'loaiHinh' => $loaiHinh,
             'limit' => 10,
+            'co_so_dao_tao'=>$co_so_dao_tao
         ]);
     }
 

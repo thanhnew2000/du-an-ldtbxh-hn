@@ -182,7 +182,7 @@
                         <input type="file" id="file_import_id" name="file_import">
                         </div>
                         <div class="form-group">
-                            <label for="">Chọn năm xuất</label>
+                            <label for="">Chọn năm</label>
                             <select name="nam" id="nam_id" class="form-control">
                               <option value="2020">2020</option>
                               <option value="2019">2019</option>
@@ -191,7 +191,7 @@
                        </div>
 
                     <div class="form-group">
-                      <label for="">Chọn đợt xuất</label>
+                      <label for="">Chọn đợt</label>
                       <select name="dot" id="dot_id" class="form-control">
                         <option value="1">1</option>
                         <option value="2">2</option>
