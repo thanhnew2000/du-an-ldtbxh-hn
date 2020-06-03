@@ -1,9 +1,5 @@
 @extends('layouts.admin');
 
-@section('style')
-<link href="{!! asset('vendors/_customize/csdt.list.css') !!}" rel="stylesheet" type="text/css" />
-@endsection
-
 @section('content')
 <div class="m-content">
     <!-- begin- fillter -->
@@ -100,7 +96,7 @@
                             <td>{{$csdt->ten}}</td>
                             <td>{{$csdt->ma_don_vi}}</td>
                             <td>{{$csdt->loai_hinh_co_so}}</td>
-                            <td><img class="logo-csdt" src="{!! asset('storage/' . $csdt->logo) !!}" alt="">
+                            <td><img class="size-100" src="{!! asset('storage/' . $csdt->logo) !!}" alt="">
                             </td>
                             <td>{{$csdt->qd_ten}}</td>
                             <td>{{$csdt->dia_chi}}</td>
