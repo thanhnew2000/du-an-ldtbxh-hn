@@ -52,8 +52,10 @@ Route::group(['prefix' => 'ket-qua-tuyen-sinh'], function(){
     Route::post('/them-so-lieu-tuyen-sinh','SoLieuTuyenSinh@postthemsolieutuyensinh')->name('postthemsolieutuyensinh');
     Route::post('/get-ma-nganh-nghe','SoLieuTuyenSinh@getmanganhnghe');
     
-
+    // thanhnv thêm xuất form nhập cho người dùng nhập Import
     Route::post('form-nhap-sv','ExportSVController@exportFormNhapSinhVien')->name('layformbieumausinhvien');
+    //  6/1/2000 Xuất dữ liệu data 
+    Route::post('export-data-sv','ExportSVController@exportDataSV')->name('exportdatatuyensinh');
 
 
 });
