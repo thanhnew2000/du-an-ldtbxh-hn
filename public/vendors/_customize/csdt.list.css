@@ -2,7 +2,7 @@
     font-family: roboto;
 }
 
-.fillter-area {
+.fillter {
     border: 1px solid #777777;
     border-top: none;
     border-radius: 0 0 10px 10px;
@@ -28,12 +28,7 @@
     color: white;
 }
 
-.table {
-    font-size: 1.1rem;
-    color: black;
-    text-align: center;
-    font-weight: 300;
-}
+
 
 .remote-title {
     color: #1A5993;
@@ -44,29 +39,35 @@
 
 .main-form {
     padding: 1.5rem 0;
-    background-color: #fafafa;
+    background-color: #ffffff;
     border-radius: 10px;
 }
 
 /* .form-control {
     height: calc(2.2rem + 2px) !important;
     padding: 0 .5rem !important;
-    border: 1px solid #1F3247 !important;
-} */
+    /* border: 1px solid #1F3247 !important; */
 
 .form-name {
     font-weight: bold;
     font-size: 1rem;
 }
 
-.form-control,
+/* .form-control,
 .custom-file {
     border: 1px solid #888888;
-}
+} */
 
 .logo-csdt {
-    max-width: 150px;
+    max-width: 100px;
     max-height: 150px;
+}
+
+/* .table {
+    font-size: 1.1rem;
+    color: black;
+    text-align: center;
+    font-weight: 300;
 }
 
 .table thead {
@@ -95,7 +96,7 @@
 
 .table tr:nth-child(even) {
     background-color: #C5D5E4;
-}
+} */
 
 .td-action {
     display: flex;
@@ -120,4 +121,13 @@
     width: 30%;
     text-align: left;
     font-weight: normal;
+}
+
+.single-field {
+    padding: 1rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 1.2rem;
+
 }

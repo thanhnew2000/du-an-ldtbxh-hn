@@ -41,20 +41,31 @@ abstract  class AppService
         return $this->repository->findById($id);
     }
 
-    public function create($request)
+    public function create($request, $unsetColumn = [])
     {
         $attributes = $request->all();
         // dd($attributes);
+        if (count($unsetColumn) > 0) {
+            foreach ($unsetColumn as $col) {
+                // dd($col);
+                unset($attributes[$col]);
+            }
+        }
         unset($attributes['_token']);
         return $this->repository->create($attributes);
     }
 
-    public function update($id, $request)
+    public function update($id, $request, $unsetColumn = [])
     {
+        // dd($unsetColumn);
         $attributes = $request->all();
-        //dd($attributes);
-        unset($attributes['_token']);
 
+        if (count($unsetColumn) > 0) {
+            foreach ($unsetColumn as $col) {
+                unset($attributes[$col]);
+            }
+        }
+        // dd($attributes);
         return $this->repository->update($id, $attributes);
     }
 
@@ -63,4 +74,3 @@ abstract  class AppService
         return $this->repository->delete($id);
     }
 }
-

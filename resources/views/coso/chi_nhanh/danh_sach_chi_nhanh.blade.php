@@ -64,7 +64,8 @@
                 Tải lên file Excel</a>
         </div>
         <div class="btn">
-            <a name="" id="" class="btn btn-outline-primary" href="{{ route('chinhanh.them') }}" role="button">Thêm</a>
+            <a name="" id="" class="btn btn-outline-primary" href="{{ route('chi-nhanh.tao-moi') }}"
+                role="button">Thêm</a>
         </div>
     </section>
     <!-- end- action -->
@@ -100,12 +101,11 @@
                                 @endif</td>
                             <td>{{$items->ma_chung_nhan_dang_ki_hoat_dong}}</td>
                             <td>
-                                <a href="{{route('chinhanh.sua', ['id'=> $items->id])}}"
+                                <a href="{{route('chi-nhanh.cap-nhat', ['id'=> $items->id])}}"
                                     class="btn btn-outline-primary">Sửa</a>
                             </td>
                             <td>
-                                <a href="{{route('csdt.chitiet', ['id'=> $items->id])}}"
-                                    class="btn btn-outline-danger">Xóa</a>
+                                <a href="" class="btn btn-outline-danger">Xóa</a>
                             </td>
                         </tr>
                         @endforeach

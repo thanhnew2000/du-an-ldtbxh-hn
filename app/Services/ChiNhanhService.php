@@ -12,13 +12,15 @@ class ChiNhanhService extends AppService
 {
     public function getRepository()
     {
-         return \App\Repositories\ChiNhanhRepository::class;
+        return \App\Repositories\ChiNhanhRepository::class;
     }
-    public function getChiNhanh(){
+    public function getChiNhanh()
+    {
         return $this->repository->getChiNhanh();
     }
 
-//    public function getSingleCsdt($id){
-//    return $this->repository->getSingleCsdt($id);
-//    }
+    public function getSingleChiNhanh($id)
+    {
+        return $this->repository->getSingleChiNhanh($id);
+    }
 }

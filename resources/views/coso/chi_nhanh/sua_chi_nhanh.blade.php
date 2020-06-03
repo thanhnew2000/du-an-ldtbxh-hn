@@ -7,15 +7,14 @@
 @section('content')
 <div class="m-content">
     <div class="remote-title mb-4 container">
-        Sửa mới Chi Nhánh
+        Cập nhật Chi Nhánh
     </div>
-
-    <form action="{{ route('saveEditChiNhanh')}}" method="POST">
+    @forelse ($data as $item)
+    <form action="{{ route('chi-nhanh.cap-nhat', ['id'=> $item->id])}}" method="POST">
         {{ csrf_field() }}
         <div class="main-form row d-flex justify-content-around">
             <div class="col-left col-lg-5">
                 <div class="form-group col-lg-12">
-
                     <label class="form-name mr-3" for="">Tên cơ sở đào tạo</label>
                     <select class="form-control" name="co_so_id">
                         <option disabled value="{{ $csdt->id }}">{{ $csdt->ten }}</option>
@@ -33,8 +32,8 @@
 
                 <div class="form-group col-lg-12">
                     <label for="" class="col-4 form-name">Địa Chỉ</label>
-                    <input type="text" name="dia_chi" id="" class="form-control" placeholder=""
-                        aria-describedby="helpId">
+                    <input type="text" name="dia_chi" id="" value="{{ $data->dia_chi }}" class="form-control"
+                        placeholder="" aria-describedby="helpId">
                     <p id="helpId" class="form-text text-danger">
                         @error('dia_chi')
                         {{ $message }}
@@ -122,5 +121,8 @@
             </div>
         </div>
     </form>
+    @empty
+
+    @endforelse
 </div>
 @endsection

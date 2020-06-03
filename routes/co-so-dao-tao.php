@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: ginv2
@@ -8,18 +9,19 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', 'CsdtController@danhsachcosodaotao')->name('csdt.danh-sach');
-Route::get('/them-co-so', 'CsdtController@themCsdt')->name('csdt.them');
-Route::post('/saveAddCsdt}', 'CsdtController@saveAddCsdt')->name('saveAddCsdt');
-Route::get('/sua-co-so/{id}', 'CsdtController@suaCsdt')->name('csdt.sua');
-Route::get('/chi-tiet-co-so/{id}', 'CsdtController@chi_tiet_co_so')->name('csdt.chitiet');
-Route::post('saveEditCsdt/{id?}', 'CsdtController@saveEditCsdt')->name('saveEditCsdt');
+Route::get('/', 'CsdtController@danhsachCSDT')->name('csdt.danh-sach');
 
-Route::get('/chi-nhanh', 'ChiNhanhController@danhsachchinhanh')->name('csdt.chi-nhanh');
-Route::get('/them-chi-nhanh', 'ChiNhanhController@themchinhanh')->name('chinhanh.them');
-Route::post('/saveAddChiNhanh', 'ChiNhanhController@saveAddChiNhanh')->name('saveAddChiNhanh');
-Route::get('/sua-chi-nhanh/{id}', 'ChiNhanhController@suaChiNhanh')->name('chinhanh.sua');
+Route::get('tao-moi-co-so', 'CsdtController@themCSDT')->name('csdt.tao-moi');
+Route::post('tao-moi-co-so', 'CsdtController@taomoiCSDT');
 
+Route::get('chi-tiet-co-so/{id}', 'CsdtController@chitietCSDT')->name('csdt.chi-tiet');
 
+Route::get('cap-nhat-co-so/{id}', 'CsdtController@suaCSDT')->name('csdt.cap-nhat');
+Route::post('cap-nhat-co-so/{id}', 'CsdtController@capnhatCSDT');
 
+Route::get('danh-sach-chi-nhanh', 'ChiNhanhController@danhsachchinhanh')->name('csdt.chi-nhanh');
 
+Route::get('tao-moi-chi-nhanh', 'ChiNhanhController@themchinhanh')->name('chi-nhanh.tao-moi');
+Route::post('tao-moi-chi-nhanh', 'ChiNhanhController@saveAddChiNhanh');
+
+Route::get('sua-chi-nhanh/{id}', 'ChiNhanhController@suaChiNhanh')->name('chi-nhanh.cap-nhat');
