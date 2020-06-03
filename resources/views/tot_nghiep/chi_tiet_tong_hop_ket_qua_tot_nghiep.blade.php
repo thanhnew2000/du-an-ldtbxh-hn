@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('title', "Tổng hợp kết quả tốt nghiệp")
 @section('style')
-<link href="{!! asset('tuyensinh/css/showtuyensinh.css') !!}" rel="stylesheet" type="text/css" />
+<link href="{!! asset('tuyensinh/css/main.css') !!}" rel="stylesheet" type="text/css" />
 @endsection
 @section('content')
 <div class="m-content">
@@ -12,7 +12,7 @@
         <div class="col-md-12 pt-3 ">
             <div class="m-section ">
                 <div class="m-section__content " style="overflow-x:auto" ;>
-                    <table class="table table-bordered thead-bluedark ">
+                    <table class="table m-table m-table--head-bg-brand table-boder-white ">
                         <thead>
                             <tr class=" text-center ">
                                 <th rowspan="2" >STT</th>
