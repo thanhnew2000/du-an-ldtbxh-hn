@@ -21,7 +21,8 @@ class NganhNgheController extends Controller
         $data = $this->nganhNgheService->getNganhNghe($params);
         $data->appends(request()->input())->links();
 
-        $route_name = Route::current()->action['as'];
+        $route_name = Route::current();
+        dd($route_name);
         return view('nganh-nghe.danh-sach-nghe', compact('data', 'params', 'route_name'));
 
 

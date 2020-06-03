@@ -15,7 +15,7 @@ use App\Http\Requests\ResetPassWord;
 use App\Http\Requests\RegisterAccount;
 use App\Http\Requests\UpdateAccount;
 use App\Http\Requests\UpdateAccountId;
-
+use Illuminate\Support\Facades\Route;
 class AccountController extends Controller
 {
     
@@ -24,14 +24,17 @@ class AccountController extends Controller
         $keyword = trim($keyword);
         $status = $request->has('status') ? $request->status : null;
         $role = $request->has('role') ? $request->role : null;
-
-        if($keyword === null && $status === null && $role === null){
+        $params = $request->all();
+        if(!isset($params['page_size'])) $params['page_size'] = config('common.paginate_size.default');
+        $route_name = Route::current()->action['as'];
+    
+        if($keyword == null && $status == null && $role == null){
 
             $users = DB::table('users')
             ->leftjoin('co_so_dao_tao', 'users.co_so_dao_tao_id', '=', 'co_so_dao_tao.id')
             ->select('users.*', DB::raw('co_so_dao_tao.ten as ten'))
-            ->paginate(10);
-
+            ->paginate($params['page_size']);
+  
         }else{
 
             if($status === null && $role === null){
@@ -50,9 +53,8 @@ class AccountController extends Controller
                 ->orWhere([
                     ['email', 'like', '%'.$keyword.'%']
                 ])
-                ->paginate(10);
-          
-              
+                ->paginate($params['page_size']);
+   
 
            }elseif($status !== null && $role === null){
                $users = DB::table('users')
@@ -74,8 +76,8 @@ class AccountController extends Controller
                     ['status', '=', $status],
                     ['email', 'like', '%'.$keyword.'%']
                 ])
-                ->paginate(10);
-        
+                ->paginate($params['page_size']);
+
 
            }elseif($status === null && $role !== null){
                $users = DB::table('users')
@@ -97,9 +99,9 @@ class AccountController extends Controller
 
                     ['email', 'like', '%'.$keyword.'%']
                 ])
-                ->paginate(10);
-           
-               
+                ->paginate($params['page_size']);
+     
+       
            }else{
             $users = DB::table('users')
             ->leftjoin('co_so_dao_tao', 'users.co_so_dao_tao_id', '=', 'co_so_dao_tao.id')
@@ -124,9 +126,9 @@ class AccountController extends Controller
                 //them role
                 ['email', 'like', '%'.$keyword.'%']
             ])
-             ->paginate(10);
+             ->paginate($params['page_size']);
        
-               
+       
            }
          
            
@@ -135,12 +137,12 @@ class AccountController extends Controller
             $users->withPath("?status=$status&role=$role&keyword=$keyword");                  
             $soluong = $users->count();
             if($soluong < 1){
-                return view('account.list_account',compact('users','keyword','status','role'),['thongbao'=>'Không tìm thấy kết quả !']);
+                return view('account.list_account',compact('users','keyword','status','role','params','route_name'),['thongbao'=>'Không tìm thấy kết quả !']);
             }
         }
 
  
-                return view('account.list_account',compact('users','keyword','status','role'),['thongbao'=>'']);
+                return view('account.list_account',compact('users','keyword','status','role','params','route_name'),['thongbao'=>'']);
     }
 
     public function create(){
