@@ -115,7 +115,7 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 				 )
 		->groupBy('tuyen_sinh.co_so_id',
 					'co_so_dao_tao.ten',
-					'loai_hinh_co_so.loai_hinh_co_so',
+					'loai_hinh_co_so.loai_hinh_co_so'
 					)->first();
 	}
 

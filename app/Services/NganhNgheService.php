@@ -22,6 +22,4 @@ class NganhNgheService extends AppService
 
         return $this->repository->getNganhNghe($params);
     }
-
-    public function getCoSoDaoTaoTheoNghe($)
 }
