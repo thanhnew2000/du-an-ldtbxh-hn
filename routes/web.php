@@ -56,4 +56,7 @@ Route::group(['middleware' => 'auth'], function () {
      Route::group(['prefix' => 'feedback'], function(){
           Route::get('/nhan-tin-bao-loi-he-thong', 'FeedbackController@nhantinbaoloi');
      });  
+     Route::get('danhSach',function(){return view('danhsachdoingunhagioa.danh-sach-doi-ngu-nha-giao');})->name('danh');
+     Route::get('themdanhSach',function(){return view('danhsachdoingunhagioa.them-moi-danh-sach-gd');})->name('them_ds');
+
 });
