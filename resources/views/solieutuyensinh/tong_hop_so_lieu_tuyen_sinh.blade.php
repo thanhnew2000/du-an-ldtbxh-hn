@@ -217,7 +217,7 @@
                       </div>
                       <div class="modal-body">
                        <select name="id_cs" class="form-control">
-                           @foreach($data_co_so as $csdt)
+                           @foreach($coso as $csdt)
                            <option value="{{$csdt->id}}">{{$csdt->ten}}</option>
                            @endforeach
                        </select>
@@ -306,7 +306,7 @@
                         <div class="form-group">
                             <label for="">Chọn Trường</label>
                             <select name="truong_id" id="truong_id_xuat" class="form-control">
-                              @foreach($co_so_dao_tao as $csdt)
+                              @foreach($coso as $csdt)
                                <option value="{{$csdt->id}}">{{$csdt->ten}}</option>
                               @endforeach
                             </select>
