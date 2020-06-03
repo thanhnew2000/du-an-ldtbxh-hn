@@ -26,10 +26,19 @@ class NganhNgheController extends Controller
 
 
     }
-  public function thietlapchitieutuyensinh(){
+
+    public function chitietnghe($manghe, Request $request)
+    {
+        $params = $request->all();
+        if(!isset($params['page_size'])) $params['page_size'] = config('common.paginate_size.default');
+        $data = $this->nganhNgheService->getCoSoDaoTaoTheoNghe($manghe, $params);
+        dd($data);
+    }
+
+    public function thietlapchitieutuyensinh(){
       return view('career.thiet_lap_chi_tieu_tuyen_sinh');
-  }
-  public function thietlapnghechocosodaotao(){
+    }
+    public function thietlapnghechocosodaotao(){
       return view('career.thiet_lap_nghe_cho_co_so_dao_tao');
-  }
+    }
 }
