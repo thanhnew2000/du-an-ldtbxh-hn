@@ -55,7 +55,5 @@ Route::group(['middleware' => 'auth'], function () {
 
      Route::group(['prefix' => 'feedback'], function(){
           Route::get('/nhan-tin-bao-loi-he-thong', 'FeedbackController@nhantinbaoloi');
-
-     });
-     
+     });  
 });

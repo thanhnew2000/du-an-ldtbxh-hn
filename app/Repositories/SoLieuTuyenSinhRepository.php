@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace App\Repositories;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\BaseRepository;
@@ -9,21 +9,55 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 	public function getTable(){
 		 //return \App\Products::class;
 		return 'tuyen_sinh';
-
 	}
 
-	public function getSoLuongTuyenSinh($limit){
-		return $this->table->join('co_so_dao_tao', 'tuyen_sinh.co_so_id', '=', 'co_so_dao_tao.id')
-		->join('loai_hinh_co_so', 'co_so_dao_tao.ma_loai_hinh_co_so', '=', 'loai_hinh_co_so.id')
-		->select('tuyen_sinh.*', 'co_so_dao_tao.ten','loai_hinh_co_so.loai_hinh_co_so')
-		->paginate($limit);
+	public function getSoLuongTuyenSinh($params, $limit = 10)
+	{
+		// dd($params);
+		$query = $this->table
+			->join('co_so_dao_tao', 'tuyen_sinh.co_so_id', '=', 'co_so_dao_tao.id')
+			->join('loai_hinh_co_so', 'co_so_dao_tao.ma_loai_hinh_co_so', '=', 'loai_hinh_co_so.id')
+			->join('trang_thai', 'tuyen_sinh.trang_thai', '=', 'trang_thai.id')
+			->select([
+				DB::raw("
+					SUM(tuyen_sinh.so_luong_sv_Cao_dang) as so_luong_sv_Cao_dang,
+					SUM(tuyen_sinh.so_luong_sv_Trung_cap) as so_luong_sv_Trung_cap,
+					SUM(tuyen_sinh.so_luong_sv_So_cap) as so_luong_sv_So_cap,
+					SUM(tuyen_sinh.so_luong_sv_he_khac) as so_luong_sv_he_khac,
+					SUM(tuyen_sinh.tong_so_tuyen_sinh) as tong_so_tuyen_sinh
+				"),
+				'trang_thai.ten_trang_thai as trang_thai',
+				'trang_thai.id as trang_thai_id',
+				'co_so_dao_tao.id',
+				'co_so_dao_tao.ten',
+				'loai_hinh_co_so.loai_hinh_co_so'
+			])
+			->where('tuyen_sinh.nam', $params['nam'])
+			->where('tuyen_sinh.dot', $params['dot']);
+
+		if (isset($params['loai_hinh']) && $params['loai_hinh'] != 0) {
+			$query->where('loai_hinh_co_so.id', $params['loai_hinh']);
+		}
+
+		if (isset($params['co_so_id']) && $params['co_so_id'] != null) {
+			$query->where('tuyen_sinh.co_so_id', $params['co_so_id']);
+		}
+
+		// dd($query->toSql());
+
+		return $query->groupBy('co_so_id')->paginate($limit);
 	}
 
-	public function getChiTietSoLuongTuyenSinh($id){
-		return $this->table->where('tuyen_sinh.id', '=', $id)->join('co_so_dao_tao', 'tuyen_sinh.co_so_id', '=', 'co_so_dao_tao.id')
-		->join('loai_hinh_co_so', 'co_so_dao_tao.ma_loai_hinh_co_so', '=', 'loai_hinh_co_so.id')
-		->select('tuyen_sinh.*', 'co_so_dao_tao.ten','loai_hinh_co_so.loai_hinh_co_so')
-		->first();
+	public function getChiTietSoLuongTuyenSinh($nam, $dot, $coSoId)
+	{
+		return $this->table
+			->where('tuyen_sinh.co_so_id', '=', $coSoId)
+			->where('tuyen_sinh.nam', '=', $nam)
+			->where('tuyen_sinh.dot', '=', $dot)
+			->join('co_so_dao_tao', 'tuyen_sinh.co_so_id', '=', 'co_so_dao_tao.id')
+			->join('loai_hinh_co_so', 'co_so_dao_tao.ma_loai_hinh_co_so', '=', 'loai_hinh_co_so.id')
+			->select('tuyen_sinh.*', 'co_so_dao_tao.ten','loai_hinh_co_so.loai_hinh_co_so')
+			->first();
 
 	}
 

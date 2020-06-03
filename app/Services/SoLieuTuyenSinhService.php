@@ -1,53 +1,66 @@
-<?php 
+<?php
 namespace App\Services;
 
 use Illuminate\Http\Request;
 use App\Services\AppService;
 use App\Repositories\SoLieuTuyenSinhRepository;
+use App\Repositories\LoaiHinhCoSoRepositoryInterface;
 use Carbon\Carbon;
+
 class SoLieuTuyenSinhService extends AppService
 {
-	//Lay Repository Product
-	 public function getRepository()
+    protected $loaiHinhCoSoRepository;
+    protected $soLieuTuyenSinhRepository;
+
+    public function __construct(
+        LoaiHinhCoSoRepositoryInterface $loaiHinhCoSoRepository
+    )
     {
-        return \App\Repositories\SoLieuTuyenSinhRepository::class;
+        parent::__construct();
+        $this->loaiHinhCoSoRepository = $loaiHinhCoSoRepository;
+        // $this->soLieuTuyenSinhRepository = $soLieuTuyenSinhRepository;
     }
 
-    public function getSoLuongTuyenSinh($limit){
-        $data = $this->repository->getSoLuongTuyenSinh($limit);
+	//Lay Repository Product
+	public function getRepository()
+    {
+        return SoLieuTuyenSinhRepository::class;
+    }
+
+    public function getListLoaiHinh()
+    {
+        return $this->loaiHinhCoSoRepository->getAll();
+    }
+
+    public function getSoLuongTuyenSinh($params = [], $limit = 10)
+    {
+        $queryData = [];
+        $queryData['dot'] = isset($params['dot']) ? $params['dot'] : (Carbon::now()->month < 6 ? 1 : 2);
+        $queryData['nam'] = isset($params['nam']) ? $params['nam'] : Carbon::now()->year;
+        $queryData['co_so_id'] = isset($params['co_so_id']) ? $params['co_so_id'] : null;
+        $queryData['loai_hinh'] = isset($params['loai_hinh']) ? $params['loai_hinh'] : null;
+
+        $data = $this->repository->getSoLuongTuyenSinh($queryData, $limit);
+
         foreach ($data as $item) {
-           $item->ketquatuyensinh = $item->so_luong_sv_Cao_dang+$item->so_luong_sv_Trung_cap+$item->so_luong_sv_So_cap+$item->so_luong_sv_he_khac;
-        //    switch ($item->trang_thai) {
-        //         case '1':
-        //           $trangthai = 'Lưu nháp'
-        //            break;
-        //         case '2':
-        //             $trangthai = 'Lưu nháp'
-        //         break;
-        //         case '3':
-        //             $trangthai = 'Lưu nháp'
-        //             break;
-        //         case '4':
-        //             $trangthai = 'Lưu nháp'
-        //             break;   
-        //         case '5':
-        //             $trangthai = 'Lưu nháp'
-        //             break;
-        //    }
+            $item->ketquatuyensinh = $item->so_luong_sv_Cao_dang +
+                $item->so_luong_sv_Trung_cap +
+                $item->so_luong_sv_So_cap +
+                $item->so_luong_sv_he_khac;
         }
+
         return $data;
     }
-    
-    public function getChiTietSoLuongTuyenSinh($id){
-        $data = $this->repository->getChiTietSoLuongTuyenSinh($id);
+
+    public function getChiTietSoLuongTuyenSinh($nam, $dot, $coSoId){
+        $data = $this->repository->getChiTietSoLuongTuyenSinh($nam, $dot, $coSoId);
         $data->ketquatuyensinh = $data->so_luong_sv_Cao_dang+$data->so_luong_sv_Trung_cap+$data->so_luong_sv_So_cap+$data->so_luong_sv_he_khac;
         return $data;
     }
     public function getTenCoSoDaoTao(){
-        $data = $this->repository->getTenCoSoDaoTao();
-        return $data;
+        return $this->repository->getTenCoSoDaoTao();
     }
-    
+
     public function getmanganhnghe($id){
         $data = $this->repository->getmanganhnghe($id);
         return $data;
@@ -85,4 +98,4 @@ class SoLieuTuyenSinhService extends AppService
     }
 
 }
- ?> 
+ ?>

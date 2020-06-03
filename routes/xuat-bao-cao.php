@@ -59,6 +59,16 @@ Route::group(['prefix' => 'ket-qua-tuyen-sinh'], function(){
     Route::post('export-data-sv','ExportSVController@exportDataSV')->name('exportdatatuyensinh');
 
 
+    Route::get('/tong-hop-so-lieu-tuyen-sinh','SoLieuTuyenSinh@tonghopsolieutuyensinh')->name('solieutuyensinh');
+    Route::get('/search-co-so-so-lieu-tuyen-sinh','SoLieuTuyenSinh@searchCoSoTongHopSoLieuTuyenSinh')->name('searchCoSoTongHopSoLieuTuyenSinh');
+    Route::get('/chi-tiet-so-lieu-tuyen-sinh/{nam}/{dot}/{co_so_id}','SoLieuTuyenSinh@chitietsolieutuyensinh')->name('chitietsolieutuyensinh');
+    Route::get('/sua-so-lieu-tuyen-sinh/{id}','SoLieuTuyenSinh@suasolieutuyensinh')->name('suasolieutuyensinh');
+    Route::post('/sua-so-lieu-tuyen-sinh/{id}/edit','SoLieuTuyenSinh@postsuasolieutuyensinh')->name('postsuasolieutuyensinh');
+    Route::get('/them-so-lieu-tuyen-sinh','SoLieuTuyenSinh@themsolieutuyensinh')->name('themsolieutuyensinh');
+    Route::post('/them-so-lieu-tuyen-sinh','SoLieuTuyenSinh@postthemsolieutuyensinh')->name('postthemsolieutuyensinh');
+    Route::post('/get-ma-nganh-nghe','SoLieuTuyenSinh@getmanganhnghe');
+    Route::post('/check-them-so-lieu-tuyen-sinh','SoLieuTuyenSinh@getCheckTonTaiSoLieuTuyenSinh');
+
 });
 
 Route::group(['prefix' => 'ket-qua-xay-dung-giao-trinh'], function(){

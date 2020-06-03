@@ -9,13 +9,11 @@ border: 1px solid #777777;
 border-top: none;
 height: auto;
 }
-
 .fillter-title {
     background-color: #1F3247;
     color: #fff;
     padding: 10px 30px;
 }
-
 .fillter-name {
     font-weight: bold;
     font-size: 16px;
@@ -23,7 +21,6 @@ height: auto;
 .fillter-form form{
     padding-top: 10px;
 }
-
 .btn-fillter {
     width: 100px;
     height: 35px;
