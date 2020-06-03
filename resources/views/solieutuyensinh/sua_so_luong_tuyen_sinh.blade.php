@@ -1,14 +1,105 @@
 @extends('layouts.admin')
 @section('title', "Sửa số liệu tuyển sinh")
 @section('style')
-<link href="{!! asset('tuyensinh/css/suatuyensinh.css') !!}" rel="stylesheet" type="text/css" />
+{{-- <link href="{!! asset('tuyensinh/css/suatuyensinh.css') !!}" rel="stylesheet" type="text/css" /> --}}
+<style>
+  .batbuoc {
+    color: red;
+  }
+
+  table input {
+    border: 1px solid #000 !important;
+  }
+</style>
+<link href="{!! asset('/css/main.css') !!}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('content')
 <div class="m-content">
 <form action="{{route('postsuasolieutuyensinh',['id'=>$datatuyensinhid->id])}}" id="validate-form" method="post">
   @csrf
-  <div class="row mb-5">
+  <div class="m-portlet">
+    <div class="m-portlet__head">
+      <div class="m-portlet__head-caption">
+        <div class="m-portlet__head-title">
+          <span class="m-portlet__head-icon">
+            <i class="m-menu__link-icon flaticon-web"></i>
+          </span>
+          <h3 class="m-portlet__head-text">
+            Cập nhật<small>Tuyển sinh</small>
+          </h3>
+        </div>
+      </div>
+    </div>
+    <div class="m-portlet__body">
+      <div class="m-form__section m-form__section--first">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group m-form__group row">
+              <label class="col-lg-2 col-form-label">Tên cơ sở đào tạo <span class="batbuoc">*</span></label>
+              <div class="col-lg-8">
+                <select disabled class="form-control">
+                <option value="">{{$datatuyensinhid->ten}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group m-form__group row">
+              <label class="col-lg-2 col-form-label">Mã ngành nghề<span class="batbuoc">*</span></label>
+              <div class="col-lg-8">
+                <select class="form-control " disabled>
+                  <option value="" selected >{{$datatuyensinhid->ten_nganh_nghe}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group m-form__group row">
+              <label class="col-lg-2 col-form-label">Năm tuyển sinh<span class="batbuoc">*</span></label>
+              <div class="col-lg-8">
+                <select class="form-control " disabled>
+                  <option {{( $datatuyensinhid->nam == '2020' ) ? 'selected' : ''}} value="2020">2020</option>
+                  <option {{( $datatuyensinhid->nam == '2019' ) ? 'selected' : ''}} value="2019">2019</option>
+                  <option {{( $datatuyensinhid->nam == '2018' ) ? 'selected' : ''}} value="2018">2018</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group m-form__group row">
+              <label class="col-lg-2 col-form-label">Đợt tuyển sinh<span class="batbuoc">*</span></label>
+              <div class="col-lg-8">
+                <select class="form-control " disabled>
+                  <option {{( $datatuyensinhid->dot == 1 ) ? 'selected' : ''}} value="1">Đợt 1</option>
+                  <option {{( $datatuyensinhid->dot == 2 ) ? 'selected' : ''}} value="2">Đợt 2</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group m-form__group row">
+              <label class="col-lg-2 col-form-label">Báo cáo url:</label>
+              <div class="col-lg-8">
+                <input type="text" class="form-control m-input" value="{{$datatuyensinhid->bao_cao_url}}" name="bao_cao_url">
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-2">
+          <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{-- <div class="row mb-5">
     <div class="col-md-12 mb-4">
       <div class="titile-head">
         <p>Sửa kết quả tuyển sinh</p>
@@ -59,11 +150,12 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-lg-12">
+  </div> --}}
 
-        <table class="table">
+  <div class="m-portlet">
+    <div class="m-portlet__body">
+
+        <table class="table m-table m-table--head-bg-brand">
           <thead>
             <tr>
               <th scope="col">Danh mục</th>

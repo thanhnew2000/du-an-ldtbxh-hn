@@ -1,71 +1,118 @@
 @extends('layouts.admin')
 @section('title', "Thêm số liệu tuyển sinh")
 @section('style')
-<link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
-<link href="{!! asset('tuyensinh/css/themtuyensinh.css') !!}" rel="stylesheet" type="text/css" />
+{{-- <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
+<link href="{!! asset('tuyensinh/css/themtuyensinh.css') !!}" rel="stylesheet" type="text/css" /> --}}
+<style>
+  .batbuoc {
+    color: red;
+  }
+
+  table input {
+    border: 1px solid #000 !important;
+  }
+</style>
+<link href="{!! asset('/css/main.css') !!}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('content')
-<div class="m-content">
+<div class="m-content container-fluid">
   <form action="{{route('postthemsolieutuyensinh')}}" method="post">
     @csrf
-    <div class="row mb-5">
-      <div class="col-md-12 mb-4">
-        <div class="titile-head">
-          <p>Thêm mới kết quả tuyển sinh</p>
+    <div class="m-portlet">
+      <div class="m-portlet__head">
+        <div class="m-portlet__head-caption">
+          <div class="m-portlet__head-title">
+            <span class="m-portlet__head-icon">
+              <i class="m-menu__link-icon flaticon-web"></i>
+            </span>
+            <h3 class="m-portlet__head-text">
+              Thêm mới<small>Tuyển sinh</small>
+            </h3>
+          </div>
         </div>
       </div>
-      <div class="col-md-12">
-        <div class="row">
-        <div class="form-group col-6 p-2 d-flex justify-content-around align-items-center">
-          <label for="" class="fillter-name col-3">Tên cơ sở đào tạo <span class="batbuoc">*</span></label>
-          <select class="form-control col-9" onchange="getdatacheck(this)" required name="co_so_id" id="co_so_dao_tao">
-            <option value="">Chọn</option>
-            @foreach ($data as $item)
-            <option value="{{$item->id}}">{{$item->ten}}</option>
-            @endforeach
+      <div class="m-portlet__body">
+        <div class="m-form__section m-form__section--first">
+          <div class="m-form__heading">
+            <h3 class="m-form__heading-title">Bộ lọc:</h3>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group m-form__group row">
+                <label class="col-lg-2 col-form-label">Tên cơ sở đào tạo <span class="batbuoc">*</span></label>
+                <div class="col-lg-8">
+                  <select class="form-control " onchange="getdatacheck(this)" required name="co_so_id"
+                    id="co_so_dao_tao">
+                    <option value="">Chọn</option>
+                    @foreach ($data as $item)
+                    <option value="{{$item->id}}">{{$item->ten}}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group m-form__group row">
+                <label class="col-lg-2 col-form-label">Mã ngành nghề<span class="batbuoc">*</span></label>
+                <div class="col-lg-8">
+                  <select class="form-control " required disabled onchange="getdatacheck(this)" name="nghe_id"
+                    id="ma_nganh_nghe">
+                    <option value="" selected>Mã ngành nghề</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group m-form__group row">
+                <label class="col-lg-2 col-form-label">Năm tuyển sinh<span class="batbuoc">*</span></label>
+                <div class="col-lg-8">
+                  <select class="form-control " onchange="getdatacheck(this)" required name="nam" id="nam">
+                    <option value="">Chọn</option>
+                    <option value="2020">2020</option>
+                    <option value="2019">2019</option>
+                    <option value="2018">2018</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group m-form__group row">
+                <label class="col-lg-2 col-form-label">Đợt tuyển sinh<span class="batbuoc">*</span></label>
+                <div class="col-lg-8">
+                  <select class="form-control " required onchange="getdatacheck(this)" name="dot" id="dot">
+                    <option value="" selected>Chọn</option>
+                    <option value="1">Đợt 1</option>
+                    <option value="2">Đợt 2</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group m-form__group row">
+                <label class="col-lg-2 col-form-label">Báo cáo url:</label>
+                <div class="col-lg-8">
+                  <input type="text" class="form-control m-input" placeholder="Nhập url báo cáo" name="bao_cao_url">
+                </div>
+              </div>
+            </div>
+          </div>
 
-          </select>
         </div>
-        <div class="form-group col-6 p-2 d-flex justify-content-around align-items-center">
-          <label for="" class="fillter-name col-3">Mã ngành nghề <span class="batbuoc">*</span></label>
-          <select disabled class="form-control col-9" required onchange="getdatacheck(this)" name="nghe_id" id="ma_nganh_nghe">
-            <option value="" selected>Mã ngành nghề</option>
-          </select>
+        <div class="row justify-content-center">
+          <div class="col-lg-2">
+            <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="form-group col-6  p-2 d-flex justify-content-around align-items-center">
-          <label for="" class="fillter-name col-3">Năm tuyển sinh<span class="batbuoc">*</span></label>
-          <select class="form-control col-9" onchange="getdatacheck(this)" required name="nam" id="nam">
-            <option value="">Chọn</option>
-            <option value="2020">2020</option>
-            <option value="2019">2019</option>
-            <option value="2018">2018</option>
-          </select>
-        </div>
-        <div class="form-group col-6  p-2 d-flex justify-content-around align-items-center">
-          <label for="" class="fillter-name col-3">Đợt tuyển sinh<span class="batbuoc">*</span></label>
-          <select class="form-control col-9" required onchange="getdatacheck(this)" name="dot" id="dot">
-            <option value="" selected>Chọn</option>
-            <option value="1">Đợt 1</option>
-            <option value="2">Đợt 2</option>
-          </select>
-        </div>
-      </div>
-      <div class="row">
-        <div class="form-group col-6  p-2 d-flex justify-content-around align-items-center">
-          <label for="" class="fillter-name col-3">Báo cáo url<span class="batbuoc">*</span></label>
-          <input type="text" class="form-control col-9"  name="bao_cao_url" id="exampleInputEmail1"
-            aria-describedby="emailHelp">
-        </div>
-      </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-lg-12">
-
-        <table class="table">
+    <div class="m-portlet">
+      <div class="m-portlet__body">
+        <table class="table m-table m-table--head-bg-brand">
           <thead>
             <tr>
               <th scope="col">Danh mục</th>
@@ -78,124 +125,131 @@
           <tbody>
             <tr>
               <td>Tổng số nữ</td>
-              <td><input  min="0" step="1" type="number" name="so_luong_sv_nu_Cao_dang" class="form-control"
+              <td><input min="0" step="1" type="number" name="so_luong_sv_nu_Cao_dang" class="form-control"
                   id="inputEmail4"></td>
-              <td><input type="number"  min="0" step="1" name="so_luong_sv_nu_Trung_cap" class="form-control"
+              <td><input type="number" min="0" step="1" name="so_luong_sv_nu_Trung_cap" class="form-control"
                   id="inputEmail4"></td>
-              <td><input type="number"  min="0" step="1" name="so_luong_sv_nu_So_cap" class="form-control"
-                  id="inputEmail4"></td>
-              <td><input type="number"  min="0" step="1" name="so_luong_sv_nu_khac" class="form-control"
-                  id="inputEmail4"></td>
+              <td><input type="number" min="0" step="1" name="so_luong_sv_nu_So_cap" class="form-control"
+                  id="inputEmail4">
+              </td>
+              <td><input type="number" min="0" step="1" name="so_luong_sv_nu_khac" class="form-control"
+                  id="inputEmail4">
+              </td>
             </tr>
             <tr>
               <td>Tổng số dân tộc thiểu số ít người</td>
-              <td><input type="number"  min="0" step="1" name="so_luong_sv_dan_toc_Cao_dang"
-                  class="form-control" id="inputEmail4"></td>
-              <td><input type="number"  min="0" step="1" name="so_luong_sv_dan_toc_Trung_cap"
-                  class="form-control" id="inputEmail4"></td>
-              <td><input type="number"  min="0" step="1" name="so_luong_sv_dan_toc_So_cap" class="form-control"
+              <td><input type="number" min="0" step="1" name="so_luong_sv_dan_toc_Cao_dang" class="form-control"
                   id="inputEmail4"></td>
-              <td><input type="number"  min="0" step="1" name="so_luong_sv_dan_toc_khac" class="form-control"
+              <td><input type="number" min="0" step="1" name="so_luong_sv_dan_toc_Trung_cap" class="form-control"
+                  id="inputEmail4"></td>
+              <td><input type="number" min="0" step="1" name="so_luong_sv_dan_toc_So_cap" class="form-control"
+                  id="inputEmail4"></td>
+              <td><input type="number" min="0" step="1" name="so_luong_sv_dan_toc_khac" class="form-control"
                   id="inputEmail4"></td>
 
             </tr>
             <tr>
               <td>Tống số hộ khẩu Hà Nội</td>
-              <td><input type="number"  min="0" step="1" name="so_luong_sv_ho_khau_HN_Cao_dang"
-                  class="form-control" id="inputEmail4"></td>
-              <td><input type="number"  min="0" step="1" name="so_luong_sv_ho_khau_HN_Trung_cap"
-                  class="form-control" id="inputEmail4"></td>
-              <td><input type="number"  min="0" step="1" name="so_luong_sv_ho_khau_HN_So_cap"
-                  class="form-control" id="inputEmail4"></td>
-              <td><input type="number"  min="0" step="1" name="so_luong_sv_ho_khau_HN_khac" class="form-control"
+              <td><input type="number" min="0" step="1" name="so_luong_sv_ho_khau_HN_Cao_dang" class="form-control"
+                  id="inputEmail4"></td>
+              <td><input type="number" min="0" step="1" name="so_luong_sv_ho_khau_HN_Trung_cap" class="form-control"
+                  id="inputEmail4"></td>
+              <td><input type="number" min="0" step="1" name="so_luong_sv_ho_khau_HN_So_cap" class="form-control"
+                  id="inputEmail4"></td>
+              <td><input type="number" min="0" step="1" name="so_luong_sv_ho_khau_HN_khac" class="form-control"
                   id="inputEmail4"></td>
             </tr>
             <tr>
               <td>Hộ khẩu Hà Nội tốt nghiệp THCS</td>
-              <td><input type="hidden"  min="0" step="1"  class="form-control" id="inputEmail4"></td>
-              <td><input type="number"  min="0" step="1" name="ho_khau_HN_THCS_Trung_cap" class="form-control"
+              <td><input type="hidden" min="0" step="1" class="form-control" id="inputEmail4"></td>
+              <td><input type="number" min="0" step="1" name="ho_khau_HN_THCS_Trung_cap" class="form-control"
                   id="inputEmail4"></td>
-              <td><input type="hidden"  min="0" step="1"  class="form-control" id="inputEmail4"></td>
-              <td><input type="hidden"  min="0" step="1"  class="form-control" id="inputEmail4"></td>
+              <td><input type="hidden" min="0" step="1" class="form-control" id="inputEmail4"></td>
+              <td><input type="hidden" min="0" step="1" class="form-control" id="inputEmail4"></td>
             </tr>
             <tr>
               <td>Số tốt nghiệp THCS</td>
-              <td><input type="hidden"  min="0" step="1"  class="form-control" id="inputEmail4"></td>
-              <td><input type="number"  min="0" step="1" name="so_Tot_nghiep_THCS" class="form-control"
-                  id="inputEmail4"></td>
-              <td><input type="hidden"  min="0" step="1"  class="form-control" id="inputEmail4"></td>
-              <td><input type="hidden"  min="0" step="1"  class="form-control" id="inputEmail4"></td>
+              <td><input type="hidden" min="0" step="1" class="form-control" id="inputEmail4"></td>
+              <td><input type="number" min="0" step="1" name="so_Tot_nghiep_THCS" class="form-control" id="inputEmail4">
+              </td>
+              <td><input type="hidden" min="0" step="1" class="form-control" id="inputEmail4"></td>
+              <td><input type="hidden" min="0" step="1" class="form-control" id="inputEmail4"></td>
             </tr>
             <tr>
               <td>Số tốt nghiệp THPT</td>
-              <td><input type="hidden"  min="0" step="1"  class="form-control" id="inputEmail4"></td>
-              <td><input type="number"  min="0" step="1" name="so_Tot_nghiep_THPT" class="form-control"
-                  id="inputEmail4"></td>
-              <td><input type="hidden"  min="0" step="1"  class="form-control" id="inputEmail4"></td>
-              <td><input type="hidden"  min="0" step="1"  class="form-control" id="inputEmail4"></td>
+              <td><input type="hidden" min="0" step="1" class="form-control" id="inputEmail4"></td>
+              <td><input type="number" min="0" step="1" name="so_Tot_nghiep_THPT" class="form-control" id="inputEmail4">
+              </td>
+              <td><input type="hidden" min="0" step="1" class="form-control" id="inputEmail4"></td>
+              <td><input type="hidden" min="0" step="1" class="form-control" id="inputEmail4"></td>
             </tr>
             <tr>
               <td>Tuyển mới</td>
-              <td><input type="number"  min="0" step="1" name="so_tuyen_moi_Cao_dang" class="form-control"
-                  id="inputEmail4"></td>
-              <td><input type="hidden"  min="0" step="1"  class="form-control" id="inputEmail4"></td>
-              <td><input type="hidden"  min="0" step="1"  class="form-control" id="inputEmail4"></td>
-              <td><input type="hidden"  min="0" step="1"  class="form-control" id="inputEmail4"></td>
+              <td><input type="number" min="0" step="1" name="so_tuyen_moi_Cao_dang" class="form-control"
+                  id="inputEmail4">
+              </td>
+              <td><input type="hidden" min="0" step="1" class="form-control" id="inputEmail4"></td>
+              <td><input type="hidden" min="0" step="1" class="form-control" id="inputEmail4"></td>
+              <td><input type="hidden" min="0" step="1" class="form-control" id="inputEmail4"></td>
             </tr>
             <tr>
               <td>Liên thông</td>
-              <td><input type="number"  min="0" step="1" name="so_lien_thong_Cao_dang" class="form-control"
-                  id="inputEmail4"></td>
-              <td><input type="hidden"  min="0" step="1"  class="form-control" id="inputEmail4"></td>
-              <td><input type="hidden"  min="0" step="1"  class="form-control" id="inputEmail4"></td>
-              <td><input type="hidden"  min="0" step="1"  class="form-control" id="inputEmail4"></td>
+              <td><input type="number" min="0" step="1" name="so_lien_thong_Cao_dang" class="form-control"
+                  id="inputEmail4">
+              </td>
+              <td><input type="hidden" min="0" step="1" class="form-control" id="inputEmail4"></td>
+              <td><input type="hidden" min="0" step="1" class="form-control" id="inputEmail4"></td>
+              <td><input type="hidden" min="0" step="1" class="form-control" id="inputEmail4"></td>
             </tr>
             <tr>
               <td>Tổng số kết quả tuyển sinh</td>
-              <td><input type="number"  min="0" step="1" name="so_luong_sv_Cao_dang" class="form-control"
-                  id="inputEmail4"></td>
-              <td><input type="number"  min="0" step="1" name="so_luong_sv_Trung_cap" class="form-control"
-                  id="inputEmail4"></td>
-              <td><input type="number"  min="0" step="1" name="so_luong_sv_So_cap" class="form-control"
-                  id="inputEmail4"></td>
-              <td><input type="number"  min="0" step="1" name="so_luong_sv_he_khac" class="form-control"
-                  id="inputEmail4"></td>
+              <td><input type="number" min="0" step="1" name="so_luong_sv_Cao_dang" class="form-control"
+                  id="inputEmail4">
+              </td>
+              <td><input type="number" min="0" step="1" name="so_luong_sv_Trung_cap" class="form-control"
+                  id="inputEmail4">
+              </td>
+              <td><input type="number" min="0" step="1" name="so_luong_sv_So_cap" class="form-control" id="inputEmail4">
+              </td>
+              <td><input type="number" min="0" step="1" name="so_luong_sv_he_khac" class="form-control"
+                  id="inputEmail4">
+              </td>
             </tr>
 
             <tr>
               <td>Kết hoạch tuyển sinh</td>
-              <td><input type="number"  min="0" step="1" name="ke_hoach_tuyen_sinh_cao_dang"
-                  class="form-control" id="inputEmail4"></td>
-              <td><input type="number"  min="0" step="1" name="ke_hoach_tuyen_sinh_trung_cap"
-                  class="form-control" id="inputEmail4"></td>
-              <td><input type="number"  min="0" step="1" name="ke_hoach_tuyen_sinh_so_cap" class="form-control"
+              <td><input type="number" min="0" step="1" name="ke_hoach_tuyen_sinh_cao_dang" class="form-control"
                   id="inputEmail4"></td>
-              <td><input type="number"  min="0" step="1" name="ke_hoach_tuyen_sinh_khac" class="form-control"
+              <td><input type="number" min="0" step="1" name="ke_hoach_tuyen_sinh_trung_cap" class="form-control"
+                  id="inputEmail4"></td>
+              <td><input type="number" min="0" step="1" name="ke_hoach_tuyen_sinh_so_cap" class="form-control"
+                  id="inputEmail4"></td>
+              <td><input type="number" min="0" step="1" name="ke_hoach_tuyen_sinh_khac" class="form-control"
                   id="inputEmail4"></td>
             </tr>
             <tr>
-              <td  colspan="2">Tổng số tuyển sinh nữ</td>
-              <td  colspan="3"><input style="width: 300px;"  name="tong_so_nu" type="number"  min="0" step="1"
+              <td colspan="2">Tổng số tuyển sinh nữ</td>
+              <td colspan="3"><input style="width: 300px;" name="tong_so_nu" type="number" min="0" step="1"
                   class="form-control" id="inputEmail4"></td>
             </tr>
             <tr>
-              <td  colspan="2">Tổng số tuyển sinh dân tộc</td>
-              <td  colspan="3"><input style="width: 300px;"  name="tong_so_dan_toc" type="number"  min="0" step="1"
+              <td colspan="2">Tổng số tuyển sinh dân tộc</td>
+              <td colspan="3"><input style="width: 300px;" name="tong_so_dan_toc" type="number" min="0" step="1"
                   class="form-control" id="inputEmail4"></td>
             </tr>
             <tr>
-              <td  colspan="2">Tổng số tuyển sinh hộ khẩu hà nội</td>
-              <td  colspan="3"><input style="width: 300px;"  name="tong_ho_khau_HN" type="number"  min="0" step="1"
+              <td colspan="2">Tổng số tuyển sinh hộ khẩu hà nội</td>
+              <td colspan="3"><input style="width: 300px;" name="tong_ho_khau_HN" type="number" min="0" step="1"
                   class="form-control" id="inputEmail4"></td>
             </tr>
             <tr>
-              <td  colspan="2">Tổng số tuyển sinh các trình độ</td>
-              <td  colspan="3"><input style="width: 300px;"  name="tong_so_tuyen_sinh_cac_trinh_do" type="number"  min="0" step="1"
-                  class="form-control" id="inputEmail4"></td>
+              <td colspan="2">Tổng số tuyển sinh các trình độ</td>
+              <td colspan="3"><input style="width: 300px;" name="tong_so_tuyen_sinh_cac_trinh_do" type="number" min="0"
+                  step="1" class="form-control" id="inputEmail4"></td>
             </tr>
             <tr>
-              <td  colspan="2">Tổng số kế hoạch tuyển sinh</td>
-              <td  colspan="3"><input style="width: 300px;"  name="tong_so_tuyen_sinh" type="number"  min="0" step="1"
+              <td colspan="2">Tổng số kế hoạch tuyển sinh</td>
+              <td colspan="3"><input style="width: 300px;" name="tong_so_tuyen_sinh" type="number" min="0" step="1"
                   class="form-control" id="inputEmail4"></td>
             </tr>
           </tbody>
@@ -208,9 +262,19 @@
       {{session('thongbao')}}
     </div>
     @endif
+    @if ($errors->any())
+    <ul class="col-md-10 mx-auto">
+      @foreach ($errors->all() as $error)
+      <li class="thongbao " style="color: red;">
+        {{ $error }}
+      </li>
+      @endforeach
+    </ul>
+    @endif
     <div class="row mt-4" style="float: right">
       <div class="col-md-12">
-      <button type="button" class="btn btn-danger mr-5"><a style="color: white" href="{{route('solieutuyensinh')}}">Hủy</a></button>
+        <button type="button" class="btn btn-danger mr-5"><a style="color: white"
+            href="{{route('solieutuyensinh')}}">Hủy</a></button>
         <button type="submit" class="btn btn-primary">Thêm mới</button>
 
       </div>

@@ -96,7 +96,8 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 	{
 		$result = $this->table->where('tuyen_sinh.id', '=', $id)
 		->join('nganh_nghe', 'tuyen_sinh.nghe_id', '=', 'nganh_nghe.id')
-		->select('tuyen_sinh.*', 'nganh_nghe.ten_nganh_nghe')->get()->first();
+		->join('co_so_dao_tao', 'tuyen_sinh.co_so_id', '=', 'co_so_dao_tao.id')
+		->select('tuyen_sinh.*', 'nganh_nghe.ten_nganh_nghe','co_so_dao_tao.ten')->get()->first();
 		return $result;
 	}
 	public function getCheckTonTaiSoLieuTuyenSinh($arrcheck)

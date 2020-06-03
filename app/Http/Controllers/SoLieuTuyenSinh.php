@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-
+use App\Http\Requests\TuyenSinhValidate;
 use App\Services\SoLieuTuyenSinhService;
 class SoLieuTuyenSinh extends Controller
 {
@@ -55,12 +55,11 @@ class SoLieuTuyenSinh extends Controller
 
     public function suasolieutuyensinh($id)
     {
-        $data = $this->SoLieuTuyenSinhService->getTenCoSoDaoTao();
         $datatuyensinhid = $this->SoLieuTuyenSinhService->getsuasolieutuyensinh($id);
-        return view('solieutuyensinh.sua_so_luong_tuyen_sinh',compact('data','datatuyensinhid'));
-    }
+        return view('solieutuyensinh.sua_so_luong_tuyen_sinh',compact('datatuyensinhid'));
+    }   
 
-    public function postsuasolieutuyensinh($id,Request $request)
+    public function postsuasolieutuyensinh($id,TuyenSinhValidate $request)
     {
         $data = $this->SoLieuTuyenSinhService->update($id,$request);
         return redirect()->back()->with('thongbao','Sửa số liệu tuyển sinh thành công');
@@ -77,7 +76,7 @@ class SoLieuTuyenSinh extends Controller
         $data = $this->SoLieuTuyenSinhService->getmanganhnghe($request->id);
         return $data;
     }
-    public function postthemsolieutuyensinh(Request $request)
+    public function postthemsolieutuyensinh(TuyenSinhValidate $request)
     {
         $getdata = $request->all();
         $data = $this->SoLieuTuyenSinhService->postthemsolieutuyensinh($getdata);
