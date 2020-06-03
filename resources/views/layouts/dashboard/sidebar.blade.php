@@ -58,8 +58,6 @@
 										<li class="m-menu__item " aria-haspopup="true"><a href="{{route('nhapbc.deadline-bao-cao')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Thiết lập deadline báo cáo theo đợt</span></a></li>
 										<li class="m-menu__item " aria-haspopup="true"><a href="{{route('nhapbc.tien-do-nop-bao-cao')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Kiểm soát tiến độ nộp báo cáo</span></a></li>
 										<li class="m-menu__item " aria-haspopup="true"><a href="{{route('nhapbc.phe-duyet-bao-cao')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Phê duyệt báo cáo</span></a></li>
-										
-
 									</ul>
 								</div>
 							</li>
@@ -71,7 +69,15 @@
 										<li class="m-menu__item " aria-haspopup="true"><a href="{{route('xuatbc.ds-quan-ly')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Danh sách đội ngũ quản lý</span></a></li>
 										<li class="m-menu__item " aria-haspopup="true"><a href="{{route('xuatbc.ds-sv-dang-hoc')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Tổng hợp sinh viên đang theo học</span></a></li>
 										<li class="m-menu__item " aria-haspopup="true"><a href="{{route('xuatbc.ds-chinh-sach-sv')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Tổng hợp thực hiện chính sách cho SV</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="{{route('xuatbc.ds-ket-qua-ts')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Tổng hợp kết quả tuyển sinh</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true">
+											<a href="{{route('solieutuyensinh', [
+												'dot' => \Carbon\Carbon::now()->month < 6 ? 1 : 2,
+												'nam' => \Carbon\Carbon::now()->year,
+											])}}" class="m-menu__link ">
+												<i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i>
+												<span class="m-menu__link-text">Tổng hợp kết quả tuyển sinh</span>
+											</a>
+										</li>
 										<li class="m-menu__item " aria-haspopup="true"><a href="{{route('xuatbc.ds-xd-giao-trinh')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Tổng hợp xd chương trình, giáo trình</span></a></li>
 										<li class="m-menu__item " aria-haspopup="true"><a href="{{route('xuatbc.ds-tot-nghiep')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Tổng hợp kết quả tốt nghiệp</span></a></li>
 										<li class="m-menu__item " aria-haspopup="true"><a href="{{route('xuatbc.ds-dao-tao-khuyet-tat')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Tổng hợp đào tạo nghề cho người khuyết tật</span></a></li>
