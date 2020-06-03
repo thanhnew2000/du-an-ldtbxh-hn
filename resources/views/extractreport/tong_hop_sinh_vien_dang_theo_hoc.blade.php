@@ -85,7 +85,9 @@
                                 <a href="{{ route('xuatbc.sua-so-sv', ['id'=>$qlsv->id])}}">Chỉnh sửa</a>
                             </td>
                             <td>
-                                <a href="{{ route('xuatbc.chi-tiet-so-lieu') }}">Chi tiết</a>
+                                <a href="{{ route('xuatbc.chi-tiet-so-lieu',[
+                                    'co_so_id' => $qlsv->id,
+                                ]) }}">Chi tiết</a>
                             </td>
                         </tr>
                         @endforeach

@@ -1,5 +1,4 @@
 @extends('layouts.admin')
-@section('title', "Chi tiết số liệu tuyển sinh")
 @section('style')
 <link href="{!! asset('tuyensinh/css/chitiettuyensinh.css') !!}" rel="stylesheet" type="text/css" />
 @endsection
