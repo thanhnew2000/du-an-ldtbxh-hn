@@ -17,10 +17,10 @@ class SoLieuTuyenSinh extends Controller
 
     public function tonghopsolieutuyensinh()
     {
-        $limit =4;
+        $limit =10;
         $data = $this->SoLieuTuyenSinhService->getSoLuongTuyenSinh($limit);
         $co_so_dao_tao =  DB::table('co_so_dao_tao')->get();
-       return view('solieutuyensinh.tong_hop_so_lieu_tuyen_sinh',compact('data','limit','co_so_dao_tao'));
+        return view('solieutuyensinh.tong_hop_so_lieu_tuyen_sinh',compact('data','limit','co_so_dao_tao'));
     }
 
 
@@ -62,4 +62,18 @@ class SoLieuTuyenSinh extends Controller
         $data = $this->SoLieuTuyenSinhService->postthemsolieutuyensinh($getdata);
         return redirect()->back()->with('thongbao','Thêm số liệu tuyển sinh thành công');
     }
+    public function getCheckTonTaiSoLieuTuyenSinh(Request $request)
+    {
+        $datacheck=  $request->datacheck;
+        $getdata = $this->SoLieuTuyenSinhService->getCheckTonTaiSoLieuTuyenSinh($datacheck);
+        if($getdata == 'tontai'){
+            return 1;
+        }else if($getdata == null){
+            return 2;
+        }else{
+            return $urledit = route('suasolieutuyensinh', ['id' => $getdata->id]);
+        }
+        
+    }
 }
+?>
