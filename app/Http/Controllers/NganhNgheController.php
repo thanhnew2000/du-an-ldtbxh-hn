@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\NganhNgheService;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Route;
 class NganhNgheController extends Controller
 {
     protected $nganhNgheService;
@@ -15,12 +15,14 @@ class NganhNgheController extends Controller
     public function danhsachnganhnghe(Request $request){
 
         $params = $request->all();
-
         if(!isset($params['bac_nghe'])) $params['bac_nghe'] = 6;
+        if(!isset($params['page_size'])) $params['page_size'] = config('common.paginate_size.default');
+
         $data = $this->nganhNgheService->getNganhNghe($params);
         $data->appends(request()->input())->links();
 
-        return view('');
+        $route_name = Route::current()->action['as'];
+        return view('nganh-nghe.danh-sach-nghe', compact('data', 'params', 'route_name'));
 
 
     }
