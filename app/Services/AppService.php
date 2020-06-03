@@ -15,8 +15,8 @@ abstract  class AppService
     public function __construct()
     {
         $this->setRepository();
-        //dd($this->repository);
     }
+
     //Lay repository tuong ung
     public function getRepository()
     {
@@ -59,7 +59,6 @@ abstract  class AppService
     {
         // dd($unsetColumn);
         $attributes = $request->all();
-
         if (count($unsetColumn) > 0) {
             foreach ($unsetColumn as $col) {
                 unset($attributes[$col]);
