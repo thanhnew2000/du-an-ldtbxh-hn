@@ -60,8 +60,10 @@ Route::group(['prefix' => 'ket-qua-tuyen-sinh'], function(){
 
 
     Route::get('/tong-hop-so-lieu-tuyen-sinh','SoLieuTuyenSinh@tonghopsolieutuyensinh')->name('solieutuyensinh');
+    Route::post('/co-so-tuyen-sinh-theo-loai-hinh','SoLieuTuyenSinh@getCoSoTuyenSinhTheoLoaiHinh')->name('csTuyenSinhTheoLoaiHinh');
+    Route::post('/xa-phuong-theo-quan-huyen','SoLieuTuyenSinh@getXaPhuongTheoQuanHuyen')->name('getXaPhuongTheoQuanHuyen');
     Route::get('/search-co-so-so-lieu-tuyen-sinh','SoLieuTuyenSinh@searchCoSoTongHopSoLieuTuyenSinh')->name('searchCoSoTongHopSoLieuTuyenSinh');
-    Route::get('/chi-tiet-so-lieu-tuyen-sinh/{nam}/{dot}/{co_so_id}','SoLieuTuyenSinh@chitietsolieutuyensinh')->name('chitietsolieutuyensinh');
+    Route::get('/chi-tiet-so-lieu-tuyen-sinh/{co_so_id}','SoLieuTuyenSinh@chitietsolieutuyensinh')->name('chitietsolieutuyensinh');
     Route::get('/sua-so-lieu-tuyen-sinh/{id}','SoLieuTuyenSinh@suasolieutuyensinh')->name('suasolieutuyensinh');
     Route::post('/sua-so-lieu-tuyen-sinh/{id}/edit','SoLieuTuyenSinh@postsuasolieutuyensinh')->name('postsuasolieutuyensinh');
     Route::get('/them-so-lieu-tuyen-sinh','SoLieuTuyenSinh@themsolieutuyensinh')->name('themsolieutuyensinh');

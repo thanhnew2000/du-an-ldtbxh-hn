@@ -74,8 +74,12 @@
 
       function removeselect() {
         arrcheck=[]
-        $('#co_so_dao_tao').val('')
-        $('#ma_nganh_nghe').val('')
+        // $('#co_so_dao_tao').val('')
+        // $("#co_so_dao_tao").select2('val', '0');
+        // $("#ma_nganh_nghe").select2('val', '1');
+        // $("#co_so_dao_tao").select2("val", "");
+        // $("#ma_nganh_nghe").select2("val", "");
+        // $('#ma_nganh_nghe').val('')
         $('#ma_nganh_nghe').attr('disabled',true)
         $('#nam').val('')
         $('#dot').val('')
