@@ -97,7 +97,7 @@
                         <td>{{$cursor->ten_nganh_nghe}}</td>
                         <td>{{$cursor->csdt_count}}</td>
                         <td>
-                            <a href="" class="btn btn-info btn-sm">Chi tiết</a>
+                            <a href="{{route('nghe.chi-tiet-nghe', ['ma_nghe' => $cursor->id])}}" class="btn btn-info btn-sm">Chi tiết</a>
                             <a href="" class="btn btn-primary btn-sm">Cập nhật</a>
                             <a href="" class="btn btn-danger btn-sm">Xóa</a>
                         </td>
