@@ -1,6 +1,11 @@
-*{
+*:not(i, .select2-selection__arrow) {
     font-family: 'Roboto', sans-serif !important;
 }
+
 table th{
     font-weight: 900;
+}
+
+.pointer {
+    cursor: pointer;
 }

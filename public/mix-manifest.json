@@ -1,4 +1,7 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/js/common/filter.js": "/js/common/filter.js",
+    "/js/common/index_table.js": "/js/common/index_table.js",
+    "/js/so_lieu_tuyen_sinh/tong_hop_so_lieu.js": "/js/so_lieu_tuyen_sinh/tong_hop_so_lieu.js"
 }
