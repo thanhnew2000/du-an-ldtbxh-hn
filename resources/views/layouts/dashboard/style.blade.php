@@ -57,4 +57,4 @@
 
         <!--end::Page Vendors Styles -->
         <link rel="shortcut icon" href="{!! asset('images/favicon.png') !!}" />
-        <link rel="stylesheet" href="{!!asset('css/login.css')!!}" type="text/css"/>
+        <link rel="stylesheet" href="{!!asset('css/main.css')!!}" type="text/css"/>
