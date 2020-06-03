@@ -70,6 +70,10 @@ class ExtractController extends Controller
     {
         return view('extractreport.tong_hop_ket_qua_tuyen_sinh');
     }
+    public function chiteittonghopkqtuyensinh()
+    {
+        return view('extractreport.chi_tiet_tong_hop_ket_qua_tuyen_sinh');
+    }
 
     public function tonghopxdchuongtrinh()
     {
@@ -77,7 +81,15 @@ class ExtractController extends Controller
     }
     public function tonghopkqtotnghiep()
     {
-        return view('extractreport.tong_hop_ket_qua_tot_nghiep');
+        return view('tot_nghiep.tong_hop_ket_qua_tot_nghiep');
+    }
+    public function chitiettonghopkqtotnghiep()
+    {
+        return view('tot_nghiep.chi_tiet_tong_hop_ket_qua_tot_nghiep');
+    }
+    public function suatonghopkqtotnghiep()
+    {
+        return view('tot_nghiep.sua_tong_hop_ket_qua_tot_nghiep');
     }
     public function tonghopdaotaonguoikhuyettat()
     {
