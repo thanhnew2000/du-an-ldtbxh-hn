@@ -39,22 +39,16 @@ class SoLieuTuyenSinhService extends AppService
         $queryData['nam'] = isset($params['nam']) ? $params['nam'] : Carbon::now()->year;
         $queryData['co_so_id'] = isset($params['co_so_id']) ? $params['co_so_id'] : null;
         $queryData['loai_hinh'] = isset($params['loai_hinh']) ? $params['loai_hinh'] : null;
+        $queryData['devvn_quanhuyen'] = isset($params['devvn_quanhuyen']) ? $params['devvn_quanhuyen'] : null;
+        $queryData['devvn_xaphuongthitran'] = isset($params['devvn_xaphuongthitran']) ? $params['devvn_xaphuongthitran'] : null;
 
         $data = $this->repository->getSoLuongTuyenSinh($queryData, $limit);
-
-        foreach ($data as $item) {
-            $item->ketquatuyensinh = $item->so_luong_sv_Cao_dang +
-                $item->so_luong_sv_Trung_cap +
-                $item->so_luong_sv_So_cap +
-                $item->so_luong_sv_he_khac;
-        }
 
         return $data;
     }
 
-    public function getChiTietSoLuongTuyenSinh($nam, $dot, $coSoId){
-        $data = $this->repository->getChiTietSoLuongTuyenSinh($nam, $dot, $coSoId);
-        $data->ketquatuyensinh = $data->so_luong_sv_Cao_dang+$data->so_luong_sv_Trung_cap+$data->so_luong_sv_So_cap+$data->so_luong_sv_he_khac;
+    public function getChiTietSoLuongTuyenSinh($coSoId,$limit){
+        $data = $this->repository->getChiTietSoLuongTuyenSinh($coSoId,$limit);
         return $data;
     }
     public function getTenCoSoDaoTao(){
@@ -95,6 +89,18 @@ class SoLieuTuyenSinhService extends AppService
         $data = $this->repository->getDataSeachCoSo($id);
         $data->ketquatuyensinh = $data->so_luong_sv_Cao_dang+$data->so_luong_sv_Trung_cap+$data->so_luong_sv_So_cap+$data->so_luong_sv_he_khac;
         return $data;
+    }
+
+    public function getCoSoTuyenSinhTheoLoaiHinh($id)
+    {
+        $data = $this->repository->getCoSoTuyenSinhTheoLoaiHinh($id);
+        return $data;
+    }
+    public function getTenQuanHuyen(){
+        return  $this->repository->getTenQuanHuyen();
+    }
+    public function getXaPhuongTheoQuanHuyen($id){
+        return  $this->repository->getXaPhuongTheoQuanHuyen($id);
     }
 
 }
