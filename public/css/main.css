@@ -1,10 +1,23 @@
-*{
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
+.btn {
     font-family: 'Roboto', sans-serif !important;
 }
-table th{
+
+table th {
     font-weight: 900;
 }
 
+table td {
+    vertical-align: middle !important;
+}
+
+.size-100 {
+    max-width: 100px;
+    max-height: 100px;
+}
 .table-boder-white th{
     border: 1px solid white ;
     border-top: 1px solid white !important;

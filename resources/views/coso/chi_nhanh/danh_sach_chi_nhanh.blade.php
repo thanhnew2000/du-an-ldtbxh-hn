@@ -44,9 +44,9 @@
                     </div>
                 </div>
 
-                <div class="d-flex justify-content-between container pt-3 mb-5 col-3">
+                <div class="d-flex justify-content-between container pt-3 mb-5 col-2">
                     <button type="submit" class="btn btn-primary btn-fillter">Tìm kiếm</button>
-                    <button type="submit" class="btn btn-danger btn-fillter">Hủy</button>
+                    {{-- <button type="reset" class="btn btn-danger btn-fillter">Hủy</button> --}}
                 </div>
 
             </form>
@@ -64,7 +64,8 @@
                 Tải lên file Excel</a>
         </div>
         <div class="btn">
-            <button class="btn btn-outline-primary">Thêm mới</button>
+            <a name="" id="" class="btn btn-outline-primary" href="{{ route('chi-nhanh.tao-moi') }}"
+                role="button">Thêm</a>
         </div>
     </section>
     <!-- end- action -->
@@ -72,50 +73,49 @@
     <section class="table-data container">
         <div class="m-section">
             <div class="m-section__content">
-                <table class="table table-bordered m-table thead-bluedark">
+                <table class="table m-table">
                     <thead>
                         <tr>
                             <th>STT</th>
                             <th>Tên cơ sở đào tạo</th>
-                            <th>Mã đơn vị</th>
-                            <th>Loại hình cơ sở</th>
-                            <th>Logo</th>
-                            <th>Quyết đinh</th>
                             <th>Địa chỉ</th>
+                            <th>Hotline</th>
+                            <th>Chi Nhánh</th>
+                            <th>Mã chứng nhận</th>
                             <th colspan="2">Thao tác</th>
                         </tr>
                     </thead>
                     <tbody>
-                    @php($i=1);
-                    @foreach($data as $csdt)
+                        @php($i=1);
+                        @foreach($data as $items)
                         <tr>
                             <td>{{$i++}}</td>
-                            <td>{{$csdt->ten}}</td>
-                            <td>{{$csdt->ma_don_vi}}</td>
-                            <td>{{$csdt->loai_hinh_co_so}}</td>
-                            <td><img class="logo-csdt" src="{{$csdt->logo}}" alt=""></td>
-                            <td>{{$csdt->qd_ten}}</td>
-                            <td>{{$csdt->dia_chi}}</td>
-                            <td>@jhon</td>
+                            <td>{{$items->ten}}</td>
+                            <td>{{$items->dia_chi}}</td>
+                            <td>{{$items->hotline}}</td>
+                            <td>
+                                @if ($items->chi_nhanh_chinh == 1)
+                                Chi nhánh chính
+                                @else
+                                Chi nhánh phụ
+                                @endif</td>
+                            <td>{{$items->ma_chung_nhan_dang_ki_hoat_dong}}</td>
+                            <td>
+                                <a href="{{route('chi-nhanh.cap-nhat', ['id'=> $items->id])}}"
+                                    class="btn btn-outline-primary">Sửa</a>
+                            </td>
+                            <td>
+                                <a href="" class="btn btn-outline-danger">Xóa</a>
+                            </td>
                         </tr>
-                    @endforeach
+                        @endforeach
                     </tbody>
                 </table>
             </div>
-            <div class="d-flex justify-content-center mt-3 mb-3">
+            <div class="d-flex justify-content-end mt-5 mb-3">
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1"><i class="fa fa-backward"
-                                    aria-hidden="true"></i></a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#"><i class="fa fa-forward" aria-hidden="true"></i></a>
-                        </li>
+                        <li class="page-item">{{$data->links()}}</li>
                     </ul>
                 </nav>
             </div>
