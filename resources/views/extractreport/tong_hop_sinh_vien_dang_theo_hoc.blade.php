@@ -34,7 +34,7 @@
                             </select>
                         </div>
                     </div>
-            </div>
+                </div>
 
             <div class="d-flex justify-content-between container pt-3 mb-5 col-4 ">
                 <button type="submit " class="btn btn-primary btn-fillter ">Tìm kiếm</button>
@@ -46,8 +46,7 @@
     <section class="action-nav d-flex align-items-center justify-content-between mt-4	">
         <div class="action-template col-4 d-flex justify-content-between">
             <a href="#"><i class="fa fa-download" aria-hidden="true"></i>
-                    Tải xuống
-                    biêu mẫu</a>
+                    Tải xuống biểu mẫu</a>
             <a href="#"><i class="fa fa-upload" aria-hidden="true"></i>
                     Tải lên file Excel</a>
         </div>
@@ -64,7 +63,6 @@
                         <tr>
                             <th>STT</th>
                             <th>Tên Cơ Sở</th>
-                            <th>Số HSSV có mặt </th>
                             <th>Cao Đẳng</th>
                             <th>Trung Cấp </th>
                             <th>Sơ Cấp </th>
@@ -78,8 +76,7 @@
                         @foreach ($data as $item => $qlsv)
                         <tr>
                             <th>{{$i++}}</th>
-                            <td>{{$qlsv->ten}}</td>
-                            <td>{{$qlsv->tongsinhvien}}</td>
+                            <td>{{$qlsv->cs_ten}}</td>
                             <td>{{$qlsv->so_luong_sv_Cao_dang}}</td>
                             <td>{{$qlsv->so_luong_sv_Trung_cap}}</td>
                             <td>{{$qlsv->so_luong_sv_So_cap}}</td>
@@ -88,7 +85,7 @@
                                 <a href="{{ route('xuatbc.sua-so-sv', ['id'=>$qlsv->id])}}">Chỉnh sửa</a>
                             </td>
                             <td>
-                                <a href="">Chi tiết</a>
+                                <a href="{{ route('xuatbc.chi-tiet-so-lieu') }}">Chi tiết</a>
                             </td>
                         </tr>
                         @endforeach
@@ -96,9 +93,9 @@
                 </table>
                 </form>
             </div>
-            <div>
+            {{-- <div>
                 {{$data->links()}}
-            </div>
+            </div> --}}
         </div>
 
     </section>

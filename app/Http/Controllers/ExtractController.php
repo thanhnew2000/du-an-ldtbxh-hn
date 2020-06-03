@@ -16,6 +16,83 @@ class ExtractController extends Controller
         $this->QlsvService = $QlsvService;
     }
 
+    // public function  themMoiQlsv(Request $request){
+    //     $request->validate(
+    //         ['co_so_id' => 'required',
+    //         'nghe_id' => 'required',
+    //         'so_luong_sv_nu_Cao_dang' => 'required|min:0|integer',
+    //         'so_luong_sv_nu_Trung_cap' => 'required|min:0|integer',
+    //         'so_luong_sv_nu_So_cap' => 'required|min:0|integer',
+    //         'so_luong_sv_nu_khac' => 'required|min:0|integer',
+    //         'so_luong_sv_dan_toc_Cao_dang' => 'required|min:0|integer',
+    //         'so_luong_sv_dan_toc_Trung_cap' => 'required|min:0|integer',
+    //         'so_luong_sv_dan_toc_So_cap' => 'required|min:0|integer',
+    //         'so_luong_sv_dan_toc_khac' => 'required|min:0|integer',
+    //         'so_luong_sv_ho_khau_HN_Cao_dang' => 'required|min:0|integer',
+    //         'so_luong_sv_ho_khau_HN_Trung_cap' => 'required|min:0|integer',
+    //         'so_luong_sv_ho_khau_HN_So_cap' => 'required|min:0|integer',
+    //         'so_luong_sv_ho_khau_HN_khac' => 'required|min:0|integer',
+    //         'so_luong_sv_Cao_dang' => 'required|min:0|integer',
+    //         'so_luong_sv_Trung_cap' => 'required|min:0|integer',
+    //         'so_luong_sv_So_cap' => 'required|min:0|integer',
+    //         'so_luong_sv_he_khac' => 'required|min:0|integer',
+    //     ], 
+    //     [
+    //         'co_so_id.required' => 'Bạn không được bỏ trống ',
+    //         'nghe_id.required' => 'Bạn không được bỏ trống',
+    //         'so_luong_sv_nu_Cao_dang.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+    //         'so_luong_sv_nu_Cao_dang.min:0' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
+    //         'so_luong_sv_nu_Cao_dang.integer' => 'Vui lòng nhập số nguyên',
+    //         'so_luong_sv_nu_Trung_cap.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+    //         'so_luong_sv_nu_Trung_cap.min:0' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
+    //         'so_luong_sv_nu_Trung_cap.integer' => 'Vui lòng nhập số nguyên',
+    //         'so_luong_sv_nu_So_cap.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+    //         'so_luong_sv_nu_So_cap.min:0' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
+    //         'so_luong_sv_nu_So_cap.integer' => 'Vui lòng nhập số nguyên',
+    //         'so_luong_sv_nu_khac.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+    //         'so_luong_sv_nu_khac.min:0' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
+    //         'so_luong_sv_nu_khac.integer' => 'Vui lòng nhập số nguyên',
+    //         'so_luong_sv_dan_toc_Cao_dang.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+    //         'so_luong_sv_dan_toc_Cao_dang.min:0' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
+    //         'so_luong_sv_dan_toc_Cao_dang.integer' => 'Vui lòng nhập số nguyên',
+    //         'so_luong_sv_dan_toc_Trung_cap.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+    //         'so_luong_sv_dan_toc_Trung_cap.min:0' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
+    //         'so_luong_sv_dan_toc_Trung_cap.integer' => 'Vui lòng nhập số nguyên',
+    //         'so_luong_sv_dan_toc_So_cap.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+    //         'so_luong_sv_dan_toc_So_cap.min:0' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
+    //         'so_luong_sv_dan_toc_So_cap.integer' => 'Vui lòng nhập số nguyên',
+    //         'so_luong_sv_dan_toc_khac.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+    //         'so_luong_sv_dan_toc_khac.min:0' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
+    //         'so_luong_sv_dan_toc_khac.integer' => 'Vui lòng nhập số nguyên',
+    //         'so_luong_sv_ho_khau_HN_Cao_dang.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+    //         'so_luong_sv_ho_khau_HN_Cao_dang.min:0' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
+    //         'so_luong_sv_ho_khau_HN_Cao_dang.integer' => 'Vui lòng nhập số nguyên',
+    //         'so_luong_sv_ho_khau_HN_Trung_cap.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+    //         'so_luong_sv_ho_khau_HN_Trung_cap.min:0' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
+    //         'so_luong_sv_ho_khau_HN_Trung_cap.integer' => 'Vui lòng nhập số nguyên',
+    //         'so_luong_sv_ho_khau_HN_So_cap.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+    //         'so_luong_sv_ho_khau_HN_So_cap.min:0' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
+    //         'so_luong_sv_ho_khau_HN_So_cap.integer' => 'Vui lòng nhập số nguyên',
+    //         'so_luong_sv_ho_khau_HN_khac.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+    //         'so_luong_sv_ho_khau_HN_khac.min:0' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
+    //         'so_luong_sv_ho_khau_HN_khac.integer' => 'Vui lòng nhập số nguyên',
+    //         'so_luong_sv_Cao_dang.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+    //         'so_luong_sv_Cao_dang.min:0' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
+    //         'so_luong_sv_Cao_dang.integer' => 'Vui lòng nhập số nguyên',
+    //         'so_luong_sv_Trung_cap.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+    //         'so_luong_sv_Trung_cap.min:0' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
+    //         'so_luong_sv_Trung_cap.integer' => 'Vui lòng nhập số nguyên',
+    //         'so_luong_sv_So_cap.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+    //         'so_luong_sv_So_cap.min:0' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
+    //         'so_luong_sv_So_cap.integer' => 'Vui lòng nhập số nguyên',
+    //         'so_luong_sv_he_khac.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+    //         'so_luong_sv_he_khac.min:0' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
+    //         'so_luong_sv_he_khac.integer' => 'Vui lòng nhập số nguyên',
+    //     ]
+    //     );
+    //     return redirect()->route('xuatbc.them-so-sv')->with('status', 'Tạo thành công');
+    // }
+
     public function danhsachnhagiao()
     {
         return view('extractreport.danh_sach_doi_ngu_nha_giao');
@@ -31,17 +108,93 @@ class ExtractController extends Controller
         ]);
     }
     public function saveAdd(Request $request)
+    
     {
+        $request->validate(
+            ['co_so_id' => 'required',
+            'nghe_id' => 'required',
+            'so_luong_sv_nu_Cao_dang' => 'min:0|integer',
+            'so_luong_sv_nu_Trung_cap' => 'min:0|integer',
+            'so_luong_sv_nu_So_cap' => 'min:0|integer',
+            'so_luong_sv_nu_khac' => 'min:0|integer',
+            'so_luong_sv_dan_toc_Cao_dang' => 'min:0|integer',
+            'so_luong_sv_dan_toc_Trung_cap' => 'min:0|integer',
+            'so_luong_sv_dan_toc_So_cap' => 'min:0|integer',
+            'so_luong_sv_dan_toc_khac' => 'min:0|integer',
+            'so_luong_sv_ho_khau_HN_Cao_dang' => 'min:0|integer',
+            'so_luong_sv_ho_khau_HN_Trung_cap' => 'min:0|integer',
+            'so_luong_sv_ho_khau_HN_So_cap' => 'min:0|integer',
+            'so_luong_sv_ho_khau_HN_khac' => 'min:0|integer',
+            'so_luong_sv_Cao_dang' => 'min:0|integer',
+            'so_luong_sv_Trung_cap' => 'min:0|integer',
+            'so_luong_sv_So_cap' => 'min:0|integer',
+            'so_luong_sv_he_khac' => 'min:0|integer',
+        ], 
+        [
+            'co_so_id.required' => 'Bạn không được bỏ trống ',
+            'nghe_id.required' => 'Bạn không được bỏ trống',
+            // 'so_luong_sv_nu_Cao_dang.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+            'so_luong_sv_nu_Cao_dang.min' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
+            'so_luong_sv_nu_Cao_dang.integer' => 'Vui lòng nhập số nguyên',
+            // 'so_luong_sv_nu_Trung_cap.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+            'so_luong_sv_nu_Trung_cap.min' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
+            'so_luong_sv_nu_Trung_cap.integer' => 'Vui lòng nhập số nguyên',
+            // 'so_luong_sv_nu_So_cap.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+            'so_luong_sv_nu_So_cap.min' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
+            'so_luong_sv_nu_So_cap.integer' => 'Vui lòng nhập số nguyên',
+            // 'so_luong_sv_nu_khac.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+            'so_luong_sv_nu_khac.min' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
+            'so_luong_sv_nu_khac.integer' => 'Vui lòng nhập số nguyên',
+            // 'so_luong_sv_dan_toc_Cao_dang.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+            'so_luong_sv_dan_toc_Cao_dang.min' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
+            'so_luong_sv_dan_toc_Cao_dang.integer' => 'Vui lòng nhập số nguyên',
+            // 'so_luong_sv_dan_toc_Trung_cap.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+            'so_luong_sv_dan_toc_Trung_cap.min' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
+            'so_luong_sv_dan_toc_Trung_cap.integer' => 'Vui lòng nhập số nguyên',
+            // 'so_luong_sv_dan_toc_So_cap.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+            'so_luong_sv_dan_toc_So_cap.min' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
+            'so_luong_sv_dan_toc_So_cap.integer' => 'Vui lòng nhập số nguyên',
+            // 'so_luong_sv_dan_toc_khac.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+            'so_luong_sv_dan_toc_khac.min' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
+            'so_luong_sv_dan_toc_khac.integer' => 'Vui lòng nhập số nguyên',
+            // 'so_luong_sv_ho_khau_HN_Cao_dang.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+            'so_luong_sv_ho_khau_HN_Cao_dang.min' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
+            'so_luong_sv_ho_khau_HN_Cao_dang.integer' => 'Vui lòng nhập số nguyên',
+            // 'so_luong_sv_ho_khau_HN_Trung_cap.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+            'so_luong_sv_ho_khau_HN_Trung_cap.min' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
+            'so_luong_sv_ho_khau_HN_Trung_cap.integer' => 'Vui lòng nhập số nguyên',
+            // 'so_luong_sv_ho_khau_HN_So_cap.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+            'so_luong_sv_ho_khau_HN_So_cap.min' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
+            'so_luong_sv_ho_khau_HN_So_cap.integer' => 'Vui lòng nhập số nguyên',
+            // 'so_luong_sv_ho_khau_HN_khac.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+            'so_luong_sv_ho_khau_HN_khac.min' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
+            'so_luong_sv_ho_khau_HN_khac.integer' => 'Vui lòng nhập số nguyên',
+            // 'so_luong_sv_Cao_dang.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+            'so_luong_sv_Cao_dang.min' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
+            'so_luong_sv_Cao_dang.integer' => 'Vui lòng nhập số nguyên',
+            // 'so_luong_sv_Trung_cap.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+            'so_luong_sv_Trung_cap.min' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
+            'so_luong_sv_Trung_cap.integer' => 'Vui lòng nhập số nguyên',
+            // 'so_luong_sv_So_cap.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+            'so_luong_sv_So_cap.min' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
+            'so_luong_sv_So_cap.integer' => 'Vui lòng nhập số nguyên',
+            // 'so_luong_sv_he_khac.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+            'so_luong_sv_he_khac.min' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
+            'so_luong_sv_he_khac.integer' => 'Vui lòng nhập số nguyên',
+        ]
+        );
         $dateTime = Carbon::now();
         $request->request->set('thoi_gian_cap_nhat', $dateTime->format('Y-m-d H:i:s'));
         $request->request->set('nam', $dateTime->year);
         $request->request->set('dot', 1);
         $this->QlsvService->create($request);
         // dd($request);
-        return redirect('/extractreport/tong-hop-sinh-vien-dang-theo-hoc')->with('status', 'Tạo thành công');
+        return redirect('/xuat-bao-cao/so-lieu-sinh-vien-dang-theo-hoc')->with('status', 'Tạo thành công');
     }
-    public function edit(Qlsv $qlsv)
+    public function edit($id)
     {
+        $qlsv = Qlsv::find($id);
+
         return view('crud.edit_quan_ly_sv', [
             'qlsv' => $qlsv
         ]);
@@ -54,14 +207,19 @@ class ExtractController extends Controller
         $request->request->set('dot', 1);
         // $data = $request->all();
         $this->QlsvService->update($id, $request);
-
-        return redirect('/extractreport/tong-hop-sinh-vien-dang-theo-hoc')->with('mess', 'edit thanh cong');
+        return redirect('/xuat-bao-cao/so-lieu-sinh-vien-dang-theo-hoc')->with('mess', 'edit thanh cong');
     }
     public function tonghopsvdanghoc()
     {
         $data = $this->QlsvService->getQlsv();
         return view('extractreport.tong_hop_sinh_vien_dang_theo_hoc', compact('data'));
     }
+    public function tongHopChiTietSvDangTheoHoc(){
+        $data = $this->QlsvService->getQlsv();
+        // dd($data);
+        return view('extractreport.lich_su_sinh_vien_dang_theo_hoc',compact('data'));
+    }
+    
     public function tonghopchinhsachsv()
     {
         return view('extractreport.tong_hop_thuc_hien_chinh_sach_cho_sinh_vien');

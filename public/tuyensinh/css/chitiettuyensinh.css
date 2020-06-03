@@ -1,13 +1,15 @@
-.m-content,.btn{
-    font-family: Roboto ;
+.m-content,
+.btn {
+    font-family: Roboto;
     font-style: normal;
     font-size: 12px !important;
     line-height: 16px;
 }
+
 .fillter-area {
-border: 1px solid #777777;
-border-top: none;
-height: auto;
+    border: 1px solid #777777;
+    border-top: none;
+    height: auto;
 }
 
 .fillter-title {
@@ -20,7 +22,8 @@ height: auto;
     font-weight: bold;
     font-size: 16px;
 }
-.fillter-form form{
+
+.fillter-form form {
     padding-top: 10px;
 }
 
@@ -28,56 +31,65 @@ height: auto;
     width: 100px;
     height: 35px;
 }
-table{
+
+table {
     font-size: 12px !important;
-  }
-thead {
-background-color: #1F3247;
-color: white;
 }
 
+thead {
+    background-color: #1F3247;
+    color: white;
+}
 
 thead tr th {
-
-text-align: center;
-/* line-height: 50px; */
-border-right: 1px solid #DEDEDE;
+    text-align: center;
+    /* line-height: 50px; */
+    border-right: 1px solid #DEDEDE;
 }
+
 thead tr th[rowspan="2"] {
-line-height: 50px;
+    line-height: 50px;
 }
 
 thead tr th[colspan="4"] {
-height: 40px;
-/* line-height: 40px */
+    height: 40px;
+    /* line-height: 40px */
 }
 
-thead .row2 th{
+thead .row2 th {
     height: 30px;
     line-height: 30px;
 }
 
 tbody tr:nth-child(even) {
-background: #C5D5E4
+    background: #C5D5E4
 }
 
-tbody tr{
+tbody tr {
     height: 50px;
     text-align: center;
 }
-tbody tr td{
-   padding: 0px !important;
-   line-height: 50px;  
-   border-right: 1px solid #DEDEDE;
+
+tbody tr td {
+    padding: 0px !important;
+    /* line-height: 50px; */
+    border-right: 1px solid #DEDEDE;
 }
-.phantrang{
+
+.phantrang {
     float: right;
 }
-.btn-secondary{
+
+.btn-secondary {
     border-radius: 10px;
     border: 1px solid #1A5993;
     color: #1A5993;
 }
-.bieumau{
+
+.bieumau {
     line-height: 40px;
+}
+
+.table td {
+    vertical-align: middle;
 }

@@ -17,13 +17,14 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
     {
         return $this->table
             ->join('co_so_dao_tao', 'co_so_dao_tao.id', '=', 'sv_dang_quan_ly.co_so_id')
-            // ->join('nganh_nghe', 'nganh_nghe.id', '=', 'sv_dang_quan_li.nghe_id')
-            // ->join('co_so_dao_tao', 'loai_hinh_co_so.ma_loai_hinh_co_so', '=', 'sv_dang_quan_ly.')
+            ->join('nganh_nghe', 'nganh_nghe.id', '=', 'sv_dang_quan_ly.nghe_id')
+            ->join('loai_hinh_co_so', 'co_so_dao_tao.ma_loai_hinh_co_so', '=', 'loai_hinh_co_so.id')
             ->select(
                 'sv_dang_quan_ly.*',
                 'co_so_dao_tao.ten',
-                DB::raw('co_so_dao_tao.ten as cs_ten')
+                'loai_hinh_co_so.loai_hinh_co_so',
+                DB::raw('co_so_dao_tao.ten as cs_ten'),
             )
-            ->get();
+            ->paginate(10);
     }
 }

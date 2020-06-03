@@ -9,7 +9,7 @@
         </div>
 
     <div class="fillter-form">
-        <form method="POST" action="{{route('xuatbc.them-so-sv')}}">
+        <form method="POST" >
                 <div class="d-flex container pt-3">
                     <div class="form-group col-6 d-flex justify-content-around align-items-center">
                         <label for="" class="fillter-name col-3">Tên Cơ Sở</label>
@@ -47,34 +47,126 @@
                                 <th>Khác</th>
                                 </tr>
                             </thead>
-                        <tbody>
+                        <tbody> 
                             <tr>
                                 <td>Tổng số nữ</td>
-                                <td><input required min="0" step="1" name="so_luong_sv_nu_Cao_dang" type="number"></td>
-                                <td><input required min="0" step="1" name="so_luong_sv_nu_Trung_cap" type="number"></td>
-                                <td><input required min="0" step="1" name="so_luong_sv_nu_So_cap" type="number"></td>
-                                <td><input required min="0" step="1" name="so_luong_sv_nu_khac" type="number"></td>
+                                <td><input name="so_luong_sv_nu_Cao_dang" type="number"></td>
+                                <td><input name="so_luong_sv_nu_Trung_cap" type="number"></td>
+                                <td><input name="so_luong_sv_nu_So_cap" type="number"></td>
+                                <td><input name="so_luong_sv_nu_khac" type="number"></td>
+                            </tr>
+                            <tr style="font-size: 1rem">
+                                <td></td>
+                                <td>
+                                    @if ($errors->has('so_luong_sv_nu_Cao_dang'))
+                                    <span class="text-danger">{{ $errors->first('so_luong_sv_nu_Cao_dang') }}</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($errors->has('so_luong_sv_nu_Trung_cap'))
+                                    <span class="text-danger">{{ $errors->first('so_luong_sv_nu_Trung_cap') }}</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($errors->has('so_luong_sv_nu_So_cap'))
+                                    <span class="text-danger">{{ $errors->first('so_luong_sv_nu_So_cap') }}</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($errors->has('so_luong_sv_nu_khac'))
+                                    <span class="text-danger">{{ $errors->first('so_luong_sv_nu_khac') }}</span>
+                                    @endif
+                                </td>
                             </tr>
                             <tr>
                                 <td>Tổng số dân tộc thiểu số ít người</td>
-                                <td><input required min="0" step="1" name="so_luong_sv_dan_toc_Cao_dang" type="number"></td>
-                                <td><input required min="0" step="1" name="so_luong_sv_dan_toc_Trung_cap" type="number"></td>
-                                <td><input required min="0" step="1" name="so_luong_sv_dan_toc_So_cap" type="number"></td>
-                                <td><input required min="0" step="1" name="so_luong_sv_dan_toc_khac" type="number"></td>
+                                <td><input  name="so_luong_sv_dan_toc_Cao_dang" type="number"></td>
+                                <td><input  name="so_luong_sv_dan_toc_Trung_cap" type="number"></td>
+                                <td><input  name="so_luong_sv_dan_toc_So_cap" type="number"></td>
+                                <td><input  name="so_luong_sv_dan_toc_khac" type="number"></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    @if ($errors->has('so_luong_sv_nu_Cao_dang'))
+                                    <span class="text-danger">{{ $errors->first('so_luong_sv_nu_Cao_dang') }}</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($errors->has('so_luong_sv_nu_Trung_cap'))
+                                    <span class="text-danger">{{ $errors->first('so_luong_sv_nu_Trung_cap') }}</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($errors->has('so_luong_sv_nu_So_cap'))
+                                    <span class="text-danger">{{ $errors->first('so_luong_sv_nu_So_cap') }}</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($errors->has('so_luong_sv_nu_khac'))
+                                    <span class="text-danger">{{ $errors->first('so_luong_sv_nu_khac') }}</span>
+                                    @endif
+                                </td>
                             </tr>
                             <tr>
                                 <td>Tổng số hộ khẩu Hà Nội</td>
-                                <td><input required min="0" step="1" name="so_luong_sv_ho_khau_HN_Cao_dang" type="number"></td>
-                                <td><input required min="0" step="1" name="so_luong_sv_ho_khau_HN_Trung_cap" type="number"></td>
-                                <td><input required min="0" step="1" name="so_luong_sv_ho_khau_HN_So_cap" type="number"></td>
-                                <td><input required min="0" step="1" name="so_luong_sv_ho_khau_HN_khac" type="number"></td>
+                                <td><input  name="so_luong_sv_ho_khau_HN_Cao_dang" type="number"></td>
+                                <td><input  name="so_luong_sv_ho_khau_HN_Trung_cap" type="number"></td>
+                                <td><input  name="so_luong_sv_ho_khau_HN_So_cap" type="number"></td>
+                                <td><input  name="so_luong_sv_ho_khau_HN_khac" type="number"></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    @if ($errors->has('so_luong_sv_ho_khau_HN_Cao_dang'))
+                                    <span class="text-danger">{{ $errors->first('so_luong_sv_ho_khau_HN_Cao_dang') }}</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($errors->has('so_luong_sv_ho_khau_HN_Trung_cap'))
+                                    <span class="text-danger">{{ $errors->first('so_luong_sv_ho_khau_HN_Trung_cap') }}</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($errors->has('so_luong_sv_ho_khau_HN_So_cap'))
+                                    <span class="text-danger">{{ $errors->first('so_luong_sv_ho_khau_HN_So_cap') }}</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($errors->has('so_luong_sv_ho_khau_HN_khac'))
+                                    <span class="text-danger">{{ $errors->first('so_luong_sv_ho_khau_HN_khac') }}</span>
+                                    @endif
+                                </td>
                             </tr>
                             <tr>
                                 <td>Tổng số</td>
-                                <td><input required min="0" step="1" name="so_luong_sv_Cao_dang" type="number"></td>
-                                <td><input required min="0" step="1" name="so_luong_sv_Trung_cap" type="number"></td>
-                                <td><input required min="0" step="1" name="so_luong_sv_So_cap" type="number"></td>
-                                <td><input required min="0" step="1" name="so_luong_sv_he_khac" type="number"></td>
+                                <td><input  name="so_luong_sv_Cao_dang" type="number"></td>
+                                <td><input  name="so_luong_sv_Trung_cap" type="number"></td>
+                                <td><input  name="so_luong_sv_So_cap" type="number"></td>
+                                <td><input  name="so_luong_sv_he_khac" type="number"></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    @if ($errors->has('so_luong_sv_Cao_dang'))
+                                    <span class="text-danger">{{ $errors->first('so_luong_sv_Cao_dang') }}</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($errors->has('so_luong_sv_Trung_cap'))
+                                    <span class="text-danger">{{ $errors->first('so_luong_sv_Trung_cap') }}</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($errors->has('so_luong_sv_So_cap'))
+                                    <span class="text-danger">{{ $errors->first('so_luong_sv_So_cap') }}</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($errors->has('so_luong_sv_he_khac'))
+                                    <span class="text-danger">{{ $errors->first('so_luong_sv_he_khac') }}</span>
+                                    @endif
+                                </td>
                             </tr>
                         </tbody>
                     </table>

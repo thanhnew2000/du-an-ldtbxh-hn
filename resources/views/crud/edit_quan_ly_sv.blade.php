@@ -79,6 +79,7 @@
                         <button type="submit" class="btn btn-danger btn-fillter ml-5">Hủy</button>
                         <button type="submit" class="btn btn-primary btn-fillter ml-5">Sửa</button>
                     </div>
+              
                 </div>
             </div>
         </section>
@@ -86,4 +87,3 @@
     </div>
 </div>
 @endsection
-s

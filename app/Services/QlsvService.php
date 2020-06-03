@@ -23,9 +23,9 @@ class QlsvService extends AppService
     {
         $data =  $this->repository->getQlsv();
         // dd($data);
-        foreach ($data as $item) {
-            $item->tongsinhvien = $item->so_luong_sv_Cao_dang + $item->so_luong_sv_Trung_cap + $item->so_luong_sv_So_cap + $item->so_luong_sv_he_khac;
-        }
+        // foreach ($data as $item) {
+        //     $item->tongsinhvien = $item->so_luong_sv_Cao_dang + $item->so_luong_sv_Trung_cap + $item->so_luong_sv_So_cap + $item->so_luong_sv_he_khac;
+        // }
         // dd($data);
         return $data;
     }
