@@ -23,8 +23,8 @@
                         <h3 class="m-form__heading-title">Bộ lọc:</h3>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group m-form__group row">
+                        <div class="col-md-6 p-2">
+                            <div class="form-group m-form__group row ">
                                 <label class="col-lg-2 col-form-label">Trạng thái:</label>
                                 <div class="col-lg-8">
                                     <select name="status" id="status" class="form-control ">
@@ -35,16 +35,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 p-2">
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Từ khóa:</label>
                                 <div class="col-lg-8">
                                     <input type="text" class="form-control m-input" @if(isset($keyword))
-                                        value="{{$keyword}}" @endif placeholder="Nhập từ khóa tìm kiếm" name="keyword">
+                                        value="{{$keyword}}" @endif placeholder="Tìm kiếm Name, Email, Phone , Cơ sở ..." name="keyword">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 p-2">
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Quyền hạn:</label>
                                 <div class="col-lg-8">
@@ -121,7 +121,7 @@
                         </td>
                         <td>{{ $user->email }}</td>
 
-                        <td class="float-right">{{ $user->phone_number }}</td>
+                        <td>{{ $user->phone_number }}</td>
                         <td>{{ $user->ten }}</td>
 
                         <td>
