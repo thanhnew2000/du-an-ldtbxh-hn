@@ -1,15 +1,21 @@
 @extends('layouts.admin')
-@section('title', "Tổng hợp kết quả tốt nghiệp")
+@section('title', "Cập nhật kết quả tốt nghiệp")
 @section('style')
 <link href="{!! asset('tuyensinh/css/showtuyensinh.css') !!}" rel="stylesheet" type="text/css" />
 @endsection
 @section('content')
 
-<div class="m-content">
-
-    <div class="col-md-12 mb-4">
-        <div class="titile-head">
-            <h2>Chỉnh sửa kết quả tốt nghiệp</h2>
+<div class="m-portlet">
+    <div class="m-portlet__head">
+        <div class="m-portlet__head-caption">
+            <div class="m-portlet__head-title">
+                <span class="m-portlet__head-icon">
+                    <i class="m-menu__link-icon flaticon-web"></i>
+                </span>
+                <h3 class="m-portlet__head-text">
+                    Cập nhật kết quả<small>tốt nghiệp</small>
+                </h3>
+            </div>
         </div>
     </div>
     <div class="content p-5" style="background-color: #ffffff ; ">
@@ -83,10 +89,11 @@
 
             <button type="reset" class="col-1 btn btn-danger mr-5">Hủy</button>
 
-            <button type="submit" class="col-1 btn btn-primary ">Cập nhật</button>
+            <button type="submit" class="col-1 btn btn-primary ">Thêm mới</button>
 
         </div>
     </div>
+</div>
 
 </div>
 
