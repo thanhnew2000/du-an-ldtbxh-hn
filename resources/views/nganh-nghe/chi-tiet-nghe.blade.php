@@ -10,7 +10,7 @@
 													<i class="m-menu__link-icon flaticon-web"></i>
 												</span>
                     <h3 class="m-portlet__head-text">
-                        Ngành nghề <small>Danh sách</small>
+                        Ngành nghề <small>Chi tiết nghề</small>
                     </h3>
                 </div>
             </div>
@@ -25,24 +25,20 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group m-form__group row">
-                                <label class="col-lg-2 col-form-label">Bậc nghề:</label>
+                                <label class="col-lg-2 col-form-label">Loại hình cơ sở:</label>
                                 <div class="col-lg-8">
-                                    <select name="bac_nghe" class="form-control ">
-                                        <option
-                                                @if($params['bac_nghe'] == 6)
+                                    <select name="loai_hinh_co_so" class="form-control ">
+                                        <option value="">------------- Lựa chọn loại hình cơ sở -------------</option>
+                                        @foreach($dsLoaiHinhCoSo as $cursor)
+                                            <option
+                                                    @if(isset($params['loai_hinh_co_so']) && $params['loai_hinh_co_so'] == $cursor->id)
                                                     selected
-                                                @endif
-                                                value="6">Cao đẳng</option>
-                                        <option
-                                                @if($params['bac_nghe'] == 5)
-                                                    selected
-                                                @endif
-                                                value="5">Trung cấp</option>
+                                                    @endif
+                                                    value="{{$cursor->id}}">{{$cursor->loai_hinh_co_so}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Từ khóa:</label>
                                 <div class="col-lg-8">
@@ -50,7 +46,26 @@
                                            @if(isset($params['keyword']))
                                            value="{{$params['keyword']}}"
                                            @endif
-                                           placeholder="Nhập mã hoặc tên ngành nghề" name="keyword">
+                                           placeholder="Nhập tên cơ sở đào tạo cần tìm" name="keyword">
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-2 col-form-label">Quận/Huyện:</label>
+                                <div class="col-lg-8">
+                                    <select name="ma_quan_huyen" class="form-control ">
+                                        <option value="">------------- Lựa chọn quận/huyện -------------</option>
+                                        @foreach($dsQuanHuyen as $cursor)
+                                            <option
+                                                    @if(isset($params['ma_quan_huyen']) && $params['ma_quan_huyen'] == $cursor->ma_quan_huyen)
+                                                    selected
+                                                    @endif
+                                                    value="{{$cursor->ma_quan_huyen}}">{{$cursor->ten_quan_huyen}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -83,9 +98,13 @@
             </div>
             <table class="table m-table m-table--head-bg-brand">
                 <thead>
-                    <th>Mã Nghề</th>
-                    <th>Tên nghề</th>
-                    <th>Số trường được cấp</th>
+                    <th>Tên cơ sở <br> đào tạo</th>
+                    <th>Mã cơ sở <br/> đào tạo</th>
+                    <th>Logo</th>
+                    <th>Loại hình <br> cơ sở</th>
+                    <th>Đơn vị <br> chủ quản</th>
+                    <th>Quận/huyện</th>
+                    <th>Phường/xã</th>
                     <th>
                         <a href="" class="btn btn-success btn-sm">Thêm mới</a>
                     </th>
@@ -93,11 +112,16 @@
                 <tbody>
                 @foreach($data as $cursor)
                     <tr>
-                        <td>{{$cursor->id}}</td>
-                        <td>{{$cursor->ten_nganh_nghe}}</td>
-                        <td>{{$cursor->csdt_count}}</td>
+                        <td>{{$cursor->ten_co_so}}</td>
+                        <td>{{$cursor->ma_don_vi}}</td>
                         <td>
-                            <a href="{{route('nghe.chi-tiet-nghe', ['ma_nghe' => $cursor->id])}}" class="btn btn-info btn-sm">Chi tiết</a>
+                            <img src="{{asset($cursor->logo)}}" style="width: 75px;" class="m--img-rounded m--marginless">
+                        </td>
+                        <td>{{$cursor->loai_hinh_co_so}}</td>
+                        <td>{{$cursor->ten_chu_quan}}</td>
+                        <td>{{$cursor->ten_qh}}</td>
+                        <td>{{$cursor->ten_xptt}}</td>
+                        <td>
                             <a href="" class="btn btn-primary btn-sm">Cập nhật</a>
                             <a href="" class="btn btn-danger btn-sm">Xóa</a>
                         </td>
@@ -114,13 +138,14 @@
 @endsection
 @section('script')
     <script>
-    var currentUrl = '{{route($route_name)}}';
+    var currentUrl = '{{route($route_name, ['ma_nghe' => $params['ma_nghe']])}}';
     $(document).ready(function(){
         $('#page-size').change(function(){
-            var bac_nghe = $('[name="bac_nghe"]').val();
+            var loai_hinh_co_so = $('[name="loai_hinh_co_so"]').val();
+            var quan_huyen = $('[name="ma_quan_huyen"]').val();
             var keyword = $('[name="keyword"]').val();
             var page_size = $(this).val();
-            var reloadUrl = `${currentUrl}?bac_nghe=${bac_nghe}&keyword=${keyword}&page_size=${page_size}`;
+            var reloadUrl = `${currentUrl}?loai_hinh_co_so=${loai_hinh_co_so}&quan_huyen=${quan_huyen}&keyword=${keyword}&page_size=${page_size}`;
             window.location.href = reloadUrl;
         });
 

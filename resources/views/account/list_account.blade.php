@@ -5,107 +5,27 @@
 @endsection
 
 @section('content')
-
+<style>
+    .active-purple-4 input[type=text]:focus:not([readonly]) {
+  border: 1px solid #ce93d8;
+  box-shadow: 0 0 0 1px #ce93d8;
+}
+.active-purple-3 input[type=text] {
+  border: 1px solid #ce93d8;
+  box-shadow: 0 0 0 1px #ce93d8;
+}
+table{
+    width: 100% !important;
+}
+.th-bg{
+    background: #1F3247;
+    color: #ffffff;
+}
+</style>
     
 <div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <div class="m-content">           
 
-    <!-- BEGIN: Subheader -->
-    {{-- <div class="m-subheader ">
-        <div class="d-flex align-items-center">
-            <div class="mr-auto">
-                <h3 class="m-subheader__title m-subheader__title--separator"></h3>
-                <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
-                    <li class="m-nav__item m-nav__item--home">
-                        <a href="#" class="m-nav__link m-nav__link--icon">
-                            <i class="m-nav__link-icon la la-home"></i>
-                        </a>
-                    </li>
-                    <li class="m-nav__separator">-</li>
-                    <li class="m-nav__item">
-                        <a href="" class="m-nav__link">
-                            <span class="m-nav__link-text">Base</span>
-                        </a>
-                    </li>
-                    <li class="m-nav__separator">-</li>
-                    <li class="m-nav__item">
-                        <a href="" class="m-nav__link">
-                            <span class="m-nav__link-text">Tables</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div>
-                <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="hover" aria-expanded="true">
-                    <a href="#" class="m-portlet__nav-link btn btn-lg btn-secondary  m-btn m-btn--outline-2x m-btn--air m-btn--icon m-btn--icon-only m-btn--pill  m-dropdown__toggle">
-                        <i class="la la-plus m--hide"></i>
-                        <i class="la la-ellipsis-h"></i>
-                    </a>
-                    <div class="m-dropdown__wrapper">
-                        <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
-                        <div class="m-dropdown__inner">
-                            <div class="m-dropdown__body">
-                                <div class="m-dropdown__content">
-                                    <ul class="m-nav">
-                                        <li class="m-nav__section m-nav__section--first m--hide">
-                                            <span class="m-nav__section-text">Quick Actions</span>
-                                        </li>
-                                        <li class="m-nav__item">
-                                            <a href="" class="m-nav__link">
-                                                <i class="m-nav__link-icon flaticon-share"></i>
-                                                <span class="m-nav__link-text">Activity</span>
-                                            </a>
-                                        </li>
-                                        <li class="m-nav__item">
-                                            <a href="" class="m-nav__link">
-                                                <i class="m-nav__link-icon flaticon-chat-1"></i>
-                                                <span class="m-nav__link-text">Messages</span>
-                                            </a>
-                                        </li>
-                                        <li class="m-nav__item">
-                                            <a href="" class="m-nav__link">
-                                                <i class="m-nav__link-icon flaticon-info"></i>
-                                                <span class="m-nav__link-text">FAQ</span>
-                                            </a>
-                                        </li>
-                                        <li class="m-nav__item">
-                                            <a href="" class="m-nav__link">
-                                                <i class="m-nav__link-icon flaticon-lifebuoy"></i>
-                                                <span class="m-nav__link-text">Support</span>
-                                            </a>
-                                        </li>
-                                        <li class="m-nav__separator m-nav__separator--fit">
-                                        </li>
-                                        <li class="m-nav__item">
-                                            <a href="#" class="btn btn-outline-danger m-btn m-btn--pill m-btn--wide btn-sm">Submit</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
-    <!-- END: Subheader -->
-    <div class="m-content">
-                    
-
-					<!-- begin- action -->
-					{{--  <section class="action-nav d-flex align-items-center justify-content-between mt-4	">
-						<div class="action-template col-3 d-flex justify-content-between">
-							<a href="#"><i class="fa fa-download" aria-hidden="true"></i>
-								Tải xuống
-								biêu mẫu</a>
-							<a href="#"><i class="fa fa-upload" aria-hidden="true"></i>
-								Tải lên file Excel</a>
-						</div>
-						<div class="btn">
-							<button class="btn btn-outline-primary">Thêm mới</button>
-						</div>
-					</section>  --}}
-					<!-- end- action -->
         <div class="row">
  
 					
@@ -127,7 +47,7 @@
                         <div class="m-portlet__head-caption">
                             <div class="m-portlet__head-title">
                                 <h3 class="m-portlet__head-text">
-                                   <a href="{{ url('tao-tai-khoan') }}" class="btn btn-outline-success">Thêm</a>
+                                   <a href="{{ route('account.tao-tk') }}" class="btn btn-outline-success btn-sm">Thêm</a>
                                 </h3>
                             </div>
                             
@@ -140,89 +60,98 @@
 							<h4>Bộ lọc</h4>
 						</div>
 
-						<div class="fillter-form">
-							<form action="">
-								<div class="d-flex container pt-3">
-                                    <div class="form-group col-6 d-flex justify-content-around align-items-center">
+						<div class="fillter-form" style="padding-bottom:1rem;">
+							<form method="GET"  >
+                               
+                                
+								<div class="d-flex container pt-3 ">
+                                    <div class=" form-group col-6 d-flex justify-content-around align-items-center">
 										<span for="" class="fillter-name">Trạng thái</span>
-										<select class="form-control col-8" name="status" id="">
-											<option value="" selected disabled>Enable</option>
-											<option>Disable</option>
+										<select class="form-control col-8" name="status" id="status">
+                                            <option value=""  selected >All</option>
+											<option value="1" @if($status==1) selected @endif >Kích hoạt</option>
+											<option value="2" @if($status==2) selected @endif>Khóa</option>
 										
 										</select>
 									</div>
-									<div class="form-group col-6 d-flex justify-content-around align-items-center">
-
-										<input type="text" class="form-control">
-                                        
+									
+                                    <div class=" form-group col-6 d-flex justify-content-around align-items-center">
+										<span for="" class="fillter-name">Quyền hạn</span>
+										<select class="form-control col-8" name="role" id="role">
+											<option value=""  selected >All</option>
+                                            <option value="1" @if($role==1) selected @endif>Actor1</option>
+                                            <option value="2" @if($role==2) selected @endif>Actor2</option>
+                                            <option value="3" @if($role==3) selected @endif>Actor3</option>
+                                            <option value="4" @if($role==4) selected @endif>Actor4</option>
+                                            
+										</select>
 									</div>
 
 									
+                                </div>
+                                 <div class="d-flex container pt-3">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" value="{{ $keyword }}" name="keyword" placeholder="Search term..." id="keyword">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-outline-drak border btn-sm"   type="submit"><i class="fas fa-search" aria-hidden="true"></i></button>
+                                        </span>
+                                    </div>
 								</div>
 
-								<div class="d-flex container pt-3">
-									<div class="form-group col-6 d-flex justify-content-around align-items-center">
-										<span for="" class="fillter-name">Rules</span>
-										<select class="form-control col-8" name="" id="">
-											<option value="" selected disabled>1</option>
-                                            <option value="" >2</option>
-                                            <option value="" >3</option>
-										</select>
-									</div>
-								</div>
+								
 
-								<div class="d-flex justify-content-between container pt-3 mb-5 col-3">
-									<button type="submit" class="btn btn-primary btn-fillter">Tìm kiếm</button>
-								</div>
+							
 
-							</form>
+                            </form>
+                            
 						</div>
 					</section>
 					<!-- end- fillter -->
 
                         <!--begin::Section-->
-                        <div class="m-section">
+                        <div class="m-section" style="padding-top: 30px">
                             <div class="m-section__content">
                                 <div class="table-responsive">
-                                <table class="table m-table m-table--head-bg-brand">
-                                    <thead>
+                                <table class="table m-table  table-striped ">
+                                    <thead  class="th-bg">
                                         <tr>
-                                            <th>#</th>
-                                            <th>ID</th>
-                                            <th>Full Name</th>
-                                            <th>Avatar</th>
+                                            <th>STT</th>
+                                            <th>Họ và Tên</th>
+                                            <th>Ảnh đại diện</th>
                                             <th>Email</th>
-                                            <th>Phone</th>
-                                            <th>Created_At</th>
-                                            <th>Update_At</th>
-                                            <th>Enable</th>
-                                            <th>Action</th>
+                                            <th>Số điện thoại</th>
+                                            <th>Cơ sở đào tạo</th>
+                                            <th>Trạng thái</th>
+                                            <th>Thao tác</th>
 
                                         </tr>
                                     </thead>
                                     <tbody>
                                             @php
                                             $i = 1;
+                                            function displayAvatar($avatarImg) 
+                                                {                                  
+                                                    if($avatarImg != null) {
+                                                        return asset('storage/'.$avatarImg);
+                                                    }
+                                                    return asset('images/avatardefault.jpg');
+                                                }
                                             @endphp
 
                                         @foreach ($users as $user)
+                                    
+                                        
                                         <tr>
                                             <th scope="row">{{ $i }}</th>
                                             @php
                                             $i++;
-                                            $c_at = date_create($user->created_at);
-                                            $created_at = date_format($c_at, 'd-m-Y');
-                                            $u_at = date_create($user->updated_at);
-                                            $updated_at = date_format($u_at, 'd-m-Y');
                                             @endphp
-                                            <td>{{ $user->id }}</td>
                                             <td>{{ $user->name }}</td>
-                                            <td><img width="100" src="{!! asset('storage/'.$user->avatar) !!}" alt="avatar"></td>
+                                             <td><img width="60" id="showavatar" src="{!! displayAvatar($user->avatar) !!}" alt="avatar"></td>
                                             <td>{{ $user->email }}</td>
                                             
                                             <td class="float-right">{{ $user->phone_number }}</td>
-                                            <td>{{ $created_at }}</td>
-                                            <td>{{ $updated_at }}</td>
+                                            <td>{{ $user->ten }}</td>
                                         
                                             <td>
                                                 <form class="m-form">
@@ -238,10 +167,10 @@
                                                 
                                                 </form>
                                             </td>
-                                            {{-- <td><button  type="submit" onclick="destroyUser({{ $user->id }})" class="btn btn-outline-danger"><i class="flaticon-delete"></i></button>
-                                                
-                                            </td> --}}
-                                            <td><a href="{{ url('account/edit/'.$user->id) }}">Sửa</a></td>
+                                            
+                                            
+                                            {{-- <td><a href="{{ url('account/edit/'.$user->id) }}">Sửa</a></td> --}}
+                                            <td><a href="{{ route('account.edit',['id'=>$user->id]) }}">Sửa</a></td>
                                         </tr>
                                         @endforeach
                                         
@@ -251,6 +180,18 @@
                                     
                                
                                 </table>
+                                <div>
+                        
+                                    @if ($thongbao)
+                                    <div class="thongbao border" style="color: red; text-align: center;">
+                                         
+                                        <h4 class="m-portlet__head-text ">
+                                            {{$thongbao}}
+                                        </h4>
+                                    </div>
+                                    @endif
+                                 
+                                </div>
                          
                                 </div>
                                 <div class="float-right">
@@ -281,11 +222,27 @@
 
 <script>
 
+            function showimages(element) {
+                
+            var file = element.files[0];
+                var reader = new FileReader();
+                reader.onloadend = function() {
+                    $('#showavatar').attr('src', reader.result);
+                    // console.log('RESULT', reader.result)
+                }
+                reader.readAsDataURL(file);
+
+                $('#showavatar').attr('src', reader.result);
+            }
+
+           
+
   
         
 
         function editstatus($id){
             console.log('Đang thay đổi status');
+            console.log($id);
 
             axios.post('/account/edit-status', {
                 id: $id
@@ -301,17 +258,7 @@
 
 
 
-        function destroyUser($id){
-
-        axios.delete('account/destroy', {
-        })
-        .then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-        }
+     
 
     
 

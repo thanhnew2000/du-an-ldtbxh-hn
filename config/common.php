@@ -9,5 +9,5 @@ return [
     'paginate_size' => [
         'default' => 20,
         'list' => [20, 50, 80, 100]
-    ]
+    ],
 ];

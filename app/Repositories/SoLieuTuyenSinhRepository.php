@@ -43,8 +43,6 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 			$query->where('tuyen_sinh.co_so_id', $params['co_so_id']);
 		}
 
-		// dd($query->toSql());
-
 		return $query->groupBy('co_so_id')->paginate($limit);
 	}
 
@@ -115,7 +113,7 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 				 )
 		->groupBy('tuyen_sinh.co_so_id',
 					'co_so_dao_tao.ten',
-					'loai_hinh_co_so.loai_hinh_co_so',
+					'loai_hinh_co_so.loai_hinh_co_so'
 					)->first();
 	}
 
