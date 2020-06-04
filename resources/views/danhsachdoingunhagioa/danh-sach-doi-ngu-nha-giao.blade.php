@@ -1,155 +1,143 @@
-@extends('layouts.admin')
-@section('title', "Danh sách đội ngủ giáo")
-@section('style')
-<link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
-<link href="{!! asset('danhsachdoingunhagiao/css/showDanhSach.css') !!}" rel="stylesheet" type="text/css" />
-@endsection 
-@section('content')
-<div class="m-content">
-    <section class="fillter-area  mb-5">
-        <div class="fillter-title">
-            <h4>Bộ lọc</h4>
-        </div>
-        <div class="fillter-form">
-            <form action="http://127.0.0.1:8000/xuat-bao-cao/ket-qua-tuyen-sinh/tong-hop-so-lieu-tuyen-sinh" method="get">
-                <div class="d-flex container pt-3">
-                    <div class="form-group col-md-6 col-12 d-flex justify-content-around align-items-center">
-                        <label for="" class="fillter-name col-4">Tên cơ sở</label>
-                        
-                        <select class="form-control col-8 js-example-basic-single" name="co_so_id" id="co_so_id">
-                            <option value="" selected=""></option>
-                                                            <option value="1">Vermont</option>
-                                                            <option value="6">Missouri</option>
-                                                            <option value="11">Cao đẳng Du Lịch</option>
-                                                    </select>
-                    </div>
-
-                    <div class="form-group col-md-6 col-12 d-flex justify-content-around align-items-center">
-                        <span for="" class="fillter-name col-4">Loại hình cơ sở</span>
-                        <select class="form-control col-8" name="loai_hinh" id="loai_hinh">
-                            <option value="0" selected="">Chọn loại hình cơ sở</option>
-                                                            <option value="4">Tư thục</option>
-                                                            <option value="9">Cơ sở tư thục</option>
-                                                            <option value="14">Cơ sở có vốn đầu tư nước ngoài</option>
-                                                            <option value="15">Cơ sở địa phương</option>
-                                                    </select>
+    @extends('layouts.admin')
+    @section('title', "Danh sách đội ngủ giáo")
+    @section('style')
+    @endsection 
+    @section('content')
+    <div class="m-content container-fluid">
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                                                    <span class="m-portlet__head-icon">
+                                                        <i class="m-menu__link-icon flaticon-web"></i>
+                                                    </span>
+                        <h3 class="m-portlet__head-text">
+                            Bộ lọc
+                        </h3>
                     </div>
                 </div>
-
-                <div class="d-flex container pt-3">
-                    <div class="form-group col-md-6 col-12 d-flex justify-content-around align-items-center">
-                        <span for="" class="fillter-name col-4">Cơ quan chủ quản</span>
-                        <select class="form-control col-8" name="nam" id="nam">
-                            <option value="" selected="" disabled="">Chọn</option>
-                            <option value="2020">FPT</option>
-                            <option value="2019">Fpoly</option>
-                            <option value="2018">FFT</option>
-                        </select>
+            </div>
+            <form action="" method="get" class="m-form">
+                <input type="hidden" name="page_size" value="20">
+                <div class="m-portlet__body">
+                    <div class="m-form__section m-form__section--first">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group m-form__group row">
+                                    <label class="col-lg-2 col-form-label">Tên cơ sở</label>
+                                    <div class="col-lg-8">
+                                        <input type="text" class="form-control m-input" placeholder="Nhập tên cơ sở" name="keyword">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group m-form__group row">
+                                    <label class="col-lg-2 col-form-label">Loại hình cơ sở</label>
+                                    <div class="col-lg-8">
+                                        <select name="bac_nghe" class="form-control ">
+                                            <option selected="" value="6">Công lập</option>
+                                            <option value="5">Tư thục</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row pt-4">
+                            <div class="col-md-6">
+                                <div class="form-group m-form__group row">
+                                    <label class="col-lg-2 col-form-label">Cơ quan chủ quản</label>
+                                    <div class="col-lg-8">
+                                        <select name="bac_nghe" class="form-control ">
+                                            <option selected="" value="6">Cao đẳng</option>
+                                            <option value="5">Trung cấp</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group m-form__group row">
+                                    <label class="col-lg-2 col-form-label">Tên ngành</label>
+                                    <div class="col-lg-8">
+                                        <input type="text" class="form-control m-input" placeholder="Nhập mã hoặc tên ngành nghề" name="keyword">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group col-md-6 col-12 d-flex justify-content-around align-items-center">
-                        <span for="" class="fillter-name col-4">Tên ngành</span>
-                        <select class="form-control col-8" name="dot" id="dot">
-                            <option value="" selected="" disabled="">Chọn</option>
-                            <option value="1">Đợt 1</option>
-                            <option value="2">Đợt 2</option>
-                        </select>
+                    <div class="row justify-content-center">
+                        <div class="col-lg-2">
+                            <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                        </div>
+                       
                     </div>
-                </div>
-
-                <div class="d-flex justify-content-between container pt-3 mb-5 col-3">
-                    <button type="submit" class="btn btn-primary btn-fillter">Tìm kiếm</button>
-                    <button type="submit" class="btn btn-danger btn-fillter">Hủy</button>
                 </div>
             </form>
         </div>
-    </section>
-    <div class="row mb-5 bieumau">
-        <div class="col-lg-2">
-            <a href=""><i class="la la-download">Tải xuống biểu mẫu</i></a>
+        <div class="row mb-4 bieumau">
+            <div class="col-lg-2">
+                <a href=""><i class="la la-download">Tải xuống biểu mẫu</i></a>
+            </div>
+            <div class="col-lg-2">
+                <a href=""><i class="la la-upload">Tải lên file excel</i></a>
+            </div>
+            <div class="col-lg-8 " style="text-align: right">
+            </div>
         </div>
-        <div class="col-lg-2">
-            <a href=""><i class="la la-upload">Tải lên file excel</i></a>
-        </div>
-        <div class="col-lg-8 " style="text-align: right">
-        <a href="http://127.0.0.1:8000/xuat-bao-cao/ket-qua-tuyen-sinh/them-so-lieu-tuyen-sinh"><button type="button" class="btn btn-secondary">Thêm mới</button></a> 
+        <div class="m-portlet">
+            <div class="m-portlet__body">
+                <table class="table m-table m-table--head-bg-brand">
+                    <thead>
+                        <tr><th>STT</th>
+                        <th>Tên cơ sở</th>
+                        <th>Loại hình cơ sở</th>
+                        <th>Tổng số /th>
+                        <th>       
+                          <a href="" class="btn btn-success btn-sm">Thêm mới</a>
+                        </th> 
+                    </tr></thead>
+                    <tbody>
+                                        <tr>
+                            <td>6210214</td>
+                            <td>Biên đạo múa</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>
+                                <a href="" class="btn btn-info btn-sm">Sửa</a>
+                                <a href="" class="btn btn-primary btn-sm">Chi tiết</a>
+                            </td>
+                        </tr>
+                                    </tbody>
+                </table>    
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-12 scoll-x">
-        <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">STT</th>
-                <th scope="col">Tên cơ sở </th>
-                <th scope="col">Loại hình cơ sở</th>
-                <th scope="col">Tổng số </th>
-                <th colspan="2">Thao tác</th>
-              </tr>
-            </thead>
-            <tbody>
-                                           
-                <tr>
-                    <th>1</th>
-                    <th>FPT Polytechnic</th>
-                    <th>Tư thục</th>
-                    <th>159</th>
-                    <th>13</th>
-                    <th>13</th>
-                  </tr>
-                               
-                <tr>
-                    <th>2</th>
-                    <th>FPT Polytechnic</th>
-                    <th>Tư thục</th>
-                    <th>162</th>
-                    <th>13</th>
-                    <th>13</th>
-                <tr>
-                    <th>3</th>
-                    <th>FPT Polytechnic</th>
-                    <th>Tư thục</th>
-                    <th >170</th>
-                    <th>373</th>
-                    <th>13</th>
-                  </tr>
-                  <tr>
-                    <th>4</th>
-                    <th>FPT Polytechnic</th>
-                    <th>Tư thục</th>
-                    <th >178</th>
-                    <th>377</th>
-                    <th>15</th>
-                  </tr>
-                             
+            <div class="m-portlet__foot d-flex justify-content-end">
+                <nav>
+            <ul class="pagination">
+                                <li class="page-item disabled" aria-disabled="true" aria-label="« Previous">
+                        <span class="page-link" aria-hidden="true">‹</span>
+                    </li>
+                                                                                            <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
+                                                                                                    <li class="page-item"><a class="page-link" href="http://127.0.0.1:8000/danhSach?page=2">2</a></li>
+                                                                                                    <li class="page-item"><a class="page-link" href="http://127.0.0.1:8000/danhSach?page=3">3</a></li>
+                                                                                                    <li class="page-item"><a class="page-link" href="http://127.0.0.1:8000/danhSach?page=4">4</a></li>
+                                                                                                    <li class="page-item"><a class="page-link" href="http://127.0.0.1:8000/danhSach?page=5">5</a></li>
+                                                                                                    <li class="page-item"><a class="page-link" href="http://127.0.0.1:8000/danhSach?page=6">6</a></li>
+                                                                                                    <li class="page-item"><a class="page-link" href="http://127.0.0.1:8000/danhSach?page=7">7</a></li>
+                                                                                                    <li class="page-item"><a class="page-link" href="http://127.0.0.1:8000/danhSach?page=8">8</a></li>
+                                        <li class="page-item disabled" aria-disabled="true"><span class="page-link">...</span></li>
+                                                                                            <li class="page-item"><a class="page-link" href="http://127.0.0.1:8000/danhSach?page=27">27</a></li>
+                                                                                                    <li class="page-item"><a class="page-link" href="http://127.0.0.1:8000/danhSach?page=28">28</a></li>
+                                                                            
+                                <li class="page-item">
+                        <a class="page-link" href="http://127.0.0.1:8000/danhSach?page=2" rel="next" aria-label="Next »">›</a>
+                    </li>
+                        </ul>
+        </nav>
+
+            </div>
+        </div>
+            </div>
       
-            </tbody>
-          </table>
-        </div>
-    </div>
-</div>
-@endsection @section('script')
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="{{ asset('js/so_lieu_tuyen_sinh/tong_hop_so_lieu.js') }}"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#co_so_id").select2();
-    });
-    $("#loai_hinh").change(function () {
-        axios
-            .post("/xuat-bao-cao/ket-qua-tuyen-sinh/co-so-tuyen-sinh-theo-loai-hinh", {
-                id: $("#loai_hinh").val(),
-            })
-            .then(function (response) {
-                var htmldata = '<option value="">Chọn cơ sở</option>';
-                response.data.forEach((element) => {
-                    htmldata += `<option value="${element.id}" >${element.ten}</option>`;
-                });
-                $("#co_so_id").html(htmldata);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    });
-</script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
-@endsection
+    
+    @endsection
