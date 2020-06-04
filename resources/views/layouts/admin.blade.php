@@ -14,12 +14,12 @@
 			<!-- start header	 -->
 			@include('layouts.dashboard.header')
 			<!-- end header -->
-			
+
 			<div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-body">
 				<!-- start slidebar -->
 				@include('layouts.dashboard.sidebar')
 				<!-- end slidebar -->
-				
+
 				<div class="m-grid__item m-grid__item--fluid m-wrapper">
 					<!--start content -->
 					@yield('content')
@@ -41,5 +41,4 @@
 		});
 	</script>
 	<!-- end script -->
-</body>
 </html>

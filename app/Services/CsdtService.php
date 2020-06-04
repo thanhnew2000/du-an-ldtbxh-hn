@@ -17,4 +17,8 @@ class CsdtService extends AppService
     public function getCsdt(){
         return $this->repository->getCsdt();
     }
+
+    public function getSingleCsdt($id){
+    return $this->repository->getSingleCsdt($id);
+    }
 }
