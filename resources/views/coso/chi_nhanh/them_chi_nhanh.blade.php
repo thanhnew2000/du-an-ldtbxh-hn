@@ -10,7 +10,7 @@
         Thêm mới Chi Nhánh
     </div>
 
-    <form action="{{ route('saveAddChiNhanh')}}" method="POST">
+    <form action="{{ route('chi-nhanh.tao-moi')}}" method="POST">
         {{ csrf_field() }}
         <div class="main-form row d-flex justify-content-around">
             <div class="col-left col-lg-5">
@@ -56,7 +56,7 @@
                     </p>
                 </div>
 
-                <div class="form-group col-lg-12">
+                {{-- <div class="form-group col-lg-12">
                     <label for="" class="col-6 form-name">Trạng thái chi nhánh</label>
 
                     <div class="form-group d-flex justify-content-around">
@@ -70,7 +70,7 @@
                             Không hoạt động
                         </label>
                     </div>
-                </div>
+                </div> --}}
 
 
             </div>

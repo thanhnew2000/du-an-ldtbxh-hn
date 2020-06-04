@@ -1,11 +1,7 @@
 @extends('layouts.admin');
 
-@section('style')
-<link href="{!! asset('vendors/_customize/csdt.list.css') !!}" rel="stylesheet" type="text/css" />
-@endsection
-
 @section('content')
-<div class="m-content">
+<div class="m-content container-fluid">
     <!-- begin- fillter -->
     <section class="fillter-area">
         <div class="fillter-title">
@@ -69,21 +65,18 @@
         </div>
     </section>
     <!-- end- action -->
-
-    <section class="table-data container">
-        <div class="m-section">
+    <div class="m-portlet">
+        <div class="m-portlet__body">
             <div class="m-section__content">
-                <table class="table m-table">
+                <table class="table m-table m-table--head-bg-brand">
                     <thead>
-                        <tr>
-                            <th>STT</th>
-                            <th>Tên cơ sở đào tạo</th>
-                            <th>Địa chỉ</th>
-                            <th>Hotline</th>
-                            <th>Chi Nhánh</th>
-                            <th>Mã chứng nhận</th>
-                            <th colspan="2">Thao tác</th>
-                        </tr>
+                        <th>STT</th>
+                        <th>Tên cơ sở đào tạo</th>
+                        <th>Địa chỉ</th>
+                        <th>Hotline</th>
+                        <th>Chi Nhánh</th>
+                        <th>Mã chứng nhận</th>
+                        <th colspan="2">Thao tác</th>
                     </thead>
                     <tbody>
                         @php($i=1);
@@ -105,21 +98,18 @@
                                     class="btn btn-outline-primary">Sửa</a>
                             </td>
                             <td>
-                                <a href="" class="btn btn-outline-danger">Xóa</a>
+                                <a href="{{ route('chi-nhanh.xoa', ['id'=>$items->id]) }}"
+                                    class="btn btn-outline-danger">Xóa</a>
                             </td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
-            <div class="d-flex justify-content-end mt-5 mb-3">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item">{{$data->links()}}</li>
-                    </ul>
-                </nav>
+            <div class="m-portlet__foot d-flex justify-content-end">
+                {{$data->links()}}
             </div>
         </div>
-    </section>
+    </div>
 </div>
 @endsection

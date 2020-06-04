@@ -19,9 +19,12 @@ Route::get('chi-tiet-co-so/{id}', 'CsdtController@chitietCSDT')->name('csdt.chi-
 Route::get('cap-nhat-co-so/{id}', 'CsdtController@suaCSDT')->name('csdt.cap-nhat');
 Route::post('cap-nhat-co-so/{id}', 'CsdtController@capnhatCSDT');
 
-Route::get('danh-sach-chi-nhanh', 'ChiNhanhController@danhsachchinhanh')->name('csdt.chi-nhanh');
+Route::get('danh-sach-chi-nhanh/{id?}', 'ChiNhanhController@danhsachchinhanh')->name('csdt.chi-nhanh');
 
 Route::get('tao-moi-chi-nhanh', 'ChiNhanhController@themchinhanh')->name('chi-nhanh.tao-moi');
-Route::post('tao-moi-chi-nhanh', 'ChiNhanhController@saveAddChiNhanh');
+Route::post('tao-moi-chi-nhanh', 'ChiNhanhController@savethemchinhanh');
 
-Route::get('sua-chi-nhanh/{id}', 'ChiNhanhController@suaChiNhanh')->name('chi-nhanh.cap-nhat');
+Route::get('sua-chi-nhanh/{id}', 'ChiNhanhController@suachinhanh')->name('chi-nhanh.cap-nhat');
+Route::post('sua-chi-nhanh/{id}', 'ChiNhanhController@capnhatchinhanh');
+
+Route::get('xoa-chi-nhanh/{id?}', 'ChiNhanhController@xoachinhanh')->name('chi-nhanh.xoa');

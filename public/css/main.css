@@ -18,3 +18,22 @@ table td {
     max-width: 100px;
     max-height: 100px;
 }
+
+.size-70 {
+    max-width: 70px;
+    max-height: 70px;
+}
+
+.ul-chi-tiet-csdt li {
+    padding: 15px 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #d6d6d6;
+}
+
+.co-so-info {
+    float: right;
+    width: 300px;
+    text-align: left;
+}

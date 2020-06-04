@@ -5,59 +5,80 @@
 @endsection
 
 @section('content')
-<div class="m-content">
-    <ul class="chi-tiet-co-so">
-        @forelse ($data as $item)
-        <li>
-            <h4>Tên cơ sở đào tạo</h4>
-            <h4 class="co-so-info">{{$item->csdt_ten}}</h4>
-        </li>
+<div class="m-content container-fluid">
+    <div class="m-portlet">
+        <div class="m-portlet__head">
+            <div class="m-portlet__head-caption">
+                <div class="m-portlet__head-title">
+                    <span class="m-portlet__head-icon">
+                        {{-- <i class="m-menu__link-icon flaticon-web"></i> --}}
+                    </span>
+                    <h3 class="m-portlet__head-text text-primary">
+                        Thông tin chi tiết cơ sở đào tạo
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <div class="m-portlet__body">
+            <ul class="list-highlight-row ul-chi-tiet-csdt p-4">
+                @forelse ($data as $item)
+                <li>
+                    <h5>Tên cơ sở đào tạo</h5>
+                    <h5 class="co-so-info">{{$item->csdt_ten}}</h5>
+                </li>
 
-        <li>
-            <h4>Mã đơn vị</h4>
-            <h4 class="co-so-info">{{ $item->ma_don_vi }}</h4>
-        </li>
+                <li>
+                    <h5>Mã đơn vị</h5>
+                    <h5 class="co-so-info">{{ $item->ma_don_vi }}</h5>
+                </li>
 
-        <li>
-            <h4>Tên cơ quan chủ quản</h4>
-            <h4 class="co-so-info">{{ $item->cq_ten }}</h4>
-        </li>
+                <li>
+                    <h5>Tên cơ quan chủ quản</h5>
+                    <h5 class="co-so-info">{{ $item->cq_ten }}</h5>
+                </li>
 
-        <li>
-            <h4>Loại hình cơ sở</h4>
-            <h4 class="co-so-info">{{ $item->loai_hinh_co_so }}</h4>
-        </li>
+                <li>
+                    <h5>Loại hình cơ sở</h5>
+                    <h5 class="co-so-info">{{ $item->loai_hinh_co_so }}</h5>
+                </li>
 
-        <li>
-            <h4>Logo</h4>
-            <div class="co-so-info"><img src="{{ $item->logo }}" class="logo-csdt" alt=""></div>
-        </li>
+                <li>
+                    <h5>Logo</h5>
+                    <div class="co-so-info"><img src="{!! asset('storage/' . $item->logo) !!}" class="size-70" alt="">
+                    </div>
+                </li>
 
-        <li>
-            <h4>Quyết định</h4>
-            <h4 class="co-so-info">{{ $item->qd_ten }}</h4>
-        </li>
+                <li>
+                    <h5>Quyết định</h5>
+                    <h5 class="co-so-info">{{ $item->qd_ten }}</h5>
+                </li>
 
-        <li>
-            <h4>Điện thoại</h4>
-            <h4 class="co-so-info">{{ $item->dien_thoai}}</h4>
-        </li>
+                <li>
+                    <h5>Điện thoại</h5>
+                    <h5 class="co-so-info">{{ $item->dien_thoai}}</h5>
+                </li>
 
-        <li>
-            <h4>Website</h4>
-            <h4 class="co-so-info">{{ $item->website}}</h4>
-        </li>
-        </li>
+                <li>
+                    <h5>Website</h5>
+                    <h5 class="co-so-info">{{ $item->website}}</h5>
+                </li>
+                </li>
 
-        <li>
-            <h4>Địa chỉ</h4>
-            <h4 class="co-so-info">{{ $item->dia_chi}}</h4>
-        </li>
-        </li>
-        @empty
-        <h4>ERRR</h4>
-        @endforelse
+                <li>
+                    <h5>Địa chỉ</h5>
+                    <h5 class="co-so-info">{{ $item->dia_chi}}</h5>
+                </li>
+                <li>
+                    <a href="{{ route('csdt.chi-nhanh', ['id'=>$item->id]) }}" class="btn btn-outline-info">Xem danh
+                        sách chi nhánh</a>
+                    <a href="" class="btn btn-outline-info">Xem danh sách ngành nghê</a>
+                    <a href="" class="btn btn-outline-info">Xem danh sách nhân sự</a>
+                </li>
+                @empty
+                <h5>ERRR</h5>
+                @endforelse
 
-    </ul>
-</div>
-@endsection
+            </ul>
+        </div>
+    </div>
+    @endsection

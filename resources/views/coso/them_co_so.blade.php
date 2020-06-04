@@ -133,21 +133,18 @@
                     <div class="form-group d-flex">
                         <div class="mr-5">
                             <label for="" class="form-name">Quận/Huyện</label>
-                            <select class="form-control col-12" name="maqh">
+                            <select class="form-control col-12" name="maqh" id="devvn_quanhuyen">
                                 <option disabled selected>Quận / Huyện</option>
-                                <option value="001">Ba Đình</option>
+                                @foreach ($quanhuyen as $qh)
+                                <option value="{{ $qh->maqh }}">{{ $qh->name }}</option>
+                                @endforeach
                             </select>
                         </div>
 
                         <div class="">
                             <label for="" class="form-name">Xã/ Phường</label>
-                            <select class="form-control col-12" name="xaid">
+                            <select class="form-control col-12" name="xaid" id="devvn_xaphuongthitran">
                                 <option disabled selected>Xã / Phường</option>
-                                <option value="00001">Phúc Xá</option>
-
-                                {{-- @foreach ($csdt as $cs)
-                                <option value=" {{ $cs->id }}">{{ $cs->ten }}</option>
-                                @endforeach --}}
                             </select>
                         </div>
                     </div>
@@ -183,4 +180,26 @@
         </div>
     </form>
 </div>
+@endsection
+
+@section('script')
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script>
+    $("#devvn_quanhuyen" ).change(function() {
+    axios.post('/co-so-dao-tao/tao-moi-co-so', {
+                id:  $("#devvn_quanhuyen").val(),
+    })
+    .then(function (response) {
+        var htmldata = '<option value="" selected  >Chọn</option>'
+            response.data.forEach(element => {
+            htmldata+=`<option value="${element.xaid}" >${element.name}</option>`   
+        });
+        $('#devvn_xaphuongthitran').html(htmldata);
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+});
+</script>
 @endsection

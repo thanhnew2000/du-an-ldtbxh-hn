@@ -14,10 +14,13 @@ class ChiNhanhController extends Controller
         $this->ChiNhanhService = $ChiNhanhService;
     }
 
-    public function danhsachChiNhanh()
+    public function danhsachchinhanh($id = null)
     {
-        $data = $this->ChiNhanhService->getChiNhanh();
-        // dd($data);
+        if (isset($id)) {
+            $data = $this->ChiNhanhService->getChiNhanhThuocCSDT($id);
+        } else {
+            $data = $this->ChiNhanhService->getChiNhanh();
+        }
         return view('coso.chi_nhanh.danh_sach_chi_nhanh', ['data' => $data]);
     }
 
@@ -26,18 +29,43 @@ class ChiNhanhController extends Controller
         $csdt = DB::table('co_so_dao_tao')->get();
         return view('coso.chi_nhanh.them_chi_nhanh', ['csdt' => $csdt]);
     }
+
+    public function savethemchinhanh(Request $request)
+    {
+        $request->validate(
+            [
+                'dia_chi' => 'required',
+                'chi_nhanh_chinh' => 'required',
+                'ma_chung_nhan_dang_ki_hoat_dong' => 'required|unique:chi_nhanh_dao_tao',
+                'da_duoc_cap' => 'required',
+                'trang_thai' => 'required',
+                'co_so_id' => 'required',
+                'hotline' => 'required|unique:chi_nhanh_dao_tao'
+            ],
+            [
+                'dia_chi.required' => 'Địa chỉ không được để trống',
+                'chi_nhanh_chinh.required' => 'Vui lòng chọn loại chi nhánh',
+                'ma_chung_nhan_dang_ki_hoat_dong.required' => 'Mã chứng nhận hoạt động không được để trống',
+                'ma_chung_nhan_dang_ki_hoat_dong.unique' => 'Mã chứng nhận hoạt động đã tồn tại',
+                'da_duoc_cap.required' => 'Vui lòng chọn tráng thái cấp giấy phép',
+                'co_so_id.required' => 'Vui lòng chọn cơ sở cho chi nhánh',
+                'hotline.required' => 'Hotline không được để trống'
+            ]
+        );
+        $this->ChiNhanhService->create($request, ['_token']);
+        return redirect()->route('csdt.chi-nhanh')->withInput();
+    }
+
     public function suachinhanh($id)
     {
         $data = $this->ChiNhanhService->getSingleChiNhanh($id);
         $csdt = DB::table('co_so_dao_tao')->get();
-        dd($data);
-        return view('coso.chi_nhanh.sua_chi_nhanh', ['csdt' => $csdt, 'data' => $data]);
+        // dd($data);
+        return view('coso.chi_nhanh.sua_chi_nhanh', ['data' => $data, 'csdt' => $csdt]);
     }
 
-    public function savethemchinhanh(Request $request)
+    public function capnhatchinhanh($id, Request $request)
     {
-
-        // dd($request->logo);
 
         $request->validate(
             [
@@ -60,7 +88,13 @@ class ChiNhanhController extends Controller
 
 
 
-        $this->ChiNhanhService->create($request);
-        return redirect()->route('csdt.chi-nhanh');
+        $this->ChiNhanhService->update($id, $request, ['_token']);
+        return redirect()->route('chi-nhanh.cap-nhat', ['id' => $id])->withInput();
+    }
+
+    public function xoachinhanh($id)
+    {
+        $this->ChiNhanhService->delete($id);
+        return redirect()->route('csdt.chi-nhanh')->with('mess', 'Đã xóa chi nhánh');
     }
 }

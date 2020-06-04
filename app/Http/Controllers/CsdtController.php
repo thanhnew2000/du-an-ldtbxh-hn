@@ -36,7 +36,15 @@ class CsdtController extends Controller
         $qd = DB::table('quyet_dinh_thanh_lap_csdt')->get();
         $coquan = DB::table('co_quan_chu_quan')->get();
         $loaihinh = DB::table('loai_hinh_co_so')->get();
-        return view('coso.them_co_so', ['qd' => $qd, 'coquan' => $coquan, 'loaihinh' => $loaihinh]);
+        $quanhuyen = DB::table('devvn_quanhuyen')->get();
+        $xaphuong = DB::table('devvn_xaphuongthitran')->get();
+        return view('coso.them_co_so', [
+            'qd' => $qd,
+            'coquan' => $coquan,
+            'loaihinh' => $loaihinh,
+            'quanhuyen' => $quanhuyen,
+            'xaphuong' => $xaphuong
+        ]);
     }
 
     public function taomoiCSDT(Request $request)

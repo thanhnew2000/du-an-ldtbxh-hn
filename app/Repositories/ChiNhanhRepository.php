@@ -24,7 +24,15 @@ class ChiNhanhRepository extends BaseRepository implements ChiNhanhRepositoryInt
     {
         return $this->table->join('co_so_dao_tao', 'co_so_dao_tao.id', '=', 'chi_nhanh_dao_tao.co_so_id')
             ->where('chi_nhanh_dao_tao.id', $id)
-            ->select('chi_nhanh_dao_tao.*', 'co_so_dao_tao.*')
+            ->select('chi_nhanh_dao_tao.*', DB::raw('co_so_dao_tao.id as csdt_id'), DB::raw('co_so_dao_tao.ten as csdt_ten'))
             ->get();
+    }
+
+    public function getChiNhanhThuocCSDT($id)
+    {
+        return $this->table->join('co_so_dao_tao', 'chi_nhanh_dao_tao.co_so_id', '=', 'co_so_dao_tao.id')
+            ->where('co_so_id', $id)
+            ->select('chi_nhanh_dao_tao.*', 'co_so_dao_tao.ten')
+            ->paginate(10);
     }
 }
