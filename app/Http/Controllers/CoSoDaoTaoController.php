@@ -1,32 +1,32 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\CoSoDaoTao;
 use App\Repositories;
-use App\Services\CsdtService;
+use App\Services\CoSoDaoTaoService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\UploadedFile;
 
-class CsdtController extends Controller
+class CoSoDaoTaoController extends Controller
 {
-    protected $CsdtService;
-    public function __construct(CsdtService $CsdtService)
+    protected $CoSoDaoTaoService;
+    public function __construct(CoSoDaoTaoService $CoSoDaoTaoService)
     {
-        $this->CsdtService = $CsdtService;
+        $this->CoSoDaoTaoService = $CoSoDaoTaoService;
     }
 
     public function danhsachCSDT()
     {
-        $data = $this->CsdtService->getCsdt();
+        $data = $this->CoSoDaoTaoService->getCsdt();
+        $loaihinh = DB::table('loai_hinh_co_so')->get();
+        $quanhuyen = DB::table('devvn_quanhuyen')->get();
         //        dd($data);
-        return view('coso.danh_sach_co_so_dao_tao', compact('data'));
+        return view('coso.danh_sach_co_so_dao_tao', compact('data', 'loaihinh', 'quanhuyen'));
     }
 
     public function chitietCSDT($id)
     {
-        $data = $this->CsdtService->getSingleCsdt($id);
+        $data = $this->CoSoDaoTaoService->getSingleCsdt($id);
         //    dd($data);
         return view('coso.chi_tiet_co_so', ['data' => $data]);
     }
@@ -84,13 +84,13 @@ class CsdtController extends Controller
         // $request->set('logo', $filePath);
 
 
-        $this->CsdtService->create($request, ['upload_logo']);
+        $this->CoSoDaoTaoService->create($request, ['upload_logo']);
         return redirect()->route('csdt.danh-sach')->withInput();
     }
 
     public function suaCSDT($id)
     {
-        $data = $this->CsdtService->getSingleCsdt($id);
+        $data = $this->CoSoDaoTaoService->getSingleCsdt($id);
         $parent = DB::table('co_quan_chu_quan')->get();
         $loai_coso = DB::table('loai_hinh_co_so')->get();
         $qd = DB::table('quyet_dinh_thanh_lap_csdt')->get();
@@ -133,7 +133,7 @@ class CsdtController extends Controller
             $filePath = $request->file('upload_logo')->store('uploads/logoCsdt');
             $request->request->set('logo', $filePath);
         }
-        $this->CsdtService->update($id, $request, ['upload_logo', '_token']);
+        $this->CoSoDaoTaoService->update($id, $request, ['upload_logo', '_token']);
 
         return redirect()->route('csdt.cap-nhat', ['id' => $id])->with('mess', 'Đã cập nhật thông tin cơ sở đào tạo')->withInput();
     }

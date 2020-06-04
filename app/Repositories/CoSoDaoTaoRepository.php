@@ -6,8 +6,7 @@ namespace App\Repositories;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
 
-
-class CsdtRepository extends BaseRepository implements CsdtRepositoryInterface
+class CoSoDaoTaoRepository extends BaseRepository implements CoSoDaoTaoRepositoryInterface
 {
     public function getTable()
     {

@@ -9,15 +9,15 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', 'CsdtController@danhsachCSDT')->name('csdt.danh-sach');
+Route::get('/', 'CoSoDaoTaoController@danhsachCSDT')->name('csdt.danh-sach');
 
-Route::get('tao-moi-co-so', 'CsdtController@themCSDT')->name('csdt.tao-moi');
-Route::post('tao-moi-co-so', 'CsdtController@taomoiCSDT');
+Route::get('tao-moi-co-so', 'CoSoDaoTaoController@themCSDT')->name('csdt.tao-moi');
+Route::post('tao-moi-co-so', 'CoSoDaoTaoController@taomoiCSDT');
 
-Route::get('chi-tiet-co-so/{id}', 'CsdtController@chitietCSDT')->name('csdt.chi-tiet');
+Route::get('chi-tiet-co-so/{id}', 'CoSoDaoTaoController@chitietCSDT')->name('csdt.chi-tiet');
 
-Route::get('cap-nhat-co-so/{id}', 'CsdtController@suaCSDT')->name('csdt.cap-nhat');
-Route::post('cap-nhat-co-so/{id}', 'CsdtController@capnhatCSDT');
+Route::get('cap-nhat-co-so/{id}', 'CoSoDaoTaoController@suaCSDT')->name('csdt.cap-nhat');
+Route::post('cap-nhat-co-so/{id}', 'CoSoDaoTaoController@capnhatCSDT');
 
 Route::get('danh-sach-chi-nhanh/{id?}', 'ChiNhanhController@danhsachchinhanh')->name('csdt.chi-nhanh');
 

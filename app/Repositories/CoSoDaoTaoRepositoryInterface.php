@@ -4,7 +4,7 @@
 namespace App\Repositories;
 
 
-interface CsdtRepositoryInterface
+interface CoSoDaoTaoRepositoryInterface
 {
     public function getCsdt();
 

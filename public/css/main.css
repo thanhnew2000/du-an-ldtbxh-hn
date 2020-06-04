@@ -22,12 +22,12 @@ table td {
     vertical-align: middle !important;
 }
 
-.size-100 {
+.img-size-100 {
     max-width: 100px;
     max-height: 100px;
 }
 
-.size-70 {
+.img-size-70 {
     max-width: 70px;
     max-height: 70px;
 }

@@ -44,7 +44,8 @@
 
                 <li>
                     <h5>Logo</h5>
-                    <div class="co-so-info"><img src="{!! asset('storage/' . $item->logo) !!}" class="size-70" alt="">
+                    <div class="co-so-info"><img src="{!! asset('storage/' . $item->logo) !!}" class="img-size-100"
+                            alt="">
                     </div>
                 </li>
 

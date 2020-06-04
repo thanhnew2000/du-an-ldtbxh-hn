@@ -10,7 +10,7 @@
                         <i class="m-menu__link-icon flaticon-web"></i>
                     </span>
                     <h3 class="m-portlet__head-text">
-                        Ngành nghề <small>Danh sách</small>
+                        Danh sách cơ sở đào tạo
                     </h3>
                 </div>
             </div>
@@ -25,19 +25,47 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group m-form__group row">
-                                <label class="col-lg-2 col-form-label">Bậc nghề:</label>
+                                <label class="col-lg-2 col-form-label">Tên cơ sở:</label>
                                 <div class="col-lg-8">
-                                    <select name="bac_nghe" class="form-control ">
-                                        <option value="">abc</option>
-                                    </select>
+                                    <input type="text" class="form-control m-input">
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group m-form__group row">
-                                <label class="col-lg-2 col-form-label">Từ khóa:</label>
+                                <label class="col-lg-2 col-form-label">Loại hình cơ sở:</label>
+                                <div class="col-lg-8">
+                                    <select name="bac_nghe" class="form-control ">
+                                        <option disabled selected>chọn loại hình cơ sở</option>
+                                        @foreach ($loaihinh as $lh)
+                                        <option value="{{ $lh->id }}">{{ $lh->loai_hinh_co_so }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-2 col-form-label">Mã đơn vị:</label>
                                 <div class="col-lg-8">
                                     <input type="text" class="form-control m-input">
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-2 col-form-label">Quận</label>
+                                <div class="col-lg-8">
+                                    <select name="bac_nghe" class="form-control ">
+                                        <option disabled selected>Quận / Huyện</option>
+                                        @foreach ($quanhuyen as $qh)
+                                        <option value="{{ $qh->maqh }}">{{ $qh->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -82,7 +110,7 @@
                         <td>{{$csdt->ten}}</td>
                         <td>{{$csdt->ma_don_vi}}</td>
                         <td>{{$csdt->loai_hinh_co_so}}</td>
-                        <td><img class="size-70" src="{!! asset('storage/' . $csdt->logo) !!}" alt="">
+                        <td><img class="img-size-70" src="{!! asset('storage/' . $csdt->logo) !!}" alt="">
                         </td>
                         <td>{{$csdt->qd_ten}}</td>
                         <td>{{$csdt->dia_chi}}</td>
