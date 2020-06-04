@@ -1,5 +1,13 @@
-*:not(i, .select2-selection__arrow) {
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
+.btn {
     font-family: 'Roboto', sans-serif !important;
+}
+
+table {
+    font-size: 13px;
 }
 
 table th {

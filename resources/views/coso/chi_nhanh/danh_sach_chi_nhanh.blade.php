@@ -79,7 +79,7 @@
                         <th colspan="2">Thao tác</th>
                     </thead>
                     <tbody>
-                        @php($i=1);
+                        @php($i=1)
                         @foreach($data as $items)
                         <tr>
                             <td>{{$i++}}</td>
@@ -93,13 +93,11 @@
                                 Chi nhánh phụ
                                 @endif</td>
                             <td>{{$items->ma_chung_nhan_dang_ki_hoat_dong}}</td>
-                            <td>
+                            <td class="d-flex">
                                 <a href="{{route('chi-nhanh.cap-nhat', ['id'=> $items->id])}}"
-                                    class="btn btn-outline-primary">Sửa</a>
-                            </td>
-                            <td>
+                                    class="btn btn-info btn-sm mr-3">Sửa</a>
                                 <a href="{{ route('chi-nhanh.xoa', ['id'=>$items->id]) }}"
-                                    class="btn btn-outline-danger">Xóa</a>
+                                    class="btn btn-danger btn-sm">Xóa</a>
                             </td>
                         </tr>
                         @endforeach

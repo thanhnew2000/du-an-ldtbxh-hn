@@ -85,7 +85,7 @@ class CsdtController extends Controller
 
 
         $this->CsdtService->create($request, ['upload_logo']);
-        return redirect()->route('csdt.danh-sach')->withInput();;
+        return redirect()->route('csdt.danh-sach')->withInput();
     }
 
     public function suaCSDT($id)

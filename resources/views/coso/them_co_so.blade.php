@@ -187,7 +187,7 @@
 
 <script>
     $("#devvn_quanhuyen" ).change(function() {
-    axios.post('/co-so-dao-tao/tao-moi-co-so', {
+    axios.post('/xuat-bao-cao/ket-qua-tuyen-sinh/xa-phuong-theo-quan-huyen', {
                 id:  $("#devvn_quanhuyen").val(),
     })
     .then(function (response) {
