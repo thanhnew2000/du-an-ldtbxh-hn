@@ -54,9 +54,7 @@ class AccountController extends Controller
                     ['email', 'like', '%'.$keyword.'%']
                 ])
                 ->paginate($params['page_size']);
-   
-
-           }elseif($status !== null && $role === null){
+           } else if($status !== null && $role === null){
                $users = DB::table('users')
                ->leftjoin('co_so_dao_tao', 'users.co_so_dao_tao_id', '=', 'co_so_dao_tao.id')
                ->select('users.*', DB::raw('co_so_dao_tao.ten as ten'))
@@ -79,7 +77,7 @@ class AccountController extends Controller
                 ->paginate($params['page_size']);
 
 
-           }elseif($status === null && $role !== null){
+           } else if($status === null && $role !== null){
                $users = DB::table('users')
                ->leftjoin('co_so_dao_tao', 'users.co_so_dao_tao_id', '=', 'co_so_dao_tao.id')
                ->select('users.*', DB::raw('co_so_dao_tao.ten as ten'))
@@ -130,10 +128,6 @@ class AccountController extends Controller
        
        
            }
-         
-           
-
-
             $users->withPath("?status=$status&role=$role&keyword=$keyword");                  
             $soluong = $users->count();
             if($soluong < 1){

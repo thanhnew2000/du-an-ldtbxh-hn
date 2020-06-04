@@ -2,11 +2,14 @@
     font-family: "Roboto", sans-serif !important;
 }
 
+*:not(.select2-selection__arrow) {
+    font-family: "Roboto", sans-serif !important;
+}
+
 table th {
     font-weight: 900;
 }
 
-
-/* .m-portlet.m-portlet--mobile.m-portlet--body-progress-trinhdo {
-    height: 489px;
-} */
+.pointer {
+    cursor: pointer;
+}

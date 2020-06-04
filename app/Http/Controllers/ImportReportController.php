@@ -6,10 +6,6 @@ use Illuminate\Http\Request;
 
 class ImportReportController extends Controller
 {
-    public function quanlygiaovien()
-    {
-        return view('importreport.quan_ly_giao_vien');
-    }
     public function doingucanboquanly()
     {
         return view('importreport.doi_ngu_can_bo_quan_ly');
