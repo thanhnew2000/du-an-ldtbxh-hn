@@ -40,7 +40,7 @@ Route::group(['prefix' => 'so-lieu-sinh-vien-dang-theo-hoc'], function () {
         '/cap-nhat-so-lieu-sinh-vien/{id}','ExtractController@saveEdit'    
     )->name('xuatbc.sua-so-sv');
 
-    Route::get('/chi-tiet-so-lieu-sinh-vien','ExtractController@tongHopChiTietSvDangTheoHoc')
+    Route::get('/chi-tiet-so-lieu-sinh-vien/{co_so_id}','ExtractController@tongHopChiTietSvDangTheoHoc')
     ->name('xuatbc.chi-tiet-so-lieu');
 });
 // end cuong nc - tổng hợp sinh viên đang theo học

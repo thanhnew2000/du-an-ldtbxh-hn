@@ -50,6 +50,7 @@ class SoLieuTuyenSinhService extends AppService
     public function getChiTietSoLuongTuyenSinh($coSoId,$limit){
         $data = $this->repository->getChiTietSoLuongTuyenSinh($coSoId,$limit);
         return $data;
+    // dd($data);
     }
     public function getTenCoSoDaoTao(){
         return $this->repository->getTenCoSoDaoTao();

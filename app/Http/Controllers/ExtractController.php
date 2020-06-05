@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Qlsv;
 use Illuminate\Http\Request;
 use App\Repositories;
 use App\Services\QlsvService;
@@ -25,11 +24,10 @@ class ExtractController extends Controller
     {
         return view('extractreport.danh_sach_doi_ngu_quan_ly');
     }
-    public function add(Qlsv $qlsv)
+    public function add()
     {
-        return view('crud.add_quan_ly_sv', [
-            'qlsv' => $qlsv
-        ]);
+        $data = $this ->QlsvService->getQlsv();
+        return view('crud.add_quan_ly_sv',compact('data'));
     }
     public function saveAdd(Request $request)
     
@@ -57,52 +55,52 @@ class ExtractController extends Controller
         [
             'co_so_id.required' => 'Bạn không được bỏ trống ',
             'nghe_id.required' => 'Bạn không được bỏ trống',
-            // 'so_luong_sv_nu_Cao_dang.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+          
             'so_luong_sv_nu_Cao_dang.min' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
             'so_luong_sv_nu_Cao_dang.integer' => 'Vui lòng nhập số nguyên',
-            // 'so_luong_sv_nu_Trung_cap.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+            
             'so_luong_sv_nu_Trung_cap.min' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
             'so_luong_sv_nu_Trung_cap.integer' => 'Vui lòng nhập số nguyên',
-            // 'so_luong_sv_nu_So_cap.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+           
             'so_luong_sv_nu_So_cap.min' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
             'so_luong_sv_nu_So_cap.integer' => 'Vui lòng nhập số nguyên',
-            // 'so_luong_sv_nu_khac.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+            
             'so_luong_sv_nu_khac.min' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
             'so_luong_sv_nu_khac.integer' => 'Vui lòng nhập số nguyên',
-            // 'so_luong_sv_dan_toc_Cao_dang.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+            
             'so_luong_sv_dan_toc_Cao_dang.min' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
             'so_luong_sv_dan_toc_Cao_dang.integer' => 'Vui lòng nhập số nguyên',
-            // 'so_luong_sv_dan_toc_Trung_cap.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+            
             'so_luong_sv_dan_toc_Trung_cap.min' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
             'so_luong_sv_dan_toc_Trung_cap.integer' => 'Vui lòng nhập số nguyên',
-            // 'so_luong_sv_dan_toc_So_cap.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+            
             'so_luong_sv_dan_toc_So_cap.min' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
             'so_luong_sv_dan_toc_So_cap.integer' => 'Vui lòng nhập số nguyên',
-            // 'so_luong_sv_dan_toc_khac.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+            
             'so_luong_sv_dan_toc_khac.min' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
             'so_luong_sv_dan_toc_khac.integer' => 'Vui lòng nhập số nguyên',
-            // 'so_luong_sv_ho_khau_HN_Cao_dang.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+           
             'so_luong_sv_ho_khau_HN_Cao_dang.min' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
             'so_luong_sv_ho_khau_HN_Cao_dang.integer' => 'Vui lòng nhập số nguyên',
-            // 'so_luong_sv_ho_khau_HN_Trung_cap.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+           
             'so_luong_sv_ho_khau_HN_Trung_cap.min' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
             'so_luong_sv_ho_khau_HN_Trung_cap.integer' => 'Vui lòng nhập số nguyên',
-            // 'so_luong_sv_ho_khau_HN_So_cap.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+            
             'so_luong_sv_ho_khau_HN_So_cap.min' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
             'so_luong_sv_ho_khau_HN_So_cap.integer' => 'Vui lòng nhập số nguyên',
-            // 'so_luong_sv_ho_khau_HN_khac.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+           
             'so_luong_sv_ho_khau_HN_khac.min' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
             'so_luong_sv_ho_khau_HN_khac.integer' => 'Vui lòng nhập số nguyên',
-            // 'so_luong_sv_Cao_dang.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+           
             'so_luong_sv_Cao_dang.min' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
             'so_luong_sv_Cao_dang.integer' => 'Vui lòng nhập số nguyên',
-            // 'so_luong_sv_Trung_cap.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+           
             'so_luong_sv_Trung_cap.min' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
             'so_luong_sv_Trung_cap.integer' => 'Vui lòng nhập số nguyên',
-            // 'so_luong_sv_So_cap.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+           
             'so_luong_sv_So_cap.min' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
             'so_luong_sv_So_cap.integer' => 'Vui lòng nhập số nguyên',
-            // 'so_luong_sv_he_khac.required' => 'Bạn không được bỏ trống vui lòng nhập dữ liệu',
+
             'so_luong_sv_he_khac.min' => 'Vui lòng nhập giá trị lớn hơn hoặc bằng 0',
             'so_luong_sv_he_khac.integer' => 'Vui lòng nhập số nguyên',
         ]
@@ -113,15 +111,12 @@ class ExtractController extends Controller
         $request->request->set('dot', 1);
         $this->QlsvService->create($request);
         // dd($request);
-        return redirect('/xuat-bao-cao/so-lieu-sinh-vien-dang-theo-hoc')->with('status', 'Tạo thành công');
+        return redirect('/xuat-bao-cao/so-lieu-sinh-vien-dang-theo-hoc')->withInput();
     }
     public function edit($id)
     {
-        $qlsv = Qlsv::find($id);
-
-        return view('crud.edit_quan_ly_sv', [
-            'qlsv' => $qlsv
-        ]);
+        $data = $this->QlsvService->suaSoLieuSv($id);
+        return view('crud.edit_quan_ly_sv',compact('data'));
     }
     public function saveEdit($id, Request $request)
     {
@@ -135,13 +130,22 @@ class ExtractController extends Controller
     }
     public function tonghopsvdanghoc()
     {
+        // $param = request()->all();
         $data = $this->QlsvService->getQlsv();
-        return view('extractreport.tong_hop_sinh_vien_dang_theo_hoc', compact('data'));
+        $nam = $this->QlsvService->getNamDaoTao();
+        $loaiHinhCs = $this->QlsvService->getLoaiHinh();
+        $coso = $this->QlsvService->getCoSo();
+        return view('extractreport.tong_hop_sinh_vien_dang_theo_hoc',[
+            'nam' => $nam,
+            'data' => $data,
+            'loaiHinh' => $loaiHinhCs,
+            'coso'=>$coso,
+        ]);
     }
-    public function tongHopChiTietSvDangTheoHoc(){
-        $data = $this->QlsvService->getQlsv();
-        // dd($data);
-        return view('extractreport.lich_su_sinh_vien_dang_theo_hoc',compact('data'));
+    public function tongHopChiTietSvDangTheoHoc($coSoId){
+    
+        $data = $this->QlsvService->chiTietSoLieuQlsv($coSoId);
+        return view('extractreport.lich_su_sinh_vien_dang_theo_hoc',['data' =>$data]);
     }
     
     public function tonghopchinhsachsv()
