@@ -25,6 +25,7 @@ class TuyenSinhValidate extends FormRequest
     {
         $data = $this->all();
         unset($data['_token']);
+        unset($data['bao_cao_url']);
         $getDataCheck=[];
         foreach ($data as $item=>$value) {
             if($value == null){

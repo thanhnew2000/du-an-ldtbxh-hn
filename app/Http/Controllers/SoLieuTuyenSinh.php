@@ -18,9 +18,20 @@ class SoLieuTuyenSinh extends Controller
     public function tonghopsolieutuyensinh()
     {
         $params = request()->all();
-        $data = $this->SoLieuTuyenSinhService->getSoLuongTuyenSinh($params);
+        if(isset(request()->page_size)){
+            $limit = request()->page_size;
+        }else{
+            $limit = 20;
+        }
+        
+        $data = $this->SoLieuTuyenSinhService->getSoLuongTuyenSinh($params,$limit);
         $coso = $this->SoLieuTuyenSinhService->getTenCoSoDaoTao();
         $quanhuyen = $this->SoLieuTuyenSinhService->getTenQuanHuyen();
+        if(isset(request()->devvn_quanhuyen)){
+            $xaphuongtheoquanhuyen = $this->SoLieuTuyenSinhService->getXaPhuongTheoQuanHuyen(request()->devvn_quanhuyen);
+        }else{
+            $xaphuongtheoquanhuyen=[];
+        }
         $loaiHinh = $this->SoLieuTuyenSinhService->getListLoaiHinh();
         $data->appends(request()->input())->links();
         return view('solieutuyensinh.tong_hop_so_lieu_tuyen_sinh', [
@@ -28,7 +39,9 @@ class SoLieuTuyenSinh extends Controller
             'loaiHinh' => $loaiHinh,
             'limit' => 10,
             'coso'=>$coso,
-            'quanhuyen'=>$quanhuyen
+            'quanhuyen'=>$quanhuyen,
+            'params'=>$params,
+            'xaphuongtheoquanhuyen'=>$xaphuongtheoquanhuyen
         ]);
         
     }
@@ -44,11 +57,13 @@ class SoLieuTuyenSinh extends Controller
     public function chitietsolieutuyensinh($coSoId)
     {
         $limit=10;
-        $data = $this->SoLieuTuyenSinhService->getChiTietSoLuongTuyenSinh($coSoId,$limit);
+        $params = request()->all();
+        $data = $this->SoLieuTuyenSinhService->getChiTietSoLuongTuyenSinh($coSoId,$limit,$params);
         $data->appends(request()->input())->links();
         return view('solieutuyensinh.chi_tiet_so_lieu_tuyen_sinh', [
             'data' => $data,
             'limit' => $limit,
+            'params'=>$params
         ]);
     }
 
@@ -62,7 +77,8 @@ class SoLieuTuyenSinh extends Controller
     public function postsuasolieutuyensinh($id,TuyenSinhValidate $request)
     {
         $data = $this->SoLieuTuyenSinhService->update($id,$request);
-        return redirect()->back()->with('thongbao','Sửa số liệu tuyển sinh thành công');
+        $datatuyensinh =$this->SoLieuTuyenSinhService->findById($id);
+        return redirect()->route('chitietsolieutuyensinh', ['co_so_id' => $datatuyensinh->co_so_id])->with('thongbao','Sửa số liệu tuyển sinh thành công');
     }
 
     public function themsolieutuyensinh()
@@ -80,7 +96,7 @@ class SoLieuTuyenSinh extends Controller
     {
         $getdata = $request->all();
         $data = $this->SoLieuTuyenSinhService->postthemsolieutuyensinh($getdata);
-        return redirect()->back()->with('thongbao','Thêm số liệu tuyển sinh thành công');
+        return redirect()->route('chitietsolieutuyensinh', ['co_so_id' => $getdata['co_so_id']])->with('thongbao','Thêm số liệu tuyển sinh thành công');
     }
     public function getCheckTonTaiSoLieuTuyenSinh(Request $request)
     {

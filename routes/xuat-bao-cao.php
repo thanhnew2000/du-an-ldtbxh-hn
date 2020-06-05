@@ -11,6 +11,14 @@ Route::group(['prefix' => 'doi-ngu-nha-giao'], function(){
     Route::get('/tong-hop',
         'ExtractController@danhsachnhagiao')
         ->name('xuatbc.ds-nha-giao');
+
+    Route::get('/them-ds-nha-giao',
+        'ExtractController@themDanhSachDoiNguNhaGiao')
+        ->name('xuatbc.them-ds-nha-giao');  
+    Route::get('/sua-ds-nha-giao',
+        'ExtractController@suaDanhSachDoiNguNhaGiao')
+        ->name('xuatbc.sua-ds-nha-giao');   
+        
 });
 
 Route::group(['prefix' => 'doi-ngu-quan-ly'], function(){

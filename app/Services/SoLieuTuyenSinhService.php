@@ -32,7 +32,7 @@ class SoLieuTuyenSinhService extends AppService
         return $this->loaiHinhCoSoRepository->getAll();
     }
 
-    public function getSoLuongTuyenSinh($params = [], $limit = 10)
+    public function getSoLuongTuyenSinh($params = [], $limit)
     {
         $queryData = [];
         $queryData['dot'] = isset($params['dot']) ? $params['dot'] : (Carbon::now()->month < 6 ? 1 : 2);
@@ -47,8 +47,11 @@ class SoLieuTuyenSinhService extends AppService
         return $data;
     }
 
-    public function getChiTietSoLuongTuyenSinh($coSoId,$limit){
-        $data = $this->repository->getChiTietSoLuongTuyenSinh($coSoId,$limit);
+    public function getChiTietSoLuongTuyenSinh($coSoId,$limit,$params){
+        $queryData = [];
+        $queryData['nam'] = isset($params['nam']) ? $params['nam'] : null;
+        $queryData['dot'] = isset($params['dot']) ? $params['dot'] : null;
+        $data = $this->repository->getChiTietSoLuongTuyenSinh($coSoId,$limit,$queryData);
         return $data;
     }
     public function getTenCoSoDaoTao(){

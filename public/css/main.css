@@ -2,13 +2,20 @@
     font-family: 'Roboto', sans-serif;
 }
 
+*:not(.select2-selection__arrow) {
+    font-family: "Roboto", sans-serif !important;
+}
+
 .btn {
     font-family: 'Roboto', sans-serif !important;
 }
 
 table {
     font-size: 13px;
+    font-family: "Roboto", sans-serif !important;
 }
+
+
 
 table th {
     font-weight: 900;
