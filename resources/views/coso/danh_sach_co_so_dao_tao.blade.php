@@ -16,7 +16,6 @@
             </div>
         </div>
         <form action="" method="get" class="m-form">
-            <input type="hidden" name="page_size" value="">
             <div class="m-portlet__body">
                 <div class="m-form__section m-form__section--first">
                     <div class="m-form__heading">
@@ -27,7 +26,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Tên cơ sở:</label>
                                 <div class="col-lg-8">
-                                    <input type="text" class="form-control m-input">
+                                    <input type="text" name="ten_co_so" class="form-control m-input">
                                 </div>
                             </div>
                         </div>
@@ -35,7 +34,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Loại hình cơ sở:</label>
                                 <div class="col-lg-8">
-                                    <select name="bac_nghe" class="form-control ">
+                                    <select name="loai_hinh_co_so" class="form-control ">
                                         <option disabled selected>chọn loại hình cơ sở</option>
                                         @foreach ($loaihinh as $lh)
                                         <option value="{{ $lh->id }}">{{ $lh->loai_hinh_co_so }}</option>
@@ -50,7 +49,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Mã đơn vị:</label>
                                 <div class="col-lg-8">
-                                    <input type="text" class="form-control m-input">
+                                    <input type="text" name="ma_don_vi" class="form-control m-input">
                                 </div>
 
                             </div>
@@ -60,7 +59,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Quận</label>
                                 <div class="col-lg-8">
-                                    <select name="bac_nghe" class="form-control ">
+                                    <select name="quanhuyen" class="form-control ">
                                         <option disabled selected>Quận / Huyện</option>
                                         @foreach ($quanhuyen as $qh)
                                         <option value="{{ $qh->maqh }}">{{ $qh->name }}</option>
@@ -82,14 +81,19 @@
     </div>
     <div class="m-portlet">
         <div class="m-portlet__body">
-            <div class="col-12 form-group m-form__group d-flex justify-content-end">
+            {{-- <div class="col-12 form-group m-form__group d-flex justify-content-end">
                 <label class="col-lg-2 col-form-label">Kích thước:</label>
                 <div class="col-lg-2">
                     <select class="form-control" id="page-size">
                         <option value="">abc</option>
                     </select>
                 </div>
+            </div> --}}
+            @if (\Session::has('mess'))
+            <div class="alert alert-success" role="alert">
+                <strong>{!! \Session::get('mess') !!}</strong>
             </div>
+            @endif
             <table class="table m-table m-table--head-bg-brand">
                 <thead>
                     <th>STT</th>
@@ -113,7 +117,7 @@
                         <td><img class="img-size-70" src="{!! asset('storage/' . $csdt->logo) !!}" alt="">
                         </td>
                         <td>{{$csdt->qd_ten}}</td>
-                        <td>{{$csdt->dia_chi}}</td>
+                        <td>{{$csdt->dia_chi}} - {{ $csdt->tenxaphuong }} - {{ $csdt->tenquanhuyen }}</td>
                         <td class="d-flex">
                             <a href="{{route('csdt.chi-tiet', ['id'=> $csdt->id])}}"
                                 class="btn btn-info btn-sm mr-3">Chi

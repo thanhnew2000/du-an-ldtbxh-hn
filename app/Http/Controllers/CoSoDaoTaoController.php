@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use App\CoSoDaoTao;
 use App\Repositories;
 use App\Services\CoSoDaoTaoService;
@@ -17,6 +19,11 @@ class CoSoDaoTaoController extends Controller
 
     public function danhsachCSDT()
     {
+        // $params = $request->all();
+        // if (!isset($params['ten_co_so'])) $params['ten_co_so'] = null;
+        // if (!isset($params['ma_don_vi'])) $params['ma_don_vi'] = null;
+        // if (!isset($params['loai_hinh_co_so'])) $params['loai_hinh_co_so'] = null;
+        // if (!isset($params['quanhuyen'])) $params['quanhuyen'] = null;
         $data = $this->CoSoDaoTaoService->getCsdt();
         $loaihinh = DB::table('loai_hinh_co_so')->get();
         $quanhuyen = DB::table('devvn_quanhuyen')->get();
@@ -85,7 +92,7 @@ class CoSoDaoTaoController extends Controller
 
 
         $this->CoSoDaoTaoService->create($request, ['upload_logo']);
-        return redirect()->route('csdt.danh-sach')->withInput();
+        return redirect()->route('csdt.danh-sach')->withInput()->with('mess', 'Thêm cơ sở thành công');
     }
 
     public function suaCSDT($id)
@@ -94,13 +101,10 @@ class CoSoDaoTaoController extends Controller
         $parent = DB::table('co_quan_chu_quan')->get();
         $loai_coso = DB::table('loai_hinh_co_so')->get();
         $qd = DB::table('quyet_dinh_thanh_lap_csdt')->get();
-        //    dd($data);
-        return view('coso.sua_co_so', [
-            'data' => $data,
-            'parent' => $parent,
-            'loai_coso' => $loai_coso,
-            'qd' => $qd
-        ]);
+        $quanhuyen = DB::table('devvn_quanhuyen')->get();
+        $xaphuong = DB::table('devvn_xaphuongthitran')->where('');
+
+        return view('coso.sua_co_so', compact('data', 'parent', 'loai_coso', 'qd', 'quanhuyen', 'xaphuong'));
     }
 
     public function capnhatCSDT($id, Request $request)

@@ -21,7 +21,8 @@ class ChiNhanhController extends Controller
         } else {
             $data = $this->ChiNhanhService->getChiNhanh();
         }
-        return view('coso.chi_nhanh.danh_sach_chi_nhanh', ['data' => $data]);
+        $quanhuyen = DB::table('devvn_quanhuyen')->get();
+        return view('coso.chi_nhanh.danh_sach_chi_nhanh', compact('data', 'quanhuyen'));
     }
 
     public function themchinhanh()
@@ -89,7 +90,7 @@ class ChiNhanhController extends Controller
 
 
         $this->ChiNhanhService->update($id, $request, ['_token']);
-        return redirect()->route('chi-nhanh.cap-nhat', ['id' => $id])->withInput();
+        return redirect()->route('chi-nhanh.cap-nhat', ['id' => $id])->withInput()->with('mess', 'Đã cập nhật địa điểm đào tạo');
     }
 
     public function xoachinhanh($id)
