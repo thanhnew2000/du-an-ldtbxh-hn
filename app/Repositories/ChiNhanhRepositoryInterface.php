@@ -6,7 +6,7 @@ namespace App\Repositories;
 
 interface ChiNhanhRepositoryInterface
 {
-    public function getChiNhanh();
+    public function getChiNhanh($params);
 
     public function getSingleChiNhanh($id);
 

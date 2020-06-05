@@ -14,9 +14,9 @@ class CoSoDaoTaoService extends AppService
     {
         return \App\Repositories\CoSoDaoTaoRepository::class;
     }
-    public function getCsdt()
+    public function getCsdt($params)
     {
-        return $this->repository->getCsdt();
+        return $this->repository->getCsdt($params);
     }
 
     public function getSingleCsdt($id)

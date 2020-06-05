@@ -6,7 +6,7 @@ namespace App\Repositories;
 
 interface CoSoDaoTaoRepositoryInterface
 {
-    public function getCsdt();
+    public function getCsdt($params);
 
     /**
      * @param $id

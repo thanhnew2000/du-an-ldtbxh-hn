@@ -26,7 +26,8 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Tên cơ sở:</label>
                                 <div class="col-lg-8">
-                                    <input type="text" name="ten_co_so" class="form-control m-input">
+                                    <input type="text" name="ten_co_so" class="form-control m-input"
+                                        placeholder="từ khóa tên cơ sở">
                                 </div>
                             </div>
                         </div>
@@ -49,7 +50,8 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Mã đơn vị:</label>
                                 <div class="col-lg-8">
-                                    <input type="text" name="ma_don_vi" class="form-control m-input">
+                                    <input type="text" name="ma_don_vi" class="form-control m-input"
+                                        placeholder="mã đơn vị">
                                 </div>
 
                             </div>

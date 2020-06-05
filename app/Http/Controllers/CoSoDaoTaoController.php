@@ -17,14 +17,14 @@ class CoSoDaoTaoController extends Controller
         $this->CoSoDaoTaoService = $CoSoDaoTaoService;
     }
 
-    public function danhsachCSDT()
+    public function danhsachCSDT(Request $request)
     {
-        // $params = $request->all();
-        // if (!isset($params['ten_co_so'])) $params['ten_co_so'] = null;
-        // if (!isset($params['ma_don_vi'])) $params['ma_don_vi'] = null;
-        // if (!isset($params['loai_hinh_co_so'])) $params['loai_hinh_co_so'] = null;
-        // if (!isset($params['quanhuyen'])) $params['quanhuyen'] = null;
-        $data = $this->CoSoDaoTaoService->getCsdt();
+        $params = $request->all();
+        if (!isset($params['ten_co_so'])) $params['ten_co_so'] = null;
+        if (!isset($params['ma_don_vi'])) $params['ma_don_vi'] = null;
+        if (!isset($params['loai_hinh_co_so'])) $params['loai_hinh_co_so'] = null;
+        if (!isset($params['quanhuyen'])) $params['quanhuyen'] = null;
+        $data = $this->CoSoDaoTaoService->getCsdt($params);
         $loaihinh = DB::table('loai_hinh_co_so')->get();
         $quanhuyen = DB::table('devvn_quanhuyen')->get();
         //        dd($data);

@@ -14,12 +14,16 @@ class ChiNhanhController extends Controller
         $this->ChiNhanhService = $ChiNhanhService;
     }
 
-    public function danhsachchinhanh($id = null)
+    public function danhsachchinhanh(Request $request, $id = null)
     {
+        $params = $request->all();
+        if (!isset($params['ten_co_so'])) $params['ten_co_so'] = null;
+        if (!isset($params['ma_chung_nhan'])) $params['ma_chung_nhan'] = null;
+        if (!isset($params['loai_chi_nhanh'])) $params['ma_don_vi'] = null;
         if (isset($id)) {
             $data = $this->ChiNhanhService->getChiNhanhThuocCSDT($id);
         } else {
-            $data = $this->ChiNhanhService->getChiNhanh();
+            $data = $this->ChiNhanhService->getChiNhanh($params);
         }
         $quanhuyen = DB::table('devvn_quanhuyen')->get();
         return view('coso.chi_nhanh.danh_sach_chi_nhanh', compact('data', 'quanhuyen'));

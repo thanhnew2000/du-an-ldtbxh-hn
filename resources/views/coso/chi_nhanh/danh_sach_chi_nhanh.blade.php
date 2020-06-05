@@ -16,7 +16,6 @@
             </div>
         </div>
         <form action="" method="get" class="m-form">
-            <input type="hidden" name="page_size" value="">
             <div class="m-portlet__body">
                 <div class="m-form__section m-form__section--first">
                     <div class="m-form__heading">
@@ -27,46 +26,34 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Tên cơ sở:</label>
                                 <div class="col-lg-8">
-                                    <input type="text" class="form-control m-input">
+                                    <input type="text" name="ten_co_so" class="form-control m-input"
+                                        placeholder="Nhập từu khóa tên cơ sở">
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group m-form__group row">
-                                <label class="col-lg-2 col-form-label">Loại hình cơ sở:</label>
+                                <label class="col-lg-2 col-form-label">Mã chứng nhận</label>
                                 <div class="col-lg-8">
-                                    <select name="bac_nghe" class="form-control ">
-                                        <option disabled selected>chọn loại hình cơ sở</option>
-                                        {{-- @foreach ($loaihinh as $lh)
-                                        <option value="{{ $lh->id }}">{{ $lh->loai_hinh_co_so }}</option>
-                                        @endforeach --}}
+                                    <input type="text" name="ma_chung_nhan"
+                                        placeholder="Mã chứng nhận đăng kí hoạt động" class="form-control m-input">
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-2 col-form-label">Loại chi nhánh</label>
+                                <div class="col-lg-8">
+                                    <select name="lao_chi_nhanh" class="form-control ">
+                                        <option disabled selected>chọn loại chi nhánh</option>
+                                        <option value="1">Chi nhánh chính</option>
+                                        <option value="0">Chi nhánh phụ</option>
+
                                     </select>
                                 </div>
 
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group m-form__group row">
-                                <label class="col-lg-2 col-form-label">Mã đơn vị:</label>
-                                <div class="col-lg-8">
-                                    <input type="text" class="form-control m-input">
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group m-form__group row">
-                                <label class="col-lg-2 col-form-label">Quận</label>
-                                <div class="col-lg-8">
-                                    <select name="bac_nghe" class="form-control ">
-                                        <option disabled selected>Quận / Huyện</option>
-                                        {{-- @foreach ($quanhuyen as $qh)
-                                        <option value="{{ $qh->maqh }}">{{ $qh->name }}</option>
-                                        @endforeach --}}
-                                    </select>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -101,6 +88,11 @@
 <div class="m-portlet">
     <div class="m-portlet__body">
         <div class="m-section__content">
+            @if (\Session::has('mess'))
+            <div class="alert alert-danger" role="alert">
+                <strong>{!! \Session::get('mess') !!}</strong>
+            </div>
+            @endif
             <table class="table m-table m-table--head-bg-brand">
                 <thead>
                     <th>STT</th>

@@ -14,9 +14,9 @@ class ChiNhanhService extends AppService
     {
         return \App\Repositories\ChiNhanhRepository::class;
     }
-    public function getChiNhanh()
+    public function getChiNhanh($params)
     {
-        return $this->repository->getChiNhanh();
+        return $this->repository->getChiNhanh($params);
     }
 
     public function getSingleChiNhanh($id)
