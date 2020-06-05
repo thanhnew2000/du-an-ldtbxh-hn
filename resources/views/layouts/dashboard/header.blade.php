@@ -3,12 +3,12 @@
 					<div class="m-stack m-stack--ver m-stack--desktop">
 
 						<!-- BEGIN: Brand -->
-						<div class="m-stack__item m-brand  m-brand--skin-dark ">
+						<div class="m-stack__item m-brand  m-brand--skin-light ">
 							<div class="m-stack m-stack--ver m-stack--general">
 								<div class="m-stack__item m-stack__item--middle m-brand__logo" style="width: 60%;">
 									<a href="{{route('dashboard')}}" class="m-brand__logo-wrapper">
 									<img style="width: 35%; text-align: center" alt="" src="{!! asset('images/logo1.png') !!}">
-									<span id ="bldtb" style="color: white; ">BLĐTB & XH</span>
+									<span id ="bldtb" style="color: red; font-size: 11px; font-weight: 900; ">Sở LĐTB & XH</span>
 									<style>
 									 .m-brand__logo-wrapper:hover{
 										 text-decoration:none;
