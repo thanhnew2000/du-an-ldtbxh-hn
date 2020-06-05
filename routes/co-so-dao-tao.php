@@ -27,4 +27,4 @@ Route::post('tao-moi-chi-nhanh', 'ChiNhanhController@savethemchinhanh');
 Route::get('sua-chi-nhanh/{id}', 'ChiNhanhController@suachinhanh')->name('chi-nhanh.cap-nhat');
 Route::post('sua-chi-nhanh/{id}', 'ChiNhanhController@capnhatchinhanh');
 
-Route::get('xoa-chi-nhanh/{id?}', 'ChiNhanhController@xoachinhanh')->name('chi-nhanh.xoa');
+Route::post('xoa-chi-nhanh/{id}', 'ChiNhanhController@xoachinhanh')->name('chi-nhanh.xoa');
