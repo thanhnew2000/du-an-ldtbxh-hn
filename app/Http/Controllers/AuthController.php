@@ -19,9 +19,9 @@ class AuthController extends Controller
     	$password = $request->password;
     	$remember = $request->has("remember") ? true : false;
 
-    	if(Auth::attempt(["phone_number"=>$phone_or_email,"password"=>$password],$remember)){
+    	if(Auth::attempt(["phone_number"=>$phone_or_email,"password"=>$password,"status"=>1],$remember)){
     		 return redirect('dashboard');
-    	}else if(Auth::attempt(["email"=>$phone_or_email,"password"=>$password],$remember)){
+    	}else if(Auth::attempt(["email"=>$phone_or_email,"password"=>$password,"status"=>1],$remember)){
              return redirect('dashboard');
         }else{
     		 return redirect()->back()->with('thongbao','Tài khoản hoặc mật khẩu không đúng');

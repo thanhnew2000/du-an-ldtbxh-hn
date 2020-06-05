@@ -59,16 +59,32 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 		return $query->groupBy('co_so_id')->paginate($limit);
 	}
 
-	public function getChiTietSoLuongTuyenSinh($coSoId,$limit)
+	public function getChiTietSoLuongTuyenSinh($coSoId,$limit,$queryData)
 	{
-		return $this->table
+		$data = $this->table
 			->where('tuyen_sinh.co_so_id', '=', $coSoId)
 			->join('co_so_dao_tao', 'tuyen_sinh.co_so_id', '=', 'co_so_dao_tao.id')
 			->join('loai_hinh_co_so', 'co_so_dao_tao.ma_loai_hinh_co_so', '=', 'loai_hinh_co_so.id')
-			->select('tuyen_sinh.*', 'co_so_dao_tao.ten','loai_hinh_co_so.loai_hinh_co_so')
-			->paginate($limit);
-
-
+			->join('nganh_nghe', 'tuyen_sinh.nghe_id', '=', 'nganh_nghe.id')
+            ->join('devvn_quanhuyen', 'co_so_dao_tao.maqh', '=', 'devvn_quanhuyen.maqh')
+            ->join('devvn_xaphuongthitran', 'co_so_dao_tao.xaid', '=', 'devvn_xaphuongthitran.xaid')
+			->select(
+						'tuyen_sinh.*',
+						'co_so_dao_tao.ten',
+						'co_so_dao_tao.dia_chi',
+						'loai_hinh_co_so.loai_hinh_co_so',
+						'nganh_nghe.ten_nganh_nghe',
+						'devvn_quanhuyen.name as ten_quan_huyen',
+						'devvn_xaphuongthitran.name as ten_xa_phuong'
+					);
+			
+		if($queryData['nam']!= null){
+			$data->where('tuyen_sinh.nam', $queryData['nam']);
+		}	
+		if($queryData['dot']!=null){
+			$data->where('tuyen_sinh.dot', $queryData['dot']);
+		}
+		return $data->paginate($limit);
 	}
 
 	public function getTenCoSoDaoTao()
@@ -126,7 +142,7 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 				 )
 		->groupBy('tuyen_sinh.co_so_id',
 					'co_so_dao_tao.ten',
-					'loai_hinh_co_so.loai_hinh_co_so',
+					'loai_hinh_co_so.loai_hinh_co_so'
 					)->first();
 	}
 

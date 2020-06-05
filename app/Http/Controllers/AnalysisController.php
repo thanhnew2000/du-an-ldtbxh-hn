@@ -25,6 +25,7 @@ class AnalysisController extends Controller
         // $data_tot_nghiep = [];
         // $tuyensinh = DB::table('tuyen_sinh')->select('nam','so_luong_sv_Cao_dang','so_luong_sv_So_cap','so_luong_sv_he_khac')->limit(5)->orderBy('nam')->get();
         // $totnghiep = DB::table('sv_tot_nghiep')->select('nam','Tong_SoNguoi_TN')->limit(5)->orderBy('nam')->get();
+        // dd($totnghiep, $tuyensinh);
         // for ($i=0; $i < count($tuyensinh) ; $i++) {
         //     $array_tuyensinh = [$tuyensinh[$i]->nam,$tuyensinh[$i]->so_luong_sv_Cao_dang+$tuyensinh[$i]->so_luong_sv_So_cap+$tuyensinh[$i]->so_luong_sv_he_khac];
         //     array_push($data_tuyen_sinh,$array_tuyensinh);
