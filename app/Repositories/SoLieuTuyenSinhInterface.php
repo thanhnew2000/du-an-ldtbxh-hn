@@ -4,7 +4,7 @@ namespace App\Repositories;
 interface SoLieuTuyenSinhInterface
 {
 	public function getSoLuongTuyenSinh($params, $limit = 10);
-	public function getChiTietSoLuongTuyenSinh($coSoId,$limit);
+	public function getChiTietSoLuongTuyenSinh($coSoId,$limit,$queryData);
 	public function getTenCoSoDaoTao();
 	public function getmanganhnghe($id);
 	public function postthemsolieutuyensinh($getdata);

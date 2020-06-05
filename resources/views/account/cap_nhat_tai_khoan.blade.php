@@ -29,7 +29,7 @@
 				</div>
 
 				<!--begin::Form-->
-				<form id="validate-capnhat" method="post" action="{{ route('capnhattaikhoan') }}"
+				<form id="validate-capnhat" method="post" action=""
 					class="m-form m-form--fit m-form--label-align-right" enctype="multipart/form-data">
 					{{ csrf_field() }}
 					<div class="m-portlet__body">

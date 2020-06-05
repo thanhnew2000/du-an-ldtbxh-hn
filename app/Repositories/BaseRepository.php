@@ -30,7 +30,7 @@ abstract class BaseRepository implements RepositoryInterface
         return $result;
     }
 
-    public function getById($id)
+    public function findById($id)
     {
         $result = $this->table->find($id);
 

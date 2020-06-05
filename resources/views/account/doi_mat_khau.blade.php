@@ -28,7 +28,7 @@
 
 				<!--begin::Form-->
 				<form id="validate-dangky" onsubmit="return validateForm()" method="post"
-					action="{{ route('doimatkhau') }}" class="m-form m-form--fit m-form--label-align-right"
+					action="" class="m-form m-form--fit m-form--label-align-right"
 					enctype="multipart/form-data">
 					{{ csrf_field() }}
 					<div class="m-portlet__body">
