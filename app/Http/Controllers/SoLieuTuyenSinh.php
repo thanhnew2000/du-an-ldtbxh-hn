@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Http\Requests\TuyenSinhValidate;
 use App\Services\SoLieuTuyenSinhService;
@@ -17,6 +18,15 @@ class SoLieuTuyenSinh extends Controller
 
     public function tonghopsolieutuyensinh()
     {
+
+        /**
+         * Thanh NV
+         * $limit =10;
+         * $data = $this->SoLieuTuyenSinhService->getSoLuongTuyenSinh($limit);
+         * $co_so_dao_tao =  DB::table('co_so_dao_tao')->get();
+         * return view('solieutuyensinh.tong_hop_so_lieu_tuyen_sinh',compact('data','limit','co_so_dao_tao'));
+         * 
+         */
         $params = request()->all();
         if(isset(request()->page_size)){
             $limit = request()->page_size;
@@ -109,7 +119,6 @@ class SoLieuTuyenSinh extends Controller
         }else{
             return $urledit = route('suasolieutuyensinh', ['id' => $getdata->id]);
         }
-
     }
 
     public function getCoSoTuyenSinhTheoLoaiHinh(Request $request)
