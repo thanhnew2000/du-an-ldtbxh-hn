@@ -68,9 +68,14 @@
                 <div class="col-lg-8">
                   <select class="form-control " onchange="getdatacheck(this)" required name="nam" id="nam">
                     <option value="">Chọn</option>
-                    <option value="2020">2020</option>
-                    <option value="2019">2019</option>
-                    <option value="2018">2018</option>
+                    @foreach (config('common.nam_tuyen_sinh.list') as $item)
+                      <option 
+                      @if (isset($params['nam']))
+                              {{( $params['nam'] ==  $item ) ? 'selected' : ''}}  
+                              @endif
+                              value="{{$item}}"> {{$item}}
+                          </option>
+                      @endforeach
                   </select>
                 </div>
               </div>

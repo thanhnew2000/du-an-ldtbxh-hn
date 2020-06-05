@@ -19,4 +19,11 @@ Route::get('/doi-mat-khau', 'AccountController@thaydoimatkhau');
 Route::get('/tao-tai-khoan','UserController@getdangkytaikhoan')->name("account.tao-tk");
 Route::post('/tao-tai-khoan','UserController@dangkytaikhoan');
 
+
+// 2020-05-31 - phucnv - làm thêm chắc năng search và chắc ten
+Route::get('/search', 'AccountController@search')->name('account.search');
+Route::post('/check-name', 'AccountController@checkName')->name('account.check-name');
+
+
+
 ?>
