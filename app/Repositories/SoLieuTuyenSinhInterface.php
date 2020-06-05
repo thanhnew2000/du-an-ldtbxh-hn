@@ -15,3 +15,4 @@ interface SoLieuTuyenSinhInterface
 	public function getTenQuanHuyen();
 	public function getXaPhuongTheoQuanHuyen($id);
 }
+?>

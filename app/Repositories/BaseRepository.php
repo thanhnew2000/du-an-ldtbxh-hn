@@ -36,7 +36,6 @@ abstract class BaseRepository implements RepositoryInterface
 
         return $result;
     }
-
     public function create($attributes = [])
     {
         $result  = $this->table->insert($attributes);

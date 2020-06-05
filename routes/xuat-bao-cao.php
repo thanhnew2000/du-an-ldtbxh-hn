@@ -52,6 +52,20 @@ Route::group(['prefix' => 'chinh-sach-sinh-vien'], function(){
 Route::group(['prefix' => 'ket-qua-tuyen-sinh'], function(){
     Route::get('/tong-hop', 'ExtractController@tonghopkqtuyensinh')
         ->name('xuatbc.ds-ket-qua-ts');
+    Route::get('/tong-hop-so-lieu-tuyen-sinh','SoLieuTuyenSinh@tonghopsolieutuyensinh')->name('solieutuyensinh');
+    Route::get('/search-co-so-so-lieu-tuyen-sinh','SoLieuTuyenSinh@searchCoSoTongHopSoLieuTuyenSinh')->name('searchCoSoTongHopSoLieuTuyenSinh');
+    Route::get('/chi-tiet-so-lieu-tuyen-sinh/{id}','SoLieuTuyenSinh@chitietsolieutuyensinh')->name('chitietsolieutuyensinh');
+    Route::get('/sua-so-lieu-tuyen-sinh/{id}','SoLieuTuyenSinh@suasolieutuyensinh')->name('suasolieutuyensinh');
+    Route::post('/sua-so-lieu-tuyen-sinh/{id}/edit','SoLieuTuyenSinh@postsuasolieutuyensinh')->name('postsuasolieutuyensinh');
+    Route::get('/them-so-lieu-tuyen-sinh','SoLieuTuyenSinh@themsolieutuyensinh')->name('themsolieutuyensinh');
+    Route::post('/them-so-lieu-tuyen-sinh','SoLieuTuyenSinh@postthemsolieutuyensinh')->name('postthemsolieutuyensinh');
+    Route::post('/get-ma-nganh-nghe','SoLieuTuyenSinh@getmanganhnghe');
+    
+    // thanhnv thêm xuất form nhập cho người dùng nhập Import
+    Route::post('form-nhap-sv','ExportSVController@exportFormNhapSinhVien')->name('layformbieumausinhvien');
+    //  6/1/2000 Xuất dữ liệu data 
+    Route::post('export-data-sv','ExportSVController@exportDataSV')->name('exportdatatuyensinh');
+
 
     Route::get('/tong-hop-so-lieu-tuyen-sinh','SoLieuTuyenSinh@tonghopsolieutuyensinh')->name('solieutuyensinh');
     Route::post('/co-so-tuyen-sinh-theo-loai-hinh','SoLieuTuyenSinh@getCoSoTuyenSinhTheoLoaiHinh')->name('csTuyenSinhTheoLoaiHinh');
