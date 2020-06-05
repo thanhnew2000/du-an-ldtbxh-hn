@@ -1,5 +1,6 @@
 
 @extends('layouts.admin')
+@section('title', "Tổng hợp số liệu học sinh")
 @section('content')
 <div class="m-content container-fluid">
     <div class="m-portlet">
@@ -27,7 +28,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Loại Hình Cơ Sở: </label>
                                 <div class="col-lg-8">
-                                    <select name="co_so_id" class="form-control ">
+                                    <select name="loai_hinh" class="form-control ">
                                         <option value="" >Chọn cơ sở</option>
                                         @foreach($loaiHinh as $item)
                                         <option value="{{ $item->id }}">{{ $item->loai_hinh_co_so }}</option>
@@ -40,7 +41,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Tên Cơ Sở: </label>
                                 <div class="col-lg-8">
-                                    <select name="loai_hinh" class="form-control ">
+                                    <select name="co_so_id" class="form-control ">
                                         @foreach ($coso as $item)
                                         <option value="{{ $item->id }}">{{$item->ten}}</option>
                                         @endforeach
@@ -50,39 +51,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group m-form__group row">
-                                <label class="col-lg-2 col-form-label">Năm: </label>
-                                <div class="col-lg-8">
-                                    <select name="nam" class="form-control ">
-                                        <option value="" selected disabled>Chọn</option>
-                                        <option value="2020">2020</option>
-                                        <option value="2019">2019</option>
-                                        <option value="2018">2018</option>
-                                        {{-- @foreach ($nam as $item)
-                                            <option value="{{$item->nam}}"></option>
-                                        @endforeach --}}
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group m-form__group row">
-                                <label class="col-lg-2 col-form-label">Đợt: </label>
-                                <div class="col-lg-8">
-                                    <select class="form-control" name="dot">
-                                        <option value="" selected disabled>Chọn</option>
-                                        <option value="1">Đợt 1</option>
-                                        <option value="2">Đợt 2</option>
-                                        {{-- @foreach ($data as $item)
-                                            <option value="{{$item->dot}}">{{$item->dot}}</option>
-                                        @endforeach --}}
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                   
 
                 </div>
                 <div class="row justify-content-center">

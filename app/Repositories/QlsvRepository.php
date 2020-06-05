@@ -16,9 +16,10 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
     {
         return 'sv_dang_quan_ly';
     }
-    public function getQlsv()
+    public function getQlsv($params)
     {
-       return  $this->table
+        // dd($params);
+       $query = $this->table
         ->join('co_so_dao_tao', 'co_so_dao_tao.id', '=', 'sv_dang_quan_ly.co_so_id')
         ->join('nganh_nghe', 'nganh_nghe.id', '=', 'sv_dang_quan_ly.nghe_id')
         ->join('loai_hinh_co_so', 'co_so_dao_tao.ma_loai_hinh_co_so', '=', 'loai_hinh_co_so.id') 
@@ -28,10 +29,19 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
             'co_so_dao_tao.ten',
             'co_so_dao_tao.id as cs_id',
             DB::raw('co_so_dao_tao.ten as cs_ten'),
-            )->groupBy('sv_dang_quan_ly.co_so_id')
-             ->orderByDesc('sv_dang_quan_ly.id')
-        ->paginate(10);
+        );
+        if (isset($params['loai_hinh']) && !empty($params['loai_hinh'])) {
+            $query->where('loai_hinh_co_so.id', $params['loai_hinh']);
+            
+        }
+
+        if (isset($params['cs_id']) && !empty($params['cs_id'])) {
+            $query->where('sv_dang_quan_ly.co_so_id', $params['cs_id']);
+            
+            // dd($query->where('sv_dang_quan_ly.cs_id', $params['cs_id']));
+        }
         
+        return $query->orderByDesc('sv_dang_quan_ly.id')->groupBy('sv_dang_quan_ly.co_so_id')->paginate(10);
             
     }
     public function getCoSo()
@@ -70,10 +80,10 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
         $result = $this->table->insert($getdata);
         return $result;
     }
-    public function chiTietSoLieuQlsv($coSoId){
+    public function chiTietSoLieuQlsv($coSoId,$params){
         // dd($this->table);
-        // dd($coSoId);
-        return $this->table
+        dd($params);
+       $query = $this->table
             ->where('sv_dang_quan_ly.co_so_id', '=', $coSoId)
             ->join('co_so_dao_tao', 'sv_dang_quan_ly.co_so_id', '=', 'co_so_dao_tao.id')
             ->join('loai_hinh_co_so', 'co_so_dao_tao.ma_loai_hinh_co_so', '=', 'loai_hinh_co_so.id')
@@ -83,11 +93,23 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
                 'loai_hinh_co_so.loai_hinh_co_so',
                 'nganh_nghe.*',
                 'co_so_dao_tao.ten',
+                'co_so_dao_tao.id as cs_id',
                 DB::raw('co_so_dao_tao.ten as cs_ten'),
                 DB::raw('nganh_nghe.id as nghe_id'),
                 DB::raw('sv_dang_quan_ly.id as sv_id')
-            )->paginate(10);    
+            );
+            
+            if (isset($params['loai_hinh']) && !empty($params['loai_hinh'])) {
+                $query->where('loai_hinh_co_so.id', $params['loai_hinh']);
+                
+            }
+    
+            if (isset($params['cs_id']) && !empty($params['cs_id'])) {
+                $query->where('sv_dang_quan_ly.co_so_id', $params['cs_id']);
+            
+            return $query->paginate(10);
     }
+}
 
     public function getNamDaoTao(){
         $nam = DB::table('sv_dang_quan_ly')->select('id','nam')->get();

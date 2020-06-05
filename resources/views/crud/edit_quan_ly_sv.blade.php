@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', "Sửa số liệu tuyển sinh")
+@section('title', "Sửa số liệu học sinh sinh viên")
 @section('style')
 {{-- <link href="{!! asset('tuyensinh/css/suatuyensinh.css') !!}" rel="stylesheet" type="text/css" /> --}}
 <style>
@@ -82,7 +82,6 @@
                    <th>Trung Cấp</th>
                    <th>Sơ Cấp</th>
                    <th>Khác</th>
-                   <th>Tổng Học Sinh Siên Viên Các Trình Độ </th>
                </tr>
            </thead>
            <tbody>

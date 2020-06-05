@@ -55,7 +55,6 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 		}
 
 		// dd($query->groupBy('co_so_id')->toSql());
-
 		return $query->groupBy('co_so_id')->paginate($limit);
 	}
 

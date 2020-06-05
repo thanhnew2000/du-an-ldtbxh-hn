@@ -4,11 +4,11 @@ namespace App\Repositories;
 
 interface QlsvRepositoryInterface
 {
-    public function getQlsv();
+    public function getQlsv($params);
     public function getCoSo();
     // public function suaSoLieuSv();
     // public function themSoLieuSv();
-    public function chiTietSoLieuQlsv($coSoId);
+    public function chiTietSoLieuQlsv($coSoId,$params);
     public function getNamDaoTao();
     public function getTenCoSoDaoTao();
 

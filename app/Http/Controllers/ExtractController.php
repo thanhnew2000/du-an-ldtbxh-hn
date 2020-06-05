@@ -130,13 +130,14 @@ class ExtractController extends Controller
     }
     public function tonghopsvdanghoc()
     {
-        // $param = request()->all();
-        $data = $this->QlsvService->getQlsv();
-        $nam = $this->QlsvService->getNamDaoTao();
+        $params = request()->all();
+        // dd($params);
+        $data = $this->QlsvService->getQlsv($params);
+        // $nam = $this->QlsvService->getNamDaoTao();
         $loaiHinhCs = $this->QlsvService->getLoaiHinh();
         $coso = $this->QlsvService->getCoSo();
         return view('extractreport.tong_hop_sinh_vien_dang_theo_hoc',[
-            'nam' => $nam,
+            // 'nam' => $nam,
             'data' => $data,
             'loaiHinh' => $loaiHinhCs,
             'coso'=>$coso,

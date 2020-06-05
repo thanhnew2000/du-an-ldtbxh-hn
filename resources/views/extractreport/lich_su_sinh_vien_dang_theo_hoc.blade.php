@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', "Chi tiết số liệu tuyển sinh")
+@section('title', "Chi tiết số liệu học sinh sinh viên")
 @section('style')
 {{-- <link href="{!! asset('tuyensinh/css/chitiettuyensinh.css') !!}" rel="stylesheet" type="text/css" /> --}}
 <style>
@@ -28,9 +28,54 @@
             </div>
         </div>
     </div>
+    <form action="" method="GET" class="m-form">
+        {{-- <input type="hidden" name="page_size" value="{{$params['page_size']}}"> --}}
+        <div class="m-portlet__body">
+            <div class="m-form__section m-form__section--first">
+                <div class="m-form__heading">
+                    <h3 class="m-form__heading-title">Bộ lọc:</h3>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group m-form__group row">
+                            <label class="col-lg-2 col-form-label">Loại Hình Cơ Sở: </label>
+                            <div class="col-lg-8">
+                                <select name="loai_hinh" class="form-control ">
+                                    <option value="" >Chọn cơ sở</option>
+                                    @foreach($loaiHinh as $item)
+                                    <option value="{{ $item->id }}">{{ $item->loai_hinh_co_so }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group m-form__group row">
+                            <label class="col-lg-2 col-form-label">Tên Cơ Sở: </label>
+                            <div class="col-lg-8">
+                                <select name="co_so_id" class="form-control ">
+                                    @foreach ($coso as $item)
+                                    <option value="{{ $item->id }}">{{$item->ten}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+               
+
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-2">
+                    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                </div>
+            </div>
+        </div>
+    </form>
     <div class="m-portlet">
         <div class="m-portlet__body">
-            <table class="table table-bordered m-table m-table--border-danger m-table--head-bg-primary">
+            <table class="table table-bordered m-table m-table--border-danger m-table--head-bg-primary table-boder-white th">
                 <thead>
                     <tr class=" text-center ">
                         <th rowspan="2">STT</th>
