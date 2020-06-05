@@ -39,26 +39,26 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group m-form__group row">
-                                <label class="col-lg-2 col-form-label">Loại Hình Cơ Sở: </label>
+                                <label class="col-lg-2 col-form-label">Tên cơ sở:  </label>
                                 <div class="col-lg-8">
                                     <select name="co_so_id" class="form-control ">
-                                        <option value="" >Chọn loại hình cơ sở</option>
-                                        <option value="4">Mississippi</option>
-                                        <option value="2">Indiana</option>
-                                        <option value="8">Minnesota</option>
+                                        <option value="" >Chọn </option>
+                                        @foreach ($data as $item)
+                                        <option value="{{$item->id}}">{{$item->ten}}</option>
+                                         @endforeach
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group m-form__group row">
-                                <label class="col-lg-2 col-form-label">Nghề: </label>
+                                <label class="col-lg-2 col-form-label">Loại Hình Cơ Sở: </label>
                                 <div class="col-lg-8">
                                     <select name="nghe_id" class="form-control ">
-                                        <option value="" >Chọn tên cơ sở</option>
-                                        <option value="5210101">Kỹ thuật điêu khắc gỗ</option>
-                                        <option value="5210102">Điêu khắc</option>
-                                        <option value="5210103">Hội họa</option>
+                                        <option value="" >Chọn </option>
+                                       @foreach ($data as $item)
+                                        <option value="{{$item->id}}">{{$item->loai_hinh_co_so}}</option>
+                                       @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -87,7 +87,37 @@
             </thead>
             <tbody> 
                 <tr>
-                    <td>Tổng số nữ</td>
+                    <td>Tổng số</td>
+                    <td><input class="form-control" name="so_luong_sv_Cao_dang" value="{{ old('so_luong_sv_Cao_dang') }}" type="number"></td>
+                    <td><input class="form-control" name="so_luong_sv_Trung_cap" value="{{ old('so_luong_sv_Trung_cap') }}" type="number"></td>
+                    <td><input class="form-control" name="so_luong_sv_So_cap" value="{{ old('so_luong_sv_So_cap') }}" type="number"></td>
+                    <td><input class="form-control" name="so_luong_sv_he_khac" value="{{ old('so_luong_sv_he_khac') }}" type="number"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        @if ($errors->has('so_luong_sv_Cao_dang'))
+                        <span class="text-danger">{{ $errors->first('so_luong_sv_Cao_dang') }}</span>
+                        @endif
+                    </td>
+                    <td>
+                        @if ($errors->has('so_luong_sv_Trung_cap'))
+                        <span class="text-danger">{{ $errors->first('so_luong_sv_Trung_cap') }}</span>
+                        @endif
+                    </td>
+                    <td>
+                        @if ($errors->has('so_luong_sv_So_cap'))
+                        <span class="text-danger">{{ $errors->first('so_luong_sv_So_cap') }}</span>
+                        @endif
+                    </td>
+                    <td>
+                        @if ($errors->has('so_luong_sv_he_khac'))
+                        <span class="text-danger">{{ $errors->first('so_luong_sv_he_khac') }}</span>
+                        @endif
+                    </td>
+                </tr>
+                <tr>
+                    <td>Số Lượng Sinh Viên Nữ</td>
                     <td><input class="form-control" name="so_luong_sv_nu_Cao_dang" value="{{ old('so_luong_sv_nu_Cao_dang') }}" type="number"></td>
                     <td><input class="form-control" name="so_luong_sv_nu_Trung_cap" value="{{ old('so_luong_sv_nu_Trung_cap') }}" type="number"></td>
                     <td><input class="form-control" name="so_luong_sv_nu_So_cap" value="{{ old('so_luong_sv_nu_So_cap') }}"  type="number"></td>
@@ -117,7 +147,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Tổng số dân tộc thiểu số ít người</td>
+                    <td>Số Lượng Sinh Viên Dân Tộc</td>
                     <td><input class="form-control" name="so_luong_sv_dan_toc_Cao_dang" value="{{ old('so_luong_sv_dan_toc_Cao_dang') }}"  type="number"></td>
                     <td><input class="form-control" name="so_luong_sv_dan_toc_Trung_cap" value="{{ old('so_luong_sv_dan_toc_Trung_cap') }}"  type="number"></td>
                     <td><input class="form-control" name="so_luong_sv_dan_toc_So_cap" value="{{ old('so_luong_sv_dan_toc_So_cap') }}"  type="number"></td>
@@ -147,7 +177,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Tổng số hộ khẩu Hà Nội</td>
+                    <td>Số Lượng Sinh Viên Hộ Khẩu Hà Nội</td>
                     <td><input class="form-control" name="so_luong_sv_ho_khau_HN_Cao_dang" value="{{ old('so_luong_sv_ho_khau_HN_Cao_dang') }}"  type="number"></td>
                     <td><input class="form-control" name="so_luong_sv_ho_khau_HN_Trung_cap" value="{{ old('so_luong_sv_ho_khau_HN_Trung_cap') }}" type="number"></td>
                     <td><input class="form-control" name="so_luong_sv_ho_khau_HN_So_cap" value="{{ old('so_luong_sv_ho_khau_HN_So_cap') }}" type="number"></td>
@@ -178,33 +208,17 @@
                 </tr>
                 <tr>
                     <td>Tổng số</td>
-                    <td><input class="form-control" name="so_luong_sv_Cao_dang" value="{{ old('so_luong_sv_Cao_dang') }}" type="number"></td>
-                    <td><input class="form-control" name="so_luong_sv_Trung_cap" value="{{ old('so_luong_sv_Trung_cap') }}" type="number"></td>
-                    <td><input class="form-control" name="so_luong_sv_So_cap" value="{{ old('so_luong_sv_So_cap') }}" type="number"></td>
-                    <td><input class="form-control" name="so_luong_sv_he_khac" value="{{ old('so_luong_sv_he_khac') }}" type="number"></td>
+                    <td><input class="form-control" name="tong_so_nu" value="{{ old('so_luong_sv_ho_khau_HN_Cao_dang') }}"  type="number"></td>
+                    <td><input class="form-control" name="tong_so_dan_toc_thieu_so" value="{{ old('so_luong_sv_ho_khau_HN_Trung_cap') }}" type="number"></td>
+                    <td><input class="form-control" name="tong_so_ho_khau_HN" value="{{ old('so_luong_sv_ho_khau_HN_So_cap') }}" type="number"></td>
+                    <td><input disabled class="form-control" name="" value="{{ old('so_luong_sv_ho_khau_HN_khac') }}" type="number"></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td>
-                        @if ($errors->has('so_luong_sv_Cao_dang'))
-                        <span class="text-danger">{{ $errors->first('so_luong_sv_Cao_dang') }}</span>
-                        @endif
-                    </td>
-                    <td>
-                        @if ($errors->has('so_luong_sv_Trung_cap'))
-                        <span class="text-danger">{{ $errors->first('so_luong_sv_Trung_cap') }}</span>
-                        @endif
-                    </td>
-                    <td>
-                        @if ($errors->has('so_luong_sv_So_cap'))
-                        <span class="text-danger">{{ $errors->first('so_luong_sv_So_cap') }}</span>
-                        @endif
-                    </td>
-                    <td>
-                        @if ($errors->has('so_luong_sv_he_khac'))
-                        <span class="text-danger">{{ $errors->first('so_luong_sv_he_khac') }}</span>
-                        @endif
-                    </td>
+                    <td>Tổng số HSSV có mặt</td>
+                    <td><input class="form-control" name="tong_so_HSSV_co_mat_cac_trinh_do" value="{{ old('so_luong_sv_ho_khau_HN_Cao_dang') }}"  type="number"></td>
+                    <td><input disabled class="form-control" name="" value="{{ old('so_luong_sv_ho_khau_HN_khac') }}" type="number"></td>
+                    <td><input disabled class="form-control" name="" value="{{ old('so_luong_sv_ho_khau_HN_khac') }}" type="number"></td>
+                    <td><input disabled class="form-control" name="" value="{{ old('so_luong_sv_ho_khau_HN_khac') }}" type="number"></td>
                 </tr>
             </tbody>
         </table>

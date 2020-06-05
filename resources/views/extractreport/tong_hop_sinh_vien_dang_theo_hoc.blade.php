@@ -29,7 +29,7 @@
                                 <label class="col-lg-2 col-form-label">Loại Hình Cơ Sở: </label>
                                 <div class="col-lg-8">
                                     <select name="loai_hinh" class="form-control ">
-                                        <option value="" >Chọn cơ sở</option>
+                                        <option value="" >Chọn </option>
                                         @foreach($loaiHinh as $item)
                                         <option value="{{ $item->id }}">{{ $item->loai_hinh_co_so }}</option>
                                         @endforeach
@@ -42,6 +42,7 @@
                                 <label class="col-lg-2 col-form-label">Tên Cơ Sở: </label>
                                 <div class="col-lg-8">
                                     <select name="co_so_id" class="form-control ">
+                                        <option value="" >Chọn </option>
                                         @foreach ($coso as $item)
                                         <option value="{{ $item->id }}">{{$item->ten}}</option>
                                         @endforeach
@@ -84,8 +85,6 @@
                     <th>STT</th>
                     <th>Tên Cơ Sở</th>
                     <th>Loại Hình Cơ Sở</th>
-                    <th>Năm</th>
-                    <th>Đợt</th>
                     <th>Tổng Số HS/SV <br> đang quản lý</th>
                     <th>Cao Đẳng</th>
                     <th>Trung Cấp </th>
@@ -103,8 +102,6 @@
                         <td>{{$i++}}</td>
                         <td>{{$qlsv->cs_ten}}</td>
                         <td>{{$qlsv->loai_hinh_co_so}}</td>
-                        <td>{{$qlsv->nam}}</td>
-                        <td>{{$qlsv->dot}}</td>
                         <td>{{$qlsv->tong_so_HSSV_co_mat_cac_trinh_do}}</td>
                         <td>{{$qlsv->so_luong_sv_Cao_dang}}</td>
                         <td>{{$qlsv->so_luong_sv_Trung_cap}}</td>

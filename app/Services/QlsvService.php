@@ -53,16 +53,16 @@ class QlsvService extends AppService
         $data = $this->repository->getTongHopSvTheoLoaiHinh($id);
         return $data;
     }
-    public function chiTietSoLieuQlsv($coSoId,$param = []){
+    public function chiTietSoLieuQlsv($coSoId,$param){
         
         $queryData = [];
-        // $queryData['dot'] = isset($param['dot']) ? $param['dot'] : (Carbon::now()->month < 6 ? 1 : 2);
-        // $queryData['nam'] = isset($param['nam']) ? $param['nam'] : Carbon::now()->year;
-        $queryData['cs_id'] = isset($param['co_so_id']) ? $param['co_so_id'] : null;
-        $queryData['loai_hinh'] = isset($param['loai_hinh']) ? $param['loai_hinh'] : null;
-        $data = $this->repository->chiTietSoLieuQlsv($coSoId);
+        $queryData['nam'] = isset($param['nam']) ? $param['nam'] : null;
+        $queryData['dot'] = isset($param['dot']) ? $param['dot'] : null;
+        // $queryData['cs_id'] = isset($param['co_so_id']) ? $param['co_so_id'] : null;
+        // $queryData['loai_hinh'] = isset($param['loai_hinh']) ? $param['loai_hinh'] : null;
+        $data = $this->repository->chiTietSoLieuQlsv($coSoId,$queryData);
         return $data;
-        
+        // dd($data);
     }
     public function getNamDaoTao(){
         return $this->repository->getNamDaoTao();

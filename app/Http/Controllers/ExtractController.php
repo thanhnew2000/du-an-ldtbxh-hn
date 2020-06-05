@@ -72,12 +72,6 @@ class ExtractController extends Controller
 
     // phunv - end
 
-
-
-
-
-
-
     public function danhsachquanly()
     {
         return view('extractreport.danh_sach_doi_ngu_quan_ly');
@@ -183,6 +177,7 @@ class ExtractController extends Controller
         $request->request->set('nam', $dateTime->year);
         $request->request->set('dot', 1);
         // $data = $request->all();
+        $getdata = $request->all();
         $this->QlsvService->update($id, $request);
         return redirect('/xuat-bao-cao/so-lieu-sinh-vien-dang-theo-hoc')->with('mess', 'edit thanh cong');
     }
@@ -199,12 +194,22 @@ class ExtractController extends Controller
             'data' => $data,
             'loaiHinh' => $loaiHinhCs,
             'coso'=>$coso,
+            
         ]);
     }
     public function tongHopChiTietSvDangTheoHoc($coSoId){
-    
-        $data = $this->QlsvService->chiTietSoLieuQlsv($coSoId);
-        return view('extractreport.lich_su_sinh_vien_dang_theo_hoc',['data' =>$data]);
+        
+        $params = request()->all();
+        $data = $this->QlsvService->chiTietSoLieuQlsv($coSoId,$params);
+        $loaiHinhCs = $this->QlsvService->getLoaiHinh();
+        $coso = $this->QlsvService->getCoSo();
+        // dd($data);
+        return view('extractreport.lich_su_sinh_vien_dang_theo_hoc',[
+            'data' =>$data,
+            'loaiHinh' => $loaiHinhCs,
+            'coso'=>$coso,
+            'params'=>$params]);
+
     }
     
     public function tonghopchinhsachsv()

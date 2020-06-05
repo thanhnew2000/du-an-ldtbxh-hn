@@ -8,7 +8,7 @@ interface QlsvRepositoryInterface
     public function getCoSo();
     // public function suaSoLieuSv();
     // public function themSoLieuSv();
-    public function chiTietSoLieuQlsv($coSoId,$params);
+    public function chiTietSoLieuQlsv($coSoId,$queryData);
     public function getNamDaoTao();
     public function getTenCoSoDaoTao();
 

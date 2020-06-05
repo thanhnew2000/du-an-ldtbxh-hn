@@ -27,6 +27,10 @@
                 </div>
             </div>
         </div>
+        <div class="m-portlet__body">
+            <h3>Cơ sở đào tạo: {{$data[0]->cs_ten}}</h3>
+            <p>Loại hình cơ sở: {{$data[0]->loai_hinh_co_so}}</p>
+        </div>
     </div>
     <form action="" method="GET" class="m-form">
         {{-- <input type="hidden" name="page_size" value="{{$params['page_size']}}"> --}}
@@ -38,12 +42,17 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group m-form__group row">
-                            <label class="col-lg-2 col-form-label">Loại Hình Cơ Sở: </label>
+                            <label class="col-lg-2 col-form-label">Năm:  </label>
                             <div class="col-lg-8">
-                                <select name="loai_hinh" class="form-control ">
-                                    <option value="" >Chọn cơ sở</option>
-                                    @foreach($loaiHinh as $item)
-                                    <option value="{{ $item->id }}">{{ $item->loai_hinh_co_so }}</option>
+                                <select name="nam" class="form-control ">
+                                    <option value="" >Chọn </option>
+                                    @foreach (config('common.nam.list') as $item)
+                                    <option 
+                                    @if (isset($params['nam']))
+                                            {{( $params['nam'] ==  $item ) ? 'selected' : ''}}  
+                                            @endif
+                                            value="{{$item}}"> {{$item}}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -51,12 +60,20 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group m-form__group row">
-                            <label class="col-lg-2 col-form-label">Tên Cơ Sở: </label>
+                            <label class="col-lg-2 col-form-label">Đợt: </label>
                             <div class="col-lg-8">
-                                <select name="co_so_id" class="form-control ">
-                                    @foreach ($coso as $item)
-                                    <option value="{{ $item->id }}">{{$item->ten}}</option>
-                                    @endforeach
+                                <select class="form-control" name="dot" id="dot">
+                                    <option value="" >Chọn</option>
+                                    <option
+                                    @if (isset($params['dot']))
+                                        {{( $params['dot'] ==  1 ) ? 'selected' : ''}}  
+                                    @endif
+                                    value="1" >Đợt 1</option>
+                                    <option value="2"
+                                    @if (isset($params['dot']))
+                                    {{( $params['dot'] ==  2 ) ? 'selected' : ''}}  
+                                    @endif
+                                    >Đợt 2</option>
                                 </select>
                             </div>
                         </div>
@@ -75,14 +92,14 @@
     </form>
     <div class="m-portlet">
         <div class="m-portlet__body">
-            <table class="table table-bordered m-table m-table--border-danger m-table--head-bg-primary table-boder-white th">
+            <table class="table table-bordered m-table m-table--border-danger m-table--head-bg-primary table-boder-white">
                 <thead>
-                    <tr class=" text-center ">
+                    <tr class="text-center">
                         <th rowspan="2">STT</th>
-                        <th rowspan="2">Tên cơ sở đào tạo</th>
+                        {{-- <th rowspan="2">Tên cơ sở đào tạo</th> --}}
                         <th rowspan="2">Mã ngành nghề</th>
                         <th rowspan="2">Tên ngành nghề</th>
-                        <th rowspan="2">Loại hình cơ sở</th>
+                        {{-- <th rowspan="2">Loại hình cơ sở</th> --}}
                         <th rowspan="2">Năm</th>
                         <th rowspan="2">Đợt</th>
                         <th rowspan="2">Tổng Số HSSV <br> Các Trình Độ</th>
@@ -116,10 +133,10 @@
                     @foreach ($data as $item)
                     <tr>
                         <td>{{$i++}}</td>
-                        <td>{{$item->cs_ten}}</td>
+                        {{-- <td>{{$item->cs_ten}}</td> --}}
                         <td>{{$item->nghe_id}}</td>
                         <td>{{$item->ten_nganh_nghe}}</td>
-                        <td>{{$item->loai_hinh_co_so}}</td>
+                        {{-- <td>{{$item->loai_hinh_co_so}}</td> --}}
                         <td>{{$item->nam}}</td>
                         <td>{{$item->dot}}</td>
                         <td>{{$item->tong_so_HSSV_co_mat_cac_trinh_do}}</td>
