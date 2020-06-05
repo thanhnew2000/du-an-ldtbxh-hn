@@ -53,9 +53,12 @@
                                 <label class="form-name" for="">Tên cơ quan chủ quản <span
                                         class="text-danger">(*)</span></label>
                                 <select class="form-control" name="co_quan_chu_quan_id" id="">
-                                    <option disabled selected>Chọn cơ quan chủ quản</option>
+                                    <option selected disabled>Chọn cơ quan chủ quản</option>
                                     @foreach ($coquan as $cq)
-                                    <option value="{{ $cq->id }}">{{ $cq->ten }}</option>
+                                    <option value="{{$cq->id}}" @if (old('co_quan_chu_quan_id')==$cq->id )
+                                        {{ 'selected' }}
+                                        @endif>
+                                        {{ $cq->ten }}</option>
                                     @endforeach
                                 </select>
                                 <p id="helpId" class="form-text text-danger">
@@ -71,7 +74,9 @@
                                 <select class="form-control" name="ma_loai_hinh_co_so" id="">
                                     <option selected disabled>Chọn loại hình cơ sở</option>
                                     @foreach ($loaihinh as $lh)
-                                    <option value="{{ $lh->id }}">{{ $lh->loai_hinh_co_so }}</option>
+                                    <option value="{{ $lh->id }}" @if (old('ma_loai_hinh_co_so')==$lh->id )
+                                        {{ 'selected' }}
+                                        @endif>{{ $lh->loai_hinh_co_so }}</option>
                                     @endforeach
                                 </select>
                                 <p id="helpId" class="form-text text-danger">
@@ -85,7 +90,9 @@
                                 <select class="form-control" name="quyet_dinh_id" id="">
                                     <option selected disabled>Quyết định</option>
                                     @foreach ($qd as $quyetdinh)
-                                    <option value="{{ $quyetdinh->id }}">{{ $quyetdinh->ten }}</option>
+                                    <option value="{{ $quyetdinh->id }}" @if (old('quyet_dinh_id')==$quyetdinh->id )
+                                        {{ 'selected' }}
+                                        @endif>{{ $quyetdinh->ten }}</option>
                                     @endforeach
                                 </select>
                                 <p id="helpId" class="form-text text-danger">
@@ -168,7 +175,9 @@
                                         <select class="form-control col-12" name="maqh" id="devvn_quanhuyen">
                                             <option disabled selected>Quận / Huyện</option>
                                             @foreach ($quanhuyen as $qh)
-                                            <option value="{{ $qh->maqh }}">{{ $qh->name }}</option>
+                                            <option value="{{ $qh->maqh }}" @if (old('maqh')==$qh->maqh )
+                                                {{ 'selected' }}
+                                                @endif>{{ $qh->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -177,7 +186,11 @@
                                         <label for="" class="form-name">Xã/ Phường <span
                                                 class="text-danger">(*)</span></label>
                                         <select class="form-control col-12" name="xaid" id="devvn_xaphuongthitran">
-                                            <option disabled selected>Chọn</option>
+                                            @foreach ($xaphuong as $xp)
+                                            <option value="{{ $xp->xaid }}" @if (old('xaid')==$xp->xaid )
+                                                {{ 'selected' }}
+                                                @endif>{{ $xp->name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>

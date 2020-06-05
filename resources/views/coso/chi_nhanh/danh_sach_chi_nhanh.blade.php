@@ -46,7 +46,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Loại chi nhánh</label>
                                 <div class="col-lg-8">
-                                    <select name="lao_chi_nhanh" class="form-control ">
+                                    <select name="loai_chi_nhanh" class="form-control ">
                                         <option disabled selected>chọn loại chi nhánh</option>
                                         <option value="1">Chi nhánh chính</option>
                                         <option value="0">Chi nhánh phụ</option>
@@ -123,8 +123,12 @@
                         <td class="d-flex">
                             <a href="{{route('chi-nhanh.cap-nhat', ['id'=> $items->id])}}"
                                 class="btn btn-info btn-sm mr-3">Sửa</a>
-                            <a href="{{ route('chi-nhanh.xoa', ['id'=>$items->id]) }}"
-                                class="btn btn-danger btn-sm">Xóa</a>
+                            <button type="button" class="btn btn-danger btn-sm" onclick="Confirm({{$items->id}})"
+                                data-toggle="modal" data-target="#m_modal_3">Xóa</button>
+                            <form action="{{ route('chi-nhanh.xoa',['id'=> $items->id ]) }}" method="post"
+                                id="xoa_chi_nhanh_{{ $items->id }}">
+                                @csrf
+                            </form>
                         </td>
                     </tr>
                     @empty
@@ -132,6 +136,28 @@
                         <td colspan="7" class="text-center text-danger">Không có địa điểm đào tạo khác!</td>
                     </tr>
                     @endforelse
+                    {{-- Confirm-modal --}}
+                    <div class="modal fade" id="m_modal_3" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: none;">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Xác nhận</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <H4 class="text-danger">Bạn muốn xóa địa điểm này?</H4>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                    <a id="btn-xoa" href="" class="btn btn-danger btn-sm">Xóa</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- end-modal --}}
                 </tbody>
             </table>
         </div>
@@ -141,4 +167,17 @@
     </div>
 </div>
 </div>
+@endsection
+@section('script')
+<script>
+    var selectedId = -1;
+    function Confirm(id){
+        selectedId = id;
+    }
+    $("#btn-xoa").click(function (event) {
+        event.preventDefault();
+        console.log(selectedId);
+        $("#xoa_chi_nhanh_" + selectedId).submit();
+    });
+</script>
 @endsection

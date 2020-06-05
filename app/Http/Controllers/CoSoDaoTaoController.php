@@ -27,8 +27,9 @@ class CoSoDaoTaoController extends Controller
         $data = $this->CoSoDaoTaoService->getCsdt($params);
         $loaihinh = DB::table('loai_hinh_co_so')->get();
         $quanhuyen = DB::table('devvn_quanhuyen')->get();
+
         //        dd($data);
-        return view('coso.danh_sach_co_so_dao_tao', compact('data', 'loaihinh', 'quanhuyen'));
+        return view('coso.danh_sach_co_so_dao_tao', compact('data', 'loaihinh', 'quanhuyen', 'params'));
     }
 
     public function chitietCSDT($id)
