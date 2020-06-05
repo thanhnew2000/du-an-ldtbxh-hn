@@ -12,10 +12,20 @@ use Carbon\Carbon;
 class ImportKqtsController extends Controller
 {
     public function importFile(Request $request){
+       
             $dot=$request->dot;
             $year=$request->nam;
 
-            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+            $nameFile=$request->file->getClientOriginalName();
+            $nameFileArr=explode('.',$nameFile);
+            $duoiFile=end($nameFileArr);
+
+            if ($duoiFile =='xls') {
+               $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
+            }else {
+               $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+            }
+
             $reader->setReadDataOnly(true);
             $spreadsheet = $reader->load($_FILES['file']['tmp_name']);
             $data =$spreadsheet->getActiveSheet()->toArray();
@@ -28,134 +38,33 @@ class ImportKqtsController extends Controller
             $error=[];
             $vitri=[];
 
-            // vòng for này để check lỗi nếu có thì cho hết lỗi vào các array $error, $vitri, $yeucau
-  
-            for($i = 8; $i < count($data); $i++){  
-                $rowNumber = $i+1; 
-                if(is_string($data[$i][7])){
-                    array_push($error,$data[$i][7]);
-                    array_push($vitri,'H'.$rowNumber);
-                 }
-                 if(is_string($data[$i][8])){
-                    array_push($error,$data[$i][8]);
-                    array_push($vitri,'I'.$rowNumber);
-                 }
-                 if(is_string($data[$i][9])){
-                    array_push($error,$data[$i][9]);
-                    array_push($vitri,'J'.$rowNumber);
-                 }
-                 if(is_string($data[$i][10])){
-                   array_push($error,$data[$i][10]);
-                   array_push($vitri,'K'.$rowNumber);
-                }
-                if(is_string($data[$i][11])){
-                   array_push($error,$data[$i][11]);
-                   array_push($vitri,'L'.$rowNumber);
-                }
-                if(is_string($data[$i][12])){
-                   array_push($error,$data[$i][12]);
-                   array_push($vitri,'M'.$rowNumber);
-                }
-                if(is_string($data[$i][13])){
-                   array_push($error,$data[$i][13]);
-                   array_push($vitri,'N'.$rowNumber);
-                }
-                if(is_string($data[$i][14])){
-                   array_push($error,$data[$i][14]);
-                   array_push($vitri,'O'.$rowNumber);
-                }
-                if(is_string($data[$i][15])){
-                   array_push($error,$data[$i][15]);
-                   array_push($vitri,'P'.$rowNumber);
-                }
-                if(is_string($data[$i][16])){
-                   array_push($error,$data[$i][16]);
-                   array_push($vitri,'Q'.$rowNumber);
-                }
-                if(is_string($data[$i][17])){
-                   array_push($error,$data[$i][17]);
-                   array_push($vitri,'R'.$rowNumber);
-                }
-                if(is_string($data[$i][18])){
-                   array_push($error,$data[$i][18]);
-                   array_push($vitri,'S'.$rowNumber);
-                }
-                if(is_string($data[$i][19])){
-                   array_push($error,$data[$i][19]);
-                   array_push($vitri,'T'.$rowNumber);
-                }
-                if(is_string($data[$i][20])){
-                   array_push($error,$data[$i][20]);
-                   array_push($vitri,'U'.$rowNumber);
-                }
-                if(is_string($data[$i][21])){
-                   array_push($error,$data[$i][21]);
-                   array_push($vitri,'V'.$rowNumber);
-                }
-                if(is_string($data[$i][22])){
-                   array_push($error,$data[$i][22]);
-                   array_push($vitri,'W'.$rowNumber);
-                }
-                if(is_string($data[$i][23])){
-                   array_push($error,$data[$i][23]);
-                   array_push($vitri,'X'.$rowNumber);
-                }
-                if(is_string($data[$i][24])){
-                   array_push($error,$data[$i][24]);
-                   array_push($vitri,'Y'.$rowNumber);
-                }
-                if(is_string($data[$i][25])){
-                   array_push($error,$data[$i][25]);
-                   array_push($vitri,'Z'.$rowNumber);
-                }
-                if(is_string($data[$i][26])){
-                   array_push($error,$data[$i][26]);
-                   array_push($vitri,'AA'.$rowNumber);
-                }
-                if(is_string($data[$i][27])){
-                   array_push($error,$data[$i][27]);
-                   array_push($vitri,'AB'.$rowNumber);
-                }
-                if(is_string($data[$i][28])){
-                   array_push($error,$data[$i][28]);
-                   array_push($vitri,'AC'.$rowNumber);
-                }
-                if(is_string($data[$i][29])){
-                   array_push($error,$data[$i][29]);
-                   array_push($vitri,'AD'.$rowNumber);
-                }
-                if(is_string($data[$i][31])){
-                   array_push($error,$data[$i][31]);
-                   array_push($vitri,'AF'.$rowNumber);
-                }
-                if(is_string($data[$i][32])){
-                   array_push($error,$data[$i][32]);
-                   array_push($vitri,'AG'.$rowNumber);
-                }
-                if(is_string($data[$i][33])){
-                   array_push($error,$data[$i][33]);
-                   array_push($vitri,'AH'.$rowNumber);
-                }
-                if(is_string($data[$i][34])){
-                   array_push($error,$data[$i][34]);
-                   array_push($vitri,'AI'.$rowNumber);
-                }
-                if(is_string($data[$i][35])){
-                   array_push($error,$data[$i][35]);
-                   array_push($vitri,'AJ'.$rowNumber);
-                }
-                if(is_string($data[$i][36])){
-                   array_push($error,$data[$i][36]);
-                   array_push($vitri,'AK'.$rowNumber);
-                }
+            $co_so_nghe = DB::table('co_so_dao_tao')->where('co_so_dao_tao.id', '=', $id_truong)
+            ->join('giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao', 'co_so_dao_tao.id', '=', 'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.co_so_id')
+            ->join('nganh_nghe', 'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.nghe_id', '=', 'nganh_nghe.id')
+            ->select('nganh_nghe.id')->get();
+
+
+
+            // vòng for này để check lỗi nếu có thì cho hết lỗi vào các array $error, $vitri
+            for($i =8; $i < count($data); $i++){ 
+               $key_aphabel=-1;
+                  $rowNumber = $i+1; 
+                  for($j=7;$j <= 36;$j++){  
+                        $key_aphabel++;
+                          if(is_string($data[$i][$j])){
+                          array_push($error,$data[$i][$j]);
+                          array_push($vitri,$arrayApha[$key_aphabel].$rowNumber);
+                       }
+                  }
+              }
                 
-            }
+            $key_co_so_nghe=-1;
             $arrayData=[];
             if($vitri == null || $vitri == ''){
                 for($i = 8; $i < count($data); $i++){ 
+                  $key_co_so_nghe++;
                     // array_push($arrayData,$data[$i]);
                     $arrayData=[
-                        
                         'nam'=>$year,
                         'dot'=>$dot,
                         'nghe_id'=>$data[$i][1],
@@ -201,6 +110,13 @@ class ImportKqtsController extends Controller
 
                     ];
 
+                    if(($data[$i][1] != $co_so_nghe[$key_co_so_nghe]->id)){
+                      return response()->json('problem',200);
+                    }
+                    elseif($key_co_so_nghe > count($co_so_nghe)){
+                      return response()->json('problem',200);
+                    }
+         
                     DB::table('tuyen_sinh')->insert($arrayData); 
                 } 
                 return response()->json('ok',200);
@@ -208,146 +124,43 @@ class ImportKqtsController extends Controller
             }   
             
             
-            public function importError(Request $request){
+       public function importError(Request $request){
 
 
-                $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+               $nameFile=$request->file_import->getClientOriginalName();
+               $nameFileArr=explode('.',$nameFile);
+               $duoiFile=end($nameFileArr);
+   
+               if ($duoiFile =='xls') {
+                  $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
+               }else {
+                  $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+               }
                 $reader->setReadDataOnly(true);
                 $spreadsheet = $reader->load($_FILES['file_import']['tmp_name']);
                 $data =$spreadsheet->getActiveSheet()->toArray();
-                // dd($data);
+             
                 $truong = explode(' - ', $data[7][2]);
                 $id_truong = array_pop($truong);
-
-                // $arrayApha=['H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK'];
+     
                 $co_so = DB::table('co_so_dao_tao')->where('id',$id_truong)->first();
 
-               
+                $arrayApha=['H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK'];
                 $error=[];
                 $vitri=[];
     
-                // vòng for này để check lỗi nếu có thì cho hết lỗi vào các array $error, $vitri, $yeucau
-         
+                // vòng for này để check lỗi nếu có thì cho hết lỗi vào các array $error, $vitri
                 for($i =8; $i < count($data); $i++){ 
-                    $rowNumber = $i+1; 
-                         if(is_string($data[$i][7])){
-                             array_push($error,$data[$i][7]);
-                             array_push($vitri,'H'.$rowNumber);
+                  $key_aphabel=-1;
+                     $rowNumber = $i+1; 
+                     for($j=7;$j <= 36;$j++){  
+                           $key_aphabel++;
+                             if(is_string($data[$i][$j])){
+                             array_push($error,$data[$i][$j]);
+                             array_push($vitri,$arrayApha[$key_aphabel].$rowNumber);
                           }
-                          if(is_string($data[$i][8])){
-                             array_push($error,$data[$i][8]);
-                             array_push($vitri,'I'.$rowNumber);
-                          }
-                          if(is_string($data[$i][9])){
-                             array_push($error,$data[$i][9]);
-                             array_push($vitri,'J'.$rowNumber);
-                          }
-                          if(is_string($data[$i][10])){
-                            array_push($error,$data[$i][10]);
-                            array_push($vitri,'K'.$rowNumber);
-                         }
-                         if(is_string($data[$i][11])){
-                            array_push($error,$data[$i][11]);
-                            array_push($vitri,'L'.$rowNumber);
-                         }
-                         if(is_string($data[$i][12])){
-                            array_push($error,$data[$i][12]);
-                            array_push($vitri,'M'.$rowNumber);
-                         }
-                         if(is_string($data[$i][13])){
-                            array_push($error,$data[$i][13]);
-                            array_push($vitri,'N'.$rowNumber);
-                         }
-                         if(is_string($data[$i][14])){
-                            array_push($error,$data[$i][14]);
-                            array_push($vitri,'O'.$rowNumber);
-                         }
-                         if(is_string($data[$i][15])){
-                            array_push($error,$data[$i][15]);
-                            array_push($vitri,'P'.$rowNumber);
-                         }
-                         if(is_string($data[$i][16])){
-                            array_push($error,$data[$i][16]);
-                            array_push($vitri,'Q'.$rowNumber);
-                         }
-                         if(is_string($data[$i][17])){
-                            array_push($error,$data[$i][17]);
-                            array_push($vitri,'R'.$rowNumber);
-                         }
-                         if(is_string($data[$i][18])){
-                            array_push($error,$data[$i][18]);
-                            array_push($vitri,'S'.$rowNumber);
-                         }
-                         if(is_string($data[$i][19])){
-                            array_push($error,$data[$i][19]);
-                            array_push($vitri,'T'.$rowNumber);
-                         }
-                         if(is_string($data[$i][20])){
-                            array_push($error,$data[$i][20]);
-                            array_push($vitri,'U'.$rowNumber);
-                         }
-                         if(is_string($data[$i][21])){
-                            array_push($error,$data[$i][21]);
-                            array_push($vitri,'V'.$rowNumber);
-                         }
-                         if(is_string($data[$i][22])){
-                            array_push($error,$data[$i][22]);
-                            array_push($vitri,'W'.$rowNumber);
-                         }
-                         if(is_string($data[$i][23])){
-                            array_push($error,$data[$i][23]);
-                            array_push($vitri,'X'.$rowNumber);
-                         }
-                         if(is_string($data[$i][24])){
-                            array_push($error,$data[$i][24]);
-                            array_push($vitri,'Y'.$rowNumber);
-                         }
-                         if(is_string($data[$i][25])){
-                            array_push($error,$data[$i][25]);
-                            array_push($vitri,'Z'.$rowNumber);
-                         }
-                         if(is_string($data[$i][26])){
-                            array_push($error,$data[$i][26]);
-                            array_push($vitri,'AA'.$rowNumber);
-                         }
-                         if(is_string($data[$i][27])){
-                            array_push($error,$data[$i][27]);
-                            array_push($vitri,'AB'.$rowNumber);
-                         }
-                         if(is_string($data[$i][28])){
-                            array_push($error,$data[$i][28]);
-                            array_push($vitri,'AC'.$rowNumber);
-                         }
-                         if(is_string($data[$i][29])){
-                            array_push($error,$data[$i][29]);
-                            array_push($vitri,'AD'.$rowNumber);
-                         }
-                         if(is_string($data[$i][31])){
-                            array_push($error,$data[$i][31]);
-                            array_push($vitri,'AF'.$rowNumber);
-                         }
-                         if(is_string($data[$i][32])){
-                            array_push($error,$data[$i][32]);
-                            array_push($vitri,'AG'.$rowNumber);
-                         }
-                         if(is_string($data[$i][33])){
-                            array_push($error,$data[$i][33]);
-                            array_push($vitri,'AH'.$rowNumber);
-                         }
-                         if(is_string($data[$i][34])){
-                            array_push($error,$data[$i][34]);
-                            array_push($vitri,'AI'.$rowNumber);
-                         }
-                         if(is_string($data[$i][35])){
-                            array_push($error,$data[$i][35]);
-                            array_push($vitri,'AJ'.$rowNumber);
-                         }
-                         if(is_string($data[$i][36])){
-                            array_push($error,$data[$i][36]);
-                            array_push($vitri,'AK'.$rowNumber);
-                         }
-
-                }
+                     }
+                 }
 
                 $styleArray = array(
                     'borders' => array(
@@ -365,8 +178,8 @@ class ImportKqtsController extends Controller
                    $worksheet->setCellValue('C8', "Trường: $co_so->ten - $co_so->id");
 
                    //  khóa lại không cho sửa
-                   $spreadsheet->getActiveSheet()->getProtection()->setSheet(true);
-                   $spreadsheet->getDefaultStyle()->getProtection()->setLocked(false);
+                   $spreadsheet2->getActiveSheet()->getProtection()->setSheet(true);
+                   $spreadsheet2->getDefaultStyle()->getProtection()->setLocked(false);
                    $worksheet->getStyle('C1')->getProtection()->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED);
                    $worksheet->getStyle('A1')->getProtection()->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED);
                    $stt=8;
@@ -438,7 +251,9 @@ class ImportKqtsController extends Controller
                         ->getStartColor()->setARGB('FFFF0000');
    
                     }  
-          
+                    
+
+
                     $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet2, "Xlsx"); 
                     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
                     header('Content-Disposition: attachment; filename="error.xlsx"');
