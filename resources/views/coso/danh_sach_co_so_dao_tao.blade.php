@@ -83,14 +83,6 @@
     </div>
     <div class="m-portlet">
         <div class="m-portlet__body">
-            {{-- <div class="col-12 form-group m-form__group d-flex justify-content-end">
-                <label class="col-lg-2 col-form-label">Kích thước:</label>
-                <div class="col-lg-2">
-                    <select class="form-control" id="page-size">
-                        <option value="">abc</option>
-                    </select>
-                </div>
-            </div> --}}
             @if (\Session::has('mess'))
             <div class="alert alert-success" role="alert">
                 <strong>{!! \Session::get('mess') !!}</strong>

@@ -1,9 +1,5 @@
 @extends('layouts.admin');
 
-@section('style')
-<link href="{!! asset('vendors/_customize/csdt.list.css') !!}" rel="stylesheet" type="text/css" />
-@endsection
-
 @section('content')
 <div class="m-content container-fluid">
     <div class="m-portlet">
@@ -36,7 +32,6 @@
                                     {{ $message }}
                                     @enderror
                                 </p>
-
                             </div>
 
                             <div class="form-group col-lg-12">
@@ -48,7 +43,6 @@
                                     @enderror
                                 </p>
                             </div>
-
                             <div class="form-group col-lg-12">
                                 <label class="form-name" for="">Tên cơ quan chủ quản <span
                                         class="text-danger">(*)</span></label>
@@ -101,9 +95,6 @@
                                     @enderror
                                 </p>
                             </div>
-
-
-
                             <div class="form-group col-lg-12">
                                 <label for="" class="form-name">Logo <span class="text-danger">(*)</span></label>
                                 <div class="custom-file form-control">
@@ -117,7 +108,6 @@
                                     @enderror
                                 </p>
                             </div>
-
                             <div class="form-group col-lg-12">
                                 <label class="form-name" for="">Hệ đào tạo <span class="text-danger">(*)</span></label>
                                 <select class="form-control" name="loai_truong" id="">

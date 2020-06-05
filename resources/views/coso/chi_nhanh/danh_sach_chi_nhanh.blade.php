@@ -67,105 +67,87 @@
             </div>
         </form>
     </div>
-
-    <!-- end- fillter -->
-
-    <!-- begin- action -->
-    {{-- <section class="action-nav d-flex align-items-center justify-content-between mt-4	">
-        <div class="action-template col-3 d-flex justify-content-between">
-            <a href="#"><i class="fa fa-download" aria-hidden="true"></i>
-                Tải xuống
-                biêu mẫu</a>
-            <a href="#"><i class="fa fa-upload" aria-hidden="true"></i>
-                Tải lên file Excel</a>
-        </div>
-        <div class="btn">
-            <a name="" id="" class="btn btn-outline-primary" href="{{ route('chi-nhanh.tao-moi') }}"
-    role="button">Thêm</a>
-</div>
-</section> --}}
-<!-- end- action -->
-<div class="m-portlet">
-    <div class="m-portlet__body">
-        <div class="m-section__content">
-            @if (\Session::has('mess'))
-            <div class="alert alert-danger" role="alert">
-                <strong>{!! \Session::get('mess') !!}</strong>
-            </div>
-            @endif
-            <table class="table m-table m-table--head-bg-brand">
-                <thead>
-                    <th>STT</th>
-                    <th>Tên cơ sở</th>
-                    <th>Địa chỉ</th>
-                    <th>Hotline</th>
-                    <th>Chi Nhánh</th>
-                    <th>Mã chứng nhận</th>
-                    <th colspan="2"><a href="{{ route('chi-nhanh.tao-moi') }}" class="btn btn-success btn-sm mr-3">Thêm
-                            mới</a>
-                    </th>
-                </thead>
-                <tbody>
-                    @php($i=1)
-                    @forelse($data as $items)
-                    <tr>
-                        <td>{{$i++}}</td>
-                        <td>{{$items->ten}}</td>
-                        <td>{{$items->dia_chi}}</td>
-                        <td>{{$items->hotline}}</td>
-                        <td>
-                            @if ($items->chi_nhanh_chinh == 1)
-                            Chi nhánh chính
-                            @else
-                            Chi nhánh phụ
-                            @endif</td>
-                        <td>{{$items->ma_chung_nhan_dang_ki_hoat_dong}}</td>
-                        <td class="d-flex">
-                            <a href="{{route('chi-nhanh.cap-nhat', ['id'=> $items->id])}}"
-                                class="btn btn-info btn-sm mr-3">Sửa</a>
-                            <button type="button" class="btn btn-danger btn-sm" onclick="Confirm({{$items->id}})"
-                                data-toggle="modal" data-target="#m_modal_3">Xóa</button>
-                            <form action="{{ route('chi-nhanh.xoa',['id'=> $items->id ]) }}" method="post"
-                                id="xoa_chi_nhanh_{{ $items->id }}">
-                                @csrf
-                            </form>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="7" class="text-center text-danger">Không có địa điểm đào tạo khác!</td>
-                    </tr>
-                    @endforelse
-                    {{-- Confirm-modal --}}
-                    <div class="modal fade" id="m_modal_3" tabindex="-1" role="dialog"
-                        aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: none;">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Xác nhận</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">×</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <H4 class="text-danger">Bạn muốn xóa địa điểm này?</H4>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                                    <a id="btn-xoa" href="" class="btn btn-danger btn-sm">Xóa</a>
+    <div class="m-portlet">
+        <div class="m-portlet__body">
+            <div class="m-section__content">
+                @if (\Session::has('mess'))
+                <div class="alert alert-danger" role="alert">
+                    <strong>{!! \Session::get('mess') !!}</strong>
+                </div>
+                @endif
+                <table class="table m-table m-table--head-bg-brand">
+                    <thead>
+                        <th>STT</th>
+                        <th>Tên cơ sở</th>
+                        <th>Địa chỉ</th>
+                        <th>Hotline</th>
+                        <th>Chi Nhánh</th>
+                        <th>Mã chứng nhận</th>
+                        <th colspan="2"><a href="{{ route('chi-nhanh.tao-moi') }}"
+                                class="btn btn-success btn-sm mr-3">Thêm
+                                mới</a>
+                        </th>
+                    </thead>
+                    <tbody>
+                        @php($i=1)
+                        @forelse($data as $items)
+                        <tr>
+                            <td>{{$i++}}</td>
+                            <td>{{$items->ten}}</td>
+                            <td>{{$items->dia_chi}}</td>
+                            <td>{{$items->hotline}}</td>
+                            <td>
+                                @if ($items->chi_nhanh_chinh == 1)
+                                Chi nhánh chính
+                                @else
+                                Chi nhánh phụ
+                                @endif</td>
+                            <td>{{$items->ma_chung_nhan_dang_ki_hoat_dong}}</td>
+                            <td class="d-flex">
+                                <a href="{{route('chi-nhanh.cap-nhat', ['id'=> $items->id])}}"
+                                    class="btn btn-info btn-sm mr-3">Sửa</a>
+                                <button type="button" class="btn btn-danger btn-sm" onclick="Confirm({{$items->id}})"
+                                    data-toggle="modal" data-target="#m_modal_3">Xóa</button>
+                                <form action="{{ route('chi-nhanh.xoa',['id'=> $items->id ]) }}" method="post"
+                                    id="xoa_chi_nhanh_{{ $items->id }}">
+                                    @csrf
+                                </form>
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="7" class="text-center text-danger">Không có địa điểm đào tạo khác!</td>
+                        </tr>
+                        @endforelse
+                        <div class="modal fade" id="m_modal_3" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: none;">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Xác nhận</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <H4 class="text-danger">Bạn muốn xóa địa điểm này?</H4>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Hủy</button>
+                                        <a id="btn-xoa" href="" class="btn btn-danger btn-sm">Xóa</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    {{-- end-modal --}}
-                </tbody>
-            </table>
-        </div>
-        <div class="m-portlet__foot d-flex justify-content-end">
-            {{$data->links()}}
+                    </tbody>
+                </table>
+            </div>
+            <div class="m-portlet__foot d-flex justify-content-end">
+                {{$data->links()}}
+            </div>
         </div>
     </div>
-</div>
 </div>
 @endsection
 @section('script')
@@ -176,7 +158,6 @@
     }
     $("#btn-xoa").click(function (event) {
         event.preventDefault();
-        console.log(selectedId);
         $("#xoa_chi_nhanh_" + selectedId).submit();
     });
 </script>

@@ -27,15 +27,12 @@ class CoSoDaoTaoController extends Controller
         $data = $this->CoSoDaoTaoService->getCsdt($params);
         $loaihinh = DB::table('loai_hinh_co_so')->get();
         $quanhuyen = DB::table('devvn_quanhuyen')->get();
-
-        //        dd($data);
         return view('coso.danh_sach_co_so_dao_tao', compact('data', 'loaihinh', 'quanhuyen', 'params'));
     }
 
     public function chitietCSDT($id)
     {
         $data = $this->CoSoDaoTaoService->getSingleCsdt($id);
-        //    dd($data);
         return view('coso.chi_tiet_co_so', ['data' => $data]);
     }
 
@@ -57,8 +54,6 @@ class CoSoDaoTaoController extends Controller
 
     public function taomoiCSDT(Request $request)
     {
-
-        // dd($request->logo);
 
         $request->validate(
             [
@@ -89,9 +84,6 @@ class CoSoDaoTaoController extends Controller
             $filePath = $request->file('upload_logo')->store('uploads/logoCsdt');
             $request->request->set('logo', $filePath);
         }
-        // $request->set('logo', $filePath);
-
-
         $this->CoSoDaoTaoService->create($request, ['upload_logo']);
         return redirect()->route('csdt.danh-sach')->withInput()->with('mess', 'Thêm cơ sở thành công');
     }
@@ -110,9 +102,6 @@ class CoSoDaoTaoController extends Controller
 
     public function capnhatCSDT($id, Request $request)
     {
-
-
-
         $request->validate(
             [
                 'ten' => 'required',

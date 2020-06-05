@@ -73,26 +73,7 @@
                                     @enderror
                                 </p>
                             </div>
-
-                            {{-- <div class="form-group col-lg-12">
-                    <label for="" class="col-6 form-name">Trạng thái chi nhánh</label>
-
-                    <div class="form-group d-flex justify-content-around">
-                        <label class="form-check-label mr-4">
-                            <input type="radio" class="form-check-input" name="trang_thai" value="1" checked>
-                            Hoạt động
-                        </label>
-
-                        <label class="form-check-label">
-                            <input type="radio" class="form-check-input" name="trang_thai" value="0">
-                            Không hoạt động
-                        </label>
-                    </div>
-                </div> --}}
-
-
                         </div>
-
                         <div class="col-right col-lg-5">
                             <div class="form-group col-lg-12">
                                 <label for="" class="col-6 form-name">Mã chứng nhận hoạt động</label>
@@ -122,11 +103,6 @@
                                     @enderror
                                 </p>
                             </div>
-
-
-
-
-
                             <div class="form-group col-lg-12">
                                 <label for="" class="col-4 form-name">Hotline</label>
                                 <input type="text" name="hotline" id="" class="form-control"
