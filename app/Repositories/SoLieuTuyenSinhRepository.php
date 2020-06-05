@@ -180,5 +180,3 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 	}
 
 }
-
- ?>
