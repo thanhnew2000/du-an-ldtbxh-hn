@@ -22,26 +22,20 @@
                         <i class="m-menu__link-icon flaticon-web"></i>
                     </span>
                     <h3 class="m-portlet__head-text">
-                        Chi tiết <small>Danh sách tuyển sinh</small>
+                        Chi tiết <small>Thông tin tuyển sinh</small>
                     </h3>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="m-portlet">
-        <div class="m-portlet__head">
-            <div class="m-portlet__head-caption">
-                <div class="m-portlet__head-title">
-                    <span class="m-portlet__head-icon">
-                        <i class="m-menu__link-icon flaticon-web"></i>
-                    </span>
-                    <h3 class="m-portlet__head-text">
-                       {{$data[0]->ten}} <small> {{$data[0]->loai_hinh_co_so}}</small>
-                    </h3>
-                </div>
-            </div>
+        <div class="m-portlet__body">
+            <h3>Cơ sở đào tạo: {{$data[0]->ten}}</h3>
+            <p>Loại hình cơ sở: {{$data[0]->loai_hinh_co_so}}</p>
+            <p>Địa chỉ: {{$data[0]->dia_chi}}</p>
+            <p>Phường/Xã: {{$data[0]->ten_xa_phuong}}</p>
+            <p>Quận/Huyện: {{$data[0]->ten_quan_huyen}}</p>
         </div>
     </div>
+
     <div class="m-portlet">
         <form action="" method="get" class="m-form">
             <div class="m-portlet__body">

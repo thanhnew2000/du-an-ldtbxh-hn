@@ -66,7 +66,17 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 			->join('co_so_dao_tao', 'tuyen_sinh.co_so_id', '=', 'co_so_dao_tao.id')
 			->join('loai_hinh_co_so', 'co_so_dao_tao.ma_loai_hinh_co_so', '=', 'loai_hinh_co_so.id')
 			->join('nganh_nghe', 'tuyen_sinh.nghe_id', '=', 'nganh_nghe.id')
-			->select('tuyen_sinh.*', 'co_so_dao_tao.ten','loai_hinh_co_so.loai_hinh_co_so','nganh_nghe.ten_nganh_nghe');
+            ->join('devvn_quanhuyen', 'co_so_dao_tao.maqh', '=', 'devvn_quanhuyen.maqh')
+            ->join('devvn_xaphuongthitran', 'co_so_dao_tao.xaid', '=', 'devvn_xaphuongthitran.xaid')
+			->select(
+						'tuyen_sinh.*',
+						'co_so_dao_tao.ten',
+						'co_so_dao_tao.dia_chi',
+						'loai_hinh_co_so.loai_hinh_co_so',
+						'nganh_nghe.ten_nganh_nghe',
+						'devvn_quanhuyen.name as ten_quan_huyen',
+						'devvn_xaphuongthitran.name as ten_xa_phuong'
+					);
 			
 		if($queryData['nam']!= null){
 			$data->where('tuyen_sinh.nam', $queryData['nam']);
