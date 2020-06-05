@@ -81,7 +81,9 @@ class ChungNhanDangKyNgheRepository extends BaseRepository implements ChungNhanD
                 'co_quan_chu_quan.ten as ten_chu_quan',
 
                 'devvn_quanhuyen.name as ten_qh',
-                'devvn_xaphuongthitran.name as ten_xptt'
+                'devvn_xaphuongthitran.name as ten_xptt',
+                'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.ten_quyet_dinh',
+                'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.ngay_ban_hanh'
             )
             ->join('co_so_dao_tao', 'co_so_dao_tao.id', '=', 'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.co_so_id')
             ->join('loai_hinh_co_so', 'loai_hinh_co_so.id', '=', 'co_so_dao_tao.ma_loai_hinh_co_so')
