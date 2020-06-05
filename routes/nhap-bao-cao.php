@@ -8,7 +8,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'quan-ly-giao-vien'], function(){
-    Route::get('/', 'ImportReportController@quanlygiaovien')->name('nhapbc.giao-vien');
+    Route::get('/', 'QuanLyGiaoVienController@index')->name('ql-giao-vien.index');
 });
 
 Route::group(['prefix' => 'can-bo-quan-ly'], function(){

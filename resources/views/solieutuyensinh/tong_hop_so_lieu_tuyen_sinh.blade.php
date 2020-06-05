@@ -24,7 +24,7 @@
             </div>
         </div>
         <form action="" method="get" class="m-form">
-            <input type="hidden" name="page_size" value="80">
+            <input type="hidden" name="page_size" id="page_size_hide" value="20">
             <div class="m-portlet__body">
                 <div class="m-form__section m-form__section--first">
                     <div class="m-form__heading">
@@ -38,7 +38,11 @@
                                     <select class="form-control" name="loai_hinh" id="loai_hinh">
                                         <option value="0" selected>Chọn loại hình cơ sở</option>
                                         @foreach($loaiHinh as $item)
-                                        <option value="{{ $item->id }}">{{ $item->loai_hinh_co_so }}</option>
+                                        <option 
+                                            @if (isset($params['loai_hinh']))
+                                                {{(  $params['loai_hinh'] ==  $item->id ) ? 'selected' : ''}}
+                                            @endif
+                                        value="{{ $item->id }}">{{ $item->loai_hinh_co_so }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -51,7 +55,11 @@
                                     <select class="form-control" name="co_so_id" id="co_so_id">
                                         <option value="" >Chọn cơ sở</option>
                                         @foreach ($coso as $item)
-                                        <option value="{{ $item->id }}">{{$item->ten}}</option>
+                                        <option
+                                            @if (isset($params['co_so_id']))
+                                                {{( $params['co_so_id'] ==  $item->id ) ? 'selected' : ''}}  
+                                            @endif
+                                        value="{{ $item->id }}">{{$item->ten}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -65,9 +73,16 @@
                                 <div class="col-lg-8">
                                     <select class="form-control" name="nam" id="nam">
                                         <option value="" selected disabled>Chọn</option>
-                                        <option value="2020">2020</option>
-                                        <option value="2019">2019</option>
-                                        <option value="2018">2018</option>
+                                       
+                                        @foreach (config('common.nam_tuyen_sinh.list') as $item)
+                                        <option 
+                                        @if (isset($params['nam']))
+                                           
+                                                {{( $params['nam'] ==  $item ) ? 'selected' : ''}}  
+                                                @endif
+                                                value="{{$item}}"> {{$item}}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -78,8 +93,16 @@
                                 <div class="col-lg-8">
                                     <select class="form-control" name="dot" id="dot">
                                         <option value="" selected disabled>Chọn</option>
-                                        <option value="1">Đợt 1</option>
-                                        <option value="2">Đợt 2</option>
+                                        <option
+                                            @if (isset($params['dot']))
+                                                {{( $params['dot'] ==  1 ) ? 'selected' : ''}}  
+                                            @endif
+                                        value="1">Đợt 1</option>
+                                        <option 
+                                            @if (isset($params['dot']))
+                                                {{( $params['dot'] ==  2 ) ? 'selected' : ''}}  
+                                            @endif
+                                        value="2">Đợt 2</option>
                                     </select>
 
                                 </div>
@@ -94,7 +117,11 @@
                                     <select class="form-control" name="devvn_quanhuyen" id="devvn_quanhuyen">
                                         <option value="" selected>Chọn</option>
                                         @foreach ($quanhuyen as $item)
-                                        <option value="{{$item->maqh}}">{{$item->name}}</option>
+                                        <option
+                                            @if (isset($params['devvn_quanhuyen']))
+                                                {{( $params['devvn_quanhuyen'] ==  $item->maqh ) ? 'selected' : ''}}  
+                                            @endif
+                                        value="{{$item->maqh}}">{{$item->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -106,7 +133,15 @@
                                 <div class="col-lg-8">
                                     <select class="form-control" name="devvn_xaphuongthitran"
                                         id="devvn_xaphuongthitran">
-                                        <option value="" selected>Chọn</option>
+                                        <option value="">Chọn xã phường</option>
+                                        @foreach ($xaphuongtheoquanhuyen as $item)
+                                         <option
+                                         @if (isset($params['devvn_xaphuongthitran']))
+                                                {{( $params['devvn_xaphuongthitran'] ==  $item->xaid ) ? 'selected' : ''}}  
+                                            @endif
+                                         value="{{$item->xaid}}" >{{$item->name}}</option>
+                                        @endforeach
+                                        
                                     </select>
 
                                 </div>
@@ -148,10 +183,13 @@
                 <label class="col-lg-2 col-form-label">Kích thước:</label>
                 <div class="col-lg-2">
                     <select class="form-control" id="page-size">
-                        <option value="20">20</option>
-                        <option value="50">50</option>
-                        <option selected="" value="80">80</option>
-                        <option value="100">100</option>
+                        @foreach(config('common.paginate_size.list') as $size)
+                        <option
+                        @if (isset($params['page_size']))
+                        {{( $params['page_size'] ==  $size ) ? 'selected' : ''}} 
+                        @endif
+                                value="{{$size}}">{{$size}}</option>
+                    @endforeach
                     </select>
                 </div>
             </div>
@@ -200,12 +238,11 @@
                     </tr>
                     @endforeach
 
-
                 </tbody>
             </table>
         </div>
     </div>
-    <div class="row phantrang">
+    <div class="m-portlet__foot d-flex justify-content-end">
         {{$data->links()}}
     </div>
 <form action="{{route('layformbieumausinhvien')}}" method="post">
@@ -392,46 +429,57 @@
 
 <script src="{{ asset('js/so_lieu_tuyen_sinh/tong_hop_so_lieu.js') }}"></script>
 <script type="text/javascript">
-        $(document).ready(function(){ 
-        $('#co_so_id').select2();  
-            $('#devvn_quanhuyen').select2(); 
-            $('#devvn_xaphuongthitran').select2();});
-            $("#loai_hinh" ).change(function() {  
-                axios.post('/xuat-bao-cao/ket-qua-tuyen-sinh/co-so-tuyen-sinh-theo-loai-hinh', { 
-                id:  $("#loai_hinh").val(),})  
-            .then(function (response) {    
-                    var htmldata = '<option value="">Chọn cơ sở</option>'       
-                        response.data.forEach(element => {       
-                                htmldata+=`<option value="${element.id}" >${element.ten} </option>`
-                        });    
-                        $('#co_so_id').html(htmldata);   
-                }) 
-                .catch(function (error) {   
-                    onsole.log(error);   
-                });
-            });
+    $(document).ready(function(){
+    $('#co_so_id').select2();
+    $('#devvn_quanhuyen').select2();
+    $('#devvn_xaphuongthitran').select2();
+});
+$("#loai_hinh" ).change(function() {
+    axios.post('/xuat-bao-cao/ket-qua-tuyen-sinh/co-so-tuyen-sinh-theo-loai-hinh', {
+                id:  $("#loai_hinh").val(),
+    })
+    .then(function (response) {
+        var htmldata = '<option value="">Chọn cơ sở</option>'
+            response.data.forEach(element => {
+            htmldata+=`<option value="${element.id}" >${element.ten}</option>`   
+        });
+        $('#co_so_id').html(htmldata);
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+});
+
+$("#devvn_quanhuyen" ).change(function() {
+    axios.post('/xuat-bao-cao/ket-qua-tuyen-sinh/xa-phuong-theo-quan-huyen', {
+                id:  $("#devvn_quanhuyen").val(),
+    })
+    .then(function (response) {
+        var htmldata = '<option value="" selected  >Chọn</option>'
+            response.data.forEach(element => {
+            htmldata+=`<option value="${element.xaid}" >${element.name}</option>`   
+        });
+        $('#devvn_xaphuongthitran').html(htmldata);
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+});
+function resetInput() {
+  document.getElementById("formsearch").reset();
+}
+
+  $("#page-size").change(function(){  
+    $("#page_size_hide").val($('#page-size').val())
+    var url = new URL(window.location.href);
+    var search_params = url.searchParams;
+    search_params.set('page_size', $("#page_size_hide").val());
+    url.search = search_params.toString();
+    var new_url = url.toString();
+    window.location.href = new_url
+  });
 
 
-
-         $("#devvn_quanhuyen" ).change(function() { 
-                axios.post('/xuat-bao-cao/ket-qua-tuyen-sinh/xa-phuong-theo-quan-huyen',{
-                        id:  $("#devvn_quanhuyen").val(),    
-                        })   
-                 .then(function (response) {   
-                      var htmldata = '<option value="" selected  >Chọn</option>'    
-                      response.data.forEach(element => {          
-                         htmldata+=`<option value="${element.xaid}" >${element.name}</option>` 
-                      });   
-                     $('#devvn_xaphuongthitran').html(htmldata);  
-                  })  
-             .catch(function (error) {   
-                     console.log(error);   
-             });
-         });
-             
-        function resetInput() {
-                document.getElementById("formsearch").reset();
-         }
 </script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 

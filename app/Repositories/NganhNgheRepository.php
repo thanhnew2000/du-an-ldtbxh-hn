@@ -33,6 +33,7 @@ class NganhNgheRepository extends BaseRepository implements NganhNgheRepositoryI
 //        dd($queryBuilder->get());
         return $queryBuilder->paginate($params['page_size']);
     }
+
 }
 
 ?>

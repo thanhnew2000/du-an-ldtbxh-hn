@@ -1,10 +1,10 @@
 <button class="m-aside-left-close  m-aside-left-close--skin-dark " id="m_aside_left_close_btn"><i class="la la-close"></i></button>
-<div id="m_aside_left" class="m-grid__item	m-aside-left  m-aside-left--skin-dark ">
+<div id="m_aside_left" class="m-grid__item	m-aside-left  m-aside-left--skin-light ">
 
 					<!-- BEGIN: Aside Menu -->
-					<div id="m_ver_menu" class="m-aside-menu m-aside-menu--skin-dark m-aside-menu--submenu-skin-dark m-scroller ps ps--active-y" m-menu-vertical="1" m-menu-scrollable="1" m-menu-dropdown-timeout="500" style="position: relative; height: 314px; overflow: hidden;">
+					<div id="m_ver_menu" class="m-aside-menu m-aside-menu--skin-light m-aside-menu--submenu-skin-light m-scroller ps ps--active-y" m-menu-vertical="1" m-menu-scrollable="1" m-menu-dropdown-timeout="500" style="position: relative; height: 314px; overflow: hidden;">
 						<ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
-							<li class="m-menu__item  m-menu__item--active" aria-haspopup="true"><a href="{{url('dashboard')}}" class="m-menu__link "><i class="m-menu__link-icon flaticon-line-graph"></i><span class="m-menu__link-title"> <span class="m-menu__link-wrap"> <span class="m-menu__link-text">Dashboard</span>
+							<li class="m-menu__item  m-menu__item--active" aria-haspopup="true"><a href="{{url('dashboard')}}" class="m-menu__link "><i class="m-menu__link-icon flaticon-line-graph"></i><span class="m-menu__link-title"> <a class="m-menu__link-wrap"> <span class="m-menu__link-text">Dashboard</span></a>
 							<li class="m-menu__section ">
 								<h4 class="m-menu__section-text">Components</h4>
 								<i class="m-menu__section-icon flaticon-more-v2"></i>
@@ -45,7 +45,7 @@
 								<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 									<ul class="m-menu__subnav">
 										<li class="m-menu__item  m-menu__item--parent" aria-haspopup="true"><span class="m-menu__link"><span class="m-menu__link-text">Portlets</span></span></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="{{route('nhapbc.giao-vien')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Quản lý giáo viên</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{route('ql-giao-vien.index')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Quản lý giáo viên</span></a></li>
 										<li class="m-menu__item " aria-haspopup="true"><a href="{{route('nhapbc.quan-ly')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Đội ngũ cán bộ quản lý</span></a></li>
 										<li class="m-menu__item " aria-haspopup="true"><a href="{{route('nhapbc.chinh-sach-sv')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Thực hiện chính sách cho sinh viên</span></a></li>
 										<li class="m-menu__item " aria-haspopup="true"><a href="{{route('nhapbc.ket-qua-ts')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Kết quả tuyển sinh</span></a></li>
@@ -70,10 +70,7 @@
 										<li class="m-menu__item " aria-haspopup="true"><a href="{{route('xuatbc.ds-sv-dang-hoc')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Tổng hợp sinh viên đang theo học</span></a></li>
 										<li class="m-menu__item " aria-haspopup="true"><a href="{{route('xuatbc.ds-chinh-sach-sv')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Tổng hợp thực hiện chính sách cho SV</span></a></li>
 										<li class="m-menu__item " aria-haspopup="true">
-											<a href="{{route('solieutuyensinh', [
-												'dot' => \Carbon\Carbon::now()->month < 6 ? 1 : 2,
-												'nam' => \Carbon\Carbon::now()->year,
-											])}}" class="m-menu__link ">
+											<a href="{{route('solieutuyensinh')}}" class="m-menu__link ">
 												<i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i>
 												<span class="m-menu__link-text">Tổng hợp kết quả tuyển sinh</span>
 											</a>
