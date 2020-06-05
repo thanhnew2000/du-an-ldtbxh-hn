@@ -70,10 +70,7 @@
 										<li class="m-menu__item " aria-haspopup="true"><a href="{{route('xuatbc.ds-sv-dang-hoc')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Tổng hợp sinh viên đang theo học</span></a></li>
 										<li class="m-menu__item " aria-haspopup="true"><a href="{{route('xuatbc.ds-chinh-sach-sv')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Tổng hợp thực hiện chính sách cho SV</span></a></li>
 										<li class="m-menu__item " aria-haspopup="true">
-											<a href="{{route('solieutuyensinh', [
-												'dot' => \Carbon\Carbon::now()->month < 6 ? 1 : 2,
-												'nam' => \Carbon\Carbon::now()->year,
-											])}}" class="m-menu__link ">
+											<a href="{{route('solieutuyensinh')}}" class="m-menu__link ">
 												<i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i>
 												<span class="m-menu__link-text">Tổng hợp kết quả tuyển sinh</span>
 											</a>
