@@ -1,4 +1,3 @@
-
 @extends('layouts.admin')
 @section('content')
 <div class="m-content container-fluid">
@@ -6,9 +5,9 @@
         <div class="m-portlet__head">
             <div class="m-portlet__head-caption">
                 <div class="m-portlet__head-title">
-												<span class="m-portlet__head-icon">
-													<i class="m-menu__link-icon flaticon-web"></i>
-												</span>
+                    <span class="m-portlet__head-icon">
+                        <i class="m-menu__link-icon flaticon-web"></i>
+                    </span>
                     <h3 class="m-portlet__head-text">
                         Ngành nghề <small>Danh sách</small>
                     </h3>
@@ -28,16 +27,8 @@
                                 <label class="col-lg-2 col-form-label">Bậc nghề:</label>
                                 <div class="col-lg-8">
                                     <select name="bac_nghe" class="form-control ">
-                                        <option
-                                                @if($params['bac_nghe'] == 6)
-                                                    selected
-                                                @endif
-                                                value="6">Cao đẳng</option>
-                                        <option
-                                                @if($params['bac_nghe'] == 5)
-                                                    selected
-                                                @endif
-                                                value="5">Trung cấp</option>
+                                        <option @if($params['bac_nghe']==6) selected @endif value="6">Cao đẳng</option>
+                                        <option @if($params['bac_nghe']==5) selected @endif value="5">Trung cấp</option>
                                     </select>
                                 </div>
                             </div>
@@ -46,11 +37,9 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Từ khóa:</label>
                                 <div class="col-lg-8">
-                                    <input type="text" class="form-control m-input"
-                                           @if(isset($params['keyword']))
-                                           value="{{$params['keyword']}}"
-                                           @endif
-                                           placeholder="Nhập mã hoặc tên ngành nghề" name="keyword">
+                                    <input type="text" class="form-control m-input" @if(isset($params['keyword']))
+                                        value="{{$params['keyword']}}" @endif placeholder="Nhập mã hoặc tên ngành nghề"
+                                        name="keyword">
                                 </div>
                             </div>
                         </div>
@@ -72,11 +61,7 @@
                 <div class="col-lg-2">
                     <select class="form-control" id="page-size">
                         @foreach(config('common.paginate_size.list') as $size)
-                            <option
-                                    @if($params['page_size'] == $size)
-                                        selected
-                                    @endif
-                                    value="{{$size}}">{{$size}}</option>
+                        <option @if($params['page_size']==$size) selected @endif value="{{$size}}">{{$size}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -91,18 +76,19 @@
                     </th>
                 </thead>
                 <tbody>
-                @foreach($data as $cursor)
+                    @foreach($data as $cursor)
                     <tr>
                         <td>{{$cursor->id}}</td>
                         <td>{{$cursor->ten_nganh_nghe}}</td>
                         <td>{{$cursor->csdt_count}}</td>
                         <td>
-                            <a href="" class="btn btn-info btn-sm">Chi tiết</a>
+                            <a href="{{route('nghe.chi-tiet-nghe', ['ma_nghe' => $cursor->id])}}"
+                                class="btn btn-info btn-sm">Chi tiết</a>
                             <a href="" class="btn btn-primary btn-sm">Cập nhật</a>
                             <a href="" class="btn btn-danger btn-sm">Xóa</a>
                         </td>
                     </tr>
-                @endforeach
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -113,7 +99,7 @@
 </div>
 @endsection
 @section('script')
-    <script>
+<script>
     var currentUrl = '{{route($route_name)}}';
     $(document).ready(function(){
         $('#page-size').change(function(){
@@ -125,5 +111,5 @@
         });
 
     });
-    </script>
+</script>
 @endsection

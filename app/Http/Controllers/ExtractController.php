@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Repositories;
 use App\Services\QlsvService;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 
 class ExtractController extends Controller
 {
@@ -14,12 +16,68 @@ class ExtractController extends Controller
     {
         $this->QlsvService = $QlsvService;
     }
-
-
-    public function danhsachnhagiao()
+    // phunv - Chức năng Tổng hợp trích xuất báo cáo - Danh sách đội ngũ nhà giáo
+    public function danhsachnhagiao(Request $request)
     {
-        return view('extractreport.danh_sach_doi_ngu_nha_giao');
+
+        $params = $request->all();
+        if(!isset($params['page_size'])) $params['page_size'] = config('common.paginate_size.default');
+        $route_name = Route::current()->action['as'];
+
+        
+        $data = DB::table('so_lieu_doi_ngu_quan_ly')
+        ->leftjoin('co_so_dao_tao', 'so_lieu_doi_ngu_quan_ly.co_so_id', '=', 'co_so_dao_tao.id')
+        ->leftjoin('loai_hinh_co_so', 'co_so_dao_tao.ma_loai_hinh_co_so', '=', 'loai_hinh_co_so.id')
+        ->leftjoin('co_quan_chu_quan', 'co_so_dao_tao.co_quan_chu_quan_id', '=', 'co_quan_chu_quan.id')
+        ->select('so_lieu_doi_ngu_quan_ly.*', 
+        DB::raw('co_so_dao_tao.ten as ten'), 
+        DB::raw('loai_hinh_co_so.loai_hinh_co_so as ten_loai_hinh_co_so'),
+        DB::raw('co_quan_chu_quan.ten as ten_co_quan_chu_quan')
+        )
+        ->get();
+ 
+        
+        $coquanchoquan = DB::table('co_quan_chu_quan')->get();
+        $loaihinhcoso = DB::table('loai_hinh_co_so')->get();
+        // dd($data,$coquanchoquan,$loaihinhcoso);
+        $param = [
+            'coquanchoquan' => $coquanchoquan,
+            'loaihinhcoso'=> $loaihinhcoso
+        ];
+       
+        return view('extractreport.danh_sach_doi_ngu_nha_giao',compact('data','param','route_name'));
     }
+
+
+
+    public function themDanhSachDoiNguNhaGiao()
+    {
+        $cosodaotao = DB::table('co_so_dao_tao')->distinct()->get();
+        $loaihinhcoso = DB::table('loai_hinh_co_so')->distinct()->get();
+        $now = Carbon::now()->year;
+
+        $param = [
+            'cosodaotao' => $cosodaotao,
+            'loaihinhcoso'=> $loaihinhcoso
+        ];
+        // dd($coso);
+        return view('extractreport.them-moi-danh-sach-gv',compact('param','now'));
+    }
+
+
+    public function suaDanhSachDoiNguNhaGiao()
+    {
+        return view('extractreport.chinh-sua-danh-sach-doi-ngu-ql');
+    }
+
+    // phunv - end
+
+
+
+
+
+
+
     public function danhsachquanly()
     {
         return view('extractreport.danh_sach_doi_ngu_quan_ly');
@@ -184,6 +242,6 @@ class ExtractController extends Controller
     }
     public function tonghoptuyensinh()
     {
-        return view('extractreport.tong_hop_dang_ky_chi_tieu_tuyen_sinh');
+        return view('solieutuyensinh.tong_hop_so_lieu_tuyen_sinh');
     }
 }

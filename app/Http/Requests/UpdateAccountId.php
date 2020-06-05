@@ -26,23 +26,22 @@ class UpdateAccountId extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email',
-            'phone' => 'required|digits:10',
-            'name'  => 'required|regex:/^[\pL\s\-]+$/u'
-
-            
+            'phone' => 'required|numeric|digits_between:10,12',
+            'name'  => 'required|regex:/^[\pL\s\-]+$/u|min:6|max:40'    
         ];
     }
 
     public function messages()
     {
         return [
-            'email.required'     => 'Vui lòng nhập địa chỉ email',
-            'email.email'         => 'Vui lòng nhập đúng định dạng email',
-            'phone.required' => 'Vui lòng nhập số điện thoại',
-            'phone.digits' => 'Vui lòng nhập số có độ dài 10 ký tự',  
-            'name.required' => 'Vui lòng nhập họ tên', 
-            'name.regex' => 'Tên phải không chứa số và ký tự đặc biệt'
+                'phone.required' => 'Vui lòng nhập Số điện thoại',
+                'phone.digits_between' => 'Số điện thoại 10 đến 12 số',
+                'phone.numeric' => 'Số điện thoại không hợp lệ',
+    
+                'name.required' => 'Vui lòng nhập Họ và Tên',
+                'name.regex' => 'Vui lòng nhập đúng Họ và Tên',
+                'name.min' => 'Họ tên ít nhất 6 ký tự',  
+                'name.max' => 'Họ tên không được vượt quá 40 ký tự'
  
         ];
     }

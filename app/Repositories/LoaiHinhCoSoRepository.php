@@ -19,7 +19,6 @@ class LoaiHinhCoSoRepository extends BaseRepository implements LoaiHinhCoSoRepos
 
     public function getTable()
     {
-        // return $this->model->getTable();
         return 'loai_hinh_co_so';
     }
 

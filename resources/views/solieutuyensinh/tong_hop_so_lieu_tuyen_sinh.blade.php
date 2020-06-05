@@ -24,7 +24,7 @@
             </div>
         </div>
         <form action="" method="get" class="m-form">
-            <input type="hidden" name="page_size" value="80">
+            <input type="hidden" name="page_size" id="page_size_hide" value="20">
             <div class="m-portlet__body">
                 <div class="m-form__section m-form__section--first">
                     <div class="m-form__heading">
@@ -38,7 +38,11 @@
                                     <select class="form-control" name="loai_hinh" id="loai_hinh">
                                         <option value="0" selected>Chọn loại hình cơ sở</option>
                                         @foreach($loaiHinh as $item)
-                                        <option value="{{ $item->id }}">{{ $item->loai_hinh_co_so }}</option>
+                                        <option 
+                                            @if (isset($params['loai_hinh']))
+                                                {{(  $params['loai_hinh'] ==  $item->id ) ? 'selected' : ''}}
+                                            @endif
+                                        value="{{ $item->id }}">{{ $item->loai_hinh_co_so }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -51,7 +55,11 @@
                                     <select class="form-control" name="co_so_id" id="co_so_id">
                                         <option value="" >Chọn cơ sở</option>
                                         @foreach ($coso as $item)
-                                        <option value="{{ $item->id }}">{{$item->ten}}</option>
+                                        <option
+                                            @if (isset($params['co_so_id']))
+                                                {{( $params['co_so_id'] ==  $item->id ) ? 'selected' : ''}}  
+                                            @endif
+                                        value="{{ $item->id }}">{{$item->ten}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -65,9 +73,16 @@
                                 <div class="col-lg-8">
                                     <select class="form-control" name="nam" id="nam">
                                         <option value="" selected disabled>Chọn</option>
-                                        <option value="2020">2020</option>
-                                        <option value="2019">2019</option>
-                                        <option value="2018">2018</option>
+                                       
+                                        @foreach (config('common.nam_tuyen_sinh.list') as $item)
+                                        <option 
+                                        @if (isset($params['nam']))
+                                           
+                                                {{( $params['nam'] ==  $item ) ? 'selected' : ''}}  
+                                                @endif
+                                                value="{{$item}}"> {{$item}}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -78,8 +93,16 @@
                                 <div class="col-lg-8">
                                     <select class="form-control" name="dot" id="dot">
                                         <option value="" selected disabled>Chọn</option>
-                                        <option value="1">Đợt 1</option>
-                                        <option value="2">Đợt 2</option>
+                                        <option
+                                            @if (isset($params['dot']))
+                                                {{( $params['dot'] ==  1 ) ? 'selected' : ''}}  
+                                            @endif
+                                        value="1">Đợt 1</option>
+                                        <option 
+                                            @if (isset($params['dot']))
+                                                {{( $params['dot'] ==  2 ) ? 'selected' : ''}}  
+                                            @endif
+                                        value="2">Đợt 2</option>
                                     </select>
 
                                 </div>
@@ -94,7 +117,11 @@
                                     <select class="form-control" name="devvn_quanhuyen" id="devvn_quanhuyen">
                                         <option value="" selected>Chọn</option>
                                         @foreach ($quanhuyen as $item)
-                                        <option value="{{$item->maqh}}">{{$item->name}}</option>
+                                        <option
+                                            @if (isset($params['devvn_quanhuyen']))
+                                                {{( $params['devvn_quanhuyen'] ==  $item->maqh ) ? 'selected' : ''}}  
+                                            @endif
+                                        value="{{$item->maqh}}">{{$item->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -106,7 +133,15 @@
                                 <div class="col-lg-8">
                                     <select class="form-control" name="devvn_xaphuongthitran"
                                         id="devvn_xaphuongthitran">
-                                        <option value="" selected>Chọn</option>
+                                        <option value="">Chọn xã phường</option>
+                                        @foreach ($xaphuongtheoquanhuyen as $item)
+                                         <option
+                                         @if (isset($params['devvn_xaphuongthitran']))
+                                                {{( $params['devvn_xaphuongthitran'] ==  $item->xaid ) ? 'selected' : ''}}  
+                                            @endif
+                                         value="{{$item->xaid}}" >{{$item->name}}</option>
+                                        @endforeach
+                                        
                                     </select>
 
                                 </div>
@@ -124,12 +159,20 @@
     </div>
     <div class="row mb-5 bieumau">
         <div class="col-lg-2">
-            <a href=""><i class="la la-download">Tải xuống biểu mẫu</i></a>
+            <a href="javascript:" data-toggle="modal" data-target="#exampleModal">
+                <i class="fa fa-download" aria-hidden="true"></i>
+              Tải xuống biểu mẫu
+            </a>
         </div>
         <div class="col-lg-2">
-            <a href=""><i class="la la-upload">Tải lên file excel</i></a>
+            <a href="javascript:" data-toggle="modal" id="upImport-file" data-target="#exampleModalImport"><i class="fa fa-upload" aria-hidden="true"></i>
+                Tải lên file Excel</a>
         </div>
-        <div class="col-lg-8 " style="text-align: right">
+        <div class="col-lg-2">
+          <a href="javascript:" data-toggle="modal"  data-target="#exampleModalExportData"><i class="fa fa-upload" aria-hidden="true"></i>
+              Xuất dữ liệu ra Excel</a>
+      </div>
+        <div class="col-lg-6 " style="text-align: right">
             <a href="{{route('themsolieutuyensinh')}}"><button type="button" class="btn btn-secondary">Thêm
                     mới</button></a>
         </div>
@@ -140,10 +183,13 @@
                 <label class="col-lg-2 col-form-label">Kích thước:</label>
                 <div class="col-lg-2">
                     <select class="form-control" id="page-size">
-                        <option value="20">20</option>
-                        <option value="50">50</option>
-                        <option selected="" value="80">80</option>
-                        <option value="100">100</option>
+                        @foreach(config('common.paginate_size.list') as $size)
+                        <option
+                        @if (isset($params['page_size']))
+                        {{( $params['page_size'] ==  $size ) ? 'selected' : ''}} 
+                        @endif
+                                value="{{$size}}">{{$size}}</option>
+                    @endforeach
                     </select>
                 </div>
             </div>
@@ -192,20 +238,195 @@
                     </tr>
                     @endforeach
 
-
                 </tbody>
             </table>
         </div>
     </div>
-    <div class="row phantrang">
+    <div class="m-portlet__foot d-flex justify-content-end">
         {{$data->links()}}
     </div>
+<form action="{{route('layformbieumausinhvien')}}" method="post">
+        @csrf
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Hãy chọn trường</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                       <select name="id_cs" class="form-control">
+                           @foreach($coso as $csdt)
+                           <option value="{{$csdt->id}}">{{$csdt->ten}}</option>
+                           @endforeach
+                       </select>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                        <button type="submit" onclick="clickDownloadTemplate()" class="btn btn-primary">Tải</a>
+                      </div>
+                    </div>
+            </div>
+        </div>
+    </form>
 
+    <form action="{{route('import.error.ket-qua-ts')}}" id="my_form_kqts_import" method="post" enctype="multipart/form-data">
+        @csrf
+        <div class="modal fade " id="exampleModalImport" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Import file</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="form-group">
+                        <input type="file" id="file_import_id" name="file_import">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Chọn năm</label>
+                            <select name="nam" id="nam_id" class="form-control">
+                              <option value="2020">2020</option>
+                              <option value="2019">2019</option>
+                              <option value="2017">2017</option>
+                            </select> 
+                       </div>
+
+                    <div class="form-group">
+                      <label for="">Chọn đợt</label>
+                      <select name="dot" id="dot_id" class="form-control">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                      </select>
+                </div>
+                        
+                      </div>
+                      <div class="modal-footer">
+                        <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoi">
+                        </p>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                        <button type="button" class="btn btn-primary" id="submitTai">Tải</a>
+                        <button  type="submit" hidden class="btn btn-primary" id="submitTaiok">Tải ok</a>
+                      </div>
+                    </div>
+            </div>
+            </div>
+        </form>
+
+      <form action="{{route('exportdatatuyensinh')}}" id="" method="post" enctype="multipart/form-data">
+          @csrf
+          <div class="modal fade " id="exampleModalExportData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Xuất dữ liệu</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="form-group">
+                              <label for="">Chọn năm xuất</label>
+                              <select name="nam_muon_xuat" id="nam_id_xuat" class="form-control">
+                                <option value="2020">2020</option>
+                                <option value="2019">2019</option>
+                                <option value="2017">2017</option>
+                              </select>
+                        </div> 
+                        <div class="form-group">
+                                <label for="">Chọn đợt xuất</label>
+                                <select name="dot_muon_xuat" id="dot_id_xuat" class="form-control">
+                                  <option value="1">1</option>
+                                  <option value="2">2</option>
+                                </select>
+                          </div>
+                        <div class="form-group">
+                            <label for="">Chọn Trường</label>
+                            <select name="truong_id" id="truong_id_xuat" class="form-control">
+                              @foreach($coso as $csdt)
+                               <option value="{{$csdt->id}}">{{$csdt->ten}}</option>
+                              @endforeach
+                            </select>
+                        </div>
+
+                        </div>
+                        <div class="modal-footer">
+                          <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoiXuat">
+                          </p>
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                          {{-- <button type="button" class="btn btn-primary" id="clickXuatData">Tải</a> --}}
+                          <button  type="submit" class="btn btn-primary" id="submitXuatData">Tải</a>
+                        </div>
+                      </div>
+              </div>
+              </div>
+          </form>
 </div>
-@endsection
 
+@endsection
 @section('script')
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    $("#file_import_id").change(function() {
+            var fileExtension = ['xlsx','xls'];
+            if($("#file_import_id")[0].files.length === 0){
+                $('#echoLoi').text('Hãy nhập file excel');
+            }else if($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+                $message = "Hãy nhập file excel : "+fileExtension.join(', ');
+                $('#echoLoi').text($message);
+                return false;
+            }else{
+                $('#echoLoi').text('');
+    }
+    });
+
+    
+    $("#submitTai").click(function(event){
+        var fileExtension = ['xlsx', 'xls'];
+           if($("#file_import_id")[0].files.length === 0){
+                 console.log('nothing');    
+           }else if($.inArray($('#file_import_id').val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+                 console.log('nothing2');
+           }else{
+            $('#exampleModalImport').modal('hide');
+            var formData = new FormData();
+            var fileExcel = document.querySelector('#file_import_id');
+            formData.append("file", fileExcel.files[0]);
+            formData.append("dot", $('#dot_id').val());
+            formData.append("nam", $('#nam_id').val());
+
+            axios.post("{{route('import.ket-qua-ts')}}", formData,{
+                headers: {
+                        'Content-Type': 'multipart/form-data',
+                    }
+                }).then(function (response) {
+
+                    if(response.data == 'ok'){
+                    window.location.reload();
+                    console.log('Đã insert vào database');
+                    }else if(response.data == 'problem'){
+                    console.log('Có vấn đề về thông tin muốn nhập');
+                    }else{
+                        $('#submitTaiok').trigger('click');
+                        $('#my_form_kqts_import')[0].reset();
+                    }
+
+                }).catch(function (error) {
+                console.log(error);
+                });
+            }   
+     });
+
+        function clickDownloadTemplate(){
+                $('#exampleModal').modal('hide');
+        }
+    
+ </script>
+
+
 <script src="{{ asset('js/so_lieu_tuyen_sinh/tong_hop_so_lieu.js') }}"></script>
 <script type="text/javascript">
     $(document).ready(function(){
@@ -247,6 +468,19 @@ $("#devvn_quanhuyen" ).change(function() {
 function resetInput() {
   document.getElementById("formsearch").reset();
 }
+
+  $("#page-size").change(function(){  
+    $("#page_size_hide").val($('#page-size').val())
+    var url = new URL(window.location.href);
+    var search_params = url.searchParams;
+    search_params.set('page_size', $("#page_size_hide").val());
+    url.search = search_params.toString();
+    var new_url = url.toString();
+    window.location.href = new_url
+  });
+
+
 </script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+
 @endsection
