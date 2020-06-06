@@ -1,5 +1,5 @@
 <div class="m-portlet">
-    <div class="m-portlet__body">
+    <div class="m-portlet__body table-responsive">
         <div class="col-12 form-group m-form__group d-flex justify-content-end">
             <label class="col-lg-2 col-form-label">Kích thước:</label>
             <div class="col-lg-2">
@@ -27,14 +27,16 @@
                     <tr>
                         <td>{{ $i++ }}</td>
                         @foreach ($titles as $key => $title)
-                            <td>{{$item->$key}}</td>
+                            <td>{!! $item->$key !!}</td>
                         @endforeach
                         <td>
-                            <a href="">Sửa</a>
+                            <a href="{{ route($route_edit, [ $item->id ]) }}">Sửa</a>
                         </td>
+                        @if (isset($route_show) && !empty($route_show))
                         <td>
-                            <a href="">Chi tiết</a>
+                            <a href="{{ route($route_show, [ $item->id ]) }}">Chi tiết</a>
                         </td>
+                        @endif
                     </tr>
                 @endforeach
                 </tbody>

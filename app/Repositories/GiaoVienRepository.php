@@ -13,6 +13,7 @@ class GiaoVienRepository extends BaseRepository implements GiaoVienRepositoryInt
     public function __construct(GiaoVien $giaoVien)
     {
         $this->model = $giaoVien;
+        $this->table = $giaoVien;
     }
 
     public function getTable()
@@ -42,18 +43,24 @@ class GiaoVienRepository extends BaseRepository implements GiaoVienRepositoryInt
         $queryBuilder = $this->model
             ->join('trinh_do_gv', 'trinh_do_gv.id', '=', 'giao_vien.trinh_do_id')
             ->join('co_so_dao_tao', 'co_so_dao_tao.id', '=', 'giao_vien.co_so_id')
+            ->join('nganh_nghe', 'nganh_nghe.id', '=', 'giao_vien.nghe_id')
             ->select([
                 'giao_vien.id',
                 'giao_vien.ten',
+                'giao_vien.nha_giao_nhan_dan',
+                'giao_vien.nha_giao_uu_tu',
+                'giao_vien.mon_chung',
+                'giao_vien.loai_hop_dong',
+                'nganh_nghe.ten_nganh_nghe as nganh_nghe',
                 'co_so_dao_tao.ten as ten_co_so',
                 DB::raw("CASE WHEN giao_vien.gioi_tinh = 0 THEN 'Nữ' ELSE 'Nam' END as gioi_tinh"),
                 DB::raw("CASE WHEN giao_vien.dan_toc_it_nguoi = 1 THEN 'x' END as dan_toc_it_nguoi"),
                 DB::raw("CASE WHEN giao_vien.giao_su = 1 THEN 'Giáo sư'
                 WHEN giao_vien.pho_giao_su = 1 THEN 'Phó giáo sư'
-                ELSE '' END as trinh_do"),
+                ELSE '' END as chuc_danh"),
                 'giao_vien.trinh_do_ngoai_ngu',
                 'giao_vien.trinh_do_ky_nang_nghe',
-                'trinh_do_gv.ten as nghiep_vu',
+                'trinh_do_gv.ten as trinh_do',
             ]);
 
         if (isset($params['giao_vien_id']) && !empty($params['giao_vien_id'])) {
@@ -61,7 +68,7 @@ class GiaoVienRepository extends BaseRepository implements GiaoVienRepositoryInt
         }
 
         if (isset($params['trinh_do_id']) && !empty($params['trinh_do_id'])) {
-            $queryBuilder->where('trinh_do.id', $params['trinh_do_id']);
+            $queryBuilder->where('trinh_do_gv.id', $params['trinh_do_id']);
         }
 
         if (isset($params['co_so_id']) && !empty($params['co_so_id'])) {
