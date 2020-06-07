@@ -8,7 +8,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'quan-ly-giao-vien'], function(){
-    Route::get('/', 'ImportReportController@quanlygiaovien')->name('nhapbc.giao-vien');
+    Route::get('/', 'QuanLyGiaoVienController@index')->name('ql-giao-vien.index');
 });
 
 Route::group(['prefix' => 'can-bo-quan-ly'], function(){
@@ -21,6 +21,11 @@ Route::group(['prefix' => 'chinh-sach-cho-sinh-vien'], function(){
 
 Route::group(['prefix' => 'ket-qua-tuyen-sinh'], function(){
     Route::get('/', 'ImportReportController@ketquatuyensinh')->name('nhapbc.ket-qua-ts');
+
+    Route::post('import-kq-sv', 'ImportKqtsController@importFile')->name('import.ket-qua-ts');
+    Route::post('import-error-kq-sv', 'ImportKqtsController@importError')->name('import.error.ket-qua-ts');
+
+
 });
 
 Route::group(['prefix' => 'xd-chuong-trinh-giao-trinh'], function(){

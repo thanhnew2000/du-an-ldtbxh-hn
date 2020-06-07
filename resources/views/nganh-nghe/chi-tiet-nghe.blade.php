@@ -108,7 +108,7 @@
                     <th>Quận/huyện</th>
                     <th>Phường/xã</th>
                     <th>
-                        
+                        <a href="" class="btn btn-success btn-sm">Thêm mới</a>
                     </th>
                 </thead>
                 <tbody>

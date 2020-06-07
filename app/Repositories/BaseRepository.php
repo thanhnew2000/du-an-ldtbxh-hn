@@ -29,14 +29,12 @@ abstract class BaseRepository implements RepositoryInterface
         $result = $this->table->get();
         return $result;
     }
-
-    public function getById($id)
+    public function findById($id)
     {
         $result = $this->table->find($id);
 
         return $result;
     }
-
     public function create($attributes = [])
     {
         $result  = $this->table->insert($attributes);
