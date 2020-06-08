@@ -1,5 +1,6 @@
 
 @extends('layouts.admin')
+@section('title', "Chi tiết nghề của cơ sở đào tạo")
 @section('content')
     <div class="m-content container-fluid">
         <div class="m-portlet">
@@ -10,7 +11,7 @@
                         <i class="m-menu__link-icon flaticon-web"></i>
                     </span>
                         <h3 class="m-portlet__head-text">
-                            Ngành nghề <small>Lựa chọn cơ sở đào tạo</small>
+                            Ngành nghề <small>Chi tiết nghề của cơ sở đào tạo</small>
                         </h3>
                     </div>
                 </div>
