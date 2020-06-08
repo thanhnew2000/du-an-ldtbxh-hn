@@ -49,6 +49,9 @@ class QlsvService extends AppService
     public function getCoSo(){
         return $this->repository->getCoSo();
     }
+    public function getNganhNghe(){
+        return $this->repository->getNganhNghe();
+    }
     public function getTongHopSvTheoLoaiHinh($id){
         $data = $this->repository->getTongHopSvTheoLoaiHinh($id);
         return $data;
@@ -58,11 +61,12 @@ class QlsvService extends AppService
         $queryData = [];
         $queryData['nam'] = isset($param['nam']) ? $param['nam'] : null;
         $queryData['dot'] = isset($param['dot']) ? $param['dot'] : null;
+        $queryData['nghe_id'] = isset($param['nghe_id']) ? $param['nghe_id'] : null;
         // $queryData['cs_id'] = isset($param['co_so_id']) ? $param['co_so_id'] : null;
         // $queryData['loai_hinh'] = isset($param['loai_hinh']) ? $param['loai_hinh'] : null;
         $data = $this->repository->chiTietSoLieuQlsv($coSoId,$queryData);
         return $data;
-        // dd($data);
+         dd($data);
     }
     public function getNamDaoTao(){
         return $this->repository->getNamDaoTao();
@@ -70,4 +74,5 @@ class QlsvService extends AppService
     public function getCoSoDaoTao(){
         return $this->repository->getCoSoDaoTao();
     }
+
 }

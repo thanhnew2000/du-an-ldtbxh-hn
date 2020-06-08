@@ -100,7 +100,7 @@
                 @forelse ($data as $qlsv)
                     <tr>
                         <td>{{$i++}}</td>
-                        <td>{{$qlsv->cs_ten}}</td>
+                        <td>{{$qlsv->ten}}</td>
                         <td>{{$qlsv->loai_hinh_co_so}}</td>
                         <td>{{$qlsv->tong_so_HSSV_co_mat_cac_trinh_do}}</td>
                         <td>{{$qlsv->so_luong_sv_Cao_dang}}</td>

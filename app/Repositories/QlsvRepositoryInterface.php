@@ -11,5 +11,6 @@ interface QlsvRepositoryInterface
     public function chiTietSoLieuQlsv($coSoId,$queryData);
     public function getNamDaoTao();
     public function getTenCoSoDaoTao();
+    public function getNganhNghe();
 
 }

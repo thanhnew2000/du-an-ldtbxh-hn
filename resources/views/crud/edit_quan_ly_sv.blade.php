@@ -54,12 +54,28 @@
           <div class="col-md-6">
             <div class="form-group m-form__group row">
                 <label disabled class="col-lg-2 col-form-label">Đợt</label>
+                <div class="col-lg-8">
                 <select disabled class="form-control col-7">
                   
                   <option {{( $item->dot == 1 ) ? 'selected' : ''}} value="1">Đợt 1</option>
                   <option {{( $item->dot == 2 ) ? 'selected' : ''}} value="2">Đợt 2</option>
 
                 </select>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group m-form__group row">
+              <label disabled class="col-lg-2 col-form-label">Ngành Nghề </label>
+              <div class="col-lg-8">
+              <select disabled class="form-control col-7">
+               
+                <option value="{{$item->nghe_id}}">{{$item->ten_nganh_nghe}} - {{$item->nghe_id}} </option>
+             
+              </select>
+              </div>
             </div>
           </div>
         </div>
@@ -116,6 +132,56 @@
                </tr>
            </tbody>
        </table>
+       <div class="row">
+        <div class="col-xl-12">
+          <div class="m-portlet m-portlet--full-height ">
+            <div class="m-portlet__head">
+              <div class="m-portlet__head-caption">
+                <div class="m-portlet__head-title">
+                  <h3 class="m-portlet__head-text">
+                    Tổng số
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="m-portlet__body">
+              <div class="tab-content">
+                <table class="table m-table m-table--head-bg-brand">
+                  <thead>
+                    <tr>
+                      <th scope="col">Danh mục</th>
+                      <th scope="col">Trong đó</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Tổng số học sinh, sinh viên nữ</td>
+                      <td><input name="tong_so_nu" type="number" min="0" step="1"
+                          class="form-control" value="{{$item->tong_so_nu}}"></td>
+                    </tr>
+                    <tr>
+                      <td>Tổng số học sinh, sinh viên dân tộc</td>
+                      <td><input name="tong_so_dan_toc_thieu_so" type="number"
+                          min="0" step="1" class="form-control" value="{{$item->tong_so_dan_toc_thieu_so}}"></td>
+                    </tr>
+                    <tr>
+                      <td>Tổng số học sinh, sinh viên hộ khẩu Hà Nội</td>
+                      <td><input  name="tong_so_ho_khau_HN" type="number"
+                          min="0" step="1" class="form-control" value="{{$item->tong_so_ho_khau_HN}}"></td>
+                    </tr>
+                    <tr>
+                      <td>Tổng số học sinh, sinh viên các trình độ</td>
+                      <td><input 
+                          name="tong_so_HSSV_co_mat_cac_trinh_do" type="number" min="0" step="1" class="form-control"
+                          value="{{$item->tong_so_HSSV_co_mat_cac_trinh_do}}" ></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
    <div class="d-flex justify-content-center mr-5 ">
        <button type="submit" class="btn btn-danger btn-fillter ml-5">Hủy</button>
        <button type="submit" class="btn btn-primary btn-fillter ml-5">Sửa</button>

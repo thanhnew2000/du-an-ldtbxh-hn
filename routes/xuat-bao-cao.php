@@ -40,13 +40,13 @@ Route::group(['prefix' => 'so-lieu-sinh-vien-dang-theo-hoc'], function () {
 
     Route::get('/them-so-lieu-sinh-vien', 'ExtractController@add')
         ->name('xuatbc.them-so-sv');
-    Route::post('/them-so-lieu-sinh-vien', 'ExtractController@saveAdd');
-
+    Route::post('/them-so-lieu-sinh-vien', 'ExtractController@saveAdd')
+        ->name('xuatbc.them-so-sv');
     Route::get('/cap-nhat-so-lieu-sinh-vien/{id}', 'ExtractController@edit')
         ->name('xuatbc.sua-so-sv');
     Route::post(
         '/cap-nhat-so-lieu-sinh-vien/{id}','ExtractController@saveEdit'    
-    )->name('xuatbc.sua-so-sv');
+    )->name('xuatbc.sua-so-lieu-sv');
 
     Route::get('/chi-tiet-so-lieu-sinh-vien/{co_so_id}','ExtractController@tongHopChiTietSvDangTheoHoc')
     ->name('xuatbc.chi-tiet-so-lieu');

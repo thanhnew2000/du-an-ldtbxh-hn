@@ -27,40 +27,34 @@
                 </div>
             </div>
         </div>
-        <div class="m-portlet__body">
-            <h3>Cơ sở đào tạo: {{$data[0]->cs_ten}}</h3>
-            <p>Loại hình cơ sở: {{$data[0]->loai_hinh_co_so}}</p>
-        </div>
     </div>
     <form action="" method="GET" class="m-form">
         {{-- <input type="hidden" name="page_size" value="{{$params['page_size']}}"> --}}
         <div class="m-portlet__body">
-            <div class="m-form__section m-form__section--first">
-                <div class="m-form__heading">
-                    <h3 class="m-form__heading-title">Bộ lọc:</h3>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group m-form__group row">
-                            <label class="col-lg-2 col-form-label">Năm:  </label>
-                            <div class="col-lg-8">
-                                <select name="nam" class="form-control ">
-                                    <option value="" >Chọn </option>
-                                    @foreach (config('common.nam.list') as $item)
-                                    <option 
-                                    @if (isset($params['nam']))
-                                            {{( $params['nam'] ==  $item ) ? 'selected' : ''}}  
-                                            @endif
-                                            value="{{$item}}"> {{$item}}
-                                        </option>
-                                    @endforeach
-                                </select>
+            <div class="m-portlet__body">
+                <div class="m-form__section m-form__section--first">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-2 col-form-label">Năm:  </label>
+                                <div class="col-lg-8">
+                                    <select name="nam" class="form-control ">
+                                        <option value="" >Chọn </option>
+                                        @foreach (config('common.nam.list') as $item)
+                                        <option 
+                                        @if (isset($params['nam']))
+                                                {{( $params['nam'] ==  $item ) ? 'selected' : ''}}  
+                                                @endif
+                                                value="{{$item}}"> {{$item}}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group m-form__group row">
-                            <label class="col-lg-2 col-form-label">Đợt: </label>
+                        <div class="col-md-6">
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-2 col-form-label">Đợt: </label>
                             <div class="col-lg-8">
                                 <select class="form-control" name="dot" id="dot">
                                     <option value="" >Chọn</option>
@@ -76,19 +70,32 @@
                                     >Đợt 2</option>
                                 </select>
                             </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-2 col-form-label">Ngành Nghề : </label>
+                                <div class="col-lg-8">
+                                    <select name="nghe_id" class="form-control ">
+                                        <option value="" >Chọn </option>
+                                       @foreach ($nganhNghe as $item)
+                                        <option value="{{$item->id}}">{{$item->ten_nganh_nghe}} - {{$item->id}}</option>
+                                       @endforeach
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-               
-
             </div>
             <div class="row justify-content-center">
                 <div class="col-lg-2">
                     <button type="submit" class="btn btn-primary">Tìm kiếm</button>
                 </div>
             </div>
-        </div>
+    </div>
     </form>
     <div class="m-portlet">
         <div class="m-portlet__body">
@@ -96,10 +103,10 @@
                 <thead>
                     <tr class="text-center">
                         <th rowspan="2">STT</th>
-                        {{-- <th rowspan="2">Tên cơ sở đào tạo</th> --}}
+                        <th rowspan="2">Tên cơ sở đào tạo</th>
                         <th rowspan="2">Mã ngành nghề</th>
                         <th rowspan="2">Tên ngành nghề</th>
-                        {{-- <th rowspan="2">Loại hình cơ sở</th> --}}
+                        <th rowspan="2">Loại hình cơ sở</th>
                         <th rowspan="2">Năm</th>
                         <th rowspan="2">Đợt</th>
                         <th rowspan="2">Tổng Số HSSV <br> Các Trình Độ</th>
@@ -133,10 +140,10 @@
                     @foreach ($data as $item)
                     <tr>
                         <td>{{$i++}}</td>
-                        {{-- <td>{{$item->cs_ten}}</td> --}}
+                        <td>{{$item->ten}}</td>
                         <td>{{$item->nghe_id}}</td>
                         <td>{{$item->ten_nganh_nghe}}</td>
-                        {{-- <td>{{$item->loai_hinh_co_so}}</td> --}}
+                        <td>{{$item->loai_hinh_co_so}}</td>
                         <td>{{$item->nam}}</td>
                         <td>{{$item->dot}}</td>
                         <td>{{$item->tong_so_HSSV_co_mat_cac_trinh_do}}</td>
