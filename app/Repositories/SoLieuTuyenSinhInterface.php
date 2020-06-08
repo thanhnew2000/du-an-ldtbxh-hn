@@ -13,6 +13,4 @@ interface SoLieuTuyenSinhInterface
 	public function getDataSeachCoSo($id);
 	public function getCoSoTuyenSinhTheoLoaiHinh($id);
 	public function getTenQuanHuyen();
-	public function getXaPhuongTheoQuanHuyen($id);
-}
-?>
+	public function getXaPhuongTheoQuanHuyen($id); }

@@ -54,6 +54,7 @@ class SoLieuTuyenSinhService extends AppService
         $queryData['dot'] = isset($params['dot']) ? $params['dot'] : null;
         $data = $this->repository->getChiTietSoLuongTuyenSinh($coSoId, $limit, $queryData);
         return $data;
+    // dd($data);
     }
     public function getTenCoSoDaoTao()
     {
@@ -111,3 +112,5 @@ class SoLieuTuyenSinhService extends AppService
         return  $this->repository->getXaPhuongTheoQuanHuyen($id);
     }
 }
+
+ ?>
