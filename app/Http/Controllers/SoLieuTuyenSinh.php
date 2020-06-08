@@ -97,16 +97,16 @@ class SoLieuTuyenSinh extends Controller
         return view('solieutuyensinh.them_so_lieu_tuyen_sinh',compact('data'));
     }
 
-    public function getmanganhnghe(Request $request)
-    {
-        $data = $this->SoLieuTuyenSinhService->getmanganhnghe($request->id);
-        return $data;
-    }
     public function postthemsolieutuyensinh(TuyenSinhValidate $request)
     {
         $getdata = $request->all();
         $data = $this->SoLieuTuyenSinhService->postthemsolieutuyensinh($getdata);
         return redirect()->route('chitietsolieutuyensinh', ['co_so_id' => $getdata['co_so_id']])->with('thongbao','Thêm số liệu tuyển sinh thành công');
+    }
+    public function getmanganhnghe(Request $request)
+    {
+        $data = $this->SoLieuTuyenSinhService->getmanganhnghe($request->id);
+        return $data;
     }
     public function getCheckTonTaiSoLieuTuyenSinh(Request $request)
     {

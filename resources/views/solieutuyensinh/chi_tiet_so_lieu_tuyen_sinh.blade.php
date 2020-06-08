@@ -160,7 +160,7 @@
                         <td>
                             @if ($item->trang_thai<3) <a href="{{route('suasolieutuyensinh',['id'=>$item->id])}}">
                                 Sửa</a>
-                                @endif
+                            @endif
                         </td>
                     </tr>
                     @endforeach

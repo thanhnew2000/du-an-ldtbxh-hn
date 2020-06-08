@@ -55,9 +55,9 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 		}
 
 		// dd($query->groupBy('co_so_id')->toSql());
-
 		return $query->groupBy('co_so_id')->paginate($limit);
 	}
+
 
 	public function getChiTietSoLuongTuyenSinh($coSoId,$limit,$queryData)
 	{
@@ -85,6 +85,7 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 			$data->where('tuyen_sinh.dot', $queryData['dot']);
 		}
 		return $data->paginate($limit);
+
 	}
 
 	public function getTenCoSoDaoTao()
@@ -126,7 +127,6 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 			}
 			return $kiem_tra;
 	}
-
 	public function getDataSeachCoSo($id)
 	{
 		return $this->table->where('tuyen_sinh.co_so_id', '=', $id)->join('co_so_dao_tao', 'tuyen_sinh.co_so_id', '=', 'co_so_dao_tao.id')
@@ -139,8 +139,7 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 				 DB::raw('SUM(so_luong_sv_So_cap) AS so_luong_sv_So_cap'),
 				 DB::raw('SUM(so_luong_sv_he_khac) AS so_luong_sv_he_khac'),
 				 DB::raw('SUM(tong_so_tuyen_sinh) AS tong_so_tuyen_sinh')
-				 )
-		->groupBy('tuyen_sinh.co_so_id',
+				 )->groupBy('tuyen_sinh.co_so_id',
 					'co_so_dao_tao.ten',
 					'loai_hinh_co_so.loai_hinh_co_so'
 					)->first();
@@ -180,3 +179,4 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 	}
 
 }
+ ?>
