@@ -113,3 +113,23 @@ tbody tr td {
   height: 40px;
   margin: 0 auto;
 }
+.select2-container--default .select2-selection--single{
+  border: none;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered{
+  padding: 0px;
+  padding-left: 10px;
+  height: 30,6px;
+  border: none;
+  border: 1px solid #1F3247 !important;
+  font-size: 13px;
+  border-radius: 0.25rem;
+  font-weight: normal;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow{
+  height: 21px;
+  position: absolute;
+  top: 15px;
+  right: -4px;
+  width: 20px;
+}

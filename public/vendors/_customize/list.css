@@ -29,10 +29,8 @@
 }
 
 .table {
-    width: 200%;
-    font-size: 1.1rem;
+    font-size: 10px;
     color: black;
     text-align: center;
     font-weight: 300;
 }
-

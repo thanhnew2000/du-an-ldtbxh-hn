@@ -1,8 +1,22 @@
 * {
-    font-family: "Roboto", sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
 }
 
 *:not(.select2-selection__arrow) {
+    font-family: "Roboto", sans-serif !important;
+}
+
+
+/* *:not(.select2-selection__arrow) {
+    font-family: "Roboto", sans-serif;
+} */
+
+.btn {
+    font-family: 'Roboto', sans-serif !important;
+}
+
+table {
+    font-size: 13px;
     font-family: "Roboto", sans-serif !important;
 }
 
@@ -12,4 +26,37 @@ table th {
 
 .pointer {
     cursor: pointer;
+}
+
+table td {
+    vertical-align: middle !important;
+}
+
+.img-size-100 {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.img-size-70 {
+    max-width: 70px;
+    max-height: 70px;
+}
+
+.ul-chi-tiet-csdt li {
+    padding: 15px 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #d6d6d6;
+}
+
+.co-so-info {
+    float: right;
+    width: 300px;
+    text-align: left;
+}
+
+.table-boder-white th {
+    border: 1px solid white;
+    border-top: 1px solid white !important;
 }
