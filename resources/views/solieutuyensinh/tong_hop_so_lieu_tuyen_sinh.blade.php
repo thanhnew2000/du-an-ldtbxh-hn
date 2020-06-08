@@ -1,3 +1,15 @@
+<div class="loading" style="display:none">	
+
+	<div class="loading-background-back-all" style=""></div>
+	<div class='loading-position' style="">
+		<div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+            <div>
+                &nbsp; &nbsp;Loading...
+            </div>
+	</div>
+
+</div>
+
 @extends('layouts.admin')
 @section('title', "Tổng hợp số liệu tuyển sinh")
 @section('style')
@@ -9,6 +21,8 @@
 </style>
 @endsection
 @section('content')
+
+
 <div class="m-content container-fluid">
     <div class="m-portlet">
         <div class="m-portlet__head">
@@ -292,7 +306,9 @@
                             <select name="nam" id="nam_id" class="form-control">
                               <option value="2020">2020</option>
                               <option value="2019">2019</option>
+                              <option value="2018">2018</option>
                               <option value="2017">2017</option>
+                              <option value="2016">2016</option>
                             </select> 
                        </div>
 
@@ -334,7 +350,9 @@
                               <select name="nam_muon_xuat" id="nam_id_xuat" class="form-control">
                                 <option value="2020">2020</option>
                                 <option value="2019">2019</option>
+                                <option value="2018">2018</option>
                                 <option value="2017">2017</option>
+                                <option value="2016">2016</option>
                               </select>
                         </div> 
                         <div class="form-group">
@@ -371,60 +389,99 @@
 @section('script')
 <script>
     $("#file_import_id").change(function() {
-            var fileExtension = ['xlsx','xls'];
-            if($("#file_import_id")[0].files.length === 0){
-                $('#echoLoi').text('Hãy nhập file excel');
-            }else if($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
-                $message = "Hãy nhập file excel : "+fileExtension.join(', ');
-                $('#echoLoi').text($message);
-                return false;
-            }else{
-                $('#echoLoi').text('');
-    }
-    });
+    var fileExtension = ['xlsx','xls'];
+    if($("#file_import_id")[0].files.length === 0){
+        $('#echoLoi').text('Hãy nhập file excel');
+    }else if($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+        $message = "Hãy nhập file excel : "+fileExtension.join(', ');
+        $('#echoLoi').text($message);
+        return false;
+    }else{
+        $('#echoLoi').text('');
+}
+});
 
-    
-    $("#submitTai").click(function(event){
-        var fileExtension = ['xlsx', 'xls'];
-           if($("#file_import_id")[0].files.length === 0){
-                 console.log('nothing');    
-           }else if($.inArray($('#file_import_id').val().split('.').pop().toLowerCase(), fileExtension) == -1) {
-                 console.log('nothing2');
-           }else{
-            $('#exampleModalImport').modal('hide');
-            var formData = new FormData();
-            var fileExcel = document.querySelector('#file_import_id');
-            formData.append("file", fileExcel.files[0]);
-            formData.append("dot", $('#dot_id').val());
-            formData.append("nam", $('#nam_id').val());
 
-            axios.post("{{route('import.ket-qua-ts')}}", formData,{
-                headers: {
-                        'Content-Type': 'multipart/form-data',
-                    }
-                }).then(function (response) {
+$("#submitTai").click(function(event){
+var fileExtension = ['xlsx', 'xls'];
+   if($("#file_import_id")[0].files.length === 0){
+         console.log('không có file');    
+   }else if($.inArray($('#file_import_id').val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+         console.log('chưa file không đúng định dạng');
+   }else{
+    $('#exampleModalImport').modal('hide');
+    $('.loading').css('display','block');
+    var formData = new FormData();
+    var fileExcel = document.querySelector('#file_import_id');
+    formData.append("file", fileExcel.files[0]);
+    formData.append("dot", $('#dot_id').val());
+    formData.append("nam", $('#nam_id').val());
 
-                    if(response.data == 'ok'){
-                    window.location.reload();
-                    console.log('Đã insert vào database');
-                    }else if(response.data == 'problem'){
-                    console.log('Có vấn đề về thông tin muốn nhập');
+    axios.post("{{route('import.ket-qua-ts')}}", formData,{
+        headers: {
+                'Content-Type': 'multipart/form-data',
+            }
+        }).then(function (response) {
+            // console.log(response)
+            if(response.data == 'ok'){
+                $('.loading').css('display','none');
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Cập nhập thành công',
+                        showConfirmButton: false,
+                        timer: 1700
+                    })
+                window.location.reload();
+                console.log('Đã insert vào database');
+            }else if(response.data == 'problem'){
+                $('.loading').css('display','none');
+                console.log('Có vấn đề về thông tin muốn nhập');
+                Swal.fire({
+                    title: 'Có vấn đề về thông tin muốn nhập !',
+                    // text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Xác nhận'
+                    }).then((result) => {
+                    if (result.value) {  
+                        window.location.reload();
                     }else{
-                        $('#submitTaiok').trigger('click');
-                        $('#my_form_kqts_import')[0].reset();
+                        window.location.reload();
                     }
+                    })
+            }else{
+                $('.loading').css('display','none');
+                $('#submitTaiok').trigger('click');
+                $('#my_form_kqts_import')[0].reset();
+            }
 
-                }).catch(function (error) {
-                console.log(error);
-                });
-            }   
-     });
+        }).catch(function (error) {
+          console.log(error);
+          $('.loading').css('display','none');
+          Swal.fire({
+                    title: 'Lỗi về file muốn nhập !',
+                    // text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Xác nhận'
+                    }).then((result) => {
+                    if (result.value) {  
+                        window.location.reload();
+                    }else{
+                        window.location.reload();
+                    }
+                    })
+        });
+    }   
+});
 
-        function clickDownloadTemplate(){
-                $('#exampleModal').modal('hide');
-        }
-    
- </script>
+function clickDownloadTemplate(){
+        $('#exampleModal').modal('hide');
+}
+</script>
+
+
 
 
 <script src="{{ asset('js/so_lieu_tuyen_sinh/tong_hop_so_lieu.js') }}"></script>
