@@ -65,13 +65,11 @@ class ChiNhanhController extends Controller
     {
         $data = $this->ChiNhanhService->getSingleChiNhanh($id);
         $csdt = DB::table('co_so_dao_tao')->get();
-        // dd($data);
         return view('coso.chi_nhanh.sua_chi_nhanh', ['data' => $data, 'csdt' => $csdt]);
     }
 
     public function capnhatchinhanh($id, Request $request)
     {
-
         $request->validate(
             [
                 'dia_chi' => 'required',
@@ -90,9 +88,6 @@ class ChiNhanhController extends Controller
                 'da_duoc_cap.required' => 'Vui lòng chọn trạng thái cấp giấy phép'
             ]
         );
-
-
-
         $this->ChiNhanhService->update($id, $request, ['_token']);
         return redirect()->route('chi-nhanh.cap-nhat', ['id' => $id])->withInput()->with('mess', 'Đã cập nhật địa điểm đào tạo');
     }

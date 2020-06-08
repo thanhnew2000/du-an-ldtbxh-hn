@@ -2,13 +2,17 @@
     <<<<<<< HEAD font-family: 'Roboto', sans-serif !important;
 }
 
-=======font-family: 'Roboto',
+font-family: 'Roboto',
 sans-serif;
 
 }
 *:not(.select2-selection__arrow) {
     font-family: "Roboto", sans-serif !important;
 }
+
+/* *:not(.select2-selection__arrow) {
+    font-family: "Roboto", sans-serif;
+} */
 .btn {
     font-family: 'Roboto', sans-serif !important;
 }

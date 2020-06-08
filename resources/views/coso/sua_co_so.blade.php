@@ -99,9 +99,6 @@
                                     @enderror
                                 </p>
                             </div>
-
-
-
                             <div class="form-group col-lg-12">
                                 <label for="" class="form-name">Logo</label>
                                 <div class="form-group col-lg-12 mt-2">
@@ -111,17 +108,13 @@
                                     <input type="file" class="custom-file-input" id="customFile" name="upload_logo">
                                     <label class="custom-file-label" for="customFile">Choose file</label>
                                 </div>
-
-
                                 <p id="helpId" class="form-text text-danger">
                                     @error('upload_logo')
                                     {{ $message }}
                                     @enderror
                                 </p>
-
                             </div>
                         </div>
-
                         <div class="col-right col-lg-5">
                             <div class="form-group col-lg-12">
                                 <label class="form-name" for="">Tên quốc tế</label>
@@ -133,8 +126,6 @@
                                     @enderror
                                 </p>
                             </div>
-
-
                             <div class="form-group col-lg-12">
                                 <label class="form-name" for="">Điện thoại</label>
                                 <input type="text" class="form-control" name="dien_thoai"
@@ -170,10 +161,6 @@
                                         <label for="" class="form-name">Xã/ Phường</label>
                                         <select class="form-control col-12" name="xaid" id="devvn_xaphuongthitran">
                                             <option selected value="{{ $item->xaid }}">{{ $item->tenxaphuong }}</option>
-
-                                            {{-- @foreach ($csdt as $cs)
-                                <option value=" {{ $cs->id }}">{{ $cs->ten }}</option>
-                                            @endforeach --}}
                                         </select>
                                     </div>
                                 </div>
@@ -188,7 +175,6 @@
                                     @enderror
                                 </p>
                             </div>
-
                             <div class="form-group col-lg-12">
                                 <label class="form-name" for="">Fax</label>
                                 <input type="text" class="form-control" value="{{old('fax',  $item->fax) }}" name="fax"
@@ -197,13 +183,11 @@
                                 </p>
                             </div>
                         </div>
-
                         <div class="form-group col-lg-11 p-4">
                             <label for="">Ghi chú</label>
                             <textarea class="form-control" name="ghi_chu" id=""
                                 rows="3">{{ old('ghi_chu',  $item->ghi_chu) }}</textarea>
                         </div>
-
                         <div class="col-lg-12 d-flex justify-content-center">
                             <button type="submit" class="btn btn-primary mr-5 col-1">Lưu</button>
                             <button type="reset" class="btn btn-danger col-1">Hủy</button>
