@@ -486,46 +486,57 @@ function clickDownloadTemplate(){
 
 <script src="{{ asset('js/so_lieu_tuyen_sinh/tong_hop_so_lieu.js') }}"></script>
 <script type="text/javascript">
-        $(document).ready(function(){ 
-        $('#co_so_id').select2();  
-            $('#devvn_quanhuyen').select2(); 
-            $('#devvn_xaphuongthitran').select2();});
-            $("#loai_hinh" ).change(function() {  
-                axios.post('/xuat-bao-cao/ket-qua-tuyen-sinh/co-so-tuyen-sinh-theo-loai-hinh', { 
-                id:  $("#loai_hinh").val(),})  
-            .then(function (response) {    
-                    var htmldata = '<option value="">Chọn cơ sở</option>'       
-                        response.data.forEach(element => {       
-                                htmldata+=`<option value="${element.id}" >${element.ten} </option>`
-                        });    
-                        $('#co_so_id').html(htmldata);   
-                }) 
-                .catch(function (error) {   
-                    onsole.log(error);   
-                });
-            });
+    $(document).ready(function(){
+    $('#co_so_id').select2();
+    $('#devvn_quanhuyen').select2();
+    $('#devvn_xaphuongthitran').select2();
+});
+$("#loai_hinh" ).change(function() {
+    axios.post('/xuat-bao-cao/ket-qua-tuyen-sinh/co-so-tuyen-sinh-theo-loai-hinh', {
+                id:  $("#loai_hinh").val(),
+    })
+    .then(function (response) {
+        var htmldata = '<option value="">Chọn cơ sở</option>'
+            response.data.forEach(element => {
+            htmldata+=`<option value="${element.id}" >${element.ten}</option>`   
+        });
+        $('#co_so_id').html(htmldata);
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+});
+
+$("#devvn_quanhuyen" ).change(function() {
+    axios.post('/xuat-bao-cao/ket-qua-tuyen-sinh/xa-phuong-theo-quan-huyen', {
+                id:  $("#devvn_quanhuyen").val(),
+    })
+    .then(function (response) {
+        var htmldata = '<option value="" selected  >Chọn</option>'
+            response.data.forEach(element => {
+            htmldata+=`<option value="${element.xaid}" >${element.name}</option>`   
+        });
+        $('#devvn_xaphuongthitran').html(htmldata);
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+});
+function resetInput() {
+  document.getElementById("formsearch").reset();
+}
+
+  $("#page-size").change(function(){  
+    $("#page_size_hide").val($('#page-size').val())
+    var url = new URL(window.location.href);
+    var search_params = url.searchParams;
+    search_params.set('page_size', $("#page_size_hide").val());
+    url.search = search_params.toString();
+    var new_url = url.toString();
+    window.location.href = new_url
+  });
 
 
-
-         $("#devvn_quanhuyen" ).change(function() { 
-                axios.post('/xuat-bao-cao/ket-qua-tuyen-sinh/xa-phuong-theo-quan-huyen',{
-                        id:  $("#devvn_quanhuyen").val(),    
-                        })   
-                 .then(function (response) {   
-                      var htmldata = '<option value="" selected  >Chọn</option>'    
-                      response.data.forEach(element => {          
-                         htmldata+=`<option value="${element.xaid}" >${element.name}</option>` 
-                      });   
-                     $('#devvn_xaphuongthitran').html(htmldata);  
-                  })  
-             .catch(function (error) {   
-                     console.log(error);   
-             });
-         });
-             
-        function resetInput() {
-                document.getElementById("formsearch").reset();
-         }
 </script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 
