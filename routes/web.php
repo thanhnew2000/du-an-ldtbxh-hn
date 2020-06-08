@@ -59,6 +59,4 @@ Route::group(['middleware' => 'auth'], function () {
      Route::get('danh-sach-doi-ngu-nha-giao',function(){return view('danhsachdoingunhagioa.danh-sach-doi-ngu-nha-giao');})->name('danh');
      Route::get('them-moi-danh-sach-doi-ngu-nha-giao',function(){return view('danhsachdoingunhagioa.them-moi-danh-sach-gv');})->name('them_ds');
      Route::get('chinh-sua-danh-sach-doi-ngu-ql',function(){return view('danhsachdoingunhagioa.chinh-sua-danh-sach-doi-ngu-ql');})->name('chinh_sua_ql');
-
-
 });
