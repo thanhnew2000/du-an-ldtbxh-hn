@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Qlsv extends Model
+class ChiNhanh extends Model
 {
-    protected $table = 'sv_dang_quan_ly';
+    protected $table = 'chi_nhanh_dao_tao';
     protected $fillable = [
-       
+        
     ];
 }
