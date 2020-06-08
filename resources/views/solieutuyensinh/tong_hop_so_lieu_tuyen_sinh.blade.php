@@ -135,6 +135,23 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row pt-4">
+                        <div class="col-md-6">
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-2 col-form-label">Ngành Nghề</label>
+                                <div class="col-lg-8">
+                                    <select class="form-control" name="nganh_nghe" id="nganh_nghe">
+                                        <option value="" selected>Chọn</option>
+                                        @foreach ($nganhnghe as $item)
+                                        <option @if (isset($params['nganh_nghe']))
+                                            {{( $params['nganh_nghe'] ==  $item->id ) ? 'selected' : ''}} @endif
+                                            value="{{$item->id}}">{{$item->ten_nganh_nghe}}-{{$item->id}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-lg-2">
@@ -180,7 +197,7 @@
                     </select>
                 </div>
             </div>
-            <table class="table table-bordered m-table m-table--border-danger m-table--head-bg-primary">
+            <table class="table table-bordered m-table m-table--border-danger m-table--head-bg-primary table-responsive">
                 <thead>
                     <tr>
                         <th scope="col">STT</th>
@@ -424,6 +441,7 @@
     $('#co_so_id').select2();
     $('#devvn_quanhuyen').select2();
     $('#devvn_xaphuongthitran').select2();
+    $('#nganh_nghe').select2();
 });
 $("#loai_hinh" ).change(function() {
     axios.post('/xuat-bao-cao/ket-qua-tuyen-sinh/co-so-tuyen-sinh-theo-loai-hinh', {

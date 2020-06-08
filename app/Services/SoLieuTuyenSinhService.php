@@ -41,7 +41,7 @@ class SoLieuTuyenSinhService extends AppService
         $queryData['loai_hinh'] = isset($params['loai_hinh']) ? $params['loai_hinh'] : null;
         $queryData['devvn_quanhuyen'] = isset($params['devvn_quanhuyen']) ? $params['devvn_quanhuyen'] : null;
         $queryData['devvn_xaphuongthitran'] = isset($params['devvn_xaphuongthitran']) ? $params['devvn_xaphuongthitran'] : null;
-
+        $queryData['nganh_nghe'] = isset($params['nganh_nghe']) ? $params['nganh_nghe'] : null;
         $data = $this->repository->getSoLuongTuyenSinh($queryData, $limit);
 
         return $data;
@@ -81,6 +81,8 @@ class SoLieuTuyenSinhService extends AppService
 
     public function getCheckTonTaiSoLieuTuyenSinh($datacheck)
     {
+
+        
         $datachecknew = [];
         foreach ($datacheck as $item) {
             $dataconvest = [$item['id'], '=', $item['value']];
@@ -109,5 +111,15 @@ class SoLieuTuyenSinhService extends AppService
     public function getXaPhuongTheoQuanHuyen($id)
     {
         return  $this->repository->getXaPhuongTheoQuanHuyen($id);
+    }
+
+    public function getNganhNghe()
+    {
+        return  $this->repository->getNganhNghe();
+    }
+
+    public function getThongTinCoSo($coSoId)
+    {
+        return  $this->repository->getThongTinCoSo($coSoId);
     }
 }

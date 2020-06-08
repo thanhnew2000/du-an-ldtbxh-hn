@@ -37,6 +37,7 @@ class SoLieuTuyenSinh extends Controller
         $data = $this->SoLieuTuyenSinhService->getSoLuongTuyenSinh($params,$limit);
         $coso = $this->SoLieuTuyenSinhService->getTenCoSoDaoTao();
         $quanhuyen = $this->SoLieuTuyenSinhService->getTenQuanHuyen();
+        $nganhnghe = $this->SoLieuTuyenSinhService->getNganhNghe();
         if(isset(request()->devvn_quanhuyen)){
             $xaphuongtheoquanhuyen = $this->SoLieuTuyenSinhService->getXaPhuongTheoQuanHuyen(request()->devvn_quanhuyen);
         }else{
@@ -51,7 +52,8 @@ class SoLieuTuyenSinh extends Controller
             'coso'=>$coso,
             'quanhuyen'=>$quanhuyen,
             'params'=>$params,
-            'xaphuongtheoquanhuyen'=>$xaphuongtheoquanhuyen
+            'xaphuongtheoquanhuyen'=>$xaphuongtheoquanhuyen,
+            'nganhnghe'=>$nganhnghe
         ]);
         
     }
@@ -68,12 +70,14 @@ class SoLieuTuyenSinh extends Controller
     {
         $limit=10;
         $params = request()->all();
+        $thongtincoso = $this->SoLieuTuyenSinhService->getThongTinCoSo($coSoId);
         $data = $this->SoLieuTuyenSinhService->getChiTietSoLuongTuyenSinh($coSoId,$limit,$params);
         $data->appends(request()->input())->links();
         return view('solieutuyensinh.chi_tiet_so_lieu_tuyen_sinh', [
             'data' => $data,
             'limit' => $limit,
-            'params'=>$params
+            'params'=>$params,
+            'thongtincoso'=>$thongtincoso 
         ]);
     }
 
@@ -105,8 +109,22 @@ class SoLieuTuyenSinh extends Controller
     public function postthemsolieutuyensinh(TuyenSinhValidate $request)
     {
         $getdata = $request->all();
+        $datacheck=[
+            ['id'=>"co_so_id",'value'=>$getdata["co_so_id"]],
+            ['id'=>'nghe_id','value'=>$getdata["nghe_id"]],
+            ['id'=>'nam','value'=>$getdata["nam"]],
+            ['id'=>'dot','value'=>$getdata["dot"]],
+        ];
+        $getdata = $this->SoLieuTuyenSinhService->getCheckTonTaiSoLieuTuyenSinh($datacheck);
+        if($getdata == 'tontai'){
+            return redirect()->route('themsolieutuyensinh')->with('thongbao', 'Số liệu tuyển sinh đã tồn tại và được phê duyệt');
+        }else if($getdata == null){
+            return redirect()->route('chitietsolieutuyensinh', ['co_so_id' => $getdata['co_so_id']])->with('thongbao','Thêm số liệu tuyển sinh thành công');
+        }else{
+            return redirect()->route('themsolieutuyensinh')->with('thongbao', 'Số liệu tuyển sinh đã tồn tại');
+        }
         $data = $this->SoLieuTuyenSinhService->postthemsolieutuyensinh($getdata);
-        return redirect()->route('chitietsolieutuyensinh', ['co_so_id' => $getdata['co_so_id']])->with('thongbao','Thêm số liệu tuyển sinh thành công');
+
     }
     public function getCheckTonTaiSoLieuTuyenSinh(Request $request)
     {

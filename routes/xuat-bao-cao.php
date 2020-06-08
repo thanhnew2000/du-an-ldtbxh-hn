@@ -55,7 +55,7 @@ Route::group(['prefix' => 'ket-qua-tuyen-sinh'], function(){
     Route::get('/tong-hop-so-lieu-tuyen-sinh','SoLieuTuyenSinh@tonghopsolieutuyensinh')->name('solieutuyensinh');
     Route::get('/search-co-so-so-lieu-tuyen-sinh','SoLieuTuyenSinh@searchCoSoTongHopSoLieuTuyenSinh')->name('searchCoSoTongHopSoLieuTuyenSinh');
     Route::get('/chi-tiet-so-lieu-tuyen-sinh/{id}','SoLieuTuyenSinh@chitietsolieutuyensinh')->name('chitietsolieutuyensinh');
-    Route::get('/sua-so-lieu-tuyen-sinh/{id}','SoLieuTuyenSinh@suasolieutuyensinh')->name('suasolieutuyensinh');
+    Route::get('/sua-so-lieu-tuyen-sinh/{id}','SoLieuTuyenSinh@suasolieutuyensinh')->middleware('solieutuyensinh')->name('suasolieutuyensinh');
     Route::post('/sua-so-lieu-tuyen-sinh/{id}/edit','SoLieuTuyenSinh@postsuasolieutuyensinh')->name('postsuasolieutuyensinh');
     Route::get('/them-so-lieu-tuyen-sinh','SoLieuTuyenSinh@themsolieutuyensinh')->name('themsolieutuyensinh');
     Route::post('/them-so-lieu-tuyen-sinh','SoLieuTuyenSinh@postthemsolieutuyensinh')->name('postthemsolieutuyensinh');
@@ -72,7 +72,7 @@ Route::group(['prefix' => 'ket-qua-tuyen-sinh'], function(){
     Route::post('/xa-phuong-theo-quan-huyen','SoLieuTuyenSinh@getXaPhuongTheoQuanHuyen')->name('getXaPhuongTheoQuanHuyen');
     Route::get('/search-co-so-so-lieu-tuyen-sinh','SoLieuTuyenSinh@searchCoSoTongHopSoLieuTuyenSinh')->name('searchCoSoTongHopSoLieuTuyenSinh');
     Route::get('/chi-tiet-so-lieu-tuyen-sinh/{co_so_id}','SoLieuTuyenSinh@chitietsolieutuyensinh')->name('chitietsolieutuyensinh');
-    Route::get('/sua-so-lieu-tuyen-sinh/{id}','SoLieuTuyenSinh@suasolieutuyensinh')->name('suasolieutuyensinh');
+    Route::get('/sua-so-lieu-tuyen-sinh/{id}','SoLieuTuyenSinh@suasolieutuyensinh')->middleware('checkStatusUpdateSoLieuTuyenSinh')->name('suasolieutuyensinh');
     Route::post('/sua-so-lieu-tuyen-sinh/{id}/edit','SoLieuTuyenSinh@postsuasolieutuyensinh')->name('postsuasolieutuyensinh');
     Route::get('/them-so-lieu-tuyen-sinh','SoLieuTuyenSinh@themsolieutuyensinh')->name('themsolieutuyensinh');
     Route::post('/them-so-lieu-tuyen-sinh','SoLieuTuyenSinh@postthemsolieutuyensinh')->name('postthemsolieutuyensinh');
