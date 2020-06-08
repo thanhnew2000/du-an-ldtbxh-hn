@@ -13,4 +13,6 @@ interface CoSoDaoTaoRepositoryInterface
      * @return mixed
      */
     public function getSingleCsdt($id);
+
+    public function apiSearchCoSoDaoTao($params);
 }

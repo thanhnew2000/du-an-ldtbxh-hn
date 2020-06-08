@@ -22,4 +22,9 @@ class ChungNhanDangKyService extends AppService
 
         return $this->repository->getCoSoDaoTaoTheoNghe($params);
     }
+
+    public function getNgheTheoCoSoDaoTao($params){
+
+        return $this->repository->getNgheTheoCoSoDaoTao($params);
+    }
 }

@@ -52,3 +52,7 @@ table td {
     width: 300px;
     text-align: left;
 }
+
+#select2-chon-co-so-ajax-container{
+    height: calc(2.95rem + 2px);
+}

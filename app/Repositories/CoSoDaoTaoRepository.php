@@ -61,4 +61,35 @@ class CoSoDaoTaoRepository extends BaseRepository implements CoSoDaoTaoRepositor
             ->where('co_so_dao_tao.id', $id)
             ->get();
     }
+
+    public function apiSearchCoSoDaoTao($params)
+    {
+        $resultCount = config('common.paginate_size.default');
+        $offset = ($params['page'] - 1) * $resultCount;
+        $queryBuilder = $this->table
+            ->select(
+                'id',
+                DB::raw('concat(ma_don_vi, " - ", ten) as text')
+            )
+            ->where('ten', 'like', "%".$params['keyword']."%")
+            ->orWhere('ma_don_vi', 'like', "'".$params['keyword']."%'");
+        $count = $queryBuilder->count();
+
+        $endCount = $offset + $resultCount;
+        $morePages = $count > $endCount;
+
+        $data = $queryBuilder
+            ->skip($offset)
+            ->take($resultCount)
+            ->get()
+            ->toArray();
+
+        $results = array(
+            "results" => $data,
+            "pagination" => array(
+                "more" => $morePages
+            )
+        );
+        return $results;
+    }
 }
