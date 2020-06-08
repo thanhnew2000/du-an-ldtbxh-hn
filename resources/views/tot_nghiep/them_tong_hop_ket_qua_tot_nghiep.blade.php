@@ -10,7 +10,7 @@
         <div class="m-portlet__head-caption">
             <div class="m-portlet__head-title">
                 <span class="m-portlet__head-icon">
-                    <i class="m-menu__link-icon flaticon-web"></i>
+                    <i class="m-menu__link-icon flatlicon-web"></i>
                 </span>
                 <h3 class="m-portlet__head-text">
                     Thêm mới kết quả<small>tốt nghiệp</small>
