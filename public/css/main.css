@@ -1,14 +1,9 @@
 * {
-    font-family: 'Roboto', sans-serif !important;
+    font-family: 'Roboto', sans-serif;
 }
-
-*:not(.select2-selection__arrow) {
-    font-family: "Roboto", sans-serif !important;
-}
-
 
 /* *:not(.select2-selection__arrow) {
-    font-family: "Roboto", sans-serif;
+    font-family: "Roboto", sans-serif !important;
 } */
 
 .btn {
@@ -38,7 +33,7 @@ table th {
     width: 1505px;background: black;height: 1500px;position: absolute;z-index: 100;opacity: 0.9;
 }
 .loading-position{
-    position: absolute;z-index: 100;color: white;width: 1000px;float: left;margin-left: 650px;margin-top: 310px;
+    position: absolute;z-index: 100;color: white;width: 1000px;float: left;margin-left: 750px;margin-top: 310px;
 }
   .lds-ring {
     display: inline-block;
