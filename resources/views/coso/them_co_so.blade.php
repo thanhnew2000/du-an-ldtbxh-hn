@@ -176,6 +176,7 @@
                                         <label for="" class="form-name">Xã/ Phường <span
                                                 class="text-danger">(*)</span></label>
                                         <select class="form-control col-12" name="xaid" id="devvn_xaphuongthitran">
+                                            <option disabled selected>Chọn</option>
                                             @foreach ($xaphuong as $xp)
                                             <option value="{{ $xp->xaid }}" @if (old('xaid')==$xp->xaid )
                                                 {{ 'selected' }}
@@ -225,12 +226,17 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script>
+    $(document).ready(function(){
+    $('#devvn_quanhuyen').select2();
+    $('#devvn_xaphuongthitran').select2();
+    });
+
     $("#devvn_quanhuyen" ).change(function() {
     axios.post('/xuat-bao-cao/ket-qua-tuyen-sinh/xa-phuong-theo-quan-huyen', {
                 id:  $("#devvn_quanhuyen").val(),
     })
     .then(function (response) {
-        var htmldata = '<option value="" selected  >Xã / Phường</option>'
+        var htmldata = '<option selected  disabled>Xã / Phường</option>'
             response.data.forEach(element => {
             htmldata+=`<option value="${element.xaid}" >${element.name}</option>`   
         });
@@ -241,4 +247,5 @@
     });
 });
 </script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 @endsection
