@@ -1,103 +1,125 @@
 
 @extends('layouts.admin')
+@section('title', "Tổng hợp số liệu học sinh")
 @section('content')
-<div class="m-grid__item m-grid__item--fluid m-wrapper">
-    <div class="m-content">
-        <div class="title mb-4">
-            <h4>Xem tổng hợp số liệu HSSV có mặt</h4>
-        </div>
-        <section class="fillter-area">
-            <div class="fillter-title">
-                <h4>Bộ lọc</h4>
+<div class="m-content container-fluid">
+    <div class="m-portlet">
+        <div class="m-portlet__head">
+            <div class="m-portlet__head-caption">
+                <div class="m-portlet__head-title">
+												<span class="m-portlet__head-icon">
+													<i class="m-menu__link-icon flaticon-web"></i>
+												</span>
+                    <h3 class="m-portlet__head-text">
+                        Sinh Viên Đang Quản Lý <small>Danh sách</small>
+                    </h3>
+                </div>
             </div>
-
-            <div class="fillter-form">
-                <form method="POST" action="saveAdd">
-                    <div class="d-flex container pt-3">
-                        <div class="form-group col-6 d-flex justify-content-around align-items-center">
-                            <label for="" class="fillter-name col-3">Tên Cơ Sở</label>
-                            <select class="form-control col-7" name="" id="">
-                                <option value="" selected disabled>Chọn cơ sở</option>
-                                <option>Trịnh Văn Bô</option>
-                                <option>Hàm Nghi</option>
-                                <option>Quan Hoa</option>
-                            </select>
+        </div>
+        <form action="" method="GET" class="m-form">
+            {{-- <input type="hidden" name="page_size" value="{{$params['page_size']}}"> --}}
+            <div class="m-portlet__body">
+                <div class="m-form__section m-form__section--first">
+                    <div class="m-form__heading">
+                        <h3 class="m-form__heading-title">Bộ lọc:</h3>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-2 col-form-label">Loại Hình Cơ Sở: </label>
+                                <div class="col-lg-8">
+                                    <select name="loai_hinh" class="form-control ">
+                                        <option value="" >Chọn </option>
+                                        @foreach($loaiHinh as $item)
+                                        <option value="{{ $item->id }}">{{ $item->loai_hinh_co_so }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-
-                        <div class="form-group col-6 d-flex justify-content-around align-items-center">
-                            <span for="" class="fillter-name col-3">Loại hình cơ sở </span>
-                            <select class=" form-control col-7 " name=" " id=" ">
-                                <option value=" " selected disabled>Chọn loại hình cơ sở</option>
-                                <option>Cao Đẳng</option>
-                                <option>Trung Cấp</option>
-                                <option>Sơ Cấp</option>
-                            </select>
+                        <div class="col-md-6">
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-2 col-form-label">Tên Cơ Sở: </label>
+                                <div class="col-lg-8">
+                                    <select name="co_so_id" class="form-control ">
+                                        <option value="" >Chọn </option>
+                                        @foreach ($coso as $item)
+                                        <option value="{{ $item->id }}">{{$item->ten}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
-            </div>
 
-            <div class="d-flex justify-content-between container pt-3 mb-5 col-4 ">
-                <button type="submit " class="btn btn-primary btn-fillter ">Tìm kiếm</button>
-                <button type="submit " class="btn btn-danger btn-fillter ">hủy</button>
+                   
+
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-2">
+                        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                    </div>
+                </div>
             </div>
-            
+        </form>
     </div>
-    </section>
-    <section class="action-nav d-flex align-items-center justify-content-between mt-4	">
-        <div class="action-template col-4 d-flex justify-content-between">
-            <a href="#"><i class="fa fa-download" aria-hidden="true"></i>
-                    Tải xuống
-                    biêu mẫu</a>
-            <a href="#"><i class="fa fa-upload" aria-hidden="true"></i>
-                    Tải lên file Excel</a>
-        </div>
-        <div class="btn">
-        <a href="{{route('xuatbc.them-so-sv')}}"><p class="btn btn-outline-primary">Thêm mới</p></a>
-        </div>
-    </section>
-    <section class="container pt-3 ">
-        <div class="m-section">
-            <div class="m-section__content">
-                <table class="table table-striped table-bordered " style="width: 100%;">
-                    <thead class=" thead-dark">
-                        @csrf
-                        <tr>
-                            <th>STT</th>
-                            <th>Tên Cơ Sở</th>
-                            <th>Số HSSV có mặt </th>
-                            <th>Cao Đẳng</th>
-                            <th>Trung Cấp </th>
-                            <th>Sơ Cấp </th>
-                            <th>Khác </th>
-                            <th>Chỉnh sửa</th>
-                            <th>Thao tác </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @php($i=1)
-                        @foreach ($data as $item => $qlsv)
-                        <tr>
-                            <th>{{$i++}}</th>
-                            <td>{{$qlsv->ten}}</td>
-                            <td>{{$qlsv->tongsinhvien}}</td>
-                            <td>{{$qlsv->so_luong_sv_Cao_dang}}</td>
-                            <td>{{$qlsv->so_luong_sv_Trung_cap}}</td>
-                            <td>{{$qlsv->so_luong_sv_So_cap}}</td>
-                            <td>{{$qlsv->so_luong_sv_he_khac}}</td>
-                            <td>
-                                <a href="{{ route('xuatbc.sua-so-sv', ['id'=>$qlsv->id])}}">Chỉnh sửa</a>
-                            </td>
-                            <td>
-                                <a href="">Chi tiết</a>
-                            </td>
-                        </tr>
+    <div class="m-portlet">
+        <div class="m-portlet__body">
+            <div class="col-12 form-group m-form__group d-flex justify-content-end">
+                {{-- <label class="col-lg-2 col-form-label">Kích thước:</label> --}}
+                {{-- <div class="col-lg-2">
+                    <select class="form-control" id="page-size">
+                        @foreach(config('common.paginate_size.list') as $size)
+                            <option
+                                    @if($params['page_size'] == $size)
+                                        selected
+                                    @endif
+                                    value="{{$size}}">{{$size}}</option>
                         @endforeach
-                    </tbody>
-                </table>
-                </form>
+                    </select>
+                </div> --}}
             </div>
-        </div>
+            <table class="table m-table m-table--head-bg-brand">
+                <thead>
+                    @csrf
+                    <th>STT</th>
+                    <th>Tên Cơ Sở</th>
+                    <th>Loại Hình Cơ Sở</th>
+                    <th>Tổng Số HS/SV <br> đang quản lý</th>
+                    <th>Cao Đẳng</th>
+                    <th>Trung Cấp </th>
+                    <th>Sơ Cấp </th>
+                    <th>Khác </th>
+                    <th>
+                        <a href="{{route('xuatbc.them-so-sv')}}" class="btn btn-success btn-sm">Thêm mới</a>
+                    </th>
+                </thead>
+                
+                @php($i=1)
+                
+                @forelse ($data as $qlsv)
+                    <tr>
+                        <td>{{$i++}}</td>
+                        <td>{{$qlsv->ten}}</td>
+                        <td>{{$qlsv->loai_hinh_co_so}}</td>
+                        <td>{{$qlsv->tong_so_HSSV_co_mat_cac_trinh_do}}</td>
+                        <td>{{$qlsv->so_luong_sv_Cao_dang}}</td>
+                        <td>{{$qlsv->so_luong_sv_Trung_cap}}</td>
+                        <td>{{$qlsv->so_luong_sv_So_cap}}</td>
+                        <td>{{$qlsv->so_luong_sv_he_khac}}</td>
+                        <td>
+                            <a href="{{ route('xuatbc.chi-tiet-so-lieu', ['co_so_id'=>$qlsv->cs_id]) }}" class="btn btn-info btn-sm">Chi tiết</a>
 
-    </section>
+                        </td>
+                    </tr>
+                    @empty
+                    @endforelse($item as $data )
+                </tbody>
+            </table>
+        </div>
+        <div class="m-portlet__foot d-flex justify-content-end">
+            {{$data->links()}}
+        </div>
+    </div>
 </div>
 @endsection

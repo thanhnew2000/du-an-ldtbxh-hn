@@ -6,24 +6,110 @@ namespace App\Repositories;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\QlsvRepositoryInterface;
+use Dotenv\Result\Result;
 
 class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
 {
+
+    protected $table;
     public function getTable()
     {
         return 'sv_dang_quan_ly';
     }
-    public function getQlsv()
+    public function getQlsv($params)
     {
+        // dd($params);
+       $data = $this->table
+        ->join('co_so_dao_tao', 'co_so_dao_tao.id', '=', 'sv_dang_quan_ly.co_so_id')
+        ->join('nganh_nghe', 'nganh_nghe.id', '=', 'sv_dang_quan_ly.nghe_id')
+        ->join('loai_hinh_co_so', 'loai_hinh_co_so.id', '=', 'sv_dang_quan_ly.id_loai_hinh') 
+        ->select(
+            'sv_dang_quan_ly.*',
+            'loai_hinh_co_so.loai_hinh_co_so',
+            'co_so_dao_tao.id as cs_id',
+            'co_so_dao_tao.ten',
+            'nganh_nghe.ten_nganh_nghe'
+        );
+        // dd($query);
+        if (isset($params['loai_hinh']) && !empty($params['loai_hinh'])) {
+            $data->where('loai_hinh_co_so.id', $params['loai_hinh']);
+            
+        }
+
+        if (isset($params['cs_id']) && !empty($params['cs_id'])) {
+            $data->where('sv_dang_quan_ly.co_so_id', $params['cs_id']);
+        }
+        
+        return $data->orderByDesc('sv_dang_quan_ly.id')->paginate(10);
+            
+    }
+    public function getCoSo()
+	{
+		$tencoso = DB::table('co_so_dao_tao')->select('id','ten')->get();
+		return $tencoso;
+    }
+    public function getNganhNghe(){
+        $nganhnghe = DB::table('nganh_nghe')->select('id','ten_nganh_nghe')->get();
+        // dd($nganhnghe);
+        return $nganhnghe;
+    }
+    public function suaSoLieuQlsv($id){
         return $this->table
-            ->join('co_so_dao_tao', 'co_so_dao_tao.id', '=', 'sv_dang_quan_ly.co_so_id')
-            // ->join('nganh_nghe', 'nganh_nghe.id', '=', 'sv_dang_quan_li.nghe_id')
-            // ->join('co_so_dao_tao', 'loai_hinh_co_so.ma_loai_hinh_co_so', '=', 'sv_dang_quan_ly.')
+        ->join('co_so_dao_tao', 'sv_dang_quan_ly.co_so_id', '=' ,'co_so_dao_tao.id')
+        ->join('nganh_nghe', 'nganh_nghe.id', '=', 'sv_dang_quan_ly.nghe_id')
+        ->join('loai_hinh_co_so', 'sv_dang_quan_ly.id_loai_hinh', '=', 'loai_hinh_co_so.id')
+        ->where('sv_dang_quan_ly.id', '=', $id)  
+        ->select(
+            'sv_dang_quan_ly.*',
+            'loai_hinh_co_so.loai_hinh_co_so',
+            'co_so_dao_tao.ten',
+            // 'co_so_dao_tao.id as cs_id',    
+            // 'co_so_dao_tao.id',
+            'nganh_nghe.ten_nganh_nghe',
+            // DB::raw('co_so_dao_tao.ten as cs_ten'),
+            DB::raw('sv_dang_quan_ly.id as sv_id'))->get();  
+    }
+    
+    public function chiTietSoLieuQlsv($coSoId,$queryData){
+        // dd($this->table);
+       
+       $data = $this->table
+            ->where('sv_dang_quan_ly.co_so_id', '=', $coSoId)
+            ->join('co_so_dao_tao', 'sv_dang_quan_ly.co_so_id', '=', 'co_so_dao_tao.id')
+            ->join('loai_hinh_co_so', 'sv_dang_quan_ly.id_loai_hinh', '=', 'loai_hinh_co_so.id')
+            ->join('nganh_nghe' ,'nganh_nghe.id', '=', 'sv_dang_quan_ly.nghe_id')
             ->select(
                 'sv_dang_quan_ly.*',
                 'co_so_dao_tao.ten',
-                DB::raw('co_so_dao_tao.ten as cs_ten')
-            )
-            ->get();
+                'loai_hinh_co_so.loai_hinh_co_so',
+                'nganh_nghe.ten_nganh_nghe',
+                'nganh_nghe.id',
+                DB::raw('sv_dang_quan_ly.id as sv_id')
+            );
+        //    dd($data);
+            if($queryData['nam']!= null){
+                $data->where('sv_dang_quan_ly.nam', $queryData['nam']);
+            }	
+            if($queryData['dot']!= null){
+                $data->where('sv_dang_quan_ly.dot', $queryData['dot']);
+            }
+            
+            if($queryData['nghe_id']!= null){
+                $data->where('sv_dang_quan_ly.nghe_id', $queryData['nghe_id']);
+            }
+            // dd($queryData);
+            return $data->paginate(10);
+            
     }
+
+    public function getNamDaoTao(){
+        $nam = DB::table('sv_dang_quan_ly')->select('id','nam')->get();
+        return $nam;
+    }
+
+    public function getTenCoSoDaoTao(){
+        $co_so_data = DB::table('co_so_dao_tao')->select('id', 'ten')->get();
+        return $co_so_data;
+    }
+
 }

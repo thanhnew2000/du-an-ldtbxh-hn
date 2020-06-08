@@ -65,6 +65,7 @@ abstract  class AppService
             }
         }
         // dd($attributes);
+        unset($attributes['_token']);
         return $this->repository->update($id, $attributes);
     }
 

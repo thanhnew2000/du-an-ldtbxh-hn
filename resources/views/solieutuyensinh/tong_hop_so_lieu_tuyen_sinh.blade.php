@@ -82,6 +82,23 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-2 col-form-label">Nghề cấp 2</label>
+                                <div class="col-lg-8">
+                                    <select class="form-control nganh_nghe" onchange="getNgheTheoCapBac(this)" name="nganh_nghe" id="nghe_cap_2">
+                                        <option value="" selected>Chọn</option>
+                                        @foreach ($nghe_cap_2 as $item)
+                                        <option @if (isset($params['nganh_nghe']))
+                                            {{( substr($params['nganh_nghe'],0,3) ==  $item->id ) ? 'selected' : ''}} @endif
+                                            value="{{$item->id}}">{{$item->id}}-{{$item->ten_nganh_nghe}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row pt-4">
                         <div class="col-md-6 ">
                             <div class="form-group m-form__group row">
                                 <label for="" class="col-lg-2 col-form-label">Đợt</label>
@@ -96,6 +113,23 @@
                                         </option>
                                     </select>
 
+                                </div>
+                            </div>
+                        </div>
+                    
+                     
+                        <div class="col-md-6">
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-2 col-form-label">Nghề cấp 3</label>
+                                <div class="col-lg-8">
+                                    <select class="form-control nganh_nghe" onchange="getNgheTheoCapBac(this)" name="" id="nghe_cap_3">
+                                        <option value="" selected>Chọn</option>  
+                                        @foreach ($nghe_cap_3 as $item)
+                                        <option @if (isset($params['nganh_nghe']))
+                                            {{( substr($params['nganh_nghe'],0,5) ==  $item->id ) ? 'selected' : ''}} @endif
+                                            value="{{$item->id}}">{{$item->id}}-{{$item->ten_nganh_nghe}}</option>
+                                        @endforeach                            
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -116,6 +150,24 @@
                                 </div>
                             </div>
                         </div>
+                      
+                        <div class="col-md-6">
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-2 col-form-label">Nghề cấp 4</label>
+                                <div class="col-lg-8">
+                                    <select class="form-control nganh_nghe" onchange="setNameNganhNgheSearch(this)" name="" id="nghe_cap_4">
+                                        <option value="" selected>Chọn</option>
+                                        @foreach ($nghe_cap_4 as $item)
+                                        <option @if (isset($params['nganh_nghe']))
+                                            {{( substr($params['nganh_nghe'],0,7) ==  $item->id ) ? 'selected' : ''}} @endif
+                                            value="{{$item->id}}">{{$item->id}}-{{$item->ten_nganh_nghe}}</option>
+                                        @endforeach    
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="row pt-4">                   
                         <div class="col-md-6 ">
                             <div class="form-group m-form__group row">
                                 <label for="" class="col-lg-2 col-form-label">Xã\Phường</label>
@@ -131,23 +183,6 @@
 
                                     </select>
 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row pt-4">
-                        <div class="col-md-6">
-                            <div class="form-group m-form__group row">
-                                <label class="col-lg-2 col-form-label">Ngành Nghề</label>
-                                <div class="col-lg-8">
-                                    <select class="form-control" name="nganh_nghe" id="nganh_nghe">
-                                        <option value="" selected>Chọn</option>
-                                        @foreach ($nganhnghe as $item)
-                                        <option @if (isset($params['nganh_nghe']))
-                                            {{( $params['nganh_nghe'] ==  $item->id ) ? 'selected' : ''}} @endif
-                                            value="{{$item->id}}">{{$item->ten_nganh_nghe}}-{{$item->id}}</option>
-                                        @endforeach
-                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -437,14 +472,19 @@
 
 <script src="{{ asset('js/so_lieu_tuyen_sinh/tong_hop_so_lieu.js') }}"></script>
 <script type="text/javascript">
+var url_tuyen_sinh_theo_loai_hinh = "{{route('csTuyenSinhTheoLoaiHinh')}}"
+var url_xa_phuong_theo_quan_huyen = "{{route('getXaPhuongTheoQuanHuyen')}}"
+var url_nghe_theo_nghe_cap_bac= "{{route('getNgheTheoCapBac')}}"
     $(document).ready(function(){
     $('#co_so_id').select2();
     $('#devvn_quanhuyen').select2();
     $('#devvn_xaphuongthitran').select2();
-    $('#nganh_nghe').select2();
+    $('#nghe_cap_2').select2();
+    $('#nghe_cap_3').select2();
+    $('#nghe_cap_4').select2();
 });
 $("#loai_hinh" ).change(function() {
-    axios.post('/xuat-bao-cao/ket-qua-tuyen-sinh/co-so-tuyen-sinh-theo-loai-hinh', {
+    axios.post(url_tuyen_sinh_theo_loai_hinh, {
                 id:  $("#loai_hinh").val(),
     })
     .then(function (response) {
@@ -460,7 +500,7 @@ $("#loai_hinh" ).change(function() {
 });
 
 $("#devvn_quanhuyen" ).change(function() {
-    axios.post('/xuat-bao-cao/ket-qua-tuyen-sinh/xa-phuong-theo-quan-huyen', {
+    axios.post(url_xa_phuong_theo_quan_huyen, {
                 id:  $("#devvn_quanhuyen").val(),
     })
     .then(function (response) {
@@ -474,8 +514,37 @@ $("#devvn_quanhuyen" ).change(function() {
         console.log(error);
     });
 });
-function resetInput() {
-  document.getElementById("formsearch").reset();
+
+function getNgheTheoCapBac(id){
+    setNameNganhNgheSearch(id)
+    var cap_nghe = $(id).val().length==3 ? 3: 4
+    axios.post(url_nghe_theo_nghe_cap_bac, {
+        id:  $(id).val(),
+        cap: cap_nghe
+    })
+    .then(function (response) {
+        var htmldata = '<option value="" selected  >Chọn nghề</option>'
+            response.data.forEach(element => {
+                htmldata+=`<option value="${element.id}">${element.id}-${element.ten_nganh_nghe}</option>`  
+        });
+        if ($(id).val().length==3) {
+            $('#nghe_cap_3').html(htmldata);
+            $("#nghe_cap_4").html('<option value="" selected  >Chọn nghề</option>');
+        }else{
+            $('#nghe_cap_4').html(htmldata);
+        }
+        
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+}
+function setNameNganhNgheSearch(id) {
+    var nganh_nghe = $('.nganh_nghe')
+    for (let index = 0; index < nganh_nghe.length; index++) {
+        $(nganh_nghe[index]).attr('name','')       
+    }
+    $(id).attr('name','nganh_nghe')
 }
 
   $("#page-size").change(function(){  

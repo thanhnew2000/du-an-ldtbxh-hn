@@ -377,7 +377,7 @@
       </div>
       {{-- end tổng số trong đó --}}
     @if (session('thongbao'))
-    <div class="thongbao" style="color: green; text-align: center;">
+    <div class="thongbao" style="color: red; text-align: center;">
       {{session('thongbao')}}
     </div>
     @endif
@@ -403,9 +403,10 @@
 @endsection
 @section('script')
 <script>
-  $(document).ready(function(){
-    $('#co_so_dao_tao').select2();
-    $('#ma_nganh_nghe').select2();
+var routeCheck = "{{ route('so_lieu_tuyen_sinh.check_so_lieu') }}";
+$(document).ready(function(){
+  $('#co_so_dao_tao').select2();
+  $('#ma_nganh_nghe').select2();
 });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

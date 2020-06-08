@@ -54,6 +54,7 @@ class SoLieuTuyenSinhService extends AppService
         $queryData['dot'] = isset($params['dot']) ? $params['dot'] : null;
         $data = $this->repository->getChiTietSoLuongTuyenSinh($coSoId, $limit, $queryData);
         return $data;
+    // dd($data);
     }
     public function getTenCoSoDaoTao()
     {
@@ -79,17 +80,48 @@ class SoLieuTuyenSinhService extends AppService
         return $this->repository->getsuasolieutuyensinh($id);
     }
 
-    public function getCheckTonTaiSoLieuTuyenSinh($datacheck)
+    public function getCheckTonTaiSoLieuTuyenSinh($data, $requestParams)
     {
-
+        $checkResult = $this->getSoLieu($data);
+        unset($requestParams['_token']);
+        $route = route('themsolieutuyensinh');
+        $message = $checkResult == 'tontai' ?
+            'Số liệu tuyển sinh đã tồn tại và được phê duyệt' :
+            'Số liệu tuyển sinh đã tồn tại';
         
-        $datachecknew = [];
-        foreach ($datacheck as $item) {
-            $dataconvest = [$item['id'], '=', $item['value']];
-            array_push($datachecknew, $dataconvest);
+        if (!isset($checkResult)) {
+            $data = $this->repository->postthemsolieutuyensinh($requestParams);
+            $message = 'Thêm số liệu tuyển sinh thành công';
+            $route = route('chitietsolieutuyensinh', [
+                'co_so_id' => $requestParams['co_so_id'],
+            ]);
         }
-        // dd($datachecknew);
-        return $this->repository->getCheckTonTaiSoLieuTuyenSinh($datachecknew);
+
+        return [
+            'route' => $route,
+            'message' => $message,
+        ];
+    }
+
+    public function getSoLieu($data)
+    {
+        $dataCheckNew = $this->constructConditionParams($data);
+
+        return $this->repository->getCheckTonTaiSoLieuTuyenSinh($dataCheckNew);
+    }
+
+    protected function constructConditionParams($params)
+    {
+        $conditionData = [];
+        foreach ($params as $item) {
+            $conditionData[] = [
+                $item['id'],
+                '=',
+                $item['value'],
+            ];
+        }
+
+        return $conditionData;
     }
 
     public function getDataSeachCoSo($id)
@@ -113,13 +145,19 @@ class SoLieuTuyenSinhService extends AppService
         return  $this->repository->getXaPhuongTheoQuanHuyen($id);
     }
 
-    public function getNganhNghe()
+    public function getNganhNghe($ma_cap_nghe)
     {
-        return  $this->repository->getNganhNghe();
+        return  $this->repository->getNganhNghe($ma_cap_nghe);
     }
 
     public function getThongTinCoSo($coSoId)
     {
         return  $this->repository->getThongTinCoSo($coSoId);
     }
+    public function getNgheTheoCapBac($id, $cap_nghe)
+    {
+        return  $this->repository->getNgheTheoCapBac($id, $cap_nghe);
+    }
 }
+
+ ?>
