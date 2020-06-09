@@ -34,7 +34,8 @@
                         <div class="col-left col-lg-5">
                             <div class="form-group col-lg-12">
 
-                                <label class="form-name mr-3" for="">Tên cơ sở đào tạo</label>
+                                <label class="form-name mr-3" for="">Tên cơ sở đào tạo <span
+                                        class="text-danger">(*)</span></label>
                                 <input type="text" class="form-control" value="{{old('ten', $item->ten)}}" name="ten">
                                 <p class="form-text text-danger">
                                     @error('ten')
@@ -45,7 +46,7 @@
                             </div>
 
                             <div class="form-group col-lg-12">
-                                <label class="form-name" for="">Mã đơn vị</label>
+                                <label class="form-name" for="">Mã đơn vị <span class="text-danger">(*)</span></label>
                                 <input type="text" class="form-control" value="{{  old('ma_don_vi',$item->ma_don_vi) }}"
                                     name="ma_don_vi" id="" aria-describedby="helpId" placeholder="">
                                 <p id="helpId" class="form-text text-danger">
@@ -56,7 +57,8 @@
                             </div>
 
                             <div class="form-group col-lg-12">
-                                <label class="form-name" for="">Tên cơ quan chủ quản</label>
+                                <label class="form-name" for="">Tên cơ quan chủ quản <span
+                                        class="text-danger">(*)</span></label>
                                 <select class="form-control" name="co_quan_chu_quan_id" id="">
                                     <option value="{{ $item->co_quan_chu_quan_id}}">{{ $item->cq_ten }}</option>
                                     @foreach ($parent as $cq)
@@ -71,7 +73,8 @@
                             </div>
 
                             <div class="form-group col-lg-12">
-                                <label class="form-name" for="">Loại hình cơ sở</label>
+                                <label class="form-name" for="">Loại hình cơ sở <span
+                                        class="text-danger">(*)</span></label>
                                 <select class="form-control" name="ma_loai_hinh_co_so" id="">
                                     <option value="{{ $item->ma_loai_hinh_co_so }}">{{ $item->loai_hinh_co_so }}
                                     </option>
@@ -86,7 +89,7 @@
                                 </p>
                             </div>
                             <div class="form-group col-lg-12">
-                                <label class="form-name" for="">Quyết định</label>
+                                <label class="form-name" for="">Quyết định <span class="text-danger">(*)</span></label>
                                 <select class="form-control" name="quyet_dinh_id" id="">
                                     <option selected value="{{ $item->quyet_dinh_id }}">{{ $item->qd_ten }}</option>
                                     @foreach ($qd as $quyetdinh)
@@ -100,7 +103,7 @@
                                 </p>
                             </div>
                             <div class="form-group col-lg-12">
-                                <label for="" class="form-name">Logo</label>
+                                <label for="" class="form-name">Logo <span class="text-danger">(*)</span></label>
                                 <div class="form-group col-lg-12 mt-2">
                                     <img class="col-6" src="{!! asset('storage/' . $item->logo) !!}" alt="">
                                 </div>
@@ -117,7 +120,7 @@
                         </div>
                         <div class="col-right col-lg-5">
                             <div class="form-group col-lg-12">
-                                <label class="form-name" for="">Tên quốc tế</label>
+                                <label class="form-name" for="">Tên quốc tế <span class="text-danger">(*)</span></label>
                                 <input type="text" class="form-control"
                                     value="{{ old('ten_quoc_te',$item->ten_quoc_te) }}" name="ten_quoc_te">
                                 <p id="helpId" class="form-text text-danger">
@@ -127,7 +130,7 @@
                                 </p>
                             </div>
                             <div class="form-group col-lg-12">
-                                <label class="form-name" for="">Điện thoại</label>
+                                <label class="form-name" for="">Điện thoại <span class="text-danger">(*)</span></label>
                                 <input type="text" class="form-control" name="dien_thoai"
                                     value="{{old('dien_thoai', $item->dien_thoai) }}" id="" aria-describedby="helpId"
                                     placeholder="">
@@ -147,7 +150,8 @@
                             <div class="form-group col-lg-12">
                                 <div class="form-group d-flex">
                                     <div class="mr-5">
-                                        <label for="" class="form-name">Quận/Huyện</label>
+                                        <label for="" class="form-name">Quận/Huyện <span
+                                                class="text-danger">(*)</span></label>
                                         <select class="form-control col-12" name="maqh" id="devvn_quanhuyen">
                                             <option value="{{ $item->maqh }}" selected>{{ $item->tenquanhuyen }}
                                             </option>
@@ -158,7 +162,8 @@
                                     </div>
 
                                     <div class="">
-                                        <label for="" class="form-name">Xã/ Phường</label>
+                                        <label for="" class="form-name">Xã/ Phường <span
+                                                class="text-danger">(*)</span></label>
                                         <select class="form-control col-12" name="xaid" id="devvn_xaphuongthitran">
                                             <option selected value="{{ $item->xaid }}">{{ $item->tenxaphuong }}</option>
                                         </select>
@@ -166,7 +171,7 @@
                                 </div>
                             </div>
                             <div class="form-group col-lg-12">
-                                <label class="form-name" for="">Địa chỉ </label>
+                                <label class="form-name" for="">Địa chỉ <span class="text-danger">(*)</span></label>
                                 <input type="text" class="form-control" value="{{ old('dia_chi', $item->dia_chi) }}"
                                     name="dia_chi" id="" aria-describedby="helpId" placeholder="">
                                 <p id="helpId" class="form-text text-danger">
