@@ -31,8 +31,10 @@ class QlsvService extends AppService
     public function getQlsv($param = [])
     {
         $queryData = [];
-        // $queryData['dot'] = isset($param['dot']) ? $param['dot'] : (Carbon::now()->month < 6 ? 1 : 2);
-        // $queryData['nam'] = isset($param['nam']) ? $param['nam'] : Carbon::now()->year;
+        $queryData['nam'] = isset($param['nam']) ? $param['nam'] : null;
+        $queryData['dot'] = isset($param['dot']) ? $param['dot'] : null;
+        $queryData['devvn_quanhuyen'] = isset($param['devvn_quanhuyen']) ? $param['devvn_quanhuyen'] : null;
+        $queryData['devvn_xaphuongthitran'] = isset($param['devvn_xaphuongthitran']) ? $param['devvn_xaphuongthitran'] : null;
         $queryData['cs_id'] = isset($param['co_so_id']) ? $param['co_so_id'] : null;
         $queryData['loai_hinh'] = isset($param['loai_hinh']) ? $param['loai_hinh'] : null;
 
@@ -75,4 +77,10 @@ class QlsvService extends AppService
         return $this->repository->getCoSoDaoTao();
     }
 
+    public function getTenQuanHuyen(){
+        return $this->repository->getTenQuanHuyen();
+    }
+    public function getTenXaPhuongTheoQuanHuyen($id){
+        return $this->repository->getTenXaPhuongTheoQuanHuyen($id);
+    }
 }

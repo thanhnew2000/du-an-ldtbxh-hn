@@ -27,78 +27,78 @@
                 </div>
             </div>
         </div>
-    </div>
-    <form action="" method="GET" class="m-form">
-        {{-- <input type="hidden" name="page_size" value="{{$params['page_size']}}"> --}}
-        <div class="m-portlet__body">
+        <form action="" method="GET" class="m-form">
+            {{-- <input type="hidden" name="page_size" value="{{$params['page_size']}}"> --}}
             <div class="m-portlet__body">
-                <div class="m-form__section m-form__section--first">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group m-form__group row">
-                                <label class="col-lg-2 col-form-label">Năm:  </label>
-                                <div class="col-lg-8">
-                                    <select name="nam" class="form-control ">
-                                        <option value="" >Chọn </option>
-                                        @foreach (config('common.nam.list') as $item)
-                                        <option 
-                                        @if (isset($params['nam']))
-                                                {{( $params['nam'] ==  $item ) ? 'selected' : ''}}  
-                                                @endif
-                                                value="{{$item}}"> {{$item}}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                <div class="m-portlet__body">
+                    <div class="m-form__section m-form__section--first">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group m-form__group row">
+                                    <label class="col-lg-2 col-form-label">Năm:  </label>
+                                    <div class="col-lg-8">
+                                        <select name="nam" class="form-control" id="nam">
+                                            <option value="" >Chọn </option>
+                                            @foreach (config('common.nam.list') as $item)
+                                            <option 
+                                            @if (isset($params['nam']))
+                                                    {{( $params['nam'] ==  $item ) ? 'selected' : ''}}  
+                                                    @endif
+                                                    value="{{$item}}"> {{$item}}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group m-form__group row">
+                                    <label class="col-lg-2 col-form-label">Đợt: </label>
+                                    <div class="col-lg-8">
+                                        <select class="form-control" name="dot" id="dot">
+                                            <option value="" >Chọn</option>
+                                            <option
+                                            @if (isset($params['dot']))
+                                                {{( $params['dot'] ==  1 ) ? 'selected' : ''}}  
+                                            @endif
+                                            value="1" >Đợt 1</option>
+                                            <option value="2"
+                                            @if (isset($params['dot']))
+                                            {{( $params['dot'] ==  2 ) ? 'selected' : ''}}  
+                                            @endif
+                                            >Đợt 2</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group m-form__group row">
-                                <label class="col-lg-2 col-form-label">Đợt: </label>
-                            <div class="col-lg-8">
-                                <select class="form-control" name="dot" id="dot">
-                                    <option value="" >Chọn</option>
-                                    <option
-                                    @if (isset($params['dot']))
-                                        {{( $params['dot'] ==  1 ) ? 'selected' : ''}}  
-                                    @endif
-                                    value="1" >Đợt 1</option>
-                                    <option value="2"
-                                    @if (isset($params['dot']))
-                                    {{( $params['dot'] ==  2 ) ? 'selected' : ''}}  
-                                    @endif
-                                    >Đợt 2</option>
-                                </select>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group m-form__group row">
-                                <label class="col-lg-2 col-form-label">Ngành Nghề : </label>
-                                <div class="col-lg-8">
-                                    <select name="nghe_id" class="form-control ">
-                                        <option value="" >Chọn </option>
-                                       @foreach ($nganhNghe as $item)
-                                        <option value="{{$item->id}}">{{$item->ten_nganh_nghe}} - {{$item->id}}</option>
-                                       @endforeach
-                                    </select>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group m-form__group row">
+                                    <label class="col-lg-2 col-form-label">Ngành Nghề:  </label>
+                                    <div class="col-lg-8" style="margin-top: 10px">
+                                        <select name="nghe_id" class="form-control" id="nghe_id">
+                                            <option value="" >Chọn </option>
+                                           @foreach ($nganhNghe as $item)
+                                            <option value="{{$item->id}}">{{$item->ten_nganh_nghe}} - {{$item->id}}</option>
+                                           @endforeach
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-2">
-                    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                <div class="row justify-content-center">
+                    <div class="col-lg-2">
+                        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                    </div>
                 </div>
-            </div>
+        </div>
+        </form>
     </div>
-    </form>
     <div class="m-portlet">
-        <div class="m-portlet__body">
+        <div class="m-portlet__body table-responsive">
             <table class="table table-bordered m-table m-table--border-danger m-table--head-bg-primary table-boder-white">
                 <thead>
                     <tr class="text-center">
@@ -172,5 +172,21 @@
             {{$data->links()}}
         </div>
     </div>
+    <div>
+        <a href="{{ route('xuatbc.ds-sv-dang-hoc')}}" class="btn btn-danger btn-sm justify-content-end">Quay Lại</a>
+    </div>
 </div>
+@endsection
+
+@section('script')
+<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+<script>
+
+$(document).ready(function(){
+    $('#nghe_id').select2();
+    $('#co_so_id').select2();
+    $('#devvn_xaphuongthitran').select2();
+    });
+
+</script>
 @endsection

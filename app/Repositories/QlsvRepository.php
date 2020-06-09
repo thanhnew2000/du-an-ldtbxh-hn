@@ -22,23 +22,43 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
        $data = $this->table
         ->join('co_so_dao_tao', 'co_so_dao_tao.id', '=', 'sv_dang_quan_ly.co_so_id')
         ->join('nganh_nghe', 'nganh_nghe.id', '=', 'sv_dang_quan_ly.nghe_id')
+        ->join('devvn_quanhuyen', 'co_so_dao_tao.maqh', '=', 'devvn_quanhuyen.maqh')
+        ->join('devvn_xaphuongthitran', 'co_so_dao_tao.xaid', '=', 'devvn_xaphuongthitran.xaid')
         ->join('loai_hinh_co_so', 'loai_hinh_co_so.id', '=', 'sv_dang_quan_ly.id_loai_hinh') 
         ->select(
             'sv_dang_quan_ly.*',
             'loai_hinh_co_so.loai_hinh_co_so',
             'co_so_dao_tao.id as cs_id',
             'co_so_dao_tao.ten',
-            'nganh_nghe.ten_nganh_nghe'
+            'nganh_nghe.ten_nganh_nghe',
+            'devvn_quanhuyen.name as ten_quan_huyen',
+			'devvn_xaphuongthitran.name as ten_xa_phuong'
         );
         // dd($query);
+        if($params['nam']!= null){
+            $data->where('sv_dang_quan_ly.nam', $params['nam']);
+        }	
+        if($params['dot']!= null){
+            $data->where('sv_dang_quan_ly.dot', $params['dot']);
+        }
         if (isset($params['loai_hinh']) && !empty($params['loai_hinh'])) {
             $data->where('loai_hinh_co_so.id', $params['loai_hinh']);
             
         }
 
         if (isset($params['cs_id']) && !empty($params['cs_id'])) {
+            // dd($data->where('sv_dang_quan_ly.co_so_id', $params['cs_id']));
             $data->where('sv_dang_quan_ly.co_so_id', $params['cs_id']);
         }
+        
+        if (isset($params['devvn_quanhuyen']) && $params['devvn_quanhuyen'] != null) {
+			$data->where('co_so_dao_tao.maqh', $params['devvn_quanhuyen']);
+        }
+        
+		if (isset($params['devvn_xaphuongthitran']) && $params['devvn_xaphuongthitran'] != null) {
+			$data->where('co_so_dao_tao.xaid', $params['devvn_xaphuongthitran']);
+        }
+        
         
         return $data->orderByDesc('sv_dang_quan_ly.id')->paginate(10);
             
@@ -110,6 +130,23 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
     public function getTenCoSoDaoTao(){
         $co_so_data = DB::table('co_so_dao_tao')->select('id', 'ten')->get();
         return $co_so_data;
+    }
+
+    public function getTenQuanHuyen(){
+        return DB::table('devvn_quanhuyen')->get();
+    }
+
+    public function getTenXaPhuongTheoQuanHuyen($id){
+        if($id==0){
+			$data = DB::table('devvn_xaphuongthitran')
+			->select('devvn_xaphuongthitran.xaid', 'devvn_xaphuongthitran.name')->get();
+			return $data;
+		}else{
+			$data = DB::table('devvn_xaphuongthitran')
+			->where('maqh', '=', $id)
+			->select('devvn_xaphuongthitran.xaid', 'devvn_xaphuongthitran.name')->get();
+			return $data;
+    }
     }
 
 }

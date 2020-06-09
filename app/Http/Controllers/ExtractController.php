@@ -192,20 +192,28 @@ class ExtractController extends Controller
     }
     public function tonghopsvdanghoc()
     {
-        
         $params = request()->all();
-        if(!isset($params['page_size'])) $params['page_size'] = config('common.paginate_size.default');
-        // dd($params);
+        
+        $quanhuyen = $this->QlsvService->getTenQuanHuyen();
+        if(isset(request()->devvn_quanhuyen)){
+            $xaphuongtheoquanhuyen = $this->QlsvService->getTenXaPhuongTheoQuanHuyen(request()->devvn_quanhuyen);
+        }else{
+            $xaphuongtheoquanhuyen=[];
+        }
         $data = $this->QlsvService->getQlsv($params);
         // $nam = $this->QlsvService->getNamDaoTao();
         $loaiHinhCs = $this->QlsvService->getLoaiHinh();
         $coso = $this->QlsvService->getCoSo();
+        $route_name = Route::current();
+        // dd($route_name);
         return view('extractreport.tong_hop_sinh_vien_dang_theo_hoc',[
-            // 'nam' => $nam,
+            'limit'=>$limit,
+            'route_name'=>$route_name,
             'data' => $data,
             'loaiHinh' => $loaiHinhCs,
             'coso'=>$coso,
-            
+            'quanhuyen'=>$quanhuyen,
+            'xaphuongtheoquanhuyen'=>$xaphuongtheoquanhuyen
         ]);
     }
     public function tongHopChiTietSvDangTheoHoc($coSoId){

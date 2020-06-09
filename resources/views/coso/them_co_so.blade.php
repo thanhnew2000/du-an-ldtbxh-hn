@@ -222,9 +222,10 @@
 @endsection
 
 @section('script')
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 
 <script>
+    
     $("#devvn_quanhuyen" ).change(function() {
     axios.post('/xuat-bao-cao/ket-qua-tuyen-sinh/xa-phuong-theo-quan-huyen', {
                 id:  $("#devvn_quanhuyen").val(),
