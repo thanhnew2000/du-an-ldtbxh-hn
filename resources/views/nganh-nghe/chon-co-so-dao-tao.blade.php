@@ -63,7 +63,7 @@
                     <th>Ngày ban hành</th>
                     <th>Trạng thái</th>
                     <th>
-                        <a href="" class="btn btn-success btn-sm">Bổ sung</a>
+                        <a href="javascript:;" id="bo-sung-dang_ky" class="btn btn-success btn-sm">Bổ sung</a>
                     </th>
                     </thead>
                     <tbody>
@@ -145,6 +145,7 @@
                 var reloadUrl = `${currentUrl}/${csdtId}?page_size=${page_size}`;
                 window.location.href = reloadUrl;
             });
+
         });
     </script>
 @endsection

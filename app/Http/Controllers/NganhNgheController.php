@@ -102,6 +102,8 @@ class NganhNgheController extends Controller
             compact('defaultCsdt', 'route_name', 'dsNghe', 'params'));
     }
 
+
+
     public function apiCheckNgheCap4(Request $request){
         $params['keyword'] = $request->keyword;
         $params['page'] = $request->page;
