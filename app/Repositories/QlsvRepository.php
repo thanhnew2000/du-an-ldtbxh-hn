@@ -18,7 +18,6 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
     }
     public function getQlsv($params)
     {
-        // dd($params);
        $data = $this->table
         ->join('co_so_dao_tao', 'co_so_dao_tao.id', '=', 'sv_dang_quan_ly.co_so_id')
         ->join('nganh_nghe', 'nganh_nghe.id', '=', 'sv_dang_quan_ly.nghe_id')
@@ -35,7 +34,7 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
 			'devvn_xaphuongthitran.name as ten_xa_phuong'
         );
         // dd($query);
-        if($params['nam']!= null){
+        if(!empty($params['nam'])){
             $data->where('sv_dang_quan_ly.nam', $params['nam']);
         }	
         if($params['dot']!= null){
@@ -47,7 +46,6 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
         }
 
         if (isset($params['cs_id']) && !empty($params['cs_id'])) {
-            // dd($data->where('sv_dang_quan_ly.co_so_id', $params['cs_id']));
             $data->where('sv_dang_quan_ly.co_so_id', $params['cs_id']);
         }
         
@@ -60,7 +58,7 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
         }
         
         
-        return $data->orderByDesc('sv_dang_quan_ly.id')->paginate(10);
+        return $data->orderByDesc('sv_dang_quan_ly.id')->paginate($params['page_size']);
             
     }
     public function getCoSo()
@@ -120,7 +118,7 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
                 $data->where('sv_dang_quan_ly.nghe_id', $queryData['nghe_id']);
             }
             // dd($queryData);
-            return $data->paginate(10);
+            return $data->paginate($queryData['page_size']);
             
     }
 

@@ -32,7 +32,11 @@
                                     <select name="loai_hinh" class="form-control ">
                                         <option value="" >Chọn </option>
                                         @foreach($loaiHinh as $item)
-                                        <option value="{{ $item->id }}">{{ $item->loai_hinh_co_so }}</option>
+                                        <option 
+                                            @if(isset($params['loai_hinh']) && $params['loai_hinh'] == $item->id)
+                                                selected
+                                            @endif
+                                        value="{{ $item->id }}">{{ $item->loai_hinh_co_so }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -42,10 +46,13 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Tên Cơ Sở: </label>
                                 <div class="col-lg-8">
-                                    <select name="co_so_id" class="form-control" id="co_so_id">
+                                    <select name="cs_id" class="form-control" id="co_so_id">
                                         <option value="" >Chọn </option>
                                         @foreach ($coso as $item)
-                                        <option value="{{ $item->id }}">{{$item->ten}}</option>
+                                        <option 
+                                        @if(isset($params['cs_id']) && $params['cs_id'] == $item->id)
+                                            selected
+                                        @endif value="{{ $item->id }}">{{$item->ten}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -61,7 +68,8 @@
                                         <option value="" >Chọn quận huyện  </option>
                                         @foreach ($quanhuyen as $item)
                                         <option @if (isset($params['devvn_quanhuyen']))
-                                            {{( $params['devvn_quanhuyen'] ==  $item->maqh ) ? 'selected' : ''}} @endif
+                                            {{( $params['devvn_quanhuyen'] ==  $item->maqh ) ? 'selected' : ''}} 
+                                            @endif
                                             value="{{$item->maqh}}">{{$item->name}}</option>
                                         @endforeach
                                     </select>
@@ -158,8 +166,10 @@
                  <div class="col-lg-2">
                     <select class="form-control" id="page-size">
                         @foreach(config('common.paginate_size.list') as $size)
-                        <option @if (isset($params['page_size']))
-                            {{( $params['page_size'] ==  $size ) ? 'selected' : ''}} @endif value="{{$size}}">{{$size}}
+                        <option 
+                            @if (isset($params['page_size']) && $params['page_size'] ==  $size)
+                                selected 
+                            @endif value="{{$size}}">{{$size}}
                         </option>
                         @endforeach
                     </select>
@@ -247,12 +257,14 @@ $(document).ready(function(){
 });
 
 $("#page-size").change(function(){  
-    $("#page_size_hide").val($('#page-size').val())
+    var pageSize = $(this).val();
+    
     var url = new URL(window.location.href);
     var search_params = url.searchParams;
-    search_params.set('page_size', $("#page_size_hide").val());
+    search_params.set('page_size', pageSize);
     url.search = search_params.toString();
     var new_url = url.toString();
+    // console.log(new_url);
     window.location.href = new_url
   });
 </script>

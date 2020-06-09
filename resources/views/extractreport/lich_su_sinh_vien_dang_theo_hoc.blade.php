@@ -80,7 +80,10 @@
                                         <select name="nghe_id" class="form-control" id="nghe_id">
                                             <option value="" >Chọn </option>
                                            @foreach ($nganhNghe as $item)
-                                            <option value="{{$item->id}}">{{$item->ten_nganh_nghe}} - {{$item->id}}</option>
+                                            <option  
+                                            @if(isset($params['nghe_id']) && $params['nghe_id'] == $item->id)
+                                                selected
+                                            @endif value="{{$item->id}}">{{$item->ten_nganh_nghe}} - {{$item->id}}</option>
                                            @endforeach
                                         </select>
                                     </div>

@@ -193,7 +193,6 @@ class ExtractController extends Controller
     public function tonghopsvdanghoc()
     {
         $params = request()->all();
-        
         $quanhuyen = $this->QlsvService->getTenQuanHuyen();
         if(isset(request()->devvn_quanhuyen)){
             $xaphuongtheoquanhuyen = $this->QlsvService->getTenXaPhuongTheoQuanHuyen(request()->devvn_quanhuyen);
@@ -201,11 +200,12 @@ class ExtractController extends Controller
             $xaphuongtheoquanhuyen=[];
         }
         $data = $this->QlsvService->getQlsv($params);
+        $data->appends(request()->input())->links();
+        
         // $nam = $this->QlsvService->getNamDaoTao();
         $loaiHinhCs = $this->QlsvService->getLoaiHinh();
         $coso = $this->QlsvService->getCoSo();
         $route_name = Route::current();
-        // dd($route_name);
         return view('extractreport.tong_hop_sinh_vien_dang_theo_hoc',[
             // 'limit'=>$limit,
             'route_name'=>$route_name,
@@ -213,19 +213,20 @@ class ExtractController extends Controller
             'loaiHinh' => $loaiHinhCs,
             'coso'=>$coso,
             'quanhuyen'=>$quanhuyen,
-            'xaphuongtheoquanhuyen'=>$xaphuongtheoquanhuyen
+            'xaphuongtheoquanhuyen'=>$xaphuongtheoquanhuyen,
+            'params' => $params
         ]);
     }
     public function tongHopChiTietSvDangTheoHoc($coSoId){
         
-        $queryData = request()->all();
+        $params = request()->all();
         $quanhuyen = $this->QlsvService->getTenQuanHuyen();
         if(isset(request()->devvn_quanhuyen)){
             $xaphuongtheoquanhuyen = $this->QlsvService->getTenXaPhuongTheoQuanHuyen(request()->devvn_quanhuyen);
         }else{
             $xaphuongtheoquanhuyen=[];
         }
-        $data = $this->QlsvService->chiTietSoLieuQlsv($coSoId,$queryData);
+        $data = $this->QlsvService->chiTietSoLieuQlsv($coSoId,$params);
         $loaiHinhCs = $this->QlsvService->getLoaiHinh();
         $coso = $this->QlsvService->getCoSo();
         $nganhNghe = $this->QlsvService->getNganhNghe();
@@ -235,7 +236,7 @@ class ExtractController extends Controller
             'loaiHinh' => $loaiHinhCs,
             'coso'=>$coso,
             'nganhNghe'=> $nganhNghe,
-            'query'=>$queryData,
+            'params'=>$params,
             'quanhuyen'=>$quanhuyen,
             'xaphuongtheoquanhuyen'=>$xaphuongtheoquanhuyen]);
 
