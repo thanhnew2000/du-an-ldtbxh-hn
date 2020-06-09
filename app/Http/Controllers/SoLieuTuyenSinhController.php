@@ -45,15 +45,8 @@ class SoLieuTuyenSinhController extends Controller
             $xaphuongtheoquanhuyen=[];
         }
         
-        if(isset(request()->nganh_nghe) ){
-            $ma_cap_nghe_3 = substr(request()->nganh_nghe,  0, 3);
-            $ma_cap_nghe_4 = substr(request()->nganh_nghe,  0, 5);
-            $nghe_cap_3 =$this->SoLieuTuyenSinhService->getNgheTheoCapBac($ma_cap_nghe_3, 3);
-            $nghe_cap_4 =$this->SoLieuTuyenSinhService->getNgheTheoCapBac($ma_cap_nghe_4, 4);
-        }else{
             $nghe_cap_3=$this->SoLieuTuyenSinhService->getNganhNghe(3);
             $nghe_cap_4=$this->SoLieuTuyenSinhService->getNganhNghe(4);
-        }
 
 
         $loaiHinh = $this->SoLieuTuyenSinhService->getListLoaiHinh();

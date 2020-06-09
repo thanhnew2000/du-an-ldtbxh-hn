@@ -91,9 +91,14 @@ Route::group(['prefix' => 'ket-qua-xay-dung-giao-trinh'], function(){
 
 
 Route::group(['prefix' => 'ket-qua-tot-nghiep'], function(){
-    Route::get('/tong-hop', 'ExtractController@tonghopkqtotnghiep')
-
+    Route::get('/', 'SinhVienTotNghiepController@index')
         ->name('xuatbc.ds-tot-nghiep');
+    Route::get('/chi-tiet-tong-hop-ket-qua-tot-nghiep/{id}', 'SinhVienTotNghiepController@show')
+        ->name('xuatbc.chi-tiet-tong-hop');  
+    Route::get('/sua-tong-hop-ket-qua-tot-nghiep', 'SinhVienTotNghiepController@edit')
+        ->name('xuatbc.sua-tong-hop');
+    Route::get('/them-tong-hop-ket-qua-tot-nghiep', 'SinhVienTotNghiepController@create')
+        ->name('xuatbc.them-tong-hop');   
 });
 
 
