@@ -28,4 +28,9 @@ class CoSoDaoTaoService extends AppService
     {
         return $this->repository->apiSearchCoSoDaoTao($params);
     }
+
+    public function addCoQuanChuQuan($attributes = [])
+    {
+        return $this->repository->addCoQuanChuQuan($attributes);
+    }
 }

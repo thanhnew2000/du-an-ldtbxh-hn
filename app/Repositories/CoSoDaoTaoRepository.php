@@ -71,8 +71,8 @@ class CoSoDaoTaoRepository extends BaseRepository implements CoSoDaoTaoRepositor
                 'id',
                 DB::raw('concat(ma_don_vi, " - ", ten) as text')
             )
-            ->where('ten', 'like', "%".$params['keyword']."%")
-            ->orWhere('ma_don_vi', 'like', "'".$params['keyword']."%'");
+            ->where('ten', 'like', "%" . $params['keyword'] . "%")
+            ->orWhere('ma_don_vi', 'like', "'" . $params['keyword'] . "%'");
         $count = $queryBuilder->count();
 
         $endCount = $offset + $resultCount;
@@ -91,5 +91,10 @@ class CoSoDaoTaoRepository extends BaseRepository implements CoSoDaoTaoRepositor
             )
         );
         return $results;
+    }
+
+    public function addCoQuanChuQuan($attributes = [])
+    {
+        return DB::table('co_quan_chu_quan')->insert($attributes);
     }
 }

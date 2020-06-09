@@ -59,3 +59,12 @@ table td {
     border: 1px solid white;
     border-top: 1px solid white !important;
 }
+
+.boder-1-gray {
+    border: 1px solid #ebedf2;
+}
+
+.list-checkbox {
+    padding: 0;
+    list-style: none;
+}

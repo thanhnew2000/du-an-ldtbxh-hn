@@ -173,7 +173,6 @@
                                                                         value="2011-08-19" id="example-date-input">
                                                                 </div>
                                                             </div>
-
                                                             <div class="form-group m-form__group col-4">
                                                                 <label for="example-date-input"
                                                                     class="col-form-label">Ngày hiệu lực
@@ -353,27 +352,27 @@
 
 <script>
     $(document).ready(function(){
-    $('#devvn_quanhuyen').select2();
-    $('#devvn_xaphuongthitran').select2();
-    $('#co_quan_chu_quan_id').select2();
-    $('#quyet_dinh_id').select2();
+        $('#devvn_quanhuyen').select2();
+        $('#devvn_xaphuongthitran').select2();
+        $('#co_quan_chu_quan_id').select2();
+        $('#quyet_dinh_id').select2();
     });
 
     $("#devvn_quanhuyen" ).change(function() {
-    axios.post('/xuat-bao-cao/ket-qua-tuyen-sinh/xa-phuong-theo-quan-huyen', {
-                id:  $("#devvn_quanhuyen").val(),
-    })
-    .then(function (response) {
-        var htmldata = '<option selected  disabled>Xã / Phường</option>'
-            response.data.forEach(element => {
-            htmldata+=`<option value="${element.xaid}" >${element.name}</option>`   
-        });
-        $('#devvn_xaphuongthitran').html(htmldata);
-    })
-    .catch(function (error) {
-        console.log(error);
+        axios.post('/xuat-bao-cao/ket-qua-tuyen-sinh/xa-phuong-theo-quan-huyen', {
+                    id:  $("#devvn_quanhuyen").val(),
+        })
+        .then(function (response) {
+            var htmldata = '<option selected  disabled>Xã / Phường</option>'
+                response.data.forEach(element => {
+                htmldata+=`<option value="${element.xaid}" >${element.name}</option>`   
+            });
+            $('#devvn_xaphuongthitran').html(htmldata);
+        })
+        .catch(function (error) {
+            console.log(error);
+            });
     });
-});
 </script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 @endsection
