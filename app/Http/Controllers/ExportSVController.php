@@ -14,7 +14,7 @@ class ExportSVController extends Controller
     public function exportFormNhapSinhVien(Request $request){
         $id_co_so =$request->id_cs;
         $co_so = DB::table('co_so_dao_tao')->where('id', $request->id_cs)->first();
-        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load('file_excel/form-export-data-tuyen-sinh.xls');
+        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load('file_excel/tuyensinh/form-export-data-tuyen-sinh.xls');
         $worksheet = $spreadsheet->getActiveSheet();
         
         $worksheet->setCellValue('C8', "Trường: $co_so->ten - $id_co_so ");
@@ -32,7 +32,9 @@ class ExportSVController extends Controller
         $co_so_nghe = DB::table('co_so_dao_tao')->where('co_so_dao_tao.id', '=', $id_co_so)
 		->join('giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao', 'co_so_dao_tao.id', '=', 'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.co_so_id')
 		->join('nganh_nghe', 'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.nghe_id', '=', 'nganh_nghe.id')
-		->select('co_so_dao_tao.ma_loai_hinh_co_so','co_so_dao_tao.loai_truong','nganh_nghe.id','nganh_nghe.ten_nganh_nghe')->get();
+        ->select('co_so_dao_tao.ma_loai_hinh_co_so','co_so_dao_tao.loai_truong','nganh_nghe.id','nganh_nghe.ten_nganh_nghe')
+        ->orderBy('nganh_nghe.id','desc')
+        ->get();
 
         //  tạo khóa đê khóa các dòng
         $spreadsheet->getActiveSheet()->getProtection()->setSheet(true);
@@ -88,7 +90,7 @@ class ExportSVController extends Controller
         ];
 
 
-        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load('file_excel/form-export-data-tuyen-sinh.xlsx');
+        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load('file_excel/tuyensinh/form-export-data-tuyen-sinh.xlsx');
         $worksheet = $spreadsheet->getActiveSheet();
 
         // nhận request về trường , đợt, năm để xuất
@@ -196,13 +198,20 @@ class ExportSVController extends Controller
 
 
             // // KHÓA CÁC DÒNG Ô
-            $worksheet->getStyle('B'.$row)->getProtection()->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED);
-            $worksheet->getStyle('C'.$row)->getProtection()->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED);
-            $worksheet->getStyle('D'.$row)->getProtection()->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED);
-            $worksheet->getStyle('E'.$row)->getProtection()->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED);
-            $worksheet->getStyle('F'.$row)->getProtection()->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED);
-            $worksheet->getStyle('G'.$row)->getProtection()->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED);
-      
+
+            foreach($arrayAphabe as $apha){
+                $worksheet->getStyle($apha.$row)->getProtection()->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED);
+            }
+            // $worksheet->getStyle('B'.$row)->getProtection()->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED);
+            // $worksheet->getStyle('C'.$row)->getProtection()->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED);
+            // $worksheet->getStyle('D'.$row)->getProtection()->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED);
+            // $worksheet->getStyle('E'.$row)->getProtection()->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED);
+            // $worksheet->getStyle('F'.$row)->getProtection()->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED);
+            // $worksheet->getStyle('G'.$row)->getProtection()->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED);
+            
+            
+            
+
         }
 
   
