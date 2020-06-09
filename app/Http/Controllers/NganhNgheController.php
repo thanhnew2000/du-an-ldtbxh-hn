@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\ChungNhanDangKyService;
+use App\Services\CoSoDaoTaoService;
 use App\Services\LoaiHinhCoSoService;
 use App\Services\NganhNgheService;
 use App\Services\PhuongXaService;
@@ -16,10 +17,12 @@ class NganhNgheController extends Controller
     protected $phuongXaService;
     protected $quanHuyenService;
     protected $loaiHinhCoSoService;
+    protected $coSoDaoTaoService;
     public function __construct(NganhNgheService $nganhNgheService,
                                 ChungNhanDangKyService $chungNhanDangKyService,
                                 PhuongXaService $phuongXaService,
                                 LoaiHinhCoSoService $loaiHinhCoSoService,
+                                CoSoDaoTaoService $coSoDaoTaoService,
                                 QuanHuyenService $quanHuyenService)
     {
         $this->nganhNgheService = $nganhNgheService;
@@ -27,6 +30,7 @@ class NganhNgheController extends Controller
         $this->phuongXaService = $phuongXaService;
         $this->quanHuyenService = $quanHuyenService;
         $this->loaiHinhCoSoService = $loaiHinhCoSoService;
+        $this->coSoDaoTaoService = $coSoDaoTaoService;
     }
 
     /* Danh sách ngành nghề
@@ -43,8 +47,7 @@ class NganhNgheController extends Controller
         $data = $this->nganhNgheService->getNganhNghe($params);
         $data->appends(request()->input())->links();
 
-        $route_name = Route::current();
-        dd($route_name);
+        $route_name = Route::current()->action['as'];
         return view('nganh-nghe.danh-sach-nghe', compact('data', 'params', 'route_name'));
     }
 
@@ -72,7 +75,39 @@ class NganhNgheController extends Controller
     public function thietlapchitieutuyensinh(){
       return view('career.thiet_lap_chi_tieu_tuyen_sinh');
     }
-    public function thietlapnghechocosodaotao(){
-      return view('career.thiet_lap_nghe_cho_co_so_dao_tao');
+
+    public function thietlapnghechocosodaotao($csdtid = null, Request $request){
+        $dataCoSoDaoTao = $this->coSoDaoTaoService->getSingleCsdt($csdtid);
+        $defaultCsdt = count($dataCoSoDaoTao) > 0
+            ?   [
+                    'id' => $dataCoSoDaoTao[0]->id,
+                    'text' => $dataCoSoDaoTao[0]->ma_don_vi . ' - ' .$dataCoSoDaoTao[0]->ten
+                ]
+            : null;
+
+
+        $dsNghe = [];
+        $params = $request->all();
+        if(!isset($params['page_size'])) $params['page_size'] = config('common.paginate_size.default');
+
+        if(!empty($csdtid)){
+            $params['co_so_id'] = $csdtid;
+            $dsNghe = $this->chungNhanDangKyService->getNgheTheoCoSoDaoTao($params);
+            $dsNghe->appends(request()->input())->links();
+        }
+
+        $route_name = Route::current()->action['as'];
+
+        return view('nganh-nghe.chon-co-so-dao-tao',
+            compact('defaultCsdt', 'route_name', 'dsNghe', 'params'));
+    }
+
+
+
+    public function apiCheckNgheCap4(Request $request){
+        $params['keyword'] = $request->keyword;
+        $params['page'] = $request->page;
+        $data = $this->nganhNgheService->apiTimKiemNgheTheoKeyword($params);
+        return response()->json($data);
     }
 }

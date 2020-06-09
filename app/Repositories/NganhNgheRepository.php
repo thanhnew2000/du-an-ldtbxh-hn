@@ -34,6 +34,41 @@ class NganhNgheRepository extends BaseRepository implements NganhNgheRepositoryI
         return $queryBuilder->paginate($params['page_size']);
     }
 
+    public function timKiemNgheTheoKeyword($params){
+        $resultCount = 25;
+
+        $offset = ($params['page'] - 1) * $resultCount;
+        $queryBuilder = $this->table
+            ->select(
+                'id',
+                DB::raw('concat(id, " - ", ten_nganh_nghe) as text')
+            )
+            ->where('ma_cap_nghe', 4)
+            ->where(function($query) use ($params){
+                $query->where('ten_nganh_nghe', 'like', "%".$params['keyword']."%")
+                    ->orWhere('id', 'like', $params['keyword']."%");
+            });
+
+        $count = $queryBuilder->count();
+
+        $endCount = $offset + $resultCount;
+        $morePages = $count > $endCount;
+
+        $data = $queryBuilder
+            ->skip($offset)
+            ->take($resultCount)
+            ->get()
+            ->toArray();
+
+        $results = array(
+            "results" => $data,
+            "pagination" => array(
+                "more" => $morePages
+            )
+        );
+        return $results;
+    }
+
 }
 
 ?>

@@ -81,7 +81,9 @@ class ChungNhanDangKyNgheRepository extends BaseRepository implements ChungNhanD
                 'co_quan_chu_quan.ten as ten_chu_quan',
 
                 'devvn_quanhuyen.name as ten_qh',
-                'devvn_xaphuongthitran.name as ten_xptt'
+                'devvn_xaphuongthitran.name as ten_xptt',
+                'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.ten_quyet_dinh',
+                'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.ngay_ban_hanh'
             )
             ->join('co_so_dao_tao', 'co_so_dao_tao.id', '=', 'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.co_so_id')
             ->join('loai_hinh_co_so', 'loai_hinh_co_so.id', '=', 'co_so_dao_tao.ma_loai_hinh_co_so')
@@ -102,6 +104,27 @@ class ChungNhanDangKyNgheRepository extends BaseRepository implements ChungNhanD
 //            $queryBuilder->where('co_so_dao_tao.xaid', $params['xaid']);
 //        }
         return $queryBuilder->paginate($params['page_size']);
+    }
+
+    public function getNgheTheoCoSoDaoTao($params)
+    {
+        $queryBuilder = $this->table
+            ->select(
+                'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.id as chung_nhan_id',
+                'nghe_id',
+                'ten_quyet_dinh',
+
+                'trang_thai',
+                'ngay_ban_hanh',
+
+                'nganh_nghe.ten_nganh_nghe',
+                'nganh_nghe.bac_nghe'
+            )
+            ->join('nganh_nghe', 'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.nghe_id', '=', 'nganh_nghe.id')
+            ->where ('giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.trang_thai', config('common.trang_thai_nghe.hoat_dong'))
+            ->where('giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.co_so_id', $params['co_so_id']);
+        return $queryBuilder->paginate($params['page_size']);
+
     }
 }
 

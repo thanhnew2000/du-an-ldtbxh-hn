@@ -131,4 +131,11 @@ class CoSoDaoTaoController extends Controller
 
         return redirect()->route('csdt.cap-nhat', ['id' => $id])->with('mess', 'Đã cập nhật thông tin cơ sở đào tạo')->withInput();
     }
+
+    public function apiSearchCoSoDaoTao(Request $request){
+        $params['keyword'] = $request->keyword;
+        $params['page'] = $request->page;
+        $data = $this->CoSoDaoTaoService->apiSearchCoSoDaoTao($params);
+        return response()->json($data);
+    }
 }

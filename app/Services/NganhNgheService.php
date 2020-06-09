@@ -22,4 +22,8 @@ class NganhNgheService extends AppService
 
         return $this->repository->getNganhNghe($params);
     }
+
+    public function apiTimKiemNgheTheoKeyword($params){
+        return $this->repository->timKiemNgheTheoKeyword($params);
+    }
 }
