@@ -104,6 +104,8 @@
                     <tr class="text-center">
                         <th rowspan="2">STT</th>
                         <th rowspan="2">Tên cơ sở đào tạo</th>
+                        <th rowspan="2">Quận/Huyện</th>
+                        <th rowspan="2">Xã/Phường</th>
                         <th rowspan="2">Mã ngành nghề</th>
                         <th rowspan="2">Tên ngành nghề</th>
                         <th rowspan="2">Loại hình cơ sở</th>
@@ -141,6 +143,8 @@
                     <tr>
                         <td>{{$i++}}</td>
                         <td>{{$item->ten}}</td>
+                        <td>{{$item->ten_quan_huyen}}</td>
+                        <td>{{$item->ten_xa_phuong}}</td>
                         <td>{{$item->nghe_id}}</td>
                         <td>{{$item->ten_nganh_nghe}}</td>
                         <td>{{$item->loai_hinh_co_so}}</td>

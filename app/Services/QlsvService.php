@@ -63,6 +63,8 @@ class QlsvService extends AppService
         $queryData = [];
         $queryData['nam'] = isset($param['nam']) ? $param['nam'] : null;
         $queryData['dot'] = isset($param['dot']) ? $param['dot'] : null;
+        $queryData['devvn_quanhuyen'] = isset($param['devvn_quanhuyen']) ? $param['devvn_quanhuyen'] : null;
+        $queryData['devvn_xaphuongthitran'] = isset($param['devvn_xaphuongthitran']) ? $param['devvn_xaphuongthitran'] : null;
         $queryData['nghe_id'] = isset($param['nghe_id']) ? $param['nghe_id'] : null;
         // $queryData['cs_id'] = isset($param['co_so_id']) ? $param['co_so_id'] : null;
         // $queryData['loai_hinh'] = isset($param['loai_hinh']) ? $param['loai_hinh'] : null;

@@ -83,8 +83,6 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
             'sv_dang_quan_ly.*',
             'loai_hinh_co_so.loai_hinh_co_so',
             'co_so_dao_tao.ten',
-            // 'co_so_dao_tao.id as cs_id',    
-            // 'co_so_dao_tao.id',
             'nganh_nghe.ten_nganh_nghe',
             // DB::raw('co_so_dao_tao.ten as cs_ten'),
             DB::raw('sv_dang_quan_ly.id as sv_id'))->get();  
@@ -96,12 +94,16 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
        $data = $this->table
             ->where('sv_dang_quan_ly.co_so_id', '=', $coSoId)
             ->join('co_so_dao_tao', 'sv_dang_quan_ly.co_so_id', '=', 'co_so_dao_tao.id')
+            ->join('devvn_quanhuyen', 'co_so_dao_tao.maqh', '=', 'devvn_quanhuyen.maqh')
+            ->join('devvn_xaphuongthitran', 'co_so_dao_tao.xaid', '=', 'devvn_xaphuongthitran.xaid')
             ->join('loai_hinh_co_so', 'sv_dang_quan_ly.id_loai_hinh', '=', 'loai_hinh_co_so.id')
             ->join('nganh_nghe' ,'nganh_nghe.id', '=', 'sv_dang_quan_ly.nghe_id')
             ->select(
                 'sv_dang_quan_ly.*',
                 'co_so_dao_tao.ten',
                 'loai_hinh_co_so.loai_hinh_co_so',
+                'devvn_quanhuyen.name as ten_quan_huyen',
+                'devvn_xaphuongthitran.name as ten_xa_phuong',
                 'nganh_nghe.ten_nganh_nghe',
                 'nganh_nghe.id',
                 DB::raw('sv_dang_quan_ly.id as sv_id')

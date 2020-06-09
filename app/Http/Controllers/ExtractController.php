@@ -207,7 +207,7 @@ class ExtractController extends Controller
         $route_name = Route::current();
         // dd($route_name);
         return view('extractreport.tong_hop_sinh_vien_dang_theo_hoc',[
-            'limit'=>$limit,
+            // 'limit'=>$limit,
             'route_name'=>$route_name,
             'data' => $data,
             'loaiHinh' => $loaiHinhCs,
@@ -219,6 +219,12 @@ class ExtractController extends Controller
     public function tongHopChiTietSvDangTheoHoc($coSoId){
         
         $queryData = request()->all();
+        $quanhuyen = $this->QlsvService->getTenQuanHuyen();
+        if(isset(request()->devvn_quanhuyen)){
+            $xaphuongtheoquanhuyen = $this->QlsvService->getTenXaPhuongTheoQuanHuyen(request()->devvn_quanhuyen);
+        }else{
+            $xaphuongtheoquanhuyen=[];
+        }
         $data = $this->QlsvService->chiTietSoLieuQlsv($coSoId,$queryData);
         $loaiHinhCs = $this->QlsvService->getLoaiHinh();
         $coso = $this->QlsvService->getCoSo();
@@ -229,7 +235,9 @@ class ExtractController extends Controller
             'loaiHinh' => $loaiHinhCs,
             'coso'=>$coso,
             'nganhNghe'=> $nganhNghe,
-            'query'=>$queryData]);
+            'query'=>$queryData,
+            'quanhuyen'=>$quanhuyen,
+            'xaphuongtheoquanhuyen'=>$xaphuongtheoquanhuyen]);
 
     }
     
