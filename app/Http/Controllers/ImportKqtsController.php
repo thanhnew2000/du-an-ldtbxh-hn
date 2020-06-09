@@ -41,9 +41,20 @@ class ImportKqtsController extends Controller
             $co_so_nghe = DB::table('co_so_dao_tao')->where('co_so_dao_tao.id', '=', $id_truong)
             ->join('giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao', 'co_so_dao_tao.id', '=', 'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.co_so_id')
             ->join('nganh_nghe', 'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.nghe_id', '=', 'nganh_nghe.id')
-            ->select('nganh_nghe.id')->get();
+            ->select('nganh_nghe.id')->orderBy('nganh_nghe.id','desc')->get();
 
+            // xem database có những dữ liệu đợt đó chưa
+            $tuyen_sinh_da_co =  DB::table('tuyen_sinh')->where('co_so_id', '=', $id_truong)
+            ->where('nam','=',$year)
+            ->where('dot','=',$dot)
+            ->select('id','nghe_id')->get();
 
+              $id_nghe_ts_da_co=[];
+              for($i=0;$i < count($tuyen_sinh_da_co); $i++){
+               $id_nghe_ts_da_co[$tuyen_sinh_da_co[$i]->nghe_id] = $tuyen_sinh_da_co[$i]->id;
+              }
+              // 
+       
 
             // vòng for này để check lỗi nếu có thì cho hết lỗi vào các array $error, $vitri
             for($i =8; $i < count($data); $i++){ 
@@ -57,11 +68,13 @@ class ImportKqtsController extends Controller
                        }
                   }
               }
-                
+            $key_arrayts=-1;
+         
             $key_co_so_nghe=-1;
             $arrayData=[];
             if($vitri == null || $vitri == ''){
                 for($i = 8; $i < count($data); $i++){ 
+                  $key_arrayts++;
                   $key_co_so_nghe++;
                     // array_push($arrayData,$data[$i]);
                     $arrayData=[
@@ -69,7 +82,6 @@ class ImportKqtsController extends Controller
                         'dot'=>$dot,
                         'nghe_id'=>$data[$i][1],
                         'co_so_id'=>$id_truong,
-
                         'tong_so_tuyen_sinh'=>$data[$i][7],
                         'ke_hoach_tuyen_sinh_cao_dang'=>$data[$i][8],
                         'ke_hoach_tuyen_sinh_trung_cap'=>$data[$i][9],
@@ -112,12 +124,15 @@ class ImportKqtsController extends Controller
 
                     if(($data[$i][1] != $co_so_nghe[$key_co_so_nghe]->id)){
                       return response()->json('problem',200);
-                    }
-                    elseif($key_co_so_nghe > count($co_so_nghe)){
+                    }else if($key_co_so_nghe > count($co_so_nghe)){
                       return response()->json('problem',200);
                     }
-         
-                    DB::table('tuyen_sinh')->insert($arrayData); 
+                    else if(array_key_exists($data[$i][1],$id_nghe_ts_da_co)){
+                        DB::table('tuyen_sinh')->where('id',$id_nghe_ts_da_co[$data[$i][1]])->update($arrayData);
+                    }else{
+                      DB::table('tuyen_sinh')->insert($arrayData); 
+                    }
+                    
                 } 
                 return response()->json('ok',200);
               }          
@@ -144,6 +159,7 @@ class ImportKqtsController extends Controller
                 $id_truong = array_pop($truong);
      
                 $co_so = DB::table('co_so_dao_tao')->where('id',$id_truong)->first();
+
 
                 $arrayApha=['H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK'];
                 $error=[];
@@ -173,9 +189,19 @@ class ImportKqtsController extends Controller
                 );
           
           
-                   $spreadsheet2 = \PhpOffice\PhpSpreadsheet\IOFactory::load('file_excel/form-export-data-tuyen-sinh.xlsx');
+                   $spreadsheet2 = \PhpOffice\PhpSpreadsheet\IOFactory::load('file_excel/tuyensinh/form-export-data-tuyen-sinh.xlsx');
                    $worksheet = $spreadsheet2->getActiveSheet();
                    $worksheet->setCellValue('C8', "Trường: $co_so->ten - $co_so->id");
+
+                   if($co_so->loai_truong == 1){
+                    $worksheet->setCellValue('C7', 'TRƯỜNG CAO ĐẲNG');
+                    }elseif($co_so->loai_truong == 2){
+                        $worksheet->setCellValue('C7', 'TRƯỜNG TRUNG CẤP');
+                    }else{
+                        $worksheet->setCellValue('C7', 'TRƯỜNG SƠ CẤP');
+                    }
+                    
+                    $worksheet->getColumnDimension('C')->setAutoSize(true);
 
                    //  khóa lại không cho sửa
                    $spreadsheet2->getActiveSheet()->getProtection()->setSheet(true);
