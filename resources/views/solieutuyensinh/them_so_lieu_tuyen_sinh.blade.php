@@ -404,6 +404,8 @@
 @section('script')
 <script>
 var routeCheck = "{{ route('so_lieu_tuyen_sinh.check_so_lieu') }}";
+var routeGetMaNganhNghe = "{{ route('get_ma_nganh_nghe') }}";
+
 $(document).ready(function(){
   $('#co_so_dao_tao').select2();
   $('#ma_nganh_nghe').select2();

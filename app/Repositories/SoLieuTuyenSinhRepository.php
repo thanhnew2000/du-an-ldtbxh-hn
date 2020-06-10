@@ -87,7 +87,7 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 		if($queryData['dot']!=null){
 			$data->where('tuyen_sinh.dot', $queryData['dot']);
 		}
-		return $data->paginate($limit);
+		return $data->orderBy('id','desc')->paginate($limit);
 
 	}
 	public function getThongTinCoSo($coSoId)

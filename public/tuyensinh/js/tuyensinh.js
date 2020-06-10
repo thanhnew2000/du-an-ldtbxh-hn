@@ -1,5 +1,5 @@
 $("#co_so_dao_tao" ).change(function() {
-  axios.post('/xuat-bao-cao/ket-qua-tuyen-sinh/get-ma-nganh-nghe', {
+  axios.post(routeGetMaNganhNghe, {
     id:  $("#co_so_dao_tao").val(),
   }).then(function (response) {
     var htmldata = '<option value="" >Chọn</option>'

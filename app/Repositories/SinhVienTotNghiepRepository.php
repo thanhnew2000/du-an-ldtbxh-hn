@@ -122,13 +122,39 @@ class SinhVienTotNghiepRepository extends BaseRepository implements SinhVienTotN
 					);
 			
 		if($queryData['nam']!= null){
-			$data->where('tuyen_sinh.nam', $queryData['nam']);
+			$data->where('sv_tot_nghiep.nam', $queryData['nam']);
 		}	
 		if($queryData['dot']!=null){
-			$data->where('tuyen_sinh.dot', $queryData['dot']);
+			$data->where('sv_tot_nghiep.dot', $queryData['dot']);
 		}
-		return $data->paginate($limit);
+		return $data->orderBy('id','desc')->paginate($limit);
 
+	}
+
+	public function getSuaSoLieuTotNghiep($id)
+	{
+		$result = $this->table->where('sv_tot_nghiep.id', '=', $id)
+		->join('nganh_nghe', 'sv_tot_nghiep.nghe_id', '=', 'nganh_nghe.id')
+		->join('co_so_dao_tao', 'sv_tot_nghiep.co_so_id', '=', 'co_so_dao_tao.id')
+		->select('sv_tot_nghiep.*', 'nganh_nghe.ten_nganh_nghe','co_so_dao_tao.ten')->get()->first();
+		return $result;
+	}
+
+	public function getCheckTonTaiSoLieuTotNghiep($arrcheck)
+	{
+			$kiem_tra = $this->table->where($arrcheck)->select('sv_tot_nghiep.id','sv_tot_nghiep.trang_thai')->first();
+			if($kiem_tra!=null){
+				if($kiem_tra->trang_thai >= 3){
+					return 'tontai';
+				};
+			}
+			return $kiem_tra;
+	}
+
+	public function postThemSoLieuTotNghiep($getdata)
+	{
+		$result  = $this->table->insert($getdata);
+        return $result;
 	}
 
 }

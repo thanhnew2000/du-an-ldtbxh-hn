@@ -74,7 +74,7 @@ Route::group(['prefix' => 'ket-qua-tuyen-sinh'], function(){
     Route::post('/sua-so-lieu-tuyen-sinh/{id}/edit','SoLieuTuyenSinhController@update')->name('postsuasolieutuyensinh');
     Route::get('/them-so-lieu-tuyen-sinh','SoLieuTuyenSinhController@create')->name('themsolieutuyensinh');
     Route::post('/them-so-lieu-tuyen-sinh','SoLieuTuyenSinhController@store')->name('postthemsolieutuyensinh');
-    Route::post('/get-ma-nganh-nghe','SoLieuTuyenSinhController@getmanganhnghe');
+    Route::post('/get-ma-nganh-nghe','SoLieuTuyenSinhController@getmanganhnghe')->name('get_ma_nganh_nghe');
     Route::post('/check-them-so-lieu-tuyen-sinh','SoLieuTuyenSinhController@getCheckTonTaiSoLieuTuyenSinh')->name('so_lieu_tuyen_sinh.check_so_lieu');
     Route::post('/get-nghe-theo-cap-bac','SoLieuTuyenSinhController@getNgheTheoCapBac')->name('getNgheTheoCapBac');
     // Route::post('/get-nghe-cap-4-theo-cap-3','SoLieuTuyenSinhController@getNgheCap4TheoCap3')->name('getNgheCap4TheoCap3');
@@ -95,10 +95,15 @@ Route::group(['prefix' => 'ket-qua-tot-nghiep'], function(){
         ->name('xuatbc.ds-tot-nghiep');
     Route::get('/chi-tiet-tong-hop-ket-qua-tot-nghiep/{id}', 'SinhVienTotNghiepController@show')
         ->name('xuatbc.chi-tiet-tong-hop');  
-    Route::get('/sua-tong-hop-ket-qua-tot-nghiep', 'SinhVienTotNghiepController@edit')
+    Route::get('/sua-tong-hop-ket-qua-tot-nghiep/{id}', 'SinhVienTotNghiepController@edit')
         ->name('xuatbc.sua-tong-hop');
+    Route::post('/sua-tong-hop-ket-qua-tot-nghiep/{id}', 'SinhVienTotNghiepController@update')
+        ->name('xuatbc.post_sua-tong-hop');
     Route::get('/them-tong-hop-ket-qua-tot-nghiep', 'SinhVienTotNghiepController@create')
-        ->name('xuatbc.them-tong-hop');   
+        ->name('xuatbc.them-tong-hop');  
+    Route::post('/them-tong-hop-ket-qua-tot-nghiep','SinhVienTotNghiepController@store')
+        ->name('xuatbc.post-them-tong-hop');
+    Route::post('/check-them-so-lieu-tot-nghiep','SinhVienTotNghiepController@getCheckTonTaiSoLieuTotNghiep')->name('xuatbc.check_so_lieu_tot_nghiep'); 
 });
 
 
