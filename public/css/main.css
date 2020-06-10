@@ -6,8 +6,18 @@ span.select2-selection__arrow::before {
     font-family: "LineAwesome";
 }
 
-i::before {
-    font-family: "Font Awesome 5 Free";
+i.la {
+  font: normal normal normal 16px/1 "LineAwesome";
+  font-style: normal;
+  font-variant-ligatures: normal;
+  font-variant-caps: normal;
+  font-variant-numeric: normal;
+  font-variant-east-asian: normal;
+  font-weight: normal;
+  font-stretch: normal;
+  font-size: inherit;
+  line-height: 1;
+  font-family: LineAwesome;
 }
 
 .btn {
@@ -121,4 +131,3 @@ table td {
     max-width: 100px;
     max-height: 100px;
 }
-
