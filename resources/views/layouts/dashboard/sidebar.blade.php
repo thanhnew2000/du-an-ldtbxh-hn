@@ -222,7 +222,7 @@
 			{{-- Quản lý nhân sự --}}
 			<li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a
 					href="javascript:;" class="m-menu__link m-menu__toggle"><i
-						class="m-menu__link-icon flaticon-interface-1"></i><span class="m-menu__link-text">Quản lý nhân
+						class="m-menu__link-icon flaticon-avatar"></i><span class="m-menu__link-text">Quản lý nhân
 						sự</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
 				<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 					<ul class="m-menu__subnav">
@@ -246,7 +246,7 @@
 			{{-- Quản lý chính sách cho sinh viên --}}
 			<li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a
 					href="javascript:;" class="m-menu__link m-menu__toggle"><i
-						class="m-menu__link-icon flaticon-interface-1"></i><span class="m-menu__link-text">Quản lý chính
+						class="m-menu__link-icon flaticon-statistics"></i><span class="m-menu__link-text">Quản lý chính
 						sách</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
 				<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 					<ul class="m-menu__subnav">
@@ -266,7 +266,7 @@
 			{{-- Quản lý đăng kí chỉ tiêu --}}
 			<li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a
 					href="javascript:;" class="m-menu__link m-menu__toggle"><i
-						class="m-menu__link-icon flaticon-interface-1"></i><span class="m-menu__link-text">Quản lý kết
+						class="m-menu__link-icon flaticon-users"></i><span class="m-menu__link-text">Quản lý kết
 						quả tuyển sinh</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
 				<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 					<ul class="m-menu__subnav">
@@ -282,7 +282,7 @@
 			{{-- Quản lý kết quả tuyển sinh --}}
 			<li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a
 					href="javascript:;" class="m-menu__link m-menu__toggle"><i
-						class="m-menu__link-icon flaticon-interface-1"></i><span class="m-menu__link-text">Quản lý kết
+						class="m-menu__link-icon flaticon-grid-menu"></i><span class="m-menu__link-text">Quản lý kết
 						quả tuyển sinh</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
 				<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 					<ul class="m-menu__subnav">
@@ -304,7 +304,7 @@
 			{{-- Quản lý xây dựng chương trình giáo trình  --}}
 			<li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a
 					href="javascript:;" class="m-menu__link m-menu__toggle"><i
-						class="m-menu__link-icon flaticon-interface-1"></i><span class="m-menu__link-text">Quản lý xd
+						class="m-menu__link-icon flaticon-folder"></i><span class="m-menu__link-text">Quản lý xd
 						chương trình giáo trình</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
 				<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 					<ul class="m-menu__subnav">
@@ -326,7 +326,7 @@
 			{{-- Quản lý kết quả tốt nghiệp --}}
 			<li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a
 					href="javascript:;" class="m-menu__link m-menu__toggle"><i
-						class="m-menu__link-icon flaticon-interface-1"></i><span class="m-menu__link-text">Quản lý kết
+						class="m-menu__link-icon flaticon-technology-1"></i><span class="m-menu__link-text">Quản lý kết
 						quả tốt
 						nghiệp</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
 				<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
@@ -383,7 +383,7 @@
 			{{-- Quản lý liên kết đào tạo --}}
 			<li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a
 					href="javascript:;" class="m-menu__link m-menu__toggle"><i
-						class="m-menu__link-icon flaticon-interface-1"></i><span class="m-menu__link-text">Quản lý liên
+						class="m-menu__link-icon flaticon-globe"></i><span class="m-menu__link-text">Quản lý liên
 						kết</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
 				<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 					<ul class="m-menu__subnav">
@@ -399,7 +399,7 @@
 			{{-- Quản lý thiết lập deadline  --}}
 			<li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a
 					href="javascript:;" class="m-menu__link m-menu__toggle"><i
-						class="m-menu__link-icon flaticon-interface-1"></i><span class="m-menu__link-text">Quản lý thiết
+						class="m-menu__link-icon flaticon-event-calendar-symbol"></i><span class="m-menu__link-text">Quản lý thiết
 						lập deadline</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
 				<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 					<ul class="m-menu__subnav">
@@ -415,7 +415,7 @@
 			{{-- Quản lý phê duyệt --}}
 			<li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a
 					href="javascript:;" class="m-menu__link m-menu__toggle"><i
-						class="m-menu__link-icon flaticon-interface-1"></i><span class="m-menu__link-text">Quản lý phê
+						class="m-menu__link-icon flaticon-interface-5"></i><span class="m-menu__link-text">Quản lý phê
 						duyệt</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
 				<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 					<ul class="m-menu__subnav">
@@ -508,7 +508,7 @@
 			</li>
 			<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a
 					href="javascript:;" class="m-menu__link m-menu__toggle"><i
-						class="m-menu__link-icon flaticon-diagram"></i><span class="m-menu__link-text">Phản hồi / Báo
+						class="m-menu__link-icon flaticon-mail"></i><span class="m-menu__link-text">Phản hồi / Báo
 						lỗi hệ thống</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
 				<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 					<ul class="m-menu__subnav">
