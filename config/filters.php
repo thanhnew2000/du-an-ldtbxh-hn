@@ -30,4 +30,39 @@ return [
             ],
         ],
     ],
+    'so_lieu_can_bo_quan_ly' => [
+        'url' => '',
+        'partials' => [
+            'co_so_dao_tao_id' => [
+                'label' => 'Cơ sở đào tạo',
+                'select2' => true,
+                'options' => [],
+                'default' => 'Chọn cơ sở đào tạo',
+            ],
+            'loai_hinh_id' => [
+                'label' => 'Loại hình',
+                'select2' => true,
+                'options' => [],
+                'default' => 'Chọn loại hình',
+            ],
+            'nam' => [
+                'label' => 'Năm',
+                'select2' => true,
+                'options' => [],
+                'default' => 'Chọn năm',
+            ],
+            'dot' => [
+                'label' => "Đợt",
+                'select2' => true,
+                'options' => [],
+                'default' => 'Chọn đợt',
+            ],
+            // 'trang_thai_id' => [
+            //     'label' => "Trạng thái",
+            //     'select2' => true,
+            //     'options' => [],
+            //     'default' => 'Chọn trạng thái',
+            // ],
+        ],
+    ],
 ];

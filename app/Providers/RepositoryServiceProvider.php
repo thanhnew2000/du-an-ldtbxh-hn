@@ -13,6 +13,8 @@ use App\Repositories\TrinhDoGiaoVienRepository;
 use App\Repositories\TrinhDoGiaoVienRepositoryInterface;
 use App\Repositories\NganhNgheRepository;
 use App\Repositories\NganhNgheRepositoryInterface;
+use App\Repositories\SoLieuCanBoQuanLyRepository;
+use App\Repositories\SoLieuCanBoQuanLyRepositoryInterface;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -28,6 +30,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(CoSoDaoTaoRepositoryInterface::class, CoSoDaoTaoRepository::class);
         $this->app->bind(TrinhDoGiaoVienRepositoryInterface::class, TrinhDoGiaoVienRepository::class);
         $this->app->bind(NganhNgheRepositoryInterface::class, NganhNgheRepository::class);
+        $this->app->bind(SoLieuCanBoQuanLyRepositoryInterface::class, SoLieuCanBoQuanLyRepository::class);
     }
 
     /**
