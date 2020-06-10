@@ -15,6 +15,8 @@ Route::group(['prefix' => 'quan-ly-giao-vien'], function(){
     Route::post('update/{giaoVien}', 'QuanLyGiaoVienController@update')->name('ql-giao-vien.update');
 });
 
+Route::resource('so-lieu-can-bo-quan-ly', 'SoLieuCanBoQuanLyController');
+
 Route::group(['prefix' => 'can-bo-quan-ly'], function(){
     Route::get('/', 'ImportReportController@doingucanboquanly')->name('nhapbc.quan-ly');
 });

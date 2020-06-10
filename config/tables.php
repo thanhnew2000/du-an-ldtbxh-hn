@@ -15,4 +15,9 @@ return [
         'trinh_do' => 'Trình độ',
         'nganh_nghe' => 'Ngành nghề',
     ],
+    'so_lieu_can_bo_quan_ly' => [
+        'ten_co_so' => 'Tên đơn vị',
+        'loai_hinh' => 'Loại hình/Cấp quản lý',
+        'tong_so' => 'Tổng số',
+    ],
 ];
