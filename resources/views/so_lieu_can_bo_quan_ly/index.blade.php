@@ -170,6 +170,11 @@
 
 @section('style')
 <link href="{!! asset('css/main.css') !!}" rel="stylesheet" type="text/css" />
+<style>
+    table.table-responsive {
+        display: table;
+    }
+</style>
 @endsection
 
 @section('script')
