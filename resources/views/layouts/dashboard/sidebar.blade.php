@@ -8,12 +8,13 @@
 		m-menu-vertical="1" m-menu-scrollable="1" m-menu-dropdown-timeout="500"
 		style="position: relative; height: 314px; overflow: hidden;">
 		<ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
-			<li class="m-menu__item  m-menu__item--active" aria-haspopup="true"><a href="{{url('dashboard')}}"
-					class="m-menu__link "><i class="m-menu__link-icon flaticon-line-graph"></i><span
-						class="m-menu__link-title"> <a class="m-menu__link-wrap"> <span
-								class="m-menu__link-text">Dashboard</span></a>
+			<li class="m-menu__item  m-menu__item--active" aria-haspopup="true">
+				<a href="{{url('dashboard')}}" class="m-menu__link ">
+					<i class="m-menu__link-icon flaticon-line-graph"></i>
+					<span class="m-menu__link-text">Dashboard</span>
+				</a>
 			<li class="m-menu__section ">
-				<h4 class="m-menu__section-text">Components</h4>
+				<h4 class="m-menu__section-text">Danh sách chức năng</h4>
 				<i class="m-menu__section-icon flaticon-more-v2"></i>
 			</li>
 			<li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a
@@ -208,13 +209,40 @@
 			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('xuatbc.ds-nha-giao')}}"
 					class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 						class="m-menu__link-text">Danh sách đội ngũ nhà giáo</span></a></li>
-			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('xuatbc.ds-quan-ly')}}"
+			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('so-lieu-can-bo-quan-ly.index')}}"
 					class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 						class="m-menu__link-text">Danh sách đội ngũ quản lý</span></a></li>
 		</ul>
 	</div>
 </li>
 {{-- End Quản lý nhân sự --}}
+
+{{-- Quản lý sinh viên đang có mặt --}}
+<li
+	class="m-menu__item m-menu__item--submenu"
+	aria-haspopup="true"
+	m-menu-submenu-toggle="hover">
+		<a href="javascript:;"
+			class="m-menu__link m-menu__toggle">
+			<i class="m-menu__link-icon flaticon-statistics"></i>
+			<span class="m-menu__link-text">Quản lý sinh viên đang theo học</span>
+			<i class="m-menu__ver-arrow la la-angle-right"></i>
+		</a>
+	<div class="m-menu__submenu ">
+		<span class="m-menu__arrow"></span>
+		<ul class="m-menu__subnav">
+			<li class="m-menu__item " aria-haspopup="true">
+				<a href="{{route('xuatbc.ds-sv-dang-hoc')}}"
+					class="m-menu__link ">
+					<i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i>
+					<span class="m-menu__link-text">Tổng hợp sinh viên đang theo học</span>
+				</a>
+			</li>
+		</ul>
+	</div>
+</li>
+{{-- End quản lý sinh viên đang có mặt --}}
+
 
 {{-- Quản lý chính sách cho sinh viên --}}
 <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;"
