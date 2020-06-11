@@ -47,6 +47,9 @@
             "Tests\\": "tests/"
         }
     },
+    "files": [
+        "util/helpers.php"
+    ],
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
