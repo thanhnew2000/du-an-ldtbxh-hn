@@ -138,3 +138,11 @@ Route::group(['prefix' => 'chi-tieu-tuyen-sinh'], function(){
 
         ->name('xuatbc.ds-chi-tieu-ts');
 });
+
+// thanhvn import export can bo quan ly 
+Route::group(['prefix' => 'so-lieu-can-bo-quan-ly'], function(){
+    Route::post('export-bieu-mau','ExportSoLieuCanBoQlController@taiBieuMau')
+        ->name('layformbieumau.solieucanbo.quanly');
+    Route::post('export-data-so-lieu-can-bo-quanly','ExportSoLieuCanBoQlController@exportDataSoLieuCanBoQuanLy')
+        ->name('exportdata.solieucanbo.quanly');
+});

@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\SoLieuCanBoQuanLyService;
 use App\Http\Requests\SoLieuCanBoQuanLy\StoreRequest;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\SoLieuCanBoQuanLy\UpdateRequest;
+use App\Models\SoLieuCanBoQuanLy;
+use App\CoSoDaoTao;
 
 class SoLieuCanBoQuanLyController extends Controller
 {
@@ -30,13 +34,18 @@ class SoLieuCanBoQuanLyController extends Controller
         $data = $this->soLieuCBQLService->getList($params, $limit);
         $data->appends(request()->input())->links();
 
+        // thanh
+        $co_so = DB::table('co_so_dao_tao')->get();
+
         $titles = config('tables.so_lieu_can_bo_quan_ly');
         return view('so_lieu_can_bo_quan_ly.index', [
             'filterConfig' => $filterConfig,
-                'data' => $data,
-                'limit' => $limit,
-                'titles' => $titles,
-                'route_edit' => 'so-lieu-can-bo-quan-ly.edit',
+            'data' => $data,
+            'limit' => $limit,
+            'titles' => $titles,
+            'route_edit' => 'so-lieu-can-bo-quan-ly.edit',
+            'route_show' => 'so-lieu-can-bo-quan-ly.show',
+            'coso' => $co_so,
         ]);
     }
 
@@ -48,13 +57,11 @@ class SoLieuCanBoQuanLyController extends Controller
     public function create()
     {
         $listCoSo = $this->soLieuCBQLService->getListCoSo();
-        $listLoaiHinh = $this->soLieuCBQLService->getListLoaiHinh();
         $listNam = config('common.nam.list');
         $listDot = config('common.dot');
 
         return view('so_lieu_can_bo_quan_ly.create', [
             'listCoSo' => $listCoSo,
-            'listLoaiHinh' => $listLoaiHinh,
             'listNam' => array_combine($listNam, $listNam),
             'listDot' => array_combine($listDot, $listDot),
         ]);
@@ -68,7 +75,10 @@ class SoLieuCanBoQuanLyController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $params = $request->except(['_token']);
+        $params = $request->except([
+            '_token',
+            'loai_hinh_co_so_id',
+        ]);
 
         $soLieuQL = $this->soLieuCBQLService->store($params);
 
@@ -81,9 +91,24 @@ class SoLieuCanBoQuanLyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($soLieuId)
     {
-        //
+        $params = request()->except([
+            'paginate_size',
+        ]);
+
+        $coSoDaoTao = $this->soLieuCBQLService->getCoSo($soLieuId);
+
+        $limit = request()->get('paginate_size') ?? config('common.paginate_size.default');
+        $listSoLieu = $this->soLieuCBQLService->getListByCoSo($coSoDaoTao->id, $limit, $params);
+
+        $listSoLieu->appends(request()->input())->links();
+
+        return view('so_lieu_can_bo_quan_ly.show', [
+            'coSoDaoTao' => $coSoDaoTao,
+            'listSoLieu' => $listSoLieu,
+            'limit' => $limit,
+        ]);
     }
 
     /**
@@ -92,9 +117,19 @@ class SoLieuCanBoQuanLyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(SoLieuCanBoQuanLy $soLieuCanBoQuanLy)
     {
-        //
+        $listCoSo = $this->soLieuCBQLService->getListCoSo();
+        $listNam = config('common.nam.list');
+        $listDot = config('common.dot');
+        $data = array_merge($soLieuCanBoQuanLy->getAttributes(), session()->getOldInput());
+
+        return view('so_lieu_can_bo_quan_ly.edit', [
+            'listCoSo' => $listCoSo,
+            'listNam' => array_combine($listNam, $listNam),
+            'listDot' => array_combine($listDot, $listDot),
+            'data' => $data,
+        ]);
     }
 
     /**
@@ -104,9 +139,17 @@ class SoLieuCanBoQuanLyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
-        //
+        $params = $request->except([
+            '_method',
+            '_token',
+            'co_so_dao_tao_id',
+            'loai_hinh_co_so_id',
+        ]);
+
+        $result = $this->soLieuCBQLService->updateSoLieu($id, $params);
+        return redirect()->route('so-lieu-can-bo-quan-ly.index');
     }
 
     /**
