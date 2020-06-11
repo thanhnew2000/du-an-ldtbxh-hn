@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\SoLieuCanBoQuanLyService;
 use App\Http\Requests\SoLieuCanBoQuanLy\StoreRequest;
+use Illuminate\Support\Facades\DB;
 
 class SoLieuCanBoQuanLyController extends Controller
 {
@@ -29,6 +30,9 @@ class SoLieuCanBoQuanLyController extends Controller
 
         $data = $this->soLieuCBQLService->getList($params, $limit);
         $data->appends(request()->input())->links();
+        
+        // thanh
+        $co_so = DB::table('co_so_dao_tao')->get();
 
         $titles = config('tables.so_lieu_can_bo_quan_ly');
         return view('so_lieu_can_bo_quan_ly.index', [
@@ -37,6 +41,7 @@ class SoLieuCanBoQuanLyController extends Controller
                 'limit' => $limit,
                 'titles' => $titles,
                 'route_edit' => 'so-lieu-can-bo-quan-ly.edit',
+                'coso'=>$co_so,
         ]);
     }
 
