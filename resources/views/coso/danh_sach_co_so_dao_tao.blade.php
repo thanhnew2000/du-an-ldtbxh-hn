@@ -38,7 +38,9 @@
                                     <select name="loai_hinh_co_so" class="form-control ">
                                         <option disabled selected>chọn loại hình cơ sở</option>
                                         @foreach ($loaihinh as $lh)
-                                        <option value="{{ $lh->id }}">{{ $lh->loai_hinh_co_so }}</option>
+                                        <option value="{{ $lh->id }}" @if ($params['loai_hinh_co_so']==$lh->id )
+                                            {{ 'selected' }}
+                                            @endif">{{ $lh->loai_hinh_co_so }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -61,10 +63,12 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Quận</label>
                                 <div class="col-lg-8">
-                                    <select name="quanhuyen" class="form-control ">
+                                    <select name="quanhuyen" class="form-control" id="devvn_quanhuyen">
                                         <option disabled selected>Quận / Huyện</option>
                                         @foreach ($quanhuyen as $qh)
-                                        <option value="{{ $qh->maqh }}">{{ $qh->name }}</option>
+                                        <option value="{{ $qh->maqh}}" @if ($params['quanhuyen']==$qh->maqh )
+                                            {{ 'selected' }}
+                                            @endif">{{ $qh->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -129,4 +133,13 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
+<script>
+    $(document).ready(function(){
+    $('#devvn_quanhuyen').select2();
+});
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 @endsection

@@ -6,5 +6,8 @@ namespace App\Repositories;
 
 interface NganhNgheRepositoryInterface
 {
-//    public function getCsdt();
+    //    publc function getCsdt();
+    public function getAllNganhNghe($bac_nghe, $co_so_id);
+
+    public function boSungNganhNgheVaoCoSo($attributes, $nghe_cao_dang = [], $nghe_trung_cap = []);
 }
