@@ -359,6 +359,80 @@
                         <i class="m-menu__link-icon flaticon-web"></i>
                     </span>
                     <h3 class="m-portlet__head-text">
+                        Trong đó
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <form action="" method="get" class="m-form">
+            <input type="hidden" name="page_size" value="20">
+            <div class="m-portlet__body">
+                <div class="m-form__section m-form__section--first">
+                    <div class="row col-12">
+                        <div class="col-md-12">
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-6 col-form-label">Nữ</label>
+                                <div class="col-lg-6">
+                                    <input type="number" class="form-control m-input" placeholder="Nhập vào số"
+                                        name="keyword">
+                                </div>
+                            </div>
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-6 col-form-label">Dân tộc ít người</label>
+                                <div class="col-lg-6">
+                                    <input type="number" class="form-control m-input" placeholder="Nhập vào số"
+                                        name="keyword">
+                                </div>
+                            </div>
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-6 col-form-label">Giáo sư</label>
+                                <div class="col-lg-6">
+                                    <input type="number" class="form-control m-input" placeholder="Nhập vào số"
+                                        name="keyword">
+                                </div>
+                            </div>
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-6 col-form-label">Phó giáo sư</label>
+                                <div class="col-lg-6">
+                                    <input type="number" class="form-control m-input" placeholder="Nhập vào số"
+                                        name="keyword">
+                                </div>
+                            </div>
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-6 col-form-label">Nhà giáo nhân dân , nghệ sĩ nhân dân , nghệ nhân nhân dân , thầy thuốc nhân dân </label>
+                                <div class="col-lg-6">
+                                    <input type="number" class="form-control m-input" placeholder="Nhập vào số"
+                                        name="keyword">
+                                </div>
+                            </div>
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-6 col-form-label">Nhà giáo ưu tú , nghệ sĩ ưu tú , nghệ nhân ưu tú , thầy thuốc ưu tú</label>
+                                <div class="col-lg-6">
+                                    <input type="number" class="form-control m-input" placeholder="Nhập vào số"
+                                        name="keyword">
+                                </div>
+                            </div>
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-6 col-form-label">Nhà giáo giảng dạy môn học chung</label>
+                                <div class="col-lg-6">
+                                    <input type="number" class="form-control m-input" placeholder="Nhập vào số"
+                                        name="keyword">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="m-portlet mt-5">
+        <div class="m-portlet__head">
+            <div class="m-portlet__head-caption">
+                <div class="m-portlet__head-title">
+                    <span class="m-portlet__head-icon">
+                        <i class="m-menu__link-icon flaticon-web"></i>
+                    </span>
+                    <h3 class="m-portlet__head-text">
                         Trình độ chuyên môn 
                     </h3>
                 </div>

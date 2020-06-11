@@ -1,3 +1,4 @@
+
 @extends('layouts.admin')
 @section('title', "Tổng hợp số liệu tuyển sinh")
 @section('style')
@@ -11,6 +12,8 @@
 </style>
 @endsection
 @section('content')
+
+
 <div class="m-content container-fluid">
     <div class="m-portlet">
         <div class="m-portlet__head">
@@ -82,6 +85,23 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-2 col-form-label">Nghề cấp 2</label>
+                                <div class="col-lg-8">
+                                    <select class="form-control nganh_nghe" onchange="getNgheTheoCapBac(this)" name="nganh_nghe" id="nghe_cap_2">
+                                        <option value="" selected>Chọn</option>
+                                        @foreach ($nghe_cap_2 as $item)
+                                        <option @if (isset($params['nganh_nghe']))
+                                            {{( substr($params['nganh_nghe'],0,3) ==  $item->id ) ? 'selected' : ''}} @endif
+                                            value="{{$item->id}}">{{$item->id}}-{{$item->ten_nganh_nghe}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row pt-4">
                         <div class="col-md-6 ">
                             <div class="form-group m-form__group row">
                                 <label for="" class="col-lg-2 col-form-label">Đợt</label>
@@ -96,6 +116,23 @@
                                         </option>
                                     </select>
 
+                                </div>
+                            </div>
+                        </div>
+                    
+                     
+                        <div class="col-md-6">
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-2 col-form-label">Nghề cấp 3</label>
+                                <div class="col-lg-8">
+                                    <select class="form-control nganh_nghe" onchange="getNgheTheoCapBac(this)" name="" id="nghe_cap_3">
+                                        <option value="" selected>Chọn</option>  
+                                        @foreach ($nghe_cap_3 as $item)
+                                        <option @if (isset($params['nganh_nghe']))
+                                            {{( substr($params['nganh_nghe'],0,5) ==  $item->id ) ? 'selected' : ''}} @endif
+                                            value="{{$item->id}}">{{$item->id}}-{{$item->ten_nganh_nghe}}</option>
+                                        @endforeach                            
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -116,6 +153,24 @@
                                 </div>
                             </div>
                         </div>
+                      
+                        <div class="col-md-6">
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-2 col-form-label">Nghề cấp 4</label>
+                                <div class="col-lg-8">
+                                    <select class="form-control nganh_nghe" onchange="setNameNganhNgheSearch(this)" name="" id="nghe_cap_4">
+                                        <option value="" selected>Chọn</option>
+                                        @foreach ($nghe_cap_4 as $item)
+                                        <option @if (isset($params['nganh_nghe']))
+                                            {{( substr($params['nganh_nghe'],0,7) ==  $item->id ) ? 'selected' : ''}} @endif
+                                            value="{{$item->id}}">{{$item->id}}-{{$item->ten_nganh_nghe}}</option>
+                                        @endforeach    
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="row pt-4">                   
                         <div class="col-md-6 ">
                             <div class="form-group m-form__group row">
                                 <label for="" class="col-lg-2 col-form-label">Xã\Phường</label>
@@ -180,7 +235,7 @@
                     </select>
                 </div>
             </div>
-            <table class="table table-bordered m-table m-table--border-danger m-table--head-bg-primary">
+            <table class="table table-bordered m-table m-table--border-danger m-table--head-bg-primary table-responsive">
                 <thead>
                     <tr>
                         <th scope="col">STT</th>
@@ -280,11 +335,13 @@
                         <div class="form-group">
                             <label for="">Chọn năm</label>
                             <select name="nam" id="nam_id" class="form-control">
-                                <option value="2020">2020</option>
-                                <option value="2019">2019</option>
-                                <option value="2017">2017</option>
-                            </select>
-                        </div>
+                              <option value="2020">2020</option>
+                              <option value="2019">2019</option>
+                              <option value="2018">2018</option>
+                              <option value="2017">2017</option>
+                              <option value="2016">2016</option>
+                            </select> 
+                       </div>
 
                         <div class="form-group">
                             <label for="">Chọn đợt</label>
@@ -325,9 +382,11 @@
                             <select name="nam_muon_xuat" id="nam_id_xuat" class="form-control">
                                 <option value="2020">2020</option>
                                 <option value="2019">2019</option>
+                                <option value="2018">2018</option>
                                 <option value="2017">2017</option>
-                            </select>
-                        </div>
+                                <option value="2016">2016</option>
+                              </select>
+                        </div> 
                         <div class="form-group">
                             <label for="">Chọn đợt xuất</label>
                             <select name="dot_muon_xuat" id="dot_id_xuat" class="form-control">
@@ -362,116 +421,188 @@
 @section('script')
 <script>
     $("#file_import_id").change(function() {
-            var fileExtension = ['xlsx','xls'];
-            if($("#file_import_id")[0].files.length === 0){
-                $('#echoLoi').text('Hãy nhập file excel');
-            }else if($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
-                $message = "Hãy nhập file excel : "+fileExtension.join(', ');
-                $('#echoLoi').text($message);
-                return false;
-            }else{
-                $('#echoLoi').text('');
-    }
-    });
+    var fileExtension = ['xlsx','xls'];
+    if($("#file_import_id")[0].files.length === 0){
+        $('#echoLoi').text('Hãy nhập file excel');
+    }else if($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+        $message = "Hãy nhập file excel : "+fileExtension.join(', ');
+        $('#echoLoi').text($message);
+        return false;
+    }else{
+        $('#echoLoi').text('');
+}
+});
 
-    
-    $("#submitTai").click(function(event){
-        var fileExtension = ['xlsx', 'xls'];
-           if($("#file_import_id")[0].files.length === 0){
-                 console.log('nothing');    
-           }else if($.inArray($('#file_import_id').val().split('.').pop().toLowerCase(), fileExtension) == -1) {
-                 console.log('nothing2');
-           }else{
-            $('#exampleModalImport').modal('hide');
-            var formData = new FormData();
-            var fileExcel = document.querySelector('#file_import_id');
-            formData.append("file", fileExcel.files[0]);
-            formData.append("dot", $('#dot_id').val());
-            formData.append("nam", $('#nam_id').val());
 
-            axios.post("{{route('import.ket-qua-ts')}}", formData,{
-                headers: {
-                        'Content-Type': 'multipart/form-data',
-                    }
-                }).then(function (response) {
+$("#submitTai").click(function(event){
+var fileExtension = ['xlsx', 'xls'];
+   if($("#file_import_id")[0].files.length === 0){
+         console.log('không có file');    
+   }else if($.inArray($('#file_import_id').val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+         console.log('chưa file không đúng định dạng');
+   }else{
+    $('#exampleModalImport').modal('hide');
+    $('.loading').css('display','block');
+    var formData = new FormData();
+    var fileExcel = document.querySelector('#file_import_id');
+    formData.append("file", fileExcel.files[0]);
+    formData.append("dot", $('#dot_id').val());
+    formData.append("nam", $('#nam_id').val());
 
-                    if(response.data == 'ok'){
-                    window.location.reload();
-                    console.log('Đã insert vào database');
-                    }else if(response.data == 'problem'){
-                    console.log('Có vấn đề về thông tin muốn nhập');
+    axios.post("{{route('import.ket-qua-ts')}}", formData,{
+        headers: {
+                'Content-Type': 'multipart/form-data',
+            }
+        }).then(function (response) {
+            // console.log(response)
+            if(response.data == 'ok'){
+                $('.loading').css('display','none');
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Cập nhập thành công',
+                        showConfirmButton: false,
+                        timer: 1700
+                    })
+                window.location.reload();
+                console.log('Đã insert vào database');
+            }else if(response.data == 'problem'){
+                $('.loading').css('display','none');
+                console.log('Có vấn đề về thông tin muốn nhập');
+                Swal.fire({
+                    title: 'Có vấn đề về thông tin muốn nhập !',
+                    // text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Xác nhận'
+                    }).then((result) => {
+                    if (result.value) {  
+                        window.location.reload();
                     }else{
-                        $('#submitTaiok').trigger('click');
-                        $('#my_form_kqts_import')[0].reset();
+                        window.location.reload();
                     }
+                    })
+            }else{
+                $('.loading').css('display','none');
+                $('#submitTaiok').trigger('click');
+                $('#my_form_kqts_import')[0].reset();
+            }
 
-                }).catch(function (error) {
-                console.log(error);
-                });
-            }   
-     });
+        }).catch(function (error) {
+          console.log(error);
+          $('.loading').css('display','none');
+          Swal.fire({
+                    title: 'Lỗi về file muốn nhập !',
+                    // text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Xác nhận'
+                    }).then((result) => {
+                    if (result.value) {  
+                        window.location.reload();
+                    }else{
+                        window.location.reload();
+                    }
+                    })
+        });
+    }   
+});
 
-        function clickDownloadTemplate(){
-                $('#exampleModal').modal('hide');
-        }
-    
+function clickDownloadTemplate(){
+        $('#exampleModal').modal('hide');
+}
 </script>
+
+
 
 
 <script src="{{ asset('js/so_lieu_tuyen_sinh/tong_hop_so_lieu.js') }}"></script>
 <script type="text/javascript">
-    $(document).ready(function(){
-    $('#co_so_id').select2();
-    $('#devvn_quanhuyen').select2();
-    $('#devvn_xaphuongthitran').select2();
-});
-$("#loai_hinh" ).change(function() {
-    axios.post('/xuat-bao-cao/ket-qua-tuyen-sinh/co-so-tuyen-sinh-theo-loai-hinh', {
-                id:  $("#loai_hinh").val(),
-    })
-    .then(function (response) {
-        var htmldata = '<option value="">Chọn cơ sở</option>'
-            response.data.forEach(element => {
-            htmldata+=`<option value="${element.id}" >${element.ten}</option>`   
-        });
-        $('#co_so_id').html(htmldata);
-    })
-    .catch(function (error) {
-        console.log(error);
+    var url_tuyen_sinh_theo_loai_hinh = "{{route('csTuyenSinhTheoLoaiHinh')}}"
+    var url_xa_phuong_theo_quan_huyen = "{{route('getXaPhuongTheoQuanHuyen')}}"
+    var url_nghe_theo_nghe_cap_bac= "{{route('getNgheTheoCapBac')}}"
+        $(document).ready(function(){
+        $('#co_so_id').select2();
+        $('#devvn_quanhuyen').select2();
+        $('#devvn_xaphuongthitran').select2();
+        $('#nghe_cap_2').select2();
+        $('#nghe_cap_3').select2();
+        $('#nghe_cap_4').select2();
     });
-});
-
-$("#devvn_quanhuyen" ).change(function() {
-    axios.post('/xuat-bao-cao/ket-qua-tuyen-sinh/xa-phuong-theo-quan-huyen', {
-                id:  $("#devvn_quanhuyen").val(),
-    })
-    .then(function (response) {
-        var htmldata = '<option value="" selected  >Chọn</option>'
-            response.data.forEach(element => {
-            htmldata+=`<option value="${element.xaid}" >${element.name}</option>`   
+    $("#loai_hinh" ).change(function() {
+        axios.post(url_tuyen_sinh_theo_loai_hinh, {
+            id:  $("#loai_hinh").val(),
+        })
+        .then(function (response) {
+            var htmldata = '<option value="">Chọn cơ sở</option>'
+                response.data.forEach(element => {
+                htmldata+=`<option value="${element.id}" >${element.ten}</option>`   
+            });
+            $('#co_so_id').html(htmldata);
+        })
+        .catch(function (error) {
+            console.log(error);
         });
-        $('#devvn_xaphuongthitran').html(htmldata);
-    })
-    .catch(function (error) {
-        console.log(error);
     });
-});
-function resetInput() {
-  document.getElementById("formsearch").reset();
-}
-
-  $("#page-size").change(function(){  
-    $("#page_size_hide").val($('#page-size').val())
-    var url = new URL(window.location.href);
-    var search_params = url.searchParams;
-    search_params.set('page_size', $("#page_size_hide").val());
-    url.search = search_params.toString();
-    var new_url = url.toString();
-    window.location.href = new_url
-  });
-
-
-</script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
-
+    
+    $("#devvn_quanhuyen" ).change(function() {
+        axios.post(url_xa_phuong_theo_quan_huyen, {
+                    id:  $("#devvn_quanhuyen").val(),
+        })
+        .then(function (response) {
+            var htmldata = '<option value="" selected  >Chọn</option>'
+                response.data.forEach(element => {
+                htmldata+=`<option value="${element.xaid}" >${element.name}</option>`   
+            });
+            $('#devvn_xaphuongthitran').html(htmldata);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    });
+    
+    function getNgheTheoCapBac(id){
+        setNameNganhNgheSearch(id)
+        var cap_nghe = $(id).val().length==3 ? 3: 4
+        axios.post(url_nghe_theo_nghe_cap_bac, {
+            id:  $(id).val(),
+            cap: cap_nghe
+        })
+        .then(function (response) {
+            var htmldata = '<option value="" selected  >Chọn nghề</option>'
+                response.data.forEach(element => {
+                    htmldata+=`<option value="${element.id}">${element.id}-${element.ten_nganh_nghe}</option>`  
+            });
+            if ($(id).val().length==3 || $(id).val().length==0) {
+                $('#nghe_cap_3').html(htmldata);
+            }else{
+                $('#nghe_cap_4').html(htmldata);
+            }
+            
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    }
+    function setNameNganhNgheSearch(id) {
+        var nganh_nghe = $('.nganh_nghe')
+        for (let index = 0; index < nganh_nghe.length; index++) {
+            $(nganh_nghe[index]).attr('name','')       
+        }
+        $(id).attr('name','nganh_nghe')
+    }
+    
+      $("#page-size").change(function(){  
+        $("#page_size_hide").val($('#page-size').val())
+        var url = new URL(window.location.href);
+        var search_params = url.searchParams;
+        search_params.set('page_size', $("#page_size_hide").val());
+        url.search = search_params.toString();
+        var new_url = url.toString();
+        window.location.href = new_url
+      });
+    
+    
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 @endsection
