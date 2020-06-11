@@ -146,14 +146,6 @@
         
         </div>
     </div>
-    <div class="d-flex justify-content-end">
-        <div class="col-lg-1 ">
-            <button type="submit" class="btn btn-danger">Hủy</button>
-        </div>
-        <div >
-            <button type="submit" class="btn btn-primary">Thêm mới</button>
-        </div>
-    </div>
 </div>
     @endsection
     @section('script')
