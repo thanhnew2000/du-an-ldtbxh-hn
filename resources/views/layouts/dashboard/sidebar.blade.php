@@ -318,17 +318,22 @@
 </li>
 {{-- End quản lý xây dựng chương trình --}}
 
-{{-- Quản lý kết quả tốt nghiệp --}}
-<li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;"
-		class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-technology-1"></i><span
-			class="m-menu__link-text">Quản lý kết
-			quả tốt
-			nghiệp</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
-	<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
-		<ul class="m-menu__subnav">
-			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('nhapbc.deadline-bao-cao')}}"
-					class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
-						class="m-menu__link-text">Thiết lập deadline báo cáo theo đợt</span></a></li>
+			{{-- Quản lý kết quả tốt nghiệp --}}
+			<li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a
+					href="javascript:;" class="m-menu__link m-menu__toggle"><i
+						class="m-menu__link-icon flaticon-technology-1"></i><span class="m-menu__link-text">Quản lý kết
+						quả tốt
+						nghiệp</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
+				<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item " aria-haspopup="true"><a href="{{route('nhapbc.kq-tot-nghiep')}}"
+							class="m-menu__link "><i
+								class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
+								class="m-menu__link-text">Kết quả tốt nghiệp</span></a></li>
+						<li class="m-menu__item " aria-haspopup="true"><a href="{{route('xuatbc.ds-tot-nghiep')}}"
+							class="m-menu__link "><i
+								class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
+								class="m-menu__link-text">Tổng hợp kết quả tốt nghiệp</span></a></li>
 
 		</ul>
 	</div>
