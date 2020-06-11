@@ -93,6 +93,11 @@
         </form>
     </div>
     <div class="m-portlet">
+        @if (session('thongbao')) 
+        <div class="alert alert-success">
+        {{session('thongbao')}}
+        </div>
+        @endif   
         <div class="m-portlet__body">
             <table class="table table-bordered m-table m-table--border-danger m-table--head-bg-primary table-responsive">
                 <thead>
@@ -168,11 +173,6 @@
                 </tbody>
             </table>
         </div>
-        @if (session('thongbao'))
-        <div class="thongbao" style="color: green; text-align: center;">
-          {{session('thongbao')}}
-        </div>
-        @endif
         <div class="m-portlet__foot d-flex justify-content-end">
             {{$data->links()}}
         </div>

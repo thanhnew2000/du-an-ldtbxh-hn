@@ -45,6 +45,9 @@ Route::group(['prefix' => 'xd-chuong-trinh-giao-trinh'], function(){
 
 Route::group(['prefix' => 'ket-qua-tot-nghiep'], function(){
     Route::get('/', 'ImportReportController@ketquatotnghiep')->name('nhapbc.kq-tot-nghiep');
+
+    Route::post('import-kq-tot_nghiep', 'ImportKqTotNghiepController@importFile')->name('import.ket-qua-tot-nghiep');
+    Route::post('import-error-kq-tot_nghiep', 'ImportKqTotNghiepController@importError')->name('import.error.ket-qua-tot-nghiep');
 });
 
 Route::group(['prefix' => 'dao-tao-nghe-cho-nguoi-khuyet-tat'], function(){
