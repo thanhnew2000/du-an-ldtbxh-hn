@@ -9,8 +9,9 @@ use App\User;
 use Carbon\Carbon;
 use Mail;
 use Illuminate\Support\Str;
-use Hash;
+// use Hash;
 use Storage;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\ResetPassWord;
 use App\Http\Requests\RegisterAccount;
 use App\Http\Requests\UpdateAccount;
@@ -109,7 +110,14 @@ class UserController extends Controller
         echo $numberPhone == 0 ? "true" : "false";
     }
 
-
+    public function create(RegisterAccount $request ){
+        return User::create([
+            'name' => $request['name'],
+            'phone_number' =>$request['phone_number'],
+            'email' => $request['email'],
+            'password' =>Hash::make($request['password']),
+        ]);
+    }
    
 
 

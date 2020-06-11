@@ -90,9 +90,12 @@
                     <th>Trung Cấp </th>
                     <th>Sơ Cấp </th>
                     <th>Khác </th>
+                    @can('them_so_luong_sinh_vien_dang_theo_hoc')
                     <th>
                         <a href="{{route('xuatbc.them-so-sv')}}" class="btn btn-success btn-sm">Thêm mới</a>
                     </th>
+                    @endcan
+                   
                 </thead>
 
                 @php($i=1)
@@ -107,10 +110,12 @@
                         <td>{{$qlsv->so_luong_sv_Trung_cap}}</td>
                         <td>{{$qlsv->so_luong_sv_So_cap}}</td>
                         <td>{{$qlsv->so_luong_sv_he_khac}}</td>
+                        @can('xem_so_luong_sinh_vien_dang_theo_hoc', Model::class)
                         <td>
                             <a href="{{ route('xuatbc.chi-tiet-so-lieu', ['co_so_id'=>$qlsv->cs_id]) }}" class="btn btn-info btn-sm">Chi tiết</a>
 
                         </td>
+                        @endcan  
                     </tr>
                     @empty
                     @endforelse($item as $data )
