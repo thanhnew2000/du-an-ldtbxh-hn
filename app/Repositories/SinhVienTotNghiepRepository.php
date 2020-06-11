@@ -127,7 +127,9 @@ class SinhVienTotNghiepRepository extends BaseRepository implements SinhVienTotN
 		if($queryData['dot']!=null){
 			$data->where('sv_tot_nghiep.dot', $queryData['dot']);
 		}
-		return $data->orderBy('id','desc')->paginate($limit);
+		return $data->orderBy('nam','desc')
+		->orderBy('dot', 'desc')
+		->paginate($limit);
 
 	}
 

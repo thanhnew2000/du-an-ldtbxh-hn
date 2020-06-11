@@ -89,7 +89,10 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Nghề cấp 2</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control nganh_nghe" onchange="getNgheTheoCapBac(this)" name="nganh_nghe" id="nghe_cap_2">
+                                    <select class="form-control nganh_nghe" onchange="getNgheTheoCapBac(this)"
+                                    @if (isset($params['nganh_nghe']))
+                                    name ="{{strlen($params['nganh_nghe'])==3?'nganh_nghe':''}}" @endif
+                                    id="nghe_cap_2">
                                         <option value="" selected>Chọn</option>
                                         @foreach ($nghe_cap_2 as $item)
                                         <option @if (isset($params['nganh_nghe']))
@@ -125,7 +128,10 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Nghề cấp 3</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control nganh_nghe" onchange="getNgheTheoCapBac(this)" name="" id="nghe_cap_3">
+                                    <select class="form-control nganh_nghe" onchange="getNgheTheoCapBac(this)" 
+                                    @if (isset($params['nganh_nghe']))
+                                    name ="{{strlen($params['nganh_nghe'])==5?'nganh_nghe':''}}" @endif
+                                    id="nghe_cap_3">
                                         <option value="" selected>Chọn</option>  
                                         @foreach ($nghe_cap_3 as $item)
                                         <option @if (isset($params['nganh_nghe']))
@@ -158,7 +164,10 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Nghề cấp 4</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control nganh_nghe" onchange="setNameNganhNgheSearch(this)" name="" id="nghe_cap_4">
+                                    <select class="form-control nganh_nghe" onchange="setNameNganhNgheSearch(this)" 
+                                    @if (isset($params['nganh_nghe']))
+                                    name ="{{strlen($params['nganh_nghe'])==7?'nganh_nghe':''}}" @endif
+                                    id="nghe_cap_4">
                                         <option value="" selected>Chọn</option>
                                         @foreach ($nghe_cap_4 as $item)
                                         <option @if (isset($params['nganh_nghe']))
@@ -212,7 +221,7 @@
                 Tải lên file Excel</a>
         </div>
         <div class="col-lg-2">
-            <a href="javascript:" data-toggle="modal" data-target="#exampleModalExportData"><i class="fa fa-upload"
+            <a href="javascript:" data-toggle="modal" data-target="#exampleModalExportData"><i class="fa fa-file-excel"
                     aria-hidden="true"></i>
                 Xuất dữ liệu ra Excel</a>
         </div>

@@ -104,6 +104,12 @@ Route::group(['prefix' => 'ket-qua-tot-nghiep'], function(){
     Route::post('/them-tong-hop-ket-qua-tot-nghiep','SinhVienTotNghiepController@store')
         ->name('xuatbc.post-them-tong-hop');
     Route::post('/check-them-so-lieu-tot-nghiep','SinhVienTotNghiepController@getCheckTonTaiSoLieuTotNghiep')->name('xuatbc.check_so_lieu_tot_nghiep'); 
+
+    // thanhnv import export
+    Route::post('/export-bieu-mau-kqtn', 'ExportKqTotNghiepController@taiBieuMau')
+    ->name('layformbieumautotnghiep');   
+    Route::post('export-data-kq-tot-nghiep','ExportKqTotNghiepController@exportDataTotNghiep')
+    ->name('exportdatatotnghiep');
 });
 
 
@@ -137,4 +143,12 @@ Route::group(['prefix' => 'chi-tieu-tuyen-sinh'], function(){
     Route::get('/tong-hop', 'ExtractController@tonghoptuyensinh')
 
         ->name('xuatbc.ds-chi-tieu-ts');
+});
+
+// thanhvn import export can bo quan ly 
+Route::group(['prefix' => 'so-lieu-can-bo-quan-ly'], function(){
+    Route::post('export-bieu-mau','ExportSoLieuCanBoQlController@taiBieuMau')
+        ->name('layformbieumau.solieucanbo.quanly');
+    Route::post('export-data-so-lieu-can-bo-quanly','ExportSoLieuCanBoQlController@exportDataSoLieuCanBoQuanLy')
+        ->name('exportdata.solieucanbo.quanly');
 });

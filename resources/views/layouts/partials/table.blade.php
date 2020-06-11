@@ -1,5 +1,5 @@
 <div class="m-portlet">
-    <div class="m-portlet__body table-responsive">
+    <div class="m-portlet__body">
         <div class="col-12 form-group m-form__group d-flex justify-content-end">
             <label class="col-lg-2 col-form-label">Kích thước:</label>
             <div class="col-lg-2">
@@ -11,14 +11,20 @@
             </div>
         </div>
 
-        <table class="table m-table m-table--head-bg-brand">
+        <table class="table table-bordered m-table m-table--head-bg-primary table-responsive">
             <thead>
                 <th scope="col">STT</th>
                 @foreach ($titles as $key => $title)
                 <th id="{{ $key }}">{!! $title !!}&nbsp;&nbsp;<i class="fas fa-angle-down pointer"></i></th>
                 @endforeach
+                @if (
+                    (isset($route_edit) && !empty($route_edit)) ||
+                    (isset($route_show) && !empty($route_show))
+                )
                 <th scope="col" colspan="2">Thao tác</th>
+                @endif
             </thead>
+
             <tbody>
                 @php
                     $i = !request()->has('page') ? 1 : ($limit * (request()->get('page') - 1) + 1)
@@ -29,9 +35,11 @@
                         @foreach ($titles as $key => $title)
                             <td>{!! $item->$key !!}</td>
                         @endforeach
+                        @if (isset($route_edit) && !empty($route_edit))
                         <td>
                             <a href="{{ route($route_edit, [ $item->id ]) }}">Sửa</a>
                         </td>
+                        @endif
                         @if (isset($route_show) && !empty($route_show))
                         <td>
                             <a href="{{ route($route_show, [ $item->id ]) }}">Chi tiết</a>
@@ -39,11 +47,10 @@
                         @endif
                     </tr>
                 @endforeach
-                </tbody>
             </tbody>
         </table>
     </div>
     <div class="m-portlet__foot d-flex justify-content-end">
-        {{$data->links()}}
+        {{ $data->links() }}
     </div>
 </div>

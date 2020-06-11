@@ -15,7 +15,10 @@
             </div>
         </div>
         <div class="content p-5" style="background-color: #FFFFFF ; ">
-            <form action="{{ route('so-lieu-can-bo-quan-ly.store') }}" method="post">
+            <form action="{{ route('so-lieu-can-bo-quan-ly.update', [
+                'so_lieu_can_bo_quan_ly' => $data['id']
+            ]) }}" method="POST">
+                @method('PUT')
                 @csrf
                 <div class="row">
                     <div class="col-6 d-flex align-items-center mt-3">
@@ -27,11 +30,12 @@
                             <select
                                 name="co_so_dao_tao_id"
                                 id="co_so_dao_tao_id"
-                                class="form-control select2">
+                                disabled
+                                class="form-control col-12 select2">
                                 @foreach ($listCoSo as $coSo)
                                 <option
                                     value="{{ $coSo->id }}"
-                                    {{ old('co_so_dao_tao_id') == $coSo->id ? 'selected' : ''}}
+                                    {{ $data['co_so_dao_tao_id'] == $coSo->id ? 'selected' : ''}}
                                     >
                                     {{ $coSo->ten }}
                                 </option>
@@ -71,7 +75,7 @@
                                 @foreach ($listNam as $key => $value)
                                 <option
                                     value="{{ $key }}"
-                                    {{ old('nam') == $key ? 'selected' : ''}}
+                                    {{ $data['nam'] == $key ? 'selected' : ''}}
                                     >
                                     {{ $value }}
                                 </option>
@@ -95,7 +99,7 @@
                                 @foreach ($listDot as $key => $value)
                                 <option
                                     value="{{ $key }}"
-                                    {{ old('dot') == $key ? 'selected' : ''}}
+                                    {{ $data['dot'] == $key ? 'selected' : ''}}
                                     >
                                     {{ $value }}
                                 </option>
@@ -117,24 +121,8 @@
                                 name="tong_so_quan_ly"
                                 id="tong_so_quan_ly"
                                 class="form-control"
-                                value="{{ old('tong_so_quan_ly') }}">
+                                value="{{ $data['tong_so_quan_ly'] }}">
                             @error('tong_so_quan_ly')
-                            <small class="required">{{ $message }}</small>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-6 d-flex align-items-center mt-3">
-                        <label for="so_cb_quan_ly_nu" class="col-4">
-                            Số cán bộ nữ
-                        </label>
-                        <div class="col-8 p-0">
-                            <input
-                                type="number"
-                                name="so_cb_quan_ly_nu"
-                                id="so_cb_quan_ly_nu"
-                                class="form-control"
-                                value="{{ old('so_cb_quan_ly_nu') }}">
-                            @error('so_cb_quan_ly_nu')
                             <small class="required">{{ $message }}</small>
                             @enderror
                         </div>
@@ -149,8 +137,24 @@
                                 name="so_dan_toc"
                                 id="so_dan_toc"
                                 class="form-control"
-                                value="{{ old('so_dan_toc') }}">
+                                value="{{ $data['so_dan_toc'] }}">
                             @error('so_dan_toc')
+                            <small class="required">{{ $message }}</small>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-6 d-flex align-items-center mt-3">
+                        <label for="so_cb_quan_ly_nu" class="col-4">
+                            Số cán bộ nữ
+                        </label>
+                        <div class="col-8 p-0">
+                            <input
+                                type="number"
+                                name="so_cb_quan_ly_nu"
+                                id="so_cb_quan_ly_nu"
+                                class="form-control"
+                                value="{{ $data['so_cb_quan_ly_nu'] }}">
+                            @error('so_cb_quan_ly_nu')
                             <small class="required">{{ $message }}</small>
                             @enderror
                         </div>
@@ -165,7 +169,7 @@
                                 name="so_cb_giang_day"
                                 id="so_cb_giang_day"
                                 class="form-control"
-                                value="{{ old('so_cb_giang_day') }}">
+                                value="{{ $data['so_cb_giang_day'] }}">
                             @error('so_cb_giang_day')
                             <small class="required">{{ $message }}</small>
                             @enderror
@@ -181,7 +185,7 @@
                                 name="so_cb_da_boi_duong"
                                 id="so_cb_da_boi_duong"
                                 class="form-control"
-                                value="{{ old('so_cb_da_boi_duong') }}">
+                                value="{{ $data['so_cb_da_boi_duong'] }}">
                             @error('so_cb_da_boi_duong')
                             <small class="required">{{ $message }}</small>
                             @enderror
@@ -197,7 +201,7 @@
                                 name="so_danh_hieu"
                                 id="so_danh_hieu"
                                 class="form-control"
-                                value="{{ old('so_danh_hieu') }}">
+                                value="{{ $data['so_danh_hieu'] }}">
                             @error('so_danh_hieu')
                             <small class="required">{{ $message }}</small>
                             @enderror
@@ -213,7 +217,7 @@
                                 name="so_hieu_truong"
                                 id="so_hieu_truong"
                                 class="form-control"
-                                value="{{ old('so_hieu_truong') }}">
+                                value="{{ $data['so_hieu_truong'] }}">
                             @error('so_hieu_truong')
                             <small class="required">{{ $message }}</small>
                             @enderror
@@ -229,7 +233,7 @@
                                 name="so_hieu_pho"
                                 id="so_hieu_pho"
                                 class="form-control"
-                                value="{{ old('so_hieu_pho') }}">
+                                value="{{ $data['so_hieu_pho'] }}">
                             @error('so_hieu_pho')
                             <small class="required">{{ $message }}</small>
                             @enderror
@@ -245,7 +249,7 @@
                                 name="so_truong_khoa"
                                 id="so_truong_khoa"
                                 class="form-control"
-                                value="{{ old('so_truong_khoa') }}">
+                                value="{{ $data['so_truong_khoa'] }}">
                             @error('so_truong_khoa')
                             <small class="required">{{ $message }}</small>
                             @enderror
@@ -261,7 +265,7 @@
                                 name="so_pho_phong"
                                 id="so_pho_phong"
                                 class="form-control"
-                                value="{{ old('so_pho_phong') }}">
+                                value="{{ $data['so_pho_phong'] }}">
                             @error('so_pho_phong')
                             <small class="required">{{ $message }}</small>
                             @enderror
@@ -277,7 +281,7 @@
                                 name="so_to_truong"
                                 id="so_to_truong"
                                 class="form-control"
-                                value="{{ old('so_to_truong') }}">
+                                value="{{ $data['so_to_truong'] }}">
                             @error('so_to_truong')
                             <small class="required">{{ $message }}</small>
                             @enderror
@@ -293,7 +297,7 @@
                                 name="so_trinh_do_tien_sy"
                                 id="so_trinh_do_tien_sy"
                                 class="form-control"
-                                value="{{ old('so_trinh_do_tien_sy') }}">
+                                value="{{ $data['so_trinh_do_tien_sy'] }}">
                             @error('so_trinh_do_tien_sy')
                             <small class="required">{{ $message }}</small>
                             @enderror
@@ -309,7 +313,7 @@
                                 name="so_trinh_do_thac_sy"
                                 id="so_trinh_do_thac_sy"
                                 class="form-control"
-                                value="{{ old('so_trinh_do_thac_sy') }}">
+                                value="{{ $data['so_trinh_do_thac_sy'] }}">
                             @error('so_trinh_do_thac_sy')
                             <small class="required">{{ $message }}</small>
                             @enderror
@@ -325,7 +329,7 @@
                                 name="so_trinh_do_cao_dang"
                                 id="so_trinh_do_cao_dang"
                                 class="form-control"
-                                value="{{ old('so_trinh_do_cao_dang') }}">
+                                value="{{ $data['so_trinh_do_cao_dang'] }}">
                             @error('so_trinh_do_cao_dang')
                             <small class="required">{{ $message }}</small>
                             @enderror
@@ -341,7 +345,7 @@
                                 name="so_trinh_do_trung_cap"
                                 id="so_trinh_do_trung_cap"
                                 class="form-control"
-                                value="{{ old('so_trinh_do_trung_cap') }}">
+                                value="{{ $data['so_trinh_do_trung_cap'] }}">
                             @error('so_trinh_do_trung_cap')
                             <small class="required">{{ $message }}</small>
                             @enderror
@@ -357,7 +361,7 @@
                                 name="so_trinh_do_khac"
                                 id="so_trinh_do_khac"
                                 class="form-control"
-                                value="{{ old('so_trinh_do_khac') }}">
+                                value="{{ $data['so_trinh_do_khac'] }}">
                             @error('so_trinh_do_khac')
                             <small class="required">{{ $message }}</small>
                             @enderror
@@ -366,7 +370,7 @@
                 </div>
                 <div class="d-flex justify-content-center mt-5 col-12">
                     <button type="reset" class="col-2 btn btn-danger mr-5">Hủy</button>
-                    <button type="submit" class="col-2 btn btn-primary ">Thêm mới</button>
+                    <button type="submit" class="col-2 btn btn-primary ">Chỉnh sửa</button>
                 </div>
             </form>
         </div>
@@ -380,6 +384,9 @@
 <style>
     .required {
         color: red;
+    }
+    .p-0 {
+        padding: 0px;
     }
 </style>
 @endsection
