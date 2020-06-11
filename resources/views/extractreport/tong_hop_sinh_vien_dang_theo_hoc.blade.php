@@ -1,16 +1,4 @@
 
-<div class="loading" style="display:none">	
-
-	<div class="loading-background-back-all" ></div>
-	<div class='loading-position'>
-		<div class="lds-ring"><div></div><div></div><div></div><div></div></div>
-            <div>
-                &nbsp; &nbsp;Loading...
-            </div>
-	</div>
-
-</div>
-
 @extends('layouts.admin')
 @section('title', "Tổng hợp số liệu học sinh")
 @section('content')

@@ -71,8 +71,8 @@ class ExportHsQlController extends Controller
 
     $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, "Xlsx");
     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-   header('Content-Disposition: attachment; filename="file-template.xlsx"');
-   $writer->save("php://output");
+    header('Content-Disposition: attachment; filename="file-template.xlsx"');
+    $writer->save("php://output");
   }
   
 
