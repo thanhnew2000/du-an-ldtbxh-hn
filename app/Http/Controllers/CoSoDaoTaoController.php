@@ -121,6 +121,9 @@ class CoSoDaoTaoController extends Controller
                 'upload_logo.mimes' => 'File ảnh không đúng định dạng',
                 'dia_chi.required' => 'Địa chỉ không được để trống',
                 'ten_quoc_te.required' => 'Tên quốc tế không được để trống',
+                'co_quan_chu_quan_id.required' => 'Vui lòng chọn cơ quan chủ quản',
+                'ma_loai_hinh_co_so.required' => 'Vui lòng chọn loại hình cơ sở',
+                'quyet_dinh_id.required' => 'Vui lòng chọn quyết định'
             ]
         );
 
