@@ -5,9 +5,18 @@ namespace App\Repositories;
 
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
+use App\CoSoDaoTao;
 
 class CoSoDaoTaoRepository extends BaseRepository implements CoSoDaoTaoRepositoryInterface
 {
+    protected $model;
+    public function __construct(
+        CoSoDaoTao $model
+    ) {
+        parent::__construct();
+        $this->model = $model;
+    }
+
     public function getTable()
     {
         return 'co_so_dao_tao';
@@ -59,6 +68,31 @@ class CoSoDaoTaoRepository extends BaseRepository implements CoSoDaoTaoRepositor
                 DB::raw('devvn_quanhuyen.name as tenquanhuyen')
             )
             ->where('co_so_dao_tao.id', $id)
+            ->get();
+    }
+
+    public function getCoSoBySoLieuId($soLieuId)
+    {
+        return $this->model
+            ->join('so_lieu_can_bo_quan_ly', 'so_lieu_can_bo_quan_ly.co_so_dao_tao_id', '=', 'co_so_dao_tao.id')
+            ->join('loai_hinh_co_so', 'loai_hinh_co_so.id', '=', 'co_so_dao_tao.ma_loai_hinh_co_so')
+            ->select([
+                'co_so_dao_tao.id',
+                'co_so_dao_tao.ten',
+                'loai_hinh_co_so.loai_hinh_co_so',
+            ])
+            ->where('so_lieu_can_bo_quan_ly.id', $soLieuId)
+            ->first();
+    }
+
+    public function getAllWithLoaiHinh()
+    {
+        return $this->model
+            ->join('loai_hinh_co_so', 'loai_hinh_co_so.id', '=', 'co_so_dao_tao.ma_loai_hinh_co_so')
+            ->select([
+                'co_so_dao_tao.*',
+                'loai_hinh_co_so.loai_hinh_co_so',
+            ])
             ->get();
     }
 }

@@ -1,15 +1,24 @@
 * {
-    font-family: 'Roboto', sans-serif !important;
+    font-family: 'Roboto', sans-serif;
 }
 
-*:not(.select2-selection__arrow) {
-    font-family: "Roboto", sans-serif !important;
+span.select2-selection__arrow::before {
+    font-family: "LineAwesome";
 }
 
-
-/* *:not(.select2-selection__arrow) {
-    font-family: "Roboto", sans-serif;
-} */
+i.la {
+  font: normal normal normal 16px/1 "LineAwesome";
+  font-style: normal;
+  font-variant-ligatures: normal;
+  font-variant-caps: normal;
+  font-variant-numeric: normal;
+  font-variant-east-asian: normal;
+  font-weight: normal;
+  font-stretch: normal;
+  font-size: inherit;
+  line-height: 1;
+  font-family: LineAwesome;
+}
 
 .btn {
     font-family: 'Roboto', sans-serif !important;
@@ -28,6 +37,54 @@ table th {
     cursor: pointer;
 }
 
+
+
+/* thanhnv loading KHI import file */
+.loading{
+    position: fixed; top: 50px;z-index: 1000;margin-top: -50px;
+  }
+.loading-background-back-all{
+    width: 1505px;background: black;height: 1500px;position: absolute;z-index: 100;opacity: 0.9;
+}
+.loading-position{
+    position: absolute;z-index: 100;color: white;width: 1000px;float: left;margin-left: 750px;margin-top: 310px;
+}
+  .lds-ring {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+  }
+  .lds-ring div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border: 8px solid #fff;
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #fff transparent transparent transparent;
+  }
+  .lds-ring div:nth-child(1) {
+    animation-delay: -0.45s;
+  }
+  .lds-ring div:nth-child(2) {
+    animation-delay: -0.3s;
+  }
+  .lds-ring div:nth-child(3) {
+    animation-delay: -0.15s;
+  }
+  @keyframes lds-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  /* thanhnv finished loading import file */
 table td {
     vertical-align: middle !important;
 }
@@ -59,4 +116,18 @@ table td {
 .table-boder-white th {
     border: 1px solid white;
     border-top: 1px solid white !important;
+}
+
+/* update more */
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
+.btn {
+    font-family: 'Roboto', sans-serif !important;
+}
+
+.size-100 {
+    max-width: 100px;
+    max-height: 100px;
 }
