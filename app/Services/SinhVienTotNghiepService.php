@@ -81,6 +81,53 @@ class SinhVienTotNghiepService extends AppService
         return $data;
     // dd($data);
     }
+    public function getSuaSoLieuTotNghiep($id)
+    {
+        return $this->repository->getSuaSoLieuTotNghiep($id);
+    }
+
+    public function getCheckTonTaiSoLieuTotNghiep($data, $requestParams)
+    {
+        $checkResult = $this->getSoLieu($data);
+        unset($requestParams['_token']);
+        $route = route('xuatbc.them-tong-hop');
+        $message = $checkResult == 'tontai' ?
+            'Số liệu tốt nghiệp đã tồn tại và được phê duyệt' :
+            'Số liệu tốt nghiệp đã tồn tại';
+        
+        if (!isset($checkResult)) {
+            $data = $this->repository->postThemSoLieuTotNghiep($requestParams);
+            $message = 'Thêm số liệu tốt nghiệp thành công';
+            $route = route('xuatbc.chi-tiet-tong-hop', [
+                'id' => $requestParams['co_so_id'],
+            ]);
+        }
+
+        return [
+            'route' => $route,
+            'message' => $message,
+        ];
+    }
+    public function getSoLieu($data)
+    {
+        $dataCheckNew = $this->constructConditionParams($data);
+
+        return $this->repository->getCheckTonTaiSoLieuTotNghiep($dataCheckNew);
+    }
+
+    protected function constructConditionParams($params)
+    {
+        $conditionData = [];
+        foreach ($params as $item) {
+            $conditionData[] = [
+                $item['id'],
+                '=',
+                $item['value'],
+            ];
+        }
+
+        return $conditionData;
+    }
 }
 
  ?>

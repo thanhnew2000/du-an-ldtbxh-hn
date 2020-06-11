@@ -93,7 +93,15 @@
             </div>
         </form>
     </div>
+    
     <div class="m-portlet">
+        
+            @if (session('thongbao')) 
+            <div class="alert alert-success">
+            {{session('thongbao')}}
+            </div>
+            @endif      
+         
         <div class="m-portlet__body " style="overflow-x:auto;">
             <table style="width: 280%;" class="table table-bordered m-table m-table--border-danger m-table--head-bg-primary table-responsive">
                 <thead>
@@ -103,6 +111,7 @@
                         <th rowspan="2">Đợt</th>
                         <th rowspan="2">Mã nghề</th>
                         <th rowspan="2">Tên nghề</th>
+                        <th rowspan="2">Tổng số người học <br> tốt nghiệp</th>
                         <th colspan="3">Trong đó</th>
                         <th colspan="7">Trình độ Cao đẳng</th>
                         <th colspan="2">Số người có việc làm <br> ngay sau khi tốt nghiệp </th>
@@ -220,6 +229,7 @@
                         <td>{{$item->dot}}</td>
                         <td>{{$item->nghe_id}}</td>
                         <td>{{$item->ten_nganh_nghe}}</td>
+                        <td>{{$item->Tong_SoNguoi_TN}}</td>
                         <td>{{$item->NU_SV_TN}}</td>
                         <td>{{$item->DanToc_ThieuSo_ItNguoi}}</td>
                         <td>{{$item->HoKhauHN}}</td>
@@ -232,8 +242,8 @@
                         <td>{{$item->SoLuong_HSSV_TN_Kha_Gioi_CD}}</td>
                         <td>{{$item->SoNguoi_CoViecLamNgay_SauKhi_TN_CD}}</td>
                         <td>{{$item->CoViecLam_HoKhauHN_TrinhDoCD}}</td>
-                        <td>{{$item->MucLuong_TB_CD}}</td>
-                        <td>{{$item->MucLuong_TB_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoCD}}</td>
+                        <td>{{number_format($item->MucLuong_TB_CD)}}</td>
+                        <td>{{number_format($item->MucLuong_TB_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoCD)}}</td>
                         <td>{{$item->SoSV_NhapHoc_DauKhoa_TrinhDoTC}}</td>
                         <td>{{$item->SoSV_Du_DieuKienTHhi_XetTN_TrinhDoTC}}</td>
                         <td>{{$item->SoSV_TN_TrinhDoTC}}</td>
@@ -245,8 +255,8 @@
                         <td>{{$item->SoNguoiHoc_CoViecLamNgay_SauKhi_TN_TrinhDoTC}}</td>
                         <td>{{$item->CoViecLam_HoKhauHN_TrinhDo_TC}}</td>
                         <td>{{$item->SV_CoViecLam_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoTC}}</td>
-                        <td>{{$item->MucLuong_TB_TC}}</td>
-                        <td>{{$item->MucLuong_TB_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoTC}}</td>
+                        <td>{{number_format($item->MucLuong_TB_TC)}}</td>
+                        <td>{{number_format($item->MucLuong_TB_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoTC)}}</td>
                         <td>{{$item->SoSV_NhapHoc_DauKhoa_TrinhDoSC}}</td>
                         <td>{{$item->SoSV_Du_DieuKienThi_XetTN_TrinhDoSC}}</td>
                         <td>{{$item->SoSV_TN_TrinhDoSC}}</td>
@@ -255,8 +265,8 @@
                         <td>{{$item->SoSV_HoKhauHN_SC}}</td>
                         <td>{{$item->SoNguoiHoc_CoViecLamNgay_SauKhi_TN_TrinhDoSC}}</td>
                         <td>{{$item->SoLuong_HoKhauHN_TrinhDoSC}}</td>
-                        <td>{{$item->MucLuong_TB_SC}}</td>
-                        <td>{{$item->MucLuong_TB_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoSC}}</td>
+                        <td>{{number_format($item->MucLuong_TB_SC)}}</td>
+                        <td>{{number_format($item->MucLuong_TB_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoSC)}}</td>
                         <td>{{$item->SoSV_NhapHoc_DauKhoa_NgheKhac}}</td>
                         <td>{{$item->SoSV_DuKienThi_XetTN_NgheKhac}}</td>
                         <td>{{$item->SoSV_TN_NgheKhac}}</td>
@@ -265,10 +275,10 @@
                         <td>{{$item->SoNguoi_HoKhauHN_NgheKhac}}</td>
                         <td>{{$item->SoNguoiHoc_CoViecLamNgay_SauKhi_TN_DaoTao_NgheKhac}}</td>
                         <td>{{$item->SoNguoi_HoKhauHN_TrinhDo_DaoTao_NgheKhac}}</td>
-                        <td>{{$item->MucLuong_TB_NgheKhac}}</td>
-                        <td>{{$item->MucLuong_TB_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoNgheKhac}}</td>
+                        <td>{{number_format($item->MucLuong_TB_NgheKhac)}}</td>
+                        <td>{{number_format($item->MucLuong_TB_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoNgheKhac)}}</td>
                         <td>
-                            @if ($item->trang_thai<3) <a href="{{route('suasolieutuyensinh',['id'=>$item->id])}}">
+                            @if ($item->trang_thai<3) <a href="{{route('xuatbc.sua-tong-hop',['id'=>$item->id])}}">
                                 Sửa</a>
                             @endif
                         </td>
@@ -279,11 +289,7 @@
                 </tbody>
             </table>
         </div>
-        @if (session('thongbao'))
-        <div class="thongbao" style="color: green; text-align: center;">
-          {{session('thongbao')}}
-        </div>
-        @endif
+       
         <div class="m-portlet__foot d-flex justify-content-end">
             {{$data->links()}}
         </div>
