@@ -9,7 +9,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'quan-ly-giao-vien'], function(){
     Route::get('/', 'QuanLyGiaoVienController@index')->name('ql-giao-vien.index');
+    Route::get('create', 'QuanLyGiaoVienController@create')->name('ql-giao-vien.create');
+    Route::post('store', 'QuanLyGiaoVienController@store')->name('ql-giao-vien.store');
+    Route::get('edit/{giaoVien}', 'QuanLyGiaoVienController@edit')->name('ql-giao-vien.edit');
+    Route::post('update/{giaoVien}', 'QuanLyGiaoVienController@update')->name('ql-giao-vien.update');
 });
+
+Route::resource('so-lieu-can-bo-quan-ly', 'SoLieuCanBoQuanLyController');
 
 Route::group(['prefix' => 'can-bo-quan-ly'], function(){
     Route::get('/', 'ImportReportController@doingucanboquanly')->name('nhapbc.quan-ly');

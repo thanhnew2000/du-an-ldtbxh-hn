@@ -7,9 +7,9 @@
         <div class="m-portlet__head">
             <div class="m-portlet__head-caption">
                 <div class="m-portlet__head-title">
-												<span class="m-portlet__head-icon">
-													<i class="m-menu__link-icon flaticon-web"></i>
-												</span>
+                    <span class="m-portlet__head-icon">
+                        <i class="m-menu__link-icon flaticon-web"></i>
+                    </span>
                     <h3 class="m-portlet__head-text">
                         Sinh Viên Đang Quản Lý <small>Danh sách</small>
                     </h3>
@@ -52,7 +52,7 @@
                         </div>
                     </div>
 
-                   
+
 
                 </div>
                 <div class="row justify-content-center">
@@ -94,9 +94,9 @@
                         <a href="{{route('xuatbc.them-so-sv')}}" class="btn btn-success btn-sm">Thêm mới</a>
                     </th>
                 </thead>
-                
+
                 @php($i=1)
-                
+
                 @forelse ($data as $qlsv)
                     <tr>
                         <td>{{$i++}}</td>

@@ -32,9 +32,9 @@
 							<li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-web"></i><span class="m-menu__link-text">Quản lý ngành nghề</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
 								<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 									<ul class="m-menu__subnav">
-										
+
 										<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="{{route('nghe.danh-sach')}}" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Danh sách ngành nghề</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
-											
+
 										</li>
 										<li class="m-menu__item " aria-haspopup="true"><a href="{{route('nghe.chi-tieu-ts')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Thiết lập chỉ tiêu tuyển sinh</span></a></li>
 										<li class="m-menu__item " aria-haspopup="true"><a href="{{route('nghe.thiet-lap-nghe-cs')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Thiết lập nghề cho cơ sở đào tạo</span></a></li>
@@ -46,7 +46,7 @@
 									<ul class="m-menu__subnav">
 										<li class="m-menu__item  m-menu__item--parent" aria-haspopup="true"><span class="m-menu__link"><span class="m-menu__link-text">Portlets</span></span></li>
 										<li class="m-menu__item " aria-haspopup="true"><a href="{{route('ql-giao-vien.index')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Quản lý giáo viên</span></a></li>
-										<li class="m-menu__item " aria-haspopup="true"><a href="{{route('nhapbc.quan-ly')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Đội ngũ cán bộ quản lý</span></a></li>
+										<li class="m-menu__item " aria-haspopup="true"><a href="{{route('so-lieu-can-bo-quan-ly.index')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Đội ngũ cán bộ quản lý</span></a></li>
 										<li class="m-menu__item " aria-haspopup="true"><a href="{{route('nhapbc.chinh-sach-sv')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Thực hiện chính sách cho sinh viên</span></a></li>
 										<li class="m-menu__item " aria-haspopup="true"><a href="{{route('nhapbc.ket-qua-ts')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Kết quả tuyển sinh</span></a></li>
 										<li class="m-menu__item " aria-haspopup="true"><a href="{{route('nhapbc.xd-chuong-trinh')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Xây dựng chương trình / giáo trình</span></a></li>
@@ -83,7 +83,7 @@
 										<li class="m-menu__item " aria-haspopup="true"><a href="{{route('xuatbc.ds-hop-tact-qte')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Tổng hợp hợp tác quốc tế</span></a></li>
 										<li class="m-menu__item " aria-haspopup="true"><a href="{{route('xuatbc.ds-chi-tieu-ts')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Tổng hợp đăng ký chỉ tiêu tuyển sinh</span></a></li>
 
- 
+
 									</ul>
 								</div>
 							</li>
@@ -107,7 +107,7 @@
 										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('news/danh-sach-tin-tuc')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Danh sách tin tức</span></a></li>
 										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('news/chi-tiet-tin-tuc')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Chi tiết tin tức</span></a></li>
 										<li class="m-menu__item " aria-haspopup="true"><a href="{{url('news/quan-ly-tin-tuc')}}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Quản lý tin tức</span></a></li>
-										
+
 									</ul>
 								</div>
 							</li>
@@ -117,7 +117,7 @@
 										<li class="m-menu__item  m-menu__item--parent" aria-haspopup="true"><span class="m-menu__link"><span class="m-menu__link-text">Charts</span></span></li>
 										<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="{{url('feedback/nhan-tin-bao-loi-he-thong')}}" class="m-menu__link m-menu__toggle"><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Nhắn tin báo lỗi hệ thống</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
 										</li>
-										
+
 									</ul>
 								</div>
 							</li>

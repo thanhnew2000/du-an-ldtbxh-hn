@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+
 @section('content')
 <div class="m-content">
     @include('layouts.partials.filter', [
@@ -13,7 +14,7 @@
             <a href=""><i class="la la-upload">Tải lên file excel</i></a>
         </div>
         <div class="col-lg-8 " style="text-align: right">
-        <a href="{{ route('ql-giao-vien.create') }}"><button type="button" class="btn btn-secondary">Thêm mới</button></a>
+        <a href="{{ route('so-lieu-can-bo-quan-ly.create') }}"><button type="button" class="btn btn-secondary">Thêm mới</button></a>
         </div>
     </div>
 
@@ -24,7 +25,7 @@
 </div>
 @endsection
 
-@section('title', "Danh sách giáo viên")
+@section('title', "Số liệu cán bộ quản lý")
 
 @section('style')
 <link href="{!! asset('css/main.css') !!}" rel="stylesheet" type="text/css" />

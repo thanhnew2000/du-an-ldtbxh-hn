@@ -2,9 +2,23 @@
     font-family: 'Roboto', sans-serif;
 }
 
-/* *:not(.select2-selection__arrow) {
-    font-family: "Roboto", sans-serif !important;
-} */
+span.select2-selection__arrow::before {
+    font-family: "LineAwesome";
+}
+
+i.la {
+  font: normal normal normal 16px/1 "LineAwesome";
+  font-style: normal;
+  font-variant-ligatures: normal;
+  font-variant-caps: normal;
+  font-variant-numeric: normal;
+  font-variant-east-asian: normal;
+  font-weight: normal;
+  font-stretch: normal;
+  font-size: inherit;
+  line-height: 1;
+  font-family: LineAwesome;
+}
 
 .btn {
     font-family: 'Roboto', sans-serif !important;
@@ -102,4 +116,18 @@ table td {
 .table-boder-white th {
     border: 1px solid white;
     border-top: 1px solid white !important;
+}
+
+/* update more */
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
+.btn {
+    font-family: 'Roboto', sans-serif !important;
+}
+
+.size-100 {
+    max-width: 100px;
+    max-height: 100px;
 }
