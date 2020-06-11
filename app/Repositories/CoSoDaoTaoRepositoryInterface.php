@@ -13,4 +13,8 @@ interface CoSoDaoTaoRepositoryInterface
      * @return mixed
      */
     public function getSingleCsdt($id);
+
+    public function getCoSoBySoLieuId($soLieuId);
+
+    public function getAllWithLoaiHinh();
 }

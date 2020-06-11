@@ -52,7 +52,7 @@ class SoLieuCanBoQuanLyService extends AppService
 
     public function getListCoSo()
     {
-        return $this->csdtRepository->getAll();
+        return $this->csdtRepository->getAllWithLoaiHinh();
     }
 
     public function getListLoaiHinh()
@@ -64,5 +64,21 @@ class SoLieuCanBoQuanLyService extends AppService
     {
         $data = array_filter($params);
         return $this->soLieuCBQLRepository->store($data);
+    }
+
+    public function updateSoLieu($id, $params)
+    {
+        $data = array_filter($params);
+        return $this->soLieuCBQLRepository->update($id, $data);
+    }
+
+    public function getCoSo(int $soLieuId)
+    {
+        return $this->csdtRepository->getCoSoBySoLieuId($soLieuId);
+    }
+
+    public function getListByCoSo($coSoId, int $limit = 20, array $params = [])
+    {
+        return $this->soLieuCBQLRepository->getListByCoSo($coSoId, $limit, $params);
     }
 }

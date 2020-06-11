@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\CoSoDaoTao;
 
 class SoLieuCanBoQuanLy extends Model
 {
@@ -31,4 +32,9 @@ class SoLieuCanBoQuanLy extends Model
         'so_trinh_do_trung_cap',
         'so_trinh_do_khac',
     ];
+
+    public function coSoDaoTao()
+    {
+        return $this->belongsTo(CoSoDaoTao::class, 'co_so_dao_tao_id', 'id');
+    }
 }
