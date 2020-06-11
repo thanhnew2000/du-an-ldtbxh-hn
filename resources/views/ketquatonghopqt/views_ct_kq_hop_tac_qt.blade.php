@@ -88,7 +88,9 @@
                         <th colspan="4">Kết quả tuyển sinh theo chương trình hợp tác quốc tế</th>
                         <th colspan="3">Số học sinh được cấp bằng tốt nghiệp theo hình thức hợp tác quốc tế</th>
                         <th rowspan="2">Số học sinh có việc làm sau khi tốt nghiệp chương trình hợp tác quốc tế</th>
-                        <th rowspan="2">Kinh phí thực hiện</th>
+                        <th rowspan="2">Số lượng chương trình,giáo trình xây dựng,phát triển theo hình thức hợp tác quốc tế</th>
+                        <th colspan="3">Hợp tác quốc tế trong đầu tư cơ sở vật chất,trang thiết bị</th>\
+                        <th rowspan="2">Thao tác</th>
                     </tr>
                     <tr class="text-center">
                         <th rowspan="2">Tổng số</th>
@@ -96,8 +98,11 @@
                         <th rowspan="2">Trung cấp</th>
                         <th rowspan="2">Sơ cấp</th>
                         <th rowspan="2">Tổng số</th>
-                        <th rowspan="2">Số HS được các đơn vị/tô chức nước ngoài hợp tác đào tạo cấp bằng</th>
+                        <th rowspan="2">Số HS được các đơn vị/tổ chức nước ngoài hợp tác đào tạo cấp bằng</th>
                         <th rowspan="2">Số HS được nhà nước cấp bằng theo hình thức hợp tác quốc tế</th>
+                        <th rowspan="2">Số phòng học đầu tư</th>
+                        <th rowspan="2">Số nhà xưởng thực hành được đầu tư</th>
+                        <th rowspan="2">Tổng kinh phí đầu tư trang thiết bị , máy móc</th>
                     </tr>
                     
                 </thead>
@@ -106,6 +111,9 @@
                         <td>1</td>
                         <td>Biên đạo múa</td>
                         <td>1</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>2</td>
                         <td>2</td>
                         <td>2</td>
                         <td>2</td>
