@@ -222,7 +222,7 @@
 
                         <div class="col-lg-12 d-flex justify-content-center">
                             <button type="submit" class="btn btn-primary mr-5 col-1">Thêm</button>
-                            <button type="reset" class="btn btn-danger col-1">Hủy</button>
+                            <a href="{{route('csdt.danh-sach')}}" class="btn btn-danger col-1">Hủy</a>
                         </div>
                     </div>
                 </form>

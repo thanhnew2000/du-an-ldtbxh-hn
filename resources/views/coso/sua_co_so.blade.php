@@ -105,10 +105,13 @@
                             <div class="form-group col-lg-12">
                                 <label for="" class="form-name">Logo <span class="text-danger">(*)</span></label>
                                 <div class="form-group col-lg-12 mt-2">
-                                    <img class="col-6" src="{!! asset('storage/' . $item->logo) !!}" alt="">
+                                    <img id="logo-co-so" class="col-6" src="{!! asset('storage/' . $item->logo) !!}"
+                                        alt="">
                                 </div>
                                 <div class="custom-file form-control">
-                                    <input type="file" class="custom-file-input" id="customFile" name="upload_logo">
+                                    <input type="file" class="custom-file-input"
+                                        onchange="SystemUtil.previewImage(this, '#logo-co-so', '{!! asset('storage/' . $item->logo) !!}')"
+                                        id="customFile" name="upload_logo">
                                     <label class="custom-file-label" for="customFile">Choose file</label>
                                 </div>
                                 <p id="helpId" class="form-text text-danger">
@@ -195,7 +198,7 @@
                         </div>
                         <div class="col-lg-12 d-flex justify-content-center">
                             <button type="submit" class="btn btn-primary mr-5 col-1">Lưu</button>
-                            <button type="reset" class="btn btn-danger col-1">Hủy</button>
+                            <a href="{{route('csdt.danh-sach')}}" class="btn btn-danger col-1">Hủy</a>
                         </div>
                     </div>
                 </form>
@@ -226,5 +229,10 @@
         console.log(error);
     });
 });
+
+$(document).ready(function(){
+			var logoImgUrl = $('#logo-co-so').attr('src');
+            SystemUtil.defaultImgUrl(logoImgUrl, '#logo-co-so', "{!! asset('uploads/avatars/default-img.png') !!}");
+		});
 </script>
 @endsection
