@@ -8,6 +8,7 @@ use App\Services\CoSoDaoTaoService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Response;
 
 class CoSoDaoTaoController extends Controller
 {
@@ -142,6 +143,52 @@ class CoSoDaoTaoController extends Controller
 
     public function addCoQuanChuQuan(Request $request)
     {
-        dd($request->all());
+        $request->validate(
+            [
+                'ten' => 'required|unique:co_quan_chu_quan',
+                'ma' => 'required|unique:co_quan_chu_quan'
+            ],
+            [
+                'ten.required' => 'Tên không được để trống',
+                'ten.unique' => 'Cơ quan đã tồn tại',
+                'ma.required' => 'Mã cơ quan không được để trống',
+                'ma.unique' => 'Mã cơ quan đã tồn tại'
+            ]
+        );
+        $attributes = $request->all();
+        if (isset($attributes['_token'])) {
+            unset($attributes['_token']);
+        }
+        $this->CoSoDaoTaoService->addCoQuanChuQuan($attributes);
+        $response = DB::table('co_quan_chu_quan')->get();
+        return response()->json([
+            'data' => $response,
+            'message' => 'Thêm thành công'
+        ]);
+    }
+
+    public function addQuyetDinh(Request $request)
+    {
+        // dd($request->all());
+        $request->validate(
+            [
+                'ten' => 'required',
+                'van_ban_url' => 'required',
+                'ngay_ban_hanh' => 'required',
+                'ngay_hieu_luc' => 'required',
+                'ngay_het_han' => 'required',
+                'loai_quyet_dinh' => 'required'
+            ]
+        );
+        $attributes = $request->all();
+        if (isset($attributes['_token'])) {
+            unset($attributes['_token']);
+        }
+        $this->CoSoDaoTaoService->addQuyetDinh($attributes);
+        $response = DB::table('quyet_dinh_thanh_lap_csdt')->get();
+        return response()->json([
+            'data' => $response,
+            'messageqd' => 'Thêm thành công'
+        ]);
     }
 }

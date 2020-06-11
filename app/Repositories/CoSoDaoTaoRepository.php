@@ -97,4 +97,9 @@ class CoSoDaoTaoRepository extends BaseRepository implements CoSoDaoTaoRepositor
     {
         return DB::table('co_quan_chu_quan')->insert($attributes);
     }
+
+    public function addQuyetDinh($attributes = [])
+    {
+        return DB::table('quyet_dinh_thanh_lap_csdt')->insert($attributes);
+    }
 }

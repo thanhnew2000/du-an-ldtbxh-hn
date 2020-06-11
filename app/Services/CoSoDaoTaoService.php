@@ -33,4 +33,9 @@ class CoSoDaoTaoService extends AppService
     {
         return $this->repository->addCoQuanChuQuan($attributes);
     }
+
+    public function addQuyetDinh($attributes = [])
+    {
+        return $this->repository->addQuyetDinh($attributes);
+    }
 }

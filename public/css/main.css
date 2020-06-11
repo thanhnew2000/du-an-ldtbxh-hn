@@ -68,3 +68,7 @@ table td {
     padding: 0;
     list-style: none;
 }
+
+#chon-nghe-trung-cap+.select2-container {
+    width: 100% !important;
+}

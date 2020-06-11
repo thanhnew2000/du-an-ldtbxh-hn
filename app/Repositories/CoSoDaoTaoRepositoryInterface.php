@@ -17,4 +17,6 @@ interface CoSoDaoTaoRepositoryInterface
     public function apiSearchCoSoDaoTao($params);
 
     public function addCoQuanChuQuan($attributes = []);
+
+    public function addQuyetDinh($attributes = []);
 }
