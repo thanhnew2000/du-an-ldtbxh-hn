@@ -13,20 +13,22 @@
 
 <body
 	class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--fixed m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
-	
-	{{-- thanhnv loading --}}
-	<div class="loading" style="display:none">	
 
-		<div class="loading-background-back-all" ></div>
-		<div class='loading-position'>
-			<div class="lds-ring"><div></div><div></div><div></div><div></div></div>
-				<div>
-					&nbsp; &nbsp;Loading...
-				</div>
+
+		{{-- thanhnv loading --}}
+		<div class="loading" style="display:none">	
+
+			<div class="loading-background-back-all" ></div>
+			<div class='loading-position'>
+				<div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+					<div>
+						&nbsp; &nbsp;Loading...
+					</div>
+			</div>
+		
 		</div>
+		{{-- done loading --}}
 	
-	</div>
-	{{-- done loading --}}
 	<div class="m-grid m-grid--hor m-grid--root m-page">
 		<!-- start header	 -->
 		@include('layouts.dashboard.header')

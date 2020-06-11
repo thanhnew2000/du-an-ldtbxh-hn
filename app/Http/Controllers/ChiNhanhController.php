@@ -26,7 +26,7 @@ class ChiNhanhController extends Controller
             $data = $this->ChiNhanhService->getChiNhanh($params);
         }
         $quanhuyen = DB::table('devvn_quanhuyen')->get();
-        return view('coso.chi_nhanh.danh_sach_chi_nhanh', compact('data', 'quanhuyen'));
+        return view('coso.chi_nhanh.danh_sach_chi_nhanh', compact('data', 'quanhuyen', 'params'));
     }
 
     public function themchinhanh()

@@ -28,15 +28,19 @@ class QlsvService extends AppService
         // $this->soLieuTuyenSinhRepository = $soLieuTuyenSinhRepository;
     }
 
-    public function getQlsv($param = [])
+    public function getQlsv($params = [])
     {
-        $queryData = [];
-        // $queryData['dot'] = isset($param['dot']) ? $param['dot'] : (Carbon::now()->month < 6 ? 1 : 2);
-        // $queryData['nam'] = isset($param['nam']) ? $param['nam'] : Carbon::now()->year;
-        $queryData['cs_id'] = isset($param['co_so_id']) ? $param['co_so_id'] : null;
-        $queryData['loai_hinh'] = isset($param['loai_hinh']) ? $param['loai_hinh'] : null;
+        if(!isset($params['nam'])) $params['nam'] = null;
+        if(!isset($params['dot'])) $params['dot'] = null;
+        if(!isset($params['devvn_quanhuyen'])) $params['devvn_quanhuyen'] = null;
+        if(!isset($params['devvn_xaphuongthitran'])) $params['devvn_xaphuongthitran'] = null;
+        if(!isset($params['co_so_id'])) $params['co_so_id'] = null;
+        if(!isset($params['loai_hinh'])) $params['loai_hinh'] = null;
+        if(!isset($params['page_size'])) $params['page_size'] = config('common.paginate_size.default');
 
-       $data =  $this->repository->getQlsv($queryData);
+       
+
+       $data =  $this->repository->getQlsv($params);
        return $data;
     }
     public function suaSoLieuSv($id){
@@ -56,17 +60,20 @@ class QlsvService extends AppService
         $data = $this->repository->getTongHopSvTheoLoaiHinh($id);
         return $data;
     }
-    public function chiTietSoLieuQlsv($coSoId,$param){
+    public function chiTietSoLieuQlsv($coSoId,$params){
         
-        $queryData = [];
-        $queryData['nam'] = isset($param['nam']) ? $param['nam'] : null;
-        $queryData['dot'] = isset($param['dot']) ? $param['dot'] : null;
-        $queryData['nghe_id'] = isset($param['nghe_id']) ? $param['nghe_id'] : null;
+       
+        if(!isset($params['nam'])) $params['nam'] = null;
+        if(!isset($params['dot'])) $params['dot'] = null;
+        if(!isset($params['devvn_quanhuyen'])) $params['devvn_quanhuyen'] = null;
+        if(!isset($params['devvn_xaphuongthitran'])) $params['devvn_xaphuongthitran'] = null;
+        if(!isset($params['nghe_id'])) $params['nghe_id'] = null;
+        if(!isset($params['page_size'])) $params['page_size'] = config('common.paginate_size.default');
         // $queryData['cs_id'] = isset($param['co_so_id']) ? $param['co_so_id'] : null;
         // $queryData['loai_hinh'] = isset($param['loai_hinh']) ? $param['loai_hinh'] : null;
-        $data = $this->repository->chiTietSoLieuQlsv($coSoId,$queryData);
+        $data = $this->repository->chiTietSoLieuQlsv($coSoId,$params);
         return $data;
-         dd($data);
+        //  dd($data);
     }
     public function getNamDaoTao(){
         return $this->repository->getNamDaoTao();
@@ -75,4 +82,10 @@ class QlsvService extends AppService
         return $this->repository->getCoSoDaoTao();
     }
 
+    public function getTenQuanHuyen(){
+        return $this->repository->getTenQuanHuyen();
+    }
+    public function getTenXaPhuongTheoQuanHuyen($id){
+        return $this->repository->getTenXaPhuongTheoQuanHuyen($id);
+    }
 }

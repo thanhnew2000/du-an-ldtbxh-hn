@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace App\Repositories;
 
 interface SoLieuTuyenSinhInterface
@@ -13,4 +13,8 @@ interface SoLieuTuyenSinhInterface
 	public function getDataSeachCoSo($id);
 	public function getCoSoTuyenSinhTheoLoaiHinh($id);
 	public function getTenQuanHuyen();
-	public function getXaPhuongTheoQuanHuyen($id); }
+	public function getXaPhuongTheoQuanHuyen($id);
+	public function getNganhNghe($ma_cap_nghe);
+	public function getNgheTheoCapBac($id, $cap_nghe);
+}
+?>

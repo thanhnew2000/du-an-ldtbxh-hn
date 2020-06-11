@@ -28,3 +28,6 @@ Route::get('sua-chi-nhanh/{id}', 'ChiNhanhController@suachinhanh')->name('chi-nh
 Route::post('sua-chi-nhanh/{id}', 'ChiNhanhController@capnhatchinhanh');
 
 Route::post('xoa-chi-nhanh/{id}', 'ChiNhanhController@xoachinhanh')->name('chi-nhanh.xoa');
+
+Route::post('them-co-quan-chu-quan', 'CoSoDaoTaoController@addCoQuanChuQuan')->name('co-quan-chu-quan.them');
+Route::post('them-quyet-dinh-thanh-lap-co-so', 'CoSoDaoTaoController@addQuyetDinh')->name('quyet-dinh.add');

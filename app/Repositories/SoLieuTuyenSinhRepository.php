@@ -53,6 +53,9 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 		if (isset($params['devvn_xaphuongthitran']) && $params['devvn_xaphuongthitran'] != null) {
 			$query->where('co_so_dao_tao.xaid', $params['devvn_xaphuongthitran']);
 		}
+		if (isset($params['nganh_nghe']) && $params['nganh_nghe'] != null) {
+			$query->where('tuyen_sinh.nghe_id', 'like', $params['nganh_nghe'].'%');
+		}
 
 		// dd($query->groupBy('co_so_id')->toSql());
 		return $query->groupBy('co_so_id')->paginate($limit);
@@ -84,8 +87,27 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 		if($queryData['dot']!=null){
 			$data->where('tuyen_sinh.dot', $queryData['dot']);
 		}
-		return $data->paginate($limit);
+		return $data->orderBy('nam','desc')
+		->orderBy('dot', 'desc')
+		->paginate($limit);
 
+	}
+	public function getThongTinCoSo($coSoId)
+	{
+		$data = DB::table('co_so_dao_tao')
+		->where('co_so_dao_tao.id', '=', $coSoId)
+		->join('loai_hinh_co_so', 'co_so_dao_tao.ma_loai_hinh_co_so', '=', 'loai_hinh_co_so.id')
+		->join('devvn_quanhuyen', 'co_so_dao_tao.maqh', '=', 'devvn_quanhuyen.maqh')
+		->join('devvn_xaphuongthitran', 'co_so_dao_tao.xaid', '=', 'devvn_xaphuongthitran.xaid')
+		->select(
+					'co_so_dao_tao.ten',
+					'co_so_dao_tao.dia_chi',
+					'loai_hinh_co_so.loai_hinh_co_so',
+					'devvn_quanhuyen.name as ten_quan_huyen',
+					'devvn_xaphuongthitran.name as ten_xa_phuong'
+				)
+		->first();
+		return $data;
 	}
 
 	public function getTenCoSoDaoTao()
@@ -176,6 +198,17 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 			->select('devvn_xaphuongthitran.xaid', 'devvn_xaphuongthitran.name')->get();
 			return $data;
 		}
+	}
+
+	public function getNganhNghe($ma_cap_nghe){
+		$data = DB::table('nganh_nghe')->where('ma_cap_nghe',$ma_cap_nghe)->orderBy('ten_nganh_nghe')->get();
+		return $data;
+	}
+
+	public function getNgheTheoCapBac($id, $cap_nghe)
+	{
+		$data = DB::table('nganh_nghe')->where('id', 'like', $id.'%')->where('ma_cap_nghe', $cap_nghe)->orderBy('ten_nganh_nghe')->get();
+		return $data;
 	}
 
 }

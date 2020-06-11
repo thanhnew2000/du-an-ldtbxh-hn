@@ -28,11 +28,11 @@
             </div>
         </div>
         <div class="m-portlet__body">
-            <h3>Cơ sở đào tạo: {{$data[0]->ten}}</h3>
-            <p>Loại hình cơ sở: {{$data[0]->loai_hinh_co_so}}</p>
-            <p>Địa chỉ: {{$data[0]->dia_chi}}</p>
-            <p>Phường/Xã: {{$data[0]->ten_xa_phuong}}</p>
-            <p>Quận/Huyện: {{$data[0]->ten_quan_huyen}}</p>
+            <h3>Cơ sở đào tạo: {{$thongtincoso->ten}}</h3>
+            <p>Loại hình cơ sở: {{$thongtincoso->loai_hinh_co_so}}</p>
+            <p>Địa chỉ: {{$thongtincoso->dia_chi}}</p>
+            <p>Phường/Xã: {{$thongtincoso->ten_xa_phuong}}</p>
+            <p>Quận/Huyện: {{$thongtincoso->ten_quan_huyen}}</p>
         </div>
     </div>
 
@@ -93,8 +93,13 @@
         </form>
     </div>
     <div class="m-portlet">
+        @if (session('thongbao')) 
+        <div class="alert alert-success">
+        {{session('thongbao')}}
+        </div>
+        @endif   
         <div class="m-portlet__body">
-            <table class="table table-bordered m-table m-table--border-danger m-table--head-bg-primary">
+            <table class="table table-bordered m-table m-table--border-danger m-table--head-bg-primary table-responsive">
                 <thead>
                     <tr class=" text-center ">
                         <th rowspan="2">STT</th>
@@ -168,11 +173,6 @@
                 </tbody>
             </table>
         </div>
-        @if (session('thongbao'))
-        <div class="thongbao" style="color: green; text-align: center;">
-          {{session('thongbao')}}
-        </div>
-        @endif
         <div class="m-portlet__foot d-flex justify-content-end">
             {{$data->links()}}
         </div>

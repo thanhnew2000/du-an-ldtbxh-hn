@@ -70,36 +70,24 @@ Route::group(['prefix' => 'chinh-sach-sinh-vien'], function(){
 
 Route::group(['prefix' => 'ket-qua-tuyen-sinh'], function(){
     Route::get('/tong-hop', 'ExtractController@tonghopkqtuyensinh')
-
         ->name('xuatbc.ds-ket-qua-ts');
-    Route::get('/tong-hop-so-lieu-tuyen-sinh','SoLieuTuyenSinh@tonghopsolieutuyensinh')->name('solieutuyensinh');
-    Route::get('/search-co-so-so-lieu-tuyen-sinh','SoLieuTuyenSinh@searchCoSoTongHopSoLieuTuyenSinh')->name('searchCoSoTongHopSoLieuTuyenSinh');
-    Route::get('/chi-tiet-so-lieu-tuyen-sinh/{id}','SoLieuTuyenSinh@chitietsolieutuyensinh')->name('chitietsolieutuyensinh');
-    Route::get('/sua-so-lieu-tuyen-sinh/{id}','SoLieuTuyenSinh@suasolieutuyensinh')->name('suasolieutuyensinh');
-    Route::post('/sua-so-lieu-tuyen-sinh/{id}/edit','SoLieuTuyenSinh@postsuasolieutuyensinh')->name('postsuasolieutuyensinh');
-    Route::get('/them-so-lieu-tuyen-sinh','SoLieuTuyenSinh@themsolieutuyensinh')->name('themsolieutuyensinh');
-    Route::post('/them-so-lieu-tuyen-sinh','SoLieuTuyenSinh@postthemsolieutuyensinh')->name('postthemsolieutuyensinh');
-    Route::post('/get-ma-nganh-nghe','SoLieuTuyenSinh@getmanganhnghe');
-    
     // thanhnv thêm xuất form nhập cho người dùng nhập Import
     Route::post('form-nhap-sv','ExportSVController@exportFormNhapSinhVien')->name('layformbieumausinhvien');
     //  6/1/2000 Xuất dữ liệu data 
     Route::post('export-data-sv','ExportSVController@exportDataSV')->name('exportdatatuyensinh');
-
-
-
-    Route::get('/tong-hop-so-lieu-tuyen-sinh','SoLieuTuyenSinh@tonghopsolieutuyensinh')->name('solieutuyensinh');
-    Route::post('/co-so-tuyen-sinh-theo-loai-hinh','SoLieuTuyenSinh@getCoSoTuyenSinhTheoLoaiHinh')->name('csTuyenSinhTheoLoaiHinh');
-    Route::post('/xa-phuong-theo-quan-huyen','SoLieuTuyenSinh@getXaPhuongTheoQuanHuyen')->name('getXaPhuongTheoQuanHuyen');
-    Route::get('/search-co-so-so-lieu-tuyen-sinh','SoLieuTuyenSinh@searchCoSoTongHopSoLieuTuyenSinh')->name('searchCoSoTongHopSoLieuTuyenSinh');
-    Route::get('/chi-tiet-so-lieu-tuyen-sinh/{co_so_id}','SoLieuTuyenSinh@chitietsolieutuyensinh')->name('chitietsolieutuyensinh');
-    Route::get('/sua-so-lieu-tuyen-sinh/{id}','SoLieuTuyenSinh@suasolieutuyensinh')->name('suasolieutuyensinh');
-    Route::post('/sua-so-lieu-tuyen-sinh/{id}/edit','SoLieuTuyenSinh@postsuasolieutuyensinh')->name('postsuasolieutuyensinh');
-    Route::get('/them-so-lieu-tuyen-sinh','SoLieuTuyenSinh@themsolieutuyensinh')->name('themsolieutuyensinh');
-    Route::post('/them-so-lieu-tuyen-sinh','SoLieuTuyenSinh@postthemsolieutuyensinh')->name('postthemsolieutuyensinh');
-    Route::post('/get-ma-nganh-nghe','SoLieuTuyenSinh@getmanganhnghe');
-    Route::post('/check-them-so-lieu-tuyen-sinh','SoLieuTuyenSinh@getCheckTonTaiSoLieuTuyenSinh');
-
+    Route::get('/tong-hop-so-lieu-tuyen-sinh','SoLieuTuyenSinhController@index')->name('solieutuyensinh');
+    Route::post('/co-so-tuyen-sinh-theo-loai-hinh','SoLieuTuyenSinhController@getCoSoTuyenSinhTheoLoaiHinh')->name('csTuyenSinhTheoLoaiHinh');
+    Route::post('/xa-phuong-theo-quan-huyen','SoLieuTuyenSinhController@getXaPhuongTheoQuanHuyen')->name('getXaPhuongTheoQuanHuyen');
+    Route::get('/chi-tiet-so-lieu-tuyen-sinh/{co_so_id}','SoLieuTuyenSinhController@chitietsolieutuyensinh')->name('chitietsolieutuyensinh');
+    Route::get('/sua-so-lieu-tuyen-sinh/{id}','SoLieuTuyenSinhController@edit')->middleware('checkStatusUpdateSoLieuTuyenSinh')->name('suasolieutuyensinh');
+    Route::post('/sua-so-lieu-tuyen-sinh/{id}/edit','SoLieuTuyenSinhController@update')->name('postsuasolieutuyensinh');
+    Route::get('/them-so-lieu-tuyen-sinh','SoLieuTuyenSinhController@create')->name('themsolieutuyensinh');
+    Route::post('/them-so-lieu-tuyen-sinh','SoLieuTuyenSinhController@store')->name('postthemsolieutuyensinh');
+    Route::post('/get-ma-nganh-nghe','SoLieuTuyenSinhController@getmanganhnghe')->name('get_ma_nganh_nghe');
+    Route::post('/check-them-so-lieu-tuyen-sinh','SoLieuTuyenSinhController@getCheckTonTaiSoLieuTuyenSinh')->name('so_lieu_tuyen_sinh.check_so_lieu');
+    Route::post('/get-nghe-theo-cap-bac','SoLieuTuyenSinhController@getNgheTheoCapBac')->name('getNgheTheoCapBac');
+    // Route::post('/get-nghe-cap-4-theo-cap-3','SoLieuTuyenSinhController@getNgheCap4TheoCap3')->name('getNgheCap4TheoCap3');
+    
 
 });
 
@@ -112,9 +100,25 @@ Route::group(['prefix' => 'ket-qua-xay-dung-giao-trinh'], function(){
 
 
 Route::group(['prefix' => 'ket-qua-tot-nghiep'], function(){
-    Route::get('/tong-hop', 'ExtractController@tonghopkqtotnghiep')
-
+    Route::get('/', 'SinhVienTotNghiepController@index')
         ->name('xuatbc.ds-tot-nghiep');
+    Route::get('/chi-tiet-tong-hop-ket-qua-tot-nghiep/{id}', 'SinhVienTotNghiepController@show')
+        ->name('xuatbc.chi-tiet-tong-hop');  
+    Route::get('/sua-tong-hop-ket-qua-tot-nghiep/{id}', 'SinhVienTotNghiepController@edit')
+        ->name('xuatbc.sua-tong-hop');
+    Route::post('/sua-tong-hop-ket-qua-tot-nghiep/{id}', 'SinhVienTotNghiepController@update')
+        ->name('xuatbc.post_sua-tong-hop');
+    Route::get('/them-tong-hop-ket-qua-tot-nghiep', 'SinhVienTotNghiepController@create')
+        ->name('xuatbc.them-tong-hop');  
+    Route::post('/them-tong-hop-ket-qua-tot-nghiep','SinhVienTotNghiepController@store')
+        ->name('xuatbc.post-them-tong-hop');
+    Route::post('/check-them-so-lieu-tot-nghiep','SinhVienTotNghiepController@getCheckTonTaiSoLieuTotNghiep')->name('xuatbc.check_so_lieu_tot_nghiep'); 
+
+    // thanhnv import export
+    Route::post('/export-bieu-mau-kqtn', 'ExportKqTotNghiepController@taiBieuMau')
+    ->name('layformbieumautotnghiep');   
+    Route::post('export-data-kq-tot-nghiep','ExportKqTotNghiepController@exportDataTotNghiep')
+    ->name('exportdatatotnghiep');
 });
 
 
@@ -148,4 +152,12 @@ Route::group(['prefix' => 'chi-tieu-tuyen-sinh'], function(){
     Route::get('/tong-hop', 'ExtractController@tonghoptuyensinh')
 
         ->name('xuatbc.ds-chi-tieu-ts');
+});
+
+// thanhvn import export can bo quan ly 
+Route::group(['prefix' => 'so-lieu-can-bo-quan-ly'], function(){
+    Route::post('export-bieu-mau','ExportSoLieuCanBoQlController@taiBieuMau')
+        ->name('layformbieumau.solieucanbo.quanly');
+    Route::post('export-data-so-lieu-can-bo-quanly','ExportSoLieuCanBoQlController@exportDataSoLieuCanBoQuanLy')
+        ->name('exportdata.solieucanbo.quanly');
 });

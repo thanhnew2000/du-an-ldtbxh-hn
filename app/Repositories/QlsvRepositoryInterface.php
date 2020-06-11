@@ -12,5 +12,7 @@ interface QlsvRepositoryInterface
     public function getNamDaoTao();
     public function getTenCoSoDaoTao();
     public function getNganhNghe();
+    public function getTenQuanHuyen();
+    public function getTenXaPhuongTheoQuanHuyen($id);
 
 }
