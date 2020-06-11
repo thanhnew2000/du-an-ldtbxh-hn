@@ -70,5 +70,8 @@ Route::group(['middleware' => 'auth'], function () {
      Route::get('views_ct_kq_hop_tac_qt',function(){
           return view('ketquatonghopqt.views_ct_kq_hop_tac_qt');
      })->name('views_kq_qt');
+     Route::get('views_kq_hop_tac_qt',function(){
+          return view('ketquatonghopqt.views_kq_hop_tac_qt');
+     })->name('views_kq_qt');
 });
  
