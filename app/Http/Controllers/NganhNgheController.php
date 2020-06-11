@@ -127,8 +127,6 @@ class NganhNgheController extends Controller
 
     public function boSungNganhNgheVaoCoSo(Request $request)
     {
-        $anh = $request->file;
-        return response()->json($anh, 200);
         if ($request->hasFile('anh_giay_phep')) {
             $filePath = $request->file('anh_giay_phep')->store('uploads/anh-gay-phep');
             $request->request->set('anh_quyet_dinh', $filePath);

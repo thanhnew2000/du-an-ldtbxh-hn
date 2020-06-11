@@ -97,7 +97,8 @@
                                             <b>{{$defaultCsdt['text']}}</b>
                                         </h5>
                                     </div>
-                                    <form action="" method="POST" enctype="multipart/form-data">
+                                    <form action="{{ route('nghe.bo-sung-vao-co-so') }}" method="POST"
+                                        enctype="multipart/form-data">
                                         {{ csrf_field() }}
                                         <input type="hidden" name="co_so_id" value="{{ $defaultCsdt['id'] }}"
                                             id="co-so-id">
@@ -167,8 +168,7 @@
                                         <div class="form-group d-flex justify-content-end mb-5">
                                             <button type="button" class="btn btn-secondary mr-4"
                                                 data-dismiss="modal">Hủy</button>
-                                            <button type="button" id="btn-bo-sung-nghe"
-                                                class="btn btn-primary">Lưu</button>
+                                            <button type="submit" class="btn btn-primary">Lưu</button>
                                         </div>
                                     </form>
                                 </div>
@@ -267,64 +267,6 @@
             $('#chon-nghe-trung-cap').select2({
                 placeholder: "Tìm kiếm ngành nghề",
             })
-            
-
-
-            $("#btn-bo-sung-nghe").click(function(event){
-                event.preventDefault();
-
-
-            var fd = new FormData();
-            var files = $('#customFile')[0].files[0];
-            fd.append('anh_giay_phep',files);
-            fd.append('co_so_id',$('#co-so-id').val());
-            fd.append('ten_quyet_dinh',$('#ten-quyet-dinh').val());
-            fd.append('nghe_trung_cap',$('#chon-nghe-trung-cap').val());
-            fd.append('trang_thai', '1');
-            fd.append('ngay_ban_hanh',$('#ngay-ban-hanhs').val());
-
-            axios.post("{{route('nghe.bo-sung-vao-co-so')}}", fd,{
-                headers: {
-                        'Content-Type': 'multipart/form-data',
-                    }
-                }).then(function (response) {
-                    console.log(response.data);
-                }).catch(function (error) {
-
-            })
-        
-
-            // $.ajax({
-            // type: "POST",
-            // dataType: "json",
-            // url: '{{route('nghe.bo-sung-vao-co-so')}}',
-            // data: {
-            //     co_so_id: $('#co-so-id'),
-            //     ten_quyet_dinh: $('#ten-quyet-dinh').val(),
-            //     nghe_cao_dang: $('#chon-nghe-cao-dang').val(),
-            //     nghe_trung_cap: $('#chon-nghe-trung-cap').val(),
-            //     trang_thai: '1',
-            //     ngay_ban_hanh: $('#ngay-ban-hanhs'),
-            //     _token: '{{csrf_token()}}'
-            // },
-            // success: function(response){
-                
-            // },
-            // error: function(data){
-            //     console.log(data);
-            //     var errors = data.responseJSON;
-            //     if($.isEmptyObject(errors) == false){
-            //         $.each(errors.errors, function(key, value){
-            //             console.log(value);
-            //             var ErrorID = '#Err-' + key;
-            //             $(ErrorID).removeClass('d-none');
-            //             $(ErrorID).text(value);
-            //         })
-            //     }
-            // }
-            // });
-    });
-
         });
 </script>
 
