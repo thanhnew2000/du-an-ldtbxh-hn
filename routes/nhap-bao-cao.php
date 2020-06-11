@@ -77,3 +77,9 @@ Route::group(['prefix' => 'kiem-soat-tien-do-nop-bao-cao'], function(){
 Route::group(['prefix' => 'phe-duyet-bao-cao'], function(){
     Route::get('/', 'ImportReportController@pheduyetbaocao')->name('nhapbc.phe-duyet-bao-cao');
 });
+
+// thanhnv them group
+Route::group(['prefix' => 'so-lieu-sinh-vien-dang-theo-hoc'], function(){
+    Route::post('import-hs-sv-quan-li', 'ImportHsQlController@importFileHsQl')->name('import.hssv.ql');
+    Route::post('import-error-hs-sv-quan-li', 'ImportHsQlController@importErrorHsQl')->name('import.error.hssv-ql');
+});

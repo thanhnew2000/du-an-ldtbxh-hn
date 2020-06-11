@@ -357,9 +357,10 @@
 @endsection
 
 @section('script')
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 
 <script>
+
     $(document).ready(function(){
         $('#devvn_quanhuyen').select2();
         $('#devvn_xaphuongthitran').select2();

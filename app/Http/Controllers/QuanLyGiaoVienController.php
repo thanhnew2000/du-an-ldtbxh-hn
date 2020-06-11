@@ -20,7 +20,7 @@ class QuanLyGiaoVienController extends Controller
 
     public function index()
     {
-        $filterConfig = $this->giaoVienService->getFilterConfig();
+        $filterConfig = $this->giaoVienService->getFilterConfig();  
         $limit = request()->get('paginate_size') ?? config('common.paginate_size.default');
         $params = request()->except(['limit']);
 

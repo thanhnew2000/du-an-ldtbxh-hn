@@ -50,6 +50,15 @@ Route::group(['prefix' => 'so-lieu-sinh-vien-dang-theo-hoc'], function () {
 
     Route::get('/chi-tiet-so-lieu-sinh-vien/{co_so_id}','ExtractController@tongHopChiTietSvDangTheoHoc')
     ->name('xuatbc.chi-tiet-so-lieu');
+
+    
+    // thanhnv tai bieu mau
+     Route::post('/tai-bieu-mau-hs-dang-ql', 'ExportHsQlController@taiBieuMau')
+    ->name('export.bieumau.hsdql');
+    
+    Route::post('/xuat-du-lieu-hs-dang-ql', 'ExportHsQlController@exportData')
+    ->name('export.data.hsql');
+
 });
 // end cuong nc - tổng hợp sinh viên đang theo học
 
