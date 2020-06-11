@@ -88,8 +88,8 @@
                         <th colspan="4">Kết quả tuyển sinh theo chương trình hợp tác quốc tế</th>
                         <th colspan="3">Số học sinh được cấp bằng tốt nghiệp theo hình thức hợp tác quốc tế</th>
                         <th rowspan="2">Số học sinh có việc làm sau khi tốt nghiệp chương trình hợp tác quốc tế</th>
-                        <th rowspan="2">Số lượng chương trình,giáo trình xây dựng,phát triển theo hình thức hợp tác quốc tế</th>
-                        <th colspan="3">Hợp tác quốc tế trong đầu tư cơ sở vật chất,trang thiết bị</th>\
+                        <th rowspan="2">Số lượng chương trình,giáo trình xây dựng , phát triển theo hình thức hợp tác quốc tế</th>
+                        <th colspan="3">Hợp tác quốc tế trong đầu tư cơ sở vật chất , trang thiết bị</th>\
                         <th rowspan="2">Thao tác</th>
                     </tr>
                     <tr class="text-center">

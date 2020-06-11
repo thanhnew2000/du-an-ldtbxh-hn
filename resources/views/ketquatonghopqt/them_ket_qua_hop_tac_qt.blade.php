@@ -174,7 +174,7 @@
                                 <i class="m-menu__link-icon flaticon-web"></i>
                             </span>
                             <h3 class="m-portlet__head-text">
-                               Hợp tác quốc tế<small>trong đào tạo,bồi dưỡng giáo viên,cán bộ quản lý</small>
+                               Hợp tác quốc tế<small>trong đào tạo , bồi dưỡng giáo viên,cán bộ quản lý</small>
                             </h3>
                         </div>
                     </div>
