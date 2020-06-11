@@ -16,6 +16,11 @@ Route::group(['prefix' => 'quan-ly-giao-vien'], function(){
 });
 
 Route::resource('so-lieu-can-bo-quan-ly', 'SoLieuCanBoQuanLyController');
+// thanhnv import export
+Route::post('so-lieu-can-bo-quan-ly/import-so-lieu-quan-ly', 'ImportSoLieuCanBoQlController@importFile')
+->name('import-so-lieu-quan-ly');
+Route::post('so-lieu-can-bo-quan-ly/import-error-so-lieu-quan-ly', 'ImportSoLieuCanBoQlController@importError')
+->name('import-error-so-lieu-quan-ly');
 
 Route::group(['prefix' => 'can-bo-quan-ly'], function(){
     Route::get('/', 'ImportReportController@doingucanboquanly')->name('nhapbc.quan-ly');
