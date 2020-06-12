@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', "Danh sách đội ngủ giáo")
+@section('title', "Danh sách đội ngũ giáo")
 @section('style')
 @endsection
 @section('content')
@@ -21,7 +21,7 @@
             </div>
         </div>
         <form action="" method="get" class="m-form">
-            <input type="hidden" name="page_size" value="20">
+            <input type="hidden" name="page_size" value="{{$params['page_size']}}">
             <div class="m-portlet__body">
                 <div class="m-form__section m-form__section--first">
                     <div class="row">
@@ -29,8 +29,10 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Tên cơ sở</label>
                                 <div class="col-lg-8">
-                                    <input type="text" class="form-control m-input" placeholder="Nhập tên cơ sở"
-                                        name="keyword">
+                                    <input type="text" class="form-control m-input"  
+                                    @if(isset($params['keyword'])) value="{{$params['keyword']}}" @endif 
+                                    placeholder="Nhập tên cơ sở"
+                                    name="keyword">
                                 </div>
                             </div>
                         </div>
@@ -38,10 +40,15 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Loại hình cơ sở</label>
                                 <div class="col-lg-8">
-                                    <select name="bac_nghe" class="form-control ">
-                                        <option selected="" value="6">Chọn loại hình cơ sở</option>
-                                        @foreach ($param['loaihinhcoso'] as $item)
-                                        <option value="{{ $item->id }}">{{ $item->loai_hinh_co_so }}</option>
+                                    <select name="loaihinhcoso" class="form-control ">
+                                        <option value="">-----Chọn loại hình cơ sở-----</option>
+                                        @foreach ($getloaihinhcoso as $item)
+                                        <option value="{{ $item->id }}" 
+                                            @if(isset($params['loaihinhcoso']) && $params['loaihinhcoso'] == $item->id) 
+                                            selected 
+                                            @endif>
+                                            {{ $item->loai_hinh_co_so }}
+                                        </option>
                                             
                                         @endforeach
                                     </select>
@@ -54,25 +61,102 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Cơ quan chủ quản</label>
                                 <div class="col-lg-8">
-                                    <select name="bac_nghe" class="form-control ">
-                                        <option selected="" value="6">Chọn cơ quan chủ quản</option>
-                                        @foreach ($param['coquanchoquan'] as $item)
-                                        <option value="{{ $item->id }}">{{ $item->ten }}</option>
+                                    <select name="coquanchuquan" class="form-control ">
+                                        <option value="">-----Chọn cơ quan chủ quản-----</option>
+                                        @foreach ($getcoquanchuquan as $item)
+                                        <option value="{{ $item->id }}"
+                                             @if(isset($params['coquanchuquan']) && $params['coquanchuquan'] == $item->id)
+                                              selected 
+                                              @endif>
+                                              {{ $item->ten }}
+                                        </option>
                                             
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
                         </div>
-                        {{-- <div class="col-md-6">
+                        <div class="col-md-6">
                             <div class="form-group m-form__group row">
-                                <label class="col-lg-2 col-form-label">Tên ngành</label>
+                                <label class="col-lg-2 col-form-label">Năm</label>
                                 <div class="col-lg-8">
-                                    <input type="text" class="form-control m-input"
-                                        placeholder="Nhập mã hoặc tên ngành nghề" name="keyword">
+                                    <select name="nam" class="form-control ">
+                                        <option value="">-----Chọn năm-----</option>
+                                       
+                                        <option  value="{{ $nam }}" 
+                                        @if(isset($params['nam']) && $params['nam'] == $nam)
+                                        selected 
+                                        @endif>
+                                        {{ $nam }}
+                                        </option>
+    
+                                        <option  value="{{ $nam-1 }}"
+                                        @if(isset($params['nam']) && $params['nam'] == $nam-1)
+                                        selected 
+                                        @endif>
+                                        {{ $nam-1 }}
+                                        </option>
+    
+                                        <option  value="{{ $nam-2 }}"
+                                        @if(isset($params['nam']) && $params['nam'] == $nam-2)
+                                        selected 
+                                        @endif>
+                                        {{ $nam-2 }}
+                                        </option>
+                                 
+                                    </select>
                                 </div>
                             </div>
-                        </div> --}}
+                        </div>
+                    </div>
+                    <div class="row pt-4">
+                        <div class="col-md-6">
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-2 col-form-label">Đợt</label>
+                                <div class="col-lg-8">
+                                   <select name="dot" id="" class="form-control ">
+                                       <option value="">-----Chọn đợt-----</option>
+
+                                       <option value="1"
+                                       @if(isset($params['dot']) && $params['dot'] == 1)
+                                       selected 
+                                       @endif>
+                                       1
+                                      </option>
+
+                                       <option value="2"
+                                       @if(isset($params['dot']) && $params['dot'] == 2)
+                                       selected 
+                                       @endif>
+                                       2
+                                       </option>
+
+                                   </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-2 col-form-label">Ngành nghề</label>
+                                <div class="col-lg-8">
+                                   <select name="nghe_id" id="" class="form-control ">
+                                       <option value="">-----Chọn ngành nghề-----</option>
+                                       @forelse ($get_nganh_nghe as $item)
+                                       <option value="{{ $item->id }}"
+                                        @if(isset($params['nghe_id']) && $params['nghe_id'] == $item->id)
+                                        selected 
+                                        @endif>
+                                        
+                                        {{ $item->ten_nganh_nghe }}
+                                    </option>
+                                           
+                                       @empty
+                                           
+                                       @endforelse
+                                   </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="row justify-content-center">
@@ -100,9 +184,9 @@
                 <label class="col-lg-2 col-form-label">Kích thước:</label>
                 <div class="col-lg-2">
                     <select class="form-control" id="page-size">
-                        {{-- @foreach(config('common.paginate_size.list') as $size)
-                        <option @if($params['page_size']==$size) selected @endif value="{{$size}}">{{$size}}</option>
-                        @endforeach --}}
+                        @foreach(config('common.paginate_size.list') as $size)
+                        <option @if($params['page_size'] == $size) selected @endif value="{{$size}}">{{$size}}</option>
+                        @endforeach
 
                     </select>
                 </div>
@@ -115,6 +199,10 @@
                         <th>Loại hình cơ sở</th>
                         <th>Cơ quan chủ quản</th>
                         <th>Tổng số </th>
+                        <th>Năm</th>
+                        <th>Đợt</th>
+                        <th>Ngành Nghề</th>
+                        
                         <th>
                             <a href="{{ route('xuatbc.them-ds-nha-giao') }}" class="btn btn-success btn-sm">Thêm mới</a>
                         </th>
@@ -128,9 +216,12 @@
                         <td>{{ $item->ten_loai_hinh_co_so }}</td>
                         <td>{{ $item->ten_co_quan_chu_quan }}</td>
                         <td>{{ $item->tong_so_can_bo }}</td>
+
+                        <td>{{ $item->nam }}</td>
+                        <td>{{ $item->dot }}</td>
+                        <td>{{ $item->ten_nghe }}</td>
                         <td>
-                            <a href="{{ route('xuatbc.sua-ds-nha-giao') }}" class="btn btn-info btn-sm">Sửa</a>
-                            <a href="" class="btn btn-primary btn-sm">Chi tiết</a>
+                            <a href="{{ route('xuatbc.chi-tiet-theo-co-so',['co_so_id'=>$item->co_so_id]) }}" class="btn btn-primary btn-sm">Chi tiết</a>
                         </td>
                     </tr>
                         @php
@@ -140,34 +231,22 @@
                     
                 </tbody>
             </table>
+            <div>
+                @if ($thongbao)
+                <div class="thongbao border" style="color: red; text-align: center;">
+                    <h4 class="m-portlet__head-text ">
+                        {{$thongbao}}
+                    </h4>
+                </div>
+                @endif
+            </div>
+            <div class="m-portlet__foot d-flex justify-content-end">
+                {!! $data->links() !!}
+            </div>
         </div>
     </div>
 </div>
-<div class="m-portlet__foot d-flex justify-content-end">
-    <nav>
-        <ul class="pagination">
-            <li class="page-item disabled" aria-disabled="true" aria-label="« Previous">
-                <span class="page-link" aria-hidden="true">‹</span>
-            </li>
-            <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
-            <li class="page-item"><a class="page-link" href="http://127.0.0.1:8000/danhSach?page=2">2</a></li>
-            <li class="page-item"><a class="page-link" href="http://127.0.0.1:8000/danhSach?page=3">3</a></li>
-            <li class="page-item"><a class="page-link" href="http://127.0.0.1:8000/danhSach?page=4">4</a></li>
-            <li class="page-item"><a class="page-link" href="http://127.0.0.1:8000/danhSach?page=5">5</a></li>
-            <li class="page-item"><a class="page-link" href="http://127.0.0.1:8000/danhSach?page=6">6</a></li>
-            <li class="page-item"><a class="page-link" href="http://127.0.0.1:8000/danhSach?page=7">7</a></li>
-            <li class="page-item"><a class="page-link" href="http://127.0.0.1:8000/danhSach?page=8">8</a></li>
-            <li class="page-item disabled" aria-disabled="true"><span class="page-link">...</span></li>
-            <li class="page-item"><a class="page-link" href="http://127.0.0.1:8000/danhSach?page=27">27</a></li>
-            <li class="page-item"><a class="page-link" href="http://127.0.0.1:8000/danhSach?page=28">28</a></li>
 
-            <li class="page-item">
-                <a class="page-link" href="http://127.0.0.1:8000/danhSach?page=2" rel="next" aria-label="Next »">›</a>
-            </li>
-        </ul>
-    </nav>
-
-</div>
 </div>
 </div>
 
@@ -178,15 +257,27 @@
     var currentUrl = '{{route($route_name)}}';
     $(document).ready(function () {
         $('#page-size').change(function () {
-            // var status = $('[name="status"]').val();
-            // var role = $('[name="role"]').val();
-            // var keyword = $('[name="keyword"]').val();
+            var coquanchuquan = $('[name="coquanchuquan"]').val();
+            var loaihinhcoso = $('[name="loaihinhcoso"]').val();
+            var keyword = $('[name="keyword"]').val();
+            var dot = $('[name="dot"]').val();
+            var nam = $('[name="nam"]').val();
+            var nghe_id = $('[name="nghe_id"]').val();
             var page_size = $(this).val();
             var reloadUrl =
-                // `${currentUrl}?status=${status}&role=${role}&keyword=${keyword}&page_size=${page_size}`;
-                `${currentUrl}?page_size=${page_size}`;
+                `${currentUrl}?coquanchuquan=${coquanchuquan}&
+                loaihinhcoso=${loaihinhcoso}&
+                dot=${dot}&
+                nam=${nam}&
+                keyword=${keyword}&
+                nghe_id=${nghe_id}&
+                page_size=${page_size}`;
             window.location.href = reloadUrl;
         });
+
+        $('[name="coquanchuquan"]').select2();
+        $('[name="nghe_id"]').select2();
+        $('[name="loaihinhcoso"]').select2();
 
     });
 
