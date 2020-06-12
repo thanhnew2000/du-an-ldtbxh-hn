@@ -13,6 +13,10 @@ class DoiNguNhaGiaoRepository extends BaseRepository implements DoiNguNhaGiaoInt
         return 'so_lieu_doi_ngu_nha_giao';
     }
 
+    /* Danh sách đội ngũ nhà giáo.
+     * @author: phucnv
+     * @created_at 2020-06-_ _ 
+     */
     public function getDanhSachDoiNguNhaGiao($params){
         $queryBuilder = $this->table
         ->leftjoin('co_so_dao_tao', 'so_lieu_doi_ngu_nha_giao.co_so_id', '=', 'co_so_dao_tao.id')
@@ -49,9 +53,11 @@ class DoiNguNhaGiaoRepository extends BaseRepository implements DoiNguNhaGiaoInt
     }
 
  
-
+    /* Danh sách chi tiết đội ngũ nhà giáo theo cơ sở.
+     * @author: phucnv
+     * @created_at 2020-06-_ _ 
+     */
     public function chiTietTheoCoSo($co_so_id, $params){
-
         $queryBuilder = $this->table
         ->leftjoin('co_so_dao_tao','so_lieu_doi_ngu_nha_giao.co_so_id','=','co_so_dao_tao.id')
         ->leftjoin('nganh_nghe','so_lieu_doi_ngu_nha_giao.nghe_id','=','nganh_nghe.id')
@@ -67,11 +73,13 @@ class DoiNguNhaGiaoRepository extends BaseRepository implements DoiNguNhaGiaoInt
             $queryBuilder->where('so_lieu_doi_ngu_nha_giao.dot', $params['dot']);
         }
         
-    
         return $queryBuilder->paginate($params['page_size']);
-
     }
 
+    /* Danh sách ngành nghề theo ID cơ sở.
+     * @author: phucnv
+     * @created_at 2020-06-_ _ 
+     */
     public function getNganhNgheTheoCoSo($co_so_id){
         $nganhnghe = DB::table('giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao')
         ->join('nganh_nghe','giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.nghe_id','=','nganh_nghe.id')
@@ -83,8 +91,10 @@ class DoiNguNhaGiaoRepository extends BaseRepository implements DoiNguNhaGiaoInt
 
     }
 
-
-    // created 12-06/20 phucnv, kiểm tra bản ghi đã tồn tại 4 trường co_so_id, nghe_id, nam, dot 
+    /* Kiểm tra sự tồn tại của bản ghi đã có 4 trường co_so_id, nghe_id, nam, dot.
+     * @author: phucnv
+     * @created_at 2020-06-12 
+     */
     public function checkTonTaiKhiThem($params){
         $kq = $this->table
         ->where('so_lieu_doi_ngu_nha_giao.co_so_id', $params['co_so_id'])
@@ -94,12 +104,6 @@ class DoiNguNhaGiaoRepository extends BaseRepository implements DoiNguNhaGiaoInt
         ->select('so_lieu_doi_ngu_nha_giao.*')
         ->first();
 
-        // dd($kq->id);
-        
-      
         return $kq;
-
     }
-
-   
 }

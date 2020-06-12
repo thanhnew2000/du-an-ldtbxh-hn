@@ -10,8 +10,6 @@
 @endsection
 @section('content')
 <div class="m-content container-fluid">
-
-
     <div class="m-portlet mt-5">
         <div class="m-portlet__head">
             <div class="m-portlet__head-caption">
@@ -748,7 +746,7 @@
 @if (session('kq'))
 <script>
   Swal.fire({
-  title: 'Bạn đã dữ liệu',
+  title: 'Dữ liệu đã tồn tại',
   icon: 'warning',
   text: 'Bạn có thể chuyển tới Chỉnh sửa! ',
   confirmButtonText: 'OK',
@@ -853,5 +851,4 @@
     });
 
 </script>
-
 @endsection

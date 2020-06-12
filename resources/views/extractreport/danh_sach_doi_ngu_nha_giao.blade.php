@@ -4,7 +4,7 @@
 @endsection
 @section('content')
 @php
-    $stt = 1;
+$stt = 1;
 @endphp
 <div class="m-content container-fluid">
     <div class="m-portlet">
@@ -29,10 +29,9 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Tên cơ sở</label>
                                 <div class="col-lg-8">
-                                    <input type="text" class="form-control m-input"  
-                                    @if(isset($params['keyword'])) value="{{$params['keyword']}}" @endif 
-                                    placeholder="Nhập tên cơ sở"
-                                    name="keyword">
+                                    <input type="text" class="form-control m-input" @if(isset($params['keyword']))
+                                        value="{{$params['keyword']}}" @endif placeholder="Nhập tên cơ sở"
+                                        name="keyword">
                                 </div>
                             </div>
                         </div>
@@ -43,13 +42,13 @@
                                     <select name="loaihinhcoso" class="form-control ">
                                         <option value="">-----Chọn loại hình cơ sở-----</option>
                                         @foreach ($getloaihinhcoso as $item)
-                                        <option value="{{ $item->id }}" 
-                                            @if(isset($params['loaihinhcoso']) && $params['loaihinhcoso'] == $item->id) 
-                                            selected 
+                                        <option value="{{ $item->id }}" @if(isset($params['loaihinhcoso']) &&
+                                            $params['loaihinhcoso']==$item->id)
+                                            selected
                                             @endif>
                                             {{ $item->loai_hinh_co_so }}
                                         </option>
-                                            
+
                                         @endforeach
                                     </select>
                                 </div>
@@ -64,13 +63,13 @@
                                     <select name="coquanchuquan" class="form-control ">
                                         <option value="">-----Chọn cơ quan chủ quản-----</option>
                                         @foreach ($getcoquanchuquan as $item)
-                                        <option value="{{ $item->id }}"
-                                             @if(isset($params['coquanchuquan']) && $params['coquanchuquan'] == $item->id)
-                                              selected 
-                                              @endif>
-                                              {{ $item->ten }}
+                                        <option value="{{ $item->id }}" @if(isset($params['coquanchuquan']) &&
+                                            $params['coquanchuquan']==$item->id)
+                                            selected
+                                            @endif>
+                                            {{ $item->ten }}
                                         </option>
-                                            
+
                                         @endforeach
                                     </select>
                                 </div>
@@ -82,28 +81,22 @@
                                 <div class="col-lg-8">
                                     <select name="nam" class="form-control ">
                                         <option value="">-----Chọn năm-----</option>
-                                       
-                                        <option  value="{{ $nam }}" 
-                                        @if(isset($params['nam']) && $params['nam'] == $nam)
-                                        selected 
-                                        @endif>
-                                        {{ $nam }}
+
+                                        <option value="{{ $nam }}" @if(isset($params['nam']) && $params['nam']==$nam)
+                                            selected @endif>
+                                            {{ $nam }}
                                         </option>
-    
-                                        <option  value="{{ $nam-1 }}"
-                                        @if(isset($params['nam']) && $params['nam'] == $nam-1)
-                                        selected 
-                                        @endif>
-                                        {{ $nam-1 }}
+
+                                        <option value="{{ $nam-1 }}" @if(isset($params['nam']) &&
+                                            $params['nam']==$nam-1) selected @endif>
+                                            {{ $nam-1 }}
                                         </option>
-    
-                                        <option  value="{{ $nam-2 }}"
-                                        @if(isset($params['nam']) && $params['nam'] == $nam-2)
-                                        selected 
-                                        @endif>
-                                        {{ $nam-2 }}
+
+                                        <option value="{{ $nam-2 }}" @if(isset($params['nam']) &&
+                                            $params['nam']==$nam-2) selected @endif>
+                                            {{ $nam-2 }}
                                         </option>
-                                 
+
                                     </select>
                                 </div>
                             </div>
@@ -114,24 +107,20 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Đợt</label>
                                 <div class="col-lg-8">
-                                   <select name="dot" id="" class="form-control ">
-                                       <option value="">-----Chọn đợt-----</option>
+                                    <select name="dot" id="" class="form-control ">
+                                        <option value="">-----Chọn đợt-----</option>
 
-                                       <option value="1"
-                                       @if(isset($params['dot']) && $params['dot'] == 1)
-                                       selected 
-                                       @endif>
-                                       1
-                                      </option>
+                                        <option value="1" @if(isset($params['dot']) && $params['dot']==1) selected
+                                            @endif>
+                                            1
+                                        </option>
 
-                                       <option value="2"
-                                       @if(isset($params['dot']) && $params['dot'] == 2)
-                                       selected 
-                                       @endif>
-                                       2
-                                       </option>
+                                        <option value="2" @if(isset($params['dot']) && $params['dot']==2) selected
+                                            @endif>
+                                            2
+                                        </option>
 
-                                   </select>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -139,21 +128,21 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Ngành nghề</label>
                                 <div class="col-lg-8">
-                                   <select name="nghe_id" id="" class="form-control ">
-                                       <option value="">-----Chọn ngành nghề-----</option>
-                                       @forelse ($get_nganh_nghe as $item)
-                                       <option value="{{ $item->id }}"
-                                        @if(isset($params['nghe_id']) && $params['nghe_id'] == $item->id)
-                                        selected 
-                                        @endif>
-                                        
-                                      {{ $item->id }} --- {{ $item->ten_nganh_nghe }}
-                                    </option>
-                                           
-                                       @empty
-                                           
-                                       @endforelse
-                                   </select>
+                                    <select name="nghe_id" id="" class="form-control ">
+                                        <option value="">-----Chọn ngành nghề-----</option>
+                                        @forelse ($get_nganh_nghe as $item)
+                                        <option value="{{ $item->id }}" @if(isset($params['nghe_id']) &&
+                                            $params['nghe_id']==$item->id)
+                                            selected
+                                            @endif>
+
+                                            {{ $item->id }} --- {{ $item->ten_nganh_nghe }}
+                                        </option>
+
+                                        @empty
+
+                                        @endforelse
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -185,7 +174,7 @@
                 <div class="col-lg-2">
                     <select class="form-control" id="page-size">
                         @foreach(config('common.paginate_size.list') as $size)
-                        <option @if($params['page_size'] == $size) selected @endif value="{{$size}}">{{$size}}</option>
+                        <option @if($params['page_size']==$size) selected @endif value="{{$size}}">{{$size}}</option>
                         @endforeach
 
                     </select>
@@ -202,7 +191,7 @@
                         <th>Năm</th>
                         <th>Đợt</th>
                         <th>Ngành Nghề</th>
-                        
+
                         <th>
                             <a href="{{ route('xuatbc.them-ds-nha-giao') }}" class="btn btn-success btn-sm">Thêm mới</a>
                         </th>
@@ -221,14 +210,15 @@
                         <td>{{ $item->dot }}</td>
                         <td>{{ $item->ten_nghe }}</td>
                         <td>
-                            <a href="{{ route('xuatbc.chi-tiet-theo-co-so',['co_so_id'=>$item->co_so_id]) }}" class="btn btn-primary btn-sm">Chi tiết</a>
+                            <a href="{{ route('xuatbc.chi-tiet-theo-co-so',['co_so_id'=>$item->co_so_id]) }}"
+                                class="btn btn-primary btn-sm">Chi tiết</a>
                         </td>
                     </tr>
-                        @php
-                            $stt++;
-                        @endphp
+                    @php
+                    $stt++;
+                    @endphp
                     @endforeach
-                    
+
                 </tbody>
             </table>
             <div>
@@ -250,9 +240,23 @@
 </div>
 </div>
 
-
 @endsection
 @section('script')
+<script src="sweetalert2.min.js"></script>
+<link rel="stylesheet" href="sweetalert2.min.css">
+
+@if (session('kq'))
+<script>
+    Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Thêm thành công !',
+        showConfirmButton: false,
+        timer: 3500
+    })
+
+</script>
+@endif
 <script>
     var currentUrl = '{{route($route_name)}}';
     $(document).ready(function () {
@@ -283,4 +287,3 @@
 
 </script>
 @endsection
-
