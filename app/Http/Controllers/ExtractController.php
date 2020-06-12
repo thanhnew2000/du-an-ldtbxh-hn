@@ -198,11 +198,18 @@ class ExtractController extends Controller
         $data = $this ->QlsvService->getQlsv();
         $loaiHinhCs = $this->QlsvService->getLoaiHinh();
         $coso = $this->QlsvService->getCoSo();
-        $nganhNghe = $this->QlsvService->getNganhNghe();
+        $nganhNghe = $this->QlsvService->getMaNganhNghe();
+        // dd($nganhNghe);
+        $nghe_cap_2 = $this->QlsvService->getNganhNghe(2);
+        $nghe_cap_3 = $this->QlsvService->getNganhNghe(3);
+        $nghe_cap_4 = $this->QlsvService->getNganhNghe(4);
         return view('crud.add_quan_ly_sv',['data'=>$data,
                                            'loaiHinh'=>$loaiHinhCs,
+                                           'nganhNghe' => $nganhNghe,
                                            'coso'=>$coso,
-                                           'nganhNghe'=>$nganhNghe]);
+                                           'nghe_cap_2' => $nghe_cap_2,
+                                           'nghe_cap_3' => $nghe_cap_3,
+                                           'nghe_cap_4' => $nghe_cap_4]);
         //  dd($coso);
     }
     public function saveAdd(Request $request)
@@ -292,8 +299,13 @@ class ExtractController extends Controller
     public function edit($id)
     {
         $data = $this->QlsvService->suaSoLieuSv($id);
-        $nganhNghe = $this->QlsvService->getNganhNghe();
-        return view('crud.edit_quan_ly_sv',[ 'data' => $data,'nganhNghe'=> $nganhNghe]);
+        $nghe_cap_2 = $this->QlsvService->getNganhNghe(2);
+        $nghe_cap_3 = $this->QlsvService->getNganhNghe(3);
+        $nghe_cap_4 = $this->QlsvService->getNganhNghe(4);
+        return view('crud.edit_quan_ly_sv',[ 'data' => $data,  
+            'nghe_cap_2' => $nghe_cap_2,
+            'nghe_cap_3' => $nghe_cap_3,
+            'nghe_cap_4' => $nghe_cap_4]);
     }
     public function saveEdit($id, Request $request)
     {
@@ -312,6 +324,7 @@ class ExtractController extends Controller
     {
         $params = request()->all();
         $quanhuyen = $this->QlsvService->getTenQuanHuyen();
+        $nghe_cap_2 = $this->QlsvService->getNganhNghe(2);
         if(isset(request()->devvn_quanhuyen)){
             $xaphuongtheoquanhuyen = $this->QlsvService->getTenXaPhuongTheoQuanHuyen(request()->devvn_quanhuyen);
         }else{
@@ -319,7 +332,8 @@ class ExtractController extends Controller
         }
         $data = $this->QlsvService->getQlsv($params);
         $data->appends(request()->input())->links();
-        
+        $nghe_cap_3 = $this->QlsvService->getNganhNghe(3);
+        $nghe_cap_4 = $this->QlsvService->getNganhNghe(4);
         // $nam = $this->QlsvService->getNamDaoTao();
         $loaiHinhCs = $this->QlsvService->getLoaiHinh();
         $coso = $this->QlsvService->getCoSo();
@@ -332,7 +346,10 @@ class ExtractController extends Controller
             'coso'=>$coso,
             'quanhuyen'=>$quanhuyen,
             'xaphuongtheoquanhuyen'=>$xaphuongtheoquanhuyen,
-            'params' => $params
+            'params' => $params,
+            'nghe_cap_2' => $nghe_cap_2,
+            'nghe_cap_3' => $nghe_cap_3,
+            'nghe_cap_4' => $nghe_cap_4
         ]);
     }
     public function tongHopChiTietSvDangTheoHoc($coSoId){
@@ -347,16 +364,21 @@ class ExtractController extends Controller
         $data = $this->QlsvService->chiTietSoLieuQlsv($coSoId,$params);
         $loaiHinhCs = $this->QlsvService->getLoaiHinh();
         $coso = $this->QlsvService->getCoSo();
-        $nganhNghe = $this->QlsvService->getNganhNghe();
+        $nghe_cap_2 = $this->QlsvService->getNganhNghe(2);
+        $nghe_cap_3 = $this->QlsvService->getNganhNghe(3);
+        $nghe_cap_4 = $this->QlsvService->getNganhNghe(4);
         //  dd($data);
         return view('extractreport.lich_su_sinh_vien_dang_theo_hoc',[
             'data' =>$data,
             'loaiHinh' => $loaiHinhCs,
             'coso'=>$coso,
-            'nganhNghe'=> $nganhNghe,
             'params'=>$params,
             'quanhuyen'=>$quanhuyen,
-            'xaphuongtheoquanhuyen'=>$xaphuongtheoquanhuyen]);
+            'xaphuongtheoquanhuyen'=>$xaphuongtheoquanhuyen,
+            'nghe_cap_2' => $nghe_cap_2,
+            'nghe_cap_3' => $nghe_cap_3,
+            'nghe_cap_4' => $nghe_cap_4,
+            ]);
 
     }
     
@@ -395,6 +417,6 @@ class ExtractController extends Controller
     }
     public function tonghoptuyensinh()
     {
-        return view('solieutuyensinh.tong_hop_so_lieu_tuyen_sinh');
+        return view('extractreport.tong_hop_ket_qua_tuyen_sinh');
     }
 }

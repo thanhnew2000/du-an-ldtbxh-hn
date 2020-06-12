@@ -56,8 +56,8 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
 		if (isset($params['devvn_xaphuongthitran']) && $params['devvn_xaphuongthitran'] != null) {
 			$data->where('co_so_dao_tao.xaid', $params['devvn_xaphuongthitran']);
         }
-        
-        
+
+       
         return $data->orderByDesc('sv_dang_quan_ly.id')->paginate($params['page_size']);
             
     }
@@ -66,11 +66,7 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
 		$tencoso = DB::table('co_so_dao_tao')->select('id','ten')->get();
 		return $tencoso;
     }
-    public function getNganhNghe(){
-        $nganhnghe = DB::table('nganh_nghe')->select('id','ten_nganh_nghe')->get();
-        // dd($nganhnghe);
-        return $nganhnghe;
-    }
+   
     public function suaSoLieuQlsv($id){
         return $this->table
         ->join('co_so_dao_tao', 'sv_dang_quan_ly.co_so_id', '=' ,'co_so_dao_tao.id')
@@ -114,8 +110,8 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
                 $data->where('sv_dang_quan_ly.dot', $queryData['dot']);
             }
             
-            if($queryData['nghe_id']!= null){
-                $data->where('sv_dang_quan_ly.nghe_id', $queryData['nghe_id']);
+            if (isset($queryData['nganh_nghe']) && $queryData['nganh_nghe'] != null) {
+                $data->where('sv_dang_quan_ly.nghe_id', 'like', $data['nganh_nghe'].'%');
             }
             // dd($queryData);
             return $data->paginate($queryData['page_size']);
@@ -147,6 +143,18 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
 			->select('devvn_xaphuongthitran.xaid', 'devvn_xaphuongthitran.name')->get();
 			return $data;
     }
+    }
+
+    public function getNganhNghe($ma_cap_nghe){
+        $nganhnghe = DB::table('nganh_nghe')->where('ma_cap_nghe',$ma_cap_nghe)->orderBy('ten_nganh_nghe')->get();
+        //  dd($nganhnghe);
+        return $nganhnghe;
+    }
+
+    public function getMaNganhNghe(){
+        $maNganhNghe = DB::table('nganh_nghe')->select('id','ten_nganh_nghe')->get();
+        // dd($maNganhNghe);
+        return $maNganhNghe;
     }
 
 }

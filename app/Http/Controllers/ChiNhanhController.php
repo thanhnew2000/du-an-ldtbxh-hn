@@ -32,7 +32,9 @@ class ChiNhanhController extends Controller
     public function themchinhanh()
     {
         $csdt = DB::table('co_so_dao_tao')->get();
-        return view('coso.chi_nhanh.them_chi_nhanh', ['csdt' => $csdt]);
+        $quanhuyen = DB::table('devvn_quanhuyen')->get();
+        $xaphuong = DB::table('devvn_xaphuongthitran')->where('');
+        return view('coso.chi_nhanh.them_chi_nhanh', compact('csdt', 'quanhuyen', 'xaphuong'));
     }
 
     public function savethemchinhanh(Request $request)
@@ -65,7 +67,9 @@ class ChiNhanhController extends Controller
     {
         $data = $this->ChiNhanhService->getSingleChiNhanh($id);
         $csdt = DB::table('co_so_dao_tao')->get();
-        return view('coso.chi_nhanh.sua_chi_nhanh', ['data' => $data, 'csdt' => $csdt]);
+        $quanhuyen = DB::table('devvn_quanhuyen')->get();
+        $xaphuong = DB::table('devvn_xaphuongthitran')->where('');
+        return view('coso.chi_nhanh.sua_chi_nhanh', compact('data', 'csdt', 'quanhuyen', 'xaphuong'));
     }
 
     public function capnhatchinhanh($id, Request $request)
@@ -78,6 +82,8 @@ class ChiNhanhController extends Controller
                 'co_so_id' => 'required',
                 'ma_chung_nhan_dang_ki_hoat_dong' => 'required',
                 'da_duoc_cap' => 'required',
+                'maqh' => 'required',
+                'xaid' => 'required'
             ],
             [
                 'dia_chi.required' => 'Vui lòng nhập địa chỉ chi nhánh',
@@ -85,7 +91,9 @@ class ChiNhanhController extends Controller
                 'hotline.required' => 'Vui lòng nhập hotline chi nhánh',
                 'co_so_id.required' => 'Vui lòng chọn cơ sở đào tạo',
                 'ma_chung_nhan_dang_ki_hoat_dong.required' => 'Vui lòng nhập mã chứng nhận hoạt động',
-                'da_duoc_cap.required' => 'Vui lòng chọn trạng thái cấp giấy phép'
+                'da_duoc_cap.required' => 'Vui lòng chọn trạng thái cấp giấy phép',
+                'maqh.required' => 'Vui lòng chọn quận/huyện',
+                'xaid.required' => 'Vui lòng chọn xã/phường'
             ]
         );
         $this->ChiNhanhService->update($id, $request, ['_token']);
