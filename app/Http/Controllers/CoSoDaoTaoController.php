@@ -71,6 +71,8 @@ class CoSoDaoTaoController extends Controller
             [
                 'ten.required' => 'Tên cơ sở đào tạo không được để trống',
                 'ma_don_vi.required' => 'Mã đơn vị không được để trống',
+                'upload_logo.required' => 'Logo không được để trống',
+                'upload_logo.mimes' => 'Logo không đúng định dạng file ảnh',
                 'dien_thoai.required' => 'Điện thoại không được để trống',
                 'dia_chi.required' => 'địa chỉ không được để trống',
                 'ten_quoc_te.required' => 'Vui lòng điền tên quốc tế của cơ sở',
