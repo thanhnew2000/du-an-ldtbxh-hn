@@ -137,20 +137,25 @@ table td {
     text-align: left;
 }
 
+#select2-chon-co-so-ajax-container {
+    height: calc(2.95rem + 2px);
+}
+
 .table-boder-white th {
     border: 1px solid white;
     border-top: 1px solid white !important;
 }
 
-/* update more */
-* {
-    font-family: 'Roboto', sans-serif;
+.boder-1-gray {
+    border: 1px solid #ebedf2;
 }
 
-.btn {
-    font-family: 'Roboto', sans-serif !important;
+.list-checkbox {
+    padding: 0;
+    list-style: none;
 }
 
+<<<<<<< HEAD
 .size-100 {
     max-width: 100px;
     max-height: 100px;
@@ -159,3 +164,21 @@ table td {
 #remove-boder td s{
     border: none !important;
 }
+=======
+#chon-nghe-trung-cap+.select2-container {
+    width: 100% !important;
+
+    /* update more */
+    *{
+        font-family: 'Roboto', sans-serif;
+    }
+
+    .btn {
+        font-family: 'Roboto', sans-serif !important;
+    }
+
+    .size-100 {
+        max-width: 100px;
+        max-height: 100px;
+    }
+>>>>>>> d3339ea7e6962b7555504fa5a509f303be4c7b9b

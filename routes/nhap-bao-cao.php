@@ -15,6 +15,13 @@ Route::group(['prefix' => 'quan-ly-giao-vien'], function(){
     Route::post('update/{giaoVien}', 'QuanLyGiaoVienController@update')->name('ql-giao-vien.update');
 });
 
+Route::resource('so-lieu-can-bo-quan-ly', 'SoLieuCanBoQuanLyController');
+// thanhnv import export
+Route::post('so-lieu-can-bo-quan-ly/import-so-lieu-quan-ly', 'ImportSoLieuCanBoQlController@importFile')
+->name('import-so-lieu-quan-ly');
+Route::post('so-lieu-can-bo-quan-ly/import-error-so-lieu-quan-ly', 'ImportSoLieuCanBoQlController@importError')
+->name('import-error-so-lieu-quan-ly');
+
 Route::group(['prefix' => 'can-bo-quan-ly'], function(){
     Route::get('/', 'ImportReportController@doingucanboquanly')->name('nhapbc.quan-ly');
 });
@@ -38,6 +45,9 @@ Route::group(['prefix' => 'xd-chuong-trinh-giao-trinh'], function(){
 
 Route::group(['prefix' => 'ket-qua-tot-nghiep'], function(){
     Route::get('/', 'ImportReportController@ketquatotnghiep')->name('nhapbc.kq-tot-nghiep');
+
+    Route::post('import-kq-tot_nghiep', 'ImportKqTotNghiepController@importFile')->name('import.ket-qua-tot-nghiep');
+    Route::post('import-error-kq-tot_nghiep', 'ImportKqTotNghiepController@importError')->name('import.error.ket-qua-tot-nghiep');
 });
 
 Route::group(['prefix' => 'dao-tao-nghe-cho-nguoi-khuyet-tat'], function(){
@@ -66,4 +76,10 @@ Route::group(['prefix' => 'kiem-soat-tien-do-nop-bao-cao'], function(){
 
 Route::group(['prefix' => 'phe-duyet-bao-cao'], function(){
     Route::get('/', 'ImportReportController@pheduyetbaocao')->name('nhapbc.phe-duyet-bao-cao');
+});
+
+// thanhnv them group
+Route::group(['prefix' => 'so-lieu-sinh-vien-dang-theo-hoc'], function(){
+    Route::post('import-hs-sv-quan-li', 'ImportHsQlController@importFileHsQl')->name('import.hssv.ql');
+    Route::post('import-error-hs-sv-quan-li', 'ImportHsQlController@importErrorHsQl')->name('import.error.hssv-ql');
 });

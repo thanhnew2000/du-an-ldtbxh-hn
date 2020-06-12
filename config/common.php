@@ -13,8 +13,20 @@ return [
     'nam_tuyen_sinh' => [
         'list' => [2016, 2017, 2018, 2019, 2020]
     ],
+    'trang_thai_nghe' => [
+        'hoat_dong' => 1,
+        'tam_dung' => 2
+    ],
+    'bac_nghe' => [
+        'trung_cap' => ['ma_bac' => 5, 'ten_bac' => 'Trung Cấp'],
+        'cao_dang' => ['ma_bac' => 6, 'ten_bac' => 'Cao Đẳng'],
+    ],
     'nam' => [
         'list' => [2016, 2017, 2018, 2019, 2020]
+    ],
+    'dot' => [
+        '1' => 1,
+        '2' => 2,
     ],
     'giao_vien' => [
         'gioi_tinh' => [
