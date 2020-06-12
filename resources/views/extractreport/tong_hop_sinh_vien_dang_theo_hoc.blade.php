@@ -288,10 +288,9 @@
                         <option value="1">1</option>
                         <option value="2">2</option>
                       </select>
+                    </div>
                 </div>
-                        
-                      </div>
-                      <div class="modal-footer">
+                    <div class="modal-footer">
                         <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoi">
                         </p>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
@@ -359,6 +358,7 @@
 @section('script')
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 <script>
     
          $("#file_import_id").change(function() {
@@ -453,26 +453,21 @@
             }
 
 </script>
-@endsection
-
-@section('script')
-
-<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 <script>
 
-$(document).ready(function(){
-    $('#co_so_id').select2();
-    $('#devvn_quanhuyen').select2();
-    $('#devvn_xaphuongthitran').select2();
-    });
-
-
-    $("#devvn_quanhuyen" ).change(function() {
+    $(document).ready(function(){
+        $('#co_so_id').select2();
+        $('#devvn_quanhuyen').select2();
+        $('#devvn_xaphuongthitran').select2();
+        });
+    
+    
+        $("#devvn_quanhuyen" ).change(function() {
     axios.post('/xuat-bao-cao/ket-qua-tuyen-sinh/xa-phuong-theo-quan-huyen', {
                 id:  $("#devvn_quanhuyen").val(),
     })
     .then(function (response) {
-        var htmldata = '<option value="" selected  >Xã / Phường</option>'
+        var htmldata = '<option value="" selected  >Chọn</option>'
             response.data.forEach(element => {
             htmldata+=`<option value="${element.xaid}" >${element.name}</option>`   
         });
@@ -482,17 +477,17 @@ $(document).ready(function(){
         console.log(error);
     });
 });
-
-$("#page-size").change(function(){  
-    var pageSize = $(this).val();
     
-    var url = new URL(window.location.href);
-    var search_params = url.searchParams;
-    search_params.set('page_size', pageSize);
-    url.search = search_params.toString();
-    var new_url = url.toString();
-    // console.log(new_url);
-    window.location.href = new_url
-  });
-</script>
+    $("#page-size").change(function(){  
+        var pageSize = $(this).val();
+        
+        var url = new URL(window.location.href);
+        var search_params = url.searchParams;
+        search_params.set('page_size', pageSize);
+        url.search = search_params.toString();
+        var new_url = url.toString();
+        // console.log(new_url);
+        window.location.href = new_url
+      });
+    </script>
 @endsection
