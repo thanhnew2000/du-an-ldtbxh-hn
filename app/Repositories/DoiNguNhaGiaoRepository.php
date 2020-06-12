@@ -83,5 +83,23 @@ class DoiNguNhaGiaoRepository extends BaseRepository implements DoiNguNhaGiaoInt
 
     }
 
+
+    // created 12-06/20 phucnv, kiểm tra bản ghi đã tồn tại 4 trường co_so_id, nghe_id, nam, dot 
+    public function checkTonTaiKhiThem($params){
+        $kq = $this->table
+        ->where('so_lieu_doi_ngu_nha_giao.co_so_id', $params['co_so_id'])
+        ->where('so_lieu_doi_ngu_nha_giao.nghe_id', $params['nghe_id'])
+        ->where('so_lieu_doi_ngu_nha_giao.nam', $params['nam'])
+        ->where('so_lieu_doi_ngu_nha_giao.dot', $params['dot'])
+        ->select('so_lieu_doi_ngu_nha_giao.*')
+        ->first();
+
+        // dd($kq->id);
+        
+      
+        return $kq;
+
+    }
+
    
 }

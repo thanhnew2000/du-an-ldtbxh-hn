@@ -119,6 +119,12 @@ class ExtractController extends Controller
 
     public function saveDanhSachDoiNguNhaGiao(validateAddDoiNguNhaGiao $request)
     {
+        $params = $request->all();
+        $kq = $this->DoiNguNhaGiaoService->checkTonTaiKhiThem($params);
+        if($kq){       
+            return redirect()->route('xuatbc.them-ds-nha-giao')->with(['kq'=> $kq->id])->withInput();
+        }
+
         $dateTime = Carbon::now();
         $request->request->set('created_at', $dateTime->format('Y-m-d H:i:s'));
  

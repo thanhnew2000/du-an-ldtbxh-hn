@@ -10,6 +10,8 @@
 @endsection
 @section('content')
 <div class="m-content container-fluid">
+
+
     <div class="m-portlet mt-5">
         <div class="m-portlet__head">
             <div class="m-portlet__head-caption">
@@ -39,103 +41,102 @@
                     </div>
                 </div>
             </div>
-        <div class="m-portlet__body">
-            <div class="m-form__section m-form__section--first">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group m-form__group row">
-                            <label class="col-lg-2 col-form-label">Tên cơ sở</label>
-                            <div class="col-lg-8">
-                                <select id="co_so_id" name="co_so_id" class="form-control ">
-                                    <option value="-1">-----Chọn cơ sở-----</option>
-                                    @foreach ($param['cosodaotao'] as $item)
-                                    <option  {{ old('co_so_id') == $item->id ? 'selected' : '' }}
-                                        value="{{ $item->id }}">{{ $item->ten }}</option>
-                                    @endforeach
-                                </select>
-                                @if ($errors->has('co_so_id'))
-                                <span class="text-danger">{{ $errors->first('co_so_id') }}</span>
-                                @endif
+            <div class="m-portlet__body">
+                <div class="m-form__section m-form__section--first">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-2 col-form-label">Tên cơ sở</label>
+                                <div class="col-lg-8">
+                                    <select id="co_so_id" name="co_so_id" class="form-control ">
+                                        <option value="-1">-----Chọn cơ sở-----</option>
+                                        @foreach ($param['cosodaotao'] as $item)
+                                        <option 
+                                        {{-- {{ old('co_so_id') == $item->id ? 'selected' : '' }} --}}
+                                            value="{{ $item->id }}">{{ $item->ten }}</option>
+                                        @endforeach
+                                    </select>
+                                    @if ($errors->has('co_so_id'))
+                                    <span class="text-danger">{{ $errors->first('co_so_id') }}</span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-2 col-form-label">Ngành nghề</label>
+                                <div class="col-lg-8">
+                                    <select id="nganh_nghe" name="nghe_id" class="form-control ">
+                                        <option value="-1">-----Chọn ngành nghề-----</option>
+                                    </select>
+                                    @if ($errors->has('nghe_id'))
+                                    <span class="text-danger">{{ $errors->first('nghe_id') }}</span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-2 col-form-label">Năm</label>
+                                <div class="col-lg-8">
+                                    <select name="nam" class="form-control ">
+                                        <option value="-1">-----Chọn năm-----</option>
+
+                                        <option {{ old('nam') == $param['nam'] ? 'selected' : '' }}
+                                            value="{{ $param['nam'] }}">{{ $param['nam'] }}</option>
+
+                                        <option {{ old('nam') == $param['nam']-1 ? 'selected' : '' }}
+                                            value="{{ $param['nam']-1 }}">{{ $param['nam']-1 }}</option>
+
+                                        <option {{ old('nam') == $param['nam']-2 ? 'selected' : '' }}
+                                            value="{{ $param['nam']-2 }}">{{ $param['nam']-2 }}</option>
+
+                                    </select>
+                                    @if ($errors->has('nam'))
+                                    <span class="text-danger">{{ $errors->first('nam') }}</span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-2 col-form-label">Đợt</label>
+                                <div class="col-lg-8">
+                                    <select name="dot" class="form-control ">
+                                        <option value="-1">-----Chọn đợt-----</option>
+
+                                        <option {{ old('dot') == 1 ? 'selected' : '' }} value="1">1</option>
+
+                                        <option {{ old('dot') == 2 ? 'selected' : '' }} value="2">2</option>
+                                    </select>
+                                    @if ($errors->has('dot'))
+                                    <span class="text-danger">{{ $errors->first('dot') }}</span>
+                                    @endif
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group m-form__group row">
-                            <label class="col-lg-2 col-form-label">Ngành nghề</label>
-                            <div class="col-lg-8">
-                                <select id="nganh_nghe" name="nghe_id" class="form-control ">
-                                    <option value="-1">-----Chọn ngành nghề-----</option>
-                                </select>
-                                @if ($errors->has('nghe_id'))
-                                <span class="text-danger">{{ $errors->first('nghe_id') }}</span>
-                                @endif
+                    <div class="row">
+
+                        <div class="col-md-6 mt-3">
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-2 col-form-label">Tổng số</label>
+                                <div class="col-lg-8">
+                                    <input type="number" name="tong_so_can_bo" class="form-control m-input"
+                                        placeholder="Nhập vào số" value="{{old('tong_so_can_bo')}}">
+                                    @if ($errors->has('tong_so_can_bo'))
+                                    <span class="text-danger">{{ $errors->first('tong_so_can_bo') }}</span>
+                                    @endif
+                                </div>
                             </div>
                         </div>
                     </div>
 
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group m-form__group row">
-                            <label class="col-lg-2 col-form-label">Năm</label>
-                            <div class="col-lg-8">
-                                <select name="nam" class="form-control ">
-                                    <option value="-1">-----Chọn năm-----</option>
-                                   
-                                    <option {{ old('nam') == $param['nam'] ? 'selected' : '' }}
-                                    value="{{ $param['nam'] }}">{{ $param['nam'] }}</option>
-
-                                    <option {{ old('nam') == $param['nam']-1 ? 'selected' : '' }}
-                                    value="{{ $param['nam']-1 }}">{{ $param['nam']-1 }}</option>
-
-                                    <option {{ old('nam') == $param['nam']-2 ? 'selected' : '' }}
-                                    value="{{ $param['nam']-2 }}">{{ $param['nam']-2 }}</option>
-                             
-                                </select>
-                                @if ($errors->has('nam'))
-                                <span class="text-danger">{{ $errors->first('nam') }}</span>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group m-form__group row">
-                            <label class="col-lg-2 col-form-label">Đợt</label>
-                            <div class="col-lg-8">
-                                <select name="dot" class="form-control ">
-                                    <option value="-1">-----Chọn đợt-----</option>
-                                   
-                                    <option {{ old('dot') == 1 ? 'selected' : '' }}
-                                    value="1">1</option>
-
-                                    <option {{ old('dot') == 2 ? 'selected' : '' }}
-                                    value="2">2</option>
-                                </select>
-                                @if ($errors->has('dot'))
-                                <span class="text-danger">{{ $errors->first('dot') }}</span>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-
-                    <div class="col-md-6 mt-3">
-                        <div class="form-group m-form__group row">
-                            <label class="col-lg-2 col-form-label">Tổng số</label>
-                            <div class="col-lg-8">
-                                <input type="number" name="tong_so_can_bo" class="form-control m-input"
-                                    placeholder="Nhập vào số" value="{{old('tong_so_can_bo')}}">
-                                @if ($errors->has('tong_so_can_bo'))
-                                <span class="text-danger">{{ $errors->first('tong_so_can_bo') }}</span>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
-        </div>
         </div>
 
         <div class="m-portlet mt-5">
@@ -711,6 +712,7 @@
             </div>
         </div>
     </form>
+    <a href="http://"></a>
 
 </div>
 
@@ -720,14 +722,14 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $("#co_so_id").change(function () {
-           var op =  $( "select option:selected" ).val();
+            var op = $("select option:selected").val();
             axios
-                .get("/xuat-bao-cao/doi-ngu-nha-giao/nganhnghe/"+op)
+                .get("/xuat-bao-cao/doi-ngu-nha-giao/nganhnghe/" + op)
                 .then(function (response) {
                     var htmldata = '<option value="-1">-----Chọn ngành nghề-----</option>';
                     response.data.forEach((element) => {
                         htmldata +=
-                        `<option value="${element.id}" >${element.ten_nganh_nghe}</option>`;
+                            `<option value="${element.id}" >${element.id} --- ${element.ten_nganh_nghe}</option>`;
                     });
                     $("#nganh_nghe").html(htmldata);
                 })
@@ -739,7 +741,24 @@
     });
 
 </script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script> --}}
+<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+<script src="sweetalert2.min.js"></script>
+<link rel="stylesheet" href="sweetalert2.min.css">
+
+@if (session('kq'))
+<script>
+  Swal.fire({
+  title: 'Bạn đã dữ liệu',
+  icon: 'warning',
+  text: 'Bạn có thể chuyển tới Chỉnh sửa! ',
+  confirmButtonText: 'OK',
+  cancelButtonText: '<a href="{{route('xuatbc.sua-ds-nha-giao',['id'=>session('kq')])}}">Edit</a>',
+  cancelButtonColor: '#d33',
+  showCancelButton: true,
+  showCloseButton: true
+})
+</script>
+@endif
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -830,7 +849,7 @@
         });
 
 
-   
+
     });
 
 </script>

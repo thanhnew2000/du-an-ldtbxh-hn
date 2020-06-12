@@ -147,7 +147,7 @@
                                         selected 
                                         @endif>
                                         
-                                        {{ $item->ten_nganh_nghe }}
+                                      {{ $item->id }} --- {{ $item->ten_nganh_nghe }}
                                     </option>
                                            
                                        @empty
