@@ -162,7 +162,11 @@
                         <td>{{$item->so_luong_sv_nu_khac}}</td>
                         <td>{{$item->so_luong_sv_ho_khau_HN_khac}}</td>
                         <td>{{$item->so_luong_sv_dan_toc_khac}}</td>
-                        <td> <a href="{{ route('xuatbc.sua-so-sv', ['id'=>$item->sv_id])}}" class="btn btn-primary btn-sm">Cập nhật</a></td>
+                        @can('sua_so_luong_sinh_vien_dang_theo_hoc')
+                        <td> 
+                            <a href="{{ route('xuatbc.sua-so-sv', ['id'=>$item->sv_id])}}" class="btn btn-primary btn-sm">Cập nhật</a>
+                        </td>
+                        @endcan
                     </tr>
                     @endforeach
                 </tbody>

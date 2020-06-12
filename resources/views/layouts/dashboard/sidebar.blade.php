@@ -232,11 +232,13 @@
 		<span class="m-menu__arrow"></span>
 		<ul class="m-menu__subnav">
 			<li class="m-menu__item " aria-haspopup="true">
+				@canany(['them_so_luong_sinh_vien_dang_theo_hoc','sua_so_luong_sinh_vien_dang_theo_hoc','xem_so_luong_sinh_vien_dang_theo_hoc'])
 				<a href="{{route('xuatbc.ds-sv-dang-hoc')}}"
 					class="m-menu__link ">
 					<i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i>
 					<span class="m-menu__link-text">Tổng hợp sinh viên đang theo học</span>
 				</a>
+				@endcan
 			</li>
 		</ul>
 	</div>
