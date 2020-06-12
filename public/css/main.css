@@ -155,30 +155,20 @@ table td {
     list-style: none;
 }
 
-<<<<<<< HEAD
 .size-100 {
     max-width: 100px;
     max-height: 100px;
 }
 
-#remove-boder td s{
+#remove-boder td s {
     border: none !important;
 }
-=======
+
 #chon-nghe-trung-cap+.select2-container {
     width: 100% !important;
+}
 
-    /* update more */
-    *{
-        font-family: 'Roboto', sans-serif;
-    }
-
-    .btn {
-        font-family: 'Roboto', sans-serif !important;
-    }
-
-    .size-100 {
-        max-width: 100px;
-        max-height: 100px;
-    }
->>>>>>> d3339ea7e6962b7555504fa5a509f303be4c7b9b
+/* update more */
+* {
+    font-family: 'Roboto', sans-serif;
+}
