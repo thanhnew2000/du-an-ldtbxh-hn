@@ -117,7 +117,7 @@
                         $i++;
                         @endphp
                         <td>{{ $user->name }}</td>
-                        <td><img width="60" id="showavatar" src="{!! displayAvatar($user->avatar) !!}" alt="avatar">
+                        <td><img width="60" class="td_show-avatar" src="{!! displayAvatar($user->avatar) !!}" alt="avatar">
                         </td>
                         <td>{{ $user->email }}</td>
 
@@ -129,7 +129,7 @@
 
                                 <span class="m-switch m-switch--outline m-switch--icon m-switch--success">
                                     <label>
-                                        <input type="checkbox" id="editStatus" onclick="editstatus({{ $user->id }})"
+                                        <input type="checkbox" onclick="editstatus({{ $user->id }})"
                                             name="" @if ($user->status == 1)
                                         checked
                                         @endif>
@@ -190,34 +190,40 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script>
-    function showimages(element) {
+    // function showimages(element) {
 
-        var file = element.files[0];
-        var reader = new FileReader();
-        reader.onloadend = function () {
-            $('#showavatar').attr('src', reader.result);
-            // console.log('RESULT', reader.result)
-        }
-        reader.readAsDataURL(file);
+    //     var file = element.files[0];
+    //     var reader = new FileReader();
+    //     reader.onloadend = function () {
+    //         $('#showavatar').attr('src', reader.result);
+    //         // console.log('RESULT', reader.result)
+    //     }
+    //     reader.readAsDataURL(file);
 
-        $('#showavatar').attr('src', reader.result);
-    }
+    //     $('#showavatar').attr('src', reader.result);
+    // }
 
     function editstatus($id) {
         console.log('Đang thay đổi status');
-        console.log($id);
+        // console.log($id);
 
         axios.post('/account/edit-status', {
                 id: $id
             })
             .then(function (response) {
-                console.log(response);
-                console.log('Thay đổi status THÀNH CÔNG');
+                // console.log('Thay đổi status THÀNH CÔNG');
             })
             .catch(function (error) {
-                console.log(error);
+                // console.log(error);
             });
     }
+
+    $(document).ready(function(){
+        $('.td_show-avatar').each(function(){
+            var avatarImgUrl = $(this).attr('src');
+            SystemUtil.defaultImgUrl(avatarImgUrl, this, "{{  asset('images/avatardefault.jpg') }}");
+        });
+    })
 </script>
 
 @endsection
