@@ -61,8 +61,16 @@ Route::group(['middleware' => 'auth'], function () {
      Route::get('them-moi-danh-sach-doi-ngu-nha-giao',function(){
           return view('danhsachdoingunhagioa.them-moi-danh-sach-gv');
      })->name('them_ds');
-     Route::get('chinh-sua-danh-sach-doi-ngu-ql',function(){
-          return view('danhsachdoingunhagioa.chinh-sua-danh-sach-doi-ngu-ql');
-     })->name('chinh_sua_ql');
+     Route::get('them_ket_qua_xay_dung_chuong_trinh_giao_trinh',function(){
+          return view('tong-hop-ket-qua-xay-dung-chuong-tring-giao-trinh.them_ket_qua_xay_dung_chuong_trinh_giao_trinh');
+     })->name('them_kq_xd_ct_gt');
+
+     Route::get('view_tong_hop_ket_qua_xay_dung_chuong_trinh_giao_trinh',function(){
+          return view('tong-hop-ket-qua-xay-dung-chuong-tring-giao-trinh.view_tong_hop_ket_qua_xay_dung_chuong_trinh_giao_trinh');
+     })->name('views_th_kq_xd_ct_gt');
+
+     Route::get('view_chi_tiet_tong_hop_ket_qua_xay_dung_chuong_trinh_giao_trinh',function(){
+          return view('tong-hop-ket-qua-xay-dung-chuong-tring-giao-trinh.view_chi_tiet_tong_hop_ket_qua_xay_dung_chuong_trinh_giao_trinh');
+     })->name('views_ct_th_kq_xd_ct_gt');
 });
  
