@@ -72,5 +72,9 @@ Route::group(['middleware' => 'auth'], function () {
      Route::get('view_chi_tiet_tong_hop_ket_qua_xay_dung_chuong_trinh_giao_trinh',function(){
           return view('tong-hop-ket-qua-xay-dung-chuong-tring-giao-trinh.view_chi_tiet_tong_hop_ket_qua_xay_dung_chuong_trinh_giao_trinh');
      })->name('views_ct_th_kq_xd_ct_gt');
+
+     Route::get('chinh_sua_ket_qua_xay_dung_chuong_trinh_giao_trinh',function(){
+          return view('tong-hop-ket-qua-xay-dung-chuong-tring-giao-trinh.chinh_sua_ket_qua_xay_dung_chuong_trinh_giao_trinh');
+     })->name('views_ct_th_kq_xd_ct_gt');
 });
  
