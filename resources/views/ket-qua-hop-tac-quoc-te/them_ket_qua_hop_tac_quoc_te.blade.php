@@ -137,7 +137,7 @@
                         <div class="row col-12">
                             <div class="col-md-12">
                                 <div class="form-group m-form__group row">
-                                    <label class="col-lg-7 col-form-label">Số HS được các đơn vị/tổ chức nước ngoài hợp tác đào tạo cấp bằng</label>
+                                    <label class="col-lg-7 col-form-label">Số HS được các đơn vị / tổ chức nước ngoài hợp tác đào tạo cấp bằng</label>
                                     <div class="col-lg-5">
                                         <input type="number" class="form-control m-input" placeholder="Nhập vào số"
                                             name="keyword">

@@ -64,14 +64,14 @@ Route::group(['middleware' => 'auth'], function () {
      Route::get('chinh-sua-danh-sach-doi-ngu-ql',function(){
           return view('danhsachdoingunhagioa.chinh-sua-danh-sach-doi-ngu-ql');
      })->name('chinh_sua_ql');
-     Route::get('them_ket_qua_hop_tac_qt',function(){
-          return view('ketquatonghopqt.them_ket_qua_hop_tac_qt');
+     Route::get('them_ket_qua_hop_tac_quoc_te',function(){
+          return view('ket-qua-hop-tac-quoc-te.them_ket_qua_hop_tac_quoc_te');
      })->name('them_kq_qt');
-     Route::get('views_ct_kq_hop_tac_qt',function(){
-          return view('ketquatonghopqt.views_ct_kq_hop_tac_qt');
+     Route::get('views_chi_tiet_ket_qua_hop_tac_quoc_te',function(){
+          return view('ket-qua-hop-tac-quoc-te.views_chi_tiet_ket_qua_hop_tac_quoc_te');
      })->name('views_kq_qt');
-     Route::get('views_kq_hop_tac_qt',function(){
-          return view('ketquatonghopqt.views_kq_hop_tac_qt');
+     Route::get('views_ket_qua_hop_tac_quoc_te',function(){
+          return view('ket-qua-hop-tac-quoc-te.views_ket_qua_hop_tac_quoc_te');
      })->name('views_kq_qt');
 });
  
