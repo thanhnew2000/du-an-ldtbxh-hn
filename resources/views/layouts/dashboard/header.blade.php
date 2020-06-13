@@ -8,7 +8,7 @@
 								<div class="m-stack__item m-stack__item--middle m-brand__logo" style="width: 60%;">
 									<a href="{{route('dashboard')}}" class="m-brand__logo-wrapper">
 									<img style="width: 35%; text-align: center" alt="" src="{!! asset('images/logo1.png') !!}">
-									<span id ="bldtb" style="color: black;font-size:11px ">Sở LĐTB & XH</span>
+									<span id ="bldtb" style="color: black;font-size:11px ">SỞ LĐTB & XH</span>
 									<style>
 									 .m-brand__logo-wrapper:hover{
 										 text-decoration:none;
