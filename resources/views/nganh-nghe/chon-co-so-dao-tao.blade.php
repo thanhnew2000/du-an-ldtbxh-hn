@@ -93,9 +93,10 @@
                                 </div>
                                 <div class="modal-body">
                                     <div class="form-group">
-                                        <h5 class="m-portlet__head-text">Mã+tên cơ sở: &nbsp;
-                                            <b>{{$defaultCsdt['text']}}</b>
-                                        </h5>
+                                        <p class="m-portlet__head-text">
+                                            <span>Mã+ tên cơ sở: </span> &nbsp;
+                                            <span class="m--font-boldest h5">{{$defaultCsdt['text']}}</span>
+                                        </p>
                                     </div>
                                     <form action="{{ route('nghe.bo-sung-vao-co-so') }}" method="POST"
                                         enctype="multipart/form-data">
@@ -103,7 +104,7 @@
                                         <input type="hidden" name="co_so_id" value="{{ $defaultCsdt['id'] }}"
                                             id="co-so-id">
                                         <div class="d-flex justify-content-between">
-                                            <div class="form-group col-6">
+                                            <div class="form-group col-6 p-0 mr-4">
                                                 <label class="form-name" for="">Giấy phép <span
                                                         class="text-danger">(*)</span></label>
                                                 <input type="text" class="form-control" value="" name="ten_quyet_dinh"
@@ -111,28 +112,16 @@
                                                 <span class="text-danger" id="Err-ten_quyet_dinh"></span>
                                             </div>
 
-                                            <div class="form-group col-lg-5">
-                                                <label for="" class="form-name">Ảnh giấy phép <span
-                                                        class="text-danger">(*)</span></label>
-                                                <div class="custom-file form-control">
-                                                    <input type="file" name="anh_giay_phep" class="custom-file-input"
-                                                        id="customFile" name="upload_logo">
-                                                    <label class="custom-file-label" for="customFile">Choose
-                                                        file</label>
+                                            <div class="form-group col-5 p-0">
+                                                <label for="example-date-input" class="form-name">Ngày ban hành
+                                                    <span class="text-danger">(*)</span>
+                                                </label>
+                                                <div class="">
+                                                    <input class="form-control m-input" name="ngay_ban_hanh" type="date"
+                                                        value="2011-08-19" id="ngay-ban-hanh">
                                                 </div>
-                                                <span class="text-danger" id="Err-anh_giay_phep"></span>
+                                                <span class="text-danger" id="Err-ngay_ban_hanh"></span>
                                             </div>
-                                        </div>
-
-                                        <div class="form-group m-form__group col-4">
-                                            <label for="example-date-input" class="col-form-label">Ngày ban hành <span
-                                                    class="text-danger">(*)</span>
-                                            </label>
-                                            <div class="">
-                                                <input class="form-control m-input" name="ngay_ban_hanh" type="date"
-                                                    value="2011-08-19" id="ngay-ban-hanh">
-                                            </div>
-                                            <span class="text-danger" id="Err-ngay_ban_hanh"></span>
                                         </div>
 
                                         <div class="form-group mb-5">
