@@ -370,6 +370,15 @@
       {{session('thongbao')}}
     </div>
     @endif
+    @if ($errors->any())
+    <ul class="col-md-10 mx-auto">
+      @foreach ($errors->all() as $error)
+      <li class="thongbao " style="color: red;">
+        {{ $error }}
+      </li>
+      @endforeach
+    </ul>
+    @endif
     <div class="row mt-4" style="float: right">
       <div class="col-md-12">
         <button type="button" class="btn btn-danger mr-5"><a style="color: white"
