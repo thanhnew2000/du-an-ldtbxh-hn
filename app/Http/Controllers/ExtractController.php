@@ -292,9 +292,11 @@ class ExtractController extends Controller
         $request->request->set('thoi_gian_cap_nhat', $dateTime->format('Y-m-d H:i:s'));
         $request->request->set('nam', $dateTime->year);
         $request->request->set('dot', 1);
+        $co_so_id = $request->co_so_id;
+      
         $this->QlsvService->create($request);
         // dd($request);
-        return redirect('/xuat-bao-cao/so-lieu-sinh-vien-dang-theo-hoc')->withInput();
+        return redirect()->route('xuatbc.chi-tiet-so-lieu', ['co_so_id' => $co_so_id]);
     }
     public function edit($id)
     {
@@ -331,6 +333,7 @@ class ExtractController extends Controller
             $xaphuongtheoquanhuyen=[];
         }
         $data = $this->QlsvService->getQlsv($params);
+        $nganhNghe = $this->QlsvService->getMaNganhNghe();
         $data->appends(request()->input())->links();
         $nghe_cap_3 = $this->QlsvService->getNganhNghe(3);
         $nghe_cap_4 = $this->QlsvService->getNganhNghe(4);
@@ -342,6 +345,7 @@ class ExtractController extends Controller
             // 'limit'=>$limit,
             'route_name'=>$route_name,
             'data' => $data,
+            'nganhNghe' => $nganhNghe,
             'loaiHinh' => $loaiHinhCs,
             'coso'=>$coso,
             'quanhuyen'=>$quanhuyen,
