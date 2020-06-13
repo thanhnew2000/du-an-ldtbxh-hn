@@ -64,6 +64,9 @@ Route::group(['prefix' => 'dao-tao-nghe-doanh-nghiep'], function(){
 
 Route::group(['prefix' => 'lien-ket-dao-tao'], function(){
     Route::get('/', 'ImportReportController@lienketdaotao')->name('nhapbc.lien-ket-dao-tao');
+    Route::get('/chi-tiet-lien-ket-dao-tao', 'ImportReportController@chitietlienketdaotao')->name('nhapbc.chi-tiet-lien-ket-dao-tao');
+    Route::get('/them-moi-lien-ket-dao-tao', 'ImportReportController@themmoilienketdaotao')->name('nhapbc.them-moi-lien-ket-dao-tao');
+    Route::get('/chinh-sua-lien-ket-dao-tao', 'ImportReportController@chinhsualienketdaotao')->name('nhapbc.chinh-sua-lien-ket-dao-tao');
 });
 
 Route::group(['prefix' => 'thiet-lap-deadline-bao-cao'], function(){
