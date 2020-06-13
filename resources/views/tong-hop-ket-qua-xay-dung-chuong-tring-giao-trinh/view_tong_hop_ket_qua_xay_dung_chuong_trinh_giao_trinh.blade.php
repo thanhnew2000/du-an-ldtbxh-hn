@@ -12,7 +12,7 @@
                         <i class="m-menu__link-icon flaticon-web"></i>
                     </span>
                     <h3 class="m-portlet__head-text">
-                        Tổng hợp<small>kết quả xâu dựng chương trình , giáo trình</small>
+                        Tổng hợp<small>kết quả Xây dựng chương trình , giáo trình</small>
                     </h3>
                 </div>
             </div>
