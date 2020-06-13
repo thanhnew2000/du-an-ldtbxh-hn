@@ -28,6 +28,13 @@ Route::group(['prefix' => 'can-bo-quan-ly'], function(){
 
 Route::group(['prefix' => 'chinh-sach-cho-sinh-vien'], function(){
     Route::get('/', 'ImportReportController@chinhsachchosinhvien')->name('nhapbc.chinh-sach-sv');
+
+
+    // thanhnv import export
+    Route::post('import-bieu-mau-chinh-sach-sv','ImportChinhSachSinhVienController@importFile')
+    ->name('import-chinh-sach-sinh-vien');
+    Route::post('import-error-bieu-mau-chinh-sach-sv','ImportChinhSachSinhVienController@importError')
+    ->name('import-error-chinh-sach-sinh-vien');
 });
 
 Route::group(['prefix' => 'ket-qua-tuyen-sinh'], function(){
