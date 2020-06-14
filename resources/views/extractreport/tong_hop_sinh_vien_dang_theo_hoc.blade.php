@@ -136,8 +136,8 @@
             </a>
         </div>
         <div class="col-lg-2">
-            <a href="" data-toggle="modal" ><i
-                    class="fa fa-upload" aria-hidden="true" data-target="#exampleModalImport"></i>
+            <a href="" data-toggle="modal" data-target="#exampleModalImport">
+                <i class="fa fa-upload" aria-hidden="true" ></i>
                 Tải lên file Excel</a>
         </div>
         <div class="col-lg-2">
