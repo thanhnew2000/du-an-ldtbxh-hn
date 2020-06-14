@@ -64,6 +64,7 @@ class QlsvService extends AppService
        
         if(!isset($params['nam'])) $params['nam'] = null;
         if(!isset($params['dot'])) $params['dot'] = null;
+        if(!isset($params['nghe_id'])) $params['nghe_id'] = null;
         if(!isset($params['devvn_quanhuyen'])) $params['devvn_quanhuyen'] = null;
         if(!isset($params['devvn_xaphuongthitran'])) $params['devvn_xaphuongthitran'] = null;
         if(!isset($params['page_size'])) $params['page_size'] = config('common.paginate_size.default');
