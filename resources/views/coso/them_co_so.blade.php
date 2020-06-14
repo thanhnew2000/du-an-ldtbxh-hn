@@ -61,7 +61,7 @@
                                     <button class="col-2 btn btn-outline-metal" type="button" class="btn btn-danger"
                                         data-toggle="modal" data-target="#m_modal_5">Thêm</button>
                                 </div>
-                                <p id="helpId" class="form-text text-m">
+                                <p id="helpId" class="form-text text-danger">
                                     @error('co_quan_chu_quan_id')
                                     {{ $message }}
                                     @enderror
@@ -99,22 +99,27 @@
 
                                     <button class="col-2 btn btn-outline-metal" type="button" class="btn btn-danger"
                                         data-toggle="modal" data-target="#m_modal_6">Thêm</button>
-                                    <p id="helpId" class="form-text text-danger">
-                                        @error('quyet_dinh_id')
-                                        {{ $message }}
-                                        @enderror
-                                    </p>
                                 </div>
+                                <p id="helpId" class="form-text text-danger">
+                                    @error('quyet_dinh_id')
+                                    {{ $message }}
+                                    @enderror
+                                </p>
                             </div>
                             <div class="form-group col-lg-12">
                                 <label for="" class="form-name">Logo <span class="text-danger">(*)</span></label>
+                                <div class="form-group col-lg-12 mt-2">
+                                    <img id="logo-co-so" class="col-6" src="" alt="">
+                                </div>
                                 <div class="custom-file form-control">
-                                    <input type="file" class="custom-file-input" value="{{ old('upload_logo') }}"
-                                        id="customFile" name="upload_logo">
+                                    <input type="file"
+                                        onchange="SystemUtil.previewImage(this, '#logo-co-so', '{!! asset('uploads/avatars/default-img.png') !!}')"
+                                        class="custom-file-input" value="{{ old('upload_logo') }}" id="customFile"
+                                        name="upload_logo">
                                     <label class="custom-file-label" for="customFile">Choose file</label>
                                 </div>
                                 <p id="helpId" class="form-text text-danger">
-                                    @error('logo')
+                                    @error('upload_logo')
                                     {{ $message }}
                                     @enderror
                                 </p>
@@ -348,6 +353,7 @@
                         </div>
                     </div>
                 </div>
+                {{-- end modal add quyết đinh --}}
             </div>
             {{-- end modal add quyết đinh --}}
         </div>
@@ -458,7 +464,10 @@
             });
     });
 
-    
+    $(document).ready(function(){
+			var logoImgUrl = $('#logo-co-so').attr('src');
+            SystemUtil.defaultImgUrl(logoImgUrl, '#logo-co-so', "{!! asset('uploads/avatars/default-img.png') !!}");
+		});
 </script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 @endsection

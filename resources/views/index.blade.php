@@ -2,7 +2,7 @@
 @section('title', "Dashboard")
 @section('content')
 <div class="m-content">
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-lg-12">
             <!--begin::Portlet-->
             <div class="m-portlet m-portlet--tab">
@@ -175,13 +175,13 @@
 
             <!--end::Portlet-->
         </div>
-    </div>
+    </div> --}}
     <div class="m-portlet m-portlet--mobile">
         <div class="m-portlet__head">
             <div class="m-portlet__head-caption">
                 <div class="m-portlet__head-title">
                     <h3 class="m-portlet__head-text">
-                        Bảng thống kê số lượng báo cáo theo đơn  vị thực hiện
+                        Bảng thống kê số lượng báo cáo theo đơn vị thực hiện
                     </h3>
                 </div>
             </div>
@@ -192,41 +192,61 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="dataTables_scroll">
-                            <div class="dataTables_scrollBody" style="position: relative; overflow: auto; width: 100%; max-height: 50vh;">
-                                <table class="table table-striped- table-bordered table-hover table-checkable dataTable no-footer" id="m_table_1" role="grid" aria-describedby="m_table_1_info" style="width: 1133px;">
+                            <div class="dataTables_scrollBody"
+                                style="position: relative; overflow: auto; width: 100%; max-height: 50vh;">
+                                <table
+                                    class="table table-striped- table-bordered table-hover table-checkable dataTable no-footer"
+                                    id="m_table_1" role="grid" aria-describedby="m_table_1_info" style="width: 1133px;">
                                     <thead>
                                         <tr role="row" style="">
-                                            <th class="sorting" aria-controls="m_table_1" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
-                                                <div class="dataTables_sizing" style=" overflow: hidden;">Record ID</div>
+                                            <th class="sorting" aria-controls="m_table_1" rowspan="1" colspan="1"
+                                                style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                                                <div class="dataTables_sizing" style=" overflow: hidden;">Record ID
+                                                </div>
                                             </th>
-                                            <th class="sorting" aria-controls="m_table_1" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; ">
+                                            <th class="sorting" aria-controls="m_table_1" rowspan="1" colspan="1"
+                                                style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; ">
                                                 <div class="dataTables_sizing" style=" overflow: hidden;">Order ID</div>
                                             </th>
-                                            <th class="sorting" aria-controls="m_table_1" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; ">
+                                            <th class="sorting" aria-controls="m_table_1" rowspan="1" colspan="1"
+                                                style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; ">
                                                 <div class="dataTables_sizing" style=" overflow: hidden;">Country</div>
                                             </th>
-                                            <th class="sorting" aria-controls="m_table_1" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; ">
-                                                <div class="dataTables_sizing" style=" overflow: hidden;">Ship City</div>
+                                            <th class="sorting" aria-controls="m_table_1" rowspan="1" colspan="1"
+                                                style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; ">
+                                                <div class="dataTables_sizing" style=" overflow: hidden;">Ship City
+                                                </div>
                                             </th>
-                                            <th class="sorting" aria-controls="m_table_1" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; ">
-                                                <div class="dataTables_sizing" style=" overflow: hidden;">Ship Address</div>
+                                            <th class="sorting" aria-controls="m_table_1" rowspan="1" colspan="1"
+                                                style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; ">
+                                                <div class="dataTables_sizing" style=" overflow: hidden;">Ship Address
+                                                </div>
                                             </th>
-                                            <th class="sorting" aria-controls="m_table_1" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; ">
-                                                <div class="dataTables_sizing" style=" overflow: hidden;">Company Agent</div>
+                                            <th class="sorting" aria-controls="m_table_1" rowspan="1" colspan="1"
+                                                style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; ">
+                                                <div class="dataTables_sizing" style=" overflow: hidden;">Company Agent
+                                                </div>
                                             </th>
-                                            <th class="sorting" aria-controls="m_table_1" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; ">
-                                                <div class="dataTables_sizing" style=" overflow: hidden;">Company Name</div>
+                                            <th class="sorting" aria-controls="m_table_1" rowspan="1" colspan="1"
+                                                style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; ">
+                                                <div class="dataTables_sizing" style=" overflow: hidden;">Company Name
+                                                </div>
                                             </th>
-                                            <th class="sorting" aria-controls="m_table_1" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; ">
-                                                <div class="dataTables_sizing" style=" overflow: hidden;">Ship Date</div>
+                                            <th class="sorting" aria-controls="m_table_1" rowspan="1" colspan="1"
+                                                style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; ">
+                                                <div class="dataTables_sizing" style=" overflow: hidden;">Ship Date
+                                                </div>
                                             </th>
-                                            <th class="sorting" aria-controls="m_table_1" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; ">
+                                            <th class="sorting" aria-controls="m_table_1" rowspan="1" colspan="1"
+                                                style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; ">
                                                 <div class="dataTables_sizing" style=" overflow: hidden;">Status</div>
                                             </th>
-                                            <th class="sorting" aria-controls="m_table_1" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; ">
+                                            <th class="sorting" aria-controls="m_table_1" rowspan="1" colspan="1"
+                                                style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; ">
                                                 <div class="dataTables_sizing" style=" overflow: hidden;">Type</div>
                                             </th>
-                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; ">
+                                            <th class="sorting_disabled" rowspan="1" colspan="1"
+                                                style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; ">
                                                 <div class="dataTables_sizing" style=" overflow: hidden;">Actions</div>
                                             </th>
                                         </tr>
@@ -242,20 +262,29 @@
                                             <td>Nixie Sailor</td>
                                             <td>Gleichner, Ziemann and Gutkowski</td>
                                             <td>2/12/2018</td>
-                                            <td><span class="m-badge m-badge--primary m-badge--wide">Canceled</span></td>
-                                            <td><span class="m-badge m-badge--primary m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-primary">Retail</span></td>
+                                            <td><span class="m-badge m-badge--primary m-badge--wide">Canceled</span>
+                                            </td>
+                                            <td><span class="m-badge m-badge--primary m-badge--dot"></span>&nbsp;<span
+                                                    class="m--font-bold m--font-primary">Retail</span></td>
                                             <td nowrap="">
                                                 <span class="dropdown">
-                                                    <a href="#" class="btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown" aria-expanded="true">
+                                                    <a href="#"
+                                                        class="btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill"
+                                                        data-toggle="dropdown" aria-expanded="true">
                                                         <i class="la la-ellipsis-h"></i>
                                                     </a>
                                                     <div class="dropdown-menu dropdown-menu-right">
-                                                        <a class="dropdown-item" href="#"><i class="la la-edit"></i> Edit Details</a>
-                                                        <a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a>
-                                                        <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>
+                                                        <a class="dropdown-item" href="#"><i class="la la-edit"></i>
+                                                            Edit Details</a>
+                                                        <a class="dropdown-item" href="#"><i class="la la-leaf"></i>
+                                                            Update Status</a>
+                                                        <a class="dropdown-item" href="#"><i class="la la-print"></i>
+                                                            Generate Report</a>
                                                     </div>
                                                 </span>
-                                                <a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" title="View">
+                                                <a href="#"
+                                                    class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill"
+                                                    title="View">
                                                     <i class="la la-edit"></i>
                                                 </a>
                                             </td>
@@ -270,19 +299,27 @@
                                             <td>Rosenbaum-Reichel</td>
                                             <td>8/6/2017</td>
                                             <td><span class="m-badge m-badge--danger m-badge--wide">Danger</span></td>
-                                            <td><span class="m-badge m-badge--accent m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-accent">Direct</span></td>
+                                            <td><span class="m-badge m-badge--accent m-badge--dot"></span>&nbsp;<span
+                                                    class="m--font-bold m--font-accent">Direct</span></td>
                                             <td nowrap="">
                                                 <span class="dropdown">
-                                                    <a href="#" class="btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown" aria-expanded="true">
+                                                    <a href="#"
+                                                        class="btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill"
+                                                        data-toggle="dropdown" aria-expanded="true">
                                                         <i class="la la-ellipsis-h"></i>
                                                     </a>
                                                     <div class="dropdown-menu dropdown-menu-right">
-                                                        <a class="dropdown-item" href="#"><i class="la la-edit"></i> Edit Details</a>
-                                                        <a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a>
-                                                        <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>
+                                                        <a class="dropdown-item" href="#"><i class="la la-edit"></i>
+                                                            Edit Details</a>
+                                                        <a class="dropdown-item" href="#"><i class="la la-leaf"></i>
+                                                            Update Status</a>
+                                                        <a class="dropdown-item" href="#"><i class="la la-print"></i>
+                                                            Generate Report</a>
                                                     </div>
                                                 </span>
-                                                <a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" title="View">
+                                                <a href="#"
+                                                    class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill"
+                                                    title="View">
                                                     <i class="la la-edit"></i>
                                                 </a>
                                             </td>
@@ -297,19 +334,27 @@
                                             <td>Kulas, Cassin and Batz</td>
                                             <td>5/26/2016</td>
                                             <td><span class="m-badge m-badge--brand m-badge--wide">Pending</span></td>
-                                            <td><span class="m-badge m-badge--primary m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-primary">Retail</span></td>
+                                            <td><span class="m-badge m-badge--primary m-badge--dot"></span>&nbsp;<span
+                                                    class="m--font-bold m--font-primary">Retail</span></td>
                                             <td nowrap="">
                                                 <span class="dropdown">
-                                                    <a href="#" class="btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown" aria-expanded="true">
+                                                    <a href="#"
+                                                        class="btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill"
+                                                        data-toggle="dropdown" aria-expanded="true">
                                                         <i class="la la-ellipsis-h"></i>
                                                     </a>
                                                     <div class="dropdown-menu dropdown-menu-right">
-                                                        <a class="dropdown-item" href="#"><i class="la la-edit"></i> Edit Details</a>
-                                                        <a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a>
-                                                        <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>
+                                                        <a class="dropdown-item" href="#"><i class="la la-edit"></i>
+                                                            Edit Details</a>
+                                                        <a class="dropdown-item" href="#"><i class="la la-leaf"></i>
+                                                            Update Status</a>
+                                                        <a class="dropdown-item" href="#"><i class="la la-print"></i>
+                                                            Generate Report</a>
                                                     </div>
                                                 </span>
-                                                <a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" title="View">
+                                                <a href="#"
+                                                    class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill"
+                                                    title="View">
                                                     <i class="la la-edit"></i>
                                                 </a>
                                             </td>
@@ -324,19 +369,27 @@
                                             <td>Pfannerstill-Treutel</td>
                                             <td>7/2/2016</td>
                                             <td><span class="m-badge m-badge--brand m-badge--wide">Pending</span></td>
-                                            <td><span class="m-badge m-badge--accent m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-accent">Direct</span></td>
+                                            <td><span class="m-badge m-badge--accent m-badge--dot"></span>&nbsp;<span
+                                                    class="m--font-bold m--font-accent">Direct</span></td>
                                             <td nowrap="">
                                                 <span class="dropdown">
-                                                    <a href="#" class="btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown" aria-expanded="true">
+                                                    <a href="#"
+                                                        class="btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill"
+                                                        data-toggle="dropdown" aria-expanded="true">
                                                         <i class="la la-ellipsis-h"></i>
                                                     </a>
                                                     <div class="dropdown-menu dropdown-menu-right">
-                                                        <a class="dropdown-item" href="#"><i class="la la-edit"></i> Edit Details</a>
-                                                        <a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a>
-                                                        <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>
+                                                        <a class="dropdown-item" href="#"><i class="la la-edit"></i>
+                                                            Edit Details</a>
+                                                        <a class="dropdown-item" href="#"><i class="la la-leaf"></i>
+                                                            Update Status</a>
+                                                        <a class="dropdown-item" href="#"><i class="la la-print"></i>
+                                                            Generate Report</a>
                                                     </div>
                                                 </span>
-                                                <a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" title="View">
+                                                <a href="#"
+                                                    class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill"
+                                                    title="View">
                                                     <i class="la la-edit"></i>
                                                 </a>
                                             </td>
@@ -351,19 +404,27 @@
                                             <td>Dicki-Kling</td>
                                             <td>5/20/2017</td>
                                             <td><span class="m-badge m-badge--metal m-badge--wide">Delivered</span></td>
-                                            <td><span class="m-badge m-badge--accent m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-accent">Direct</span></td>
+                                            <td><span class="m-badge m-badge--accent m-badge--dot"></span>&nbsp;<span
+                                                    class="m--font-bold m--font-accent">Direct</span></td>
                                             <td nowrap="">
                                                 <span class="dropdown">
-                                                    <a href="#" class="btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown" aria-expanded="true">
+                                                    <a href="#"
+                                                        class="btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill"
+                                                        data-toggle="dropdown" aria-expanded="true">
                                                         <i class="la la-ellipsis-h"></i>
                                                     </a>
                                                     <div class="dropdown-menu dropdown-menu-right">
-                                                        <a class="dropdown-item" href="#"><i class="la la-edit"></i> Edit Details</a>
-                                                        <a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a>
-                                                        <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>
+                                                        <a class="dropdown-item" href="#"><i class="la la-edit"></i>
+                                                            Edit Details</a>
+                                                        <a class="dropdown-item" href="#"><i class="la la-leaf"></i>
+                                                            Update Status</a>
+                                                        <a class="dropdown-item" href="#"><i class="la la-print"></i>
+                                                            Generate Report</a>
                                                     </div>
                                                 </span>
-                                                <a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" title="View">
+                                                <a href="#"
+                                                    class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill"
+                                                    title="View">
                                                     <i class="la la-edit"></i>
                                                 </a>
                                             </td>
@@ -378,19 +439,27 @@
                                             <td>Gleason, Kub and Marquardt</td>
                                             <td>11/26/2016</td>
                                             <td><span class="m-badge m-badge--info m-badge--wide">Info</span></td>
-                                            <td><span class="m-badge m-badge--accent m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-accent">Direct</span></td>
+                                            <td><span class="m-badge m-badge--accent m-badge--dot"></span>&nbsp;<span
+                                                    class="m--font-bold m--font-accent">Direct</span></td>
                                             <td nowrap="">
                                                 <span class="dropdown">
-                                                    <a href="#" class="btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown" aria-expanded="true">
+                                                    <a href="#"
+                                                        class="btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill"
+                                                        data-toggle="dropdown" aria-expanded="true">
                                                         <i class="la la-ellipsis-h"></i>
                                                     </a>
                                                     <div class="dropdown-menu dropdown-menu-right">
-                                                        <a class="dropdown-item" href="#"><i class="la la-edit"></i> Edit Details</a>
-                                                        <a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a>
-                                                        <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>
+                                                        <a class="dropdown-item" href="#"><i class="la la-edit"></i>
+                                                            Edit Details</a>
+                                                        <a class="dropdown-item" href="#"><i class="la la-leaf"></i>
+                                                            Update Status</a>
+                                                        <a class="dropdown-item" href="#"><i class="la la-print"></i>
+                                                            Generate Report</a>
                                                     </div>
                                                 </span>
-                                                <a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" title="View">
+                                                <a href="#"
+                                                    class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill"
+                                                    title="View">
                                                     <i class="la la-edit"></i>
                                                 </a>
                                             </td>
@@ -405,19 +474,27 @@
                                             <td>Jenkins Inc</td>
                                             <td>6/28/2016</td>
                                             <td><span class="m-badge m-badge--metal m-badge--wide">Delivered</span></td>
-                                            <td><span class="m-badge m-badge--accent m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-accent">Direct</span></td>
+                                            <td><span class="m-badge m-badge--accent m-badge--dot"></span>&nbsp;<span
+                                                    class="m--font-bold m--font-accent">Direct</span></td>
                                             <td nowrap="">
                                                 <span class="dropdown">
-                                                    <a href="#" class="btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown" aria-expanded="true">
+                                                    <a href="#"
+                                                        class="btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill"
+                                                        data-toggle="dropdown" aria-expanded="true">
                                                         <i class="la la-ellipsis-h"></i>
                                                     </a>
                                                     <div class="dropdown-menu dropdown-menu-right">
-                                                        <a class="dropdown-item" href="#"><i class="la la-edit"></i> Edit Details</a>
-                                                        <a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a>
-                                                        <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>
+                                                        <a class="dropdown-item" href="#"><i class="la la-edit"></i>
+                                                            Edit Details</a>
+                                                        <a class="dropdown-item" href="#"><i class="la la-leaf"></i>
+                                                            Update Status</a>
+                                                        <a class="dropdown-item" href="#"><i class="la la-print"></i>
+                                                            Generate Report</a>
                                                     </div>
                                                 </span>
-                                                <a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" title="View">
+                                                <a href="#"
+                                                    class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill"
+                                                    title="View">
                                                     <i class="la la-edit"></i>
                                                 </a>
                                             </td>
@@ -432,19 +509,27 @@
                                             <td>Streich LLC</td>
                                             <td>8/5/2016</td>
                                             <td><span class="m-badge m-badge--danger m-badge--wide">Danger</span></td>
-                                            <td><span class="m-badge m-badge--danger m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-danger">Online</span></td>
+                                            <td><span class="m-badge m-badge--danger m-badge--dot"></span>&nbsp;<span
+                                                    class="m--font-bold m--font-danger">Online</span></td>
                                             <td nowrap="">
                                                 <span class="dropdown">
-                                                    <a href="#" class="btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown" aria-expanded="true">
+                                                    <a href="#"
+                                                        class="btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill"
+                                                        data-toggle="dropdown" aria-expanded="true">
                                                         <i class="la la-ellipsis-h"></i>
                                                     </a>
                                                     <div class="dropdown-menu dropdown-menu-right">
-                                                        <a class="dropdown-item" href="#"><i class="la la-edit"></i> Edit Details</a>
-                                                        <a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a>
-                                                        <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>
+                                                        <a class="dropdown-item" href="#"><i class="la la-edit"></i>
+                                                            Edit Details</a>
+                                                        <a class="dropdown-item" href="#"><i class="la la-leaf"></i>
+                                                            Update Status</a>
+                                                        <a class="dropdown-item" href="#"><i class="la la-print"></i>
+                                                            Generate Report</a>
                                                     </div>
                                                 </span>
-                                                <a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" title="View">
+                                                <a href="#"
+                                                    class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill"
+                                                    title="View">
                                                     <i class="la la-edit"></i>
                                                 </a>
                                             </td>
@@ -459,19 +544,27 @@
                                             <td>Haley, Schamberger and Durgan</td>
                                             <td>3/31/2017</td>
                                             <td><span class="m-badge m-badge--metal m-badge--wide">Delivered</span></td>
-                                            <td><span class="m-badge m-badge--danger m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-danger">Online</span></td>
+                                            <td><span class="m-badge m-badge--danger m-badge--dot"></span>&nbsp;<span
+                                                    class="m--font-bold m--font-danger">Online</span></td>
                                             <td nowrap="">
                                                 <span class="dropdown">
-                                                    <a href="#" class="btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown" aria-expanded="true">
+                                                    <a href="#"
+                                                        class="btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill"
+                                                        data-toggle="dropdown" aria-expanded="true">
                                                         <i class="la la-ellipsis-h"></i>
                                                     </a>
                                                     <div class="dropdown-menu dropdown-menu-right">
-                                                        <a class="dropdown-item" href="#"><i class="la la-edit"></i> Edit Details</a>
-                                                        <a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a>
-                                                        <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>
+                                                        <a class="dropdown-item" href="#"><i class="la la-edit"></i>
+                                                            Edit Details</a>
+                                                        <a class="dropdown-item" href="#"><i class="la la-leaf"></i>
+                                                            Update Status</a>
+                                                        <a class="dropdown-item" href="#"><i class="la la-print"></i>
+                                                            Generate Report</a>
                                                     </div>
                                                 </span>
-                                                <a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" title="View">
+                                                <a href="#"
+                                                    class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill"
+                                                    title="View">
                                                     <i class="la la-edit"></i>
                                                 </a>
                                             </td>
@@ -486,19 +579,27 @@
                                             <td>Labadie, Predovic and Hammes</td>
                                             <td>1/26/2017</td>
                                             <td><span class="m-badge m-badge--brand m-badge--wide">Pending</span></td>
-                                            <td><span class="m-badge m-badge--accent m-badge--dot"></span>&nbsp;<span class="m--font-bold m--font-accent">Direct</span></td>
+                                            <td><span class="m-badge m-badge--accent m-badge--dot"></span>&nbsp;<span
+                                                    class="m--font-bold m--font-accent">Direct</span></td>
                                             <td nowrap="">
                                                 <span class="dropdown">
-                                                    <a href="#" class="btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown" aria-expanded="true">
+                                                    <a href="#"
+                                                        class="btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill"
+                                                        data-toggle="dropdown" aria-expanded="true">
                                                         <i class="la la-ellipsis-h"></i>
                                                     </a>
                                                     <div class="dropdown-menu dropdown-menu-right">
-                                                        <a class="dropdown-item" href="#"><i class="la la-edit"></i> Edit Details</a>
-                                                        <a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a>
-                                                        <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>
+                                                        <a class="dropdown-item" href="#"><i class="la la-edit"></i>
+                                                            Edit Details</a>
+                                                        <a class="dropdown-item" href="#"><i class="la la-leaf"></i>
+                                                            Update Status</a>
+                                                        <a class="dropdown-item" href="#"><i class="la la-print"></i>
+                                                            Generate Report</a>
                                                     </div>
                                                 </span>
-                                                <a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" title="View">
+                                                <a href="#"
+                                                    class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill"
+                                                    title="View">
                                                     <i class="la la-edit"></i>
                                                 </a>
                                             </td>
@@ -524,14 +625,102 @@
                             <span class="m-portlet__head-icon m--hide">
                                 <i class="la la-gear"></i>
                             </span>
-                        <h3  class="m-portlet__head-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
-                                Biểu đồ thống kê tỷ lệ các thành phần sinh viên
-                            </font></font></h3>
+                            <h3 class="m-portlet__head-text">
+                                <font style="vertical-align: inherit;">
+                                    <font style="vertical-align: inherit;">
+                                        Biểu đồ thống kê tỷ lệ các thành phần sinh viên
+                                    </font>
+                                </font>
+                            </h3>
                         </div>
                     </div>
                 </div>
                 <div class="m-portlet__body">
-                    <div attr ="{{$data}}" id="m_flotcharts_8" style="height: 300px; padding: 0px; position: relative;"><canvas class="flot-base" width="662" height="375" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 529.9px; height: 300px;"></canvas><canvas class="flot-overlay" width="662" height="375" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 529.9px; height: 300px;"></canvas><div class="legend"><div style="position: absolute; width: 56.8px; height: 88px; top: 5px; right: 5px; background-color: rgb(255, 255, 255); opacity: 0.85;"> </div><table style="position:absolute;top:5px;right:5px;;font-size:smaller;color:#545454"><tbody><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(237,194,64);overflow:hidden"></div></div></td><td class="legendLabel"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Sê-ri1</font></font></td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(175,216,248);overflow:hidden"></div></div></td><td class="legendLabel"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Sê-ri 2</font></font></td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(203,75,75);overflow:hidden"></div></div></td><td class="legendLabel"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Sê-ri 3</font></font></td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(77,167,77);overflow:hidden"></div></div></td><td class="legendLabel"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Sê-ri4</font></font></td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(148,64,237);overflow:hidden"></div></div></td><td class="legendLabel"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Sê-ri5</font></font></td></tr></tbody></table></div></div>
+                    <div attr="{{$data}}" id="m_flotcharts_8" style="height: 300px; padding: 0px; position: relative;">
+                        <canvas class="flot-base" width="662" height="375"
+                            style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 529.9px; height: 300px;"></canvas><canvas
+                            class="flot-overlay" width="662" height="375"
+                            style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 529.9px; height: 300px;"></canvas>
+                        <div class="legend">
+                            <div
+                                style="position: absolute; width: 56.8px; height: 88px; top: 5px; right: 5px; background-color: rgb(255, 255, 255); opacity: 0.85;">
+                            </div>
+                            <table style="position:absolute;top:5px;right:5px;;font-size:smaller;color:#545454">
+                                <tbody>
+                                    <tr>
+                                        <td class="legendColorBox">
+                                            <div style="border:1px solid #ccc;padding:1px">
+                                                <div
+                                                    style="width:4px;height:0;border:5px solid rgb(237,194,64);overflow:hidden">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="legendLabel">
+                                            <font style="vertical-align: inherit;">
+                                                <font style="vertical-align: inherit;">Sê-ri1</font>
+                                            </font>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="legendColorBox">
+                                            <div style="border:1px solid #ccc;padding:1px">
+                                                <div
+                                                    style="width:4px;height:0;border:5px solid rgb(175,216,248);overflow:hidden">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="legendLabel">
+                                            <font style="vertical-align: inherit;">
+                                                <font style="vertical-align: inherit;">Sê-ri 2</font>
+                                            </font>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="legendColorBox">
+                                            <div style="border:1px solid #ccc;padding:1px">
+                                                <div
+                                                    style="width:4px;height:0;border:5px solid rgb(203,75,75);overflow:hidden">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="legendLabel">
+                                            <font style="vertical-align: inherit;">
+                                                <font style="vertical-align: inherit;">Sê-ri 3</font>
+                                            </font>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="legendColorBox">
+                                            <div style="border:1px solid #ccc;padding:1px">
+                                                <div
+                                                    style="width:4px;height:0;border:5px solid rgb(77,167,77);overflow:hidden">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="legendLabel">
+                                            <font style="vertical-align: inherit;">
+                                                <font style="vertical-align: inherit;">Sê-ri4</font>
+                                            </font>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="legendColorBox">
+                                            <div style="border:1px solid #ccc;padding:1px">
+                                                <div
+                                                    style="width:4px;height:0;border:5px solid rgb(148,64,237);overflow:hidden">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="legendLabel">
+                                            <font style="vertical-align: inherit;">
+                                                <font style="vertical-align: inherit;">Sê-ri5</font>
+                                            </font>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -542,7 +731,7 @@
 @endsection
 @section('script')
 <script>
-console.log(JSON.parse($('#m_flotcharts_8').attr('attr')))
+    console.log(JSON.parse($('#m_flotcharts_8').attr('attr')))
 </script>
 <script src="{!! asset('assets/vendors/custom/flot/flot.bundle.js') !!}" type="text/javascript"></script>
 <script src="{!! asset('assets/demo/custom/components/charts/flotcharts.js') !!}" type="text/javascript"></script>

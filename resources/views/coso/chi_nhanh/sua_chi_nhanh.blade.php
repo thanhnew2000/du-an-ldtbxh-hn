@@ -30,7 +30,7 @@
                             <div class="form-group col-lg-12">
 
                                 <label class="form-name mr-3" for="">Tên cơ sở đào tạo</label>
-                                <select class="form-control" name="co_so_id">
+                                <select class="form-control" name="co_so_id" id="co-so-dao-tao">
                                     <option selected value="{{ $item->csdt_id }}">{{ $item->csdt_ten }}</option>
                                     @foreach ($csdt as $cs)
                                     <option value=" {{ $cs->id }}">{{ $cs->ten }}</option>
@@ -42,17 +42,6 @@
                                     @enderror
                                 </p>
 
-                            </div>
-
-                            <div class="form-group col-lg-12">
-                                <label for="" class="col-4 form-name">Địa Chỉ</label>
-                                <input type="text" name="dia_chi" id="" class="form-control"
-                                    value="{{ $item->dia_chi }}">
-                                <p id="helpId" class="form-text text-danger">
-                                    @error('dia_chi')
-                                    {{ $message }}
-                                    @enderror
-                                </p>
                             </div>
 
                             <div class="form-group col-lg-12">
@@ -73,8 +62,47 @@
                                     @enderror
                                 </p>
                             </div>
+                            <div class="form-group col-lg-12">
+                                <label for="" class="form-name">Quận/Huyện <span class="text-danger">(*)</span></label>
+                                <select class="form-control col-12" name="maqh" id="devvn_quanhuyen">
+                                    <option value="{{ $item->maqh }}" selected>{{ $item->tenquanhuyen }}
+                                    </option>
+                                    @foreach ($quanhuyen as $qh)
+                                    <option value="{{ $qh->maqh }}">{{ $qh->name }}</option>
+                                    @endforeach
+                                </select>
+                                <p id="helpId" class="form-text text-danger">
+                                    @error('maqh')
+                                    {{ $message }}
+                                    @enderror
+                                </p>
+                            </div>
+
+                            <div class="form-group col-lg-12">
+                                <label for="" class="form-name">Xã/ Phường <span class="text-danger">(*)</span></label>
+                                <select class="form-control col-12" name="xaid" id="devvn_xaphuongthitran">
+                                    <option selected value="{{ $item->xaid }}">{{ $item->tenxaphuong }}
+                                    </option>
+                                </select>
+                                <p id="helpId" class="form-text text-danger">
+                                    @error('xaid')
+                                    {{ $message }}
+                                    @enderror
+                                </p>
+                            </div>
                         </div>
                         <div class="col-right col-lg-5">
+                            <div class="form-group col-lg-12">
+                                <label for="" class="col-4 form-name">Địa Chỉ</label>
+                                <input type="text" name="dia_chi" id="" class="form-control"
+                                    value="{{ $item->dia_chi }}">
+                                <p id="helpId" class="form-text text-danger">
+                                    @error('dia_chi')
+                                    {{ $message }}
+                                    @enderror
+                                </p>
+                            </div>
+
                             <div class="form-group col-lg-12">
                                 <label for="" class="col-6 form-name">Mã chứng nhận hoạt động</label>
                                 <input type="text" name="ma_chung_nhan_dang_ki_hoat_dong" id="" class="form-control"
@@ -114,8 +142,8 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="col-lg-12 d-flex justify-content-center">
-                            <button type="submit" class="btn btn-primary mr-5 col-1">Thêm</button>
+                        <div class="col-lg-12 d-flex justify-content-center pt-3">
+                            <button type="submit" class="btn btn-primary mr-5 col-1">Cập nhật</button>
                             <button type="reset" class="btn btn-danger col-1">Hủy</button>
                         </div>
                     </div>
@@ -127,4 +155,33 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
+<script>
+    $("#devvn_quanhuyen" ).change(function() {
+        axios.post('/xuat-bao-cao/ket-qua-tuyen-sinh/xa-phuong-theo-quan-huyen', {
+                    id:  $("#devvn_quanhuyen").val(),
+        })
+        .then(function (response) {
+            var htmldata = '<option selected  disabled>Xã / Phường</option>'
+                response.data.forEach(element => {
+                htmldata+=`<option value="${element.xaid}" >${element.name}</option>`   
+            });
+            $('#devvn_xaphuongthitran').html(htmldata);
+        })
+        .catch(function (error) {
+            console.log(error);
+            });
+    });
+    $(document).ready(function(){
+
+    $('#co-so-dao-tao').select2();
+    $('#devvn_quanhuyen').select2();
+    $('#devvn_xaphuongthitran').select2();
+    });
+    
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 @endsection

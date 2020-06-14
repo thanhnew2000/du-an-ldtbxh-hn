@@ -37,6 +37,20 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group m-form__group row">
+                            <label class="col-lg-2 col-form-label">Ngành nghề</label>
+                            <div class="col-lg-8">
+                                <select id="nganh_nghe" name="nghe_id" class="form-control ">
+                                    {{-- <option value="-1">-----Chọn ngành nghề-----</option> --}}
+
+                                </select>
+                                @if ($errors->has('nghe_id'))
+                                <span class="text-danger">{{ $errors->first('nghe_id') }}</span>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group m-form__group row">
                             <label class="col-lg-2 col-form-label">Năm</label>
                             <div class="col-lg-8">
                                 <select name="bac_nghe" class="form-control ">

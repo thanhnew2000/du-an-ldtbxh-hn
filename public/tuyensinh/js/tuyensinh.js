@@ -1,5 +1,5 @@
 $("#co_so_dao_tao" ).change(function() {
-  axios.post('/xuat-bao-cao/ket-qua-tuyen-sinh/get-ma-nganh-nghe', {
+  axios.post(routeGetMaNganhNghe, {
     id:  $("#co_so_dao_tao").val(),
   }).then(function (response) {
     var htmldata = '<option value="" >Chọn</option>'
@@ -70,7 +70,7 @@ function removeselect() {
   // $('#co_so_dao_tao').val('')
   // $("#co_so_dao_tao").select2('val', '0');
   // $("#ma_nganh_nghe").select2('val', '0');
-  $("#co_so_dao_tao").select2("val", "0");
+  $("#co_so_dao_tao").select2().val('').trigger('change');
   // $("#ma_nganh_nghe").select2("val", "0");
   // $('#ma_nganh_nghe').val('')
   // $('#ma_nganh_nghe').attr('disabled',true)
