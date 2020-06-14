@@ -104,7 +104,7 @@
                 <div class="row">
                     <div class="col-md-6 mt-5">
                         <div class="form-group m-form__group row">
-                            <label class="col-lg-2 col-form-label">Ngành Nghề</label>
+                            <label class="col-lg-2 col-form-label">Ngành Nghề: </label>
                             <div class="col-lg-8">
                                 <select name="nghe_id" class="form-control" id="nghe_id">
                                     <option value="" >Chọn </option>
