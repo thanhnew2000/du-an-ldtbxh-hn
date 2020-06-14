@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 @section('title', "Tổng hợp kết quả xây dựng chương trình , giáo trình")
 @section('style')
+<link href="{!! asset('/css/main.css') !!}" rel="stylesheet" type="text/css" />
 @endsection
 @section('content')
 <div class="m-content container-fluid">
@@ -12,7 +13,7 @@
                         <i class="m-menu__link-icon flaticon-web"></i>
                     </span>
                     <h3 class="m-portlet__head-text">
-                        Tổng hợp<small>kết quả Xây dựng chương trình , giáo trình</small>
+                        Tổng hợp<small>kết quả xây dựng chương trình , giáo trình</small>
                     </h3>
                 </div>
             </div>
@@ -26,7 +27,7 @@
                         <div class="form-group m-form__group row">
                             <label class="col-lg-2 col-form-label">Tên cơ sở</label>
                             <div class="col-lg-8">
-                                <select name="bac_nghe" class="form-control ">
+                                <select name="bac_nghe" class="form-control " id="ten_co_so">
                                     <option selected="" value="6">Chọn đơn vị</option>
                                     <option value="5">FU</option>
                                     <option selected="" value="6">Fpoly</option>
@@ -52,7 +53,7 @@
                         <div class="form-group m-form__group row">
                             <label class="col-lg-2 col-form-label">Tên nghề</label>
                             <div class="col-lg-8">
-                                <select name="bac_nghe" class="form-control ">
+                                <select name="bac_nghe" class="form-control " id="ten_nghe">
                                     <option selected="" value="6">Chọn đơn vị</option>
                                     <option value="5">FU</option>
                                     <option selected="" value="6">Fpoly</option>
@@ -75,7 +76,21 @@
                 </div>
             </div>
         </div>
+        <div class="row justify-content-center pb-5">
+            <div class="col-lg-2">
+                <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+            </div>
+
+        </div>
     </form>
+    </div>
+    <div class="row mb-4 bieumau">
+        <div class="col-lg-2">
+            <a href=""><i class="la la-download">Tải xuống biểu mẫu</i></a>
+        </div>
+        <div class="col-lg-2">
+            <a href=""><i class="la la-upload">Tải lên file excel</i></a>
+        </div>
     </div>
     <div class="m-portlet">
         <div class="m-portlet__body table-responsive">
@@ -101,6 +116,9 @@
                         <th rowspan="2">Đợt</th>
                         <th colspan="3">Xây dựng mới</th>
                         <th colspan="3">Chỉnh sửa</th>
+                        <th rowspan="2">       
+                            <a href="" class="btn btn-success btn-sm">Thêm mới</a>
+                            </th> 
                     </tr>
                     <tr class="text-center">
                         <th rowspan="2">Chương trình </th>
@@ -109,6 +127,7 @@
                         <th rowspan="2">Chương trình </th>
                         <th rowspan="2">Giáo trình</th>
                         <th rowspan="2">Kinh phí</th>
+                       
                     </tr>
                 </thead>
                 <tbody>
@@ -124,6 +143,10 @@
                         <td>2</td>
                         <td>2</td>
                         <td>2</td>
+                        <td>
+                            <a href="" class="btn btn-info btn-sm">Sửa</a>
+                            <a href="" class="btn btn-primary btn-sm">Chi tiết</a>
+                            </td>
                         </tr>
                 </tbody>
             </table>
@@ -157,29 +180,14 @@
 </div>
     @endsection
     @section('script')
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="{{ asset('js/so_lieu_tuyen_sinh/tong_hop_so_lieu.js') }}"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#co_so_id").select2();
-        });
-        $("#loai_hinh").change(function () {
-            axios
-                .post("/xuat-bao-cao/ket-qua-tuyen-sinh/co-so-tuyen-sinh-theo-loai-hinh", {
-                    id: $("#loai_hinh").val(),
-                })
-                .then(function (response) {
-                    var htmldata = '<option value="">Chọn cơ sở</option>';
-                    response.data.forEach((element) => {
-                        htmldata += `<option value="${element.id}" >${element.ten}</option>`;
-                    });
-                    $("#co_so_id").html(htmldata);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-        });
-
-    </script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+<script>
+    $(document).ready(function() {
+    $('#ten_co_so').select2();
+});
+</script>
+<script>
+    $(document).ready(function() {
+    $('#ten_nghe').select2();
+});
+</script>
     @endsection
