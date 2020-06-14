@@ -188,10 +188,10 @@
                         <td>{{$item->so_tuyen_moi_Cao_dang}}</td>
                         <td>{{$item->so_lien_thong_Cao_dang}}</td>
                         <td class="tong">{{$item->so_luong_sv_Trung_cap}}</td>
-                        <td>{{$item->so_luong_sv_dan_toc_khac}}</td>
                         <td>{{$item->so_luong_sv_nu_Trung_cap}}</td>
                         <td>{{$item->so_luong_sv_dan_toc_Trung_cap}}</td>
                         <td>{{$item->so_luong_sv_ho_khau_HN_Trung_cap}}</td>
+                        <td>{{$item->ho_khau_HN_THCS_Trung_cap}}</td>
                         <td>{{$item->so_Tot_nghiep_THCS}}</td>
                         <td>{{$item->so_Tot_nghiep_THPT}}</td>
                         <td class="tong">{{$item->so_luong_sv_So_cap}}</td>
