@@ -1,3 +1,4 @@
+
 @extends('layouts.admin')
 @section('content')
 
@@ -29,9 +30,9 @@
                                 <div class="col-lg-8">
                                     <select class="form-control" name="loai_hinh" id="loai_hinh">
                                         <option value="0" selected>Chọn loại hình cơ sở</option>
-
-                                        <option></option>
-
+                                        
+                                        <option ></option>
+                                        
                                     </select>
                                 </div>
                             </div>
@@ -42,9 +43,9 @@
                                 <div class="col-lg-8">
                                     <select class="form-control" name="co_so_id" id="co_so_id">
                                         <option value="">Chọn cơ sở</option>
-
-                                        <option></option>
-
+                                        
+                                        <option ></option>
+                                        
                                     </select>
                                 </div>
                             </div>
@@ -58,9 +59,9 @@
                                     <select class="form-control" name="nam" id="nam">
                                         <option value="" selected disabled>Chọn</option>
 
-                                        <option>
+                                        <option >
                                         </option>
-
+                                        
                                     </select>
                                 </div>
                             </div>
@@ -69,11 +70,12 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Nghề cấp 2</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control nganh_nghe" onchange="getNgheTheoCapBac(this)" name=""
-                                        id="nghe_cap_2">
+                                    <select class="form-control nganh_nghe" onchange="getNgheTheoCapBac(this)"
+                                    name ="" 
+                                    id="nghe_cap_2">
                                         <option value="" selected>Chọn</option>
-
-                                        <option></option>
+                                       
+                                        <option ></option>
                                     </select>
                                 </div>
                             </div>
@@ -86,27 +88,26 @@
                                 <div class="col-lg-8">
                                     <select class="form-control" name="dot" id="dot">
                                         <option value="" selected disabled>Chọn</option>
-                                        <option>Đợt 1
+                                        <option >Đợt 1
                                         </option>
-                                        <option>Đợt 2
+                                        <option >Đợt 2
                                         </option>
                                     </select>
 
                                 </div>
                             </div>
                         </div>
-
-
+                    
+                     
                         <div class="col-md-6">
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Nghề cấp 3</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control nganh_nghe" onchange="getNgheTheoCapBac(this)" name=""
-                                        id="nghe_cap_3">
-                                        <option value="" selected>Chọn</option>
-
-                                        <option></option>
-
+                                    <select class="form-control nganh_nghe" onchange="getNgheTheoCapBac(this)" name ="" id="nghe_cap_3">
+                                        <option value="" selected>Chọn</option>  
+                                        
+                                        <option ></option>
+                                        
                                     </select>
                                 </div>
                             </div>
@@ -119,29 +120,32 @@
                                 <div class="col-lg-8">
                                     <select class="form-control" name="devvn_quanhuyen" id="devvn_quanhuyen">
                                         <option value="" selected>Chọn</option>
-
-                                        <option></option>
-
+                                        
+                                        <option ></option>
+                                        
                                     </select>
                                 </div>
                             </div>
                         </div>
-
+                      
                         <div class="col-md-6">
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Nghề cấp 4</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control nganh_nghe">
+                                    <select class="form-control nganh_nghe" onchange="setNameNganhNgheSearch(this)" 
+                                    @if (isset($params['nganh_nghe']))
+                                    name ="" @endif
+                                    id="nghe_cap_4">
                                         <option value="" selected>Chọn</option>
-
-                                        <option></option>
-
+                                        
+                                        <option ></option>
+                                      
                                     </select>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row pt-4">
+                     <div class="row pt-4">                   
                         <div class="col-md-6 ">
                             <div class="form-group m-form__group row">
                                 <label for="" class="col-lg-2 col-form-label">Xã\Phường</label>
@@ -149,9 +153,9 @@
                                     <select class="form-control" name="devvn_xaphuongthitran"
                                         id="devvn_xaphuongthitran">
                                         <option value="">Chọn xã phường</option>
-
-                                        <option></option>
-
+                                        
+                                        <option ></option>
+                                        
 
                                     </select>
 
@@ -196,32 +200,30 @@
                 <label class="col-lg-2 col-form-label">Kích thước:</label>
                 <div class="col-lg-2">
                     <select class="form-control" id="page-size">
-
-                        <option></option>
-
+                        
+                        <option ></option>
+                        
                     </select>
                 </div>
             </div>
-            <table class="table table-bordered m-table  m-table--head-bg-primary">
+            <table class="table table-bordered m-table  m-table--head-bg-primary table-responsive">
                 <thead>
                     <tr>
-                        <th scope="col 1">STT</th>
-                        <th scope="col 1">Tên cơ sở đào tạo</th>
-                        <th scope="col 1">Tên nghề đào tạo</th>
-                        <th scope="col 1">Năm</th>
-                        <th scope="col 1">Đợt</th>
-                        <th scope="col 1">Chỉ tiêu được giao</th>
-                        <th scope="col 1">Thực tuyển</th>
-                        <th scope="col 1">Số học sinh tốt nghiệp</th>
-                        <th scope="col 1">Đơn vị liên kết</th>
-                        <th scope="col 1">Ghi chú</th>
-                        <th scope="col 1">Thao tác</th>
+                        <th scope="col">STT</th>
+                        <th scope="col">Tên cơ sở đào tạo</th>
+                        <th scope="col">Tên nghề đào tạo</th>
+                        <th scope="col">Năm</th>
+                        <th scope="col">Đợt</th>
+                        <th scope="col">Chỉ tiêu được giao liên thông Cao đẳng lên Đại học</th>
+                        <th scope="col">Thực tuyển liên thông Cao đẳng lên Đại học</th>
+                        <th scope="col">Chỉ tiêu được giao liên thông Trung cấp lên Đại học</th>
+                        <th scope="col">Thực tuyển liên thông Trung cấp lên Đại học</th>
+                        <th scope="col" colspan="2">Thao tác</th>
                     </tr>
                 </thead>
                 <tbody>
-
+                    
                     <tr>
-                        <td>1</td>
                         <td>1</td>
                         <td>1</td>
                         <td>1</td>
@@ -232,17 +234,18 @@
                         <td>1</td>
                         <td>1</td>
                         <td><a href="" class=".text-info">Sửa</a></td>
+                        <td><a href="" class=".text-info">Chi tiết</a></td>
                     </tr>
-
+                    
 
                 </tbody>
             </table>
         </div>
     </div>
     <div class="m-portlet__foot d-flex justify-content-end">
-
+        
     </div>
-    <form action="" method="post">
+    <form action="{{route('layformbieumausinhvien')}}" method="post">
         @csrf
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
@@ -256,9 +259,9 @@
                     </div>
                     <div class="modal-body">
                         <select name="id_cs" class="form-control">
-
+                            
                             <option value=""></option>
-
+                           
                         </select>
                     </div>
                     <div class="modal-footer">
@@ -270,7 +273,8 @@
         </div>
     </form>
 
-    <form action="" id="my_form_kqts_import" method="post" enctype="multipart/form-data">
+    <form action="" id="my_form_kqts_import" method="post"
+        enctype="multipart/form-data">
         @csrf
         <div class="modal fade " id="exampleModalImport" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
@@ -289,13 +293,13 @@
                         <div class="form-group">
                             <label for="">Chọn năm</label>
                             <select name="nam" id="nam_id" class="form-control">
-                                <option value="2020">2020</option>
-                                <option value="2019">2019</option>
-                                <option value="2018">2018</option>
-                                <option value="2017">2017</option>
-                                <option value="2016">2016</option>
-                            </select>
-                        </div>
+                              <option value="2020">2020</option>
+                              <option value="2019">2019</option>
+                              <option value="2018">2018</option>
+                              <option value="2017">2017</option>
+                              <option value="2016">2016</option>
+                            </select> 
+                       </div>
 
                         <div class="form-group">
                             <label for="">Chọn đợt</label>
@@ -339,8 +343,8 @@
                                 <option value="2018">2018</option>
                                 <option value="2017">2017</option>
                                 <option value="2016">2016</option>
-                            </select>
-                        </div>
+                              </select>
+                        </div> 
                         <div class="form-group">
                             <label for="">Chọn đợt xuất</label>
                             <select name="dot_muon_xuat" id="dot_id_xuat" class="form-control">
@@ -352,7 +356,7 @@
                             <label for="">Chọn Trường</label>
                             <select name="truong_id" id="truong_id_xuat" class="form-control">
                                 <option value=""></option>
-
+                                
                             </select>
                         </div>
 
@@ -370,95 +374,4 @@
     </form>
 </div>
 
-@endsection
-@section('script')
-<script type="text/javascript">
-    var url_tuyen_sinh_theo_loai_hinh = "{{route('csTuyenSinhTheoLoaiHinh')}}"
-    var url_xa_phuong_theo_quan_huyen = "{{route('getXaPhuongTheoQuanHuyen')}}"
-    var url_nghe_theo_nghe_cap_bac= "{{route('getNgheTheoCapBac')}}"
-        $(document).ready(function(){
-        $('#co_so_id').select2();
-        $('#devvn_quanhuyen').select2();
-        $('#devvn_xaphuongthitran').select2();
-        $('#nghe_cap_2').select2();
-        $('#nghe_cap_3').select2();
-        $('#nghe_cap_4').select2();
-    });
-    $("#loai_hinh" ).change(function() {
-        axios.post(url_tuyen_sinh_theo_loai_hinh, {
-            id:  $("#loai_hinh").val(),
-        })
-        .then(function (response) {
-            var htmldata = '<option value="">Chọn cơ sở</option>'
-                response.data.forEach(element => {
-                htmldata+=`<option value="${element.id}" >${element.ten}</option>`   
-            });
-            $('#co_so_id').html(htmldata);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-    });
-    
-    $("#devvn_quanhuyen" ).change(function() {
-        axios.post(url_xa_phuong_theo_quan_huyen, {
-                    id:  $("#devvn_quanhuyen").val(),
-        })
-        .then(function (response) {
-            var htmldata = '<option value="" selected  >Chọn</option>'
-                response.data.forEach(element => {
-                htmldata+=`<option value="${element.xaid}" >${element.name}</option>`   
-            });
-            $('#devvn_xaphuongthitran').html(htmldata);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-    });
-    
-    function getNgheTheoCapBac(id){
-        setNameNganhNgheSearch(id)
-        var cap_nghe = $(id).val().length==3 ? 3: 4
-        axios.post(url_nghe_theo_nghe_cap_bac, {
-            id:  $(id).val(),
-            cap: cap_nghe
-        })
-        .then(function (response) {
-            var htmldata = '<option value="" selected  >Chọn nghề</option>'
-                response.data.forEach(element => {
-                    htmldata+=`<option value="${element.id}">${element.id}-${element.ten_nganh_nghe}</option>`  
-            });
-            if ($(id).val().length==3 || $(id).val().length==0) {
-                $('#nghe_cap_3').html(htmldata);
-            }else{
-                $('#nghe_cap_4').html(htmldata);
-            }
-            
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-    }
-    function setNameNganhNgheSearch(id) {
-        var nganh_nghe = $('.nganh_nghe')
-        for (let index = 0; index < nganh_nghe.length; index++) {
-            $(nganh_nghe[index]).attr('name','')       
-        }
-        $(id).attr('name','nganh_nghe')
-    }
-    
-      $("#page-size").change(function(){  
-        $("#page_size_hide").val($('#page-size').val())
-        var url = new URL(window.location.href);
-        var search_params = url.searchParams;
-        search_params.set('page_size', $("#page_size_hide").val());
-        search_params.set('page',1);
-        url.search = search_params.toString();
-        var new_url = url.toString();
-        window.location.href = new_url
-      });
-    
-    
-</script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 @endsection
