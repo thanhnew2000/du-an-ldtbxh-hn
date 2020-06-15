@@ -33,7 +33,7 @@
                                 <select class="form-control" name="co_so_id" id="co-so-dao-tao">
                                     <option selected value="{{ $item->csdt_id }}">{{ $item->csdt_ten }}</option>
                                     @foreach ($csdt as $cs)
-                                    <option value=" {{ $cs->id }}">{{ $cs->ten }}</option>
+                                    <option value="{{ $cs->id }}">{{ $cs->ten }}</option>
                                     @endforeach
                                 </select>
                                 <p class="form-text text-danger">
