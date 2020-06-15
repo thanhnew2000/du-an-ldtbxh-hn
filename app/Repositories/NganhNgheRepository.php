@@ -32,7 +32,8 @@ class NganhNgheRepository extends BaseRepository implements NganhNgheRepositoryI
                                 from giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao dk 
                                 where dk.nghe_id = nganh_nghe.id) as csdt_count')
             )
-            ->where('bac_nghe', $params['bac_nghe']);
+            ->where('bac_nghe', $params['bac_nghe'])
+            ->where('ma_cap_nghe', 4);
         if (isset($params['keyword']) && $params['keyword'] != null) {
             $queryBuilder->where(function ($query) use ($params) {
 
