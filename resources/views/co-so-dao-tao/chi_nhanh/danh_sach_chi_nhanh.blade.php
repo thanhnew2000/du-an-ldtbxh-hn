@@ -85,6 +85,12 @@
                     <strong>{!! \Session::get('mess') !!}</strong>
                 </div>
                 @endif
+
+                @if (\Session::has('mess-success'))
+                <div class="alert alert-success" role="alert">
+                    <strong>{!! \Session::get('mess-success') !!}</strong>
+                </div>
+                @endif
                 <table class="table m-table m-table--head-bg-brand">
                     <thead>
                         <th>STT</th>
@@ -143,7 +149,7 @@
                                         <H4 class="text-danger">Bạn muốn xóa địa điểm này?</H4>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
+                                        <button type="button" class="btn btn-secondary btn-sm"
                                             data-dismiss="modal">Hủy</button>
                                         <a id="btn-xoa" href="" class="btn btn-danger btn-sm">Xóa</a>
                                     </div>

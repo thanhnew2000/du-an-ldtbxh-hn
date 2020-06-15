@@ -148,12 +148,21 @@ class DoiNguNhaGiaoService extends AppService
 
                 $worksheet->setCellValue('B' . $row, $bacDaoTao);
                 $worksheet->getStyle("B{$row}")->getFont()->setBold(true);
+                $lockRange = "A{$row}:AK{$row}";
+                $worksheet->getStyle($lockRange)
+                    ->getFill()
+                    ->setFillType(Fill::FILL_SOLID)
+                    ->getStartColor()->setARGB('C7C7C7');
+
+                $worksheet->getStyle($lockRange)
+                    ->getProtection()
+                    ->setLocked(Protection::PROTECTION_PROTECTED);
                 $row++;
             }
             $worksheet->setCellValue('B' . $row, "Trường: {$coSo->ten} - {$coSo->id}");
             $worksheet->getStyle("B{$row}")->getFont()->setBold(true);
 
-            $lockRange = 'A' . ($row - 1) . ":AK{$row}";
+            $lockRange = "A{$row}:AK{$row}";
             $worksheet->getStyle($lockRange)
                 ->getFill()
                 ->setFillType(Fill::FILL_SOLID)

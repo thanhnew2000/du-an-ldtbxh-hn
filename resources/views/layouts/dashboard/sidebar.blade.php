@@ -58,7 +58,10 @@
 								class="m-menu__link "><i
 									class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 									class="m-menu__link-text">Danh sách địa điểm đào tạo</span></a></li>
-
+						<li class="m-menu__item " aria-haspopup="true"><a href="{{route('csdt.thiet-lap-nghe-cs')}}"
+							class="m-menu__link "><i
+								class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
+								class="m-menu__link-text">Thiết lập nghề cho cơ sở đào tạo</span></a></li>
 					</ul>
 				</div>
 			</li>
@@ -81,10 +84,7 @@
 								class="m-menu__link "><i
 									class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 									class="m-menu__link-text">Thiết lập chỉ tiêu tuyển sinh</span></a></li>
-						<li class="m-menu__item " aria-haspopup="true"><a href="{{route('nghe.thiet-lap-nghe-cs')}}"
-								class="m-menu__link "><i
-									class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
-									class="m-menu__link-text">Thiết lập nghề cho cơ sở đào tạo</span></a></li>
+						
 					</ul>
 				</div>
 			</li>
