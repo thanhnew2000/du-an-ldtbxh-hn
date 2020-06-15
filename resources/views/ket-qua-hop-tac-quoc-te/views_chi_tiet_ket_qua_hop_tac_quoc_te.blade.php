@@ -82,15 +82,18 @@
                 <thead>
                     <tr class="text-center">
                         <th rowspan="2">STT</th>
-                        <th rowspan="2">Tên đơn vị</th>
+                        <th rowspan="2">Tên đơn vị</th> 
                         <th rowspan="2">Năm</th>
                         <th rowspan="2">Đợt</th>
                         <th colspan="4">Kết quả tuyển sinh theo chương trình hợp tác quốc tế</th>
                         <th colspan="3">Số học sinh được cấp bằng tốt nghiệp theo hình thức hợp tác quốc tế</th>
                         <th rowspan="2">Số học sinh có việc làm sau khi tốt nghiệp chương trình hợp tác quốc tế</th>
                         <th rowspan="2">Số lượng chương trình,giáo trình xây dựng , phát triển theo hình thức hợp tác quốc tế</th>
+                        <th colspan="3">Hợp tác quốc tế trong đào tạo , bồi dưỡng giáo viên , cán bộ quản lý</th>
                         <th colspan="3">Hợp tác quốc tế trong đầu tư cơ sở vật chất , trang thiết bị</th>\
-                        <th rowspan="2">Thao tác</th>
+                        <th rowspan="2">
+                            <a href="" class="btn btn-success btn-sm">Thêm mới</a>
+                        </th>
                     </tr>
                     <tr class="text-center">
                         <th rowspan="2">Tổng số</th>
@@ -100,6 +103,9 @@
                         <th rowspan="2">Tổng số</th>
                         <th rowspan="2">Số HS được các đơn vị/tổ chức nước ngoài hợp tác đào tạo cấp bằng</th>
                         <th rowspan="2">Số HS được nhà nước cấp bằng theo hình thức hợp tác quốc tế</th>
+                        <th rowspan="2">Tổng số </th>
+                        <th rowspan="2">Số giáo viên được đào tạo , bồi dưỡng , tập huấn</th>
+                        <th rowspan="2">Số cán bộ quản lý được đào tạo , bồi dưỡng , tập huấn</th>
                         <th rowspan="2">Số phòng học đầu tư</th>
                         <th rowspan="2">Số nhà xưởng thực hành được đầu tư</th>
                         <th rowspan="2">Tổng kinh phí đầu tư trang thiết bị , máy móc</th>
@@ -124,6 +130,13 @@
                         <td>2</td>
                         <td>2</td>
                         <td>2</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>
+                            <a href="" class="btn btn-info btn-sm">Sửa</a>
+                            <a href="" class="btn btn-primary btn-sm">Chi tiết</a>
+                            </td>
                         </tr>
                 </tbody>
             </table>
