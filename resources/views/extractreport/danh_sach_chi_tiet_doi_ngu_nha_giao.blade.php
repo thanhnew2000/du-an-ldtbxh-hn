@@ -1,7 +1,6 @@
 @extends('layouts.admin')
 @section('title', "Chi tiết số liệu đội ngũ đào tạo")
 @section('style')
-{{-- <link href="{!! asset('tuyensinh/css/chitiettuyensinh.css') !!}" rel="stylesheet" type="text/css" /> --}}
 <style>
     .m-table.m-table--border-danger, .m-table.m-table--border-danger th, .m-table.m-table--border-danger td{
         border-color: #bcb1b1 ;
@@ -176,18 +175,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @php
-                    $i = !isset($_GET['page']) ? 1 : ($limit * ($_GET['page']-1) + 1);
-                    @endphp --}}
+                    @php
+                    $stt =1;
+                    @endphp
                     @foreach ($data as $item)
                     <tr>
                         {{-- <td>{{$i++}}</td> --}}
-                        <td>1</td>
+                        <td>{{ $stt }}</td>
                         <td>{{$item->nam}}</td>
                         <td>{{$item->dot}}</td>
                         <td>{{$item->nghe_id}}</td>
                         <td>{{$item->ten_nghe}}</td>
                         <td>{{$item->tong_so_can_bo}}</td>
+
                         <td>{{$item->so_luong_nu}}</td>
                         <td>{{$item->dan_toc_it_nguoi}}</td>
                         <td>{{$item->giao_su}}</td>
@@ -195,14 +195,17 @@
                         <td>{{$item->NGND_NSND_NNND_TTND}}</td>
                         <td>{{$item->NGUT_NSUT_NNUT_TTUT}}</td>
                         <td>{{$item->nha_giao_giang_day_mon_hoc_chung}}</td>
+
                         <td>{{$item->bien_che}}</td>
                         <td>{{$item->hop_dong_1_nam_tro_len}}</td>
+
                         <td>{{$item->so_tien_sy}}</td>
                         <td>{{$item->so_thac_si}}</td>
                         <td>{{$item->so_dai_hoc}}</td>
                         <td>{{$item->so_cao_dang}}</td>
                         <td>{{$item->so_trung_cap}}</td>
                         <td>{{$item->so_khac}}</td>
+
                         <td>{{$item->bac1}}</td>
                         <td>{{$item->bac2}}</td>
                         <td>{{$item->bac3}}</td>
@@ -223,14 +226,15 @@
 
                         <td>{{$item->so_nha_giao_tham_gia_dao_tao}}</td>
 
-
-
                         <td>
                             <a href="{{route('xuatbc.sua-ds-nha-giao',['id'=>$item->id])}}">
                                 Sửa</a>
                            
                         </td>
                     </tr>
+                    @php
+                    $stt++;
+                    @endphp
                     @endforeach
 
                 </tbody>
@@ -251,6 +255,7 @@
     </div>
 </div>
 @endsection
+
 @section('script')
 <script>
     var currentUrl = `{{route($route_name,['co_so_id'=>$thongtincoso[0]->id])}}`;
@@ -264,6 +269,5 @@
         });
 
     });
-
 </script>
 @endsection

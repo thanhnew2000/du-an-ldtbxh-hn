@@ -21,4 +21,8 @@ class DoiNguNhaGiaoService extends AppService
     public function chiTietTheoCoSo($co_so_id, $params){
         return $this->repository->chiTietTheoCoSo($co_so_id, $params);
     }
+
+    public function checkTonTaiKhiThem($params){
+        return $this->repository->checkTonTaiKhiThem($params);
+    }
 }

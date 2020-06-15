@@ -39,9 +39,9 @@
                                 <label class="col-lg-2 col-form-label">Tên cơ sở đào tạo <span
                                         class="batbuoc">*</span></label>
                                 <div class="col-lg-8">
-                                    <select class="form-control " onchange="getdatacheck(this)" required name="co_so_id"
+                                    <select class="form-control" onchange="getdatacheck(this)" required  name="co_so_id"
                                         id="co_so_dao_tao">
-                                        <option value="0">Chọn</option>
+                                        <option value="">Chọn</option>
                                         @foreach ($data as $item)
                                         <option value="{{$item->id}}">{{$item->ten}}</option>
                                         @endforeach
@@ -177,7 +177,7 @@
                                                 class="form-control"></td>
                                     </tr>
                                     <tr>
-                                        <td>Số sinh viên đủ điều kiện thi sét TN</td>
+                                        <td>Số sinh viên đủ điều kiện thi xét TN</td>
                                         <td><input type="number" min="0" step="1" name="SoSV_Du_DieuKienThi_XetTN_TrinhDoCD"
                                                 class="form-control"></td>
 
@@ -239,7 +239,7 @@
                                                 class="form-control"></td>
                                     </tr>
                                     <tr>
-                                        <td>Số sinh viên đủ điều kiện thi sét TN</td>
+                                        <td>Số sinh viên đủ điều kiện thi xét TN</td>
                                         <td><input type="number" min="0" step="1"
                                                 name="SoSV_Du_DieuKienThi_XetTN_TrinhDoSC" class="form-control"></td>
                                     </tr>
@@ -299,7 +299,7 @@
                                                 class="form-control"></td>
                                     </tr>
                                     <tr>
-                                        <td>Số sinh viên đủ điều kiện thi sét TN</td>
+                                        <td>Số sinh viên đủ điều kiện thi xét TN</td>
                                         <td><input type="number" min="0" step="1" name="SoSV_Du_DieuKienTHhi_XetTN_TrinhDoTC"
                                                 class="form-control"></td>
 
@@ -366,7 +366,7 @@
                                                 class="form-control"></td>
                                     </tr>
                                     <tr>
-                                        <td>Số sinh viên đủ điều kiện thi sét TN</td>
+                                        <td>Số sinh viên đủ điều kiện thi xét TN</td>
                                         <td><input type="number" min="0" step="1" name="SoSV_DuKienThi_XetTN_NgheKhac"
                                                 class="form-control"></td>
 
@@ -644,6 +644,7 @@
             </div>
         </div>
     </form>
+    
 </div>
 @endsection
 @section('script')
