@@ -145,6 +145,13 @@
                 aria-hidden="true"></i>
                 Xuất dữ liệu ra Excel</a>
         </div>
+        <div class="col-lg-6 " style="text-align: right">
+            @can('them_so_luong_sinh_vien_dang_theo_hoc')
+            <th>
+                <a href="{{route('xuatbc.them-so-sv')}}" class="btn btn-success btn-sm">Thêm mới</a>
+            </th>
+            @endcan
+        </div>
     </div>
     <div class="m-portlet">
         <div class="m-portlet__body">
@@ -175,11 +182,7 @@
                     <th>Trung Cấp </th>
                     <th>Sơ Cấp </th>
                     <th>Khác </th>
-                    @can('them_so_luong_sinh_vien_dang_theo_hoc')
-                    <th>
-                        <a href="{{route('xuatbc.them-so-sv')}}" class="btn btn-success btn-sm">Thêm mới</a>
-                    </th>
-                    @endcan
+                    <th>Chức năng</th>
                    
                 </thead>
 
@@ -201,7 +204,6 @@
                             <a href="{{ route('xuatbc.chi-tiet-so-lieu', ['co_so_id'=>$qlsv->cs_id]) }}" class="btn btn-info btn-sm">Chi tiết</a>
 
                         </td>
-                        @endcan  
                     </tr>
                     @empty
                     @endforelse($item as $data )

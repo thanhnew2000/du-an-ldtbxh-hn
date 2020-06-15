@@ -91,6 +91,7 @@
                     <th>Email</th>
                     <th>Số điện thoại</th>
                     <th>Cơ sở đào tạo</th>
+                    <th>Quyền</th>
                     <th>Trạng thái</th>
                     <th>
                         <a href="{{ route('account.tao-tk') }}" class="btn btn-success btn-sm">Thêm mới</a>
@@ -123,7 +124,7 @@
 
                         <td>{{ $user->phone_number }}</td>
                         <td>{{ $user->ten }}</td>
-
+                        <td>{{ $user->role_name }}</td>
                         <td>
                             <form class="m-form">
 

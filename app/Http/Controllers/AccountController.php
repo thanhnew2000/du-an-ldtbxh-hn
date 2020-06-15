@@ -32,8 +32,14 @@ class AccountController extends Controller
 
             $users = DB::table('users')
             ->leftjoin('co_so_dao_tao', 'users.co_so_dao_tao_id', '=', 'co_so_dao_tao.id')
-            ->select('users.*', DB::raw('co_so_dao_tao.ten as ten'))
+            ->join('model_has_roles', 'users.id' , '=' , 'model_has_roles.model_id')
+            ->join('roles', 'roles.id','=','model_has_roles.role_id')
+            ->select('users.*', DB::raw('co_so_dao_tao.ten as ten'), DB::raw('roles.name as role_name'))
+            // ->get();
+            // ->toSql();
             ->paginate($params['page_size']);
+
+            // dd($users);
   
         }else{
 
@@ -134,8 +140,6 @@ class AccountController extends Controller
                 return view('account.list_account',compact('users','keyword','status','role','params','route_name'),['thongbao'=>'Không tìm thấy kết quả !']);
             }
         }
-
- 
                 return view('account.list_account',compact('users','keyword','status','role','params','route_name'),['thongbao'=>'']);
     }
 

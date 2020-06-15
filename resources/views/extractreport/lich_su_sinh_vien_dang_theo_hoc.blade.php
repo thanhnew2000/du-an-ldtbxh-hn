@@ -122,7 +122,9 @@
                         <th colspan="3">Trung Cấp</th>
                         <th colspan="3">Sơ Cấp</th>
                         <th colspan="3">Khác</th>
+                        @can('sua_so_luong_sinh_vien_dang_theo_hoc')
                         <th rowspan="2">Chức năng</th>
+                        @endcan
                     </tr>
                     <tr class="pt-3 row2">
                         <th>Nữ</th>
@@ -157,8 +159,8 @@
                         <td>{{$item->dot}}</td>
                         <td>{{$item->tong_so_HSSV_co_mat_cac_trinh_do}}</td>
                         <td>{{$item->tong_so_nu}}</td>
-                        <td>{{$item->tong_so_dan_toc_thieu_so}}</td>
                         <td>{{$item->tong_so_ho_khau_HN}}</td>
+                        <td>{{$item->tong_so_dan_toc_thieu_so}}</td>
                         <td>{{$item->so_luong_sv_nu_Cao_dang}}</td>
                         <td>{{$item->so_luong_sv_ho_khau_HN_Cao_dang}}</td>
                         <td>{{$item->so_luong_sv_dan_toc_Cao_dang}}</td>

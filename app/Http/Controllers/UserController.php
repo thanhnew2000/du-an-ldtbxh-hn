@@ -18,13 +18,16 @@ use App\Http\Requests\UpdateAccount;
 class UserController extends Controller
 {
     public function getdangkytaikhoan(){
-        return view('account.dang_ky');
+        $user = DB::table('roles')->get();
+        // dd($user);
+        return view('account.dang_ky', compact('user'));
     }
 
     public function dangkytaikhoan(RegisterAccount $request){
         $user = new User;
         $user->name = $request->name;
         $user->email = $request->email;
+        $user = DB::table('model_has_role');
         $user->phone_number = $request->phone;
         $user->avatar = "uploads/avatars/user.png";
         $code = bcrypt(md5(time().$request->email));

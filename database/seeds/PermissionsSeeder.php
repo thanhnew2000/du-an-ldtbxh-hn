@@ -17,7 +17,7 @@ class PermissionsSeeder extends Seeder
         $xemSoLuongSinhVienTheoHoc = Permission::create(['name' => 'xem_so_luong_sinh_vien_dang_theo_hoc']);
         array_push($permission_arr, $xemSoLuongSinhVienTheoHoc); 
         $IT = Role::create(['name' => 'IT']);
-        $IT->syncPermissions($permission_arr);
+        $IT->syncWithoutDetachingPermissions($permission_arr);
         $quanLy = Role::create(['name' => 'QuanLy']);
         $quanLy->givePermissionTo($xemSoLuongSinhVienTheoHoc);
 
