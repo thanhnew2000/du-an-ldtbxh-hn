@@ -1,5 +1,9 @@
 @extends('layouts.admin');
 
+@section('style')
+<link href="{!! asset('vendors/_customize/csdt.list.css') !!}" rel="stylesheet" type="text/css" />
+@endsection
+
 @section('content')
 <div class="m-content container-fluid">
     <div class="m-portlet">
@@ -10,30 +14,26 @@
                         <i class="m-menu__link-icon flaticon-web"></i>
                     </span>
                     <h3 class="m-portlet__head-text">
-                        Cập nhật địa điểm đào tạo
+                        Thêm địa điểm đào tạo
                     </h3>
                 </div>
             </div>
         </div>
         <div class="m-portlet">
             <div class="m-portlet__body">
-                @if (\Session::has('mess'))
-                <div class="alert alert-success" role="alert">
-                    <strong>{!! \Session::get('mess') !!}</strong>
-                </div>
-                @endif
-                @forelse ($data as $item)
-                <form action="{{ route('chi-nhanh.cap-nhat', ['id'=> $item->id])}}" method="POST">
-                    @csrf
+                <form action="{{ route('chi-nhanh.tao-moi')}}" method="POST">
+                    {{ csrf_field() }}
                     <div class="main-form row d-flex justify-content-around">
                         <div class="col-left col-lg-5">
                             <div class="form-group col-lg-12">
 
                                 <label class="form-name mr-3" for="">Tên cơ sở đào tạo</label>
-                                <select class="form-control" name="co_so_id" id="co-so-dao-tao">
-                                    <option selected value="{{ $item->csdt_id }}">{{ $item->csdt_ten }}</option>
+                                <select class="form-control" name="co_so_id">
+                                    <option disabled selected>Chọn cơ sở đào tạo</option>
                                     @foreach ($csdt as $cs)
-                                    <option value=" {{ $cs->id }}">{{ $cs->ten }}</option>
+                                    <option value=" {{ $cs->id }}" @if (old('co_so_id')==$cs->id )
+                                        {{ 'selected' }}
+                                        @endif>{{ $cs->ten }}</option>
                                     @endforeach
                                 </select>
                                 <p class="form-text text-danger">
@@ -44,17 +44,13 @@
 
                             </div>
 
+
+
                             <div class="form-group col-lg-12">
                                 <label for="" class="col-4 form-name">Chi Nhánh</label>
                                 <select class="form-control" name="chi_nhanh_chinh">
-                                    <option selected value="{{ $item->chi_nhanh_chinh }}">@if ($item->chi_nhanh_chinh ==
-                                        1)
-                                        Chi nhánh chính
-                                        @else
-                                        Chi nhánh phụ
-                                        @endif</option>
-                                    <option value="1">Chi Nhánh Chính</option>
-                                    <option value="0">Chi Nhánh Phụ</option>
+                                    <option value="1">Chi nhánh chính</option>
+                                    <option value="0">Chi nhánh phụ</option>
                                 </select>
                                 <p id="helpId" class="form-text text-danger">
                                     @error('chi_nhanh_chinh')
@@ -62,13 +58,15 @@
                                     @enderror
                                 </p>
                             </div>
+
                             <div class="form-group col-lg-12">
                                 <label for="" class="form-name">Quận/Huyện <span class="text-danger">(*)</span></label>
                                 <select class="form-control col-12" name="maqh" id="devvn_quanhuyen">
-                                    <option value="{{ $item->maqh }}" selected>{{ $item->tenquanhuyen }}
-                                    </option>
+                                    <option disabled selected>Quận / Huyện</option>
                                     @foreach ($quanhuyen as $qh)
-                                    <option value="{{ $qh->maqh }}">{{ $qh->name }}</option>
+                                    <option value="{{ $qh->maqh }}" @if (old('maqh')==$qh->maqh )
+                                        {{ 'selected' }}
+                                        @endif>{{ $qh->name }}</option>
                                     @endforeach
                                 </select>
                                 <p id="helpId" class="form-text text-danger">
@@ -77,12 +75,15 @@
                                     @enderror
                                 </p>
                             </div>
-
                             <div class="form-group col-lg-12">
                                 <label for="" class="form-name">Xã/ Phường <span class="text-danger">(*)</span></label>
                                 <select class="form-control col-12" name="xaid" id="devvn_xaphuongthitran">
-                                    <option selected value="{{ $item->xaid }}">{{ $item->tenxaphuong }}
-                                    </option>
+                                    <option disabled selected>Chọn</option>
+                                    @foreach ($xaphuong as $xp)
+                                    <option value="{{ $xp->xaid }}" @if (old('xaid')==$xp->xaid )
+                                        {{ 'selected' }}
+                                        @endif>{{ $xp->name }}</option>
+                                    @endforeach
                                 </select>
                                 <p id="helpId" class="form-text text-danger">
                                     @error('xaid')
@@ -91,11 +92,12 @@
                                 </p>
                             </div>
                         </div>
+
                         <div class="col-right col-lg-5">
                             <div class="form-group col-lg-12">
                                 <label for="" class="col-4 form-name">Địa Chỉ</label>
-                                <input type="text" name="dia_chi" id="" class="form-control"
-                                    value="{{ $item->dia_chi }}">
+                                <input type="text" name="dia_chi" id="" value="{{ old('dia_chi') }}"
+                                    class="form-control" placeholder="" aria-describedby="helpId">
                                 <p id="helpId" class="form-text text-danger">
                                     @error('dia_chi')
                                     {{ $message }}
@@ -105,8 +107,9 @@
 
                             <div class="form-group col-lg-12">
                                 <label for="" class="col-6 form-name">Mã chứng nhận hoạt động</label>
-                                <input type="text" name="ma_chung_nhan_dang_ki_hoat_dong" id="" class="form-control"
-                                    value="{{ $item->ma_chung_nhan_dang_ki_hoat_dong }}">
+                                <input type="text" name="ma_chung_nhan_dang_ki_hoat_dong" id=""
+                                    value="{{ old('ma_chung_nhan_dang_ki_hoat_dong') }}" class="form-control"
+                                    placeholder="" aria-describedby="helpId">
                                 <p id="helpId" class="form-text text-danger">
                                     @error('ma_chung_nhan_dang_ki_hoat_dong')
                                     {{ $message }}
@@ -116,14 +119,8 @@
                             <div class="form-group col-lg-12">
                                 <label for="" class="col-4 form-name">Trạng thái cấp</label>
                                 <select class="form-control" name="da_duoc_cap" id="">
-                                    <option selected value="{{ $item->da_duoc_cap }}">@if ( $item->da_duoc_cap == 1)
-                                        Đã cấp
-                                        @else
-                                        Chưa cấp
-                                        @endif</option>
-                                    <option value="1">Đã cấp</option>
+                                    <option value="1" selected>Đã cấp</option>
                                     <option value="0">Chưa cấp</option>
-
                                 </select>
                                 <p id="helpId" class="form-text text-danger">
                                     @error('da_duoc_cap')
@@ -133,8 +130,8 @@
                             </div>
                             <div class="form-group col-lg-12">
                                 <label for="" class="col-4 form-name">Hotline</label>
-                                <input type="text" name="hotline" id="" class="form-control"
-                                    value="{{ $item->hotline }}">
+                                <input type="text" name="hotline" id="" value="{{ old('hotline') }}"
+                                    class="form-control" placeholder="" aria-describedby="helpId">
                                 <p id="helpId" class="form-text text-danger">
                                     @error('hotline')
                                     {{ $message }}
@@ -142,15 +139,12 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="col-lg-12 d-flex justify-content-center pt-3">
-                            <button type="submit" class="btn btn-primary mr-5 col-1">Cập nhật</button>
+                        <div class="col-lg-12 d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary mr-5 col-1">Thêm</button>
                             <button type="reset" class="btn btn-danger col-1">Hủy</button>
                         </div>
                     </div>
                 </form>
-                @empty
-
-                @endforelse
             </div>
         </div>
     </div>
@@ -158,7 +152,14 @@
 @endsection
 
 @section('script')
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 <script>
+    $(document).ready(function(){
+        $('#devvn_quanhuyen').select2();
+        $('#devvn_xaphuongthitran').select2();
+    });
+
     $("#devvn_quanhuyen" ).change(function() {
         axios.post('/xuat-bao-cao/ket-qua-tuyen-sinh/xa-phuong-theo-quan-huyen', {
                     id:  $("#devvn_quanhuyen").val(),
@@ -174,14 +175,6 @@
             console.log(error);
             });
     });
-    $(document).ready(function(){
-
-    $('#co-so-dao-tao').select2();
-    $('#devvn_quanhuyen').select2();
-    $('#devvn_xaphuongthitran').select2();
-    });
-    
 </script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 @endsection
