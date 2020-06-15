@@ -175,13 +175,29 @@ Route::group(['prefix' => 'dao-tao-nghe-thanh-nien'], function () {
 });
 
 
+Route::group(['prefix' => 'dao-tao-nghe-thanh-nien'], function () {
+    Route::get('/tong-hop', 'ExtractController@tonghopdaotaothanhnien')
+
+        ->name('xuatbc.ds-dao-tao-thanh-nien');
+});
+
+
 Route::group(['prefix' => 'dao-tao-voi-doanh-nghiep'], function () {
     Route::get('/tong-hop', 'ExtractController@tonghopdaotaovoidoanhnghiep')
 
         ->name('xuatbc.ds-dao-tao-voi-doanh-nghiep');
 });
 
-
+// Xuân liên kết đào tạo
+Route::group(['prefix' => 'lien-ket-dao-tao'], function () {
+    Route::get('/tong-hop-lien-ket-dao-tao', 'LienKetDaoTaoController@tonghoplienketdaotao')
+        ->name('xuatbc.tong-hop-lien-ket-dao-tao');
+    Route::get('/tong-hop-lien-ket-dao-tao-cao-dang-len-dai-hoc', 'LienKetDaoTaoController@tonghoplienketdaotaocaodanglendaihoc')
+        ->name('xuatbc.tong-hop-lien-ket-dao-tao-cao-dang-len-dai-hoc');
+    Route::get('/tong-hop-lien-ket-dao-tao-trung-cap-len-dai-hoc', 'LienKetDaoTaoController@tonghoplienketdaotaotrungcaplendaihoc')
+        ->name('xuatbc.tong-hop-lien-ket-dao-tao-trung-cap-len-dai-hoc');
+});
+// End Xuân
 Route::group(['prefix' => 'hop-tac-quoc-te'], function () {
     Route::get('/tong-hop', 'ExtractController@tonghophoptacquocte')
 
