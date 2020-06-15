@@ -300,7 +300,6 @@
                                         </select>
                                         <span class="text-danger" id="Err-loai_quyet_dinh"></span>
                                     </div>
-
                                 </form>
                             </div>
                             <div class="modal-footer">

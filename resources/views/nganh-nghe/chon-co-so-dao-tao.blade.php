@@ -72,6 +72,7 @@
                     <th>Quyết định số</th>
                     <th>Ngày ban hành</th>
                     <th>Trạng thái</th>
+                    <th>Ảnh giấy phép</th>
                     <th>
                         @if(empty($defaultCsdt) == false)
                         <button type="button" class="btn btn-success btn-sm" id="bo-sung-dang_ky" data-toggle="modal"
@@ -98,7 +99,7 @@
                                             <span class="m--font-boldest h5">{{$defaultCsdt['text']}}</span>
                                         </p>
                                     </div>
-                                    <form method="POST">
+                                    <form method="POST" action="{{ route('nghe.bo-sung-vao-co-so') }}" enctype="multipart/form-data">
                                         {{ csrf_field() }}
                                         <input type="hidden" name="co_so_id" value="{{ $defaultCsdt['id'] }}"
                                             id="co-so-id">
@@ -120,6 +121,16 @@
                                                         value="2011-08-19" id="ngay-ban-hanh">
                                                 </div>
                                                 <span class="text-danger" id="Err-ngay_ban_hanh"></span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label for="" class="form-name">Logo <span class="text-danger">(*)</span></label>
+                                            <div class="form-group col-lg-12 mt-2">
+                                                <img id="logo-co-so" class="col-6" src="" alt="">
+                                            </div>
+                                            <div class="custom-file form-control">
+                                                <input type="file" class="custom-file-input" id="customFile" name="anh-giay-phep">
+                                                <label class="custom-file-label" for="customFile">Choose file</label>
                                             </div>
                                         </div>
 
@@ -156,7 +167,7 @@
                                         <div class="form-group d-flex justify-content-end mb-5">
                                             <button type="button" class="btn btn-secondary mr-4"
                                                 data-dismiss="modal">Hủy</button>
-                                            <button type="button" id="them-nghe-cho-co-so-ajax" class="btn btn-primary">Lưu</button>
+                                            <button type="submit" class="btn btn-primary">Lưu</button>
                                         </div>
                                     </form>
                                 </div>
@@ -185,14 +196,17 @@
                             Tạm dừng
                             @endif
                         </td>
+                        <td class="text-center">
+                            <a href="{!! asset('storage/' . $cursor->anh_quyet_dinh) !!}" target="_blank"><i class="fas fa-eye"></i></a>
+                        </td>
                         <td>
-                            <a href="{{ route('nghe.cap-nhat', ['id'=>$cursor->nghe_id])}}" class="btn btn-info btn-sm">Cập nhật</a>
+                            <a href="javascript:;" class="btn btn-info btn-sm">Cập nhật</a>
                             <a href="" class="btn btn-danger btn-sm">Thu hồi</a>
                         </td>
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="7">Chưa có dữ liệu</td>
+                        <td colspan="7" class="text-center text-danger">VUI LÒNG CHỌN TRƯỜNG</td>
                     </tr>
                     @endforelse
                 </tbody>

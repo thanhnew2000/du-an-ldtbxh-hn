@@ -107,7 +107,8 @@ class NganhNgheRepository extends BaseRepository implements NganhNgheRepositoryI
                     'nghe_id' => $nghe_cao_dang[$i],
                     'ten_quyet_dinh' => $attributes['ten_quyet_dinh'],
                     'trang_thai' => '1',
-                    'ngay_ban_hanh' => $attributes['ngay_ban_hanh']
+                    'ngay_ban_hanh' => $attributes['ngay_ban_hanh'],
+                    'anh_quyet_dinh' => $attributes['anh_quyet_dinh']
                 ];
             }
         }
@@ -119,7 +120,8 @@ class NganhNgheRepository extends BaseRepository implements NganhNgheRepositoryI
                     'nghe_id' => $nghe_trung_cap[$i],
                     'ten_quyet_dinh' => $attributes['ten_quyet_dinh'],
                     'trang_thai' => '1',
-                    'ngay_ban_hanh' => $attributes['ngay_ban_hanh']
+                    'ngay_ban_hanh' => $attributes['ngay_ban_hanh'],
+                    'anh_quyet_dinh' => $attributes['anh_quyet_dinh']
                 ];
             }
         }

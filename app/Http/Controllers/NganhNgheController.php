@@ -107,7 +107,6 @@ class NganhNgheController extends Controller
 
         $allNgheCD = $this->nganhNgheService->getAllNganhNghe(6, $csdtid);
 
-
         return view(
             'nganh-nghe.chon-co-so-dao-tao',
             compact('defaultCsdt', 'route_name', 'dsNghe', 'params', 'allNgheCD', 'allNgheTC')
@@ -126,8 +125,13 @@ class NganhNgheController extends Controller
 
     public function boSungNganhNgheVaoCoSo(Request $request)
     {
-        $this->nganhNgheService->boSungNganhNgheVaoCoSo($request, ['_token']);
-        return redirect()->route('nghe.thiet-lap-nghe-cs', ['csdtid' => $request->get('co_so_id')])->with('mess', 'Thêm nghề vào cơ sở thành công');
+        if ($request->hasFile('anh-giay-phep')) {
+            $filePath = $request->file('anh-giay-phep')->store('uploads/anh-quyet-dinh');
+            $request->request->set('anh_quyet_dinh', $filePath);
+        }
+
+        $this->nganhNgheService->boSungNganhNgheVaoCoSo($request, ['_token', 'anh-giay-phep']);
+        return redirect()->route('csdt.thiet-lap-nghe-cs', ['csdtid' => $request->get('co_so_id')])->with('mess', 'Thêm nghề vào cơ sở thành công');
     }
 
     public function capNhatNganhNghe($id)

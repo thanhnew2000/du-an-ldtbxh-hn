@@ -144,7 +144,7 @@
                         </div>
                         <div class="col-lg-12 d-flex justify-content-center pt-3">
                             <button type="submit" class="btn btn-primary mr-5 col-1">Cập nhật</button>
-                            <button type="reset" class="btn btn-danger col-1">Hủy</button>
+                            <a href="{{ route('csdt.chi-nhanh')}}" type="button" class="btn btn-danger col-1">Hủy</a>
                         </div>
                     </div>
                 </form>

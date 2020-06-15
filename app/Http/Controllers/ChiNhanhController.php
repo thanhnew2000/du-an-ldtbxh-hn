@@ -78,6 +78,7 @@ class ChiNhanhController extends Controller
 
     public function capnhatchinhanh($id, Request $request)
     {
+
         $request->validate(
             [
                 'dia_chi' => 'required',
