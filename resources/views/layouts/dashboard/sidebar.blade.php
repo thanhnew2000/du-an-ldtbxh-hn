@@ -57,8 +57,11 @@
 						<li class="m-menu__item " aria-haspopup="true"><a href="{{route('csdt.chi-nhanh')}}"
 								class="m-menu__link "><i
 									class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
-									class="m-menu__link-text">Danh sách chi nhánh</span></a></li>
-
+									class="m-menu__link-text">Danh sách địa điểm đào tạo</span></a></li>
+						<li class="m-menu__item " aria-haspopup="true"><a href="{{route('csdt.thiet-lap-nghe-cs')}}"
+							class="m-menu__link "><i
+								class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
+								class="m-menu__link-text">Thiết lập nghề cho cơ sở đào tạo</span></a></li>
 					</ul>
 				</div>
 			</li>
@@ -81,10 +84,7 @@
 								class="m-menu__link "><i
 									class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 									class="m-menu__link-text">Thiết lập chỉ tiêu tuyển sinh</span></a></li>
-						<li class="m-menu__item " aria-haspopup="true"><a href="{{route('nghe.thiet-lap-nghe-cs')}}"
-								class="m-menu__link "><i
-									class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
-									class="m-menu__link-text">Thiết lập nghề cho cơ sở đào tạo</span></a></li>
+						
 					</ul>
 				</div>
 			</li>
@@ -278,11 +278,11 @@
 			quả tuyển sinh</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
 	<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 		<ul class="m-menu__subnav">
-			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('nhapbc.ket-qua-ts')}}"
+			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('solieutuyensinh')}}"
 					class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 						class="m-menu__link-text">Kết quả tuyển sinh</span></a></li>
 			<li class="m-menu__item " aria-haspopup="true">
-				<a href="{{route('solieutuyensinh')}}" class="m-menu__link ">
+				<a href="{{route('nhapbc.ket-qua-ts')}}" class="m-menu__link ">
 					<i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i>
 					<span class="m-menu__link-text">Tổng hợp kết quả tuyển sinh</span>
 				</a>
@@ -372,7 +372,7 @@
 			kết</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
 	<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 		<ul class="m-menu__subnav">
-			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('nhapbc.lien-ket-dao-tao')}}"
+			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('xuatbc.tong-hop-lien-ket-dao-tao')}}"
 					class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 						class="m-menu__link-text">Liên kết đào tạo</span></a></li>
 		</ul>

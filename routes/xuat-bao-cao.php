@@ -14,7 +14,6 @@ Route::group(['prefix' => 'doi-ngu-nha-giao'], function () {
     Route::get('/tong-hop', 'ExtractController@danhsachnhagiao')
         ->name('xuatbc.ds-nha-giao');
 
-
     Route::get('/them-ds-nha-giao', 'ExtractController@themDanhSachDoiNguNhaGiao')
         ->name('xuatbc.them-ds-nha-giao');
     Route::post('/them-ds-nha-giao', 'ExtractController@saveDanhSachDoiNguNhaGiao');
@@ -32,6 +31,11 @@ Route::group(['prefix' => 'doi-ngu-nha-giao'], function () {
     Route::get('/nganhnghe/{co_so_id}', 'ExtractController@layNganhNgheTheoCoSo')->name('xuatbc.lay-nganh-nghe-theo-co-so');
 
     Route::get('/chitiet/{co_so_id}', 'ExtractController@chiTietTheoCoSo')->name("xuatbc.chi-tiet-theo-co-so");
+    Route::post('export', 'ExtractController@export')->name('doi-ngu-nha-giao.export');
+    Route::post('export-bieu-mau', 'ExtractController@exportBieuMau')
+        ->name('doi-ngu-nha-giao.export-bieu-mau');
+    Route::post('import', 'ExtractController@import')
+        ->name('doi-ngu-nha-giao.import');
 });
 //end phucnv - Tổng hợp đội ngũ nhà giáo
 
@@ -93,6 +97,14 @@ Route::group(['prefix' => 'chinh-sach-sinh-vien'], function () {
         ->name('xuatbc.sua-chinh-sach-sinh-vien');
     Route::post('/sua-chinh-sach-sinh-vien/{id}', 'ChinhSachSinhVienController@postsuachinhsachsinhvien')
         ->name('xuatbc.post-sua-chinh-sach-sinh-vien');
+
+
+    // thanhnv import export
+    Route::post('export-bieu-mau-chinh-sach-sv','ExportChinhSachSinhVienController@exportBieuMau')
+    ->name('layformbieumau.cs.sinhvien');
+    Route::post('export-data-chinh-sach-sv','ExportChinhSachSinhVienController@exportData')
+    ->name('exportdata.bieumau.cs.sinhvien');
+
 });
 //END Xuân - Chính sách sinh viên
 
@@ -101,7 +113,7 @@ Route::group(['prefix' => 'ket-qua-tuyen-sinh'], function () {
         ->name('xuatbc.ds-ket-qua-ts');
     // thanhnv thêm xuất form nhập cho người dùng nhập Import
     Route::post('form-nhap-sv', 'ExportSVController@exportFormNhapSinhVien')->name('layformbieumausinhvien');
-    //  6/1/2000 Xuất dữ liệu data 
+    //  6/1/2000 Xuất dữ liệu data
     Route::post('export-data-sv', 'ExportSVController@exportDataSV')->name('exportdatatuyensinh');
     Route::get('/tong-hop-so-lieu-tuyen-sinh', 'SoLieuTuyenSinhController@index')->name('solieutuyensinh');
     Route::post('/co-so-tuyen-sinh-theo-loai-hinh', 'SoLieuTuyenSinhController@getCoSoTuyenSinhTheoLoaiHinh')->name('csTuyenSinhTheoLoaiHinh');
@@ -163,13 +175,29 @@ Route::group(['prefix' => 'dao-tao-nghe-thanh-nien'], function () {
 });
 
 
+Route::group(['prefix' => 'dao-tao-nghe-thanh-nien'], function () {
+    Route::get('/tong-hop', 'ExtractController@tonghopdaotaothanhnien')
+
+        ->name('xuatbc.ds-dao-tao-thanh-nien');
+});
+
+
 Route::group(['prefix' => 'dao-tao-voi-doanh-nghiep'], function () {
     Route::get('/tong-hop', 'ExtractController@tonghopdaotaovoidoanhnghiep')
 
         ->name('xuatbc.ds-dao-tao-voi-doanh-nghiep');
 });
 
-
+// Xuân liên kết đào tạo
+Route::group(['prefix' => 'lien-ket-dao-tao'], function () {
+    Route::get('/tong-hop-lien-ket-dao-tao', 'LienKetDaoTaoController@tonghoplienketdaotao')
+        ->name('xuatbc.tong-hop-lien-ket-dao-tao');
+    Route::get('/tong-hop-lien-ket-dao-tao-cao-dang-len-dai-hoc', 'LienKetDaoTaoController@tonghoplienketdaotaocaodanglendaihoc')
+        ->name('xuatbc.tong-hop-lien-ket-dao-tao-cao-dang-len-dai-hoc');
+    Route::get('/tong-hop-lien-ket-dao-tao-trung-cap-len-dai-hoc', 'LienKetDaoTaoController@tonghoplienketdaotaotrungcaplendaihoc')
+        ->name('xuatbc.tong-hop-lien-ket-dao-tao-trung-cap-len-dai-hoc');
+});
+// End Xuân
 Route::group(['prefix' => 'hop-tac-quoc-te'], function () {
     Route::get('/tong-hop', 'ExtractController@tonghophoptacquocte')
 
@@ -182,7 +210,7 @@ Route::group(['prefix' => 'chi-tieu-tuyen-sinh'], function () {
         ->name('xuatbc.ds-chi-tieu-ts');
 });
 
-// thanhvn import export can bo quan ly 
+// thanhvn import export can bo quan ly
 Route::group(['prefix' => 'so-lieu-can-bo-quan-ly'], function () {
     Route::post('export-bieu-mau', 'ExportSoLieuCanBoQlController@taiBieuMau')
         ->name('layformbieumau.solieucanbo.quanly');
