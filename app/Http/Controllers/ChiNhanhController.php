@@ -33,11 +33,7 @@ class ChiNhanhController extends Controller
     {
         $csdt = DB::table('co_so_dao_tao')->get();
         $quanhuyen = DB::table('devvn_quanhuyen')->get();
-<<<<<<< Updated upstream
-        $xaphuong = DB::table('devvn_xaphuongthitran')->where('');
-=======
         $xaphuong = DB::table('devvn_xaphuongthitran')->get();
->>>>>>> Stashed changes
         return view('co-so-dao-tao.chi_nhanh.them_chi_nhanh', compact('csdt', 'quanhuyen', 'xaphuong'));
     }
 

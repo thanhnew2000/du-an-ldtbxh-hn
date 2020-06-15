@@ -98,8 +98,7 @@
                                             <span class="m--font-boldest h5">{{$defaultCsdt['text']}}</span>
                                         </p>
                                     </div>
-                                    <form action="{{ route('nghe.bo-sung-vao-co-so') }}" method="POST"
-                                        enctype="multipart/form-data">
+                                    <form method="POST">
                                         {{ csrf_field() }}
                                         <input type="hidden" name="co_so_id" value="{{ $defaultCsdt['id'] }}"
                                             id="co-so-id">
@@ -157,7 +156,7 @@
                                         <div class="form-group d-flex justify-content-end mb-5">
                                             <button type="button" class="btn btn-secondary mr-4"
                                                 data-dismiss="modal">Hủy</button>
-                                            <button type="submit" class="btn btn-primary">Lưu</button>
+                                            <button type="button" id="them-nghe-cho-co-so-ajax" class="btn btn-primary">Lưu</button>
                                         </div>
                                     </form>
                                 </div>
@@ -168,7 +167,7 @@
                 </thead>
                 <tbody>
                     @forelse($dsNghe as $cursor)
-                    <tr>
+                    <tr id="data-response-ajax">
                         <td>{{$cursor->nghe_id}}</td>
                         <td>{{$cursor->ten_nganh_nghe}}</td>
                         <td>
@@ -210,53 +209,90 @@
 @section('script')
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
-    // const html = `<li>${text}</li>`;
-    // $("#list").append(html);
     var currentUrl = '{{route($route_name)}}';
-        $(document).ready(function(){
-            $('#chon-co-so-ajax').select2({
-                ajax: {
-                    url: '{{route('co-so-dao-tao.api-search-co-so-dao-tao')}}',
-                    method: 'POST',
-                    data: function(params){
-                        var query = {
-                            keyword: params.term || '',
-                            page: params.page || 1
-                        }
-                        return query;
-                    },
-                    cache: true,
-                    dataType: 'json',
-                    processResults: function (data, params) {
-
-                        return {
-                            results: data.results,
-                            pagination: {
-                                more: data.pagination.more
-                            }
-                        };
+    $(document).ready(function(){
+        $('#chon-co-so-ajax').select2({
+            ajax: {
+                url: '{{route('co-so-dao-tao.api-search-co-so-dao-tao')}}',
+                method: 'POST',
+                data: function(params){
+                    var query = {
+                        keyword: params.term || '',
+                        page: params.page || 1
                     }
+                    return query;
+                },
+                cache: true,
+                dataType: 'json',
+                processResults: function (data, params) {
+
+                    return {
+                        results: data.results,
+                        pagination: {
+                            more: data.pagination.more
+                        }
+                    };
                 }
-            });
-            $('#chon-co-so-ajax').on('change', function(){
-                var csdtId = $(this).val();
-                window.location.href = `${currentUrl}/${csdtId}`;
-            });
-            $('#page-size').change(function(){
-                var csdtId = $('#chon-co-so-ajax').val();
-                var page_size = $(this).val();
-                var reloadUrl = `${currentUrl}/${csdtId}?page_size=${page_size}`;
-                window.location.href = reloadUrl;
-            });
-
-            $('#chon-nghe-cao-dang').select2({
-                placeholder: "Tìm kiếm ngành nghề",
-            })
-
-            $('#chon-nghe-trung-cap').select2({
-                placeholder: "Tìm kiếm ngành nghề",
-            })
+            }
         });
+        $('#chon-co-so-ajax').on('change', function(){
+            var csdtId = $(this).val();
+            window.location.href = `${currentUrl}/${csdtId}`;
+        });
+        $('#page-size').change(function(){
+            var csdtId = $('#chon-co-so-ajax').val();
+            var page_size = $(this).val();
+            var reloadUrl = `${currentUrl}/${csdtId}?page_size=${page_size}`;
+            window.location.href = reloadUrl;
+        });
+
+        $('#chon-nghe-cao-dang').select2({
+            placeholder: "Tìm kiếm ngành nghề",
+        })
+
+        $('#chon-nghe-trung-cap').select2({
+            placeholder: "Tìm kiếm ngành nghề",
+        })
+    });
+
+        // $("#them-nghe-cho-co-so-ajax").click(function(event) {
+        // event.preventDefault();
+        // // $('#Err-ten').addClass('d-none');
+        // // $('#Err-ma').addClass('d-none');
+        // var dataPost = {
+        //     co_so_id: $('#co-so-id').val();
+        //         ten_quyet_dinh: $('#ten-quyet-dinh').val();
+        //         ngay_ban_hanh: $('#ngay-ban-hanh').val();
+        //         // nghe_cao_dang: $('#chon-nghe-cao-dang').val();
+        //         // nghe_trung_cap: $('#chon-nghe-trung-cap').val();
+        //         _token: '{{csrf_token()}}'
+        // };
+        // console.log(dataPost);
+        // $.ajax({
+        //     type: "POST",
+        //     dataType: "json",
+        //     url: "{{ route('nghe.bo-sung-vao-co-so') }}",
+        //     data: dataPost,
+        //     success: function(response) {
+        //         var htmldata = '<option selected disabled>---Chọn cơ quan---</option>'
+        //         response.data.forEach(element => {
+        //             htmldata += `<option value="${element.id}">${element.ten}</option>`
+        //         });
+        //         $('#co_quan_chu_quan_id').html(htmldata);
+        //         $('#message').html(response.message)
+        //     },
+        //     error: function(data) {
+        //         var errors = data.responseJSON;
+        //         if ($.isEmptyObject(errors) == false) {
+        //             $.each(errors.errors, function(key, value) {
+        //                 console.log(value);
+        //                 var ErrorID = '#Err-' + key;
+        //                 $(ErrorID).removeClass('d-none');
+        //                 $(ErrorID).text(value);
+        //             })
+        //         }
+        //     }
+        // });
 </script>
 
 
