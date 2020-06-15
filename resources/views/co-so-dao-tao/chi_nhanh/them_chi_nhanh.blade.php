@@ -79,6 +79,11 @@
                                 <label for="" class="form-name">Xã/ Phường <span class="text-danger">(*)</span></label>
                                 <select class="form-control col-12" name="xaid" id="devvn_xaphuongthitran">
                                     <option disabled selected>Chọn</option>
+                                    @foreach ($xaphuong as $xp)
+                                    <option value="{{ $xp->xaid }}" @if (old('xaid')==$xp->xaid )
+                                        {{ 'selected' }}
+                                        @endif>{{ $xp->name }}</option>
+                                    @endforeach
                                 </select>
                                 <p id="helpId" class="form-text text-danger">
                                     @error('xaid')
@@ -112,7 +117,7 @@
                                 </p>
                             </div>
                             <div class="form-group col-lg-12">
-                                <label for="" class="col-4 form-name">Trạng thái cấp cấp</label>
+                                <label for="" class="col-4 form-name">Trạng thái cấp</label>
                                 <select class="form-control" name="da_duoc_cap" id="">
                                     <option value="1" selected>Đã cấp</option>
                                     <option value="0">Chưa cấp</option>
