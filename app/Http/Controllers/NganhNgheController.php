@@ -82,7 +82,6 @@ class NganhNgheController extends Controller
 
     public function thietlapnghechocosodaotao($csdtid = null, Request $request)
     {
-        // dd($csdtid);
         $dataCoSoDaoTao = $this->coSoDaoTaoService->getSingleCsdt($csdtid);
         $defaultCsdt = count($dataCoSoDaoTao) > 0
             ?   [
@@ -129,5 +128,11 @@ class NganhNgheController extends Controller
     {
         $this->nganhNgheService->boSungNganhNgheVaoCoSo($request, ['_token']);
         return redirect()->route('nghe.thiet-lap-nghe-cs', ['csdtid' => $request->get('co_so_id')])->with('mess', 'Thêm nghề vào cơ sở thành công');
+    }
+
+    public function capNhatNganhNghe($id)
+    {
+        $data = $this->nganhNgheService->findById($id);
+        return view('nganh-nghe.cap-nhat-nganh-nghe', compact('data'));
     }
 }

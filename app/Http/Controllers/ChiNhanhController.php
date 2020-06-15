@@ -47,7 +47,9 @@ class ChiNhanhController extends Controller
                 'da_duoc_cap' => 'required',
                 'trang_thai' => 'required',
                 'co_so_id' => 'required',
-                'hotline' => 'required|unique:chi_nhanh_dao_tao'
+                'hotline' => 'required|unique:chi_nhanh_dao_tao',
+                'maqh' => 'required',
+                'xaid' => 'required'
             ],
             [
                 'dia_chi.required' => 'Địa chỉ không được để trống',
@@ -56,7 +58,9 @@ class ChiNhanhController extends Controller
                 'ma_chung_nhan_dang_ki_hoat_dong.unique' => 'Mã chứng nhận hoạt động đã tồn tại',
                 'da_duoc_cap.required' => 'Vui lòng chọn tráng thái cấp giấy phép',
                 'co_so_id.required' => 'Vui lòng chọn cơ sở cho chi nhánh',
-                'hotline.required' => 'Hotline không được để trống'
+                'hotline.required' => 'Hotline không được để trống',
+                'maqh.required' => 'Vui lòng chọn quận/huyện',
+                'xaid.required' => 'Vui lòng chọn xã/phường'
             ]
         );
         $this->ChiNhanhService->create($request, ['_token']);

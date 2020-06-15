@@ -75,7 +75,6 @@
                                     @enderror
                                 </p>
                             </div>
-
                             <div class="form-group col-lg-12">
                                 <label for="" class="form-name">Xã/ Phường <span class="text-danger">(*)</span></label>
                                 <select class="form-control col-12" name="xaid" id="devvn_xaphuongthitran">

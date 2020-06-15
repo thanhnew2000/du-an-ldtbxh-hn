@@ -31,3 +31,5 @@ Route::post('xoa-chi-nhanh/{id}', 'ChiNhanhController@xoachinhanh')->name('chi-n
 
 Route::post('them-co-quan-chu-quan', 'CoSoDaoTaoController@addCoQuanChuQuan')->name('co-quan-chu-quan.them');
 Route::post('them-quyet-dinh-thanh-lap-co-so', 'CoSoDaoTaoController@addQuyetDinh')->name('quyet-dinh.add');
+
+Route::get('/danh-sach-nganh-nghe-cua-co-so-dao-tao/{csdtid?}', 'NganhNgheController@thietlapnghechocosodaotao')->name('csdt.thiet-lap-nghe-cs');

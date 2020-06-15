@@ -44,8 +44,7 @@
 
                 <li>
                     <h5>Logo</h5>
-                    <div class="co-so-info"><img src="{!! asset('storage/' . $item->logo) !!}" class="img-size-100"
-                            alt="">
+                    <div class="co-so-info"><img src="{!! asset('storage/' . $item->logo) !!}" class="img-size-100" alt="">
                     </div>
                 </li>
 
@@ -72,8 +71,7 @@
                 <li>
                     <a href="{{ route('csdt.chi-nhanh', ['id'=>$item->id]) }}" class="btn btn-outline-info">Xem danh
                         sách chi nhánh</a>
-                    <a href="{{route('nghe.thiet-lap-nghe-cs', ['csdtid' => $item->id])}}"
-                        class="btn btn-outline-info">Xem danh sách ngành nghề</a>
+                    <a href="{{route('nghe.thiet-lap-nghe-cs', ['csdtid' => $item->id])}}" class="btn btn-outline-info">Xem danh sách ngành nghề</a>
                     <a href="" class="btn btn-outline-info">Xem danh sách nhân sự</a>
                 </li>
                 @empty
