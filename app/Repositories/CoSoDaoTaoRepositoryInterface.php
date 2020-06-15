@@ -22,4 +22,7 @@ interface CoSoDaoTaoRepositoryInterface
     public function getCoSoBySoLieuId($soLieuId);
 
     public function getAllWithLoaiHinh();
+
+    public function getDoiNguNhaGiaoTheoCoSo(int $co_so_id, array $params = []);
+    public function getListById($listId, $selects = ['*']);
 }

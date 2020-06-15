@@ -75,7 +75,7 @@
                                 <label class="col-lg-2 col-form-label">Năm</label>
                                 <div class="col-lg-8">
                                     <select class="form-control" name="nam" id="nam">
-                              
+                                        <option value="">Chọn</option>
                                         @foreach (config('common.nam.list') as $item)
                                         <option @if (isset($params['nam']))
                                             {{( $params['nam'] ==  $item ) ? 'selected' : ''}} @endif value="{{$item}}">
@@ -92,7 +92,7 @@
                                 <label for="" class="col-lg-2 col-form-label">Đợt</label>
                                 <div class="col-lg-8">
                                     <select class="form-control" name="dot" id="dot">
-                                        
+                                        <option value="">Chọn</option>
                                         <option @if (isset($params['dot']))
                                             {{( $params['dot'] ==  1 ) ? 'selected' : ''}} @endif value="1">Đợt 1
                                         </option>
@@ -126,7 +126,7 @@
                                 <label class="col-lg-2 col-form-label">Chính sách</label>
                                 <div class="col-lg-8">
                                     <select class="form-control" name="chinhsach" id="chinhsach">
-                                       
+
                                         @foreach ($chinhsach as $item)
                                         <option @if (isset($params['chinhsach']))
                                             {{( $params['chinhsach'] ==  $item->id ) ? 'selected' : ''}} @endif
@@ -293,15 +293,15 @@
                         <div class="form-group">
                             <label for="">Chọn năm</label>
                             <select name="nam" id="nam_id" class="form-control">
-                            @foreach (config('common.nam.list') as $nam)
-                            <option value="{{$nam}}">{{$nam}}</option>
-                             @endforeach
-                              {{-- <option value="2019">2019</option>
+                                @foreach (config('common.nam.list') as $nam)
+                                <option value="{{$nam}}">{{$nam}}</option>
+                                @endforeach
+                                {{-- <option value="2019">2019</option>
                               <option value="2018">2018</option>
                               <option value="2017">2017</option>
                               <option value="2016">2016</option> --}}
-                            </select> 
-                       </div>
+                            </select>
+                        </div>
 
                         <div class="form-group">
                             <label for="">Chọn đợt</label>
@@ -342,9 +342,9 @@
                             <select name="nam_muon_xuat" id="nam_id_xuat" class="form-control">
                                 @foreach (config('common.nam.list') as $nam)
                                 <option value="{{$nam}}">{{$nam}}</option>
-                                 @endforeach
-                              </select>
-                        </div> 
+                                @endforeach
+                            </select>
+                        </div>
                         <div class="form-group">
                             <label for="">Chọn đợt xuất</label>
                             <select name="dot_muon_xuat" id="dot_id_xuat" class="form-control">
@@ -472,7 +472,7 @@ function clickDownloadTemplate(){
 }
 </script>
 
-
+<script src="{{ asset('js/chinh_sach_sinh_vien/chinh-sach-sinh-vien.js') }}"></script>
 <script type="text/javascript">
     $(document).ready(function() {
     $('#co_so_id').select2();

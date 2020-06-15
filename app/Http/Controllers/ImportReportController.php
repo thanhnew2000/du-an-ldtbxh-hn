@@ -42,6 +42,18 @@ class ImportReportController extends Controller
     {
         return view('importreport.lien_ket_dao_tao');
     }
+    public function chitietlienketdaotao()
+    {
+        return view('lien-ket-dao-tao.chi-tiet-lien-ket-dao-tao');
+    }
+    public function themmoilienketdaotao()
+    {
+        return view('lien-ket-dao-tao.them-moi-lien-ket-dao-tao');
+    }
+    public function chinhsualienketdaotao()
+    {
+        return view('lien-ket-dao-tao.chinh-sua-lien-ket-dao-tao');
+    }
     public function deadlinebaocao()
     {
         return view('importreport.thiet_lap_deadline_bao_cao_theo_dot');
