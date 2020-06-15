@@ -26,7 +26,7 @@ class ChiNhanhController extends Controller
             $data = $this->ChiNhanhService->getChiNhanh($params);
         }
         $quanhuyen = DB::table('devvn_quanhuyen')->get();
-        return view('coso.chi_nhanh.danh_sach_chi_nhanh', compact('data', 'quanhuyen', 'params'));
+        return view('co-so-dao-tao.chi_nhanh.danh_sach_chi_nhanh', compact('data', 'quanhuyen', 'params'));
     }
 
     public function themchinhanh()
@@ -34,7 +34,7 @@ class ChiNhanhController extends Controller
         $csdt = DB::table('co_so_dao_tao')->get();
         $quanhuyen = DB::table('devvn_quanhuyen')->get();
         $xaphuong = DB::table('devvn_xaphuongthitran')->where('');
-        return view('coso.chi_nhanh.them_chi_nhanh', compact('csdt', 'quanhuyen', 'xaphuong'));
+        return view('co-so-dao-tao.chi_nhanh.them_chi_nhanh', compact('csdt', 'quanhuyen', 'xaphuong'));
     }
 
     public function savethemchinhanh(Request $request)
@@ -73,7 +73,7 @@ class ChiNhanhController extends Controller
         $csdt = DB::table('co_so_dao_tao')->get();
         $quanhuyen = DB::table('devvn_quanhuyen')->get();
         $xaphuong = DB::table('devvn_xaphuongthitran')->where('');
-        return view('coso.chi_nhanh.sua_chi_nhanh', compact('data', 'csdt', 'quanhuyen', 'xaphuong'));
+        return view('co-so-dao-tao.chi_nhanh.sua_chi_nhanh', compact('data', 'csdt', 'quanhuyen', 'xaphuong'));
     }
 
     public function capnhatchinhanh($id, Request $request)
