@@ -52,40 +52,8 @@
                                         <option 
                                         @if(isset($params['cs_id']) && $params['cs_id'] == $item->id)
                                             selected
-                                        @endif value="{{ $item->id }}">{{$item->ten}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group m-form__group row">
-                                <label class="col-lg-2 col-form-label">Quận/Huyện: </label>
-                                <div class="col-lg-8">
-                                    <select name="devvn_quanhuyen" class="form-control " id="devvn_quanhuyen">
-                                        <option value="" >Chọn quận huyện  </option>
-                                        @foreach ($quanhuyen as $item)
-                                        <option @if (isset($params['devvn_quanhuyen']))
-                                            {{( $params['devvn_quanhuyen'] ==  $item->maqh ) ? 'selected' : ''}} 
-                                            @endif
-                                            value="{{$item->maqh}}">{{$item->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group m-form__group row">
-                                <label class="col-lg-2 col-form-label">Phường/Xã: </label>
-                                <div class="col-lg-8">
-                                    <select name="devvn_xaphuongthitran" class="form-control " id="devvn_xaphuongthitran">
-                                        <option value="" >Chọn phường xã </option>
-                                        @foreach ($xaphuongtheoquanhuyen as $item)
-                                        <option @if (isset($params['devvn_xaphuongthitran']))
-                                            {{( $params['devvn_xaphuongthitran'] ==  $item->xaid ) ? 'selected' : ''}}
-                                            @endif value="{{$item->xaid}}">{{$item->name}}</option>
+                                        @endif value="{{ $item->id }}">{{$item->ten}}
+                                        </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -133,6 +101,25 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-6 mt-5">
+                        <div class="form-group m-form__group row">
+                            <label class="col-lg-2 col-form-label">Ngành Nghề: </label>
+                            <div class="col-lg-8">
+                                <select name="nghe_id" class="form-control" id="nghe_id">
+                                    <option value="" >Chọn </option>
+                                    @foreach ($nganhNghe as $item)
+                                    <option 
+                                    @if(isset($params['nghe_id']) && $params['nghe_id'] == $item->id)
+                                        selected
+                                    @endif value="{{ $item->id }}">{{$item->id}} - {{$item->ten_nganh_nghe}}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="row justify-content-center">
                     <div class="col-lg-2">
                         <button type="submit" class="btn btn-primary">Tìm kiếm</button>
@@ -143,19 +130,19 @@
     </div>
     <div class="row mb-5 bieumau">
         <div class="col-lg-2">
-            <a href="" data-toggle="modal">
+            <a href="" data-toggle="modal"  data-target="#exampleModal-tbm">
                 <i class="fa fa-download" aria-hidden="true"></i>
                 Tải xuống biểu mẫu
             </a>
         </div>
         <div class="col-lg-2">
-            <a href="" data-toggle="modal" ><i
-                    class="fa fa-upload" aria-hidden="true"></i>
+            <a href="" data-toggle="modal" data-target="#exampleModalImport">
+                <i class="fa fa-upload" aria-hidden="true" ></i>
                 Tải lên file Excel</a>
         </div>
         <div class="col-lg-2">
-            <a href="" data-toggle="modal"><i class="fa fa-upload"
-                    aria-hidden="true"></i>
+            <a href="" data-toggle="modal" data-target="#exampleModalExportData"><i class="fa fa-file-excel"
+                aria-hidden="true"></i>
                 Xuất dữ liệu ra Excel</a>
         </div>
     </div>
@@ -183,8 +170,6 @@
                     <th>Loại Hình Cơ Sở</th>
                     <th>Năm</th>
                     <th>Đợt</th>
-                    <th>Quận/Huyện</th>
-                    <th>Xã/Phường</th>
                     <th>Tổng Số HS/SV <br> đang quản lý</th>
                     <th>Cao Đẳng</th>
                     <th>Trung Cấp </th>
@@ -204,13 +189,11 @@
                         <td>{{$qlsv->loai_hinh_co_so}}</td>
                         <td>{{$qlsv->nam}}</td>
                         <td>{{$qlsv->dot}}</td>
-                        <td>{{$qlsv->ten_quan_huyen}}</td>
-                        <td>{{$qlsv->ten_xa_phuong}}</td>
-                        <td>{{$qlsv->tong_so_HSSV_co_mat_cac_trinh_do}}</td>
-                        <td>{{$qlsv->so_luong_sv_Cao_dang}}</td>
-                        <td>{{$qlsv->so_luong_sv_Trung_cap}}</td>
-                        <td>{{$qlsv->so_luong_sv_So_cap}}</td>
-                        <td>{{$qlsv->so_luong_sv_he_khac}}</td>
+                        <td>{{$qlsv->tong_so_HSSV_co_mat}}</td>
+                        <td>{{$qlsv->so_luong_cao_dang}}</td>
+                        <td>{{$qlsv->so_luong_trung_cap}}</td>
+                        <td>{{$qlsv->so_luong_so_cap}}</td>
+                        <td>{{$qlsv->so_luong_He_khac}}</td>
                         <td>
                             <a href="{{ route('xuatbc.chi-tiet-so-lieu', ['co_so_id'=>$qlsv->cs_id]) }}" class="btn btn-info btn-sm">Chi tiết</a>
 
@@ -288,10 +271,9 @@
                         <option value="1">1</option>
                         <option value="2">2</option>
                       </select>
+                    </div>
                 </div>
-                        
-                      </div>
-                      <div class="modal-footer">
+                    <div class="modal-footer">
                         <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoi">
                         </p>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
@@ -359,6 +341,7 @@
 @section('script')
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 <script>
     
          $("#file_import_id").change(function() {
@@ -453,26 +436,22 @@
             }
 
 </script>
-@endsection
-
-@section('script')
-
-<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 <script>
 
-$(document).ready(function(){
-    $('#co_so_id').select2();
-    $('#devvn_quanhuyen').select2();
-    $('#devvn_xaphuongthitran').select2();
-    });
-
-
-    $("#devvn_quanhuyen" ).change(function() {
+    $(document).ready(function(){
+        $('#co_so_id').select2();
+        $('#devvn_quanhuyen').select2();
+        $('#devvn_xaphuongthitran').select2();
+        $('#nghe_id').select2();
+        });
+    
+    
+        $("#devvn_quanhuyen" ).change(function() {
     axios.post('/xuat-bao-cao/ket-qua-tuyen-sinh/xa-phuong-theo-quan-huyen', {
                 id:  $("#devvn_quanhuyen").val(),
     })
     .then(function (response) {
-        var htmldata = '<option value="" selected  >Xã / Phường</option>'
+        var htmldata = '<option value="" selected  >Chọn</option>'
             response.data.forEach(element => {
             htmldata+=`<option value="${element.xaid}" >${element.name}</option>`   
         });
@@ -482,17 +461,17 @@ $(document).ready(function(){
         console.log(error);
     });
 });
-
-$("#page-size").change(function(){  
-    var pageSize = $(this).val();
     
-    var url = new URL(window.location.href);
-    var search_params = url.searchParams;
-    search_params.set('page_size', pageSize);
-    url.search = search_params.toString();
-    var new_url = url.toString();
-    // console.log(new_url);
-    window.location.href = new_url
-  });
-</script>
+    $("#page-size").change(function(){  
+        var pageSize = $(this).val();
+        
+        var url = new URL(window.location.href);
+        var search_params = url.searchParams;
+        search_params.set('page_size', pageSize);
+        url.search = search_params.toString();
+        var new_url = url.toString();
+        // console.log(new_url);
+        window.location.href = new_url
+      });
+    </script>
 @endsection

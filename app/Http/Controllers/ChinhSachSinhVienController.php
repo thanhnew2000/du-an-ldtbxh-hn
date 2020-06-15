@@ -28,11 +28,16 @@ class ChinhSachSinhVienController extends Controller
         } else {
             $limit = 10;
         }
-
+        
         $data = $this->ChinhSachSinhVienService->getChinhSachSinhVien($params, $limit);
 
         $data->appends(request()->input())->links();
         //dd($data->appends(request()->input())->links());
+        
+        $params =
+        ['nam'=>$data[0]->nam,
+            'dot' => $data[0]->dot
+        ];
         return view('chinhsachsinhvien.tong_hop_chinh_sach_sinh_vien', compact('data', 'loaihinh', 'quanhuyen', 'coso', 'chinhsach', 'limit', 'params'));
     }
 

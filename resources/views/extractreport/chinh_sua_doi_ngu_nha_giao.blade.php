@@ -10,14 +10,7 @@
 @endsection
 @section('content')
 <div class="m-content container-fluid">
-    @if (session('thongbao'))
-						<div class="thongbao" style="color: green; text-align: center;">
-                             
-                            <h4 class="m-portlet__head-text text-success">
-                                {{session('thongbao')}}
-                            </h4>
-						</div>
-						@endif
+
     <div class="m-portlet mt-5">
         <div class="m-portlet__head">
             <div class="m-portlet__head-caption">
@@ -703,33 +696,7 @@
 </div>
 
 @endsection
-{{-- @section('script') --}}
-{{-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="{{ asset('js/so_lieu_tuyen_sinh/tong_hop_so_lieu.js') }}"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#co_so_id").select2();
-    });
-    $("#loai_hinh").change(function () {
-        axios
-            .post("/xuat-bao-cao/ket-qua-tuyen-sinh/co-so-tuyen-sinh-theo-loai-hinh", {
-                id: $("#loai_hinh").val(),
-            })
-            .then(function (response) {
-                var htmldata = '<option value="">Chọn cơ sở</option>';
-                response.data.forEach((element) => {
-                    htmldata += `<option value="${element.id}" >${element.ten}</option>`;
-                });
-                $("#co_so_id").html(htmldata);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    });
 
-</script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script> --}}
-{{-- @endsection --}}
 @section('script')
 <script type="text/javascript">
     $(document).ready(function () {
@@ -804,5 +771,19 @@
     });
 
 </script>
+<script src="sweetalert2.min.js"></script>
+<link rel="stylesheet" href="sweetalert2.min.css">
+
+@if (session('thongbao'))
+<script>
+    Swal.fire({
+  position: 'top-end',
+  icon: 'success',
+  title: 'Cập nhật thành công',
+  showConfirmButton: false,
+  timer: 4500
+})
+</script>
+@endif
 
 @endsection

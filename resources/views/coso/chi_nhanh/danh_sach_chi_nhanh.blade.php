@@ -115,7 +115,7 @@
                             <td>{{$items->ma_chung_nhan_dang_ki_hoat_dong}}</td>
                             <td class="d-flex">
                                 <a href="{{route('chi-nhanh.cap-nhat', ['id'=> $items->id])}}"
-                                    class="btn btn-info btn-sm mr-3">Sửa</a>
+                                    class="btn btn-primary btn-sm mr-3">Cập nhật</a>
                                 <button type="button" class="btn btn-danger btn-sm" onclick="Confirm({{$items->id}})"
                                     data-toggle="modal" data-target="#m_modal_3">Xóa</button>
                                 <form action="{{ route('chi-nhanh.xoa',['id'=> $items->id ]) }}" method="post"

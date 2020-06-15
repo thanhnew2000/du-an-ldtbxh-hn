@@ -44,16 +44,7 @@
 
                             </div>
 
-                            <div class="form-group col-lg-12">
-                                <label for="" class="col-4 form-name">Địa Chỉ</label>
-                                <input type="text" name="dia_chi" id="" value="{{ old('dia_chi') }}"
-                                    class="form-control" placeholder="" aria-describedby="helpId">
-                                <p id="helpId" class="form-text text-danger">
-                                    @error('dia_chi')
-                                    {{ $message }}
-                                    @enderror
-                                </p>
-                            </div>
+
 
                             <div class="form-group col-lg-12">
                                 <label for="" class="col-4 form-name">Chi Nhánh</label>
@@ -67,9 +58,49 @@
                                     @enderror
                                 </p>
                             </div>
+
+                            <div class="form-group col-lg-12">
+                                <label for="" class="form-name">Quận/Huyện <span class="text-danger">(*)</span></label>
+                                <select class="form-control col-12" name="maqh" id="devvn_quanhuyen">
+                                    <option disabled selected>Quận / Huyện</option>
+                                    @foreach ($quanhuyen as $qh)
+                                    <option value="{{ $qh->maqh }}" @if (old('maqh')==$qh->maqh )
+                                        {{ 'selected' }}
+                                        @endif>{{ $qh->name }}</option>
+                                    @endforeach
+                                </select>
+                                <p id="helpId" class="form-text text-danger">
+                                    @error('maqh')
+                                    {{ $message }}
+                                    @enderror
+                                </p>
+                            </div>
+
+                            <div class="form-group col-lg-12">
+                                <label for="" class="form-name">Xã/ Phường <span class="text-danger">(*)</span></label>
+                                <select class="form-control col-12" name="xaid" id="devvn_xaphuongthitran">
+                                    <option disabled selected>Chọn</option>
+                                </select>
+                                <p id="helpId" class="form-text text-danger">
+                                    @error('xaid')
+                                    {{ $message }}
+                                    @enderror
+                                </p>
+                            </div>
                         </div>
 
                         <div class="col-right col-lg-5">
+                            <div class="form-group col-lg-12">
+                                <label for="" class="col-4 form-name">Địa Chỉ</label>
+                                <input type="text" name="dia_chi" id="" value="{{ old('dia_chi') }}"
+                                    class="form-control" placeholder="" aria-describedby="helpId">
+                                <p id="helpId" class="form-text text-danger">
+                                    @error('dia_chi')
+                                    {{ $message }}
+                                    @enderror
+                                </p>
+                            </div>
+
                             <div class="form-group col-lg-12">
                                 <label for="" class="col-6 form-name">Mã chứng nhận hoạt động</label>
                                 <input type="text" name="ma_chung_nhan_dang_ki_hoat_dong" id=""
@@ -114,4 +145,32 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script>
+    $(document).ready(function(){
+        $('#devvn_quanhuyen').select2();
+        $('#devvn_xaphuongthitran').select2();
+    });
+
+    $("#devvn_quanhuyen" ).change(function() {
+        axios.post('/xuat-bao-cao/ket-qua-tuyen-sinh/xa-phuong-theo-quan-huyen', {
+                    id:  $("#devvn_quanhuyen").val(),
+        })
+        .then(function (response) {
+            var htmldata = '<option selected  disabled>Xã / Phường</option>'
+                response.data.forEach(element => {
+                htmldata+=`<option value="${element.xaid}" >${element.name}</option>`   
+            });
+            $('#devvn_xaphuongthitran').html(htmldata);
+        })
+        .catch(function (error) {
+            console.log(error);
+            });
+    });
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 @endsection

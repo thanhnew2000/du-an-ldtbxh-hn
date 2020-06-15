@@ -41,7 +41,7 @@
                 <div class="col-lg-8">
                   <select class="form-control " onchange="getdatacheck(this)" required name="co_so_id"
                     id="co_so_dao_tao">
-                    <option value="0">Chọn</option>
+                    <option value="">Chọn</option>
                     @foreach ($data as $item)
                     <option value="{{$item->id}}">{{$item->ten}}</option>
                     @endforeach
@@ -212,8 +212,7 @@
                           
                           name="so_luong_sv_ho_khau_HN_Trung_cap" class="form-control" ></td>
                       <td><input type="number" min="0" step="1"
-                         
-                          class="form-control" ></td>
+                         name="so_luong_sv_ho_khau_HN_So_cap"class="form-control" ></td>
                       <td><input type="number" min="0" step="1" 
                           name="so_luong_sv_ho_khau_HN_khac" class="form-control" ></td>
                     </tr>

@@ -127,11 +127,7 @@ class NganhNgheController extends Controller
 
     public function boSungNganhNgheVaoCoSo(Request $request)
     {
-        if ($request->hasFile('anh_giay_phep')) {
-            $filePath = $request->file('anh_giay_phep')->store('uploads/anh-gay-phep');
-            $request->request->set('anh_quyet_dinh', $filePath);
-        }
-        $this->nganhNgheService->boSungNganhNgheVaoCoSo($request, ['_token', 'anh_giay_phep']);
+        $this->nganhNgheService->boSungNganhNgheVaoCoSo($request, ['_token']);
         return redirect()->route('nghe.thiet-lap-nghe-cs', ['csdtid' => $request->get('co_so_id')])->with('mess', 'Thêm nghề vào cơ sở thành công');
     }
 }
