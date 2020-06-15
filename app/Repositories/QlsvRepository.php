@@ -40,11 +40,11 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
             'devvn_quanhuyen.name as ten_quan_huyen',
 			'devvn_xaphuongthitran.name as ten_xa_phuong'
         ]);
-        // dd($query);
+        // dd($data);
         if(!empty($params['nam'])){
             $data->where('sv_dang_quan_ly.nam', $params['nam']);
         }	
-        if($params['dot']!= null){
+        if(!empty($params['dot'])){
             $data->where('sv_dang_quan_ly.dot', $params['dot']);
         }
         if (isset($params['loai_hinh']) && !empty($params['loai_hinh'])) {
@@ -59,6 +59,7 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
         if (isset($params['nghe_id']) && !empty($params['nghe_id'])) {
             $data->where('sv_dang_quan_ly.nghe_id', $params['nghe_id']);
         }
+        
         // if (isset($params['devvn_quanhuyen']) && $params['devvn_quanhuyen'] != null) {
 		// 	$data->where('co_so_dao_tao.maqh', $params['devvn_quanhuyen']);
         // }

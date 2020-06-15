@@ -305,8 +305,8 @@ class ExtractController extends Controller
         // );
         $dateTime = Carbon::now();
         $request->request->set('thoi_gian_cap_nhat', $dateTime->format('Y-m-d H:i:s'));
-        $request->request->set('nam', $dateTime->year);
-        $request->request->set('dot', 1);
+        // $request->request->set('nam', $dateTime->year);
+        // $request->request->set('dot', 1);
         $co_so_id = $request->co_so_id;
 
         $this->QlsvService->create($request);

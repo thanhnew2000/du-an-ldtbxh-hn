@@ -77,6 +77,38 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-2 col-form-label">Năm : <span class="batbuoc">*</span> </label>
+                                <div class="col-lg-8">
+                                    <select name="nam" class="form-control" required name="nam">
+                                    <option value="{{ old('nam') }}" >Chọn </option>
+                                    @foreach (config('common.nam_tuyen_sinh.list') as $item)
+                                    <option 
+                                    @if (isset($params['nam']))
+                                            {{( $params['nam'] ==  $item ) ? 'selected' : ''}}  
+                                            @endif
+                                            value="{{$item}}"> {{$item}}
+                                        </option>
+                                    @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-2 col-form-label">Đợt : <span class="batbuoc">*</span> </label>
+                                <div class="col-lg-8">
+                                    <select class="form-control " required onchange="getdatacheck(this)" name="dot" id="dot">
+                                        <option value="" selected>Chọn</option>
+                                        <option value="1">Đợt 1</option>
+                                        <option value="2">Đợt 2</option>
+                                      </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
