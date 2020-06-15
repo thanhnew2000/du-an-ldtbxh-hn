@@ -66,25 +66,26 @@ class ExtractController extends Controller
         $route_name = Route::current()->action['as'];
      
         $data = $this->DoiNguNhaGiaoService->getDanhSachDoiNguNhaGiao($params);
-        $getloaihinhcoso = $this->LoaiHinhCoSoService->getAll();
-        $getcoquanchuquan = $this->CoQuanChuQuanService->getAll();
-        $get_nganh_nghe = $this->NganhNgheService->getAll();
-        $nam = Carbon::now()->year;
+        $params['get_loai_hinh_co_so'] = $this->LoaiHinhCoSoService->getAll();
+        $params['get_co_quan_chu_quan'] = $this->CoQuanChuQuanService->getAll();
+        $params['get_nganh_nghe'] = $this->NganhNgheService->getAll();
+        $params['get_co_so'] = $this->CoSoDaoTaoService->getAll();
+     
 
         $data->withPath("?coquanchuquan=$request->coquanchuquan&
                           loaihinhcoso=$request->loaihinhcoso&
                           dot=$request->dot&
                           nam=$request->nam&
-                          keyword=$request->keyword&
+                          co_so_id=$request->co_so_id&
                           page_size=$request->page_size");  
         if($data->count() < 1){
             return view('extractreport.danh_sach_doi_ngu_nha_giao', 
-            compact('data','params','route_name','getcoquanchuquan','getloaihinhcoso','get_nganh_nghe','nam'),
+            compact('data','params','route_name'),
             ['thongbao'=>'Không tìm thấy kết quả !']
         );
         }      
         return view('extractreport.danh_sach_doi_ngu_nha_giao',
-        compact('data','params','route_name','getcoquanchuquan','getloaihinhcoso','get_nganh_nghe','nam'),
+        compact('data','params','route_name'),
         ['thongbao'=>'']
     );
     }
@@ -100,17 +101,18 @@ class ExtractController extends Controller
 
         $data = $this->DoiNguNhaGiaoService->chiTietTheoCoSo($co_so_id, $params);
         $thongtincoso = $this->CoSoDaoTaoService->getSingleCsdt($co_so_id);
-        $yearTime = Carbon::now()->year;
+     
        
         $data->withPath("?dot=$request->dot&
-                          nam=$request->nam"); 
+                          nam=$request->nam&
+                          page_size=$request->page_size"); 
 
         if($data->count() < 1){
             return view('extractreport.danh_sach_chi_tiet_doi_ngu_nha_giao',
-            compact('data','params','thongtincoso','yearTime','route_name'),['thongbao'=>'Không tìm thấy kết quả !']);
+            compact('data','params','thongtincoso','route_name'),['thongbao'=>'Không tìm thấy kết quả !']);
         } 
         return view('extractreport.danh_sach_chi_tiet_doi_ngu_nha_giao',
-        compact('data','params','thongtincoso','yearTime','route_name'),['thongbao'=>'']);
+        compact('data','params','thongtincoso','route_name'),['thongbao'=>'']);
     }
 
     /* Màn hình thêm Danh sách đội ngũ nhà giáo

@@ -29,9 +29,17 @@ $stt = 1;
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Tên cơ sở</label>
                                 <div class="col-lg-8">
-                                    <input type="text" class="form-control m-input" @if(isset($params['keyword']))
-                                        value="{{$params['keyword']}}" @endif placeholder="Nhập tên cơ sở"
-                                        name="keyword">
+                                        <select name="co_so_id" class="form-control ">
+                                            <option value="">-----Chọn cơ sở-----</option>
+                                            @foreach ($params['get_co_so'] as $item)
+                                            <option value="{{ $item->id }}" @if(isset($params['co_so_id']) &&
+                                                $params['co_so_id']==$item->id)
+                                                selected
+                                                @endif>
+                                                {{ $item->ten }}
+                                            </option>
+                                            @endforeach
+                                        </select>
                                 </div>
                             </div>
                         </div>
@@ -41,7 +49,7 @@ $stt = 1;
                                 <div class="col-lg-8">
                                     <select name="loaihinhcoso" class="form-control ">
                                         <option value="">-----Chọn loại hình cơ sở-----</option>
-                                        @foreach ($getloaihinhcoso as $item)
+                                        @foreach ($params['get_loai_hinh_co_so'] as $item)
                                         <option value="{{ $item->id }}" @if(isset($params['loaihinhcoso']) &&
                                             $params['loaihinhcoso']==$item->id)
                                             selected
@@ -62,7 +70,7 @@ $stt = 1;
                                 <div class="col-lg-8">
                                     <select name="coquanchuquan" class="form-control ">
                                         <option value="">-----Chọn cơ quan chủ quản-----</option>
-                                        @foreach ($getcoquanchuquan as $item)
+                                        @foreach ($params['get_co_quan_chu_quan'] as $item)
                                         <option value="{{ $item->id }}" @if(isset($params['coquanchuquan']) &&
                                             $params['coquanchuquan']==$item->id)
                                             selected
@@ -77,26 +85,20 @@ $stt = 1;
                         </div>
                         <div class="col-md-6">
                             <div class="form-group m-form__group row">
-                                <label class="col-lg-2 col-form-label">Năm</label>
+                                <label class="col-lg-2 col-form-label">Ngành nghề</label>
                                 <div class="col-lg-8">
-                                    <select name="nam" class="form-control ">
-                                        <option value="">-----Chọn năm-----</option>
+                                    <select name="nghe_id" id="" class="form-control ">
+                                        <option value="">-----Chọn ngành nghề-----</option>
+                                        @forelse ($params['get_nganh_nghe'] as $item)
+                                        <option value="{{ $item->id }}" @if(isset($params['nghe_id']) &&
+                                            $params['nghe_id']==$item->id)
+                                            selected
+                                            @endif>
 
-                                        <option value="{{ $nam }}" @if(isset($params['nam']) && $params['nam']==$nam)
-                                            selected @endif>
-                                            {{ $nam }}
+                                            {{ $item->id }} --- {{ $item->ten_nganh_nghe }}
                                         </option>
-
-                                        <option value="{{ $nam-1 }}" @if(isset($params['nam']) &&
-                                            $params['nam']==$nam-1) selected @endif>
-                                            {{ $nam-1 }}
-                                        </option>
-
-                                        <option value="{{ $nam-2 }}" @if(isset($params['nam']) &&
-                                            $params['nam']==$nam-2) selected @endif>
-                                            {{ $nam-2 }}
-                                        </option>
-
+                                        @empty
+                                        @endforelse
                                     </select>
                                 </div>
                             </div>
@@ -109,39 +111,26 @@ $stt = 1;
                                 <div class="col-lg-8">
                                     <select name="dot" id="" class="form-control ">
                                         <option value="">-----Chọn đợt-----</option>
-
-                                        <option value="1" @if(isset($params['dot']) && $params['dot']==1) selected
-                                            @endif>
-                                            1
-                                        </option>
-
-                                        <option value="2" @if(isset($params['dot']) && $params['dot']==2) selected
-                                            @endif>
-                                            2
-                                        </option>
-
+                                        <option @if(isset($params['dot']) && $params['dot']==config('common.dot.1'))
+                                            selected @endif value="{{config('common.dot.1')}}">
+                                            {{config('common.dot.1')}}</option>
+                                        <option @if(isset($params['dot']) && $params['dot']==config('common.dot.2'))
+                                            selected @endif value="{{config('common.dot.2')}}">
+                                            {{config('common.dot.2')}}</option>  
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group m-form__group row">
-                                <label class="col-lg-2 col-form-label">Ngành nghề</label>
+                                <label class="col-lg-2 col-form-label">Năm</label>
                                 <div class="col-lg-8">
-                                    <select name="nghe_id" id="" class="form-control ">
-                                        <option value="">-----Chọn ngành nghề-----</option>
-                                        @forelse ($get_nganh_nghe as $item)
-                                        <option value="{{ $item->id }}" @if(isset($params['nghe_id']) &&
-                                            $params['nghe_id']==$item->id)
-                                            selected
-                                            @endif>
-
-                                            {{ $item->id }} --- {{ $item->ten_nganh_nghe }}
-                                        </option>
-
-                                        @empty
-
-                                        @endforelse
+                                    <select name="nam" class="form-control ">
+                                        <option value="">-----Chọn năm-----</option>
+                                        @foreach(config('common.nam.list') as $nam)
+                                        <option @if(isset($params['nam']) && $params['nam']==$nam) selected @endif
+                                            value="{{$nam}}">{{$nam}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -211,7 +200,7 @@ $stt = 1;
                         <td>{{ $item->ten_nghe }}</td>
                         <td>
                             <a href="{{ route('xuatbc.chi-tiet-theo-co-so',['co_so_id'=>$item->co_so_id]) }}"
-                                class="btn btn-primary btn-sm">Chi tiết</a>
+                                class="btn btn-info btn-sm">Chi tiết</a>
                         </td>
                     </tr>
                     @php
@@ -263,7 +252,7 @@ $stt = 1;
         $('#page-size').change(function () {
             var coquanchuquan = $('[name="coquanchuquan"]').val();
             var loaihinhcoso = $('[name="loaihinhcoso"]').val();
-            var keyword = $('[name="keyword"]').val();
+            var co_so_id = $('[name="co_so_id"]').val();
             var dot = $('[name="dot"]').val();
             var nam = $('[name="nam"]').val();
             var nghe_id = $('[name="nghe_id"]').val();
@@ -273,12 +262,13 @@ $stt = 1;
                 loaihinhcoso=${loaihinhcoso}&
                 dot=${dot}&
                 nam=${nam}&
-                keyword=${keyword}&
+                co_so_id=${co_so_id}&
                 nghe_id=${nghe_id}&
                 page_size=${page_size}`;
             window.location.href = reloadUrl;
         });
 
+        $('[name="co_so_id"]').select2();
         $('[name="coquanchuquan"]').select2();
         $('[name="nghe_id"]').select2();
         $('[name="loaihinhcoso"]').select2();
