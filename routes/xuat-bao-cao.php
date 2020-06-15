@@ -177,18 +177,32 @@ Route::group(['prefix' => 'dao-tao-voi-doanh-nghiep'], function () {
         ->name('xuatbc.ds-dao-tao-voi-doanh-nghiep');
 });
 
+//phucnv BM:13 
 
 Route::group(['prefix' => 'hop-tac-quoc-te'], function () {
     Route::get('/tong-hop', 'ExtractController@tonghophoptacquocte')
-
         ->name('xuatbc.ds-hop-tact-qte');
+
+    Route::get('/chi-tiet', 'ExtractController@chiTietTongHopHopTacQuocTe')
+        ->name('xuatbc.chi-tiet-ds-hop-tact-qte');
+
+    Route::get('/them', 'ExtractController@themTongHopHopTacQuocTe')
+        ->name('xuatbc.them-ds-hop-tact-qte');
+    Route::post('/them', 'ExtractController@saveTongHopHopTacQuocTe');    
+
+    Route::get('/sua', 'ExtractController@suaTongHopHopTacQuocTe')
+        ->name('xuatbc.sua-ds-hop-tact-qte');
 });
+
+//phucnv end BM:13
+
 
 Route::group(['prefix' => 'chi-tieu-tuyen-sinh'], function () {
     Route::get('/tong-hop', 'ExtractController@tonghoptuyensinh')
 
         ->name('xuatbc.ds-chi-tieu-ts');
 });
+
 
 // thanhvn import export can bo quan ly 
 Route::group(['prefix' => 'so-lieu-can-bo-quan-ly'], function () {
