@@ -76,6 +76,7 @@ class ExtractController extends Controller
         $params['get_nganh_nghe'] = $this->NganhNgheService->getAll();
         $params['get_co_so'] = $this->CoSoDaoTaoService->getAll();
      
+     
 
         $data->withPath("?coquanchuquan=$request->coquanchuquan&
                           loaihinhcoso=$request->loaihinhcoso&
@@ -85,12 +86,12 @@ class ExtractController extends Controller
                           page_size=$request->page_size");  
         if($data->count() < 1){
             return view('extractreport.danh_sach_doi_ngu_nha_giao', 
-            compact('data','params','route_name'),
+            compact('data','params','route_name','coSo'),
             ['thongbao'=>'Không tìm thấy kết quả !']
         );
         }      
         return view('extractreport.danh_sach_doi_ngu_nha_giao',
-        compact('data','params','route_name'),
+        compact('data','params','route_name','coSo'),
         ['thongbao'=>'']
     );
     }
