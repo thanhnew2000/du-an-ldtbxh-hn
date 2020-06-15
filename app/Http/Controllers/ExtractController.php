@@ -66,8 +66,7 @@ class ExtractController extends Controller
         $params['get_co_quan_chu_quan'] = $this->CoQuanChuQuanService->getAll();
         $params['get_nganh_nghe'] = $this->NganhNgheService->getAll();
         $params['get_co_so'] = $this->CoSoDaoTaoService->getAll();
-     
-
+    
         $data->withPath("?coquanchuquan=$request->coquanchuquan&
                           loaihinhcoso=$request->loaihinhcoso&
                           dot=$request->dot&
