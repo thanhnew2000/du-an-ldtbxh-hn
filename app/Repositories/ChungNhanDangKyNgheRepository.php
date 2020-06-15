@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Repositories;
+
 use App\Repositories\BaseRepository;
 use Faker\Provider\Base;
 use Illuminate\Support\Facades\DB;
 
-class ChungNhanDangKyNgheRepository extends BaseRepository implements ChungNhanDangKyNgheRepositoryInterface {
+class ChungNhanDangKyNgheRepository extends BaseRepository implements ChungNhanDangKyNgheRepositoryInterface
+{
 
     public function getTable()
     {
@@ -68,7 +70,8 @@ class ChungNhanDangKyNgheRepository extends BaseRepository implements ChungNhanD
      * - ma_phuong_xa: int - nullable - Mã xã phường
      * - page_size: int - Page size
      * */
-    public function getCoSoDaoTaoTheoNghe($params){
+    public function getCoSoDaoTaoTheoNghe($params)
+    {
         $queryBuilder = $this->table
             ->select(
                 'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.id as chung_nhan_id',
@@ -91,18 +94,18 @@ class ChungNhanDangKyNgheRepository extends BaseRepository implements ChungNhanD
             ->join('devvn_quanhuyen', 'devvn_quanhuyen.maqh', '=', 'co_so_dao_tao.maqh')
             ->join('devvn_xaphuongthitran', 'devvn_xaphuongthitran.xaid', '=', 'co_so_dao_tao.xaid')
             ->where('giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.nghe_id', $params['ma_nghe']);
-        if(isset($params['keyword']) && $params['keyword'] != null){
-            $queryBuilder->where('co_so_dao_tao.ten', 'like', "%".$params['keyword']."%");
+        if (isset($params['keyword']) && $params['keyword'] != null) {
+            $queryBuilder->where('co_so_dao_tao.ten', 'like', "%" . $params['keyword'] . "%");
         }
-        if(isset($params['loai_hinh_co_so']) && $params['loai_hinh_co_so'] != null){
+        if (isset($params['loai_hinh_co_so']) && $params['loai_hinh_co_so'] != null) {
             $queryBuilder->where('co_so_dao_tao.ma_loai_hinh_co_so', $params['loai_hinh_co_so']);
         }
-        if(isset($params['ma_quan_huyen']) && $params['ma_quan_huyen'] != null){
+        if (isset($params['ma_quan_huyen']) && $params['ma_quan_huyen'] != null) {
             $queryBuilder->where('co_so_dao_tao.maqh', $params['ma_quan_huyen']);
         }
-//        if(isset($params['ma_phuong_xa']) && $params['ma_phuong_xa'] != null){
-//            $queryBuilder->where('co_so_dao_tao.xaid', $params['xaid']);
-//        }
+        //        if(isset($params['ma_phuong_xa']) && $params['ma_phuong_xa'] != null){
+        //            $queryBuilder->where('co_so_dao_tao.xaid', $params['xaid']);
+        //        }
         return $queryBuilder->paginate($params['page_size']);
     }
 
@@ -113,6 +116,7 @@ class ChungNhanDangKyNgheRepository extends BaseRepository implements ChungNhanD
                 'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.id as chung_nhan_id',
                 'nghe_id',
                 'ten_quyet_dinh',
+                'anh_quyet_dinh',
 
                 'trang_thai',
                 'ngay_ban_hanh',
@@ -121,11 +125,8 @@ class ChungNhanDangKyNgheRepository extends BaseRepository implements ChungNhanD
                 'nganh_nghe.bac_nghe'
             )
             ->join('nganh_nghe', 'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.nghe_id', '=', 'nganh_nghe.id')
-            ->where ('giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.trang_thai', config('common.trang_thai_nghe.hoat_dong'))
+            ->where('giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.trang_thai', config('common.trang_thai_nghe.hoat_dong'))
             ->where('giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.co_so_id', $params['co_so_id']);
         return $queryBuilder->paginate($params['page_size']);
-
     }
 }
-
-?>
