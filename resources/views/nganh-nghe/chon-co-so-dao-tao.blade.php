@@ -33,7 +33,7 @@
                                 <label class="col-lg-3 col-form-label text-right">Cơ sở đào tạo:</label>
                                 <div class="col-lg-8">
                                     <select id="chon-co-so-ajax" class="form-control">
-                                        @if(!empty($defaultCsdt))
+                                        @if(count($defaultCsdt) > 0)
                                         <option value="{{$defaultCsdt['id']}}" selected="selected">
                                             {{$defaultCsdt['text']}}</option>
                                         @endif
@@ -96,13 +96,19 @@
                                     <div class="form-group">
                                         <p class="m-portlet__head-text">
                                             <span>Mã+ tên cơ sở: </span> &nbsp;
-                                            <span class="m--font-boldest h5">{{$defaultCsdt['text']}}</span>
+                                            <span class="m--font-boldest h5">
+                                                @if(count($defaultCsdt) > 0)
+                                                {{$defaultCsdt['text']}}
+                                                @endif
+                                            </span>
                                         </p>
                                     </div>
                                     <form method="POST" action="{{ route('nghe.bo-sung-vao-co-so') }}" enctype="multipart/form-data">
                                         {{ csrf_field() }}
+                                        @if(count($defaultCsdt) > 0)
                                         <input type="hidden" name="co_so_id" value="{{ $defaultCsdt['id'] }}"
                                             id="co-so-id">
+                                        @endif
                                         <div class="d-flex justify-content-between">
                                             <div class="form-group col-6 p-0 mr-4">
                                                 <label class="form-name" for="">Giấy phép <span
