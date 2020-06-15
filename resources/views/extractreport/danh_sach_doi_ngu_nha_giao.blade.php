@@ -157,14 +157,22 @@ $stt = 1;
             </div>
         </form>
     </div>
-    <div class="row mb-4 bieumau">
+    <div class="row mb-5 bieumau">
         <div class="col-lg-2">
-            <a href=""><i class="la la-download">Tải xuống biểu mẫu</i></a>
+            <a href="javascript:" data-toggle="modal" data-target="#modalExportBieuMau">
+                <i class="fa fa-download" aria-hidden="true"></i>
+                Tải xuống biểu mẫu
+            </a>
         </div>
         <div class="col-lg-2">
-            <a href=""><i class="la la-upload">Tải lên file excel</i></a>
+            <a href="javascript:" data-toggle="modal" id="upImport-file" data-target="#modalImport"><i
+                    class="fa fa-upload" aria-hidden="true"></i>
+                Tải lên file Excel</a>
         </div>
-        <div class="col-lg-8 " style="text-align: right">
+        <div class="col-lg-2">
+            <a href="javascript:" data-toggle="modal" data-target="#modalExportData"><i class="fa fa-file-excel"
+                    aria-hidden="true"></i>
+                Xuất dữ liệu ra Excel</a>
         </div>
     </div>
     <div class="m-portlet">
@@ -235,6 +243,160 @@ $stt = 1;
             </div>
         </div>
     </div>
+
+    <form action="{{ route('doi-ngu-nha-giao.export') }}" id="" method="post" enctype="multipart/form-data">
+        @csrf
+        <div class="modal fade " id="modalExportData" tabindex="-1" role="dialog"
+            aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLabel">Xuất dữ liệu</h5>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            id="closeExportModal"
+                            aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="">Chọn năm xuất</label>
+                            <select name="nam" id="nam" class="form-control">
+                                <option value="2020">2020</option>
+                                <option value="2019">2019</option>
+                                <option value="2018">2018</option>
+                                <option value="2017">2017</option>
+                                <option value="2016">2016</option>
+                              </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Chọn đợt xuất</label>
+                            <select name="dot" id="dot_id_xuat" class="form-control">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Chọn Trường</label>
+                            <select
+                                multiple
+                                name="co_so_id[]"
+                                id="co_so_id"
+                                class="form-control select2">
+                                @foreach($coSo as $csdt)
+                                <option value="{{$csdt->id}}">{{$csdt->ten}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoiXuat">
+                        </p>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                        <button
+                            type="submit"
+                            class="btn btn-primary"
+                            onclick="closeModal('closeExportModal')"
+                            id="submit"
+                            >Tải</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form action="{{ route('doi-ngu-nha-giao.export-bieu-mau') }}" method="post">
+        @csrf
+        <div class="modal fade" id="modalExportBieuMau" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Hãy chọn trường</h5>
+                        <button type="button" id="closeExportBieuMauModal" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <select name="co_so_id" class="form-control">
+                            @foreach($coSo as $csdt)
+                            <option value="{{$csdt->id}}">{{$csdt->ten}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-dismiss="modal">Hủy</button>
+                        <button
+                            type="submit"
+                            onclick="closeModal('closeExportBieuMauModal')"
+                            class="btn btn-primary">Tải</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form action="{{ route('doi-ngu-nha-giao.import') }}" id="import" method="post"
+        enctype="multipart/form-data">
+        @csrf
+        <div class="modal fade " id="modalImport" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Import file</h5>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            id="closeImportModal"
+                            aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="errors" class="alert alert-danger d-none"></div>
+                        <div class="form-group">
+                            <input type="file" id="file_import_id" name="file_import">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Chọn năm</label>
+                            <select name="nam" id="nam_id" class="form-control">
+                              <option value="2020">2020</option>
+                              <option value="2019">2019</option>
+                              <option value="2018">2018</option>
+                              <option value="2017">2017</option>
+                              <option value="2016">2016</option>
+                            </select>
+                       </div>
+
+                        <div class="form-group">
+                            <label for="">Chọn đợt</label>
+                            <select name="dot" id="dot_id" class="form-control">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoi">
+                        </p>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                        <button type="submit" class="btn btn-primary" id="submitTai">Tải</a>
+                        <button type="submit" hidden class="btn btn-primary" id="submitTaiok">Tải ok</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
 
 </div>
@@ -243,6 +405,8 @@ $stt = 1;
 @endsection
 @section('script')
 <script src="sweetalert2.min.js"></script>
+<script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 <link rel="stylesheet" href="sweetalert2.min.css">
 
 @if (session('kq'))
@@ -258,6 +422,9 @@ $stt = 1;
 </script>
 @endif
 <script>
+    function closeModal(id) {
+        $('#' + id).trigger('click');
+    }
     var currentUrl = '{{route($route_name)}}';
     $(document).ready(function () {
         $('#page-size').change(function () {
@@ -282,8 +449,48 @@ $stt = 1;
         $('[name="coquanchuquan"]').select2();
         $('[name="nghe_id"]').select2();
         $('[name="loaihinhcoso"]').select2();
+        $('.select2').select2();
+        $('span.select2').css('width', '100%');
 
     });
+
+    $("#import").on('submit', function (event) {
+        event.preventDefault();
+        const formData = new FormData();
+        const file = document.querySelector('#file_import_id');
+        formData.append("file_import", file.files[0]);
+        formData.append('nam', $("#nam_id").val());
+        formData.append('dot', $("#dot_id").val());
+
+        $('#modalImport').addClass('d-none');
+        $('.loading').css('display','block');
+        axios.post($(this).attr('action'), formData)
+            .then(function (response) {
+                $('.loading').css('display','none');
+                $('#modalImport').removeClass('d-none');
+                Swal.fire({
+                    icon: 'success',
+                    title: response.data.message,
+                    timer: 3500
+                }).then(function () {
+                    $('#closeImportModal').trigger('click');
+                });
+            })
+            .catch(function (error) {
+                $('.loading').css('display','none');
+                $('#modalImport').removeClass('d-none');
+                if (error.response && error.response.status == 422) {
+                    const errors = error.response.data.errors;
+                    $("#errors").removeClass('d-none');
+                    let htmlError = '';
+                    _.forEach(errors, (value, key) => {
+                        htmlError += `<li>${errors[key]}</li>`;
+                    });
+
+                    $("#errors").html(htmlError);
+                }
+            });
+    })
 
 </script>
 @endsection

@@ -729,6 +729,7 @@
     </div>
 </div>
 @endsection
+
 @section('script')
 <script>
     console.log(JSON.parse($('#m_flotcharts_8').attr('attr')))
