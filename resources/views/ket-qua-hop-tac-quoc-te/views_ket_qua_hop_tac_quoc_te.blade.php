@@ -90,6 +90,9 @@
                         <th rowspan="2">Tổng số hợp tác quốc tế trong đào tạo , bồi dưỡng giáo viên , cán bộ quản lý</th>
                         <th rowspan="2">Tổng số kinh phí đầu tư trang thiết bị , máy móc</th>
                         <th rowspan="2">Trạng thái</th>
+                        <th rowspan="2">
+                            <a href="" class="btn btn-success btn-sm">Thêm mới</a>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -103,6 +106,10 @@
                         <td>2</td>
                         <td>2</td>
                         <td>2</td>
+                        <td>
+                            <a href="" class="btn btn-info btn-sm">Sửa</a>
+                            <a href="" class="btn btn-primary btn-sm">Chi tiết</a>
+                            </td>
                         </tr>
                 </tbody>
             </table>

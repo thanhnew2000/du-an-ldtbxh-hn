@@ -91,9 +91,7 @@
                         <th rowspan="2">Số lượng chương trình,giáo trình xây dựng , phát triển theo hình thức hợp tác quốc tế</th>
                         <th colspan="3">Hợp tác quốc tế trong đào tạo , bồi dưỡng giáo viên , cán bộ quản lý</th>
                         <th colspan="3">Hợp tác quốc tế trong đầu tư cơ sở vật chất , trang thiết bị</th>\
-                        <th rowspan="2">
-                            <a href="" class="btn btn-success btn-sm">Thêm mới</a>
-                        </th>
+                        
                     </tr>
                     <tr class="text-center">
                         <th rowspan="2">Tổng số</th>
@@ -133,10 +131,7 @@
                         <td>2</td>
                         <td>2</td>
                         <td>2</td>
-                        <td>
-                            <a href="" class="btn btn-info btn-sm">Sửa</a>
-                            <a href="" class="btn btn-primary btn-sm">Chi tiết</a>
-                            </td>
+                       
                         </tr>
                 </tbody>
             </table>
