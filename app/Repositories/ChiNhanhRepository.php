@@ -33,8 +33,16 @@ class ChiNhanhRepository extends BaseRepository implements ChiNhanhRepositoryInt
     public function getSingleChiNhanh($id)
     {
         return $this->table->join('co_so_dao_tao', 'co_so_dao_tao.id', '=', 'chi_nhanh_dao_tao.co_so_id')
+            ->join('devvn_quanhuyen', 'chi_nhanh_dao_tao.maqh', '=', 'devvn_quanhuyen.maqh')
+            ->join('devvn_xaphuongthitran', 'chi_nhanh_dao_tao.xaid', '=', 'devvn_xaphuongthitran.xaid')
             ->where('chi_nhanh_dao_tao.id', $id)
-            ->select('chi_nhanh_dao_tao.*', DB::raw('co_so_dao_tao.id as csdt_id'), DB::raw('co_so_dao_tao.ten as csdt_ten'))
+            ->select(
+                'chi_nhanh_dao_tao.*',
+                DB::raw('co_so_dao_tao.id as csdt_id'),
+                DB::raw('co_so_dao_tao.ten as csdt_ten'),
+                DB::raw('devvn_xaphuongthitran.name as tenxaphuong'),
+                DB::raw('devvn_quanhuyen.name as tenquanhuyen')
+            )
             ->get();
     }
 

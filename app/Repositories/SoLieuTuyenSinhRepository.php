@@ -35,7 +35,7 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 				'co_so_dao_tao.ten',
 				'loai_hinh_co_so.loai_hinh_co_so',
 				'devvn_quanhuyen.name as quan_huyen',
-				'devvn_xaphuongthitran.name as xa_phuong',
+				'devvn_xaphuongthitran.name as xa_phuong',	
 			])
 			->where('tuyen_sinh.nam', $params['nam'])
 			->where('tuyen_sinh.dot', $params['dot']);
@@ -87,7 +87,9 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 		if($queryData['dot']!=null){
 			$data->where('tuyen_sinh.dot', $queryData['dot']);
 		}
-		return $data->paginate($limit);
+		return $data->orderBy('nam','desc')
+		->orderBy('dot', 'desc')
+		->paginate($limit);
 
 	}
 	public function getThongTinCoSo($coSoId)

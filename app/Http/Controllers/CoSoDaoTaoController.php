@@ -8,6 +8,7 @@ use App\Services\CoSoDaoTaoService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Response;
 
 class CoSoDaoTaoController extends Controller
 {
@@ -70,6 +71,8 @@ class CoSoDaoTaoController extends Controller
             [
                 'ten.required' => 'Tên cơ sở đào tạo không được để trống',
                 'ma_don_vi.required' => 'Mã đơn vị không được để trống',
+                'upload_logo.required' => 'Logo không được để trống',
+                'upload_logo.mimes' => 'Logo không đúng định dạng file ảnh',
                 'dien_thoai.required' => 'Điện thoại không được để trống',
                 'dia_chi.required' => 'địa chỉ không được để trống',
                 'ten_quoc_te.required' => 'Vui lòng điền tên quốc tế của cơ sở',
@@ -120,6 +123,9 @@ class CoSoDaoTaoController extends Controller
                 'upload_logo.mimes' => 'File ảnh không đúng định dạng',
                 'dia_chi.required' => 'Địa chỉ không được để trống',
                 'ten_quoc_te.required' => 'Tên quốc tế không được để trống',
+                'co_quan_chu_quan_id.required' => 'Vui lòng chọn cơ quan chủ quản',
+                'ma_loai_hinh_co_so.required' => 'Vui lòng chọn loại hình cơ sở',
+                'quyet_dinh_id.required' => 'Vui lòng chọn quyết định'
             ]
         );
 
@@ -130,5 +136,64 @@ class CoSoDaoTaoController extends Controller
         $this->CoSoDaoTaoService->update($id, $request, ['upload_logo', '_token']);
 
         return redirect()->route('csdt.cap-nhat', ['id' => $id])->with('mess', 'Đã cập nhật thông tin cơ sở đào tạo')->withInput();
+    }
+
+    public function apiSearchCoSoDaoTao(Request $request)
+    {
+        $params['keyword'] = $request->keyword;
+        $params['page'] = $request->page;
+        $data = $this->CoSoDaoTaoService->apiSearchCoSoDaoTao($params);
+        return response()->json($data);
+    }
+
+    public function addCoQuanChuQuan(Request $request)
+    {
+        $request->validate(
+            [
+                'ten' => 'required|unique:co_quan_chu_quan',
+                'ma' => 'required|unique:co_quan_chu_quan'
+            ],
+            [
+                'ten.required' => 'Tên không được để trống',
+                'ten.unique' => 'Cơ quan đã tồn tại',
+                'ma.required' => 'Mã cơ quan không được để trống',
+                'ma.unique' => 'Mã cơ quan đã tồn tại'
+            ]
+        );
+        $attributes = $request->all();
+        if (isset($attributes['_token'])) {
+            unset($attributes['_token']);
+        }
+        $this->CoSoDaoTaoService->addCoQuanChuQuan($attributes);
+        $response = DB::table('co_quan_chu_quan')->get();
+        return response()->json([
+            'data' => $response,
+            'message' => 'Thêm thành công'
+        ]);
+    }
+
+    public function addQuyetDinh(Request $request)
+    {
+        // dd($request->all());
+        $request->validate(
+            [
+                'ten' => 'required',
+                'van_ban_url' => 'required',
+                'ngay_ban_hanh' => 'required',
+                'ngay_hieu_luc' => 'required',
+                'ngay_het_han' => 'required',
+                'loai_quyet_dinh' => 'required'
+            ]
+        );
+        $attributes = $request->all();
+        if (isset($attributes['_token'])) {
+            unset($attributes['_token']);
+        }
+        $this->CoSoDaoTaoService->addQuyetDinh($attributes);
+        $response = DB::table('quyet_dinh_thanh_lap_csdt')->get();
+        return response()->json([
+            'data' => $response,
+            'messageqd' => 'Thêm thành công'
+        ]);
     }
 }

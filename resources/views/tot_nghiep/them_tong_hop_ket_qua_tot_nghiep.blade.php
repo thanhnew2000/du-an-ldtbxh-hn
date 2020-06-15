@@ -7,7 +7,6 @@
     .batbuoc {
         color: red;
     }
-
     table input {
         border: 1px solid #000 !important;
     }
@@ -17,7 +16,7 @@
 
 @section('content')
 <div class="m-content container-fluid">
-    <form action="{{route('postthemsolieutuyensinh')}}" method="post">
+    <form action="{{route('xuatbc.post-them-tong-hop')}}" method="post">
         @csrf
         <div class="m-portlet">
             <div class="m-portlet__head">
@@ -40,9 +39,9 @@
                                 <label class="col-lg-2 col-form-label">Tên cơ sở đào tạo <span
                                         class="batbuoc">*</span></label>
                                 <div class="col-lg-8">
-                                    <select class="form-control " onchange="getdatacheck(this)" required name="co_so_id"
+                                    <select class="form-control" onchange="getdatacheck(this)" required  name="co_so_id"
                                         id="co_so_dao_tao">
-                                        <option value="0">Chọn</option>
+                                        <option value="">Chọn</option>
                                         @foreach ($data as $item)
                                         <option value="{{$item->id}}">{{$item->ten}}</option>
                                         @endforeach
@@ -101,6 +100,55 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="m-portlet m-portlet--full-height ">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title">
+                                <h3 class="m-portlet__head-text">
+                                    Kết quả tốt nghiệp
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-portlet__body">
+                        <div class="tab-content">
+                            <table class="table m-table m-table--head-bg-brand">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" colspan="4">Trong đó</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Tổng số người học tốt nghiệp</td>
+                                        <td><input type="number" min="0" step="1" name="Tong_SoNguoi_TN"
+                                                class="form-control"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tổng số nữ</td>
+                                        <td><input type="number" min="0" step="1" name="NU_SV_TN"
+                                                class="form-control"></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>Tổng số dân tộc thiểu số ít người</td>
+                                        <td><input type="number" min="0" step="1" name="DanToc_ThieuSo_ItNguoi"
+                                                class="form-control"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tốt nghiệp Nữ</td>
+                                        <td><input type="number" min="0" step="1" name="HoKhauHN"
+                                                class="form-control"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         {{-- start trình độ cao đẳng --}}
         <div class="row">
             <div class="col-xl-6">
@@ -129,8 +177,8 @@
                                                 class="form-control"></td>
                                     </tr>
                                     <tr>
-                                        <td>Số sinh viên đủ điều kiện thi sét TN</td>
-                                        <td><input type="number" min="0" step="1" name="so_Tot_nghiep_THCS"
+                                        <td>Số sinh viên đủ điều kiện thi xét TN</td>
+                                        <td><input type="number" min="0" step="1" name="SoSV_Du_DieuKienThi_XetTN_TrinhDoCD"
                                                 class="form-control"></td>
 
                                     </tr>
@@ -191,7 +239,7 @@
                                                 class="form-control"></td>
                                     </tr>
                                     <tr>
-                                        <td>Số sinh viên đủ điều kiện thi sét TN</td>
+                                        <td>Số sinh viên đủ điều kiện thi xét TN</td>
                                         <td><input type="number" min="0" step="1"
                                                 name="SoSV_Du_DieuKienThi_XetTN_TrinhDoSC" class="form-control"></td>
                                     </tr>
@@ -251,7 +299,7 @@
                                                 class="form-control"></td>
                                     </tr>
                                     <tr>
-                                        <td>Số sinh viên đủ điều kiện thi sét TN</td>
+                                        <td>Số sinh viên đủ điều kiện thi xét TN</td>
                                         <td><input type="number" min="0" step="1" name="SoSV_Du_DieuKienTHhi_XetTN_TrinhDoTC"
                                                 class="form-control"></td>
 
@@ -318,7 +366,7 @@
                                                 class="form-control"></td>
                                     </tr>
                                     <tr>
-                                        <td>Số sinh viên đủ điều kiện thi sét TN</td>
+                                        <td>Số sinh viên đủ điều kiện thi xét TN</td>
                                         <td><input type="number" min="0" step="1" name="SoSV_DuKienThi_XetTN_NgheKhac"
                                                 class="form-control"></td>
 
@@ -413,12 +461,12 @@
                                 <tbody>
                                     <tr>
                                         <td>Số người có việc làm ngay sau khi tốt nghiệp</td>
-                                        <td><input type="number" min="0" step="1" name="SV_CoViecLam_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoTC"
+                                        <td><input type="number" min="0" step="1" name="SoNguoiHoc_CoViecLamNgay_SauKhi_TN_TrinhDoSC"
                                                 class="form-control"></td>
                                     </tr>
                                     <tr>
                                         <td>Hộ khẩu Hà Nội</td>
-                                        <td><input type="number" min="0" step="1" name="SoNguoiHoc_CoViecLamNgay_SauKhi_TN_TrinhDoSC"
+                                        <td><input type="number" min="0" step="1" name="SoLuong_HoKhauHN_TrinhDoSC"
                                                 class="form-control"></td>
 
                                     </tr>
@@ -460,6 +508,12 @@
                                         <tr>
                                             <td>Hộ khẩu Hà Nội</td>
                                             <td><input type="number" min="0" step="1" name="CoViecLam_HoKhauHN_TrinhDo_TC"
+                                                    class="form-control"></td>
+    
+                                        </tr>
+                                        <tr>
+                                            <td>Hộ khẩu Hà Nội Trình độ Trung cấp tốt nghiệp THCS</td>
+                                            <td><input type="number" min="0" step="1"   name="SV_CoViecLam_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoTC"
                                                     class="form-control"></td>
     
                                         </tr>
@@ -584,23 +638,26 @@
         <div class="row mt-4" style="float: right">
             <div class="col-md-12">
                 <button type="button" class="btn btn-danger mr-5"><a style="color: white"
-                        href="{{route('solieutuyensinh')}}">Hủy</a></button>
+                        href="{{route('xuatbc.ds-tot-nghiep')}}">Hủy</a></button>
                 <button type="submit" class="btn btn-primary">Thêm mới</button>
 
             </div>
         </div>
     </form>
+    
 </div>
 @endsection
 @section('script')
 <script>
-    var routeCheck = "{{ route('so_lieu_tuyen_sinh.check_so_lieu') }}";
+var routeCheck = "{{ route('xuatbc.check_so_lieu_tot_nghiep') }}";
+var routeGetMaNganhNghe = "{{ route('get_ma_nganh_nghe') }}";
 $(document).ready(function(){
   $('#co_so_dao_tao').select2();
   $('#ma_nganh_nghe').select2();
 });
+
 </script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="{!! asset('tuyensinh/js/tuyensinh.js') !!}"></script>
+<script src="{!! asset('tong_hop_ket_qua_tot_nghiep/tong_hop_ket_qua_tot_nghiep.js') !!}"></script>
 @endsection

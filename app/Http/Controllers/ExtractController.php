@@ -2,9 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\validateAddDoiNguNhaGiao;
+use App\Http\Requests\validateUpdateDoiNguNhaGiao;
 use Illuminate\Http\Request;
 use App\Repositories;
 use App\Services\QlsvService;
+use App\Services\DoiNguNhaGiaoService;
+use App\Services\LoaiHinhCoSoService;
+use App\Services\CoQuanChuQuanService;
+use App\Services\CoSoDaoTaoService;
+use App\Services\NganhNgheService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
@@ -12,63 +19,174 @@ use Illuminate\Support\Facades\DB;
 class ExtractController extends Controller
 {
     protected $QlsvService;
-    public function __construct(QlsvService $QlsvService)
+    protected $DoiNguNhaGiaoService;
+    protected $LoaiHinhCoSoService;
+    protected $CoQuanChuQuanService;
+    protected $CoSoDaoTaoService;
+    protected $NganhNgheService;
+    
+
+    public function __construct(
+        QlsvService $QlsvService, 
+        DoiNguNhaGiaoService $DoiNguNhaGiaoService,
+        LoaiHinhCoSoService $LoaiHinhCoSoService,
+        CoQuanChuQuanService $CoQuanChuQuanService,
+        CoSoDaoTaoService $CoSoDaoTaoService,
+        NganhNgheService $NganhNgheService
+        )
     {
         $this->QlsvService = $QlsvService;
+        $this->DoiNguNhaGiaoService = $DoiNguNhaGiaoService;
+        $this->LoaiHinhCoSoService = $LoaiHinhCoSoService;
+        $this->CoQuanChuQuanService = $CoQuanChuQuanService;
+        $this->CoSoDaoTaoService =$CoSoDaoTaoService;
+        $this->NganhNgheService =$NganhNgheService;
     }
+
     // phunv - Chức năng Tổng hợp trích xuất báo cáo - Danh sách đội ngũ nhà giáo
+
+    /* Danh sách đội ngũ nhà giáo.
+     * @author: phucnv
+     * @created_at 2020-06-_ _ 
+     */
     public function danhsachnhagiao(Request $request)
     {
+        $params = $request->all();
+        
+        if(!isset($params['page_size'])) $params['page_size'] = config('common.paginate_size.default');
+        $route_name = Route::current()->action['as'];
+     
+        $data = $this->DoiNguNhaGiaoService->getDanhSachDoiNguNhaGiao($params);
+        $getloaihinhcoso = $this->LoaiHinhCoSoService->getAll();
+        $getcoquanchuquan = $this->CoQuanChuQuanService->getAll();
+        $get_nganh_nghe = $this->NganhNgheService->getAll();
+        $nam = Carbon::now()->year;
 
+        $data->withPath("?coquanchuquan=$request->coquanchuquan&
+                          loaihinhcoso=$request->loaihinhcoso&
+                          dot=$request->dot&
+                          nam=$request->nam&
+                          keyword=$request->keyword");  
+        if($data->count() < 1){
+            return view('extractreport.danh_sach_doi_ngu_nha_giao', 
+            compact('data','params','route_name','getcoquanchuquan','getloaihinhcoso','get_nganh_nghe','nam'),
+            ['thongbao'=>'Không tìm thấy kết quả !']
+        );
+        }      
+        return view('extractreport.danh_sach_doi_ngu_nha_giao',
+        compact('data','params','route_name','getcoquanchuquan','getloaihinhcoso','get_nganh_nghe','nam'),
+        ['thongbao'=>'']
+    );
+    }
+
+    /* Danh sách chi tiết đội ngũ nhà giáo theo cơ sở.
+     * @author: phucnv
+     * @created_at 2020-06-_ _ 
+     */
+    public function chiTietTheoCoSo(Request $request,$co_so_id){
         $params = $request->all();
         if(!isset($params['page_size'])) $params['page_size'] = config('common.paginate_size.default');
         $route_name = Route::current()->action['as'];
 
-        
-        $data = DB::table('so_lieu_doi_ngu_quan_ly')
-        ->leftjoin('co_so_dao_tao', 'so_lieu_doi_ngu_quan_ly.co_so_id', '=', 'co_so_dao_tao.id')
-        ->leftjoin('loai_hinh_co_so', 'co_so_dao_tao.ma_loai_hinh_co_so', '=', 'loai_hinh_co_so.id')
-        ->leftjoin('co_quan_chu_quan', 'co_so_dao_tao.co_quan_chu_quan_id', '=', 'co_quan_chu_quan.id')
-        ->select('so_lieu_doi_ngu_quan_ly.*', 
-        DB::raw('co_so_dao_tao.ten as ten'), 
-        DB::raw('loai_hinh_co_so.loai_hinh_co_so as ten_loai_hinh_co_so'),
-        DB::raw('co_quan_chu_quan.ten as ten_co_quan_chu_quan')
-        )
-        ->get();
- 
-        
-        $coquanchoquan = DB::table('co_quan_chu_quan')->get();
-        $loaihinhcoso = DB::table('loai_hinh_co_so')->get();
-        // dd($data,$coquanchoquan,$loaihinhcoso);
-        $param = [
-            'coquanchoquan' => $coquanchoquan,
-            'loaihinhcoso'=> $loaihinhcoso
-        ];
+        $data = $this->DoiNguNhaGiaoService->chiTietTheoCoSo($co_so_id, $params);
+        $thongtincoso = $this->CoSoDaoTaoService->getSingleCsdt($co_so_id);
+        $yearTime = Carbon::now()->year;
        
-        return view('extractreport.danh_sach_doi_ngu_nha_giao',compact('data','param','route_name'));
+        $data->withPath("?dot=$request->dot&
+                          nam=$request->nam"); 
+
+        if($data->count() < 1){
+            return view('extractreport.danh_sach_chi_tiet_doi_ngu_nha_giao',
+            compact('data','params','thongtincoso','yearTime','route_name'),['thongbao'=>'Không tìm thấy kết quả !']);
+        } 
+        return view('extractreport.danh_sach_chi_tiet_doi_ngu_nha_giao',
+        compact('data','params','thongtincoso','yearTime','route_name'),['thongbao'=>'']);
     }
 
-
-
+    /* Màn hình thêm Danh sách đội ngũ nhà giáo
+     * @author: phucnv
+     * @created_at 2020-06-_ _ 
+     */
     public function themDanhSachDoiNguNhaGiao()
     {
-        $cosodaotao = DB::table('co_so_dao_tao')->distinct()->get();
-        $loaihinhcoso = DB::table('loai_hinh_co_so')->distinct()->get();
-        $now = Carbon::now()->year;
+        $cosodaotao = DB::table('co_so_dao_tao')->get();
+        $nam = Carbon::now()->year;
         $param = [
             'cosodaotao' => $cosodaotao,
-            'loaihinhcoso'=> $loaihinhcoso
+            'nam' => $nam
         ];
-        // dd($coso);
-        return view('extractreport.them-moi-danh-sach-gv',compact('param','now'));
+        return view('extractreport.them-moi-doi_ngu_nha_giao',compact('param'));
     }
 
+    /* Danh sách ngành nghề theo ID cơ sở.
+     * @author: phucnv
+     * @created_at 2020-06-_ _ 
+     */
+    public function layNganhNgheTheoCoSo($co_so_id){
+        $nganhNghe = $this->DoiNguNhaGiaoService->getNganhNgheTheoCoSo($co_so_id);
+        return $nganhNghe;
+    }
 
-    public function suaDanhSachDoiNguNhaGiao()
+    /* Lưu dữ liệu từ màn hình thêm dữ liệu Danh sách đội ngũ nhà giáo.
+     * @author: phucnv
+     * @created_at 2020-06-_ _ 
+     */
+    public function saveDanhSachDoiNguNhaGiao(validateAddDoiNguNhaGiao $request)
     {
-        return view('extractreport.chinh-sua-danh-sach-doi-ngu-ql');
+        $params = $request->all();
+        $kq = $this->DoiNguNhaGiaoService->checkTonTaiKhiThem($params);
+        if($kq){       
+            return redirect()->route('xuatbc.them-ds-nha-giao')->with(['kq'=> $kq->id])->withInput();
+        }
+
+        $dateTime = Carbon::now();
+        $request->request->set('created_at', $dateTime->format('Y-m-d H:i:s'));
+ 
+        $this->DoiNguNhaGiaoService->create($request);
+        return redirect()->route('xuatbc.ds-nha-giao')->with(['kq'=> 'thêm thành công']);
     }
 
+    /* Màn hình cập nhật dữ liệu Danh sách đội ngũ nhà giáo.
+     * @author: phucnv
+     * @created_at 2020-06-_ _ 
+     */
+    public function suaDanhSachDoiNguNhaGiao($id)
+    {
+        $data = $this->DoiNguNhaGiaoService->findById($id);
+        if (empty($data)) {
+            return redirect()->route('xuatbc.ds-nha-giao');
+        }
+
+        $cosodaotao = DB::table('co_so_dao_tao')->get();
+        $nganh_nghe_theo_id = $this->NganhNgheService->findById($data->nghe_id);
+        $ten_nghe = $nganh_nghe_theo_id->ten_nganh_nghe;
+        
+        $nam = Carbon::now()->year;
+        $params = [
+            'cosodaotao' => $cosodaotao,
+            'nam' => $nam,
+            'ten_nghe' => $ten_nghe
+        ];
+        return view('extractreport.chinh_sua_doi_ngu_nha_giao',compact('params','data'));
+    }
+    
+    /* Update dữ liệu từ màn hình cập nhật dữ liệu Danh sách đội ngũ nhà giáo.
+     * @author: phucnv
+     * @created_at 2020-06-_ _ 
+     */
+    public function updateDanhSachDoiNguNhaGiao($id, validateUpdateDoiNguNhaGiao $request)
+    {
+        $data = $this->DoiNguNhaGiaoService->findById($id);
+        if (empty($data)) {
+            return redirect()->route('xuatbc.ds-nha-giao');
+        }
+
+        $dateTime = Carbon::now();
+        $request->request->set('updated_at', $dateTime->format('Y-m-d H:i:s'));
+        $this->DoiNguNhaGiaoService->update($id,$request);
+
+         return redirect()->back()->with(['thongbao'=>'Cập nhật thành công !']);
+    }
     // phunv - end
 
     public function danhsachquanly()
@@ -80,11 +198,18 @@ class ExtractController extends Controller
         $data = $this ->QlsvService->getQlsv();
         $loaiHinhCs = $this->QlsvService->getLoaiHinh();
         $coso = $this->QlsvService->getCoSo();
-        $nganhNghe = $this->QlsvService->getNganhNghe();
+        $nganhNghe = $this->QlsvService->getMaNganhNghe();
+        // dd($nganhNghe);
+        $nghe_cap_2 = $this->QlsvService->getNganhNghe(2);
+        $nghe_cap_3 = $this->QlsvService->getNganhNghe(3);
+        $nghe_cap_4 = $this->QlsvService->getNganhNghe(4);
         return view('crud.add_quan_ly_sv',['data'=>$data,
                                            'loaiHinh'=>$loaiHinhCs,
+                                           'nganhNghe' => $nganhNghe,
                                            'coso'=>$coso,
-                                           'nganhNghe'=>$nganhNghe]);
+                                           'nghe_cap_2' => $nghe_cap_2,
+                                           'nghe_cap_3' => $nghe_cap_3,
+                                           'nghe_cap_4' => $nghe_cap_4]);
         //  dd($coso);
     }
     public function saveAdd(Request $request)
@@ -167,15 +292,22 @@ class ExtractController extends Controller
         $request->request->set('thoi_gian_cap_nhat', $dateTime->format('Y-m-d H:i:s'));
         $request->request->set('nam', $dateTime->year);
         $request->request->set('dot', 1);
+        $co_so_id = $request->co_so_id;
+      
         $this->QlsvService->create($request);
         // dd($request);
-        return redirect('/xuat-bao-cao/so-lieu-sinh-vien-dang-theo-hoc')->withInput();
+        return redirect()->route('xuatbc.chi-tiet-so-lieu', ['co_so_id' => $co_so_id]);
     }
     public function edit($id)
     {
         $data = $this->QlsvService->suaSoLieuSv($id);
-        $nganhNghe = $this->QlsvService->getNganhNghe();
-        return view('crud.edit_quan_ly_sv',[ 'data' => $data,'nganhNghe'=> $nganhNghe]);
+        $nghe_cap_2 = $this->QlsvService->getNganhNghe(2);
+        $nghe_cap_3 = $this->QlsvService->getNganhNghe(3);
+        $nghe_cap_4 = $this->QlsvService->getNganhNghe(4);
+        return view('crud.edit_quan_ly_sv',[ 'data' => $data,  
+            'nghe_cap_2' => $nghe_cap_2,
+            'nghe_cap_3' => $nghe_cap_3,
+            'nghe_cap_4' => $nghe_cap_4]);
     }
     public function saveEdit($id, Request $request)
     {
@@ -192,36 +324,67 @@ class ExtractController extends Controller
     }
     public function tonghopsvdanghoc()
     {
-        
         $params = request()->all();
-        if(!isset($params['page_size'])) $params['page_size'] = config('common.paginate_size.default');
-        // dd($params);
+        $quanhuyen = $this->QlsvService->getTenQuanHuyen();
+        $nghe_cap_2 = $this->QlsvService->getNganhNghe(2);
+        if(isset(request()->devvn_quanhuyen)){
+            $xaphuongtheoquanhuyen = $this->QlsvService->getTenXaPhuongTheoQuanHuyen(request()->devvn_quanhuyen);
+        }else{
+            $xaphuongtheoquanhuyen=[];
+        }
         $data = $this->QlsvService->getQlsv($params);
+        $nganhNghe = $this->QlsvService->getMaNganhNghe();
+        $data->appends(request()->input())->links();
+        $nghe_cap_3 = $this->QlsvService->getNganhNghe(3);
+        $nghe_cap_4 = $this->QlsvService->getNganhNghe(4);
         // $nam = $this->QlsvService->getNamDaoTao();
         $loaiHinhCs = $this->QlsvService->getLoaiHinh();
         $coso = $this->QlsvService->getCoSo();
+        $route_name = Route::current();
         return view('extractreport.tong_hop_sinh_vien_dang_theo_hoc',[
-            // 'nam' => $nam,
+            // 'limit'=>$limit,
+            'route_name'=>$route_name,
             'data' => $data,
+            'nganhNghe' => $nganhNghe,
             'loaiHinh' => $loaiHinhCs,
             'coso'=>$coso,
-            
+            'quanhuyen'=>$quanhuyen,
+            'xaphuongtheoquanhuyen'=>$xaphuongtheoquanhuyen,
+            'params' => $params,
+            'nghe_cap_2' => $nghe_cap_2,
+            'nghe_cap_3' => $nghe_cap_3,
+            'nghe_cap_4' => $nghe_cap_4
         ]);
     }
     public function tongHopChiTietSvDangTheoHoc($coSoId){
         
-        $queryData = request()->all();
-        $data = $this->QlsvService->chiTietSoLieuQlsv($coSoId,$queryData);
+        $params = request()->all();
+        $quanhuyen = $this->QlsvService->getTenQuanHuyen();
+        if(isset(request()->devvn_quanhuyen)){
+            $xaphuongtheoquanhuyen = $this->QlsvService->getTenXaPhuongTheoQuanHuyen(request()->devvn_quanhuyen);
+        }else{
+            $xaphuongtheoquanhuyen=[];
+        }
+        $data = $this->QlsvService->chiTietSoLieuQlsv($coSoId,$params);
         $loaiHinhCs = $this->QlsvService->getLoaiHinh();
         $coso = $this->QlsvService->getCoSo();
-        $nganhNghe = $this->QlsvService->getNganhNghe();
+        $nganhNghe = $this->QlsvService->getMaNganhNghe();
+        $nghe_cap_2 = $this->QlsvService->getNganhNghe(2);
+        $nghe_cap_3 = $this->QlsvService->getNganhNghe(3);
+        $nghe_cap_4 = $this->QlsvService->getNganhNghe(4);
         //  dd($data);
         return view('extractreport.lich_su_sinh_vien_dang_theo_hoc',[
             'data' =>$data,
             'loaiHinh' => $loaiHinhCs,
+            'nganhNghe' => $nganhNghe,
             'coso'=>$coso,
-            'nganhNghe'=> $nganhNghe,
-            'query'=>$queryData]);
+            'params'=>$params,
+            'quanhuyen'=>$quanhuyen,
+            'xaphuongtheoquanhuyen'=>$xaphuongtheoquanhuyen,
+            'nghe_cap_2' => $nghe_cap_2,
+            'nghe_cap_3' => $nghe_cap_3,
+            'nghe_cap_4' => $nghe_cap_4,
+            ]);
 
     }
     
@@ -260,6 +423,6 @@ class ExtractController extends Controller
     }
     public function tonghoptuyensinh()
     {
-        return view('solieutuyensinh.tong_hop_so_lieu_tuyen_sinh');
+        return view('extractreport.tong_hop_ket_qua_tuyen_sinh');
     }
 }

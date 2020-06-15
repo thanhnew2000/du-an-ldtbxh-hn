@@ -101,6 +101,8 @@
                     <th>Tên cơ sở <br> đào tạo</th>
                     <th>Mã cơ sở <br/> đào tạo</th>
                     <th>Logo</th>
+                    <th>Quyết định</th>
+                    <th>Ngày ban hành</th>
                     <th>Loại hình <br> cơ sở</th>
                     <th>Đơn vị <br> chủ quản</th>
                     <th>Quận/huyện</th>
@@ -117,13 +119,15 @@
                         <td>
                             <img src="{{asset($cursor->logo)}}" style="width: 75px;" class="m--img-rounded m--marginless">
                         </td>
+                        <td>{{$cursor->ten_quyet_dinh}}</td>
+                        <td>{{$cursor->ngay_ban_hanh}}</td>
                         <td>{{$cursor->loai_hinh_co_so}}</td>
                         <td>{{$cursor->ten_chu_quan}}</td>
                         <td>{{$cursor->ten_qh}}</td>
                         <td>{{$cursor->ten_xptt}}</td>
                         <td>
                             <a href="" class="btn btn-primary btn-sm">Cập nhật</a>
-                            <a href="" class="btn btn-danger btn-sm">Xóa</a>
+                            <a href="" class="btn btn-danger btn-sm">Thu hồi</a>
                         </td>
                     </tr>
                 @endforeach

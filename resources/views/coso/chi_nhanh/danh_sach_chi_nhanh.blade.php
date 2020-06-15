@@ -26,8 +26,8 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Tên cơ sở:</label>
                                 <div class="col-lg-8">
-                                    <input type="text" name="ten_co_so" class="form-control m-input"
-                                        placeholder="Nhập từu khóa tên cơ sở">
+                                    <input type="text" name="ten_co_so" value="{{ $params['ten_co_so'] }}" class="
+                                        form-control m-input" placeholder="Nhập từu khóa tên cơ sở">
                                 </div>
                             </div>
                         </div>
@@ -36,7 +36,8 @@
                                 <label class="col-lg-2 col-form-label">Mã chứng nhận</label>
                                 <div class="col-lg-8">
                                     <input type="text" name="ma_chung_nhan"
-                                        placeholder="Mã chứng nhận đăng kí hoạt động" class="form-control m-input">
+                                        placeholder="Mã chứng nhận đăng kí hoạt động"
+                                        value="{{ $params['ma_chung_nhan'] }}" class="form-control m-input">
                                 </div>
 
                             </div>
@@ -48,9 +49,18 @@
                                 <div class="col-lg-8">
                                     <select name="loai_chi_nhanh" class="form-control ">
                                         <option disabled selected>chọn loại chi nhánh</option>
-                                        <option value="1">Chi nhánh chính</option>
+                                        @if (isset($params['loai_chi_nhanh']))
+                                        @if ($params['loai_chi_nhanh'] == 1)
+                                        <option value="1" selected>Chi nhánh chính</option>
                                         <option value="0">Chi nhánh phụ</option>
-
+                                        @elseif($params['loai_chi_nhanh'] == 0)
+                                        <option value="0" selected>Chi nhánh phụ</option>
+                                        <option value="1">Chi nhánh chính</option>
+                                        @endif
+                                        @else
+                                        <option value="0">Chi nhánh phụ</option>
+                                        <option value="1">Chi nhánh chính</option>
+                                        @endif
                                     </select>
                                 </div>
 
@@ -105,7 +115,7 @@
                             <td>{{$items->ma_chung_nhan_dang_ki_hoat_dong}}</td>
                             <td class="d-flex">
                                 <a href="{{route('chi-nhanh.cap-nhat', ['id'=> $items->id])}}"
-                                    class="btn btn-info btn-sm mr-3">Sửa</a>
+                                    class="btn btn-primary btn-sm mr-3">Cập nhật</a>
                                 <button type="button" class="btn btn-danger btn-sm" onclick="Confirm({{$items->id}})"
                                     data-toggle="modal" data-target="#m_modal_3">Xóa</button>
                                 <form action="{{ route('chi-nhanh.xoa',['id'=> $items->id ]) }}" method="post"

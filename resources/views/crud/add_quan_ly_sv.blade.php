@@ -40,7 +40,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Nghề : <span class="batbuoc">*</span> </label>
                                 <div class="col-lg-8">
-                                    <select name="nghe_id" class="form-control" required name="nghe_id">
+                                    <select name="nghe_id" class="form-control" required name="nghe_id"  id="nghe_id">
                                         <option value="{{ old('nghe_id') }}" >Chọn </option>
                                        @foreach ($nganhNghe as $item)
                                         <option class="form-control " value="{{$item->id}}">{{$item->ten_nganh_nghe}} - {{$item->id}}</option>
@@ -53,7 +53,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Tên cơ sở: <span class="batbuoc">*</span>  </label>
                                 <div class="col-lg-8">
-                                    <select  name="co_so_id"  class="form-control " required name="co_so_id">
+                                    <select  name="co_so_id"  class="form-control " required name="co_so_id" id="co_so_id">
                                         <option value="{{ old('co_so_id') }}" >Chọn </option>
                                         @foreach ($coso as $item)
                                             <option value="{{$item->id}}">{{$item->ten}}</option>
@@ -78,8 +78,6 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
     </div>
@@ -279,4 +277,15 @@
       </div>
   </form>
 </div>
+@endsection
+@section('script')
+    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+    <script>
+
+        $(document).ready(function(){
+            $('#nghe_id').select2();
+            $('#co_so_id').select2();
+            });
+    
+        </script>
 @endsection

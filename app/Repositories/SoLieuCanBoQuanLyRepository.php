@@ -84,4 +84,26 @@ class SoLieuCanBoQuanLyRepository extends BaseRepository
     {
         return $this->model->create($data);
     }
+
+    public function update($id, $data = [])
+    {
+        return $this->model
+            ->where('id', $id)
+            ->update($data);
+    }
+
+    public function getListByCoSo(int $coSoId, int $limit = 20, array $params = [])
+    {
+        $queryBuilder = $this->model
+            ->where('co_so_dao_tao_id', $coSoId);
+
+        if (isset($params['sort_field']) && !empty($params['sort_field'])) {
+            $sortBy = isset($params['sort_by']) && !empty($params['sort_field']) ?
+                $params['sort_by'] : 'asc';
+
+            $queryBuilder->orderBy($params['sort_field'], $sortBy);
+        }
+
+        return $queryBuilder->paginate($limit);
+    }
 }
