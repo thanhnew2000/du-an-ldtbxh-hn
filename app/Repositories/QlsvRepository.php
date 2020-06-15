@@ -44,7 +44,7 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
         if(!empty($params['nam'])){
             $data->where('sv_dang_quan_ly.nam', $params['nam']);
         }	
-        if(!empty($params['dot']!= null)){
+        if(!empty($params['dot'])){
             $data->where('sv_dang_quan_ly.dot', $params['dot']);
         }
         if (isset($params['loai_hinh']) && !empty($params['loai_hinh'])) {
