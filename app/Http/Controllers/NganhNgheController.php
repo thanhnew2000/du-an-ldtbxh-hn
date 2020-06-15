@@ -88,7 +88,7 @@ class NganhNgheController extends Controller
                 'id' => $dataCoSoDaoTao[0]->id,
                 'text' => $dataCoSoDaoTao[0]->ma_don_vi . ' - ' . $dataCoSoDaoTao[0]->ten
             ]
-            : null;
+            : [];
 
 
         $dsNghe = [];
