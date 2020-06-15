@@ -16,10 +16,11 @@ class LienKetDaoTaoController extends Controller
     }
     public function tonghoplienketdaotao()
     {
-        $limit = 10;
+        $limit = 20;
         $params = request()->all();
         $data = $this->LienKetDaoTaoService->getTongHopLienKetDaoTao($params, $limit);
         dd($data);
+
         return view('lien-ket-dao-tao.tong-hop-lien-ket-dao-tao');
     }
 }
