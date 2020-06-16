@@ -5,13 +5,21 @@
 <h1>Biểu đồ báo cáo ngân sách</h1>
 <div class="m-content container-fluid">
     <div class="m-portlet">
+        <div class="row">
+            <div class="col-md-6 p-5">
         <h2 style="text-align:center">Biểu đồ số lượng sinh viên tốt nghiệp đạt khá giỏi các năm 2015-2020 </h2>
-        <canvas id="myChart" width="400" height="400"></canvas>
+        <canvas id="barChart" width="400" height="400"></canvas>
+        </div>
+        <div class="col-md-6 p-5">
+            <h2 style="text-align:center">Biểu đồ số lượng sinh viên tốt nghiệp đạt khá giỏi các năm 2015-2020 </h2>
+        <canvas id="lineChart" width="400" height="400"></canvas>
+        </div>
+        </div>
     </div>
-    <canvas id="myChart" width="400" height="400"></canvas>
+    
 <script>
-var ctx = document.getElementById('myChart');
-var myChart = new Chart(ctx, {
+var ctx = document.getElementById('barChart');
+var barChart = new Chart(ctx, {
     type: 'bar',
     data: 
     {
