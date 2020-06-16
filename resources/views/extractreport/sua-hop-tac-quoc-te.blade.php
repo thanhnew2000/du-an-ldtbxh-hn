@@ -27,12 +27,12 @@
                         <div class="form-group m-form__group row">
                             <label class="col-lg-2 col-form-label">Tên đơn vị</label>
                             <div class="col-lg-8">
-                                {{--  <select name="" class="form-control " disabled>
-                                    @foreach ($params['cosodaotao'] as $item)
+                                 <select name="" class="form-control " disabled>
+                                    @foreach ($params['co_so_dao_tao'] as $item)
                                     <option {{ $data->co_so_id == $item->id ? 'selected' : '' }}
                                         value="{{ $item->id }}">{{ $item->ten }}</option>
                                     @endforeach
-                                </select>  --}}
+                                </select> 
                             </div>
                         </div>
                     </div>
@@ -40,9 +40,9 @@
                         <div class="form-group m-form__group row">
                             <label class="col-lg-2 col-form-label">Năm</label>
                             <div class="col-lg-8">
-                                {{--  <select name="" class="form-control " disabled>                         
+                                 <select name="" class="form-control " disabled>                         
                                     <option >{{ $data->nam }}</option>                           
-                                </select>  --}}
+                                </select> 
                             </div>
                         </div>
                     </div>
@@ -52,9 +52,9 @@
                         <div class="form-group m-form__group row">
                             <label class="col-lg-2 col-form-label">Đợt</label>
                             <div class="col-lg-8">
-                                {{--  <select name="" class="form-control " disabled>
+                                 <select name="" class="form-control " disabled>
                                     <option >{{ $data->dot }}</option>
-                                </select>  --}}
+                                </select> 
                             </div>
                         </div>
                     </div>
@@ -297,10 +297,4 @@
     </div>
 </div>
     @endsection
-    @section('script')
-    <script>
-        $(document).ready(function() {
-        $('#ten_don_vi').select2();
-    });
-    </script>
-    @endsection
+

@@ -174,7 +174,7 @@
                         <td>{{ $item->tong_kinh_phi	 }}</td>
 
                         <td>
-                            <a class="btn btn-sm btn-primary" target="_blank" href="{{route('xuatbc.sua-ds-nha-giao',['id'=>$item->id])}}">
+                            <a class="btn btn-sm btn-primary" target="_blank" href="{{route('xuatbc.sua-ds-hop-tact-qte',['id'=>$item->id])}}">
                                 Sửa</a>                        
                         </td>
                     </tr>

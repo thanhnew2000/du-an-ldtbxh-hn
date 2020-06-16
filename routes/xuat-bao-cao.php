@@ -213,7 +213,7 @@ Route::group(['prefix' => 'hop-tac-quoc-te'], function () {
         ->name('xuatbc.them-ds-hop-tact-qte');
     Route::post('/them', 'ExtractController@saveTongHopHopTacQuocTe');    
 
-    Route::get('/sua', 'ExtractController@suaTongHopHopTacQuocTe')
+    Route::get('/sua/{id}', 'ExtractController@suaTongHopHopTacQuocTe')
         ->name('xuatbc.sua-ds-hop-tact-qte');
 });
 //phucnv end BM:13

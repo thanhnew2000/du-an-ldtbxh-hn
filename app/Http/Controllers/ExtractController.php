@@ -484,9 +484,21 @@ class ExtractController extends Controller
 
     }
 
-    public function suaTongHopHopTacQuocTe()
+    public function suaTongHopHopTacQuocTe($id)
     {
-        return view('extractreport.sua-hop-tac-quoc-te');
+
+    
+      
+
+        $data = $this->HopTacQuocTeService->findById($id);
+        if (empty($data)) {
+            return redirect()->route('xuatbc.ds-hop-tact-qte');
+        }
+
+        $params['co_so_dao_tao'] = $this->CoSoDaoTaoService->getAll();
+
+
+        return view('extractreport.sua-hop-tac-quoc-te',compact('params','data'));
     }
 
     //phucnv end BM:13
