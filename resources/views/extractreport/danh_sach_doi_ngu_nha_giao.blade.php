@@ -29,7 +29,7 @@ $stt = 1;
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Tên cơ sở</label>
                                 <div class="col-lg-8">
-                                        <select name="co_so_id" class="form-control ">
+                                        <select name="co_so_id" class="form-control select2">
                                             <option value="">-----Chọn cơ sở-----</option>
                                             @foreach ($params['get_co_so'] as $item)
                                             <option value="{{ $item->id }}" @if(isset($params['co_so_id']) &&
@@ -47,7 +47,7 @@ $stt = 1;
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Loại hình cơ sở</label>
                                 <div class="col-lg-8">
-                                    <select name="loaihinhcoso" class="form-control ">
+                                    <select name="loaihinhcoso" class="form-control select2">
                                         <option value="">-----Chọn loại hình cơ sở-----</option>
                                         @foreach ($params['get_loai_hinh_co_so'] as $item)
                                         <option value="{{ $item->id }}" @if(isset($params['loaihinhcoso']) &&
@@ -68,7 +68,7 @@ $stt = 1;
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Cơ quan chủ quản</label>
                                 <div class="col-lg-8">
-                                    <select name="coquanchuquan" class="form-control ">
+                                    <select name="coquanchuquan" class="form-control select2">
                                         <option value="">-----Chọn cơ quan chủ quản-----</option>
                                         @foreach ($params['get_co_quan_chu_quan'] as $item)
                                         <option value="{{ $item->id }}" @if(isset($params['coquanchuquan']) &&
@@ -87,7 +87,7 @@ $stt = 1;
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Ngành nghề</label>
                                 <div class="col-lg-8">
-                                    <select name="nghe_id" id="" class="form-control ">
+                                    <select name="nghe_id" id="" class="form-control select2">
                                         <option value="">-----Chọn ngành nghề-----</option>
                                         @forelse ($params['get_nganh_nghe'] as $item)
                                         <option value="{{ $item->id }}" @if(isset($params['nghe_id']) &&
@@ -435,10 +435,10 @@ $stt = 1;
             window.location.href = reloadUrl;
         });
 
-        $('[name="co_so_id"]').select2();
-        $('[name="coquanchuquan"]').select2();
-        $('[name="nghe_id"]').select2();
-        $('[name="loaihinhcoso"]').select2();
+        // $('[name="co_so_id"]').select2();
+        // $('[name="coquanchuquan"]').select2();
+        // $('[name="nghe_id"]').select2();
+        // $('[name="loaihinhcoso"]').select2();
         $('.select2').select2();
         $('span.select2').css('width', '100%');
 
