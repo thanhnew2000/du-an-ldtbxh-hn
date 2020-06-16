@@ -54,25 +54,25 @@ class HopTacQuocTeRepository extends BaseRepository implements HopTacQuocTeRepos
         return $kq;
     }
 
-    /* Danh sách chi tiết đội ngũ nhà giáo theo cơ sở.
+    /* Danh sách chi tiết hợp tác quốc tế theo cơ sở đào tạo.
      * @author: phucnv
      * @created_at 2020-06-15 
      */
     public function chiTietTheoCoSo($co_so_id, $params){
         $queryBuilder = $this->table
-        ->leftjoin('co_so_dao_tao','so_lieu_doi_ngu_nha_giao.co_so_id','=','co_so_dao_tao.id')
-        ->select('so_lieu_doi_ngu_nha_giao.*',
+        ->leftjoin('co_so_dao_tao','ket_qua_hop_tac_quoc_te.co_so_id','=','co_so_dao_tao.id')
+        ->select('ket_qua_hop_tac_quoc_te.*',
         DB::raw('co_so_dao_tao.ten as ten_co_so'))
         ->where('ket_qua_hop_tac_quoc_te.co_so_id', $co_so_id);
 
         if(isset($params['nam']) && $params['nam'] != null){
-            $queryBuilder->where('so_lieu_doi_ngu_nha_giao.nam', $params['nam']);
+            $queryBuilder->where('ket_qua_hop_tac_quoc_te.nam', $params['nam']);
         }
         if(isset($params['dot']) && $params['dot'] != null){
-            $queryBuilder->where('so_lieu_doi_ngu_nha_giao.dot', $params['dot']);
+            $queryBuilder->where('ket_qua_hop_tac_quoc_te.dot', $params['dot']);
         }
         
-        return $queryBuilder->paginate($params['page_size']);
+        return $queryBuilder->orderByDesc('nam')->orderByDesc('dot')->paginate($params['page_size']);
     }
   
 }

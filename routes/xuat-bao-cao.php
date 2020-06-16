@@ -206,7 +206,7 @@ Route::group(['prefix' => 'hop-tac-quoc-te'], function () {
     Route::get('/tong-hop', 'ExtractController@tonghophoptacquocte')
         ->name('xuatbc.ds-hop-tact-qte');
 
-    Route::get('/chi-tiet', 'ExtractController@chiTietTongHopHopTacQuocTe')
+    Route::get('/chi-tiet/{co_so_id}', 'ExtractController@chiTietTongHopHopTacQuocTe')
         ->name('xuatbc.chi-tiet-ds-hop-tact-qte');
 
     Route::get('/them', 'ExtractController@themTongHopHopTacQuocTe')

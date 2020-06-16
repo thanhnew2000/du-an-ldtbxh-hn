@@ -447,20 +447,19 @@ class ExtractController extends Controller
         if(!isset($params['page_size'])) $params['page_size'] = config('common.paginate_size.default');
         $route_name = Route::current()->action['as'];
 
-        // $data = $this->DoiNguNhaGiaoService->chiTietTheoCoSo($co_so_id, $params);
-        // $thongtincoso = $this->CoSoDaoTaoService->getSingleCsdt($co_so_id);
+        $data = $this->HopTacQuocTeService->chiTietTheoCoSo($co_so_id, $params);
+        $thongtincoso= $this->CoSoDaoTaoService->getSingleCsdt($co_so_id);
 
-       
-        // $data->withPath("?dot=$request->dot&
-        //                   nam=$request->nam"); 
+        $data->withPath("?dot=$request->dot&
+                          nam=$request->nam&
+                          page_size=$request->page_size"); 
 
-        // if($data->count() < 1){
-        //     return view('extractreport.danh_sach_chi_tiet_doi_ngu_nha_giao',
-        //     compact('data','params','thongtincoso','yearTime','route_name'),['thongbao'=>'Không tìm thấy kết quả !']);
-        // } 
-        // return view('extractreport.danh_sach_chi_tiet_doi_ngu_nha_giao',
-        // compact('data','params','thongtincoso','yearTime','route_name'),['thongbao'=>'']);
-        return view('extractreport.chi-tiet-hop-tac-quoc-te');
+        if($data->count() < 1){
+            return view('extractreport.chi-tiet-hop-tac-quoc-te',
+            compact('data','params','route_name','thongtincoso'),['thongbao'=>'Không tìm thấy kết quả !']);
+        } 
+        return view('extractreport.chi-tiet-hop-tac-quoc-te',
+        compact('data','params','route_name','thongtincoso'),['thongbao'=>'']);
     }
 
     public function themTongHopHopTacQuocTe()
@@ -478,7 +477,7 @@ class ExtractController extends Controller
         if($kq){       
             return redirect()->route('xuatbc.them-ds-hop-tact-qte')->with(['kq'=> $kq->id])->withInput();
         }
- 
+
         $this->HopTacQuocTeService->create($request);
         return redirect()->route('xuatbc.them-ds-hop-tact-qte')->with(['kq'=> 'thêm thành công']);
 

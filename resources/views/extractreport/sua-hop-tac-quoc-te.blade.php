@@ -27,11 +27,12 @@
                         <div class="form-group m-form__group row">
                             <label class="col-lg-2 col-form-label">Tên đơn vị</label>
                             <div class="col-lg-8">
-                                <select name="bac_nghe" class="form-control " id="ten_don_vi">
-                                    <option selected="" value="6">Chọn đơn vị</option>
-                                    <option value="5">FU</option>
-                                    <option selected="" value="6">Fpoly</option>
-                                </select>
+                                {{--  <select name="" class="form-control " disabled>
+                                    @foreach ($params['cosodaotao'] as $item)
+                                    <option {{ $data->co_so_id == $item->id ? 'selected' : '' }}
+                                        value="{{ $item->id }}">{{ $item->ten }}</option>
+                                    @endforeach
+                                </select>  --}}
                             </div>
                         </div>
                     </div>
@@ -39,11 +40,9 @@
                         <div class="form-group m-form__group row">
                             <label class="col-lg-2 col-form-label">Năm</label>
                             <div class="col-lg-8">
-                                <select name="bac_nghe" class="form-control ">
-                                    <option selected="" value="6">Chọn năm</option>
-                                    <option value="5">2018</option>
-                                    <option selected="" value="6">2019</option>
-                                </select>
+                                {{--  <select name="" class="form-control " disabled>                         
+                                    <option >{{ $data->nam }}</option>                           
+                                </select>  --}}
                             </div>
                         </div>
                     </div>
@@ -53,10 +52,9 @@
                         <div class="form-group m-form__group row">
                             <label class="col-lg-2 col-form-label">Đợt</label>
                             <div class="col-lg-8">
-                                <select name="bac_nghe" class="form-control ">
-                                    <option selected="" value="6">1</option>
-                                    <option value="5">2</option>
-                                </select>
+                                {{--  <select name="" class="form-control " disabled>
+                                    <option >{{ $data->dot }}</option>
+                                </select>  --}}
                             </div>
                         </div>
                     </div>
