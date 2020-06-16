@@ -207,14 +207,15 @@ Route::group(['prefix' => 'hop-tac-quoc-te'], function () {
         ->name('xuatbc.ds-hop-tact-qte');
 
     Route::get('/chi-tiet/{co_so_id}', 'ExtractController@chiTietTongHopHopTacQuocTe')
-        ->name('xuatbc.chi-tiet-ds-hop-tact-qte');
+        ->name('xuatbc.chi-tiet-ds-hop-tac-qte');
 
     Route::get('/them', 'ExtractController@themTongHopHopTacQuocTe')
-        ->name('xuatbc.them-ds-hop-tact-qte');
+        ->name('xuatbc.them-ds-hop-tac-qte');
     Route::post('/them', 'ExtractController@saveTongHopHopTacQuocTe');    
 
     Route::get('/sua/{id}', 'ExtractController@suaTongHopHopTacQuocTe')
-        ->name('xuatbc.sua-ds-hop-tact-qte');
+        ->name('xuatbc.sua-ds-hop-tac-qte');
+    Route::post('/sua/{id}', 'ExtractController@updateTongHopHopTacQuocTe');
 });
 //phucnv end BM:13
 

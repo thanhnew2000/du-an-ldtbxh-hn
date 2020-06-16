@@ -16,6 +16,7 @@ use App\Services\NganhNgheService;
 use App\Services\HopTacQuocTeService;
 
 use App\Http\Requests\HopTacQuocTe\StoreHopTacQuocTeRequest;
+use App\Http\Requests\HopTacQuocTe\UpdateHopTacQuocTeRequest;
 
 
 use Carbon\Carbon;
@@ -411,18 +412,14 @@ class ExtractController extends Controller
      * @author: phucnv
      * @created_at 2020-06-15 
      */
-
     public function tonghophoptacquocte(Request $request)
     {
-
-
         $params = $request->all();
         if(!isset($params['page_size'])) $params['page_size'] = config('common.paginate_size.default');
         $route_name = Route::current()->action['as'];
 
         $params['co_so_dao_tao'] = $this->CoSoDaoTaoService->getAll();
         $data = $this->HopTacQuocTeService->getDanhSachKetQuaHopTacQuocTe($params);
-
 
         $data->withPath("?co_so_id=$request->co_so_id&
                           dot=$request->dot&
@@ -437,12 +434,15 @@ class ExtractController extends Controller
         return view('extractreport.tong_hop_hop_tac_quoc_te',
         compact('data','params','route_name'),
         ['thongbao'=>'']);
-
     }
 
+
+    /* Danh sách chi tiết hợp tác quốc tế theo Cơ sở.
+     * @author: phucnv
+     * @created_at 2020-06-16 
+     */
     public function chiTietTongHopHopTacQuocTe(Request $request, $co_so_id)
     {
-
         $params = $request->all();
         if(!isset($params['page_size'])) $params['page_size'] = config('common.paginate_size.default');
         $route_name = Route::current()->action['as'];
@@ -462,43 +462,66 @@ class ExtractController extends Controller
         compact('data','params','route_name','thongtincoso'),['thongbao'=>'']);
     }
 
+    /* Màn hình thêm tổng hợp hợp tác quốc tế.
+     * @author: phucnv
+     * @created_at 2020-06-15
+     */
     public function themTongHopHopTacQuocTe()
     {
         $params['co_so_dao_tao'] = $this->CoSoDaoTaoService->getAll();
         return view('extractreport.them-moi-hop-tac-quoc-te',
         compact('params'));
     }
+
+    /* Lưu lại dữ liệu màn hình thêm tổng hợp hợp tác quốc tê.
+     * @author: phucnv
+     * @created_at 2020-06-15 
+     */
     public function saveTongHopHopTacQuocTe(StoreHopTacQuocTeRequest $request)
     {
-   
         $params = $request->all();
         
         $kq = $this->HopTacQuocTeService->checkTonTaiKhiThem($params);
         if($kq){       
-            return redirect()->route('xuatbc.them-ds-hop-tact-qte')->with(['kq'=> $kq->id])->withInput();
+            return redirect()->route('xuatbc.them-ds-hop-tac-qte')->with(['edit'=> $kq->id])->withInput();
         }
 
         $this->HopTacQuocTeService->create($request);
-        return redirect()->route('xuatbc.them-ds-hop-tact-qte')->with(['kq'=> 'thêm thành công']);
-
-
+        return redirect()->route('xuatbc.them-ds-hop-tac-qte')->with(['success'=> 'thêm thành công']);
     }
 
+
+    /* Màn hình sửa tổng hợp hợp tác quốc tê.
+     * @author: phucnv
+     * @created_at 2020-06-16 
+     */
     public function suaTongHopHopTacQuocTe($id)
     {
-
-    
-      
-
         $data = $this->HopTacQuocTeService->findById($id);
         if (empty($data)) {
             return redirect()->route('xuatbc.ds-hop-tact-qte');
         }
 
         $params['co_so_dao_tao'] = $this->CoSoDaoTaoService->getAll();
-
-
         return view('extractreport.sua-hop-tac-quoc-te',compact('params','data'));
+    }
+
+
+    /* Cập nhật màn hình sửa tổng hợp hợp tác quốc tê.
+     * @author: phucnv
+     * @created_at 2020-06-16 
+     */
+    public function updateTongHopHopTacQuocTe($id, UpdateHopTacQuocTeRequest $request)
+    {
+        $data = $this->HopTacQuocTeService->findById($id);
+        if (empty($data)) {
+            return redirect()->route('xuatbc.ds-hop-tact-qte');
+        }
+
+        $dateTime = Carbon::now();
+        $request->request->set('thoi_gian_cap_nhat', $dateTime->format('Y-m-d H:i:s'));
+        $this->HopTacQuocTeService->update($id,$request);
+        return redirect()->back()->with(['success'=>'Cập nhật thành công !']);
     }
 
     //phucnv end BM:13

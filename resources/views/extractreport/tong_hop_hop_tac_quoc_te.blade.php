@@ -113,7 +113,7 @@
                         <th rowspan="2">Tổng số kinh phí đầu tư trang thiết bị , máy móc</th>
                         <th rowspan="2">Trạng thái</th>
                         <th rowspan="2">
-                            <a href="{{ route('xuatbc.them-ds-hop-tact-qte') }}" class="btn btn-success btn-sm">Thêm mới</a>
+                            <a target="_blank" href="{{ route('xuatbc.them-ds-hop-tac-qte') }}" class="btn btn-success btn-sm">Thêm mới</a>
                         </th>
                     </tr>
                 </thead>
@@ -135,7 +135,7 @@
                         <td>{{ $item->tong_kinh_phi }}</td>
                         <td>{{ $item->trang_thai }}</td>
                         <td>
-                            <a class="btn btn-info" href="{{ route('xuatbc.chi-tiet-ds-hop-tact-qte',['co_so_id' => $item->co_so_id]) }}" target="_blank">Chi tiết</a>
+                            <a class="btn btn-info" href="{{ route('xuatbc.chi-tiet-ds-hop-tac-qte',['co_so_id' => $item->co_so_id]) }}" target="_blank">Chi tiết</a>
                         </td>
                     </tr>
 

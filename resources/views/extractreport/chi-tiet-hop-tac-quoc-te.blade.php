@@ -103,11 +103,12 @@
 
                     </select>
                 </div>
-            </div>
+            </div> 
             <div class="row justify-content-center">
             <h3>Cơ sở đào tạo: {{$thongtincoso[0]->ten}}</h3>
             </div>
-            <table class="table table-bordered m-table m-table- m-table--head-bg-primary table-boder-white">               
+            <table class="table table-bordered m-table m-table- m-table--head-bg-primary table-boder-white">
+                              
                 <thead>
                     <tr class="text-center">
                         <th rowspan="2">STT</th>
@@ -174,7 +175,7 @@
                         <td>{{ $item->tong_kinh_phi	 }}</td>
 
                         <td>
-                            <a class="btn btn-sm btn-primary" target="_blank" href="{{route('xuatbc.sua-ds-hop-tact-qte',['id'=>$item->id])}}">
+                            <a class="btn btn-sm btn-primary" target="_blank" href="{{route('xuatbc.sua-ds-hop-tac-qte',['id'=>$item->id])}}">
                                 Sửa</a>                        
                         </td>
                     </tr>

@@ -41,7 +41,6 @@
                                             {{$item->ten}}</option>
                                         @endforeach
                                     </select>
-                                    {{--  <label id="ten_don_vi-error" class="error" for="ten_don_vi"></label>  --}}
 
                                     @if ($errors->has('co_so_id'))
                                     <span class="text-danger">{{ $errors->first('co_so_id') }}</span>
@@ -412,7 +411,7 @@
         </div>
         <div class="d-flex justify-content-end">
             <div class="col-lg-1 ">
-                <button type="submit" class="btn btn-danger">Hủy</button>
+                <a href="{{ route('xuatbc.ds-hop-tact-qte') }}" class="btn btn-danger">Hủy</a>
             </div>
             <div>
                 <button type="submit" class="btn btn-primary">Thêm mới</button>
@@ -424,6 +423,36 @@
 @endsection
 @section('script')
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+<script src="sweetalert2.min.js"></script>
+<link rel="stylesheet" href="sweetalert2.min.css">
+
+@if (session('success'))
+<script>
+    Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Thêm thành công !',
+        showConfirmButton: false,
+        timer: 3500
+    })
+</script>
+@endif
+
+@if (session('edit'))
+<script>
+  Swal.fire({
+  title: 'Dữ liệu đã tồn tại',
+  icon: 'warning',
+  text: 'Bạn có thể chuyển tới Chỉnh sửa! ',
+  confirmButtonText: 'OK',
+  cancelButtonText: '<a href="{{route('xuatbc.sua-ds-hop-tac-qte',['id'=>session('edit')])}}">Edit</a>',
+  cancelButtonColor: '#d33',
+  showCancelButton: true,
+  showCloseButton: true
+})
+</script>
+@endif
+
 <script type="text/javascript">
     $(document).ready(function () {
         const listField = [
@@ -493,9 +522,7 @@
             messages: messages
 
         });
-
-
-
+        $('.select2').select2();
     });
 
 </script>
