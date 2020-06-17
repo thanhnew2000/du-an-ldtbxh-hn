@@ -7,8 +7,8 @@ return [
         'tu_thuc' => 3,
     ],
     'paginate_size' => [
-        'default' => 1,
-        'list' => [1, 2, 3, 100]
+        'default' => 20,
+        'list' => [20, 50, 80, 100]
     ],
     'nam_tuyen_sinh' => [
         'list' => [2016, 2017, 2018, 2019, 2020]

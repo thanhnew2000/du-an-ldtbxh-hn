@@ -22,7 +22,8 @@ class HopTacQuocTeRepository extends BaseRepository implements HopTacQuocTeRepos
        
         $queryBuilder = $this->table
         ->leftjoin('co_so_dao_tao', 'ket_qua_hop_tac_quoc_te.co_so_id', '=', 'co_so_dao_tao.id')
-        ->select('ket_qua_hop_tac_quoc_te.*', DB::raw('co_so_dao_tao.ten as ten'));
+        ->leftjoin('trang_thai', 'ket_qua_hop_tac_quoc_te.trang_thai', '=', 'trang_thai.id')
+        ->select('ket_qua_hop_tac_quoc_te.*', DB::raw('co_so_dao_tao.ten as ten'), DB::raw('trang_thai.ten_trang_thai as ten_trang_thai'));
 
         if(isset($params['co_so_id']) && $params['co_so_id'] != null){
             $queryBuilder->where('ket_qua_hop_tac_quoc_te.co_so_id', $params['co_so_id']);
@@ -34,8 +35,8 @@ class HopTacQuocTeRepository extends BaseRepository implements HopTacQuocTeRepos
         if(isset($params['dot']) && $params['dot'] != null){
             $queryBuilder->where('ket_qua_hop_tac_quoc_te.dot', $params['dot']);
         }
-
-        return $queryBuilder->orderBy('nam', 'desc')->paginate($params['page_size']);
+//  dd($queryBuilder);
+        return $queryBuilder->orderBy('nam', 'desc')->orderBy('dot', 'desc')->paginate($params['page_size']);
       
     }
 

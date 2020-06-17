@@ -107,7 +107,7 @@
             <div class="row justify-content-center">
             <h3>Cơ sở đào tạo: {{$thongtincoso[0]->ten}}</h3>
             </div>
-            <table class="table table-bordered m-table m-table- m-table--head-bg-primary table-boder-white">
+            <table class="table table-bordered m-table m-table- m-table--head-bg-primary table-boder-white ">
                               
                 <thead>
                     <tr class="text-center">
@@ -154,25 +154,25 @@
                         <td>{{ $item->nam }}</td>
                         <td>{{ $item->dot }}</td>
 
-                        <td>{{ $item->tong_tuyen_sinh }}</td>
+                        <td><b>{{ $item->tong_tuyen_sinh }}</b></td>
                         <td>{{ $item->tong_tuyen_sinh_CD }}</td>
                         <td>{{ $item->tong_tuyen_sinh_TC }}</td>
                         <td>{{ $item->tong_tuyen_sinh_SC }}</td>
 
-                        <td>{{ $item->tong_so_hs_duoc_cap_bang }}</td>
+                        <td><b>{{ $item->tong_so_hs_duoc_cap_bang }}</b></td>
                         <td>{{ $item->so_hs_duoc_cac_don_vi_cap_bang }}</td>
                         <td>{{ $item->so_hs_duoc_nha_truong_cap_bang }}</td>
 
                         <td>{{ $item->so_hs_co_viec_lam_sau_khi_tot_nghiep }}</td>
                         <td>{{ $item->so_luong_chuong_trinh_xay_dung_phat_trien }}</td>
 
-                        <td>{{ $item->tong_hop_tac_quoc_te_trong_dao_tao_boi_duong }}</td>
+                        <td><b>{{ $item->tong_hop_tac_quoc_te_trong_dao_tao_boi_duong }}</b></td>
                         <td>{{ $item->so_gv_duoc_dao_tao_boi_duong }}</td>
                         <td>{{ $item->so_can_bo_quan_ly_duoc_dao_tao_boi_duong }}</td>
 
                         <td>{{ $item->so_phong_hoc_duoc_dau_tu }}</td>
                         <td>{{ $item->so_nha_xuong_duoc_dau_tu }}</td>
-                        <td>{{ $item->tong_kinh_phi	 }}</td>
+                        <td><b>{{ $item->tong_kinh_phi	 }}</b></td>
 
                         <td>
                             <a class="btn btn-sm btn-primary" target="_blank" href="{{route('xuatbc.sua-ds-hop-tac-qte',['id'=>$item->id])}}">
@@ -214,9 +214,7 @@
             var nam = $('[name="nam"]').val();
             var page_size = $(this).val();
             var reloadUrl =
-                `${currentUrl}?dot=${dot}&
-                nam=${nam}&
-                page_size=${page_size}`;
+                `${currentUrl}?dot=${dot}&nam=${nam}&page_size=${page_size}`;
             window.location.href = reloadUrl;
         });
 

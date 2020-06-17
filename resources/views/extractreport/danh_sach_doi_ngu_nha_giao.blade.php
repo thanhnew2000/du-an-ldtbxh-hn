@@ -425,13 +425,7 @@ $stt = 1;
             var nghe_id = $('[name="nghe_id"]').val();
             var page_size = $(this).val();
             var reloadUrl =
-                `${currentUrl}?coquanchuquan=${coquanchuquan}&
-                loaihinhcoso=${loaihinhcoso}&
-                dot=${dot}&
-                nam=${nam}&
-                co_so_id=${co_so_id}&
-                nghe_id=${nghe_id}&
-                page_size=${page_size}`;
+                `${currentUrl}?coquanchuquan=${coquanchuquan}&loaihinhcoso=${loaihinhcoso}&dot=${dot}&nam=${nam}&co_so_id=${co_so_id}&nghe_id=${nghe_id}&page_size=${page_size}`;
             window.location.href = reloadUrl;
         });
 

@@ -77,12 +77,8 @@ class ExtractController extends Controller
         $params['get_nganh_nghe'] = $this->NganhNgheService->getAll();
         $params['get_co_so'] = $this->CoSoDaoTaoService->getAll();
     
-        $data->withPath("?coquanchuquan=$request->coquanchuquan&
-                          loaihinhcoso=$request->loaihinhcoso&
-                          dot=$request->dot&
-                          nam=$request->nam&
-                          co_so_id=$request->co_so_id&
-                          page_size=$request->page_size");  
+        $data->withPath("?coquanchuquan=$request->coquanchuquan&loaihinhcoso=$request->loaihinhcoso&dot=$request->dot&nam=$request->nam&co_so_id=$request->co_so_id&page_size=$request->page_size");  
+        
         if($data->count() < 1){
             return view('extractreport.danh_sach_doi_ngu_nha_giao', 
             compact('data','params','route_name','coSo'),
@@ -108,9 +104,7 @@ class ExtractController extends Controller
         $thongtincoso = $this->CoSoDaoTaoService->getSingleCsdt($co_so_id);
      
        
-        $data->withPath("?dot=$request->dot&
-                          nam=$request->nam&
-                          page_size=$request->page_size"); 
+        $data->withPath("?dot=$request->dot&nam=$request->nam&page_size=$request->page_size"); 
 
         if($data->count() < 1){
             return view('extractreport.danh_sach_chi_tiet_doi_ngu_nha_giao',
@@ -421,10 +415,7 @@ class ExtractController extends Controller
         $params['co_so_dao_tao'] = $this->CoSoDaoTaoService->getAll();
         $data = $this->HopTacQuocTeService->getDanhSachKetQuaHopTacQuocTe($params);
 
-        $data->withPath("?co_so_id=$request->co_so_id&
-                          dot=$request->dot&
-                          nam=$request->nam&
-                          page_size=$request->page_size");  
+        $data->withPath("?co_so_id=$request->co_so_id&dot=$request->dot&nam=$request->nam&page_size=$request->page_size");  
         if($data->count() < 1){
             return view('extractreport.tong_hop_hop_tac_quoc_te', 
             compact('data','params','route_name'),
@@ -450,9 +441,7 @@ class ExtractController extends Controller
         $data = $this->HopTacQuocTeService->chiTietTheoCoSo($co_so_id, $params);
         $thongtincoso= $this->CoSoDaoTaoService->getSingleCsdt($co_so_id);
 
-        $data->withPath("?dot=$request->dot&
-                          nam=$request->nam&
-                          page_size=$request->page_size"); 
+        $data->withPath("?dot=$request->dot&nam=$request->nam&page_size=$request->page_size"); 
 
         if($data->count() < 1){
             return view('extractreport.chi-tiet-hop-tac-quoc-te',

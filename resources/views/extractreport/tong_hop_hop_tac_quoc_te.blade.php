@@ -133,7 +133,7 @@
                         <td>{{ $item->tong_so_hs_duoc_cap_bang }}</td>
                         <td>{{ $item->tong_hop_tac_quoc_te_trong_dao_tao_boi_duong }}</td>
                         <td>{{ $item->tong_kinh_phi }}</td>
-                        <td>{{ $item->trang_thai }}</td>
+                        <td>{{ $item->ten_trang_thai }}</td>
                         <td>
                             <a class="btn btn-info" href="{{ route('xuatbc.chi-tiet-ds-hop-tac-qte',['co_so_id' => $item->co_so_id]) }}" target="_blank">Chi tiết</a>
                         </td>
@@ -193,10 +193,7 @@
             var nam = $('[name="nam"]').val();
             var page_size = $(this).val();
             var reloadUrl =
-                `${currentUrl}?co_so_id=${co_so_id}&
-                dot=${dot}&
-                nam=${nam}&
-                page_size=${page_size}`;
+                `${currentUrl}?co_so_id=${co_so_id}&dot=${dot}&nam=${nam}&page_size=${page_size}`;
             window.location.href = reloadUrl;
         });
 
