@@ -64,7 +64,7 @@
 							</div>
 						</div>
 						<div class="img" style="text-align: center;">
-							<img width="200px" id="showavatar" src="{!! asset('storage/'.$user->avatar) !!}">
+							<img width="200px" id="showavatar" class="td_show-avatar" src="{!! asset('storage/'.$user->avatar) !!}">
 						</div>
 						<div class="form-group m-form__group row">
 							<label for="example-text-input" class="col-2 col-form-label">Mật khẩu xác nhận</label>
@@ -96,9 +96,7 @@
 					<div class="m-portlet__foot m-portlet__foot--fit">
 						<div class="m-form__actions">
 							<div class="row">
-								<div class="col-2">
-								</div>
-								<div class="col-10">
+								<div class="col-12 text-center">
 									<button type="submit" class="btn btn-success">Cập nhật tài khoản</button>
 									<!-- <button type="reset" class="btn btn-secondary">Hủy</button> -->
 								</div>
@@ -115,6 +113,12 @@
 @endsection
 @section('script')
 <script type="text/javascript">
+    $(document).ready(function(){
+        $('.td_show-avatar').each(function(){
+            var avatarImgUrl = $(this).attr('src');
+            SystemUtil.defaultImgUrl(avatarImgUrl, this, "{{  asset('images/avatardefault.png') }}");
+        });
+    })
 	function showimages(element) {
             var file = element.files[0];
                 var reader = new FileReader();
