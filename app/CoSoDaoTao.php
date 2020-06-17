@@ -5,6 +5,9 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\LoaiHinhCoSo;
 use App\Models\SoLieuCanBoQuanLy;
+use App\Models\DoiNguNhaGiao;
+use App\Models\NganhNghe;
+use App\Models\GiayPhepDangKyNghe;
 
 class CoSoDaoTao extends Model
 {
@@ -23,5 +26,32 @@ class CoSoDaoTao extends Model
     public function soLieuCanBoQuanLy()
     {
         return $this->hasMany(SoLieuCanBoQuanLy::class, 'co_so_dao_tao_id');
+    }
+
+    public function doiNguNhaGiao()
+    {
+        return $this->hasMany(DoiNguNhaGiao::class, 'co_so_id');
+    }
+
+    public function nganhNghe()
+    {
+        return $this->belongsToMany(
+            NganhNghe::class,
+            'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao',
+            'co_so_id',
+            'nghe_id'
+        );
+    }
+
+    public function soLieuDoiNguNhaGiao()
+    {
+        return $this->hasManyThrough(
+            DoiNguNhaGiao::class,
+            GiayPhepDangKyNghe::class,
+            'co_so_id',
+            'nghe_id',
+            'id',
+            'nghe_id'
+        );
     }
 }

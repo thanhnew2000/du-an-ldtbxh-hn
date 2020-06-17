@@ -33,7 +33,7 @@
                                 <label class="col-lg-3 col-form-label text-right">Cơ sở đào tạo:</label>
                                 <div class="col-lg-8">
                                     <select id="chon-co-so-ajax" class="form-control">
-                                        @if(!empty($defaultCsdt))
+                                        @if(count($defaultCsdt) > 0)
                                         <option value="{{$defaultCsdt['id']}}" selected="selected">
                                             {{$defaultCsdt['text']}}</option>
                                         @endif
@@ -72,6 +72,7 @@
                     <th>Quyết định số</th>
                     <th>Ngày ban hành</th>
                     <th>Trạng thái</th>
+                    <th>Ảnh giấy phép</th>
                     <th>
                         @if(empty($defaultCsdt) == false)
                         <button type="button" class="btn btn-success btn-sm" id="bo-sung-dang_ky" data-toggle="modal"
@@ -95,14 +96,19 @@
                                     <div class="form-group">
                                         <p class="m-portlet__head-text">
                                             <span>Mã+ tên cơ sở: </span> &nbsp;
-                                            <span class="m--font-boldest h5">{{$defaultCsdt['text']}}</span>
+                                            <span class="m--font-boldest h5">
+                                                @if(count($defaultCsdt) > 0)
+                                                {{$defaultCsdt['text']}}
+                                                @endif
+                                            </span>
                                         </p>
                                     </div>
-                                    <form action="{{ route('nghe.bo-sung-vao-co-so') }}" method="POST"
-                                        enctype="multipart/form-data">
+                                    <form method="POST" action="{{ route('nghe.bo-sung-vao-co-so') }}" enctype="multipart/form-data">
                                         {{ csrf_field() }}
+                                        @if(count($defaultCsdt) > 0)
                                         <input type="hidden" name="co_so_id" value="{{ $defaultCsdt['id'] }}"
                                             id="co-so-id">
+                                        @endif
                                         <div class="d-flex justify-content-between">
                                             <div class="form-group col-6 p-0 mr-4">
                                                 <label class="form-name" for="">Giấy phép <span
@@ -121,6 +127,16 @@
                                                         value="2011-08-19" id="ngay-ban-hanh">
                                                 </div>
                                                 <span class="text-danger" id="Err-ngay_ban_hanh"></span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label for="" class="form-name">Logo <span class="text-danger">(*)</span></label>
+                                            <div class="form-group col-lg-12 mt-2">
+                                                <img id="logo-co-so" class="col-6" src="" alt="">
+                                            </div>
+                                            <div class="custom-file form-control">
+                                                <input type="file" class="custom-file-input" id="customFile" name="anh-giay-phep">
+                                                <label class="custom-file-label" for="customFile">Choose file</label>
                                             </div>
                                         </div>
 
@@ -168,7 +184,7 @@
                 </thead>
                 <tbody>
                     @forelse($dsNghe as $cursor)
-                    <tr>
+                    <tr id="data-response-ajax">
                         <td>{{$cursor->nghe_id}}</td>
                         <td>{{$cursor->ten_nganh_nghe}}</td>
                         <td>
@@ -186,14 +202,17 @@
                             Tạm dừng
                             @endif
                         </td>
+                        <td class="text-center">
+                            <a href="{!! asset('storage/' . $cursor->anh_quyet_dinh) !!}" target="_blank"><i class="fas fa-eye"></i></a>
+                        </td>
                         <td>
-                            <a href="" class="btn btn-info btn-sm">Cập nhật</a>
+                            <a href="javascript:;" class="btn btn-info btn-sm">Cập nhật</a>
                             <a href="" class="btn btn-danger btn-sm">Thu hồi</a>
                         </td>
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="7">Chưa có dữ liệu</td>
+                        <td colspan="7" class="text-center text-danger">VUI LÒNG CHỌN TRƯỜNG</td>
                     </tr>
                     @endforelse
                 </tbody>
@@ -210,53 +229,90 @@
 @section('script')
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
-    // const html = `<li>${text}</li>`;
-    // $("#list").append(html);
     var currentUrl = '{{route($route_name)}}';
-        $(document).ready(function(){
-            $('#chon-co-so-ajax').select2({
-                ajax: {
-                    url: '{{route('co-so-dao-tao.api-search-co-so-dao-tao')}}',
-                    method: 'POST',
-                    data: function(params){
-                        var query = {
-                            keyword: params.term || '',
-                            page: params.page || 1
-                        }
-                        return query;
-                    },
-                    cache: true,
-                    dataType: 'json',
-                    processResults: function (data, params) {
-
-                        return {
-                            results: data.results,
-                            pagination: {
-                                more: data.pagination.more
-                            }
-                        };
+    $(document).ready(function(){
+        $('#chon-co-so-ajax').select2({
+            ajax: {
+                url: '{{route('co-so-dao-tao.api-search-co-so-dao-tao')}}',
+                method: 'POST',
+                data: function(params){
+                    var query = {
+                        keyword: params.term || '',
+                        page: params.page || 1
                     }
+                    return query;
+                },
+                cache: true,
+                dataType: 'json',
+                processResults: function (data, params) {
+
+                    return {
+                        results: data.results,
+                        pagination: {
+                            more: data.pagination.more
+                        }
+                    };
                 }
-            });
-            $('#chon-co-so-ajax').on('change', function(){
-                var csdtId = $(this).val();
-                window.location.href = `${currentUrl}/${csdtId}`;
-            });
-            $('#page-size').change(function(){
-                var csdtId = $('#chon-co-so-ajax').val();
-                var page_size = $(this).val();
-                var reloadUrl = `${currentUrl}/${csdtId}?page_size=${page_size}`;
-                window.location.href = reloadUrl;
-            });
-
-            $('#chon-nghe-cao-dang').select2({
-                placeholder: "Tìm kiếm ngành nghề",
-            })
-
-            $('#chon-nghe-trung-cap').select2({
-                placeholder: "Tìm kiếm ngành nghề",
-            })
+            }
         });
+        $('#chon-co-so-ajax').on('change', function(){
+            var csdtId = $(this).val();
+            window.location.href = `${currentUrl}/${csdtId}`;
+        });
+        $('#page-size').change(function(){
+            var csdtId = $('#chon-co-so-ajax').val();
+            var page_size = $(this).val();
+            var reloadUrl = `${currentUrl}/${csdtId}?page_size=${page_size}`;
+            window.location.href = reloadUrl;
+        });
+
+        $('#chon-nghe-cao-dang').select2({
+            placeholder: "Tìm kiếm ngành nghề",
+        })
+
+        $('#chon-nghe-trung-cap').select2({
+            placeholder: "Tìm kiếm ngành nghề",
+        })
+    });
+
+        // $("#them-nghe-cho-co-so-ajax").click(function(event) {
+        // event.preventDefault();
+        // // $('#Err-ten').addClass('d-none');
+        // // $('#Err-ma').addClass('d-none');
+        // var dataPost = {
+        //     co_so_id: $('#co-so-id').val();
+        //         ten_quyet_dinh: $('#ten-quyet-dinh').val();
+        //         ngay_ban_hanh: $('#ngay-ban-hanh').val();
+        //         // nghe_cao_dang: $('#chon-nghe-cao-dang').val();
+        //         // nghe_trung_cap: $('#chon-nghe-trung-cap').val();
+        //         _token: '{{csrf_token()}}'
+        // };
+        // console.log(dataPost);
+        // $.ajax({
+        //     type: "POST",
+        //     dataType: "json",
+        //     url: "{{ route('nghe.bo-sung-vao-co-so') }}",
+        //     data: dataPost,
+        //     success: function(response) {
+        //         var htmldata = '<option selected disabled>---Chọn cơ quan---</option>'
+        //         response.data.forEach(element => {
+        //             htmldata += `<option value="${element.id}">${element.ten}</option>`
+        //         });
+        //         $('#co_quan_chu_quan_id').html(htmldata);
+        //         $('#message').html(response.message)
+        //     },
+        //     error: function(data) {
+        //         var errors = data.responseJSON;
+        //         if ($.isEmptyObject(errors) == false) {
+        //             $.each(errors.errors, function(key, value) {
+        //                 console.log(value);
+        //                 var ErrorID = '#Err-' + key;
+        //                 $(ErrorID).removeClass('d-none');
+        //                 $(ErrorID).text(value);
+        //             })
+        //         }
+        //     }
+        // });
 </script>
 
 

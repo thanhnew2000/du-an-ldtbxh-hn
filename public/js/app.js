@@ -36269,6 +36269,7 @@ module.exports = function(module) {
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.$ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 
 __webpack_require__(/*! select2 */ "./node_modules/select2/dist/js/select2.js");
 
@@ -36324,8 +36325,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\duanso\du-an-ldtbxh-hn\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\duanso\du-an-ldtbxh-hn\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/tiennh/Desktop/Poly/projects/ldtbxh/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/tiennh/Desktop/Poly/projects/ldtbxh/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

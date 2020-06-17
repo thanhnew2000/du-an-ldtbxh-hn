@@ -19,15 +19,17 @@ Route::get('chi-tiet-co-so/{id}', 'CoSoDaoTaoController@chitietCSDT')->name('csd
 Route::get('cap-nhat-co-so/{id}', 'CoSoDaoTaoController@suaCSDT')->name('csdt.cap-nhat');
 Route::post('cap-nhat-co-so/{id}', 'CoSoDaoTaoController@capnhatCSDT');
 
-Route::get('danh-sach-chi-nhanh/{id?}', 'ChiNhanhController@danhsachchinhanh')->name('csdt.chi-nhanh');
+Route::get('danh-sach-dia-diem-dao-tao/{id?}', 'ChiNhanhController@danhsachchinhanh')->name('csdt.chi-nhanh');
 
-Route::get('tao-moi-chi-nhanh', 'ChiNhanhController@themchinhanh')->name('chi-nhanh.tao-moi');
-Route::post('tao-moi-chi-nhanh', 'ChiNhanhController@savethemchinhanh');
+Route::get('tao-moi-dia-diem-dao-tao', 'ChiNhanhController@themchinhanh')->name('chi-nhanh.tao-moi');
+Route::post('tao-moi-dia-diem-dao-tao', 'ChiNhanhController@savethemchinhanh');
 
-Route::get('sua-chi-nhanh/{id}', 'ChiNhanhController@suachinhanh')->name('chi-nhanh.cap-nhat');
-Route::post('sua-chi-nhanh/{id}', 'ChiNhanhController@capnhatchinhanh');
+Route::get('cap-nhat-dia-diem-dao-tao/{id}', 'ChiNhanhController@suachinhanh')->name('chi-nhanh.cap-nhat');
+Route::post('cap-nhat-dia-diem-dao-tao/{id}', 'ChiNhanhController@capnhatchinhanh');
 
-Route::post('xoa-chi-nhanh/{id}', 'ChiNhanhController@xoachinhanh')->name('chi-nhanh.xoa');
+Route::post('xoa-dia-diem-dao-tao/{id}', 'ChiNhanhController@xoachinhanh')->name('chi-nhanh.xoa');
 
 Route::post('them-co-quan-chu-quan', 'CoSoDaoTaoController@addCoQuanChuQuan')->name('co-quan-chu-quan.them');
 Route::post('them-quyet-dinh-thanh-lap-co-so', 'CoSoDaoTaoController@addQuyetDinh')->name('quyet-dinh.add');
+
+Route::get('/danh-sach-nganh-nghe-cua-co-so-dao-tao/{csdtid?}', 'NganhNgheController@thietlapnghechocosodaotao')->name('csdt.thiet-lap-nghe-cs');
