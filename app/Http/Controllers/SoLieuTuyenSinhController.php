@@ -54,7 +54,7 @@ class SoLieuTuyenSinhController extends Controller
         return view('solieutuyensinh.tong_hop_so_lieu_tuyen_sinh', [
             'data' => $data,
             'loaiHinh' => $loaiHinh,
-            'limit' => 10,
+            'limit' => $limit,
             'coso'=> $coso,
             'quanhuyen' => $quanhuyen,
             'params' => $params,
