@@ -94,13 +94,12 @@ Route::group(['prefix' => 'chinh-sach-sinh-vien'], function () {
     Route::post('/sua-chinh-sach-sinh-vien/{id}', 'ChinhSachSinhVienController@postsuachinhsachsinhvien')
         ->name('xuatbc.post-sua-chinh-sach-sinh-vien');
 
-    
-    // thanhnv import export
-    Route::post('export-bieu-mau-chinh-sach-sv','ExportChinhSachSinhVienController@exportBieuMau')
-    ->name('layformbieumau.cs.sinhvien');
-    Route::post('export-data-chinh-sach-sv','ExportChinhSachSinhVienController@exportData')
-    ->name('exportdata.bieumau.cs.sinhvien');
 
+    // thanhnv import export
+    Route::post('export-bieu-mau-chinh-sach-sv', 'ExportChinhSachSinhVienController@exportBieuMau')
+        ->name('layformbieumau.cs.sinhvien');
+    Route::post('export-data-chinh-sach-sv', 'ExportChinhSachSinhVienController@exportData')
+        ->name('exportdata.bieumau.cs.sinhvien');
 });
 //END Xuân - Chính sách sinh viên
 

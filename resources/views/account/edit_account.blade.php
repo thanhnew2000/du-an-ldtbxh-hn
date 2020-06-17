@@ -60,7 +60,6 @@
                                 <input class="form-control m-input" type="text" name="name" value="{{ $user->name }}" placeholder="Nhập Họ và Tên">
                                 @if ($errors->has('name'))
                                 <span class="text-danger">{{ $errors->first('name') }}</span>
-                                    
                                 @endif
                             </div>
                         </div>
@@ -70,13 +69,26 @@
                                 <input class="form-control m-input" type="text" name="phone" value="{{ $user->phone_number }}" placeholder="Nhập Số điện thoại">
                                 @if ($errors->has('phone'))
                                 <span class="text-danger">{{ $errors->first('phone') }}</span>
-                                    
                                 @endif
                             </div>
                         </div>
+                        {{-- 16/06/2020 - Th  --}}
+                        <div class="form-group m-form__group row">
+                            <label  class="col-4 col-form-label">Phân Quyền: </label>
+                            <div class="col-6">
+								<select class="form-control m-input" name="role">
+                                    @foreach ($data as $role)
+                                        <option 
+                                         {{-- {{ ($role->id == $role->id) ?   'selected' : '' }} --}}
+                                         {{-- {{( $item->nam == '2020' ) ? 'selected' : ''}} --}}
+                                        value="{{ $role->id }}"> 
+                                        {{ $role->name }} 
+                                    </option>
+                                    @endforeach
+								</select>
+                            </div>
+                        </div>
                         
-                        
-                
                     </div>
                     <div class="m-portlet__foot m-portlet__foot--fit">
                         <div class="m-form__actions">

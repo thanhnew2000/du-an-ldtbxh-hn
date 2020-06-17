@@ -56,7 +56,6 @@
                 <label disabled class="col-lg-2 col-form-label">Đợt</label>
                 <div class="col-lg-8">
                 <select disabled class="form-control col-7">
-                  
                   <option {{( $item->dot == 1 ) ? 'selected' : ''}} value="1">Đợt 1</option>
                   <option {{( $item->dot == 2 ) ? 'selected' : ''}} value="2">Đợt 2</option>
 

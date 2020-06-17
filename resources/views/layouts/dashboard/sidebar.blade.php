@@ -29,10 +29,6 @@
 								class="m-menu__link "><i
 									class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 									class="m-menu__link-text">Quản lý tài khoản</span></a></li>
-						<li class="m-menu__item " aria-haspopup="true"><a href="{{route('account.tao-tk')}}"
-								class="m-menu__link "><i
-									class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
-									class="m-menu__link-text">Tạo tài khoản</span></a></li>
 						<li class="m-menu__item " aria-haspopup="true"><a href="{{route('account.quyen-truy-cap')}}"
 								class="m-menu__link "><i
 									class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span

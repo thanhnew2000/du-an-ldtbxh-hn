@@ -40,7 +40,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Nghề : <span class="batbuoc">*</span> </label>
                                 <div class="col-lg-8">
-                                    <select name="nghe_id" class="form-control" required name="nghe_id"  id="nghe_id">
+                                    <select class="form-control" required name="nghe_id"  id="nghe_id">
                                         <option value="{{ old('nghe_id') }}" >Chọn </option>
                                        @foreach ($nganhNghe as $item)
                                         <option class="form-control " value="{{$item->id}}">{{$item->ten_nganh_nghe}} - {{$item->id}}</option>

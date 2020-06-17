@@ -315,7 +315,6 @@ class ExtractController extends Controller
         $request->request->set('thoi_gian_cap_nhat', $dateTime->format('Y-m-d H:i:s'));
         $request->request->set('nam', $dateTime->year);
         $request->request->set('dot', 1);
-        // $data = $request->all();
         $getdata = $request->all();
         $this->QlsvService->update($id, $request);
         $dataqlsv = $this->QlsvService->findById($id);

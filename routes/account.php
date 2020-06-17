@@ -13,6 +13,7 @@ Route::view('/quan-ly-quyen-truy-cap', 'account.quan_ly_quyen_truy_cap')->name('
 //2020-06-11 - cuongnc,hieupt - start phân quyền tài khoản
 Route::view('/phan-quyen-tai-khoan', 'account.phan_quyen_tai_khoan')->name('account.phan-quyen-tk');
 Route::view('/chi-tiet-phan-quyen-tai-khoan', 'account.chi_tiet_phan_quyen_tai_khoan')->name('account.chi-tiet-phan-quyen');
+Route::view('/them-quyen', 'account.them-quyen');
 // end phân quyền tài khoản
 
 Route::get('/cap-nhat-thong-tin-ca-nhan', 'AccountController@capnhatthongtincanhan');
@@ -26,7 +27,3 @@ Route::post('/tao-tai-khoan','UserController@dangkytaikhoan');
 // 2020-05-31 - phucnv - làm thêm chắc năng search và chắc ten
 Route::get('/search', 'AccountController@search')->name('account.search');
 Route::post('/check-name', 'AccountController@checkName')->name('account.check-name');
-
-
-
-?>

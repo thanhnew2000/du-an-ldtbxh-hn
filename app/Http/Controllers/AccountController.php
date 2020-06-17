@@ -153,18 +153,19 @@ class AccountController extends Controller
 
     public function edit($id){
         $user = User::find($id);
-        return view('account.edit_account',compact('user'));
+        $data = DB::table('roles')->get();
+        return view('account.edit_account',['data'=>$data,
+                                            'user'=>$user]);
     }
-
-    public function updateID(UpdateAccountId $request){
+    
+    public function updateID( UpdateAccountId $request){
         $id = $request->id;
         $name = $request->name;
         $phone = $request->phone;
         $user = User::find($id);
-
         $user->name = $name;
         $user->phone_number = $phone;
-
+        $user->roles()->sync(['role_id'=> $request->role]);
         $user->save();
         return redirect()->back()->with('thongbao','Cập nhật thành công !');
 
@@ -194,7 +195,6 @@ class AccountController extends Controller
     public function checkName(Request $request){
 
         $name = $request->name;
-
         $pattern = '/^[\pL\s\-]+$/u';
         $kq = preg_match($pattern, $name);
         echo $kq == 1 ? "true" : "false";
