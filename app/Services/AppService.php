@@ -21,6 +21,7 @@ abstract  class AppService
     public function getRepository()
     {
         return $this->repository->getRepository();
+        
     }
 
     public function setRepository()
