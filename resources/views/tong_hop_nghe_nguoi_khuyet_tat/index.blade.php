@@ -20,7 +20,7 @@
 
 <div class="m-content container-fluid spinner-border text-muted" id="loading">
     <div id="preload" class="preload-container text-center" style="display: none">
-        <img id="gif-load" src="https://lh3.googleusercontent.com/proxy/K1DiqfIsGjn-4HkgWYy36iRKdiU_vxNNnQbBCFV9QPg4UnfktLCQYOuFZrrK3QW8VeACeyTTZfyesnDI17IvrZd-mOMBD29jhLhzmg" alt="">
+        <img id="gif-load" src="{!! asset('images/loading.gif') !!}" alt="">
     </div>
     <div class="m-portlet">
         <div class="m-portlet__head">
@@ -97,13 +97,12 @@
                                 <label class="col-lg-2 col-form-label">Nghề cấp 2</label>
                                 <div class="col-lg-8">
                                     <select class="form-control nganh_nghe" onchange="getNgheTheoCapBac(this)"
-                                    @if (isset($params['nganh_nghe']))
-                                    name ="{{strlen($params['nganh_nghe'])==3?'nganh_nghe':''}}" @endif
+                                    name="nghe_cap_2"
                                     id="nghe_cap_2">
                                         <option value="" selected>Chọn</option>
                                         @foreach ($nghe_cap_2 as $item)
-                                        <option @if (isset($params['nganh_nghe']))
-                                            {{( substr($params['nganh_nghe'],0,3) ==  $item->id ) ? 'selected' : ''}} @endif
+                                        <option @if (isset($params['nghe_cap_2']))
+                                            {{($params['nghe_cap_2']==  $item->id ) ? 'selected' : ''}} @endif
                                             value="{{$item->id}}">{{$item->id}}-{{$item->ten_nganh_nghe}}</option>
                                         @endforeach
                                     </select>
@@ -136,13 +135,12 @@
                                 <label class="col-lg-2 col-form-label">Nghề cấp 3</label>
                                 <div class="col-lg-8">
                                     <select class="form-control nganh_nghe" onchange="getNgheTheoCapBac(this)" 
-                                    @if (isset($params['nganh_nghe']))
-                                    name ="{{strlen($params['nganh_nghe'])==5?'nganh_nghe':''}}" @endif
+                                    name="nghe_cap_3"
                                     id="nghe_cap_3">
                                         <option value="" selected>Chọn</option>  
                                         @foreach ($nghe_cap_3 as $item)
-                                        <option @if (isset($params['nganh_nghe']))
-                                            {{( substr($params['nganh_nghe'],0,5) ==  $item->id ) ? 'selected' : ''}} @endif
+                                        <option @if (isset($params['nghe_cap_3']))
+                                            {{($params['nghe_cap_3'] ==  $item->id ) ? 'selected' : ''}} @endif
                                             value="{{$item->id}}">{{$item->id}}-{{$item->ten_nganh_nghe}}</option>
                                         @endforeach                            
                                     </select>
@@ -171,15 +169,18 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Nghề cấp 4</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control nganh_nghe" onchange="setNameNganhNgheSearch(this)" 
-                                    @if (isset($params['nganh_nghe']))
-                                    name ="{{strlen($params['nganh_nghe'])==7?'nganh_nghe':''}}" @endif
+                                    <select class="form-control nganh_nghe" onchange="setNameNganhNgheSearch(this)" multiple="multiple"
+                                    name="nghe_cap_4[]"
                                     id="nghe_cap_4">
-                                        <option value="" selected>Chọn</option>
                                         @foreach ($nghe_cap_4 as $item)
-                                        <option @if (isset($params['nganh_nghe']))
-                                            {{( substr($params['nganh_nghe'],0,7) ==  $item->id ) ? 'selected' : ''}} @endif
-                                            value="{{$item->id}}">{{$item->id}}-{{$item->ten_nganh_nghe}}</option>
+                                        <option
+                                            @if (isset($params['nghe_cap_4']))
+                                                @foreach ($params['nghe_cap_4'] as $params4)
+                                                     {{($params4 ==  $item->id ) ? 'selected' : ''}}
+                                                @endforeach
+                                            @endif
+                                            value="{{$item->id}}">{{$item->id}}-{{$item->ten_nganh_nghe}}
+                                        </option>
                                         @endforeach    
                                     </select>
                                 </div>
@@ -360,20 +361,27 @@
         
         function getNgheTheoCapBac(id){
             $('#preload').css('display','block')
-            setNameNganhNgheSearch(id)
             var cap_nghe = $(id).val().length==3 ? 3: 4
             axios.post(url_nghe_theo_nghe_cap_bac, {
                 id:  $(id).val(),
                 cap: cap_nghe
             })
-            .then(function (response) {
-                var htmldata = '<option value="" selected  >Chọn nghề</option>'
-                    response.data.forEach(element => {
-                        htmldata+=`<option value="${element.id}">${element.id}-${element.ten_nganh_nghe}</option>`  
-                });
+            .then(function (response) {        
                 if ($(id).val().length==3 || $(id).val().length==0) {
+                    var htmldata = '<option value="" selected  >Chọn Nghề</option>'
+                        response.data.forEach(element => {
+                            htmldata+=`<option value="${element.id}">${element.id}-${element.ten_nganh_nghe}</option>`  
+                        htmldata+=`<option value="${element.id}">${element.id}-${element.ten_nganh_nghe}</option>`  
+                            htmldata+=`<option value="${element.id}">${element.id}-${element.ten_nganh_nghe}</option>`  
+                        htmldata+=`<option value="${element.id}">${element.id}-${element.ten_nganh_nghe}</option>`  
+                            htmldata+=`<option value="${element.id}">${element.id}-${element.ten_nganh_nghe}</option>`  
+                        });
                     $('#nghe_cap_3').html(htmldata);
                 }else{
+                    var htmldata = ''
+                        response.data.forEach(element => {
+                            htmldata+=`<option value="${element.id}">${element.id}-${element.ten_nganh_nghe}</option>`  
+                        });
                     $('#nghe_cap_4').html(htmldata);
                 }
                 $('#preload').css('display','none')
@@ -383,13 +391,18 @@
                 console.log(error);
             });
         }
-        function setNameNganhNgheSearch(id) {
-            var nganh_nghe = $('.nganh_nghe')
-            for (let index = 0; index < nganh_nghe.length; index++) {
-                $(nganh_nghe[index]).attr('name','')       
-            }
-            $(id).attr('name','nganh_nghe')
-        }
+        // function setNameNganhNgheSearch(id) {
+        //     var nganh_nghe = $('.nganh_nghe')
+        //     for (let index = 0; index < nganh_nghe.length; index++) {
+        //         $(nganh_nghe[index]).attr('name','')       
+        //     }
+        //     if ($(id).attr('multiple')=='multiple') {
+        //         $(id).attr('name','nganh_nghe[]')
+        //     }else{
+        //         $(id).attr('name','nganh_nghe')
+        //     }
+           
+        // }
         
           $("#page-size").change(function(){  
             $("#page_size_hide").val($('#page-size').val())

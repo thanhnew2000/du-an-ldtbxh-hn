@@ -40,7 +40,23 @@ class DaoTaoNgheChoNguoiKhuyetTatService extends AppService
         $queryData['loai_hinh'] = isset($params['loai_hinh']) ? $params['loai_hinh'] : null;
         $queryData['devvn_quanhuyen'] = isset($params['devvn_quanhuyen']) ? $params['devvn_quanhuyen'] : null;
         $queryData['devvn_xaphuongthitran'] = isset($params['devvn_xaphuongthitran']) ? $params['devvn_xaphuongthitran'] : null;
-        $queryData['nganh_nghe'] = isset($params['nganh_nghe']) ? $params['nganh_nghe'] : null;
+        $queryData['nghe_cap_2'] = isset($params['nghe_cap_2']) ? $params['nghe_cap_2'] : null;
+
+        if(isset($params['nghe_cap_3'])){
+            $queryData['nghe_cap_2']=null;
+            $queryData['nghe_cap_3']=$params['nghe_cap_3'];
+        }else{
+            $queryData['nghe_cap_3']=null;
+        }
+
+        if(isset($params['nghe_cap_4'])){
+            $queryData['nghe_cap_2']=null;
+            $queryData['nghe_cap_3']=null;
+            $queryData['nghe_cap_4']=$params['nghe_cap_4'];
+        }else{
+            $queryData['nghe_cap_4']=null;
+        }
+        // dd($queryData);
         $data = $this->repository->index($queryData, $limit);
 
         return $data;

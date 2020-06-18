@@ -47,8 +47,14 @@ class DaoTaoNgheChoNguoiKhuyetTatRepository extends BaseRepository implements Da
     if (isset($params['devvn_xaphuongthitran']) && $params['devvn_xaphuongthitran'] != null) {
         $query->where('co_so_dao_tao.xaid', $params['devvn_xaphuongthitran']);
     }
-    if (isset($params['nganh_nghe']) && $params['nganh_nghe'] != null) {
-        $query->where('ket_qua_dao_tao_nguoi_khuyet_tat.nghe_id', 'like', $params['nganh_nghe'].'%');
+    if (isset($params['nghe_cap_2']) && $params['nghe_cap_2'] != null) {
+        $query->where('ket_qua_dao_tao_nguoi_khuyet_tat.nghe_id', 'like', $params['nghe_cap_2'].'%');
+	}
+	if (isset($params['nghe_cap_3']) && $params['nghe_cap_3'] != null) {
+        $query->where('ket_qua_dao_tao_nguoi_khuyet_tat.nghe_id', 'like', $params['nghe_cap_3'].'%');
+	}
+	if (isset($params['nghe_cap_4']) && $params['nghe_cap_4'] != null) {
+        $query->whereIn('ket_qua_dao_tao_nguoi_khuyet_tat.nghe_id', $params['nghe_cap_4']);
     }
     return $query->groupBy('co_so_id')->paginate($limit);
     }
@@ -62,6 +68,20 @@ class DaoTaoNgheChoNguoiKhuyetTatRepository extends BaseRepository implements Da
 	{
 		return DB::table('devvn_quanhuyen')->get();
 	}
+
+	public function getXaPhuongTheoQuanHuyen($id)
+	{	
+		if($id==0){
+			$data = DB::table('devvn_xaphuongthitran')
+			->select('devvn_xaphuongthitran.xaid', 'devvn_xaphuongthitran.name')->get();
+			return $data;
+		}else{
+			$data = DB::table('devvn_xaphuongthitran')
+			->where('maqh', '=', $id)
+			->select('devvn_xaphuongthitran.xaid', 'devvn_xaphuongthitran.name')->get();
+			return $data;
+		}
+    }
 
     public function getNganhNghe($ma_cap_nghe){
 		$data = DB::table('nganh_nghe')->where('ma_cap_nghe',$ma_cap_nghe)->orderBy('ten_nganh_nghe')->get();
@@ -143,6 +163,8 @@ class DaoTaoNgheChoNguoiKhuyetTatRepository extends BaseRepository implements Da
 		$result  = $this->table->insert($getdata);
         return $result;
 	}
+
+
 
 }
  ?>

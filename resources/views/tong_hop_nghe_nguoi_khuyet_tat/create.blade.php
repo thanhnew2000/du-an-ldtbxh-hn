@@ -300,6 +300,12 @@
 @endsection
 @section('script')
 <script>
+    $(window).bind("pageshow", function() {
+    arrcheck=[]
+    $("#co_so_dao_tao").select2().val('').trigger('change');
+    $('#nam').val('')
+    $('#dot').val('')
+    });
     var routeCheck = "{{ route('nhapbc.dao-tao-khuyet-tat.check_so_lieu') }}";
     var routeGetMaNganhNghe = "{{ route('get_ma_nganh_nghe') }}";
     $(document).ready(function() {
@@ -309,6 +315,6 @@
 </script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="{!! asset('tong_hop_nghe_nguoi_khuyet_tat/js/tong_hop_nghe_nguoi_khuyet_tat.js') !!}"></script>
+<script src="{!! asset('tong_hop_nghe_nguoi_khuyet_tat/javascript/tong_hop_nghe_nguoi_khuyet_tat.js') !!}"></script>
 
 @endsection

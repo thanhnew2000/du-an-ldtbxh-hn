@@ -122,7 +122,6 @@ class DaoTaoNgheChoNguoiKhuyetTatController extends Controller
             return response()->json([
                 'result' => route('nhapbc.dao-tao-khuyet-tat.edit', ['id' => $getdata->id]),
             ]);
-            // return $urledit = route('nhapbc.dao-tao-khuyet-tat.edit', ['id' => $getdata->id]);
         }
     }
 

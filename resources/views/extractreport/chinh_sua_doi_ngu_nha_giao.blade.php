@@ -72,13 +72,8 @@
                         <div class="form-group m-form__group row mt-2">
                             <label class="col-lg-2 col-form-label">Năm</label>
                             <div class="col-lg-8">
-                                <select name="" class="form-control " disabled>
-                                  
-                                   
-                                    <option >{{ $data->nam }}</option>
-
-                                
-                             
+                                <select name="" class="form-control " disabled>                         
+                                    <option >{{ $data->nam }}</option>                           
                                 </select>
                           
                             </div>
@@ -90,7 +85,6 @@
                             <div class="col-lg-8">
                                 <select name="" class="form-control " disabled>
                                     <option >{{ $data->dot }}</option>
-                             
                                 </select>
                             
                             </div>
