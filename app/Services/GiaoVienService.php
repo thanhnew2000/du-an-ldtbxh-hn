@@ -8,6 +8,7 @@ use App\Repositories\CoSoDaoTaoRepositoryInterface;
 use App\Repositories\TrinhDoGiaoVienRepositoryInterface;
 use App\Repositories\NganhNgheRepositoryInterface;
 use Arr;
+use DB;
 
 class GiaoVienService extends AppService
 {
@@ -46,7 +47,14 @@ class GiaoVienService extends AppService
 
     public function getList($params = [], $limit = 10)
     {
-        return $this->giaoVienRepository->getList($params, $limit);
+        $result = $this->giaoVienRepository->getList($params, $limit);
+        $result->each(function ($value, $key) {
+            if (!empty($value->nghe_giang_day)){
+                $value->nghe_giang_day = str_replace(',', '<br>', $value->nghe_giang_day);
+            }
+        });
+
+        return $result;
     }
 
     public function getListCoSo()
@@ -59,9 +67,11 @@ class GiaoVienService extends AppService
         return $this->trinhDoGVRepository->getAll();
     }
 
-    public function getListNganhNghe()
+    public function getListNganhNghe(array $listIds = [], array $selects = [])
     {
-        return $this->nganhNgheRepository->getAll();
+        $selects[] = DB::raw("CONCAT(ten_nganh_nghe, ' - ', id) AS ten_nganh_nghe");
+
+        return $this->nganhNgheRepository->getListNganhNghe($listIds, $selects);
     }
 
     public function store(array $params)
@@ -80,6 +90,9 @@ class GiaoVienService extends AppService
 
     protected function getData($params)
     {
+        $listNganhNghe = $this->getListNganhNghe($params['nganh_nghe'])->toArray();
+        $nganhNghe = implode(',', Arr::pluck($listNganhNghe, 'ten_nganh_nghe'));
+
         $data = [];
         $data['ten'] = $params['ten_giao_vien'];
         $data['gioi_tinh'] = $params['gioi_tinh'];
@@ -87,8 +100,7 @@ class GiaoVienService extends AppService
         $data['dan_toc_it_nguoi'] = $params['dan_toc_thieu_so'];
         $data['loai_hop_dong'] = $params['loai_hop_dong'];
         $data['co_so_id'] = $params['co_so_id'];
-        $data['trinh_do_id'] = $params['trinh_do'];
-        $data['nghe_id'] = $params['nganh_nghe'];
+        $data['nghe_giang_day'] = $nganhNghe;
 
         if (!empty($params['chuc_danh'])) {
             $data['giao_su'] = $params['chuc_danh'] ==
@@ -104,6 +116,30 @@ class GiaoVienService extends AppService
 
         if (isset($params['nha_giao_uu_tu'])) {
             $data['nha_giao_uu_tu'] = 1;
+        }
+
+        if (!empty($params['trinh_do_tien_sy'])) {
+            $data['trinh_do_tien_sy'] = $params['trinh_do_tien_sy'];
+        }
+
+        if (!empty($params['trinh_do_thac_sy'])) {
+            $data['trinh_do_thac_sy'] = $params['trinh_do_thac_sy'];
+        }
+
+        if (!empty($params['trinh_do_dai_hoc'])) {
+            $data['trinh_do_dai_hoc'] = $params['trinh_do_dai_hoc'];
+        }
+
+        if (!empty($params['trinh_do_cao_dang'])) {
+            $data['trinh_do_cao_dang'] = $params['trinh_do_cao_dang'];
+        }
+
+        if (!empty($params['trinh_do_trung_cap'])) {
+            $data['trinh_do_trung_cap'] = $params['trinh_do_trung_cap'];
+        }
+
+        if (!empty($params['trinh_do_khac'])) {
+            $data['trinh_do_khac'] = $params['trinh_do_khac'];
         }
 
         if (!empty($params['trinh_do_ngoai_ngu'])) {
