@@ -48,20 +48,23 @@ function getdatacheck(id) {
         axios.post(routeCheck, {
             datacheck: arrcheck,
         }).then(function (response) {
-            console.log(response.data)
-            if (response.data == 1) {
+            console.log(response)
+            if (response.data.result == 1) {
                 swal("Dữ liệu đã tồn tại và được phê duyệt", {
                     buttons: ["OK"],
                 })
+
                 removeselect()
-            } else if (response.data != 2) {
+            } else if (response.data.result != 2) {
                 swal("Dữ liệu đã tồn tại mời chuyển đến trang chỉnh sửa", {
                     buttons: ["Hủy", true],
                 }).then(thanhcong => {
                     if (thanhcong != null) {
-                        window.location = response.data;
+                        console.log('fdsaf')
+                        window.location = response.data.result;
                     }
                 })
+
                 removeselect()
             }
         }).catch(function (error) {
@@ -71,14 +74,10 @@ function getdatacheck(id) {
 }
 
 function removeselect() {
-    arrcheck = []
-    // $('#co_so_dao_tao').val('')
-    // $("#co_so_dao_tao").select2('val', '0');
-    // $("#ma_nganh_nghe").select2('val', '0');
-    $("#co_so_dao_tao").select2("val", "0");
-    // $("#ma_nganh_nghe").select2("val", "0");
-    // $('#ma_nganh_nghe').val('')
-    // $('#ma_nganh_nghe').attr('disabled',true)
-    $('#nam').val('')
-    $('#dot').val('')
+    arrcheck = [];
+    $("#co_so_id").select2().val('').trigger('change');
+    $("#nam").select2().val('').trigger('change');
+    $("#dot").select2().val('').trigger('change');
+    $("#chinh_sach_id").select2().val('').trigger('change');
+
 }

@@ -343,7 +343,7 @@
 			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('nhapbc.dao-tao-khuye-tat')}}"
 					class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 						class="m-menu__link-text">Đào tạo nghề cho người khuyết tật</span></a></li>
-			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('nhapbc.dao-tao-thanh-nien')}}"
+			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('nhapbc.dao-tao-thanh-nien.index')}}"
 					class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 						class="m-menu__link-text">Đào tạo nghề cho thanh niên</span></a></li>
 			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('nhapbc.dao-tao-nghe-doanh-nghiep')}}"
@@ -375,7 +375,7 @@
 		<ul class="m-menu__subnav">
 			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('xuatbc.tong-hop-lien-ket-dao-tao')}}"
 					class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
-						class="m-menu__link-text">Liên kết đào tạo</span></a></li>
+						class="m-menu__link-text">Tổng hợp liên kết liên thông trình độ</span></a></li>
 			<li class="m-menu__item " aria-haspopup="true"><a
 					href="{{route('xuatbc.tong-hop-lien-ket-dao-tao-cao-dang', ['id' => 6])}}" class="m-menu__link "><i
 						class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span

@@ -108,7 +108,7 @@
                     <div class="row pt-4">
                         <div class="col-md-6">
                             <div class="form-group m-form__group row">
-                                <label class="col-lg-2 col-form-label">Quận\Huyện</label>
+                                <label class="col-lg-2 col-form-label">Quận/Huyện</label>
                                 <div class="col-lg-8">
                                     <select class="form-control" name="devvn_quanhuyen" id="devvn_quanhuyen">
                                         <option value="" selected>Chọn</option>

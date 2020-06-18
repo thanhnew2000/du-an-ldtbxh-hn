@@ -283,3 +283,11 @@
 </div>
 
 @endsection
+@section('script')
+<script>
+    $(document).ready(function(){
+    $('#nam').select2();
+    $('#dot').select2();
+    });
+</script>
+@endsection

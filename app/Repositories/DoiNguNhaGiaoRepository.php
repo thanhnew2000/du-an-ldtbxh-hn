@@ -51,14 +51,15 @@ class DoiNguNhaGiaoRepository extends BaseRepository implements DoiNguNhaGiaoInt
         if(isset($params['dot']) && $params['dot'] != null){
             $queryBuilder->where('so_lieu_doi_ngu_nha_giao.dot', $params['dot']);
         }
-        if(isset($params['keyword']) && $params['keyword'] != null){
-            $queryBuilder->where('co_so_dao_tao.ten', 'like', "%".$params['keyword']."%");
+        if(isset($params['co_so_id']) && $params['co_so_id'] != null){
+            $queryBuilder->where('so_lieu_doi_ngu_nha_giao.co_so_id', $params['co_so_id']);
         }
         if(isset($params['nghe_id']) && $params['nghe_id'] != null){
             $queryBuilder->where('so_lieu_doi_ngu_nha_giao.nghe_id', $params['nghe_id']);
         }
 
-        return $queryBuilder->orderByDesc('so_lieu_doi_ngu_nha_giao.id')->paginate($params['page_size']);
+        return $queryBuilder->orderByDesc('so_lieu_doi_ngu_nha_giao.nam')
+        ->orderByDesc('so_lieu_doi_ngu_nha_giao.dot')->paginate($params['page_size']);
     }
 
 
@@ -81,7 +82,9 @@ class DoiNguNhaGiaoRepository extends BaseRepository implements DoiNguNhaGiaoInt
         if(isset($params['dot']) && $params['dot'] != null){
             $queryBuilder->where('so_lieu_doi_ngu_nha_giao.dot', $params['dot']);
         }
-        return $queryBuilder->paginate($params['page_size']);
+        
+        return $queryBuilder->orderByDesc('so_lieu_doi_ngu_nha_giao.nam')
+        ->orderByDesc('so_lieu_doi_ngu_nha_giao.dot')->paginate($params['page_size']);
     }
 
     /* Danh sách ngành nghề theo ID cơ sở.

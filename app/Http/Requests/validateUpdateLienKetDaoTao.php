@@ -24,18 +24,17 @@ class validateUpdateLienKetDaoTao extends FormRequest
     public function rules()
     {
         return [
-            'chi_tieu' => 'required|numeric|min:0',
-            'thuc_tuyen' => 'required|numeric|min:0',
-            'so_HSSV_tot_nghiep' => 'required|numeric|min:0',
-            'don_vi_lien_ket' => 'required'
+            'chi_tieu' => 'min:0|integer|',
+            'thuc_tuyen' => 'min:0|integer|',
+            'so_HSSV_tot_nghiep' => 'min:0|integer|',
+
         ];
     }
 
     public function messages()
     {
         return [
-            'required' => 'Vui lòng nhập liệu',
-            'numeric' => 'Hãy điền số',
+            'integer' => 'Vui lòng nhập số nguyên',
             'min' => 'Số liệu nhỏ nhất là 0'
         ];
     }

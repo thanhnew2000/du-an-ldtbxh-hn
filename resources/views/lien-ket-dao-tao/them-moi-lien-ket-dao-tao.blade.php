@@ -1,8 +1,6 @@
 @extends('layouts.admin')
 @section('title', "Thêm liên kết đào tạo")
 @section('style')
-{{-- <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
-<link href="{!! asset('tuyensinh/css/themtuyensinh.css') !!}" rel="stylesheet" type="text/css" /> --}}
 <style>
   .batbuoc {
     color: red;
@@ -110,7 +108,7 @@
           </div>
           <div class="m-portlet__body">
             <div class="tab-content">
-              <table class="table m-table m-table--head-bg-brand">
+              <table class="table m-table m-table--head-bg-brand ">
                 <tbody>
                   <tr>
                     <td>Chỉ tiêu</td>
@@ -180,11 +178,12 @@
 $(document).ready(function(){
   $('#co_so_dao_tao').select2();
   $('#ma_nganh_nghe').select2();
+  $('#nam').select2();
+  $('#dot').select2();
 });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="{!! asset('lien_ket_dao_tao/lien_ket_dao_tao.js') !!}"></script>
 <script src="{!! asset('chinh_sach_sinh_vien/validate-number.js') !!}"></script>
-<script src="{!! asset('tong_hop_ket_qua_tot_nghiep/tong_hop_ket_qua_tot_nghiep.js') !!}"></script>
 @endsection

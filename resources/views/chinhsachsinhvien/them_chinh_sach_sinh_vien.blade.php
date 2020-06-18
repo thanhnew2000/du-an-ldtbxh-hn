@@ -31,16 +31,7 @@
                     </div>
                 </div>
             </div>
-
-
             <div class="m-portlet__body">
-
-                @if (session('thongbao'))
-
-                <div class="alert alert-success" role="alert">
-                    <strong>{{session('thongbao')}}</strong>
-                </div>
-                @endif
                 <div class="m-form__section m-form__section--first">
                     <div class="row">
                         <div class="col-md-6">
@@ -50,7 +41,7 @@
                                 <div class="col-lg-8">
                                     <select class="form-control " required name="co_so_id" onchange="getdatacheck(this)"
                                         id="co_so_id">
-                                        <option value="">Chọn</option>
+                                        <option value="" selected>Chọn</option>
                                         @foreach ($coso as $item)
                                         <option value="{{$item->id}}">{{$item->ten}}</option>
                                         @endforeach
@@ -65,7 +56,7 @@
                                 <div class="col-lg-8">
                                     <select id="nam" class="form-control " onchange="getdatacheck(this)" required
                                         name="nam">
-                                        <option value="">Chọn </option>
+                                        <option value="" selected>Chọn </option>
                                         @foreach (config('common.nam_tuyen_sinh.list') as $item)
                                         <option @if (isset($params['nam']))
                                             {{( $params['nam'] ==  $item ) ? 'selected' : ''}} @endif value="{{$item}}">
@@ -85,7 +76,7 @@
                                 <div class="col-lg-8">
                                     <select class="form-control " required onchange="getdatacheck(this)"
                                         name="chinh_sach_id" id="chinh_sach_id">
-                                        <option value="">Chọn </option>
+                                        <option value="" selected>Chọn </option>
                                         @foreach ($chinhsach as $item)
 
                                         <option value="{{$item->id}}">{{$item->ten}}</option>
@@ -227,6 +218,4 @@ $("#page-size").change(function() {
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="{!! asset('chinh_sach_sinh_vien/chinh_sach_sinh_vien.js') !!}"></script>
-<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-<script src="{!! asset('chinh_sach_sinh_vien/validate-number.js') !!}"></script>
 @endsection
