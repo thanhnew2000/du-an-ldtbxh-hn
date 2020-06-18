@@ -213,6 +213,10 @@ class DaoTaoNgheThanhNienController extends Controller
                 return response()->json('ok',200); 
         }else if($kq=='NgheUnsign'){
                 return response()->json(['messageError' => ' Số lượng nghề không phù hợp với nghề đã đăng kí' ],200);   
+        }else if($kq=='noCorrectIdTruong'){
+            return response()->json(['messageError' => ' Trường không đúng hãy nhập lại' ],200);   
+        }else if($kq=='ngheKoThuocTruong'){
+            return response()->json(['messageError' => 'Có nghề không thuộc trong trường' ],200);   
         }else{
             return response()->json(['messageError' => $kq ],200);   
         }

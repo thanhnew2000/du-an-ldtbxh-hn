@@ -378,7 +378,7 @@ class DaoTaoNgheChoThanhNienService extends AppService
                $rowNumber = $i+1; 
                for($j=2;$j <= 30;$j++){  
                      $key_aphabel++;
-                       if(is_string($data[$i][$j])){
+                       if( (is_string($data[$i][$j])) || ($data[$i][$j] < 0) ){
                        array_push($vitri,$arrayApha[$key_aphabel].$rowNumber);
                     }
                }
@@ -391,12 +391,21 @@ class DaoTaoNgheChoThanhNienService extends AppService
         $message='';
         $spreadsheet = $this->createSpreadSheet($fileRead,$duoiFile);
         $data =$spreadsheet->getActiveSheet()->toArray();
-  
+
+
+        
         $truong = explode(' - ', $data[7][1]);
         $id_truong = array_pop($truong);
+        
         $arrayApha=['C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE'];
+        $csCheck = DB::table('co_so_dao_tao')->find($id_truong);
 
         $co_so_nghe = $this->soLieuTuyenSinhRepository->getmanganhnghe($id_truong);
+
+        if($csCheck == null){
+            $message='noCorrectIdTruong';
+            return $message;  
+        }
 
         $id_nghe_of_cs =[];
         foreach($co_so_nghe as $csn){
@@ -478,7 +487,10 @@ class DaoTaoNgheChoThanhNienService extends AppService
                            }else{
                              array_push($insertData,$arrayData); 
                            }
-                    }; 
+                    }else if(in_array($id_nghe_nhap,$id_nghe_of_cs) == false){
+                        $message='ngheKoThuocTruong';
+                        return $message; 
+                    };
  
                  }   
                  if (count($updateData) > 0) {
