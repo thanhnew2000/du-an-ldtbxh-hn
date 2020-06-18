@@ -193,6 +193,8 @@ Route::group(['prefix' => 'dao-tao-voi-doanh-nghiep'], function () {
         ->name('xuatbc.ds-dao-tao-voi-doanh-nghiep');
 });
 
+
+
 // Xuân liên kết đào tạo
 Route::group(['prefix' => 'lien-ket-dao-tao'], function () {
     Route::get('/tong-hop-lien-ket-dao-tao', 'LienKetDaoTaoController@tonghoplienketdaotao')
@@ -203,11 +205,25 @@ Route::group(['prefix' => 'lien-ket-dao-tao'], function () {
         ->name('xuatbc.tong-hop-lien-ket-dao-tao-trung-cap-len-dai-hoc');
 });
 // End Xuân
+
+//phucnv BM:13 
 Route::group(['prefix' => 'hop-tac-quoc-te'], function () {
     Route::get('/tong-hop', 'ExtractController@tonghophoptacquocte')
-
         ->name('xuatbc.ds-hop-tact-qte');
+
+    Route::get('/chi-tiet/{co_so_id}', 'ExtractController@chiTietTongHopHopTacQuocTe')
+        ->name('xuatbc.chi-tiet-ds-hop-tac-qte');
+
+    Route::get('/them', 'ExtractController@themTongHopHopTacQuocTe')
+        ->name('xuatbc.them-ds-hop-tac-qte');
+    Route::post('/them', 'ExtractController@saveTongHopHopTacQuocTe');    
+
+    Route::get('/sua/{id}', 'ExtractController@suaTongHopHopTacQuocTe')
+        ->name('xuatbc.sua-ds-hop-tac-qte');
+    Route::post('/sua/{id}', 'ExtractController@updateTongHopHopTacQuocTe');
 });
+//phucnv end BM:13
+
 
 Route::group(['prefix' => 'chi-tieu-tuyen-sinh'], function () {
     Route::get('/tong-hop', 'ExtractController@tonghoptuyensinh')

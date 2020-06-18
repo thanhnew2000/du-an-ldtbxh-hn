@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\DaoTaoNgheChoThanhNienService;
-
 use App\Http\Requests\DaoTaoThanhNien\StoreUpdateRequest;
 class DaoTaoNgheThanhNienController extends Controller
 {
@@ -199,7 +198,6 @@ class DaoTaoNgheThanhNienController extends Controller
     public function importFile(Request $request){
         $dot=$request->dot;
         $year=$request->nam;
-
         $nameFile=$request->file->getClientOriginalName();
         $nameFileArr=explode('.',$nameFile);
         $duoiFile=end($nameFileArr);
