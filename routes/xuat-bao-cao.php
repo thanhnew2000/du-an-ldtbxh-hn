@@ -166,12 +166,17 @@ Route::group(['prefix' => 'dao-tao-nghe-nguoi-khuyet-tat'], function () {
     Route::get('/tong-hop', 'ExtractController@tonghopdaotaonguoikhuyettat')
 
         ->name('xuatbc.ds-dao-tao-khuyet-tat');
+            // thanhnv export 6/18/2020
+    Route::post('export-form-nhap-dao-tao-khuyet-tat', 'DaoTaoNgheChoNguoiKhuyetTatController@exportForm')->name('layformbieumau-dao-tao-khuyet-tat');
+    Route::post('export-data-dao-tao-khuyet-tat', 'DaoTaoNgheChoNguoiKhuyetTatController@exportData')->name('exportdata-dao-tao-khuyet-tat');
 });
 
 Route::group(['prefix' => 'dao-tao-nghe-thanh-nien'], function () {
     Route::get('/tong-hop', 'ExtractController@tonghopdaotaothanhnien')
 
         ->name('xuatbc.ds-dao-tao-thanh-nien');
+
+    
 });
 
 
