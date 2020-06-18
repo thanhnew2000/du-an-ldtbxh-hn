@@ -14,7 +14,7 @@ class LienKetDaoTaoRepository extends BaseRepository implements LienKetDaoTaoRep
 
     public function getTongHopLienKetDaoTao($params, $limit = 20)
     {
-        //dd($params);
+
         $query = $this->table
             ->join('co_so_dao_tao', 'lien_ket_qua_tuyen_sinh.co_so_id', '=', 'co_so_dao_tao.id')
             ->join('nganh_nghe', 'lien_ket_qua_tuyen_sinh.nghe_id', '=', 'nganh_nghe.id')
@@ -45,8 +45,6 @@ class LienKetDaoTaoRepository extends BaseRepository implements LienKetDaoTaoRep
         if (isset($params['nganh_nghe']) && $params['nganh_nghe'] != null) {
             $query->where('lien_ket_qua_tuyen_sinh.nghe_id', 'like', $params['nganh_nghe'] . '%');
         }
-
-        //dd($query->orderBy('lien_ket_qua_tuyen_sinh.id', 'asc')->paginate($limit));
 
         return $query->groupBy('co_so_id')->paginate($limit);
     }
@@ -82,9 +80,6 @@ class LienKetDaoTaoRepository extends BaseRepository implements LienKetDaoTaoRep
         if (isset($params['devvn_quanhuyen']) && $params['devvn_quanhuyen'] != null) {
             $query->where('maqh', $params['devvn_quanhuyen']);
         }
-
-
-        //dd($query->orderBy('lien_ket_qua_tuyen_sinh.id', 'asc')->paginate($limit));
 
         return $query->groupBy('co_so_id')->paginate($limit);
     }

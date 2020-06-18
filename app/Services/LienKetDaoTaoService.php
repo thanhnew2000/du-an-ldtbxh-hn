@@ -69,7 +69,7 @@ class LienKetDaoTaoService extends AppService
         $queryData['nam'] = isset($params['nam']) ? $params['nam'] : null;
         $queryData['dot'] = isset($params['dot']) ? $params['dot'] : null;
         $data = $this->repository->chitietlienketdaotao($co_so_id, $queryData, $limit, $bac_nghe);
-        //dd($data);
+
         return $data;
     }
 

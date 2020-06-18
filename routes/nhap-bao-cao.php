@@ -61,8 +61,14 @@ Route::group(['prefix' => 'dao-tao-nghe-cho-nguoi-khuyet-tat'], function () {
     Route::get('/', 'ImportReportController@daotaonguoikhuyetat')->name('nhapbc.dao-tao-khuye-tat');
 });
 
-Route::group(['prefix' => 'dao-tao-nghe-cho-thanh-nien'], function () {
-    Route::get('/', 'ImportReportController@daotaothanhnien')->name('nhapbc.dao-tao-thanh-nien');
+Route::group(['prefix' => 'dao-tao-nghe-cho-thanh-nien'], function(){
+    Route::get('/', 'DaoTaoNgheThanhNienController@index')->name('nhapbc.dao-tao-thanh-nien.index');
+    Route::get('/edit/{id}', 'DaoTaoNgheThanhNienController@edit')->name('nhapbc.dao-tao-thanh-nien.edit');
+    Route::post('/update/{id}', 'DaoTaoNgheThanhNienController@update')->name('nhapbc.dao-tao-thanh-nien.update');
+    Route::get('/create', 'DaoTaoNgheThanhNienController@create')->name('nhapbc.dao-tao-thanh-nien.create');
+    Route::post('/store', 'DaoTaoNgheThanhNienController@store')->name('nhapbc.dao-tao-thanh-nien.store');
+    Route::get('/show/{id}', 'DaoTaoNgheThanhNienController@show')->name('nhapbc.dao-tao-thanh-nien.show');
+    Route::post('/check-them-dao-tao-thanh-nien', 'DaoTaoNgheThanhNienController@getCheckDaoTaoThanhNien')->name('nhapbc.dao-tao-thanh-nien.check_so_lieu');
 });
 
 Route::group(['prefix' => 'dao-tao-nghe-doanh-nghiep'], function () {

@@ -48,7 +48,7 @@ class ChinhSachSinhVienRepository extends BaseRepository implements ChinhSachSin
         if (isset($params['chinhsach']) && $params['chinhsach'] != null) {
             $query->where('chinh_sach_id', $params['chinhsach']);
         }
-        //dd($query->orderBy('tong_hop_chinh_sach_voi_hssv.id', 'asc')->paginate($limit));
+
 
         return $query->orderBy('tong_hop_chinh_sach_voi_hssv.id', 'asc')->paginate($limit);
     }
