@@ -92,7 +92,7 @@
                                 <label for="" class="col-lg-2 col-form-label">Đợt</label>
                                 <div class="col-lg-8">
                                     <select class="form-control" name="dot" id="dot">
-                                        <option value="">Chọn</option>
+                                        <option value="" selected disabled>Chọn</option>
                                         <option @if (isset($params['dot']))
                                             {{( $params['dot'] ==  1 ) ? 'selected' : ''}} @endif value="1">Đợt 1
                                         </option>
@@ -126,7 +126,7 @@
                                 <label class="col-lg-2 col-form-label">Chính sách</label>
                                 <div class="col-lg-8">
                                     <select class="form-control" name="chinhsach" id="chinhsach">
-
+                                        <option value="" selected>Chọn</option>
                                         @foreach ($chinhsach as $item)
                                         <option @if (isset($params['chinhsach']))
                                             {{( $params['chinhsach'] ==  $item->id ) ? 'selected' : ''}} @endif
@@ -170,8 +170,8 @@
     </div>
     <div class="m-portlet">
         <div class="m-portlet__body">
-            @if (session('thongbao'))
 
+            @if (session('thongbao'))
             <div class="alert alert-success" role="alert">
                 <strong>{{session('thongbao')}}</strong>
             </div>
@@ -194,7 +194,12 @@
                         <th rowspan="2">STT</th>
 
                         <th rowspan="2">Tên cơ sở đào tạo</th>
+                        <th rowspan="2">Năm</th>
+                        <th rowspan="2">Đợt</th>
+                        <th rowspan="2">Loại hình cơ sở</th>
+                        <th rowspan="2">Quận/Huyện</th>
                         <th rowspan="2">Chính sách</th>
+
                         <th colspan="2">Số lượng sinh viên</th>
                         <th rowspan="2">Tổng số lượng <br> sinh viên</th>
                         <th colspan="2">Kinh phí</th>
@@ -219,6 +224,10 @@
                     <tr>
                         <td>{{$i++}}</td>
                         <td>{{$item->ten}}</td>
+                        <td>{{$item->nam}}</td>
+                        <td>{{$item->dot}}</td>
+                        <td>{{$item->loai_hinh_co_so}}</td>
+                        <td>{{$item->quan_huyen}}</td>
                         <td>{{$item->ten_chinh_sach}}</td>
                         <td>{{$item->so_hssv_CD}}</td>
                         <td>{{$item->so_hssv_TC}}</td>
