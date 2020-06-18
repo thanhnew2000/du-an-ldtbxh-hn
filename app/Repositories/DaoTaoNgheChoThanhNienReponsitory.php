@@ -166,6 +166,23 @@ class DaoTaoNgheChoThanhNienReponsitory extends BaseRepository implements DaoTao
 		$result  = $this->table->insert($getdata);
         return $result;
 	}
+	public function getThanhNienCsNamDot($id_truong, $year,$dot)
+	{
+		$data =  DB::table('ket_qua_dao_tao_cho_thanh_nien')->where('co_so_id', '=', $id_truong)
+		->where('nam','=',$year)
+		->where('dot','=',$dot)
+		->select('id','nghe_id')->get();
+		return $data;
+	}
+	public function getThanhNienTimeFromTo($id_truong, $fromDate,$toDate)
+	{
+		$data = DB::table('ket_qua_dao_tao_cho_thanh_nien')->where('ket_qua_dao_tao_cho_thanh_nien.co_so_id', '=',$id_truong)
+		->where('thoi_gian_cap_nhat','>=',$fromDate)
+		->where('thoi_gian_cap_nhat','<=',$toDate)
+		->join('nganh_nghe','nganh_nghe.id','=','ket_qua_dao_tao_cho_thanh_nien.nghe_id')
+		->get();
+		return $data;
+	}
 
 }
  ?>

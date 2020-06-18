@@ -6,19 +6,30 @@ use Illuminate\Http\Request;
 use App\Services\AppService;
 use App\Repositories\DaoTaoNgheChoThanhNienReponsitory;
 use App\Repositories\LoaiHinhCoSoRepositoryInterface;
+use App\Repositories\SoLieuTuyenSinhInterface;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Illuminate\Support\Facades\DB;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Style\Protection;
 use Carbon\Carbon;
 
 class DaoTaoNgheChoThanhNienService extends AppService
 {
     protected $LoaiHinhCoSoRepositoryInterface;
     protected $DaoTaoNgheChoThanhNienReponsitory;
+    protected $SoLieuTuyenSinhInterface;
+
 
     public function __construct(
-        LoaiHinhCoSoRepositoryInterface $loaiHinhCoSoRepository
+        LoaiHinhCoSoRepositoryInterface $loaiHinhCoSoRepository,
+        SoLieuTuyenSinhInterface $soLieuTuyenSinhRepository
     ) {
         parent::__construct();
         $this->loaiHinhCoSoRepository = $loaiHinhCoSoRepository;
-        // $this->soLieuTuyenSinhRepository = $soLieuTuyenSinhRepository;
+        $this->soLieuTuyenSinhRepository = $soLieuTuyenSinhRepository;
     }
 
     //Lay Repository Product
@@ -148,6 +159,415 @@ class DaoTaoNgheChoThanhNienService extends AppService
 
         return $conditionData;
     }
+    // thanhnv import export 17/6/2020
+
+    public function lockedCellInExcel($worksheet,$arrayLock){
+        foreach($arrayLock as $cellLock){
+        $worksheet->getStyle($cellLock)->getProtection()->setLocked(Protection::PROTECTION_PROTECTED);
+        }
+      }
+
+    public function bacDaoTaoOfTruong($loaitruong){
+        $loai_truong ='';
+        switch ($loaitruong) {
+            case 3:
+                $loai_truong = 'TRƯỜNG SƠ CẤP';
+                break;
+            case 2:
+                $loai_truong = 'TRƯỜNG TRUNG CẤP';
+                break;
+            case 1:
+                $loai_truong = 'TRƯỜNG CAO ĐẲNG';
+                break;
+      } 
+      return $loai_truong;
+    }
+
+
+    public function sumRowInExcel($worksheet,$row){
+        $worksheet->setCellValue("D{$row}", "=SUM(E{$row}:F{$row})");
+        $worksheet->setCellValue("G{$row}", "=SUM(H{$row}:J{$row})");
+        $worksheet->setCellValue("J{$row}", "=SUM(K{$row}:L{$row})");
+        $worksheet->setCellValue("M{$row}", "=SUM(N{$row}:O{$row})");
+        $worksheet->setCellValue("P{$row}", "=SUM(Q{$row}:R{$row})");
+        $worksheet->setCellValue("S{$row}", "=SUM(T{$row}:U{$row})");
+        $worksheet->setCellValue("V{$row}", "=SUM(W{$row}:X{$row})");
+        $worksheet->setCellValue("Y{$row}", "=SUM(Z{$row}:AA{$row})");
+        $worksheet->setCellValue("AB{$row}", "=SUM(AC{$row}:AE{$row})");
+    }
+
+    public function createSpreadSheet($fileRead,$duoiFile){
+        if ($duoiFile =='xls') {
+            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
+         }else {
+            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+         }
+        $reader->setReadDataOnly(true);
+        $spreadsheet = $reader->load($fileRead);
+        return $spreadsheet;
+    }
+    
+    public function exportFillRow($worksheet, $row, $tnien){
+        $worksheet->setCellValue('B'.$row, $tnien->ten_nganh_nghe.' - '.$tnien->nghe_id);
+        $worksheet->setCellValue('C'.$row, $tnien->thoi_gian_dao_tao);
+
+        $worksheet->setCellValue('D'.$row, $tnien->tong_tuyen_sinh);
+        $worksheet->setCellValue('E'.$row, $tnien->nu_tuyen_sinh);
+        $worksheet->setCellValue('F'.$row, $tnien->ho_khau_HN_tuyen_sinh);
+
+        $worksheet->setCellValue('G'.$row, $tnien->tong_tuyen_sinh_bo_doi_xuat_ngu);
+        $worksheet->setCellValue('H'.$row, $tnien->tuyen_sinh_bo_doi_nu);
+        $worksheet->setCellValue('I'.$row, $tnien->tuyen_sinh_bo_doi_ho_khau_HN);
+
+        $worksheet->setCellValue('J'.$row, $tnien->tong_tuyen_sinh_Ca);
+        $worksheet->setCellValue('K'.$row, $tnien->tuyen_sinh_ca_nu);
+        $worksheet->setCellValue('L'.$row, $tnien->tuyen_sinh_ca_ho_khau_HN);
+
+        $worksheet->setCellValue('M'.$row, $tnien->tong_tuyen_sinh_thanh_nien);
+        $worksheet->setCellValue('N'.$row, $tnien->tuyen_sinh_thanh_nien_nu);
+        $worksheet->setCellValue('O'.$row, $tnien->tuyen_sinh_thanh_nien_ho_khau_HN);
+
+        $worksheet->setCellValue('P'.$row, $tnien->tong_tot_nghiep);
+        $worksheet->setCellValue('Q'.$row, $tnien->tong_tot_nghiep_nu);
+        $worksheet->setCellValue('R'.$row, $tnien->tong_tot_nghiep_ho_khau_HN);
+        
+        $worksheet->setCellValue('S'.$row, $tnien->tong_tot_nghiep_bo_doi);
+        $worksheet->setCellValue('T'.$row, $tnien->tong_nghiep_bo_doi_nu);
+        $worksheet->setCellValue('U'.$row, $tnien->tong_nghiep_bo_doi_ho_khau_HN);
+
+        $worksheet->setCellValue('V'.$row, $tnien->tong_tot_nghiep_ca);
+        $worksheet->setCellValue('W'.$row, $tnien->tot_nghiep_ca_nu);
+        $worksheet->setCellValue('X'.$row, $tnien->tot_nghiep_ca_ho_khau_HN);
+        
+        $worksheet->setCellValue('Y'.$row, $tnien->tong_tot_nghiep_thanh_nien);
+        $worksheet->setCellValue('Z'.$row, $tnien->tot_nghiep_thanh_nien_nu);
+        $worksheet->setCellValue('AA'.$row, $tnien->tot_nghiep_thanh_nien_ho_khau_HN);
+
+        $worksheet->setCellValue('AB'.$row, number_format($tnien->tong_kinh_phi));
+        $worksheet->setCellValue('AC'.$row, number_format($tnien->ngan_sach_TW));
+        $worksheet->setCellValue('AD'.$row, number_format($tnien->ngan_sach_TP));
+        $worksheet->setCellValue('AE'.$row, number_format($tnien->ngan_sach_khac));
+
+    }
+
+    public function exportBieuMau($id_coso){
+    $co_so = DB::table('co_so_dao_tao')->where('id', $id_coso)->first();
+    $spreadsheet = IOFactory::load('file_excel/bm10/bm10.xlsx');
+
+    $bacDaoTao = $this->bacDaoTaoOfTruong($co_so->loai_truong);
+
+    $worksheet = $spreadsheet->getActiveSheet();
+    $worksheet->setCellValue('B7', $bacDaoTao);
+    $worksheet->setCellValue('B8', "Trường: $co_so->ten - $id_coso");
+    
+    $worksheet->getStyle("B7")->getFont()->setBold(true);
+    $worksheet->getStyle("B8")->getFont()->setBold(true);
+    // tô nâu nền trường
+    $worksheet->getStyle("A7:AE7")->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('C7C7C7');
+    $worksheet->getStyle("A8:AE8")->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('C7C7C7');
+    $worksheet->getColumnDimension('B')->setAutoSize(true);
+
+    $co_so_nghe = $this->soLieuTuyenSinhRepository->getmanganhnghe($id_coso);
+    
+    $spreadsheet->getActiveSheet()->getProtection()->setSheet(true);
+    $spreadsheet->getDefaultStyle()->getProtection()->setLocked(false);
+
+    $arrayLock =['D','G','J','M','P','S','V','Y','AB','B'];
+    $this->lockedCellInExcel($worksheet,$arrayLock);
+
+    $row=8;
+    foreach($co_so_nghe as $cs_n){
+        $row ++;
+        $worksheet->setCellValue('B'.$row, $cs_n->ten_nganh_nghe.' - '.$cs_n->id);
+        $this->sumRowInExcel($worksheet,$row);
+    };
+
+    $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
+    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    header('Content-Disposition: attachment; filename="file-form-nhap.xlsx"');
+    $writer->save("php://output");
+
+
+    }
+
+    public function exportData($listCoSoId,$fromDate,$toDate){
+
+        $spreadsheet = IOFactory::load('file_excel/bm10/bm10.xlsx');
+        $worksheet = $spreadsheet->getActiveSheet();
+
+        $spreadsheet->getActiveSheet()->getProtection()->setSheet(true);
+        $spreadsheet->getDefaultStyle()->getProtection()->setLocked(true);
+        $worksheet->getColumnDimension('B')->setAutoSize(true);
+        $worksheet->getColumnDimension('C')->setAutoSize(true);
+
+        $arrayAphabe=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE'];
+
+        if(in_array('all',$listCoSoId)){
+            $listCoSoDaoTao =  DB::table('co_so_dao_tao')
+            ->orderBy('loai_truong', 'asc')
+            ->get();
+        }else{
+            $listCoSoDaoTao =  DB::table('co_so_dao_tao')->whereIn('id', $listCoSoId)
+            ->orderBy('loai_truong', 'asc')
+            ->get();
+        }
+
+        $row=6;  
+        $bacDaoTao = 'TRƯỜNG CAO ĐẲNG';
+        $bacDaoTaoId = 0;
+        foreach($listCoSoDaoTao as $co_s){
+        $row++;
+        
+            $dao_tao_cho_thanh_nien = $this->repository->getThanhNienTimeFromTo($co_s->id,$fromDate,$toDate);
+            
+            if ($co_s->loai_truong !== $bacDaoTaoId) {
+                $bacDaoTaoId = $co_s->loai_truong;
+
+                $bacDaoTao = $this->bacDaoTaoOfTruong($co_s->loai_truong);
+
+              $worksheet->setCellValue('B' . $row, $bacDaoTao);
+
+                $worksheet->getStyle("B{$row}")->getFont()->setBold(true);
+                $lockRange = "A{$row}:AE{$row}";
+                $worksheet->getStyle($lockRange)
+                    ->getFill()
+                    ->setFillType(Fill::FILL_SOLID)
+                    ->getStartColor()->setARGB('C7C7C7');
+
+                $worksheet->getStyle($lockRange)
+                    ->getProtection()
+                    ->setLocked(Protection::PROTECTION_PROTECTED);
+            $row++;
+          }
+          
+            $worksheet->setCellValue("B{$row}",'Trường: '.$co_s->ten.' - '.$co_s->id);
+            $worksheet->getStyle("B{$row}")->getProtection()->setLocked(Protection::PROTECTION_PROTECTED);
+            $worksheet->getStyle("B{$row}")->getFont()->setBold(true);
+            // tô nâu nền trường
+            $worksheet->getStyle("A{$row}:AE{$row}")
+            ->getFill()
+            ->setFillType(Fill::FILL_SOLID)
+            ->getStartColor()->setARGB('C7C7C7');
+
+
+            foreach($dao_tao_cho_thanh_nien as $dtthanhnien){
+                $row++;
+                // border cac o
+                foreach($arrayAphabe as $apha){
+                    $worksheet->getStyle($apha.$row)
+                    ->getBorders()
+                    ->getAllBorders()
+                    ->setBorderStyle(Border::BORDER_THIN);
+                }
+
+                // fill data
+                $this->exportFillRow($worksheet, $row , $dtthanhnien);
+                }
+                
+         }
+         $writer =IOFactory::createWriter($spreadsheet, "Xlsx");
+         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+         header('Content-Disposition: attachment; filename="file-xuat.xlsx"');
+         $writer->save("php://output");
+    }
+
+    public function checkError($data,$arrayApha){
+        $vitri=[];
+        for($i =7; $i < count($data); $i++){ 
+            $key_aphabel=-1;
+               $rowNumber = $i+1; 
+               for($j=2;$j <= 30;$j++){  
+                     $key_aphabel++;
+                       if(is_string($data[$i][$j])){
+                       array_push($vitri,$arrayApha[$key_aphabel].$rowNumber);
+                    }
+               }
+           }
+           return $vitri;
+    }
+
+
+    public function importFile($fileRead, $duoiFile,$year,$dot){
+        $message='';
+        $spreadsheet = $this->createSpreadSheet($fileRead,$duoiFile);
+        $data =$spreadsheet->getActiveSheet()->toArray();
+  
+        $truong = explode(' - ', $data[7][1]);
+        $id_truong = array_pop($truong);
+        $arrayApha=['C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE'];
+
+        $co_so_nghe = $this->soLieuTuyenSinhRepository->getmanganhnghe($id_truong);
+
+        $id_nghe_of_cs =[];
+        foreach($co_so_nghe as $csn){
+          array_push($id_nghe_of_cs,$csn->id);
+        }
+        $thanh_nien_da_co = $this->repository->getThanhNienCsNamDot($id_truong,$year,$dot);
+
+        $id_nghe_tn_da_co=[];
+        for($i=0;$i < count($thanh_nien_da_co); $i++){
+            $id_nghe_tn_da_co[$thanh_nien_da_co[$i]->nghe_id] = $thanh_nien_da_co[$i]->id;
+        }
+        
+        $vitri  = $this->checkError($data,$arrayApha);
+
+        if(count($vitri) > 0 ){
+                  $message='errorkitu';
+                  return $message;  
+         }
+
+         $arrayData=[];
+         $insertData=[];
+         $updateData=[];
+         $soDongNgNhap=(count($data) - 8);
+
+         if($soDongNgNhap == count($co_so_nghe)){
+             if($vitri == null || $vitri == ''){
+                 for($i = 8; $i < count($data); $i++){ 
+
+                    $nghe = explode(' - ', $data[$i][1]);
+                    $id_nghe_nhap = array_pop($nghe);
+                       if(in_array($id_nghe_nhap,$id_nghe_of_cs)){
+                 
+                         $arrayData=[
+                             'nam'=>$year,
+                             'dot'=>$dot,
+                             'nghe_id'=>$id_nghe_nhap,
+                             'co_so_id'=>$id_truong,
+
+                             'thoi_gian_dao_tao'=>$data[$i][2],
+                             'tong_tuyen_sinh'=>$data[$i][3],
+                             'nu_tuyen_sinh'=>$data[$i][4],
+                             'ho_khau_HN_tuyen_sinh'=>$data[$i][5],
+                             'tong_tuyen_sinh_bo_doi_xuat_ngu'=>$data[$i][6],
+                             'tuyen_sinh_bo_doi_nu'=>$data[$i][7],
+
+                             'tuyen_sinh_bo_doi_ho_khau_HN'=>$data[$i][8],
+                             'tong_tuyen_sinh_Ca'=>$data[$i][9],
+                             'tuyen_sinh_ca_nu'=>$data[$i][10],
+                             'tuyen_sinh_ca_ho_khau_HN'=>$data[$i][11],
+ 
+                             'tong_tuyen_sinh_thanh_nien'=>$data[$i][12],
+                             'tuyen_sinh_thanh_nien_nu'=>$data[$i][13],
+                             'tuyen_sinh_thanh_nien_ho_khau_HN'=>$data[$i][14],
+                             'tong_tot_nghiep'=>$data[$i][15],
+                             'tong_tot_nghiep_nu'=>$data[$i][16],
+                             'tong_tot_nghiep_ho_khau_HN'=>$data[$i][17],
+ 
+                             'tong_tot_nghiep_bo_doi'=>$data[$i][18],
+                             'tong_nghiep_bo_doi_nu'=>$data[$i][19],
+                             'tong_nghiep_bo_doi_ho_khau_HN'=>$data[$i][20],
+                             'tong_tot_nghiep_ca'=>$data[$i][21],
+                             'tot_nghiep_ca_nu'=>$data[$i][22],
+ 
+                             'tot_nghiep_ca_ho_khau_HN'=>$data[$i][23],
+                             'tong_tot_nghiep_thanh_nien'=>$data[$i][24],
+ 
+         
+                             'tot_nghiep_thanh_nien_nu'=>$data[$i][25],
+                             'tot_nghiep_thanh_nien_ho_khau_HN'=>$data[$i][26],
+                             'tong_kinh_phi'=>$data[$i][27],
+
+                             'ngan_sach_TW'=>$data[$i][28],
+                             'ngan_sach_TP'=>$data[$i][29],
+                             'ngan_sach_khac'=>$data[$i][30],
+ 
+                         ];
+                           if(array_key_exists($id_nghe_nhap,$id_nghe_tn_da_co)){
+                             $updateData[$id_nghe_tn_da_co[$id_nghe_nhap]]=$arrayData;
+                           }else{
+                             array_push($insertData,$arrayData); 
+                           }
+                    }; 
+ 
+                 }   
+                 if (count($updateData) > 0) {
+                 foreach($updateData as $key => $value)
+                     DB::table('ket_qua_dao_tao_cho_thanh_nien')->where('id',$key)->update($value);
+                 }  
+ 
+                 if (count($insertData) > 0) {
+                     DB::table('ket_qua_dao_tao_cho_thanh_nien')->insert($insertData);
+                 }    
+ 
+                  $message='ok';
+                  return $message;  
+             }
+         }else if($soDongNgNhap != count($co_so_nghe)){
+             $message='NgheUnsign';
+             return $message; 
+         }
+        
+    }
+
+    public function importError($fileRead,$duoiFile){
+
+        $spreadsheet = $this->createSpreadSheet($fileRead,$duoiFile);
+
+        $data = $spreadsheet->getActiveSheet()->toArray();
+
+        $truong = explode(' - ', $data[7][1]);
+        $id_truong = array_pop($truong);
+        $co_so = DB::table('co_so_dao_tao')->where('id',$id_truong)->first();
+        $arrayApha=['C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE'];
+
+        $vitri  = $this->checkError($data,$arrayApha);
+
+        $spreadsheet2 = IOFactory::load('file_excel/bm10/bm10.xlsx');
+        $worksheet = $spreadsheet2->getActiveSheet();
+
+        $bacDaoTao = $this->bacDaoTaoOfTruong($co_so->loai_truong);
+        $worksheet->setCellValue('B7', $bacDaoTao);
+        $worksheet->setCellValue('B8', "Trường: $co_so->ten - $co_so->id");
+        $worksheet->getStyle("B7")->getFont()->setBold(true);
+        $worksheet->getStyle("B8")->getFont()->setBold(true);
+
+        $worksheet->getStyle("A7:AE7")->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('C7C7C7');
+        $worksheet->getStyle("A8:AE8")->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('C7C7C7');
+        $worksheet->getColumnDimension('B')->setAutoSize(true);
+
+        $worksheet->getColumnDimension('C')->setAutoSize(true);
+
+        //  khóa lại không cho sửa
+        $spreadsheet2->getActiveSheet()->getProtection()->setSheet(true);
+        $spreadsheet2->getDefaultStyle()->getProtection()->setLocked(false);
+
+        $arrayLock =['D','G','J','M','P','S','V','Y','AB','B'];
+        $this->lockedCellInExcel($worksheet,$arrayLock);
+
+        $stt=8;
+        for($i = 8; $i < count($data); $i++){  
+            $stt++;
+            $worksheet->setCellValue('B'.$stt,$data[$i][1]);
+
+            $keyApha = -1;
+             for($j=2; $j <= 30 ;$j++){
+                $keyApha++;
+                $worksheet->setCellValue($arrayApha[$keyApha].$stt,$data[$i][$j]);
+             }
+             $this->sumRowInExcel($worksheet,$stt);
+            $arrayLock2 =['B'.$stt];
+            $this->lockedCellInExcel($worksheet,$arrayLock2);
+
+        }
+
+        for($i = 0; $i < count($vitri);$i++){
+            $worksheet->getStyle($vitri[$i])
+            ->getBorders()
+            ->getAllBorders()
+            ->setBorderStyle(Border::BORDER_THIN);
+            // $worksheet->getStyle($vitri[$i])->applyFromArray($styleArray);
+            //  màu ô
+            $worksheet->getStyle($vitri[$i])->getFill()
+            ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+            ->getStartColor()->setARGB('FFFF0000');
+        }  
+
+        $writer = IOFactory::createWriter($spreadsheet2, "Xlsx"); 
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="error.xlsx"');
+        $writer->save("php://output");
+    } 
 
 }
 
