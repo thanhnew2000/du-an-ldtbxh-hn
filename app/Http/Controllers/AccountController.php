@@ -126,13 +126,13 @@ class AccountController extends Controller
             ])
              ->paginate($params['page_size']);
        
-       
            }
-            $users->withPath("?status=$status&role=$role&keyword=$keyword");                  
-            $soluong = $users->count();
-            if($soluong < 1){
-                return view('account.list_account',compact('users','keyword','status','role','params','route_name'),['thongbao'=>'Không tìm thấy kết quả !']);
-            }
+           
+        }
+        $users->withPath("?status=$status&role=$role&keyword=$keyword&page_size=$request->page_size");                  
+        $soluong = $users->count();
+        if($soluong < 1){
+            return view('account.list_account',compact('users','keyword','status','role','params','route_name'),['thongbao'=>'Không tìm thấy kết quả !']);
         }
 
  
