@@ -13,6 +13,13 @@ Route::group(['prefix' => 'quan-ly-giao-vien'], function(){
     Route::post('store', 'QuanLyGiaoVienController@store')->name('ql-giao-vien.store');
     Route::get('edit/{giaoVien}', 'QuanLyGiaoVienController@edit')->name('ql-giao-vien.edit');
     Route::post('update/{giaoVien}', 'QuanLyGiaoVienController@update')->name('ql-giao-vien.update');
+
+    // thanhnv import export doi ngu nha giao bm-9
+    Route::post('import-file-ql-giao-vien', 'QuanLyGiaoVienController@importFile')
+    ->name('import-quan-ly-giao-vien');
+    Route::post('import-error-ql-giao-vien', 'QuanLyGiaoVienController@importError')
+    ->name('import-error-quan-ly-giao-vien');
+
 });
 
 Route::resource('so-lieu-can-bo-quan-ly', 'SoLieuCanBoQuanLyController');

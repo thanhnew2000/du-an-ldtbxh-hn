@@ -136,4 +136,5 @@ class CoSoDaoTaoRepository extends BaseRepository implements CoSoDaoTaoRepositor
             ])
             ->get();
     }
+
 }

@@ -5,6 +5,7 @@ use App\Repositories\DoiNguNhaGiaoRepository;
 
 class DoiNguNhaGiaoService extends AppService
 {
+
     public function getRepository()
     {
         return DoiNguNhaGiaoRepository::class;
@@ -25,4 +26,6 @@ class DoiNguNhaGiaoService extends AppService
     public function checkTonTaiKhiThem($params){
         return $this->repository->checkTonTaiKhiThem($params);
     }
+    
+
 }

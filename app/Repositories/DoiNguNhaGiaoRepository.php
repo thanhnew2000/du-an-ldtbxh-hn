@@ -106,4 +106,5 @@ class DoiNguNhaGiaoRepository extends BaseRepository implements DoiNguNhaGiaoInt
 
         return $kq;
     }
+    
 }
