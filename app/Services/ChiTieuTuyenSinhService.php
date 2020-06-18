@@ -23,4 +23,14 @@ class ChiTieuTuyenSinhService extends AppService
     {
         return $this->repository->checkTonTaiKhiThem($params);
     }
+
+    public function getNganhNgheTheoCoSo($co_so_id)
+    {
+        return $this->repository->getNganhNgheTheoCoSo($co_so_id);
+    }
+
+    public function chiTietTheoCoSo($co_so_id, $params)
+    {
+        return $this->repository->chiTietTheoCoSo($co_so_id, $params);
+    }
 }

@@ -55,12 +55,11 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Tên nghề</label>
                                 <div class="col-lg-10">
-                                    <select name="nghe_id" class="form-control select2" id="nganh_nghe">
+                                    <select name="nghe_id" class="form-control select2" id="nghe_id">
                                         <option value="-1">-----Chọn ngành nghề-----</option>
                                        
                                     </select>
                                     <label id="nghe_id-error" class="error" for="nghe_id"></label>
-
                                     @if ($errors->has('nghe_id'))
                                     <span class="text-danger">{{ $errors->first('nghe_id') }}</span>
                                     @endif
@@ -124,7 +123,7 @@
                                         <label class="col-lg-5 col-form-label">Số lượng đăng ký chỉ tiêu tuyển sinh
                                         </label>
                                         <div class="col-lg-7">
-                                            <input type="number" class="form-control m-input" placeholder="Nhập vào số"
+                                            <input type="number" min="0" class="form-control m-input" placeholder="Nhập vào số"
                                                 name="tong" value="{{ old('tong') }}">
 
                                             @if ($errors->has('tong'))
@@ -136,7 +135,7 @@
                                         <label class="col-lg-5 col-form-label">Số lượng đăng ký tuyển sinh cao
                                             đẳng</label>
                                         <div class="col-lg-7">
-                                            <input type="number" class="form-control m-input" placeholder="Nhập vào số"
+                                            <input type="number" min="0" class="form-control m-input" placeholder="Nhập vào số"
                                                 name="so_dang_ki_CD" value="{{ old('so_dang_ki_CD') }}">
 
                                             @if ($errors->has('so_dang_ki_CD'))
@@ -148,7 +147,7 @@
                                         <label class="col-lg-5 col-form-label">Số lượng đăng ký tuyển sinh trung
                                             cấp</label>
                                         <div class="col-lg-7">
-                                            <input type="number" class="form-control m-input" placeholder="Nhập vào số"
+                                            <input type="number" min="0" class="form-control m-input" placeholder="Nhập vào số"
                                                 name="so_dang_ki_TC" value="{{ old('so_dang_ki_TC') }}">
 
                                             @if ($errors->has('so_dang_ki_TC'))
@@ -191,7 +190,7 @@
                         htmldata +=
                             `<option value="${element.id}" >${element.id} --- ${element.ten_nganh_nghe}</option>`;
                     });
-                    $("#nganh_nghe").html(htmldata);
+                    $("#nghe_id").html(htmldata);
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -201,7 +200,7 @@
     });
 
     $(document).ready(function () {
-        $("#validate-form-addd").validate({
+        $("#validate-form-add").validate({
             rules: {
                 co_so_id: {
                     min: 0
@@ -216,17 +215,14 @@
                     min: 0
                 },
                 tong: {
-                    required: true,
                     number: true,
                     digits: true
                 },
                 so_dang_ki_CD: {
-                    required: true,
                     number: true,
                     digits: true
                 },
                 so_dang_ki_TC: {
-                    required: true,
                     number: true,
                     digits: true
                 }
@@ -245,17 +241,14 @@
                     min: "Vui lòng chọn ngành nghề"
                 },
                 tong: {
-                    required: "Vui lòng nhập số liệu",
                     number: "Vui lòng nhập liệu hợp lệ",
                     digits: "Số liệu nhỏ nhất là 0"
                 },
                 so_dang_ki_CD: {
-                    required: "Vui lòng nhập số liệu",
                     number: "Vui lòng nhập liệu hợp lệ",
                     digits: "Số liệu nhỏ nhất là 0"
                 },
                 so_dang_ki_TC: {
-                    required: "Vui lòng nhập số liệu",
                     number: "Vui lòng nhập liệu hợp lệ",
                     digits: "Số liệu nhỏ nhất là 0"
                 }
@@ -276,7 +269,7 @@
         showconfirmButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: '<a class="text-white" href="">Edit</a>'
+        confirmButtonText: '<a class="text-white" href="{{ route('xuatbc.sua-dang-ky-chi-tieu-tuyen-sinh',['id'=>session('edit')]) }}">Edit</a>'
         })
 </script>
 @endif

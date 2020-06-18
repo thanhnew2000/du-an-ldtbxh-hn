@@ -610,7 +610,6 @@ class ExtractController extends Controller
         $kq = $this->ChiTieuTuyenSinhService->checkTonTaiKhiThem($params);
         if($kq){
             return redirect()->route('xuatbc.them-dang-ky-chi-tieu-tuyen-sinh')->with(['edit'=> $kq->id])->withInput();
- 
         }
 
         $dateTime = Carbon::now();
@@ -633,7 +632,6 @@ class ExtractController extends Controller
         $params['ten_nghe'] = $this->NganhNgheService->findById($data->nghe_id)->ten_nganh_nghe;
         $params['co_so_dao_tao'] = $this->CoSoDaoTaoService->getAll();
         return view('extractreport.sua_dang_ky_chi_tieu_tuyen_sinh',compact('params','data'));
-        // return view('extractreport.sua_dang_ky_chi_tieu_tuyen_sinh');
     }
 
     
@@ -648,6 +646,34 @@ class ExtractController extends Controller
         $request->request->set('thoi_gian_cap_nhat', $dateTime->format('Y-m-d H:i:s'));
         $this->ChiTieuTuyenSinhService->update($id,$request);
          return redirect()->back()->with(['success'=>'Cập nhật thành công !']);
+    }
+
+    public function chitietChiTieuTuyenSinh($co_so_id, Request $request)
+    {    
+        $data = $this->CoSoDaoTaoService->findById($co_so_id);
+        if (empty($data)) {
+            return redirect()->route('xuatbc.ds-chi-tieu-ts');
+        }
+
+        $params = $request->all();
+
+        if(!isset($params['page_size'])) $params['page_size'] = config('common.paginate_size.default');
+        $route_name = Route::current()->action['as'];
+
+        $data = $this->ChiTieuTuyenSinhService->chiTietTheoCoSo($co_so_id,$params);
+        $params['get_nganh_nghe_theo_co_so'] = $this->ChiTieuTuyenSinhService->getNganhNgheTheoCoSo($co_so_id);
+        $id_co_so = $co_so_id;
+
+    
+        $data->withPath("?nghe_id=$request->nghe_id&dot=$request->dot&nam=$request->nam&page_size=$request->page_size");  
+        
+        if($data->count() < 1){
+            return view('extractreport.chi-tiet-tong-hop-dang-ky-chi-tieu-tuyen-sinh', 
+            compact('data','params','route_name','id_co_so'),
+            ['thongbao'=>'Không tìm thấy kết quả !']);
+        }      
+        return view('extractreport.chi-tiet-tong-hop-dang-ky-chi-tieu-tuyen-sinh',
+        compact('data','params','route_name','id_co_so'),['thongbao'=>'']);
     }
     //phucnv end BM:8
 

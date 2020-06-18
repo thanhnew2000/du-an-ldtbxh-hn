@@ -23,30 +23,29 @@ class StoreChiTieuTuyenSinhRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'co_so_id' => 'required|numeric|min:0',
-            'dot' => 'required|numeric|min:0',
-            'nam' => 'required|numeric|min:0',
-            'nghe_id' => 'required|numeric|min:0',
-
-            'so_dang_ki_CD' => 'required|numeric|min:0',
-            'so_dang_ki_TC' => 'required|numeric|min:0',
-            'tong' => 'required|numeric|min:0'
-        ];
+        $data = $this->all();
+        unset($data['_token']);
+        $getDataCheck=[];
+        foreach ($data as $item=>$value) {
+            if($value == null){
+                $getDataCheck[$item] = 'min:0|';
+            }else{
+                $getDataCheck[$item] = 'min:0|integer|';
+            }
+        }
+        return $getDataCheck;
     }
 
     public function messages()
     {
-        return [
-                'required' => 'Vui lòng nhập số liệu',
-                'numeric' => 'Hãy điền số',
+        return [      
+                'integer' => 'Hãy điền số',
                 'min' => 'Số liệu nhỏ nhất là 0', 
 
                 'co_so_id.min' => 'Vui lòng chọn đơn vị',
                 'dot.min' => 'Vui lòng chọn đợt',
                 'nam.min' => 'Vui lòng chọn năm',
                 'nghe_id.min' => 'Vui lòng chọn nghề'
- 
         ];
     }
 }

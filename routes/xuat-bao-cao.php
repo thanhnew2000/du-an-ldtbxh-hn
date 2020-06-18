@@ -232,6 +232,9 @@ Route::group(['prefix' => 'chi-tieu-tuyen-sinh'], function () {
     Route::get('/sua/{id}', 'ExtractController@suaChiTieuTuyenSinh')
         ->name('xuatbc.sua-dang-ky-chi-tieu-tuyen-sinh');
     Route::post('/sua/{id}', 'ExtractController@updateChiTieuTuyenSinh');
+
+    Route::get('/chi-tiet/{co_so_id}', 'ExtractController@chitietChiTieuTuyenSinh')
+        ->name('xuatbc.chi-tiet-dang-ky-chi-tieu-tuyen-sinh'); 
 });
 //phucnv end BM:8
 

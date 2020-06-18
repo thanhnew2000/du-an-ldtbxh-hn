@@ -89,7 +89,7 @@
                                         <label class="col-lg-5 col-form-label">Số lượng đăng ký chỉ tiêu tuyển sinh
                                         </label>
                                         <div class="col-lg-7">
-                                            <input type="number" class="form-control m-input" placeholder="Nhập vào số"
+                                            <input type="number" min="0" class="form-control m-input" placeholder="Nhập vào số"
                                                 name="tong" @if (old('tong')) value="{{old('tong')}}" @else
                                                 value="{{ $data->tong }}" @endif>
 
@@ -102,7 +102,7 @@
                                         <label class="col-lg-5 col-form-label">Số lượng đăng ký tuyển sinh cao
                                             đẳng</label>
                                         <div class="col-lg-7">
-                                            <input type="number" class="form-control m-input" placeholder="Nhập vào số"
+                                            <input type="number" min="0" class="form-control m-input" placeholder="Nhập vào số"
                                                 name="so_dang_ki_CD" @if (old('so_dang_ki_CD'))
                                                 value="{{old('so_dang_ki_CD')}}" @else
                                                 value="{{ $data->so_dang_ki_CD }}" @endif>
@@ -116,7 +116,7 @@
                                         <label class="col-lg-5 col-form-label">Số lượng đăng ký tuyển sinh trung
                                             cấp</label>
                                         <div class="col-lg-7">
-                                            <input type="number" class="form-control m-input" placeholder="Nhập vào số"
+                                            <input type="number" min="0" class="form-control m-input" placeholder="Nhập vào số"
                                                 name="so_dang_ki_TC" @if (old('so_dang_ki_TC'))
                                                 value="{{old('so_dang_ki_TC')}}" @else
                                                 value="{{ $data->so_dang_ki_TC }}" @endif>
@@ -135,7 +135,7 @@
         </div>
         <div class="d-flex justify-content-end">
             <div class="col-lg-1 ">
-                <a class="btn btn-danger">Hủy</a>
+                <a href="{{ route('xuatbc.chi-tiet-dang-ky-chi-tieu-tuyen-sinh',['co_so_id' => $data->co_so_id]) }}" class="btn btn-danger text-white">Hủy</a>
             </div>
             <div>
                 <button type="submit" class="btn btn-primary">Chỉnh sửa</button>
@@ -161,39 +161,39 @@
 @endif
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#validate-form-update").validate({
+        $("#validate-form-updatee").validate({
             rules: {
                 tong:{
-                    required: true,
                     number: true,
-                    digits: true
+                    digits: true,
+                    min: 0
                 },
                 so_dang_ki_CD:{
-                    required: true,
                     number: true,
-                    digits: true
+                    digits: true,
+                    min: 0
                 },
                 so_dang_ki_TC:{
-                    required: true,
                     number: true,
-                    digits: true
+                    digits: true,
+                    min: 0
                 }
             },
             messages: {
                 tong:{
-                    required: "Vui lòng nhập số liệu",
                     number: "Vui lòng nhập liệu hợp lệ",
-                    digits: "Số liệu nhỏ nhất là 0"
+                    digits: "Số liệu nhỏ nhất là 0",
+                    min: "Số liệu nhỏ nhất là 0"
                 },
                 so_dang_ki_CD:{
-                    required: "Vui lòng nhập số liệu",
                     number: "Vui lòng nhập liệu hợp lệ",
-                    digits: "Số liệu nhỏ nhất là 0"
+                    digits: "Số liệu nhỏ nhất là 0",
+                    min: "Số liệu nhỏ nhất là 0"
                 },
                 so_dang_ki_TC:{
-                    required: "Vui lòng nhập số liệu",
                     number: "Vui lòng nhập liệu hợp lệ",
-                    digits: "Số liệu nhỏ nhất là 0"
+                    digits: "Số liệu nhỏ nhất là 0",
+                    min: "Số liệu nhỏ nhất là 0"
                 }
             }
         });

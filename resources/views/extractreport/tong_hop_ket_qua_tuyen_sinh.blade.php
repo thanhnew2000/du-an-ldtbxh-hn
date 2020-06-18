@@ -22,7 +22,7 @@
                         <i class="m-menu__link-icon flaticon-web"></i>
                     </span>
                     <h3 class="m-portlet__head-text">
-                        Tổng hợp<small>số lượng đăng ký chỉ tiêu tuyển sinh</small>
+                        Tổng  hợp<small>số lượng đăng ký chỉ tiêu tuyển sinh</small>
                     </h3>
                 </div>
             </div>
@@ -54,7 +54,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Năm</label>
                                 <div class="col-lg-10">
-                                    <select name="nam" class="form-control ">
+                                    <select name="nam" class="form-control select2">
                                         <option value="">-----Chọn năm-----</option>
 
                                         @foreach(config('common.nam.list') as $nam)
@@ -70,7 +70,7 @@
                     <div class="row pt-4">
                         <div class="col-md-6">
                             <div class="form-group m-form__group row">
-                                <label class="col-lg-2 col-form-label">Tên nghề</label>
+                                <label class="col-lg-2 col-form-label">Tên ngành nghề</label>
                                 <div class="col-lg-10">
                                     <select name="nghe_id" id="" class="form-control select2">
                                         <option value="">-----Chọn ngành nghề-----</option>
@@ -92,7 +92,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Đợt</label>
                                 <div class="col-lg-10">
-                                    <select name="dot" class="form-control ">
+                                    <select name="dot" class="form-control select2">
                                         <option value="">-----Chọn đợt-----</option>
                                         <option @if(isset($params['dot']) && $params['dot']==config('common.dot.1'))
                                             selected @endif value="{{config('common.dot.1')}}">
@@ -156,6 +156,7 @@
                         <th rowspan="2">STT</th>
                         <th rowspan="2">Tên cơ sở</th>
                         <th rowspan="2">Loại hình cơ sở</th>
+                        <th rowspan="2">Mã nghề</th>
                         <th rowspan="2">Tên nghề</th>
                         <th rowspan="2">Năm</th>
                         <th rowspan="2">Đợt</th>
@@ -179,6 +180,7 @@
                         <td>{{ $stt }}</td>
                         <td>{{ $item->ten }}</td>
                         <td>{{ $item->ten_loai_hinh_co_so }}</td>
+                        <td>{{ $item->ma_nghe }}</td>
                         <td>{{ $item->ten_nghe }}</td>
 
                         <td>{{ $item->nam }}</td>
@@ -188,7 +190,8 @@
                         <td>{{ $item->so_dang_ki_CD }}</td>
                         <td>{{ $item->so_dang_ki_TC }}</td>
                         <td>
-                            <a href="{{ route('xuatbc.chi-tiet-theo-co-so',['co_so_id'=>$item->co_so_id]) }}"
+                            <a target="_blank"
+                            href="{{ route('xuatbc.chi-tiet-dang-ky-chi-tieu-tuyen-sinh',['co_so_id'=>$item->co_so_id]) }}"
                                 class="btn btn-info btn-sm">Chi tiết</a>
                         </td>
                     </tr>

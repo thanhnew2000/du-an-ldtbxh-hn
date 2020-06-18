@@ -23,19 +23,23 @@ class UpdateChiTieuTuyenSinhRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'so_dang_ki_CD' => 'required|numeric|min:0',
-            'so_dang_ki_TC' => 'required|numeric|min:0',
-            'tong' => 'required|numeric|min:0'
-        ];
+        $data = $this->all();
+        unset($data['_token']);
+        $getDataCheck=[];
+        foreach ($data as $item=>$value) {
+            if($value == null){
+                $getDataCheck[$item] = 'min:0|';
+            }else{
+                $getDataCheck[$item] = 'min:0|integer|';
+            }
+        }
+        return $getDataCheck;
     }
     public function messages()
     {
         return [
-                'required' => 'Vui lòng nhập số liệu',
-                'numeric' => 'Hãy điền số',
+                'integer' => 'Hãy điền số',
                 'min' => 'Số liệu nhỏ nhất là 0'
- 
         ];
     }
 }
