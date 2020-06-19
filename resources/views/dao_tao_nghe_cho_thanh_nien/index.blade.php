@@ -290,6 +290,7 @@
     </div>
 @endsection
 @section('script')
+<script src="{{ asset('js/so_lieu_tuyen_sinh/tong_hop_so_lieu.js') }}"></script>
 <script>
     $(document).ready(function() {
     $('#ten_co_so').select2();
