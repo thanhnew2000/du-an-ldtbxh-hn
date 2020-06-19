@@ -44,7 +44,8 @@
 
                 <li>
                     <h5>Logo</h5>
-                    <div class="co-so-info"><img src="{!! asset('storage/' . $item->logo) !!}" class="img-size-100" alt="">
+                    <div class="co-so-info"><img src="{!! asset('storage/' . $item->logo) !!}" class="img-size-100"
+                            alt="">
                     </div>
                 </li>
 
@@ -68,13 +69,12 @@
                     <h5>Địa chỉ</h5>
                     <h5 class="co-so-info">{{ $item->dia_chi}}</h5>
                 </li>
-                <li class="row">
-                    <a href="{{ route('csdt.chi-nhanh', ['id'=>$item->id]) }}" class=" btn btn-outline-info">Xem danh
-                        sách địa điểm đào tạo</a>
-                    <a href="{{route('giay-phep.danh-sach', ['id' => $item->id])}}" class=" btn btn-outline-info">Xem danh sách giấy phép</a>
-                    <a href="{{route('csdt.thiet-lap-nghe-cs', ['csdtid' => $item->id])}}" class=" btn btn-outline-info">Xem danh sách ngành nghề</a>
-                    <a href="" class=" btn btn-outline-info">Xem danh sách nhân sự</a>
-                    
+                <li>
+                    <a href="{{ route('csdt.chi-nhanh', ['id'=>$item->id]) }}" class="btn btn-outline-info">Xem danh
+                        sách chi nhánh</a>
+                    <a href="{{route('nghe.thiet-lap-nghe-cs', ['csdtid' => $item->id])}}"
+                        class="btn btn-outline-info">Xem danh sách ngành nghề</a>
+                    <a href="" class="btn btn-outline-info">Xem danh sách nhân sự</a>
                 </li>
                 @empty
                 <h5>ERRR</h5>
