@@ -20,6 +20,7 @@ class DaoTaoNgheChoNguoiKhuyetTatService extends AppService
 {
     protected $LoaiHinhCoSoRepositoryInterface;
     protected $DaoTaoNgheChoThanhNienReponsitory;
+    use ExcelTraitService;
 
     public function __construct(
         LoaiHinhCoSoRepositoryInterface $loaiHinhCoSoRepository,
@@ -51,7 +52,23 @@ class DaoTaoNgheChoNguoiKhuyetTatService extends AppService
         $queryData['loai_hinh'] = isset($params['loai_hinh']) ? $params['loai_hinh'] : null;
         $queryData['devvn_quanhuyen'] = isset($params['devvn_quanhuyen']) ? $params['devvn_quanhuyen'] : null;
         $queryData['devvn_xaphuongthitran'] = isset($params['devvn_xaphuongthitran']) ? $params['devvn_xaphuongthitran'] : null;
-        $queryData['nganh_nghe'] = isset($params['nganh_nghe']) ? $params['nganh_nghe'] : null;
+        $queryData['nghe_cap_2'] = isset($params['nghe_cap_2']) ? $params['nghe_cap_2'] : null;
+
+        if(isset($params['nghe_cap_3'])){
+            $queryData['nghe_cap_2']=null;
+            $queryData['nghe_cap_3']=$params['nghe_cap_3'];
+        }else{
+            $queryData['nghe_cap_3']=null;
+        }
+
+        if(isset($params['nghe_cap_4'])){
+            $queryData['nghe_cap_2']=null;
+            $queryData['nghe_cap_3']=null;
+            $queryData['nghe_cap_4']=$params['nghe_cap_4'];
+        }else{
+            $queryData['nghe_cap_4']=null;
+        }
+        // dd($queryData);
         $data = $this->repository->index($queryData, $limit);
 
         return $data;
@@ -160,55 +177,6 @@ class DaoTaoNgheChoNguoiKhuyetTatService extends AppService
 
     // thanhnv import export 6/18/2020
 
-    public function createSpreadSheet($fileRead,$duoiFile){
-        if ($duoiFile =='xls') {
-            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
-         }else {
-            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-         }
-        $reader->setReadDataOnly(true);
-        $spreadsheet = $reader->load($fileRead);
-        return $spreadsheet;
-    }
-
-
-
-    public function lockedCellInExcel($worksheet,$arrayLock){
-        foreach($arrayLock as $cellLock){
-            $worksheet->getStyle($cellLock)->getProtection()->setLocked(Protection::PROTECTION_PROTECTED);
-        }
-    }
-    
-    public function checkError($data, $arrayApha, $dongstart, $cotstart, $cotend){
-        $vitri=[];
-        for($i = $dongstart ; $i < count($data); $i++){ 
-            $key_aphabel=-1;
-               $rowNumber = $i+1; 
-               for($j=  $cotstart ; $j <= $cotend ; $j++){  
-                     $key_aphabel++;
-                       if( (is_string($data[$i][$j])) || ($data[$i][$j] < 0) ){
-                       array_push($vitri,$arrayApha[$key_aphabel].$rowNumber);
-                    }
-               }
-           }
-        return $vitri;
-    }
-    
-    public function bacDaoTaoOfTruong($loaitruong){
-        $loai_truong ='';
-        switch ($loaitruong) {
-            case 3:
-                $loai_truong = 'TRƯỜNG SƠ CẤP';
-                break;
-            case 2:
-                $loai_truong = 'TRƯỜNG TRUNG CẤP';
-                break;
-            case 1:
-                $loai_truong = 'TRƯỜNG CAO ĐẲNG';
-                break;
-        } 
-      return $loai_truong;
-    }
 
     public function sumRowInExcel($worksheet,$row){
         $worksheet->setCellValue("C{$row}", "=SUM(D{$row}:E{$row})");

@@ -173,10 +173,13 @@ Route::group(['prefix' => 'dao-tao-nghe-nguoi-khuyet-tat'], function () {
 
 Route::group(['prefix' => 'dao-tao-nghe-thanh-nien'], function () {
     Route::get('/tong-hop', 'ExtractController@tonghopdaotaothanhnien')
-
         ->name('xuatbc.ds-dao-tao-thanh-nien');
 
-    
+    // thanhnv import export dao tao nghe thanh nien
+
+    Route::post('export-form-nhap-dao-tao-thanh-nien', 'DaoTaoNgheThanhNienController@exportForm')->name('layformbieumau-dao-tao-thanh-nien');
+    Route::post('export-data-dao-tao-thanh-nien', 'DaoTaoNgheThanhNienController@exportData')->name('exportdata-dao-tao-thanh-nien');
+
 });
 
 
