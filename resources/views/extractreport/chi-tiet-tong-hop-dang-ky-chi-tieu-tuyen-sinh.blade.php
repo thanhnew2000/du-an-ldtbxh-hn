@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', "Tổng hợp số lượng đăng ký chỉ tiêu tuyển sinh")
+@section('title', "Chi tiết tổng hợp số lượng đăng ký chỉ tiêu tuyển sinh")
 @section('style')
 {{-- <link href="{!! asset('tuyensinh/css/chitiettuyensinh.css') !!}" rel="stylesheet" type="text/css" /> --}}
 <style>
@@ -14,6 +14,31 @@
 @endsection
 @section('content')
 <div class="m-content container-fluid">
+    <div class="m-portlet">
+        <div class="m-portlet__head">
+            <div class="m-portlet__head-caption">
+                <div class="m-portlet__head-title">
+                    <span class="m-portlet__head-icon">
+                        <i class="m-menu__link-icon flaticon-web"></i>
+                    </span>
+                    <h3 class="m-portlet__head-text">
+                        Chi tiết <small>Thông tin cơ sở</small>
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <div class="m-portlet__body">
+       
+            <h3>Cơ sở đào tạo: {{$thongtincoso[0]->ten}}</h3>
+            <p>Loại hình cơ sở: {{$thongtincoso[0]->loai_hinh_co_so}}</p>
+            <p>Địa chỉ: {{$thongtincoso[0]->dia_chi}}</p>
+            <p>Phường/Xã: {{$thongtincoso[0]->tenxaphuong}}</p>
+            <p>Quận/Huyện: {{$thongtincoso[0]->tenquanhuyen}}</p>
+      
+          
+
+        </div>
+    </div>
     <div class="m-portlet mt-5">
         <div class="m-portlet__head">
             <div class="m-portlet__head-caption">
@@ -165,7 +190,17 @@
                   @endforeach
                 </tbody>
             </table>
+            <div>
+                @if ($thongbao)
+                <div class="thongbao border" style="color: red; text-align: center;">
+                    <h4 class="m-portlet__head-text ">
+                        {{$thongbao}}
+                    </h4>
+                </div>
+                @endif
+            </div>
         </div>
+        
         <div class="m-portlet__foot d-flex justify-content-end">
             {!! $data->links() !!}
         </div>
@@ -173,7 +208,7 @@
 @endsection
 @section('script')
 <script>
-    var currentUrl = `{{route($route_name,['co_so_id'=>$id_co_so])}}`;
+    var currentUrl = `{{route($route_name,['co_so_id'=>$thongtincoso[0]->id])}}`;
     $(document).ready(function () {
         $('#page-size').change(function () {
             var dot = $('[name="dot"]').val();

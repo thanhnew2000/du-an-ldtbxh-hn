@@ -107,6 +107,10 @@ class ExtractController extends Controller
      */
     public function chiTietTheoCoSo(Request $request,$co_so_id)
     {
+        $check_co_so = DB::table('co_so_dao_tao')->whereId($co_so_id)->first();
+        if (!$check_co_so) {
+            return redirect()->route('xuatbc.ds-nha-giao');
+        }
       
         $params = $request->all();
         if(!isset($params['page_size'])) $params['page_size'] = config('common.paginate_size.default');
@@ -114,7 +118,6 @@ class ExtractController extends Controller
 
         $data = $this->DoiNguNhaGiaoService->chiTietTheoCoSo($co_so_id, $params);
         $thongtincoso = $this->CoSoDaoTaoService->getSingleCsdt($co_so_id);
-     
        
         $data->withPath("?dot=$request->dot&nam=$request->nam&page_size=$request->page_size"); 
 
@@ -446,6 +449,11 @@ class ExtractController extends Controller
      */
     public function chiTietTongHopHopTacQuocTe(Request $request, $co_so_id)
     {
+        $check_co_so = DB::table('co_so_dao_tao')->whereId($co_so_id)->first();
+        if (!$check_co_so) {
+            return redirect()->route('xuatbc.ds-hop-tact-qte');
+        }
+
         $params = $request->all();
         if(!isset($params['page_size'])) $params['page_size'] = config('common.paginate_size.default');
         $route_name = Route::current()->action['as'];
@@ -649,31 +657,29 @@ class ExtractController extends Controller
     }
 
     public function chitietChiTieuTuyenSinh($co_so_id, Request $request)
-    {    
-        $data = $this->CoSoDaoTaoService->findById($co_so_id);
-        if (empty($data)) {
+    {   
+        $check_co_so = DB::table('co_so_dao_tao')->whereId($co_so_id)->first();
+        if (!$check_co_so) {
             return redirect()->route('xuatbc.ds-chi-tieu-ts');
         }
 
         $params = $request->all();
-
         if(!isset($params['page_size'])) $params['page_size'] = config('common.paginate_size.default');
         $route_name = Route::current()->action['as'];
 
         $data = $this->ChiTieuTuyenSinhService->chiTietTheoCoSo($co_so_id,$params);
         $params['get_nganh_nghe_theo_co_so'] = $this->ChiTieuTuyenSinhService->getNganhNgheTheoCoSo($co_so_id);
-        $id_co_so = $co_so_id;
-
+        $thongtincoso = $this->CoSoDaoTaoService->getSingleCsdt($co_so_id);
     
         $data->withPath("?nghe_id=$request->nghe_id&dot=$request->dot&nam=$request->nam&page_size=$request->page_size");  
         
         if($data->count() < 1){
             return view('extractreport.chi-tiet-tong-hop-dang-ky-chi-tieu-tuyen-sinh', 
-            compact('data','params','route_name','id_co_so'),
+            compact('data','params','route_name','thongtincoso'),
             ['thongbao'=>'Không tìm thấy kết quả !']);
         }      
         return view('extractreport.chi-tiet-tong-hop-dang-ky-chi-tieu-tuyen-sinh',
-        compact('data','params','route_name','id_co_so'),['thongbao'=>'']);
+        compact('data','params','route_name','thongtincoso'),['thongbao'=>'']);
     }
     //phucnv end BM:8
 

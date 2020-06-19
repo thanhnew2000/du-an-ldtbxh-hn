@@ -106,7 +106,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row pt-5">
+                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Loại hình cơ sở</label>
@@ -202,15 +202,15 @@
                   @endforeach
                 </tbody>
             </table>
-        </div>
-        <div>
-            @if ($thongbao)
-            <div class="thongbao border" style="color: red; text-align: center;">
-                <h4 class="m-portlet__head-text ">
-                    {{$thongbao}}
-                </h4>
+            <div>
+                @if ($thongbao)
+                <div class="thongbao border" style="color: red; text-align: center;">
+                    <h4 class="m-portlet__head-text ">
+                        {{$thongbao}}
+                    </h4>
+                </div>
+                @endif
             </div>
-            @endif
         </div>
         <div class="m-portlet__foot d-flex justify-content-end">
             {!! $data->links() !!}
