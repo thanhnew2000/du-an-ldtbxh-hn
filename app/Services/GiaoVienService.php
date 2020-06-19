@@ -196,7 +196,7 @@ class GiaoVienService extends AppService
                          && ($data[$i][$j] != $data[$i][4])
                          && ($data[$i][$j] != $data[$i][5]) 
                          && ($data[$i][$j] != $data[$i][34])
-                         && ($data[$i][$j] != $data[$i][35]) || $data[$i][$j] < 0 ){
+                         && ($data[$i][$j] != $data[$i][35]) || ($data[$i][$j] < 0) || ($data[$i][$j] < 0 || $data[$i][$j] > 1 ) ){
                         array_push($vitri,$arrayApha[$key_aphabel].$rowNumber);
                     }
                 }
