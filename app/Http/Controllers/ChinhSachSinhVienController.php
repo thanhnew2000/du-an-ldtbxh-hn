@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Services\ChinhSachSinhVienService;
 use Illuminate\Support\Facades\DB;
@@ -28,16 +29,11 @@ class ChinhSachSinhVienController extends Controller
         } else {
             $limit = 10;
         }
-        
+
         $data = $this->ChinhSachSinhVienService->getChinhSachSinhVien($params, $limit);
 
         $data->appends(request()->input())->links();
-        //dd($data->appends(request()->input())->links());
-        
-        $params =
-        ['nam'=>$data[0]->nam,
-            'dot' => $data[0]->dot
-        ];
+
         return view('chinhsachsinhvien.tong_hop_chinh_sach_sinh_vien', compact('data', 'loaihinh', 'quanhuyen', 'coso', 'chinhsach', 'limit', 'params'));
     }
 
@@ -51,7 +47,7 @@ class ChinhSachSinhVienController extends Controller
     public function postthemchinhsachsinhvien(ChinhSachSinhVienValidate $request)
     {
         $requestParams = $request->all();
-        //dd($requestParams);
+
         $data = [
             [
                 'id' => 'co_so_id',
@@ -76,6 +72,24 @@ class ChinhSachSinhVienController extends Controller
         return redirect($result['route'])->with('thongbao', $result['mess']);
     }
 
+    function checktontaichinhsachsinhvien(Request $request)
+    {
+        $datacheck =  $request->datacheck;
+        $getdata = $this->ChinhSachSinhVienService->getSoLieu($datacheck);
+        if ($getdata == 'tontai') {
+            return response()->json([
+                'result' => 1,
+            ]);
+        } else if ($getdata == null) {
+            return response()->json([
+                'result' => 2,
+            ]);
+        } else {
+            return response()->json([
+                'result' => route('xuatbc.post-sua-chinh-sach-sinh-vien', ['id' => $getdata->id]),
+            ]);
+        }
+    }
     public function suachinhsachsinhvien($id)
     {
         $data = $this->ChinhSachSinhVienService->getsuaChinhSachSinhVien($id);

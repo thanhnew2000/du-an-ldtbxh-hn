@@ -20,7 +20,6 @@ class QuanLyGiaoVienController extends Controller
 
     public function index()
     {
-
         $filterConfig = $this->giaoVienService->getFilterConfig();
         $limit = request()->get('paginate_size') ?? config('common.paginate_size.default');
         $params = request()->except(['limit']);
@@ -36,6 +35,7 @@ class QuanLyGiaoVienController extends Controller
             'limit' => $limit,
             'titles' => $titles,
             'route_edit' => 'ql-giao-vien.edit',
+            // 'route_show' => 'ql-giao-vien.show',
         ]);
     }
 
@@ -44,6 +44,22 @@ class QuanLyGiaoVienController extends Controller
         $listCoSo = $this->giaoVienService->getListCoSo();
         $listTrinhDo = $this->giaoVienService->getListTrinhDo();
         $listNganhNghe = $this->giaoVienService->getListNganhNghe();
+
+        /*
+         * Do khi validate fail StoreRequest sẽ redirect về route này,
+         * $oldInput['nganh_nghe'] = [ 'id1', 'id2' ]
+         * nên cần query để format lại old('nganh_nghe') để lấy được id & tên
+         */
+        if (!empty(old('nganh_nghe'))) {
+            $oldInputNganhNghe = $this->giaoVienService
+                ->getListNganhNghe(old('nganh_nghe'), ['id'])
+                ->pluck('ten_nganh_nghe', 'id')
+                ->toArray();
+
+            session()->put([
+                '_old_input.nganh_nghe' => $oldInputNganhNghe,
+            ]);
+        }
 
         return view('ql_giao_vien.create', [
             'listCoSo' => $listCoSo,
@@ -75,7 +91,6 @@ class QuanLyGiaoVienController extends Controller
             'gioi_tinh' => $giaoVien->gioi_tinh,
             'mon_chung' => $giaoVien->mon_chung,
             'trinh_do' => $giaoVien->trinh_do_id,
-            'nganh_nghe' => $giaoVien->nghe_id,
             'dan_toc_thieu_so' => $giaoVien->dan_toc_it_nguoi,
             'chuc_danh' => $chucDanh,
             'nha_giao_nhan_dan' => $giaoVien->nha_giao_nhan_dan,
@@ -85,9 +100,43 @@ class QuanLyGiaoVienController extends Controller
             'trinh_do_nghe' => $giaoVien->trinh_do_ky_nang_nghe,
             'nghiep_vu_su_pham' => $giaoVien->trinh_do_nghiep_vu_su_pham,
             'trinh_do_tin_hoc' => $giaoVien->trinh_do_tin_hoc,
+            'trinh_do_tien_sy' => $giaoVien->trinh_do_tien_sy,
+            'trinh_do_thac_sy' => $giaoVien->trinh_do_thac_sy,
+            'trinh_do_dai_hoc' => $giaoVien->trinh_do_dai_hoc,
+            'trinh_do_cao_dang' => $giaoVien->trinh_do_cao_dang,
+            'trinh_do_trung_cap' => $giaoVien->trinh_do_trung_cap,
+            'trinh_do_khac' => $giaoVien->trinh_do_khac,
         ];
 
+        $giaoVienData['nganh_nghe'] = [];
+        if (!empty($giaoVien->nghe_giang_day)) {
+            $listNgheGiangDay = [];
+            $ngheGiangDay = explode(',', $giaoVien->nghe_giang_day);
+
+            foreach ($ngheGiangDay as $nghe) {
+                $ngheId = explode(' - ', $nghe)[1];
+                $listNgheGiangDay[$ngheId] = $nghe;
+            }
+
+            $giaoVienData['nganh_nghe'] = $listNgheGiangDay;
+        }
+
+        /*
+         * Do khi validate fail UpdateRequest sẽ redirect về route này,
+         * $giaoVienData['nganh_nghe'] = [ 'id' => 'Tên nghề - id' ]
+         * $oldInput['nganh_nghe'] = [ 'id1', 'id2' ]
+         * nên cần query để format lại old('nganh_nghe') cho giống với $giaoVienData['nganh_nghe']
+         * để merge vào với nhau.
+         */
+        if (!empty(old('nganh_nghe'))) {
+            $oldInput['nganh_nghe'] = $this->giaoVienService
+                ->getListNganhNghe(old('nganh_nghe'), ['id'])
+                ->pluck('ten_nganh_nghe', 'id')
+                ->toArray();
+        }
+
         $data = array_merge($giaoVienData, $oldInput);
+
         $listCoSo = $this->giaoVienService->getListCoSo();
         $listTrinhDo = $this->giaoVienService->getListTrinhDo();
         $listNganhNghe = $this->giaoVienService->getListNganhNghe();

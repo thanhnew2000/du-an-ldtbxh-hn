@@ -3,6 +3,7 @@
 namespace App\Http\Requests\GiaoVien;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
 
 class UpdateRequest extends FormRequest
 {
@@ -28,17 +29,23 @@ class UpdateRequest extends FormRequest
             'co_so_id' => 'required|exists:co_so_dao_tao,id',
             'gioi_tinh' => 'required|in:' . implode(',', config('common.giao_vien.gioi_tinh')),
             'mon_chung' => 'required|max:255',
-            'trinh_do' => 'required|exists:trinh_do_gv,id',
-            'nganh_nghe' => 'required|exists:nganh_nghe,id',
-            'dan_toc_thieu_so' => 'required|in:' . implode(',', config('common.giao_vien.dan_toc_thieu_so')),
-            'chuc_danh' => 'required|in:' . implode(',', config('common.giao_vien.chuc_danh')),
-            'nha_giao_nhan_dan' => 'required|in:' . implode(',', config('common.giao_vien.nha_giao_nhan_dan')),
-            'nha_giao_uu_tu' => 'required|in:' . implode(',', config('common.giao_vien.nha_giao_uu_tu')),
-            'loai_hop_dong' => 'required|in:' . implode(',', config('common.giao_vien.loai_hop_dong')) ,
-            'trinh_do_ngoai_ngu' => 'required|in:' . implode(',', config('common.giao_vien.trinh_do_ngoai_ngu')),
-            'trinh_do_nghe' => 'required|in:' . implode(',', config('common.giao_vien.trinh_do_nghe')),
-            'nghiep_vu_su_pham' => 'required|in:' . implode(',', config('common.giao_vien.nghiep_vu_su_pham')),
-            'trinh_do_tin_hoc' => 'required|in:' . implode(',', config('common.giao_vien.trinh_do_tin_hoc')),
+            'nganh_nghe' => 'required|array',
+            'nganh_nghe.*' => 'required|exists:nganh_nghe,id',
+            'dan_toc_thieu_so' => 'nullable|in:' . implode(',', config('common.giao_vien.dan_toc_thieu_so')),
+            'chuc_danh' => 'nullable|in:' . implode(',', config('common.giao_vien.chuc_danh')),
+            'nha_giao_nhan_dan' => 'nullable|in:' . implode(',', config('common.giao_vien.nha_giao_nhan_dan')),
+            'nha_giao_uu_tu' => 'nullable|in:' . implode(',', config('common.giao_vien.nha_giao_uu_tu')),
+            'loai_hop_dong' => 'nullable|in:' . implode(',', config('common.giao_vien.loai_hop_dong')) ,
+            'trinh_do_ngoai_ngu' => 'nullable|in:' . implode(',', config('common.giao_vien.trinh_do_ngoai_ngu')),
+            'trinh_do_nghe' => 'nullable|in:' . implode(',', config('common.giao_vien.trinh_do_nghe')),
+            'nghiep_vu_su_pham' => 'nullable|in:' . implode(',', config('common.giao_vien.nghiep_vu_su_pham')),
+            'trinh_do_tin_hoc' => 'nullable|in:' . implode(',', config('common.giao_vien.trinh_do_tin_hoc')),
+            'trinh_do_tien_sy' => 'nullable|max:255',
+            'trinh_do_thac_sy' => 'nullable|max:255',
+            'trinh_do_dai_hoc' => 'nullable|max:255',
+            'trinh_do_cao_dang' => 'nullable|max:255',
+            'trinh_do_trung_cap' => 'nullable|max:255',
+            'trinh_do_khac' => 'nullable|max:255',
         ];
     }
 
@@ -69,5 +76,16 @@ class UpdateRequest extends FormRequest
             'trinh_do_nghe' => 'Trình độ nghề',
             'nghiep_vu_su_pham' => 'Trình độ nghiệp vụ sư phạm',
         ];
+    }
+
+    /*
+     * Khi failed validate sẽ đưa về route('ql-giao-vien.edit')
+     * để query lại dữ liệu chứ ko redirect back.
+     * For more infomations: QuanLyGiaoVienController@edit
+     */
+    protected function getRedirectUrl()
+    {
+        $id = request()->route('giaoVien')->id;
+        return route('ql-giao-vien.edit', $id);
     }
 }
