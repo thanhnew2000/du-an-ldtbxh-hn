@@ -16,3 +16,4 @@ Route::get('/thiet-lap-chi-tieu-tuyen-sinh', 'NganhNgheController@thietlapchitie
 Route::post('/bo-sung-nganh-nghe-vao-co-so', 'NganhNgheController@boSungNganhNgheVaoCoSo')->name('nghe.bo-sung-vao-co-so');
 
 Route::get('cap-nhat-nganh-nghe/{id}', 'NganhNgheController@capNhatNganhNghe')->name('nghe.cap-nhat');
+Route::get('search', 'NganhNgheController@search')->name('nghe.search');

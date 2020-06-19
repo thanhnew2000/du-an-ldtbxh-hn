@@ -28,8 +28,8 @@ class StoreRequest extends FormRequest
             'co_so_id' => 'required|exists:co_so_dao_tao,id',
             'gioi_tinh' => 'required|in:' . implode(',', config('common.giao_vien.gioi_tinh')),
             'mon_chung' => 'required|max:255',
-            'trinh_do' => 'required|exists:trinh_do_gv,id',
-            'nganh_nghe' => 'required|exists:nganh_nghe,id',
+            'nganh_nghe' => 'required|array',
+            'nganh_nghe.*' => 'required|exists:nganh_nghe,id',
             'dan_toc_thieu_so' => 'required|in:' . implode(',', config('common.giao_vien.dan_toc_thieu_so')),
             'chuc_danh' => 'required|in:' . implode(',', config('common.giao_vien.chuc_danh')),
             'nha_giao_nhan_dan' => 'required|in:' . implode(',', config('common.giao_vien.nha_giao_nhan_dan')),
@@ -39,6 +39,12 @@ class StoreRequest extends FormRequest
             'trinh_do_nghe' => 'required|in:' . implode(',', config('common.giao_vien.trinh_do_nghe')),
             'nghiep_vu_su_pham' => 'required|in:' . implode(',', config('common.giao_vien.nghiep_vu_su_pham')),
             'trinh_do_tin_hoc' => 'required|in:' . implode(',', config('common.giao_vien.trinh_do_tin_hoc')),
+            'trinh_do_tien_sy' => 'nullable|max:255',
+            'trinh_do_thac_sy' => 'nullable|max:255',
+            'trinh_do_dai_hoc' => 'nullable|max:255',
+            'trinh_do_cao_dang' => 'nullable|max:255',
+            'trinh_do_trung_cap' => 'nullable|max:255',
+            'trinh_do_khac' => 'nullable|max:255',
         ];
     }
 
@@ -69,5 +75,15 @@ class StoreRequest extends FormRequest
             'trinh_do_nghe' => 'Trình độ nghề',
             'nghiep_vu_su_pham' => 'Trình độ nghiệp vụ sư phạm',
         ];
+    }
+
+    /*
+     * Khi failed validate sẽ đưa về route('ql-giao-vien.create')
+     * để query lại dữ liệu chứ ko redirect back.
+     * For more infomations: QuanLyGiaoVienController@create
+     */
+    protected function getRedirectUrl()
+    {
+        return route('ql-giao-vien.create');
     }
 }
