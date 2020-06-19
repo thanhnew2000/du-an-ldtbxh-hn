@@ -94,28 +94,36 @@
                         <th rowspan="3">STT</th>
                         <th rowspan="3">Năm</th>
                         <th rowspan="3">Đợt</th>
-                        <th rowspan="3">Tên nghề</th>
-                        <th colspan="3">Xây dựng mới<br>chương trình</th>
-                        <th colspan="3">Xây dựng mới<br>giáo trình</th>
-                        <th rowspan="3">Kinh phí thực hiện xây dựng mới</th>
-                        <th rowspan="3">Tên nghề</th>
-                        <th colspan="3">Chỉnh sửa<br>chương trình</th>
-                        <th colspan="3">Chỉnh sửa<br>giáo trình</th>
-                        <th rowspan="3">Kinh phí thực hiện chỉnh sửa</th>
+                        <th rowspan="3">Tên đơn vị</th>
+                        <th colspan="8">Xây dựng mới</th>
+                        <th colspan="8">Chỉnh sửa</th>
+                        
                     </tr>
                     <tr class="text-center">
-                        <th rowspan="2">CĐ</th>
-                        <th rowspan="2">TC</th>
-                        <th rowspan="2">SC</th>
-                        <th rowspan="2">CĐ</th>
-                        <th rowspan="2">TC</th>
-                        <th rowspan="2">SC</th>
-                        <th rowspan="2">CĐ</th>
-                        <th rowspan="2">TC</th>
-                        <th rowspan="2">SC</th>
-                        <th rowspan="2">CĐ</th>
-                        <th rowspan="2">TC</th>
-                        <th rowspan="2">SC</th>
+
+                        <th rowspan="2">Tên nghề</th>
+                        <th colspan="3">Xây dựng mới<br>chương trình</th>
+                        <th colspan="3">Xây dựng mới<br>giáo trình</th>
+                        <th rowspan="2">Kinh phí thực hiện xây dựng mới</th>
+
+                        <th rowspan="2">Tên nghề</th>
+                        <th colspan="3">Chỉnh sửa<br>chương trình</th>
+                        <th colspan="3">Chỉnh sửa<br>giáo trình</th>
+                        <th rowspan="2">Kinh phí thực hiện chỉnh sửa</th>
+                    </tr>
+                    <tr class="text-center">
+                        <th rowspan="1">CĐ</th>
+                        <th rowspan="1">TC</th>
+                        <th rowspan="1">SC</th>
+                        <th rowspan="1">CĐ</th>
+                        <th rowspan="1">TC</th>
+                        <th rowspan="1">SC</th>
+                        <th rowspan="1">CĐ</th>
+                        <th rowspan="1">TC</th>
+                        <th rowspan="1">SC</th>
+                        <th rowspan="1">CĐ</th>
+                        <th rowspan="1">TC</th>
+                        <th rowspan="1">SC</th>
                     </tr>
                 </thead>
                
@@ -139,7 +147,7 @@
                         <td>2</td>
                         <td>2</td>
                         <td>2</td>
-                        <td>2</td>s
+                        <td>2</td>
                         </tr>
                 </tbody>
             </table>

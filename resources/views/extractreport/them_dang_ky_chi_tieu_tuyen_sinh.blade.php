@@ -34,7 +34,7 @@
                                 <label class="col-lg-2 col-form-label">Tên cơ sở</label>
                                 <div class="col-lg-10">
                                     <select name="co_so_id" class="form-control select2" id="co_so_id">
-                                        <option value="-1">-----Chọn đơn vị-----</option>
+                                        <option value="-1">-----Chọn cơ sở-----</option>
                                         @foreach($params['get_co_so'] as $item)
                                         <option 
                                         {{-- {{ old('co_so_id') == $item->id ? 'selected' : '' }} --}}
