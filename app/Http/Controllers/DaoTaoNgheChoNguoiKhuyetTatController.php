@@ -185,4 +185,59 @@ class DaoTaoNgheChoNguoiKhuyetTatController extends Controller
     {
         //
     }
+
+    public function exportForm(Request $request){
+        $id_co_so = $request->id_cs;
+        $this->DaoTaoNgheChoNguoiKhuyetTatService->exportBieuMau($id_co_so);
+    }
+    public function exportData(Request $request){
+        $listCoSoId = $request->truong_id;
+        $year = $request->nam_muon_xuat;
+        $dot = $request->dot_muon_xuat;
+
+        // $changeFrom = strtotime($dateFrom); 
+        // $fromDate = date("Y-m-d", $changeFrom);
+
+        // $changeTo = strtotime($dateTo); 
+        // $toDate = date("Y-m-d", $changeTo);
+        $this->DaoTaoNgheChoNguoiKhuyetTatService->exportData($listCoSoId ,$year,$dot);
+    }
+
+    public function importFile(Request $request){
+        $dot=$request->dot;
+        $year=$request->nam;
+        $nameFile=$request->file->getClientOriginalName();
+        $nameFileArr=explode('.',$nameFile);
+        $duoiFile=end($nameFileArr);
+        
+        $fileRead = $_FILES['file']['tmp_name'];
+        $kq =  $this->DaoTaoNgheChoNguoiKhuyetTatService->importFile($fileRead, $duoiFile, $year, $dot);
+
+        if($kq=='errorkitu'){
+                return response()->json('exportError',200);   
+        }else if($kq=='ok'){
+                return response()->json('ok',200); 
+        }else if($kq=='NgheUnsign'){
+                return response()->json(['messageError' => ' Số lượng nghề không phù hợp với nghề đã đăng kí' ],200);   
+        }else if($kq=='noCorrectIdTruong'){
+            return response()->json(['messageError' => ' Trường không đúng hãy nhập lại' ],200);   
+        }else if($kq=='ngheKoThuocTruong'){
+            return response()->json(['messageError' => 'Có nghề không thuộc trong trường' ],200);   
+        }else{
+            return response()->json(['messageError' => $kq ],200);   
+        }
+    }
+
+    public function importError(Request $request){
+        $dot=$request->dot;
+        $year=$request->nam;
+
+        $nameFile=$request->file_import->getClientOriginalName();
+        $nameFileArr=explode('.',$nameFile);
+        $duoiFile=end($nameFileArr);
+
+        $fileRead = $_FILES['file_import']['tmp_name'];
+        $this->DaoTaoNgheChoNguoiKhuyetTatService->importError($fileRead, $duoiFile);
+    }
+
 }

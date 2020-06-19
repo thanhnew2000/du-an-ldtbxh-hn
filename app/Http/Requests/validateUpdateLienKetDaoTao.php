@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ChinhSachSinhVienValidate extends FormRequest
+class validateUpdateLienKetDaoTao extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,14 +24,13 @@ class ChinhSachSinhVienValidate extends FormRequest
     public function rules()
     {
         return [
-            'so_hssv_CD' => 'min:0|integer',
-            'so_hssv_TC' => 'min:0|integer',
-            'tong_so_hssv' => 'min:0|integer',
-            'kinh_phi_CD' => 'min:0|integer',
-            'kinh_phi_TC' => 'min:0|integer',
-            'kinh_phi' => 'min:0|integer',
+            'chi_tieu' => 'min:0|integer',
+            'thuc_tuyen' => 'min:0|integer',
+            'so_HSSV_tot_nghiep' => 'min:0|integer',
+
         ];
     }
+
     public function messages()
     {
         return [

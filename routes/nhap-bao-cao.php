@@ -65,6 +65,11 @@ Route::group(['prefix' => 'dao-tao-nghe-cho-nguoi-khuyet-tat'], function () {
     Route::get('/edit/{id}', 'DaoTaoNgheChoNguoiKhuyetTatController@edit')->name('nhapbc.dao-tao-khuyet-tat.edit');
     Route::post('/update/{id}', 'DaoTaoNgheChoNguoiKhuyetTatController@update')->name('nhapbc.dao-tao-khuyet-tat.update');
     Route::post('/check-them-dao-tao-cho-nguoi-khuyet-tat', 'DaoTaoNgheChoNguoiKhuyetTatController@getCheckTonTaiDaoTaoChoNguoiKhuyetTat')->name('nhapbc.dao-tao-khuyet-tat.check_so_lieu');
+
+        //thanhnv import
+    Route::post('import-kq-dao-tao-nguoi-khuyet-tat', 'DaoTaoNgheChoNguoiKhuyetTatController@importFile')->name('importketqua.dao-tao-nguoi-khuyet-tat');
+    Route::post('import-error-kq-dao-tao-nguoi-khuyet-tat', 'DaoTaoNgheChoNguoiKhuyetTatController@importError')->name('import.error.kq-dao-tao-nguoi-khuyet-tat');
+
 });
 
 Route::group(['prefix' => 'dao-tao-nghe-cho-thanh-nien'], function(){
@@ -75,6 +80,10 @@ Route::group(['prefix' => 'dao-tao-nghe-cho-thanh-nien'], function(){
     Route::post('/store', 'DaoTaoNgheThanhNienController@store')->name('nhapbc.dao-tao-thanh-nien.store');
     Route::get('/show/{id}', 'DaoTaoNgheThanhNienController@show')->name('nhapbc.dao-tao-thanh-nien.show');
     Route::post('/check-them-dao-tao-thanh-nien', 'DaoTaoNgheThanhNienController@getCheckDaoTaoThanhNien')->name('nhapbc.dao-tao-thanh-nien.check_so_lieu');
+     
+    //thanhnv import
+    Route::post('import-kq-dao-tao-thanh-nien', 'DaoTaoNgheThanhNienController@importFile')->name('importketqua.dao-tao-thanh-nien');
+    Route::post('import-error-kq-dao-tao-thanh-nien', 'DaoTaoNgheThanhNienController@importError')->name('import.error.kq-dao-tao-thanh-nien');
 });
 
 Route::group(['prefix' => 'dao-tao-nghe-doanh-nghiep'], function () {

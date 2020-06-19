@@ -59,9 +59,9 @@
 									class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 									class="m-menu__link-text">Danh sách địa điểm đào tạo</span></a></li>
 						<li class="m-menu__item " aria-haspopup="true"><a href="{{route('csdt.thiet-lap-nghe-cs')}}"
-							class="m-menu__link "><i
-								class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
-								class="m-menu__link-text">Thiết lập nghề cho cơ sở đào tạo</span></a></li>
+								class="m-menu__link "><i
+									class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
+									class="m-menu__link-text">Thiết lập nghề cho cơ sở đào tạo</span></a></li>
 					</ul>
 				</div>
 			</li>
@@ -84,7 +84,7 @@
 								class="m-menu__link "><i
 									class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 									class="m-menu__link-text">Thiết lập chỉ tiêu tuyển sinh</span></a></li>
-						
+
 					</ul>
 				</div>
 			</li>
@@ -260,7 +260,8 @@
 {{-- Quản lý đăng kí chỉ tiêu --}}
 <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;"
 		class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-users"></i><span
-			class="m-menu__link-text">Quản lý đăng kí chỉ tiêu</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
+			class="m-menu__link-text">Quản lý đăng kí chỉ tiêu</span><i
+			class="m-menu__ver-arrow la la-angle-right"></i></a>
 	<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 		<ul class="m-menu__subnav">
 			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('xuatbc.ds-chi-tieu-ts')}}"
@@ -374,7 +375,15 @@
 		<ul class="m-menu__subnav">
 			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('xuatbc.tong-hop-lien-ket-dao-tao')}}"
 					class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
-						class="m-menu__link-text">Liên kết đào tạo</span></a></li>
+						class="m-menu__link-text">Tổng hợp liên kết liên thông trình độ</span></a></li>
+			<li class="m-menu__item " aria-haspopup="true"><a
+					href="{{route('xuatbc.tong-hop-lien-ket-dao-tao-cao-dang', ['id' => 6])}}" class="m-menu__link "><i
+						class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
+						class="m-menu__link-text">Liên kết liên thông trình độ cao đẳng lên đại học</span></a></li>
+			<li class="m-menu__item " aria-haspopup="true"><a
+					href="{{route('xuatbc.tong-hop-lien-ket-dao-tao-trung-cap', ['id' => 5])}}" class="m-menu__link "><i
+						class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
+						class="m-menu__link-text">Liên kết liên thông trình độ trung cấp lên đại học</span></a></li>
 		</ul>
 	</div>
 </li>

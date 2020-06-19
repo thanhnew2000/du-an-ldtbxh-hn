@@ -9,7 +9,7 @@
 
 namespace App\Services;
 
-
+use DB;
 use App\Repositories\NganhNgheRepository;
 
 class NganhNgheService extends AppService
@@ -46,5 +46,17 @@ class NganhNgheService extends AppService
             }
         }
         return $this->repository->boSungNganhNgheVaoCoSo($attributes, $nghe_cao_dang, $nghe_trung_cap);
+    }
+
+    public function search(array $params = [])
+    {
+        $selects = [
+            'id',
+            DB::raw("CONCAT(ten_nganh_nghe, ' - ', id) AS text"),
+        ];
+
+        return $this->repository
+            ->search($params, $selects)
+            ->toArray();
     }
 }
