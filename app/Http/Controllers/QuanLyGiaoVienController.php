@@ -8,6 +8,8 @@ use App\Http\Requests\GiaoVien\StoreRequest;
 use App\Http\Requests\GiaoVien\UpdateRequest;
 use App\Models\GiaoVien;
 
+use Illuminate\Support\Facades\DB;
+
 class QuanLyGiaoVienController extends Controller
 {
     protected $giaoVienService;
@@ -28,12 +30,14 @@ class QuanLyGiaoVienController extends Controller
         $data->appends(request()->input())->links();
 
         $titles = config('tables.quan_ly_giao_vien');
-
+        //  thanhnv them coso 
+        $coso = DB::table('co_so_dao_tao')->get();
         return view('ql_giao_vien.index', [
             'filterConfig' => $filterConfig,
             'data' => $data,
             'limit' => $limit,
             'titles' => $titles,
+            'coso'=>$coso,
             'route_edit' => 'ql-giao-vien.edit',
             // 'route_show' => 'ql-giao-vien.show',
         ]);
@@ -155,5 +159,45 @@ class QuanLyGiaoVienController extends Controller
         $result = $this->giaoVienService->updateGiaoVien($giaoVien->id, $data);
 
         return redirect()->route('ql-giao-vien.index');
+    }
+    public function exportBieuMau(Request $request){
+        $id_coso = $request->id_cs;
+        $this->giaoVienService->exportBieuMau($id_coso);
+    }
+
+    public function exportData(Request $request){
+        $id_coso =  $request->truong_id;
+        $this->giaoVienService->exportData($id_coso);
+    }
+
+
+    public function importFile(Request $request){
+        $nameFile=$request->file->getClientOriginalName();
+        $nameFileArr=explode('.',$nameFile);
+        $duoiFile=end($nameFileArr);
+        
+        $fileRead = $_FILES['file']['tmp_name'];
+        $kq = $this->giaoVienService->importFile($fileRead, $duoiFile);
+
+        if($kq=='ok'){
+            return response()->json('ok',200); 
+        }else if($kq=='exportError'){
+            return response()->json('exportError',200); 
+        }else if($kq=='NoHaveNgheDk'){
+                return response()->json(['messageError' => 'Nghề của nhập giáo viên chưa đăng ki' ],200);   
+        }
+        else{
+            return response()->json(['messageError' => $kq ],200);   
+        }
+    }
+
+    
+    public function importError(Request $request){
+        $nameFile=$request->file_import->getClientOriginalName();
+        $nameFileArr=explode('.',$nameFile);
+        $duoiFile=end($nameFileArr);
+
+        $fileRead = $_FILES['file_import']['tmp_name'];
+        $this->giaoVienService->importError($fileRead, $duoiFile);
     }
 }

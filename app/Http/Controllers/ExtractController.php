@@ -14,9 +14,14 @@ use App\Services\CoQuanChuQuanService;
 use App\Services\CoSoDaoTaoService;
 use App\Services\NganhNgheService;
 use App\Services\HopTacQuocTeService;
+use App\Services\ChiTieuTuyenSinhService;
+
+
 
 use App\Http\Requests\HopTacQuocTe\StoreHopTacQuocTeRequest;
 use App\Http\Requests\HopTacQuocTe\UpdateHopTacQuocTeRequest;
+use App\Http\Requests\ChiTieuTuyenSinh\StoreChiTieuTuyenSinhRequest;
+use App\Http\Requests\ChiTieuTuyenSinh\UpdateChiTieuTuyenSinhRequest;
 
 
 use Carbon\Carbon;
@@ -25,6 +30,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests\DoiNguNhaGiao\ExportRequest;
 use App\Http\Requests\DoiNguNhaGiao\ExportBieuMauRequest;
 use App\Http\Requests\DoiNguNhaGiao\ImportRequest;
+use Psy\Readline\Readline;
 use Storage;
 
 class ExtractController extends Controller
@@ -36,6 +42,7 @@ class ExtractController extends Controller
     protected $CoSoDaoTaoService;
     protected $NganhNgheService;
     protected $HopTacQuocTeService;
+    protected $ChiTieuTuyenSinhService;
     
 
     public function __construct(
@@ -45,7 +52,9 @@ class ExtractController extends Controller
         CoQuanChuQuanService $CoQuanChuQuanService,
         CoSoDaoTaoService $CoSoDaoTaoService,
         NganhNgheService $NganhNgheService,
-        HopTacQuocTeService $HopTacQuocTeService
+        HopTacQuocTeService $HopTacQuocTeService,
+        ChiTieuTuyenSinhService $ChiTieuTuyenSinhService
+
         )
     {
         $this->QlsvService = $QlsvService;
@@ -55,6 +64,7 @@ class ExtractController extends Controller
         $this->CoSoDaoTaoService =$CoSoDaoTaoService;
         $this->NganhNgheService =$NganhNgheService;
         $this->HopTacQuocTeService =$HopTacQuocTeService;
+        $this->ChiTieuTuyenSinhService =$ChiTieuTuyenSinhService;
     }
 
     // phunv - BM:6 -> Chức năng Tổng hợp trích xuất báo cáo - Danh sách đội ngũ nhà giáo
@@ -88,21 +98,25 @@ class ExtractController extends Controller
         return view('extractreport.danh_sach_doi_ngu_nha_giao',
         compact('data','params','route_name','coSo'),
         ['thongbao'=>'']
-    );
+     );
     }
 
     /* Danh sách chi tiết đội ngũ nhà giáo theo cơ sở.
      * @author: phucnv
      * @created_at 2020-06-_ _
      */
-    public function chiTietTheoCoSo(Request $request,$co_so_id){
+    public function chiTietTheoCoSo(Request $request,$co_so_id)
+    {
+        $check_co_so = $this->CoSoDaoTaoService->checkTonTai($co_so_id);
+        if (!$check_co_so) {
+            return redirect()->route('xuatbc.ds-nha-giao');
+        }
         $params = $request->all();
         if(!isset($params['page_size'])) $params['page_size'] = config('common.paginate_size.default');
         $route_name = Route::current()->action['as'];
 
         $data = $this->DoiNguNhaGiaoService->chiTietTheoCoSo($co_so_id, $params);
         $thongtincoso = $this->CoSoDaoTaoService->getSingleCsdt($co_so_id);
-     
        
         $data->withPath("?dot=$request->dot&nam=$request->nam&page_size=$request->page_size"); 
 
@@ -111,7 +125,7 @@ class ExtractController extends Controller
             compact('data','params','thongtincoso','route_name'),['thongbao'=>'Không tìm thấy kết quả !']);
         } 
         return view('extractreport.danh_sach_chi_tiet_doi_ngu_nha_giao',
-        compact('data','params','thongtincoso','route_name'),['thongbao'=>'']);
+        compact('data','params','thongtincoso','route_name'),['thongbao'=>'']);  
     }
 
     /* Màn hình thêm Danh sách đội ngũ nhà giáo
@@ -434,6 +448,11 @@ class ExtractController extends Controller
      */
     public function chiTietTongHopHopTacQuocTe(Request $request, $co_so_id)
     {
+        $check_co_so = $this->CoSoDaoTaoService->checkTonTai($co_so_id);
+        if (!$check_co_so) {
+            return redirect()->route('xuatbc.ds-hop-tact-qte');
+        }
+
         $params = $request->all();
         if(!isset($params['page_size'])) $params['page_size'] = config('common.paginate_size.default');
         $route_name = Route::current()->action['as'];
@@ -548,10 +567,120 @@ class ExtractController extends Controller
         return view('extractreport.tong_hop_dao_tao_nghe_gan_voi_doanh_nghiep');
     }
 
-    public function tonghoptuyensinh()
+    //phucnv BM:8
+    /* Danh sách kết quả chỉ tuyển sinh.
+     * @author: phucnv
+     * @created_at 2020-06-17
+     */
+    public function tonghoptuyensinh(Request $request)
     {
-        return view('extractreport.tong_hop_ket_qua_tuyen_sinh');
+        $params = $request->all();
+
+        if(!isset($params['page_size'])) $params['page_size'] = config('common.paginate_size.default');
+        $route_name = Route::current()->action['as'];
+
+        $data = $this->ChiTieuTuyenSinhService->getDanhSachChiTieuTuyenSinh($params);
+        $params['get_loai_hinh_co_so'] = $this->LoaiHinhCoSoService->getAll();
+        $params['get_nganh_nghe'] = $this->NganhNgheService->getAll();
+        $params['get_co_so'] = $this->CoSoDaoTaoService->getAll();
+    
+        $data->withPath("?loaihinhcoso=$request->loaihinhcoso&dot=$request->dot&nam=$request->nam&co_so_id=$request->co_so_id&page_size=$request->page_size");  
+        
+        if($data->count() < 1){
+            return view('extractreport.tong_hop_ket_qua_tuyen_sinh', 
+            compact('data','params','route_name'),
+            ['thongbao'=>'Không tìm thấy kết quả !']);
+        }      
+        return view('extractreport.tong_hop_ket_qua_tuyen_sinh',
+        compact('data','params','route_name'),['thongbao'=>'']);
     }
+
+    /* Màn hình đăng ký chỉ tiêu tuyển sinh.
+     * @author: phucnv
+     * @created_at 2020-06-17
+     */
+    public function themChiTieuTuyenSinh()
+    {
+        $params['get_nganh_nghe'] = $this->NganhNgheService->getAll();
+        $params['get_co_so'] = $this->CoSoDaoTaoService->getAll();
+        return view('extractreport.them_dang_ky_chi_tieu_tuyen_sinh', 
+        compact('params'));
+    }
+    /* Lưu dữ liệu Màn hình đăng ký chỉ tiêu tuyển sinh.
+     * @author: phucnv
+     * @created_at 2020-06-17
+     */
+    public function saveChiTieuTuyenSinh(StoreChiTieuTuyenSinhRequest $request)
+    {
+        $params = $request->all();
+    
+        $kq = $this->ChiTieuTuyenSinhService->checkTonTaiKhiThem($params);
+        if($kq){
+            return redirect()->route('xuatbc.them-dang-ky-chi-tieu-tuyen-sinh')->with(['edit'=> $kq->id])->withInput();
+        }
+
+        $dateTime = Carbon::now();
+        $request->request->set('thoi_gian_cap_nhat', $dateTime->format('Y-m-d H:i:s'));
+        $this->ChiTieuTuyenSinhService->create($request);
+        return redirect()->route('xuatbc.them-dang-ky-chi-tieu-tuyen-sinh')->with(['success'=> 'thêm thành công']);
+    }
+
+    /* Màn hình sửa chỉ tiêu tuyển sinh.
+     * @author: phucnv
+     * @created_at 2020-06-17
+     */
+    public function suaChiTieuTuyenSinh($id)
+    {
+        $data = $this->ChiTieuTuyenSinhService->findById($id);
+        if (empty($data)) {
+            return redirect()->route('xuatbc.ds-chi-tieu-ts');
+        }
+
+        $params['ten_nghe'] = $this->NganhNgheService->findById($data->nghe_id)->ten_nganh_nghe;
+        $params['co_so_dao_tao'] = $this->CoSoDaoTaoService->getAll();
+        return view('extractreport.sua_dang_ky_chi_tieu_tuyen_sinh',compact('params','data'));
+    }
+
+    
+    public function updateChiTieuTuyenSinh($id, UpdateChiTieuTuyenSinhRequest $request)
+    {
+        $data = $this->ChiTieuTuyenSinhService->findById($id);
+        if (empty($data)) {
+            return redirect()->route('xuatbc.ds-chi-tieu-ts');
+        }
+
+        $dateTime = Carbon::now();
+        $request->request->set('thoi_gian_cap_nhat', $dateTime->format('Y-m-d H:i:s'));
+        $this->ChiTieuTuyenSinhService->update($id,$request);
+         return redirect()->back()->with(['success'=>'Cập nhật thành công !']);
+    }
+
+    public function chitietChiTieuTuyenSinh($co_so_id, Request $request)
+    {   
+        $check_co_so = $this->CoSoDaoTaoService->checkTonTai($co_so_id);
+        if (!$check_co_so) {
+            return redirect()->route('xuatbc.ds-chi-tieu-ts');
+        }
+
+        $params = $request->all();
+        if(!isset($params['page_size'])) $params['page_size'] = config('common.paginate_size.default');
+        $route_name = Route::current()->action['as'];
+
+        $data = $this->ChiTieuTuyenSinhService->chiTietTheoCoSo($co_so_id,$params);
+        $params['get_nganh_nghe_theo_co_so'] = $this->ChiTieuTuyenSinhService->getNganhNgheTheoCoSo($co_so_id);
+        $thongtincoso = $this->CoSoDaoTaoService->getSingleCsdt($co_so_id);
+    
+        $data->withPath("?nghe_id=$request->nghe_id&dot=$request->dot&nam=$request->nam&page_size=$request->page_size");  
+        
+        if($data->count() < 1){
+            return view('extractreport.chi-tiet-tong-hop-dang-ky-chi-tieu-tuyen-sinh', 
+            compact('data','params','route_name','thongtincoso'),
+            ['thongbao'=>'Không tìm thấy kết quả !']);
+        }      
+        return view('extractreport.chi-tiet-tong-hop-dang-ky-chi-tieu-tuyen-sinh',
+        compact('data','params','route_name','thongtincoso'),['thongbao'=>'']);
+    }
+    //phucnv end BM:8
 
     public function export(ExportRequest $request)
     {
