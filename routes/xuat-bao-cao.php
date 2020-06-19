@@ -277,3 +277,13 @@ Route::group(['prefix' => 'so-lieu-can-bo-quan-ly'], function () {
     Route::post('export-data-so-lieu-can-bo-quanly', 'ExportSoLieuCanBoQlController@exportDataSoLieuCanBoQuanLy')
         ->name('exportdata.solieucanbo.quanly');
 });
+
+
+// thanhvn import export quan-ly-giao-vien
+Route::group(['prefix' => 'quan-ly-giao-vien'], function () {
+    Route::post('/export-bieu-mau-doi-ngu-nha-giao', 'QuanLyGiaoVienController@exportBieuMau')
+  ->name('export-bieu-mau-doi-ngu-nha-giao');   
+  Route::post('export-data-doi-ngu-nha-giao','QuanLyGiaoVienController@exportData')
+  ->name('export-data-doi-ngu-nha-giao');
+});
+  // thanhnv import export doi ngu nha giao bm-9
