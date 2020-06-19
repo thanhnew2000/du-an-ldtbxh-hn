@@ -406,7 +406,7 @@
         </div>
         <div class="d-flex justify-content-end">
             <div class="col-lg-1 ">
-                <a href="{{ route('xuatbc.sua-ds-hop-tac-qte',['id' => $data->co_so_id]) }}" class="btn btn-danger">Hủy</a>
+                <a href="{{ route('xuatbc.chi-tiet-ds-hop-tac-qte',['co_so_id' => $data->co_so_id]) }}" class="btn btn-danger">Hủy</a>
             </div>
             <div>
                 <button type="submit" class="btn btn-primary">Chỉnh sửa</button>

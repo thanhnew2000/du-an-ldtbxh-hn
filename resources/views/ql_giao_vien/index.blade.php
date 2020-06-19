@@ -7,12 +7,22 @@
 
     <div class="row mb-5 bieumau">
         <div class="col-lg-2">
-            <a href=""><i class="la la-download">Tải xuống biểu mẫu</i></a>
+            <a href="javascript:" data-toggle="modal" data-target="#exampleModal">
+                <i class="fa fa-download" aria-hidden="true"></i>
+                Tải xuống biểu mẫu
+            </a>
         </div>
         <div class="col-lg-2">
-            <a href=""><i class="la la-upload">Tải lên file excel</i></a>
+            <a href="javascript:" data-toggle="modal" id="upImport-file" data-target="#exampleModalImport"><i
+                    class="fa fa-upload" aria-hidden="true"></i>
+                Tải lên file Excel</a>
         </div>
-        <div class="col-lg-8 " style="text-align: right">
+        <div class="col-lg-6">
+            <a href="javascript:" data-toggle="modal" data-target="#exampleModalExportData"><i class="fa fa-upload"
+                    aria-hidden="true"></i>
+                Xuất dữ liệu ra Excel</a>
+        </div>
+        <div class="col-lg-2" style="text-align: right">
         <a href="{{ route('ql-giao-vien.create') }}"><button type="button" class="btn btn-secondary">Thêm mới</button></a>
         </div>
     </div>
@@ -22,6 +32,100 @@
         'data' => $data
     ])
 </div>
+
+<form action="{{route('export-bieu-mau-doi-ngu-nha-giao')}}" method="post">
+    @csrf
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Hãy chọn trường</h5>
+                    <button type="button" id="closeFileBieuMau" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <select name="id_cs" class="form-control">
+                        @foreach($coso as $csdt)
+                        <option value="{{$csdt->id}}">{{$csdt->ten}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                    <button type="submit" onclick="closeModal('closeFileBieuMau')" class="btn btn-primary">Tải</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form action="{{route('import-error-quan-ly-giao-vien')}}" id="form_import" method="post"
+    enctype="multipart/form-data">
+    @csrf
+    <div class="modal fade " id="exampleModalImport" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Import file</h5>
+                    <button type="button" id="closeImportFile" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="file" id="file_import_id" name="file_import">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoi">
+                    </p>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-primary" onclick="closeModal('closeImportFile')" id="submitTai">Tải</a>
+                        <button type="submit" hidden class="btn btn-primary" id="submitTaiok">Tải ok</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form action="{{route('export-data-doi-ngu-nha-giao')}}" id="" method="post" enctype="multipart/form-data">
+    @csrf
+    <div class="modal fade " id="exampleModalExportData" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content"> 
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Xuất dữ liệu</h5>
+                    <button type="button" id='closeXuatDuLieu' class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="">Chọn Trường</label>
+                        <select name="truong_id" id="truong_id_xuat" class="form-control">
+                            @foreach($coso as $csdt)
+                            <option value="{{$csdt->id}}">{{$csdt->ten}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoiXuat">
+                    </p>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-primary"  onclick="closeModal('closeXuatDuLieu')"  id="submitXuatData">Tải</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
 @endsection
 
 @section('title', "Danh sách giáo viên")
@@ -33,4 +137,95 @@
 @section('script')
 <script src="{{ asset('js/common/index_table.js') }}"></script>
 <script src="{{ asset('js/common/filter.js') }}"></script>
+<script>
+
+    function closeModal(id) {
+        $('#' + id).trigger('click');
+    }
+
+     $("#file_import_id").change(function() {
+        var fileExtension = ['xlsx','xls'];
+        if($("#file_import_id")[0].files.length === 0){
+            $('#echoLoi').text('Hãy nhập file excel');
+        }else if($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+            $message = "Hãy nhập file excel : "+fileExtension.join(', ');
+            $('#echoLoi').text($message);
+            return false;
+        }else{
+            $('#echoLoi').text('');
+         }
+    });
+
+
+        $("#submitTai").click(function(event){
+        var fileExtension = ['xlsx', 'xls'];
+        if($("#file_import_id")[0].files.length === 0){
+                console.log('không có file');
+        }else if($.inArray($('#file_import_id').val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+                console.log('chưa file không đúng định dạng');
+        }else{
+            $('#moDalImport').modal('hide');
+            $('.loading').css('display','block');
+            var formData = new FormData();
+            var fileExcel = document.querySelector('#file_import_id');
+            formData.append("file", fileExcel.files[0]);
+            formData.append("dot", $('#dot_id').val());
+            formData.append("nam", $('#nam_id').val());
+
+            axios.post("{{route('import-quan-ly-giao-vien')}}", formData,{
+                headers: {
+                        'Content-Type': 'multipart/form-data',
+                    }
+                }).then(function (response) {
+                    console.log(response)
+                            if(response.data == 'ok'){
+                                $('.loading').css('display','none');
+                                    Swal.fire({
+                                        position: 'center',
+                                        icon: 'success',
+                                        title: 'Cập nhập thành công',
+                                        showConfirmButton: false,
+                                        timer: 1700
+                                    })
+                                window.location.reload();
+                                console.log('Đã insert vào database');
+                            }else if(response.data == 'exportError'){
+                                $('.loading').css('display','none');
+                                $('#submitTaiok').trigger('click');
+                                $('#form_import')[0].reset();
+                            }else{
+                                $('.loading').css('display','none');
+                                Swal.fire({
+                                    title: response.data.messageError,
+                                    icon: 'warning',
+                                    confirmButtonColor: '#3085d6',
+                                    confirmButtonText: 'Xác nhận'
+                                    }).then((result) => {
+                                    if (result.value) {
+                                        window.location.reload();
+                                    }else{
+                                        window.location.reload();
+                                    }
+                                    })
+                            }
+                    }).catch(function (error) {
+                    console.log(error);
+                    $('.loading').css('display','none');
+                    Swal.fire({
+                                title: 'Lỗi về file muốn nhập !',
+                                icon: 'warning',
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: 'Xác nhận'
+                                }).then((result) => {
+                                if (result.value) {
+                                    window.location.reload();
+                                }else{
+                                    window.location.reload();
+                                }
+                                })
+                    });
+                }
+        });
+</script>
+
 @endsection

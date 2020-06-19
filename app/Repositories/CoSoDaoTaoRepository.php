@@ -171,4 +171,9 @@ class CoSoDaoTaoRepository extends BaseRepository implements CoSoDaoTaoRepositor
             ->orderBy('loai_truong', 'desc')
             ->get();
     }
+
+    public function checkTonTai($id)
+    {
+      return DB::table('co_so_dao_tao')->where('id', $id)->first();
+    }
 }

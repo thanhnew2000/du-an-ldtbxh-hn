@@ -52,7 +52,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Năm</label>
                                 <div class="col-lg-8">
-                                    <select name="nam" class="form-control ">
+                                    <select name="nam" class="form-control select2">
                                         <option value="">-----Chọn năm-----</option>
                                         @foreach(config('common.nam.list') as $nam)
                                         <option @if(isset($params['nam']) && $params['nam']==$nam) selected @endif
@@ -66,7 +66,7 @@
                             <div class="form-group m-form__group row">
                                 <label for="" class="col-lg-2 col-form-label">Đợt</label>
                                 <div class="col-lg-8">
-                                    <select name="dot" id="" class="form-control ">
+                                    <select name="dot" id="" class="form-control select2">
                                         <option value="">-----Chọn đợt-----</option>
                                         <option @if(isset($params['dot']) && $params['dot']==config('common.dot.1'))
                                             selected @endif value="{{config('common.dot.1')}}">
@@ -136,7 +136,7 @@
                         <th class="border"><pre class="text-white">Hợp đồng<br>(từ 1 năm trở lên)</pre></th>
                         <th class="border"><pre class="text-white">Tiến sỹ</pre></th>
                         <th class="border"><pre class="text-white">Thạc sỹ</pre></th>
-                        <th class="border"><pre class="text-white">Đạt học</pre></th>
+                        <th class="border"><pre class="text-white">Đại học</pre></th>
                         <th class="border"><pre class="text-white">Cao đẳng</pre></th>
                         <th class="border"><pre class="text-white">Trung cấp</pre></th>
                         <th class="border"><pre class="text-white">Trình độ khác</pre></th>
@@ -253,7 +253,7 @@
             var reloadUrl = `${currentUrl}?dot=${dot}&nam=${nam}&page_size=${page_size}`;
             window.location.href = reloadUrl;
         });
-
+        $('.select2').select2();
     });
 </script>
 @endsection

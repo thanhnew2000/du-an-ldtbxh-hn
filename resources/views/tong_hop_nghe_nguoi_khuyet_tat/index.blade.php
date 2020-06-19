@@ -256,6 +256,7 @@
                     <tr class="text-center">
                         <th rowspan="2">STT</th>
                         <th rowspan="2">Tên cơ sở</th>
+                        <th scope="col">Loại hình cơ sở</th>
                         <th rowspan="2">Quận Huyện</th>
                         <th rowspan="2">Xã Phường <br> Thị Trấn</th>
                         <th colspan="1">Tuyển sinh</th>
@@ -275,11 +276,12 @@
                     <tr>
                         <td>{{$i++}}</td>
                         <td>{{$item->ten}}</td>
+                        <td>{{$item->loai_hinh_co_so}}</td>
                         <td>{{$item->quan_huyen}}</td>
                         <td>{{$item->xa_phuong}}</td>
                         <td>{{$item->tong_tuyen_sinh}}</td>
                         <td>{{$item->tong_tot_nghiep}}</td>
-                        <td>{{$item->tong_ngan_sach}}</td>
+                        <td>{{number_format($item->tong_ngan_sach)}}</td>
                         <td>
                             <a href="{{route('nhapbc.dao-tao-khuyet-tat.show',[
                                 'id' => $item->id,

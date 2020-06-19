@@ -252,11 +252,23 @@ Route::group(['prefix' => 'hop-tac-quoc-te'], function () {
 //phucnv end BM:13
 
 
+//phucnv BM:8 
 Route::group(['prefix' => 'chi-tieu-tuyen-sinh'], function () {
     Route::get('/tong-hop', 'ExtractController@tonghoptuyensinh')
-
         ->name('xuatbc.ds-chi-tieu-ts');
+
+    Route::get('/them', 'ExtractController@themChiTieuTuyenSinh')
+        ->name('xuatbc.them-dang-ky-chi-tieu-tuyen-sinh');
+    Route::post('/them', 'ExtractController@saveChiTieuTuyenSinh');
+
+    Route::get('/sua/{id}', 'ExtractController@suaChiTieuTuyenSinh')
+        ->name('xuatbc.sua-dang-ky-chi-tieu-tuyen-sinh');
+    Route::post('/sua/{id}', 'ExtractController@updateChiTieuTuyenSinh');
+
+    Route::get('/chi-tiet/{co_so_id}', 'ExtractController@chitietChiTieuTuyenSinh')
+        ->name('xuatbc.chi-tiet-dang-ky-chi-tieu-tuyen-sinh'); 
 });
+//phucnv end BM:8
 
 // thanhvn import export can bo quan ly
 Route::group(['prefix' => 'so-lieu-can-bo-quan-ly'], function () {
@@ -265,3 +277,13 @@ Route::group(['prefix' => 'so-lieu-can-bo-quan-ly'], function () {
     Route::post('export-data-so-lieu-can-bo-quanly', 'ExportSoLieuCanBoQlController@exportDataSoLieuCanBoQuanLy')
         ->name('exportdata.solieucanbo.quanly');
 });
+
+
+// thanhvn import export quan-ly-giao-vien
+Route::group(['prefix' => 'quan-ly-giao-vien'], function () {
+    Route::post('/export-bieu-mau-doi-ngu-nha-giao', 'QuanLyGiaoVienController@exportBieuMau')
+  ->name('export-bieu-mau-doi-ngu-nha-giao');   
+  Route::post('export-data-doi-ngu-nha-giao','QuanLyGiaoVienController@exportData')
+  ->name('export-data-doi-ngu-nha-giao');
+});
+  // thanhnv import export doi ngu nha giao bm-9

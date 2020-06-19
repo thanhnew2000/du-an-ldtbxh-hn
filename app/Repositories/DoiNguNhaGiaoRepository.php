@@ -159,4 +159,6 @@ class DoiNguNhaGiaoRepository extends BaseRepository implements DoiNguNhaGiaoInt
     {
         return $this->model->insert($data);
     }
+
+
 }

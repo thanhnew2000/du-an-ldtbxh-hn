@@ -54,7 +54,7 @@
                                             {{( $params['nam'] ==  $item ) ? 'selected' : ''}} @endif value="{{$item}}">
                                             {{$item}}
                                         </option>
-                                        @endforeachc
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
