@@ -77,7 +77,7 @@
                                 <label class="col-lg-5 col-form-label">Thời gian đào tạo (Tháng) <span
                                         class="batbuoc">*</span></label>
                                 <div class="col-lg-7">
-                                    <input type="number" value="{{$data->thoi_gian_dao_tao}}"
+                                    <input type="number" required  min="0" value="{{$data->thoi_gian_dao_tao}}"
                                         class="form-control m-input" placeholder="Nhập vào số" name="thoi_gian_dao_tao">
                                     @error('thoi_gian_dao_tao')
                                     <div class="alert alert-danger">{{ $message }}</div>
@@ -112,7 +112,7 @@
                         <div class="form-group m-form__group row">
                             <label class="col-lg-4 col-form-label">Tổng ngân sách</label>
                             <div class="col-lg-8">
-                                <input type="number" value="{{$data->tong_kinh_phi}}" class="form-control m-input"
+                                <input type="number"  min="0" value="{{$data->tong_kinh_phi}}" class="form-control m-input"
                                     placeholder="Nhập vào số" name="tong_kinh_phi">
                                 @error('tong_kinh_phi')
                                 <div class="alert alert-danger">{{ $message }}</div>
@@ -124,7 +124,7 @@
                         <div class="form-group m-form__group row">
                             <label class="col-lg-4 col-form-label">Ngân sách TW</label>
                             <div class="col-lg-8">
-                                <input type="number" value="{{$data->ngan_sach_TW}}" class="form-control m-input"
+                                <input type="number"  min="0" value="{{$data->ngan_sach_TW}}" class="form-control m-input"
                                     placeholder="Nhập vào số" name="ngan_sach_TW">
                                 @error('ngan_sach_TW')
                                 <div class="alert alert-danger">{{ $message }}</div>
@@ -136,7 +136,7 @@
                         <div class="form-group m-form__group row">
                             <label class="col-lg-4 col-form-label">Ngân sách TP</label>
                             <div class="col-lg-8">
-                                <input type="number" value="{{$data->ngan_sach_TP}}" class="form-control m-input"
+                                <input type="number"  min="0" value="{{$data->ngan_sach_TP}}" class="form-control m-input"
                                     placeholder="Nhập vào số" name="ngan_sach_TP">
                                 @error('ngan_sach_TP')
                                 <div class="alert alert-danger">{{ $message }}</div>
@@ -148,7 +148,7 @@
                         <div class="form-group m-form__group row">
                             <label class="col-lg-4 col-form-label">Ngân sách khác</label>
                             <div class="col-lg-8">
-                                <input type="number" value="{{$data->ngan_sach_khac}}" class="form-control m-input"
+                                <input type="number"  min="0" value="{{$data->ngan_sach_khac}}" class="form-control m-input"
                                     placeholder="Nhập vào số" name="ngan_sach_khac">
                                 @error('ngan_sach_khac')
                                 <div class="alert alert-danger">{{ $message }}</div>
@@ -183,7 +183,7 @@
                                 <div class="form-group m-form__group row">
                                     <label class="col-lg-5 col-form-label">Tổng số học viên các đối tượng</label>
                                     <div class="col-lg-7">
-                                        <input type="number" value="{{$data->tong_tuyen_sinh}}"
+                                        <input type="number"  min="0" value="{{$data->tong_tuyen_sinh}}"
                                             class="form-control m-input" placeholder="Nhập vào số"
                                             name="tong_tuyen_sinh">
                                         @error('tong_tuyen_sinh')
@@ -194,7 +194,7 @@
                                 <div class="form-group m-form__group row">
                                     <label class="col-lg-5 col-form-label">Tổng số nữ</label>
                                     <div class="col-lg-7">
-                                        <input type="number" value="{{$data->nu_tuyen_sinh}}"
+                                        <input type="number"  min="0" value="{{$data->nu_tuyen_sinh}}"
                                             class="form-control m-input" placeholder="Nhập vào số" name="nu_tuyen_sinh">
                                         @error('nu_tuyen_sinh')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -204,7 +204,7 @@
                                 <div class="form-group m-form__group row">
                                     <label class="col-lg-5 col-form-label">Tổng số hộ khẩu Hà Nội</label>
                                     <div class="col-lg-7">
-                                        <input type="number" value="{{$data->ho_khau_HN_tuyen_sinh}}"
+                                        <input type="number"  min="0" value="{{$data->ho_khau_HN_tuyen_sinh}}"
                                             class="form-control m-input" placeholder="Nhập vào số"
                                             name="ho_khau_HN_tuyen_sinh">
                                         @error('ho_khau_HN_tuyen_sinh')
@@ -239,7 +239,7 @@
                                 <div class="form-group m-form__group row">
                                     <label class="col-lg-5 col-form-label">Tổng số học viên các đối tượng</label>
                                     <div class="col-lg-7">
-                                        <input type="number" value="{{$data->tong_tot_nghiep}}"
+                                        <input type="number"  min="0" value="{{$data->tong_tot_nghiep}}"
                                             class="form-control m-input" placeholder="Nhập vào số"
                                             name="tong_tot_nghiep">
                                         @error('tong_tot_nghiep')
@@ -250,7 +250,7 @@
                                 <div class="form-group m-form__group row">
                                     <label class="col-lg-5 col-form-label">Tổng số nữ</label>
                                     <div class="col-lg-7">
-                                        <input type="number" value="{{$data->tong_tot_nghiep_nu}}"
+                                        <input type="number"  min="0" value="{{$data->tong_tot_nghiep_nu}}"
                                             class="form-control m-input" placeholder="Nhập vào số"
                                             name="tong_tot_nghiep_nu">
                                         @error('tong_tot_nghiep_nu')
@@ -261,7 +261,7 @@
                                 <div class="form-group m-form__group row">
                                     <label class="col-lg-5 col-form-label">Tổng số hộ khẩu Hà Nội</label>
                                     <div class="col-lg-7">
-                                        <input type="number" value="{{$data->tong_tot_nghiep_ho_khau_HN}}"
+                                        <input type="number"  min="0" value="{{$data->tong_tot_nghiep_ho_khau_HN}}"
                                             class="form-control m-input" placeholder="Nhập vào số"
                                             name="tong_tot_nghiep_ho_khau_HN">
                                         @error('tong_tot_nghiep_ho_khau_HN')
@@ -298,7 +298,7 @@
                                 <div class="form-group m-form__group row">
                                     <label class="col-lg-5 col-form-label">Tổng số bộ đội xuất ngũ</label>
                                     <div class="col-lg-7">
-                                        <input type="number" value="{{$data->tong_tuyen_sinh_bo_doi_xuat_ngu}}"
+                                        <input type="number"  min="0" value="{{$data->tong_tuyen_sinh_bo_doi_xuat_ngu}}"
                                             class="form-control m-input" placeholder="Nhập vào số"
                                             name="tong_tuyen_sinh_bo_doi_xuat_ngu">
                                         @error('tong_tuyen_sinh_bo_doi_xuat_ngu')
@@ -309,7 +309,7 @@
                                 <div class="form-group m-form__group row">
                                     <label class="col-lg-5 col-form-label">Số lượng bộ đội xuất ngũ nữ</label>
                                     <div class="col-lg-7">
-                                        <input type="number" value="{{$data->tuyen_sinh_bo_doi_nu}}"
+                                        <input type="number"  min="0" value="{{$data->tuyen_sinh_bo_doi_nu}}"
                                             class="form-control m-input" placeholder="Nhập vào số"
                                             name="tuyen_sinh_bo_doi_nu">
                                         @error('tuyen_sinh_bo_doi_nu')
@@ -321,7 +321,7 @@
                                     <label class="col-lg-5 col-form-label">Số lượng bộ đội xuất ngũ hộ khẩu Hà
                                         Nội</label>
                                     <div class="col-lg-7">
-                                        <input type="number" value="{{$data->tuyen_sinh_bo_doi_ho_khau_HN}}"
+                                        <input type="number"  min="0" value="{{$data->tuyen_sinh_bo_doi_ho_khau_HN}}"
                                             class="form-control m-input" placeholder="Nhập vào số"
                                             name="tuyen_sinh_bo_doi_ho_khau_HN">
                                         @error('tuyen_sinh_bo_doi_ho_khau_HN')
@@ -332,7 +332,7 @@
                                 <div class="form-group m-form__group row">
                                     <label class="col-lg-5 col-form-label">Tổng số CA hoàn thành nghĩa vụ</label>
                                     <div class="col-lg-7">
-                                        <input type="number" value="{{$data->tong_tuyen_sinh_Ca}}"
+                                        <input type="number"  min="0" value="{{$data->tong_tuyen_sinh_Ca}}"
                                             class="form-control m-input" placeholder="Nhập vào số"
                                             name="tong_tuyen_sinh_Ca">
                                         @error('tong_tuyen_sinh_Ca')
@@ -343,7 +343,7 @@
                                 <div class="form-group m-form__group row">
                                     <label class="col-lg-5 col-form-label">Số lượng CA hoàn thành nghĩa vụ nữ</label>
                                     <div class="col-lg-7">
-                                        <input type="number" value="{{$data->tuyen_sinh_ca_nu}}"
+                                        <input type="number"  min="0" value="{{$data->tuyen_sinh_ca_nu}}"
                                             class="form-control m-input" placeholder="Nhập vào số"
                                             name="tuyen_sinh_ca_nu">
                                         @error('tuyen_sinh_ca_nu')
@@ -355,7 +355,7 @@
                                     <label class="col-lg-5 col-form-label">Số lượng CA hoàn thành nghĩa vụ hộ khẩu Hà
                                         Nội</label>
                                     <div class="col-lg-7">
-                                        <input type="number" value="{{$data->tuyen_sinh_ca_ho_khau_HN}}"
+                                        <input type="number"  min="0" value="{{$data->tuyen_sinh_ca_ho_khau_HN}}"
                                             class="form-control m-input" placeholder="Nhập vào số"
                                             name="tuyen_sinh_ca_ho_khau_HN">
                                         @error('tuyen_sinh_ca_ho_khau_HN')
@@ -366,7 +366,7 @@
                                 <div class="form-group m-form__group row">
                                     <label class="col-lg-5 col-form-label">Tổng số thanh niên tình nguyện </label>
                                     <div class="col-lg-7">
-                                        <input type="number" value="{{$data->tong_tuyen_sinh_thanh_nien}}"
+                                        <input type="number"  min="0" value="{{$data->tong_tuyen_sinh_thanh_nien}}"
                                             class="form-control m-input" placeholder="Nhập vào số"
                                             name="tong_tuyen_sinh_thanh_nien">
                                         @error('tong_tuyen_sinh_thanh_nien')
@@ -377,7 +377,7 @@
                                 <div class="form-group m-form__group row">
                                     <label class="col-lg-5 col-form-label">Số lượng thanh niên tình nguyện nữ</label>
                                     <div class="col-lg-7">
-                                        <input type="number" value="{{$data->tuyen_sinh_thanh_nien_nu}}"
+                                        <input type="number"  min="0" value="{{$data->tuyen_sinh_thanh_nien_nu}}"
                                             class="form-control m-input" placeholder="Nhập vào số"
                                             name="tuyen_sinh_thanh_nien_nu">
                                         @error('tuyen_sinh_thanh_nien_nu')
@@ -389,7 +389,7 @@
                                     <label class="col-lg-5 col-form-label">Số lượng thanh niên tình nguyện hộ khẩu Hà
                                         nội</label>
                                     <div class="col-lg-7">
-                                        <input type="number" value="{{$data->tuyen_sinh_thanh_nien_ho_khau_HN}}"
+                                        <input type="number"  min="0" value="{{$data->tuyen_sinh_thanh_nien_ho_khau_HN}}"
                                             class="form-control m-input" placeholder="Nhập vào số"
                                             name="tuyen_sinh_thanh_nien_ho_khau_HN">
                                         @error('tuyen_sinh_thanh_nien_ho_khau_HN')
@@ -424,7 +424,7 @@
                                 <div class="form-group m-form__group row">
                                     <label class="col-lg-5 col-form-label">Tổng số bộ đội xuất ngũ</label>
                                     <div class="col-lg-7">
-                                        <input type="number" value="{{$data->tong_tot_nghiep_bo_doi}}"
+                                        <input type="number"  min="0" value="{{$data->tong_tot_nghiep_bo_doi}}"
                                             class="form-control m-input" placeholder="Nhập vào số"
                                             name="tong_tot_nghiep_bo_doi">
                                         @error('tong_tot_nghiep_bo_doi')
@@ -435,7 +435,7 @@
                                 <div class="form-group m-form__group row">
                                     <label class="col-lg-5 col-form-label">Số lượng bộ đội xuất ngũ nữ</label>
                                     <div class="col-lg-7">
-                                        <input type="number" value="{{$data->tong_nghiep_bo_doi_nu}}"
+                                        <input type="number"  min="0" value="{{$data->tong_nghiep_bo_doi_nu}}"
                                             class="form-control m-input" placeholder="Nhập vào số"
                                             name="tong_nghiep_bo_doi_nu">
                                         @error('tong_nghiep_bo_doi_nu')
@@ -447,7 +447,7 @@
                                     <label class="col-lg-5 col-form-label">Số lượng bộ đội xuất ngũ hộ khẩu Hà
                                         Nội</label>
                                     <div class="col-lg-7">
-                                        <input type="number" value="{{$data->tong_nghiep_bo_doi_ho_khau_HN}}"
+                                        <input type="number"  min="0" value="{{$data->tong_nghiep_bo_doi_ho_khau_HN}}"
                                             class="form-control m-input" placeholder="Nhập vào số"
                                             name="tong_nghiep_bo_doi_ho_khau_HN">
                                         @error('tong_nghiep_bo_doi_ho_khau_HN')
@@ -458,7 +458,7 @@
                                 <div class="form-group m-form__group row">
                                     <label class="col-lg-5 col-form-label">Tổng số CA hoàn thành nghĩa vụ</label>
                                     <div class="col-lg-7">
-                                        <input type="number" value="{{$data->tong_tot_nghiep_ca}}"
+                                        <input type="number"  min="0" value="{{$data->tong_tot_nghiep_ca}}"
                                             class="form-control m-input" placeholder="Nhập vào số"
                                             name="tong_tot_nghiep_ca">
                                         @error('tong_tot_nghiep_ca')
@@ -469,7 +469,7 @@
                                 <div class="form-group m-form__group row">
                                     <label class="col-lg-5 col-form-label">Số lượng CA hoàn thành nghĩa vụ nữ</label>
                                     <div class="col-lg-7">
-                                        <input type="number" value="{{$data->tot_nghiep_ca_nu}}"
+                                        <input type="number"  min="0" value="{{$data->tot_nghiep_ca_nu}}"
                                             class="form-control m-input" placeholder="Nhập vào số"
                                             name="tot_nghiep_ca_nu">
                                         @error('tot_nghiep_ca_nu')
@@ -481,7 +481,7 @@
                                     <label class="col-lg-5 col-form-label">Số lượng CA hoàn thành nghĩa vụ hộ khẩu Hà
                                         Nội</label>
                                     <div class="col-lg-7">
-                                        <input type="number" value="{{$data->tot_nghiep_ca_ho_khau_HN}}"
+                                        <input type="number"  min="0" value="{{$data->tot_nghiep_ca_ho_khau_HN}}"
                                             class="form-control m-input" placeholder="Nhập vào số"
                                             name="tot_nghiep_ca_ho_khau_HN">
                                         @error('tot_nghiep_ca_ho_khau_HN')
@@ -492,7 +492,7 @@
                                 <div class="form-group m-form__group row">
                                     <label class="col-lg-5 col-form-label">Tổng số thanh niên tình nguyện </label>
                                     <div class="col-lg-7">
-                                        <input type="number" value="{{$data->tong_tot_nghiep_thanh_nien}}"
+                                        <input type="number"  min="0" value="{{$data->tong_tot_nghiep_thanh_nien}}"
                                             class="form-control m-input" placeholder="Nhập vào số"
                                             name="tong_tot_nghiep_thanh_nien">
                                         @error('tong_tot_nghiep_thanh_nien')
@@ -503,7 +503,7 @@
                                 <div class="form-group m-form__group row">
                                     <label class="col-lg-5 col-form-label">Số lượng thanh niên tình nguyện nữ</label>
                                     <div class="col-lg-7">
-                                        <input type="number" value="{{$data->tot_nghiep_thanh_nien_nu}}"
+                                        <input type="number"  min="0" value="{{$data->tot_nghiep_thanh_nien_nu}}"
                                             class="form-control m-input" placeholder="Nhập vào số"
                                             name="tot_nghiep_thanh_nien_nu">
                                         @error('tot_nghiep_thanh_nien_nu')
@@ -515,7 +515,7 @@
                                     <label class="col-lg-5 col-form-label">Số lượng thanh niên tình nguyện hộ khẩu Hà
                                         nội</label>
                                     <div class="col-lg-7">
-                                        <input type="number" value="{{$data->tot_nghiep_thanh_nien_ho_khau_HN}}"
+                                        <input type="number"  min="0" value="{{$data->tot_nghiep_thanh_nien_ho_khau_HN}}"
                                             class="form-control m-input" placeholder="Nhập vào số"
                                             name="tot_nghiep_thanh_nien_ho_khau_HN">
                                         @error('tot_nghiep_thanh_nien_ho_khau_HN')

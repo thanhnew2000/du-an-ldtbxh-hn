@@ -32,7 +32,6 @@ class DaoTaoNgheChoNguoiKhuyetTatController extends Controller
         }else{
             $limit = 20;
         }
-        
         $data = $this->DaoTaoNgheChoNguoiKhuyetTatService->index($params,$limit);
         $coso = $this->DaoTaoNgheChoNguoiKhuyetTatService->getTenCoSoDaoTao();
         $quanhuyen = $this->DaoTaoNgheChoNguoiKhuyetTatService->getTenQuanHuyen();
@@ -133,7 +132,11 @@ class DaoTaoNgheChoNguoiKhuyetTatController extends Controller
      */
     public function show($id)
     {
-        $limit = 20;
+        if(isset(request()->page_size)){
+            $limit = request()->page_size;
+        }else{
+            $limit = 20;
+        }
         $params = request()->all();
         $thongtincoso = $this->DaoTaoNgheChoNguoiKhuyetTatService->getThongTinCoSo($id);
         $data = $this->DaoTaoNgheChoNguoiKhuyetTatService->getChiTietDaoTaoNgheChoNguoiKhuyetTat($id, $limit, $params);
