@@ -21,6 +21,7 @@ class CoSoDaoTaoRepository extends BaseRepository implements CoSoDaoTaoRepositor
     {
         return 'co_so_dao_tao';
     }
+
     public function getCsdt($params)
     {
         $query = $this->table->join('loai_hinh_co_so', 'loai_hinh_co_so.id', '=', 'co_so_dao_tao.ma_loai_hinh_co_so')
@@ -137,4 +138,37 @@ class CoSoDaoTaoRepository extends BaseRepository implements CoSoDaoTaoRepositor
             ->get();
     }
 
+    public function getDoiNguNhaGiaoTheoCoSo(int $coSoId, array $params = [])
+    {
+        $coSo = $this->model->find($coSoId);
+        $coSo->load([
+            'loaiHinhCoSo',
+            'doiNguNhaGiao' => function ($query) use ($params) {
+                if (isset($params['nam']) && !empty($params['nam'])) {
+                    $query->where('nam', $params['nam']);
+                }
+
+                if (isset($params['dot']) && !empty($params['dot'])) {
+                    $query->where('dot', $params['dot']);
+                }
+            },
+            'doiNguNhaGiao.nganhNghe'
+        ]);
+
+        return $coSo;
+    }
+
+    public function find($id)
+    {
+        return $this->model->find($id);
+    }
+
+    public function getListById($listId, $selects = ['*'])
+    {
+        return $this->model
+            ->whereIn('id', $listId)
+            ->select($selects)
+            ->orderBy('loai_truong', 'desc')
+            ->get();
+    }
 }

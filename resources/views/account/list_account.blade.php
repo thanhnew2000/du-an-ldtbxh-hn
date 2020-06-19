@@ -221,7 +221,7 @@
     $(document).ready(function(){
         $('.td_show-avatar').each(function(){
             var avatarImgUrl = $(this).attr('src');
-            SystemUtil.defaultImgUrl(avatarImgUrl, this, "{{  asset('images/avatardefault.jpg') }}");
+            SystemUtil.defaultImgUrl(avatarImgUrl, this, "{{  asset('images/avatardefault.png') }}");
         });
     })
 </script>

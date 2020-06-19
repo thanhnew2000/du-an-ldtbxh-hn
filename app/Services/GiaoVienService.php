@@ -11,7 +11,6 @@ use App\Repositories\SoLieuTuyenSinhInterface;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-use Illuminate\Support\Facades\DB;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
@@ -19,6 +18,7 @@ use PhpOffice\PhpSpreadsheet\Style\Protection;
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
 
 use Arr;
+use DB;
 
 class GiaoVienService extends AppService
 {
@@ -27,6 +27,9 @@ class GiaoVienService extends AppService
     protected $trinhDoGVRepository;
     protected $nganhNgheRepository;
     protected $soLieuTuyenSinhRepository;
+
+    use ExcelTraitService;
+
 
 
     public function __construct(
@@ -63,7 +66,14 @@ class GiaoVienService extends AppService
 
     public function getList($params = [], $limit = 10)
     {
-        return $this->giaoVienRepository->getList($params, $limit);
+        $result = $this->giaoVienRepository->getList($params, $limit);
+        $result->each(function ($value, $key) {
+            if (!empty($value->nghe_giang_day)){
+                $value->nghe_giang_day = str_replace(',', '<br>', $value->nghe_giang_day);
+            }
+        });
+
+        return $result;
     }
 
     public function getListCoSo()
@@ -76,9 +86,11 @@ class GiaoVienService extends AppService
         return $this->trinhDoGVRepository->getAll();
     }
 
-    public function getListNganhNghe()
+    public function getListNganhNghe(array $listIds = [], array $selects = [])
     {
-        return $this->nganhNgheRepository->getAll();
+        $selects[] = DB::raw("CONCAT(ten_nganh_nghe, ' - ', id) AS ten_nganh_nghe");
+
+        return $this->nganhNgheRepository->getListNganhNghe($listIds, $selects);
     }
 
     public function store(array $params)
@@ -97,6 +109,9 @@ class GiaoVienService extends AppService
 
     protected function getData($params)
     {
+        $listNganhNghe = $this->getListNganhNghe($params['nganh_nghe'])->toArray();
+        $nganhNghe = implode(',', Arr::pluck($listNganhNghe, 'ten_nganh_nghe'));
+
         $data = [];
         $data['ten'] = $params['ten_giao_vien'];
         $data['gioi_tinh'] = $params['gioi_tinh'];
@@ -104,8 +119,7 @@ class GiaoVienService extends AppService
         $data['dan_toc_it_nguoi'] = $params['dan_toc_thieu_so'];
         $data['loai_hop_dong'] = $params['loai_hop_dong'];
         $data['co_so_id'] = $params['co_so_id'];
-        $data['trinh_do_id'] = $params['trinh_do'];
-        $data['nghe_id'] = $params['nganh_nghe'];
+        $data['nghe_giang_day'] = $nganhNghe;
 
         if (!empty($params['chuc_danh'])) {
             $data['giao_su'] = $params['chuc_danh'] ==
@@ -121,6 +135,30 @@ class GiaoVienService extends AppService
 
         if (isset($params['nha_giao_uu_tu'])) {
             $data['nha_giao_uu_tu'] = 1;
+        }
+
+        if (!empty($params['trinh_do_tien_sy'])) {
+            $data['trinh_do_tien_sy'] = $params['trinh_do_tien_sy'];
+        }
+
+        if (!empty($params['trinh_do_thac_sy'])) {
+            $data['trinh_do_thac_sy'] = $params['trinh_do_thac_sy'];
+        }
+
+        if (!empty($params['trinh_do_dai_hoc'])) {
+            $data['trinh_do_dai_hoc'] = $params['trinh_do_dai_hoc'];
+        }
+
+        if (!empty($params['trinh_do_cao_dang'])) {
+            $data['trinh_do_cao_dang'] = $params['trinh_do_cao_dang'];
+        }
+
+        if (!empty($params['trinh_do_trung_cap'])) {
+            $data['trinh_do_trung_cap'] = $params['trinh_do_trung_cap'];
+        }
+
+        if (!empty($params['trinh_do_khac'])) {
+            $data['trinh_do_khac'] = $params['trinh_do_khac'];
         }
 
         if (!empty($params['trinh_do_ngoai_ngu'])) {
@@ -145,30 +183,9 @@ class GiaoVienService extends AppService
     
     // thanhnv import export 6/17/2020 branch bm9
     
-    public function createSpreadSheet($fileRead,$duoiFile){
-        if ($duoiFile =='xls') {
-            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
-         }else {
-            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-         }
-        $reader->setReadDataOnly(true);
-        $spreadsheet = $reader->load($fileRead);
-        return $spreadsheet;
-    }
 
-    public function bacTruong($loaitruong){
-        $bac_truong='';
-        if($loaitruong == 1){
-            $bac_truong= 'Cao đẳng';
-        }elseif($loaitruong == 2){
-            $bac_truong= 'Trung cấp';
-        }elseif($loaitruong == 3){
-            $bac_truong= 'Sơ cấp';
-        }
-        return $bac_truong;
-    }
 
-    public function checkError($data,$arrayApha){
+    public function checkErrorGiaoVien($data,$arrayApha){
         $vitri =[];
         for($i =15; $i < count($data); $i++){ 
             $key_aphabel=0;
@@ -179,7 +196,7 @@ class GiaoVienService extends AppService
                          && ($data[$i][$j] != $data[$i][4])
                          && ($data[$i][$j] != $data[$i][5]) 
                          && ($data[$i][$j] != $data[$i][34])
-                         && ($data[$i][$j] != $data[$i][35])){
+                         && ($data[$i][$j] != $data[$i][35]) || $data[$i][$j] < 0 ){
                         array_push($vitri,$arrayApha[$key_aphabel].$rowNumber);
                     }
                 }
@@ -300,7 +317,7 @@ class GiaoVienService extends AppService
         $worksheet->setCellValue('B6', "Cấp quản lí: $cap_quan_li");
 
 
-        $bac_truong = $this->bacTruong($co_so->loai_truong);
+        $bac_truong = $this->bacDaoTaoOfTruong($co_so->loai_truong);
 
         $worksheet->setCellValue('B7', "Loại hình cơ sở: $bac_truong ");
         $worksheet->getColumnDimension('F')->setAutoSize(true);
@@ -364,7 +381,7 @@ class GiaoVienService extends AppService
         $worksheet->setCellValue('B5', "Loại hình: $loai_hinh ");
         $worksheet->setCellValue('B6', "Cấp quản lí: $cap_quan_li");
 
-        $bac_truong = $this->bacTruong($co_so->loai_truong);
+        $bac_truong = $this->bacDaoTaoOfTruong($co_so->loai_truong);
 
         $worksheet->setCellValue('B7', "Loại hình cơ sở: $bac_truong ");
         $worksheet->getColumnDimension('B')->setAutoSize(true);
@@ -408,7 +425,7 @@ class GiaoVienService extends AppService
             
             $arrayApha=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ'];
             // vòng for này để check lỗi nếu có thì cho hết lỗi vào các array $error, $vitri
-           $vitri=$this->checkError($data,$arrayApha);
+           $vitri=$this->checkErrorGiaoVien($data,$arrayApha);
 
            if(count($vitri) > 0){
             $message='exportError';
@@ -535,7 +552,7 @@ public function importError($fileRead, $duoiFile){
 
     $arrayApha=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ'];
      
-    $vitri=$this->checkError($data,$arrayApha);
+    $vitri=$this->checkErrorGiaoVien($data,$arrayApha);
 
     $spreadsheet2 = \PhpOffice\PhpSpreadsheet\IOFactory::load('file_excel/quanligiaovien/bieu-mau-ds-ql-giao-vien.xlsx');
     $worksheet = $spreadsheet2->getActiveSheet();
@@ -554,6 +571,7 @@ public function importError($fileRead, $duoiFile){
     //  khóa 
      $spreadsheet2->getActiveSheet()->getProtection()->setSheet(true);
      $spreadsheet2->getDefaultStyle()->getProtection()->setLocked(false);
+     $worksheet->getColumnDimension('F')->setAutoSize(true);
 
      for($i = 0; $i < count($vitri);$i++){
         // $worksheet->getStyle($vitri[$i])->applyFromArray($styleArray);

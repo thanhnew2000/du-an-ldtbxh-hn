@@ -28,13 +28,13 @@ class CoSoDaoTaoController extends Controller
         $data = $this->CoSoDaoTaoService->getCsdt($params);
         $loaihinh = DB::table('loai_hinh_co_so')->get();
         $quanhuyen = DB::table('devvn_quanhuyen')->get();
-        return view('coso.danh_sach_co_so_dao_tao', compact('data', 'loaihinh', 'quanhuyen', 'params'));
+        return view('co-so-dao-tao.danh_sach_co_so_dao_tao', compact('data', 'loaihinh', 'quanhuyen', 'params'));
     }
 
     public function chitietCSDT($id)
     {
         $data = $this->CoSoDaoTaoService->getSingleCsdt($id);
-        return view('coso.chi_tiet_co_so', ['data' => $data]);
+        return view('co-so-dao-tao.chi_tiet_co_so', ['data' => $data]);
     }
 
     public function themCSDT()
@@ -44,7 +44,7 @@ class CoSoDaoTaoController extends Controller
         $loaihinh = DB::table('loai_hinh_co_so')->get();
         $quanhuyen = DB::table('devvn_quanhuyen')->get();
         $xaphuong = DB::table('devvn_xaphuongthitran')->get();
-        return view('coso.them_co_so', [
+        return view('co-so-dao-tao.them_co_so', [
             'qd' => $qd,
             'coquan' => $coquan,
             'loaihinh' => $loaihinh,
@@ -100,7 +100,7 @@ class CoSoDaoTaoController extends Controller
         $quanhuyen = DB::table('devvn_quanhuyen')->get();
         $xaphuong = DB::table('devvn_xaphuongthitran')->where('');
 
-        return view('coso.sua_co_so', compact('data', 'parent', 'loai_coso', 'qd', 'quanhuyen', 'xaphuong'));
+        return view('co-so-dao-tao.sua_co_so', compact('data', 'parent', 'loai_coso', 'qd', 'quanhuyen', 'xaphuong'));
     }
 
     public function capnhatCSDT($id, Request $request)

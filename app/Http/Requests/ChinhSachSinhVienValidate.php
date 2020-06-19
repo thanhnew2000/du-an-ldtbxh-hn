@@ -23,16 +23,20 @@ class ChinhSachSinhVienValidate extends FormRequest
      */
     public function rules()
     {
-        $data = $this->all();
-        unset($data['_token']);
-        $getDataCheck = [];
-        foreach ($data as $item => $value) {
-            if ($value == null) {
-                $getDataCheck[$item] = 'min:0|';
-            } else {
-                $getDataCheck[$item] = 'min:0|integer|';
-            }
-        }
-        return $getDataCheck;
+        return [
+            'so_hssv_CD' => 'min:0|integer',
+            'so_hssv_TC' => 'min:0|integer',
+            'tong_so_hssv' => 'min:0|integer',
+            'kinh_phi_CD' => 'min:0|integer',
+            'kinh_phi_TC' => 'min:0|integer',
+            'kinh_phi' => 'min:0|integer',
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'integer' => 'Vui lòng nhập số nguyên',
+            'min' => 'Số liệu nhỏ nhất là 0'
+        ];
     }
 }

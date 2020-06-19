@@ -2,6 +2,7 @@
 @section('title', "Dashboard")
 @section('content')
 <div class="m-content">
+ 
     {{-- <div class="row">
         <div class="col-lg-12">
             <!--begin::Portlet-->
@@ -729,6 +730,7 @@
     </div>
 </div>
 @endsection
+
 @section('script')
 <script>
     console.log(JSON.parse($('#m_flotcharts_8').attr('attr')))
