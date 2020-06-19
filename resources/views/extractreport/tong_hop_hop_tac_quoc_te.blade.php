@@ -121,8 +121,7 @@
                     @php
                      $stt = 1;   
                     @endphp
-
-                    @forelse ($data as $item)
+                    @foreach ($data as $item)
                     <tr>
                         <td>{{ $stt }}</td>
                         <td>{{ $item->ten }}</td>
@@ -138,14 +137,13 @@
                             <a class="btn btn-info" href="{{ route('xuatbc.chi-tiet-ds-hop-tac-qte',['co_so_id' => $item->co_so_id]) }}" target="_blank">Chi tiết</a>
                         </td>
                     </tr>
-
-
-                    @empty
-                    
-                    @endforelse
                     @php
-                     $stt ++;   
-                    @endphp
+                    $stt ++;   
+                   @endphp
+                    @endforeach
+
+                 
+                   
 
                 </tbody>
             </table>

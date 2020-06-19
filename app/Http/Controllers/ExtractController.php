@@ -107,11 +107,10 @@ class ExtractController extends Controller
      */
     public function chiTietTheoCoSo(Request $request,$co_so_id)
     {
-        $check_co_so = DB::table('co_so_dao_tao')->whereId($co_so_id)->first();
+        $check_co_so = $this->CoSoDaoTaoService->checkTonTai($co_so_id);
         if (!$check_co_so) {
             return redirect()->route('xuatbc.ds-nha-giao');
         }
-      
         $params = $request->all();
         if(!isset($params['page_size'])) $params['page_size'] = config('common.paginate_size.default');
         $route_name = Route::current()->action['as'];
@@ -126,7 +125,7 @@ class ExtractController extends Controller
             compact('data','params','thongtincoso','route_name'),['thongbao'=>'Không tìm thấy kết quả !']);
         } 
         return view('extractreport.danh_sach_chi_tiet_doi_ngu_nha_giao',
-        compact('data','params','thongtincoso','route_name'),['thongbao'=>'']);
+        compact('data','params','thongtincoso','route_name'),['thongbao'=>'']);  
     }
 
     /* Màn hình thêm Danh sách đội ngũ nhà giáo
@@ -449,7 +448,7 @@ class ExtractController extends Controller
      */
     public function chiTietTongHopHopTacQuocTe(Request $request, $co_so_id)
     {
-        $check_co_so = DB::table('co_so_dao_tao')->whereId($co_so_id)->first();
+        $check_co_so = $this->CoSoDaoTaoService->checkTonTai($co_so_id);
         if (!$check_co_so) {
             return redirect()->route('xuatbc.ds-hop-tact-qte');
         }
@@ -658,7 +657,7 @@ class ExtractController extends Controller
 
     public function chitietChiTieuTuyenSinh($co_so_id, Request $request)
     {   
-        $check_co_so = DB::table('co_so_dao_tao')->whereId($co_so_id)->first();
+        $check_co_so = $this->CoSoDaoTaoService->checkTonTai($co_so_id);
         if (!$check_co_so) {
             return redirect()->route('xuatbc.ds-chi-tieu-ts');
         }
