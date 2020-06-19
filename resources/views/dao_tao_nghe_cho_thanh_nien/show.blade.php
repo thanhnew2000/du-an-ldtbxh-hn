@@ -159,15 +159,15 @@
                         <th>Tổng số nữ</th>
                         <th>Tổng số hộ khẩu Hà Nội</th>
 
+                        <th>Tổng tốt nghiệp theo trình độ</th>
+                        <th>Tốt nghiệp nữ theo trình độ</th>
+                        <th>Tốt nghiệp hộ khẩu Hà Nội theo trình độ</th>
+                        <th>Tổng tốt nghiệp theo trình độ</th>
+                        <th>Tốt nghiệp nữ theo trình độ</th>
+                        <th>Tốt nghiệp hộ khẩu Hà Nội theo trình độ</th>
                         <th>Tổng tuyển sinh theo trình độ</th>
-                        <th>Tuyển sinh nữ theo trình độ</th>
-                        <th>Tuyển sinh hộ khẩu Hà Nội theo trình độ</th>
-                        <th>Tổng tuyển sinh theo trình độ</th>
-                        <th>Tuyển sinh nữ theo trình độ</th>
-                        <th>Tuyển sinh hộ khẩu Hà Nội theo trình độ</th>
-                        <th>Tổng tuyển sinh theo trình độ</th>
-                        <th>Tuyển sinh nữ theo trình độ</th>
-                        <th>Tuyển sinh hộ khẩu Hà Nội theo trình độ</th>
+                        <th>Tốt nghiệp nữ theo trình độ</th>
+                        <th>Tốt nghiệp hộ khẩu Hà Nội theo trình độ</th>
 
                         <th>Tổng kinh phí</th>
                         <th>Trung ương</th>
