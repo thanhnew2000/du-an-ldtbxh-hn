@@ -28,7 +28,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Loại hình cơ sở</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control" name="loai_hinh" id="loai_hinh">
+                                    <select class="form-control select2" name="loai_hinh" id="loai_hinh">
                                         <option value="" selected>Chọn</option>
                                         @foreach ($loai_hinh as $item)
                                         <option @if (isset($params['loai_hinh']))
@@ -44,7 +44,7 @@
                             <div class="form-group m-form__group row">
                                 <label for="" class="col-lg-2 col-form-label">Tên cơ sở</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control" name="co_so_id" id="co_so_id">
+                                    <select class="form-control select2" name="co_so_id" id="co_so_id">
                                         <option value="">Chọn</option>
 
                                         @foreach ($coso as $item)
@@ -63,7 +63,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Năm</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control" name="nam" id="nam">
+                                    <select class="form-control select2" name="nam" id="nam">
                                         <option value="">Chọn</option>
                                         @foreach (config('common.nam.list') as $item)
                                         <option @if (isset($params['nam']))
@@ -80,7 +80,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Nghề cấp 2</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control nganh_nghe" onchange="getNgheTheoCapBac(this)"
+                                    <select class="form-control nganh_nghe select2" onchange="getNgheTheoCapBac(this)"
                                         @if(isset($params['nganh_nghe']))
                                         name="{{strlen($params['nganh_nghe'])==3?'nganh_nghe':''}}" @endif
                                         id="nghe_cap_2">
@@ -101,7 +101,7 @@
                             <div class="form-group m-form__group row">
                                 <label for="" class="col-lg-2 col-form-label">Đợt</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control" name="dot" id="dot">
+                                    <select class="form-control select2" name="dot" id="dot">
                                         <option value="">Chọn</option>
                                         <option @if (isset($params['dot']))
                                             {{( $params['dot'] ==  1 ) ? 'selected' : ''}} @endif value="1">Đợt 1
@@ -120,7 +120,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Nghề cấp 3</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control nganh_nghe" onchange="getNgheTheoCapBac(this)"
+                                    <select class="form-control nganh_nghe select2" onchange="getNgheTheoCapBac(this)"
                                         @if(isset($params['nganh_nghe']))
                                         name="{{strlen($params['nganh_nghe'])==5?'nganh_nghe':''}}" @endif
                                         id="nghe_cap_3">
@@ -141,7 +141,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Quận\Huyện</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control" name="devvn_quanhuyen" id="devvn_quanhuyen">
+                                    <select class="form-control select2" name="devvn_quanhuyen" id="devvn_quanhuyen">
                                         <option value="" selected>Chọn</option>
                                         @foreach ($quanhuyen as $item)
                                         <option @if (isset($params['devvn_quanhuyen']))
@@ -159,7 +159,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Nghề cấp 4</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control nganh_nghe" id="nghe_cap_4"
+                                    <select class="form-control nganh_nghe select2" id="nghe_cap_4"
                                         onchange="setNameNganhNgheSearch(this)" @if (isset($params['nganh_nghe']))
                                         name="{{strlen($params['nganh_nghe'])==7?'nganh_nghe':''}}" @endif>
                                         <option value="" selected>Chọn</option>
@@ -181,7 +181,7 @@
                             <div class="form-group m-form__group row">
                                 <label for="" class="col-lg-2 col-form-label">Xã\Phường</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control" name="devvn_xaphuongthitran"
+                                    <select class="form-control select2" name="devvn_xaphuongthitran"
                                         id="devvn_xaphuongthitran">
                                         <option value="">Chọn xã phường</option>
                                         @foreach ($xaphuongtheoquanhuyen as $item)
@@ -432,15 +432,7 @@
     var url_xa_phuong_theo_quan_huyen = "{{route('getXaPhuongTheoQuanHuyen')}}"
     var url_nghe_theo_nghe_cap_bac= "{{route('getNgheTheoCapBac')}}"
         $(document).ready(function(){
-        $('#co_so_id').select2();
-        $('#devvn_quanhuyen').select2();
-        $('#devvn_xaphuongthitran').select2();
-        $('#nghe_cap_2').select2();
-        $('#nghe_cap_3').select2();
-        $('#nghe_cap_4').select2();
-        $('#nam').select2();
-        $('#dot').select2();
-        $('#loai_hinh').select2();
+        $('.select2').select2();
     });
     $("#loai_hinh" ).change(function() {
         axios.post(url_tuyen_sinh_theo_loai_hinh, {

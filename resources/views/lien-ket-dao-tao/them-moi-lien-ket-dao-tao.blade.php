@@ -37,7 +37,7 @@
               <div class="form-group m-form__group row">
                 <label class="col-lg-2 col-form-label">Tên cơ sở đào tạo</label>
                 <div class="col-lg-8">
-                  <select class="form-control " onchange="getdatacheck(this)" required name="co_so_id"
+                  <select class="form-control select2" onchange="getdatacheck(this)" required name="co_so_id"
                     id="co_so_dao_tao">
                     <option value="">Chọn</option>
                     @foreach ($data as $item)
@@ -51,7 +51,7 @@
               <div class="form-group m-form__group row">
                 <label class="col-lg-2 col-form-label">Năm</label>
                 <div class="col-lg-8">
-                  <select class="form-control " onchange="getdatacheck(this)" required name="nam" id="nam">
+                  <select class="form-control select2" onchange="getdatacheck(this)" required name="nam" id="nam">
                     <option value="">Chọn</option>
                     @foreach (config('common.nam_tuyen_sinh.list') as $item)
                     <option @if (isset($params['nam'])) {{( $params['nam'] ==  $item ) ? 'selected' : ''}} @endif
@@ -68,7 +68,7 @@
               <div class="form-group m-form__group row">
                 <label class="col-lg-2 col-form-label">Tên nghề đào tạo</label>
                 <div class="col-lg-8">
-                  <select class="form-control " required disabled onchange="getdatacheck(this)" name="nghe_id"
+                  <select class="form-control select2" required disabled onchange="getdatacheck(this)" name="nghe_id"
                     id="ma_nganh_nghe">
                     <option value="" selected>Mã ngành nghề</option>
                   </select>
@@ -79,7 +79,7 @@
               <div class="form-group m-form__group row">
                 <label class="col-lg-2 col-form-label">Đợt</label>
                 <div class="col-lg-8">
-                  <select class="form-control " required onchange="getdatacheck(this)" name="dot" id="dot">
+                  <select class="form-control select2" required onchange="getdatacheck(this)" name="dot" id="dot">
                     <option value="" selected>Chọn</option>
                     <option value="1">Đợt 1</option>
                     <option value="2">Đợt 2</option>
@@ -176,10 +176,8 @@
  var routeGetMaNganhNghe = "{{ route('get_ma_nganh_nghe') }}";
 
 $(document).ready(function(){
-  $('#co_so_dao_tao').select2();
-  $('#ma_nganh_nghe').select2();
-  $('#nam').select2();
-  $('#dot').select2();
+  $('.select2').select2();
+  
 });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

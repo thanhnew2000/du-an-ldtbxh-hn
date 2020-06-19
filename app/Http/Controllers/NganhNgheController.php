@@ -139,4 +139,13 @@ class NganhNgheController extends Controller
         $data = $this->nganhNgheService->findById($id);
         return view('nganh-nghe.cap-nhat-nganh-nghe', compact('data'));
     }
+
+    public function search(Request $request)
+    {
+        $params['keyword'] = $request->get('keyword');
+        $params['page'] = $request->get('page');
+        $data = $this->nganhNgheService->search($params);
+
+        return response()->json($data);
+    }
 }

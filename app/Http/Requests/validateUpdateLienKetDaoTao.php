@@ -24,9 +24,9 @@ class validateUpdateLienKetDaoTao extends FormRequest
     public function rules()
     {
         return [
-            'chi_tieu' => 'min:0|integer|',
-            'thuc_tuyen' => 'min:0|integer|',
-            'so_HSSV_tot_nghiep' => 'min:0|integer|',
+            'chi_tieu' => 'min:0|integer',
+            'thuc_tuyen' => 'min:0|integer',
+            'so_HSSV_tot_nghiep' => 'min:0|integer',
 
         ];
     }

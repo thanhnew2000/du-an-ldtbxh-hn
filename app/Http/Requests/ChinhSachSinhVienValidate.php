@@ -24,12 +24,12 @@ class ChinhSachSinhVienValidate extends FormRequest
     public function rules()
     {
         return [
-            'so_hssv_CD' => 'min:0|integer|',
-            'so_hssv_TC' => 'min:0|integer|',
-            'tong_so_hssv' => 'min:0|integer|',
-            'kinh_phi_CD' => 'min:0|integer|',
-            'kinh_phi_TC' => 'min:0|integer|',
-            'kinh_phi' => 'min:0|integer|',
+            'so_hssv_CD' => 'min:0|integer',
+            'so_hssv_TC' => 'min:0|integer',
+            'tong_so_hssv' => 'min:0|integer',
+            'kinh_phi_CD' => 'min:0|integer',
+            'kinh_phi_TC' => 'min:0|integer',
+            'kinh_phi' => 'min:0|integer',
         ];
     }
     public function messages()

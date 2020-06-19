@@ -39,8 +39,8 @@
                                 <label class="col-lg-2 col-form-label">Tên cơ sở đào tạo <span class="batbuoc">*</span>
                                 </label>
                                 <div class="col-lg-8">
-                                    <select class="form-control " required name="co_so_id" onchange="getdatacheck(this)"
-                                        id="co_so_id">
+                                    <select class="form-control select2" required name="co_so_id"
+                                        onchange="getdatacheck(this)" id="co_so_id">
                                         <option value="" selected>Chọn</option>
                                         @foreach ($coso as $item)
                                         <option value="{{$item->id}}">{{$item->ten}}</option>
@@ -54,7 +54,7 @@
                                 <label class="col-lg-2 col-form-label">Năm <span class="batbuoc">*</span>
                                 </label>
                                 <div class="col-lg-8">
-                                    <select id="nam" class="form-control " onchange="getdatacheck(this)" required
+                                    <select id="nam" class="form-control select2" onchange="getdatacheck(this)" required
                                         name="nam">
                                         <option value="" selected>Chọn </option>
                                         @foreach (config('common.nam_tuyen_sinh.list') as $item)
@@ -74,7 +74,7 @@
                                 <label class="col-lg-2 col-form-label">Chính sách<span class="batbuoc">*</span>
                                 </label>
                                 <div class="col-lg-8">
-                                    <select class="form-control " required onchange="getdatacheck(this)"
+                                    <select class="form-control select2" required onchange="getdatacheck(this)"
                                         name="chinh_sach_id" id="chinh_sach_id">
                                         <option value="" selected>Chọn </option>
                                         @foreach ($chinhsach as $item)
@@ -90,8 +90,8 @@
                                 <label class="col-lg-2 col-form-label">Đợt <span class="batbuoc">*</span>
                                 </label>
                                 <div class="col-lg-8">
-                                    <select class="form-control " required onchange="getdatacheck(this)" name="dot"
-                                        id="dot">
+                                    <select class="form-control select2" required onchange="getdatacheck(this)"
+                                        name="dot" id="dot">
                                         <option value="" selected>Chọn</option>
                                         <option value="1">Đợt 1</option>
                                         <option value="2">Đợt 2</option>
@@ -200,10 +200,8 @@
 <script type="text/javascript">
     var routeCheck = "{{ route('xuatbc.check-ton-tai-chinh-sach-sinh-vien') }}";
     $(document).ready(function() {
-    $('#co_so_id').select2(); 
-    $('#chinh_sach_id').select2();
-    $('#nam').select2();
-    $('#dot').select2();
+    $('.select2').select2(); 
+    
 });
 $("#page-size").change(function() {
     $("#page_size_hide").val($('#page-size').val())
