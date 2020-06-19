@@ -26,7 +26,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Tên đơn vị</label>
                                 <div class="col-lg-8">
-                                    <select name="co_so_id" class="form-control ">
+                                    <select name="co_so_id" class="form-control select2">
                                         <option value="">-----Chọn đơn vị-----</option>
 
                                         @foreach($params['co_so_dao_tao'] as $item)
@@ -43,7 +43,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Năm</label>
                                 <div class="col-lg-8">
-                                    <select name="nam" class="form-control ">
+                                    <select name="nam" class="form-control select2">
                                         <option value="">-----Chọn năm-----</option>
 
                                         @foreach(config('common.nam.list') as $nam)
@@ -61,7 +61,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Đợt</label>
                                 <div class="col-lg-8">
-                                    <select name="dot" class="form-control ">
+                                    <select name="dot" class="form-control select2">
                                         <option value="">-----Chọn đợt-----</option>
                                         <option @if(isset($params['dot']) && $params['dot']==config('common.dot.1'))
                                             selected @endif value="{{config('common.dot.1')}}">
@@ -121,8 +121,7 @@
                     @php
                      $stt = 1;   
                     @endphp
-
-                    @forelse ($data as $item)
+                    @foreach ($data as $item)
                     <tr>
                         <td>{{ $stt }}</td>
                         <td>{{ $item->ten }}</td>
@@ -138,14 +137,13 @@
                             <a class="btn btn-info" href="{{ route('xuatbc.chi-tiet-ds-hop-tac-qte',['co_so_id' => $item->co_so_id]) }}" target="_blank">Chi tiết</a>
                         </td>
                     </tr>
-
-
-                    @empty
-                    
-                    @endforelse
                     @php
-                     $stt ++;   
-                    @endphp
+                    $stt ++;   
+                   @endphp
+                    @endforeach
+
+                 
+                   
 
                 </tbody>
             </table>
@@ -197,7 +195,7 @@
             window.location.href = reloadUrl;
         });
 
-        $('[name="co_so_id"]').select2();
+        $('.select2').select2();
 
     });
 
