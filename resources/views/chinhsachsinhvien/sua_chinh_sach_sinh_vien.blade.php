@@ -32,12 +32,7 @@
                 </div>
             </div>
             <div class="m-portlet__body">
-                @if (session('thongbao'))
 
-                <div class="alert alert-success" role="alert">
-                    <strong>{{session('thongbao')}}</strong>
-                </div>
-                @endif
                 <div class="m-form__section m-form__section--first">
                     <div class="row">
 
@@ -130,6 +125,7 @@
 
                         </tr>
 
+
                     </tbody>
                 </table>
             </div>
@@ -174,7 +170,13 @@
                                 <td><input name="kinh_phi" type="number" min="0" class="form-control"
                                         value="{{$data->kinh_phi}}"></td>
                             </tr>
-
+                            <tr>
+                                <td>Ghi chú</td>
+                                <td>
+                                    <textarea class="form-control" name="ghi_chu" rows="3"
+                                        style="border: 1px solid #000000">{{$data->ghi_chu}}</textarea>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -209,5 +211,17 @@ $("#page-size").change(function() {
 });
 </script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
-
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="{!! asset('chinh_sach_sinh_vien/validate-number.js') !!}"></script>
+@if (session('thongbao'))
+<script>
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Cập nhật thành công !',
+        showConfirmButton: false,
+        timer: 3500
+    })
+</script>
+@endif
 @endsection

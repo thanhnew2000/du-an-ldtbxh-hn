@@ -42,7 +42,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Loại hình cơ sở</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control" name="loai_hinh" id="loai_hinh">
+                                    <select class="form-control select2" name="loai_hinh" id="loai_hinh">
                                         <option value="">Chọn</option>
                                         @foreach($loaihinh as $item)
                                         <option @if (isset($params['loai_hinh']))
@@ -57,7 +57,7 @@
                             <div class="form-group m-form__group row">
                                 <label for="" class="col-lg-2 col-form-label">Tên cơ sở</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control" name="co_so_id" id="co_so_id">
+                                    <select class="form-control select2" name="co_so_id" id="co_so_id">
                                         <option value="">Chọn</option>
                                         @foreach ($coso as $item)
                                         <option @if (isset($params['co_so_id']))
@@ -74,7 +74,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Năm</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control" name="nam" id="nam">
+                                    <select class="form-control select2" name="nam" id="nam">
                                         <option value="">Chọn</option>
                                         @foreach (config('common.nam.list') as $item)
                                         <option @if (isset($params['nam']))
@@ -91,8 +91,8 @@
                             <div class="form-group m-form__group row">
                                 <label for="" class="col-lg-2 col-form-label">Đợt</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control" name="dot" id="dot">
-                                        <option value="">Chọn</option>
+                                    <select class="form-control select2" name="dot" id="dot">
+                                        <option value="" selected disabled>Chọn</option>
                                         <option @if (isset($params['dot']))
                                             {{( $params['dot'] ==  1 ) ? 'selected' : ''}} @endif value="1">Đợt 1
                                         </option>
@@ -108,9 +108,9 @@
                     <div class="row pt-4">
                         <div class="col-md-6">
                             <div class="form-group m-form__group row">
-                                <label class="col-lg-2 col-form-label">Quận\Huyện</label>
+                                <label class="col-lg-2 col-form-label">Quận/Huyện</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control" name="devvn_quanhuyen" id="devvn_quanhuyen">
+                                    <select class="form-control select2" name="devvn_quanhuyen " id="devvn_quanhuyen">
                                         <option value="" selected>Chọn</option>
                                         @foreach ($quanhuyen as $item)
                                         <option @if (isset($params['devvn_quanhuyen']))
@@ -125,8 +125,8 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Chính sách</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control" name="chinhsach" id="chinhsach">
-
+                                    <select class="form-control select2" name="chinhsach" id="chinhsach">
+                                        <option value="" selected>Chọn</option>
                                         @foreach ($chinhsach as $item)
                                         <option @if (isset($params['chinhsach']))
                                             {{( $params['chinhsach'] ==  $item->id ) ? 'selected' : ''}} @endif
@@ -170,8 +170,8 @@
     </div>
     <div class="m-portlet">
         <div class="m-portlet__body">
-            @if (session('thongbao'))
 
+            @if (session('thongbao'))
             <div class="alert alert-success" role="alert">
                 <strong>{{session('thongbao')}}</strong>
             </div>
@@ -194,7 +194,12 @@
                         <th rowspan="2">STT</th>
 
                         <th rowspan="2">Tên cơ sở đào tạo</th>
+                        <th rowspan="2">Năm</th>
+                        <th rowspan="2">Đợt</th>
+                        <th rowspan="2">Loại hình cơ sở</th>
+                        <th rowspan="2">Quận/Huyện</th>
                         <th rowspan="2">Chính sách</th>
+
                         <th colspan="2">Số lượng sinh viên</th>
                         <th rowspan="2">Tổng số lượng <br> sinh viên</th>
                         <th colspan="2">Kinh phí</th>
@@ -219,6 +224,10 @@
                     <tr>
                         <td>{{$i++}}</td>
                         <td>{{$item->ten}}</td>
+                        <td>{{$item->nam}}</td>
+                        <td>{{$item->dot}}</td>
+                        <td>{{$item->loai_hinh_co_so}}</td>
+                        <td>{{$item->quan_huyen}}</td>
                         <td>{{$item->ten_chinh_sach}}</td>
                         <td>{{$item->so_hssv_CD}}</td>
                         <td>{{$item->so_hssv_TC}}</td>
@@ -475,13 +484,8 @@ function clickDownloadTemplate(){
 <script src="{{ asset('js/chinh_sach_sinh_vien/chinh-sach-sinh-vien.js') }}"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-    $('#co_so_id').select2();
-    $('#devvn_quanhuyen').select2();
-    $('#devvn_xaphuongthitran').select2();
-    $('#chinhsach').select2();
-    $('#loai_hinh').select2();
-    $('#nam').select2();
-    $('#dot').select2();
+    $('.select2').select2();
+   
 });
 $("#page-size").change(function() {
     $("#page_size_hide").val($('#page-size').val())
