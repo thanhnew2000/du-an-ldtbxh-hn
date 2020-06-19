@@ -136,7 +136,7 @@
                         <th class="border"><pre class="text-white">Hợp đồng<br>(từ 1 năm trở lên)</pre></th>
                         <th class="border"><pre class="text-white">Tiến sỹ</pre></th>
                         <th class="border"><pre class="text-white">Thạc sỹ</pre></th>
-                        <th class="border"><pre class="text-white">Đạt học</pre></th>
+                        <th class="border"><pre class="text-white">Đại học</pre></th>
                         <th class="border"><pre class="text-white">Cao đẳng</pre></th>
                         <th class="border"><pre class="text-white">Trung cấp</pre></th>
                         <th class="border"><pre class="text-white">Trình độ khác</pre></th>

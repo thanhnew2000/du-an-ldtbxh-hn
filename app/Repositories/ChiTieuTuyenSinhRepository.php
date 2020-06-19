@@ -111,6 +111,4 @@ class ChiTieuTuyenSinhRepository extends BaseRepository implements ChiTieuTuyenS
 
         return $kq;
     }
-
- 
 }
