@@ -380,7 +380,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="">Chọn năm xuất</label>
                             <select name="nam_muon_xuat" id="nam_id_xuat" class="form-control">
                                 <option value="2020">2020</option>
@@ -389,16 +389,16 @@
                                 <option value="2017">2017</option>
                                 <option value="2016">2016</option>
                               </select>
-                        </div>
+                        </div> --}}
                         <div class="form-group">
-                            <label for="">Chọn đợt xuất</label>
+                            <label for="">Chọn ngày xuất</label>
                             {{-- <select name="dot_muon_xuat" id="dot_id_xuat" class="form-control">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                             </select> --}}
                             <div class='input-group date datepicker' name="datepicker" >
-                                <p>From: <input type="text"  name="dateFrom" id="datepickerFrom"></p>
-                                <p>To: <input type="text"  name="dateTo" id="datepickerTo"></p>
+                                <p>From: <input type="text" class="form-control" name="dateFrom" id="datepickerFrom"></p>
+                                <p>To: <input type="text" class="form-control" name="dateTo" id="datepickerTo"></p>
                                    {{-- <span class="input-group-addon">
                                          <span class="glyphicon glyphicon-calendar">
                                          </span>
