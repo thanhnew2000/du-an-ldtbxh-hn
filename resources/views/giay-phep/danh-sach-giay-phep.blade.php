@@ -66,9 +66,9 @@
                         <td>{{ $id++ }}</td>
                         <td>{{ $item->ten_co_so }}</td>
                         <td>{{ $item->ten_giay_phep }}</td>
-                        <td>{{ $item->ngay_ban_hanh }}</td>
-                        <td>{{ $item->ngay_hieu_luc }}</td>
-                        <td>{{ $item->ngay_het_han }}</td>
+                        <td>{{ \Carbon\Carbon::parse($item->ngay_ban_hanh)->format('d-m-Y') }}</td>
+                        <td>{{ \Carbon\Carbon::parse($item->ngay_hieu_luc)->format('d-m-Y') }}</td>
+                        <td>{{ \Carbon\Carbon::parse($item->ngay_het_han)->format('d-m-Y') }}</td>
                         <td><a href="{!! asset('storage/' . $item->anh_giay_phep) !!}" target="_blank"><i
                                     class="fas fa-eye"></i> xem ảnh</a></td>
                         <td>

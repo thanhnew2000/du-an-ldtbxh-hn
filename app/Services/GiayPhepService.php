@@ -22,4 +22,12 @@ class GiayPhepService extends AppService
     {
         return $this->repository->getGiayPhep($id);
     }
+    public function store($request)
+    {
+        return $this->repository->store($request);
+    }
+    public function updateGiayPhep($id, array $params = [])
+    {
+        return $this->repository->updateGiayPhep($id, $params);
+    }
 }

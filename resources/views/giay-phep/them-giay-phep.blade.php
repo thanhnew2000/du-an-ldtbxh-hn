@@ -31,22 +31,37 @@
                                             @endif>{{ $coso->ten }}</option>
                                         @endforeach
                                     </select>
+                                    <p class="text-danger text-small"> 
+                                        @error('co_so_id')
+                                            {{$message}}
+                                        @enderror
+                                    </p>
                                 </div>
 
                                 <div class="form-group m-form__group mb-4">
                                     <label>Tên giấy phép</label>
-                                    <input type="text" name="ten_giay_phep" class="form-control m-input"
+                                <input type="text" name="ten_giay_phep" value="{{old('ten_giay_phep')}}" class="form-control m-input"
                                         placeholder="Nhập tên giấy phép">
                                 </div>
+                                <p class="text-danger text-small"> 
+                                    @error('ten_giay_phep')
+                                        {{$message}}
+                                    @enderror
+                                </p>
 
                                 <div class="form-group m-form__group">
                                     <label for="exampleInputEmail1">Ảnh giấy phép</label>
                                     <div class="custom-file">
-                                        <input type="file" name="anh-giay-phep" class="custom-file-input"
+                                        <input type="file" value="{{old('anh-giay-phep')}}" name="anh-giay-phep" class="custom-file-input"
                                             onchange="SystemUtil.previewImage(this, '#anh-giay-phep', '{!! asset('uploads/avatars/default-img.png') !!}')"
                                             id="customFile">
                                         <label class="custom-file-label" for="customFile">Choose file</label>
                                     </div>
+                                    <p class="text-danger text-small"> 
+                                        @error('anh-giay-phep')
+                                            {{$message}}
+                                        @enderror
+                                    </p>
                                 </div>
                             </div>
 
@@ -63,21 +78,51 @@
                         <div class="col-4">
                             <div class="form-group m-form__group mb-4">
                                 <label>Ngày ban hành</label>
-                                <input class="form-control m-input" name="ngay_ban_hanh" type="date" id="example-date-input">
+                                <div class="input-group date datepicker">
+                                    <input type="text" name="ngay_ban_hanh" value="{{old('ngay_ban_hanh')}}" placeholder="Ngày-tháng-năm" class="form-control">
+                                    <div class="input-group-addon form-control col-2 d-flex justify-content-center align-items-center">
+                                        <span><i class="flaticon-calendar-2"></i></span>
+                                    </div>
+                                </div>
+                                <p class="text-danger text-small"> 
+                                    @error('ngay_ban_hanh')
+                                        {{$message}}
+                                    @enderror
+                                </p>
                             </div>
                         </div>
 
                         <div class="col-4">
                             <div class="form-group m-form__group mb-4">
-                                <label>Ngày ban hành</label>
-                                <input class="form-control m-input" name="ngay_hieu_luc" type="date" id="example-date-input">
+                                <label>Ngày hiệu lực</label>
+                                <div class="input-group date datepicker">
+                                    <input type="text" name="ngay_hieu_luc" value="{{old('ngay_hieu_luc')}}" placeholder="Ngày-tháng-năm" class="form-control">
+                                    <div class="input-group-addon form-control col-2 d-flex justify-content-center align-items-center">
+                                        <span><i class="flaticon-calendar-2"></i></span>
+                                    </div>
+                                </div>
+                                <p class="text-danger text-small"> 
+                                    @error('ngay_hieu_luc')
+                                        {{$message}}
+                                    @enderror
+                                </p>
                             </div>
                         </div>
 
                         <div class="col-4">
                             <div class="form-group m-form__group mb-4">
-                                <label>Ngày ban hành</label>
-                                <input class="form-control m-input" name="ngay_het_han" type="date" id="example-date-input">
+                                <label>Ngày hết hạn</label>
+                                <div class="input-group date datepicker">
+                                    <input type="text" name="ngay_het_han" value="{{old('ngay_het_han')}}" placeholder="Ngày-tháng-năm" class="form-control">
+                                    <div class="input-group-addon form-control col-2 d-flex justify-content-center align-items-center">
+                                        <span><i class="flaticon-calendar-2"></i></span>
+                                    </div>
+                                </div>
+                                <p class="text-danger text-small"> 
+                                    @error('ngay_het_han')
+                                        {{$message}}
+                                    @enderror
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -86,7 +131,7 @@
                         <div class="col-12 form-group m-form__group">
                             <label for="exampleTextarea">Mô tả quyết định</label>
                             <textarea class="form-control m-input" name="mo_ta"
-                                placeholder="Mô tả ngắn gọn nội dung giấy phép hoặc ghi chú" rows="4"></textarea>
+                                placeholder="Mô tả ngắn gọn nội dung giấy phép hoặc ghi chú" rows="4">{{old('mo_ta')}}</textarea>
                         </div>
                     </div>
 
@@ -113,7 +158,7 @@
     });
 
     $('.datepicker').datepicker({
-        format: 'dd/mm/yyyy',
+        format: 'dd-mm-yyyy',
         icons: {
             time: "fa fa-clock-o",
             date: "fa fa-calendar",

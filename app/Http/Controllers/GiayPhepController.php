@@ -45,29 +45,38 @@ class GiayPhepController extends Controller
 
     public function taoMoiGiayPhep(Request $request)
     {
-        // $request->validate(
-        //     [
-        //         'co_so_id' => 'required',
-        //         'ten_giay_phep' => 'required',
-        //         'ngay_ban_hanh' => 'required|date_format:d/m/Y',
-        //         'ngay_hieu_luc' => 'required|date_format:d/m/Y|after_or_equal:ngay_ban_hanh',
-        //         'ngay_het_han' => 'required|date_format:d/m/Y|after:ngay_hieu_luc',
-        //         'anh-giay-phep' => 'required|mimes:jpeg,png'
-        //     ],
-        //     [
-        //         'co_so_id.required' => 'Vui lòng chọn cơ sở đào tạo',
-        //         'ten_giay_phep.required' => 'Tên giấy phép không được để trống',
-        //         'ngay_ban_hanh.require' => 'Vui lòng chọn ngày ban hành',
-        //         'ngay_hieu_luc.required' => 'Vui lòng chọn ngày ban hành',
-        //         'ngay_hieu_luc.after_or_equal' => 'Ngày hiệu lực phải sau hoặc bằng ngày ban hành',
-        //         'ngay_het_han.after' => 'Ngày hết hạn phải sau ngày ban hành'
-        //     ]
-        // );
+        $request->validate(
+            [
+                'co_so_id' => 'required',
+                'ten_giay_phep' => 'required',
+                'ngay_ban_hanh' => 'required|date_format:d-m-Y',
+                'ngay_hieu_luc' => 'required|date_format:d-m-Y|after_or_equal:ngay_ban_hanh',
+                'ngay_het_han' => 'required|date_format:d-m-Y|after:ngay_hieu_luc',
+                'anh-giay-phep' => 'required|mimes:jpeg,png'
+            ],
+            [
+                'co_so_id.required' => 'Vui lòng chọn cơ sở đào tạo',
+                'ten_giay_phep.required' => 'Tên giấy phép không được để trống',
+                'anh-giay-phep.required' => 'Vui lòng tải lên ảnh giấy phép',
+                'anh-giay-phep.mimes' => 'File tải lên không đúng định dạng ảnh',
+
+                'ngay_ban_hanh.date_format' => 'Ngày không đúng định dạng',
+                'ngay_ban_hanh.required' => 'Vui lòng chọn ngày ban hành',
+
+                'ngay_hieu_luc.date_format' => 'Ngày không đúng định dạng',
+                'ngay_hieu_luc.required' => 'Vui lòng chọn ngày ban hành',
+                'ngay_hieu_luc.after_or_equal' => 'Ngày hiệu lực phải sau hoặc bằng ngày ban hành',
+
+                'ngay_het_han.date_format' => 'Ngày không đúng định dạng',
+                'ngay_het_han.required' => 'Vui lòng chọn ngày hết hạn',
+                'ngay_het_han.after' => 'Ngày hết hạn phải sau ngày ban hành'
+            ]
+        );
         if ($request->hasFile('anh-giay-phep')) {
             $filePath = $request->file('anh-giay-phep')->store('uploads/anh-giay-phep');
             $request->request->set('anh_giay_phep', $filePath);
         }
-        $this->GiayPhepService->create($request->except([
+        $this->GiayPhepService->store($request->except([
             'anh-giay-phep',
             '_token',
         ]));
@@ -83,6 +92,33 @@ class GiayPhepController extends Controller
 
     public function capNhatGiayPhep($id, Request $request)
     {
+        $request->validate(
+            [
+                'co_so_id' => 'required',
+                'ten_giay_phep' => 'required',
+                'ngay_ban_hanh' => 'required|date_format:d-m-Y',
+                'ngay_hieu_luc' => 'required|date_format:d-m-Y|after_or_equal:ngay_ban_hanh',
+                'ngay_het_han' => 'required|date_format:d-m-Y|after:ngay_hieu_luc',
+                'anh-giay-phep' => 'required|mimes:jpeg,png'
+            ],
+            [
+                'co_so_id.required' => 'Vui lòng chọn cơ sở đào tạo',
+                'ten_giay_phep.required' => 'Tên giấy phép không được để trống',
+                'anh-giay-phep.required' => 'Vui lòng tải lên ảnh giấy phép',
+                'anh-giay-phep.mimes' => 'File tải lên không đúng định dạng ảnh',
+
+                'ngay_ban_hanh.date_format' => 'Ngày không đúng định dạng',
+                'ngay_ban_hanh.required' => 'Vui lòng chọn ngày ban hành',
+
+                'ngay_hieu_luc.date_format' => 'Ngày không đúng định dạng',
+                'ngay_hieu_luc.required' => 'Vui lòng chọn ngày ban hành',
+                'ngay_hieu_luc.after_or_equal' => 'Ngày hiệu lực phải sau hoặc bằng ngày ban hành',
+
+                'ngay_het_han.date_format' => 'Ngày không đúng định dạng',
+                'ngay_het_han.required' => 'Vui lòng chọn ngày hết hạn',
+                'ngay_het_han.after' => 'Ngày hết hạn phải sau ngày ban hành'
+            ]
+        );
         $data = $this->GiayPhepService->findById($id);
         if ($request->hasFile('anh-giay-phep')) {
             $filePath = $request->file('anh-giay-phep')->store('uploads/anh-giay-phep');
@@ -90,8 +126,10 @@ class GiayPhepController extends Controller
         } else {
             $request->request->set('anh_giay_phep', $data->anh_giay_phep);
         }
-        dd($data);
-        $this->GiayPhepService->update($id, $request, ['anh-giay-phep', '_token']);
+        $this->GiayPhepService->updateGiayPhep($id, $request->except([
+            'anh-giay-phep',
+            '_token',
+        ]));
         return redirect()->route('giay-phep.cap-nhat', ['id' => $id]);
     }
 }

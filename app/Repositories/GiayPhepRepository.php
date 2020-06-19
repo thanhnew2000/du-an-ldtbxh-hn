@@ -35,4 +35,13 @@ class GiayPhepRepository extends BaseRepository implements GiayPhepRepositoryInt
             ->where('giay_phep.co_so_id', $id)
             ->paginate(10);
     }
+
+    public function store(array $params = [])
+    {
+        return $this->model->create($params);
+    }
+    public function updateGiayPhep($id, array $params = [])
+    {
+        return $this->model->update($id, $params);
+    }
 }

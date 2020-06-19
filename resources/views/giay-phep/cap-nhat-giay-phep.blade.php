@@ -35,7 +35,7 @@
 
                                 <div class="form-group m-form__group mb-4">
                                     <label>Tên giấy phép</label>
-                                    <input type="text" name="ten_giay_phep" value="{{ $data->ten_giay_phep }}" class="form-control m-input" placeholder="Nhập tên giấy phép">
+                                    <input type="text" name="ten_giay_phep" value="{{old('ten_giay_phep', $data->ten_giay_phep) }}" class="form-control m-input" placeholder="Nhập tên giấy phép">
                                 </div>
 
                                 <div class="form-group m-form__group">
@@ -61,21 +61,51 @@
                         <div class="col-4">
                             <div class="form-group m-form__group mb-4">
                                 <label>Ngày ban hành</label>
-                                <input class="form-control m-input" value="{{ $data->ngay_ban_hanh }}" name="ngay_ban_hanh" type="date">
+                                <div class="input-group date datepicker">
+                                    <input type="text" name="ngay_ban_hanh" value="{{old('ngay_ban_hanh', \Carbon\Carbon::parse($data->ngay_ban_hanh)->format('d-m-Y')) }}" placeholder="Ngày-tháng-năm" class="form-control">
+                                    <div class="input-group-addon form-control col-2 d-flex justify-content-center align-items-center">
+                                        <span><i class="flaticon-calendar-2"></i></span>
+                                    </div>
+                                </div>
+                                <p class="text-danger text-small"> 
+                                    @error('ngay_ban_hanh')
+                                        {{$message}}
+                                    @enderror
+                                </p>
                             </div>
                         </div>
 
                         <div class="col-4">
                             <div class="form-group m-form__group mb-4">
                                 <label>Ngày hiệu lực</label>
-                                <input class="form-control m-input" value="{{ $data->ngay_hieu_luc }}" type="date" name="ngay_hieu_luc">
+                                <div class="input-group date datepicker">
+                                    <input type="text" name="ngay_hieu_luc" value="{{old('ngay_hieu_luc', \Carbon\Carbon::parse($data->ngay_hieu_luc)->format('d-m-Y')) }}" placeholder="Ngày-tháng-năm" class="form-control">
+                                    <div class="input-group-addon form-control col-2 d-flex justify-content-center align-items-center">
+                                        <span><i class="flaticon-calendar-2"></i></span>
+                                    </div>
+                                </div>
+                                <p class="text-danger text-small"> 
+                                    @error('ngay_hieu_luc')
+                                        {{$message}}
+                                    @enderror
+                                </p>
                             </div>
                         </div>
 
                         <div class="col-4">
                             <div class="form-group m-form__group mb-4">
                                 <label>Ngày hết hạn</label>
-                                <input class="form-control m-input" value="{{ $data->ngay_het_han }}" type="date" name="ngay_het_han">
+                                <div class="input-group date datepicker">
+                                    <input type="text" name="ngay_het_han" value="{{old('ngay_het_han', \Carbon\Carbon::parse($data->ngay_het_han)->format('d-m-Y')) }}" placeholder="Ngày-tháng-năm" class="form-control">
+                                    <div class="input-group-addon form-control col-2 d-flex justify-content-center align-items-center">
+                                        <span><i class="flaticon-calendar-2"></i></span>
+                                    </div>
+                                </div>
+                                <p class="text-danger text-small"> 
+                                    @error('ngay_het_han')
+                                        {{$message}}
+                                    @enderror
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -83,7 +113,7 @@
                     <div class="row col-12">
                         <div class="col-12 form-group m-form__group">
                             <label for="exampleTextarea">Mô tả quyết định</label>
-                            <textarea class="form-control m-input" name="mo_ta" placeholder="Mô tả ngắn gọn nội dung giấy phép hoặc ghi chú" rows="4">{{ $data->mo_ta }}</textarea>
+                            <textarea class="form-control m-input" name="mo_ta" placeholder="Mô tả ngắn gọn nội dung giấy phép hoặc ghi chú" rows="4">{{old('mo_ta', $data->mo_ta) }}</textarea>
                         </div>
                     </div>
 
@@ -101,7 +131,17 @@
 <script>
     $(document).ready(function () {
         $('#co-so-id-js').select2();
-    });  
+    }); 
+
+    $('.datepicker').datepicker({
+        format: 'dd-mm-yyyy',
+        icons: {
+            time: "fa fa-clock-o",
+            date: "fa fa-calendar",
+            up: "fa fa-arrow-up",
+            down: "fa fa-arrow-down"
+        }
+    }); 
 
     $(document).ready(function () {
         var logoImgUrl = $('#anh-giay-phep').attr('src');
