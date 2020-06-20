@@ -1,0 +1,31 @@
+<?php 
+
+return [
+    'them_tai_khoan',
+    'sua_tai_khoan',
+    'them_moi_co_so_dao_tao',
+    'xem_chi_tiet_co_so_dao_tao',
+    'cap_nhat_co_so_dao_tao',
+    'them_moi_dia_diem_dao_tao',
+    'cap_nhat_dia_diem_dao_tao',
+    'xoa_dia_diem_dao_tao',
+    'them_moi_nganh_nghe',
+    'xem_chi_tiet_nganh_nghe',
+    'cap_nhat_nganh_nghe',
+    'xoa_nganh_nghe',
+    'them_moi_quan_ly_giao_vien',
+    'cap_nhat_quan_ly_giao_vien',
+    'them_moi_danh_sach_doi_ngu_nha_giao',
+    'chi_tiet_danh_sach_doi_ngu_nha_giao',
+    'cap_nhat_danh_sach_doi_ngu_nha_giao',
+    'them_moi_danh_sach_doi_ngu_quan_ly',
+    'cap_nhat_danh_sach_doi_ngu_quan_ly',
+    'xem_chi_tiet_danh_sach_doi_ngu_quan_ly',
+    'them_moi_tong_hop_thuc_hien_chinh_sach_cho_sv',
+    'cap_nhat_tong_hop_thuc_hien_chinh_sach_cho_sv',
+    'them_moi_tong_hop_ket_qua_tuyen_sinh',
+    'xem_chi_tiet_tong_hop_ket_qua_tuyen_sinh',
+    'sua_chi_tiet_tong_hop_ket_qua_tuyen_sinh',
+    'them_moi_tong_hop_ket_qua_tot_nghiep',
+    'xem_chi_tiet_tong_hop_ket_qua_tot_nghiep'
+]
