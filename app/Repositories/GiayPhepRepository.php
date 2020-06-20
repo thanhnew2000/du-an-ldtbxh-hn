@@ -42,6 +42,7 @@ class GiayPhepRepository extends BaseRepository implements GiayPhepRepositoryInt
     }
     public function updateGiayPhep($id, array $params = [])
     {
-        return $this->model->update($id, $params);
+        // dd($params);
+        return $this->model->find($id)->update($params);
     }
 }
