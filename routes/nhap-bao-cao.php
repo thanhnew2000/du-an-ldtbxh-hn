@@ -121,3 +121,8 @@ Route::group(['prefix' => 'so-lieu-sinh-vien-dang-theo-hoc'], function () {
     Route::post('import-hs-sv-quan-li', 'ImportHsQlController@importFileHsQl')->name('import.hssv.ql');
     Route::post('import-error-hs-sv-quan-li', 'ImportHsQlController@importErrorHsQl')->name('import.error.hssv-ql');
 });
+// thanh import 6/21/2020
+Route::group(['prefix' => 'chi-tieu-tuyen-sinh'], function () {
+    Route::post('import-dang-ky-chi-tieu-tuyen-sinh', 'ExtractController@importFilebm8')->name('import.dang-ky-chi-tieu-tuyen-sinh');
+    Route::post('import-error-dang-ky-chi-tieu-tuyen-sinh', 'ExtractController@importErrorbm8')->name('import.error.dang-ky-chi-tieu-tuyen-sinh');
+});
