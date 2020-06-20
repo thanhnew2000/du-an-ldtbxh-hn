@@ -10,21 +10,6 @@
 @endsection
 @section('content')
 <div class="m-content container-fluid">
-
-    <div class="m-portlet mt-5">
-        <div class="m-portlet__head">
-            <div class="m-portlet__head-caption">
-                <div class="m-portlet__head-title">
-                    <span class="m-portlet__head-icon">
-                        <i class="m-menu__link-icon flaticon-web"></i>
-                    </span>
-                    <h3 class="m-portlet__head-text">
-                        Sửa danh sách<small>đội ngũ nhà giáo</small>
-                    </h3>
-                </div>
-            </div>
-        </div>
-    </div>
     <form action="" id="validate-form-update" method="post" class="m-form pt-5">
         {{ csrf_field() }}
         <div class="m-portlet mt-5">
@@ -35,7 +20,7 @@
                             <i class="m-menu__link-icon flaticon-web"></i>
                         </span>
                         <h3 class="m-portlet__head-text">
-                            Thông tin
+                            Sửa danh sách<small>đội ngũ nhà giáo</small>
                         </h3>
                     </div>
                 </div>
@@ -72,13 +57,8 @@
                         <div class="form-group m-form__group row mt-2">
                             <label class="col-lg-2 col-form-label">Năm</label>
                             <div class="col-lg-8">
-                                <select name="" class="form-control " disabled>
-                                  
-                                   
-                                    <option >{{ $data->nam }}</option>
-
-                                
-                             
+                                <select name="" class="form-control " disabled>                         
+                                    <option >{{ $data->nam }}</option>                           
                                 </select>
                           
                             </div>
@@ -90,7 +70,6 @@
                             <div class="col-lg-8">
                                 <select name="" class="form-control " disabled>
                                     <option >{{ $data->dot }}</option>
-                             
                                 </select>
                             
                             </div>
@@ -685,7 +664,8 @@
         </div>
         <div class="d-flex justify-content-end">
             <div class="col-lg-1 ">
-                <button type="submit" class="btn btn-danger">Hủy</button>
+                {{-- <a href="" class="btn btn-danger">Hủy</a> --}}
+                <a href="{{ route('xuatbc.chi-tiet-theo-co-so',['co_so_id' => $data->co_so_id]) }}" class="btn btn-danger">Hủy</a>
             </div>
             <div class="col-lg-1 ">
                 <button type="submit" class="btn btn-primary">Cập nhật</button>

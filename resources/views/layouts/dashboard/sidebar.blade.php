@@ -67,6 +67,24 @@
 									class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 									class="m-menu__link-text">Danh sách địa điểm đào tạo</span></a></li>
 						@endcan
+						<li class="m-menu__item " aria-haspopup="true"><a href="{{route('csdt.thiet-lap-nghe-cs')}}"
+								class="m-menu__link "><i
+									class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
+									class="m-menu__link-text">Thiết lập nghề cho cơ sở đào tạo</span></a></li>
+					</ul>
+				</div>
+			</li>
+			{{-- 17/06/2020 Tuanbt - thêm sidebar Quản lý giấy phép --}}
+			<li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a
+					href="javascript:;" class="m-menu__link m-menu__toggle"><i
+						class="m-menu__link-icon flaticon-interface-11"></i><span class="m-menu__link-text">Quản lý giấy
+						phép</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
+				<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item " aria-haspopup="true"><a href="{{route('giay-phep.danh-sach')}}"
+								class="m-menu__link "><i
+									class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
+									class="m-menu__link-text">Danh sách giấy phép</span></a></li>
 					</ul>
 				</div>
 			</li>
@@ -95,10 +113,7 @@
 								class="m-menu__link "><i
 									class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 									class="m-menu__link-text">Thiết lập chỉ tiêu tuyển sinh</span></a></li>
-						<li class="m-menu__item " aria-haspopup="true"><a href="{{route('nghe.thiet-lap-nghe-cs')}}"
-								class="m-menu__link "><i
-									class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
-									class="m-menu__link-text">Thiết lập nghề cho cơ sở đào tạo</span></a></li>
+
 					</ul>
 				</div>
 			</li>
@@ -380,10 +395,10 @@
 			tạo nghề</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
 	<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 		<ul class="m-menu__subnav">
-			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('nhapbc.dao-tao-khuye-tat')}}"
+			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('nhapbc.dao-tao-khuyet-tat')}}"
 					class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 						class="m-menu__link-text">Đào tạo nghề cho người khuyết tật</span></a></li>
-			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('nhapbc.dao-tao-thanh-nien')}}"
+			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('nhapbc.dao-tao-thanh-nien.index')}}"
 					class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 						class="m-menu__link-text">Đào tạo nghề cho thanh niên</span></a></li>
 			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('nhapbc.dao-tao-nghe-doanh-nghiep')}}"
@@ -413,9 +428,17 @@
 			kết</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
 	<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 		<ul class="m-menu__subnav">
-			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('nhapbc.lien-ket-dao-tao')}}"
+			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('xuatbc.tong-hop-lien-ket-dao-tao')}}"
 					class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
-						class="m-menu__link-text">Liên kết đào tạo</span></a></li>
+						class="m-menu__link-text">Tổng hợp liên kết liên thông trình độ</span></a></li>
+			<li class="m-menu__item " aria-haspopup="true"><a
+					href="{{route('xuatbc.tong-hop-lien-ket-dao-tao-cao-dang', ['id' => 6])}}" class="m-menu__link "><i
+						class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
+						class="m-menu__link-text">Liên kết liên thông trình độ cao đẳng lên đại học</span></a></li>
+			<li class="m-menu__item " aria-haspopup="true"><a
+					href="{{route('xuatbc.tong-hop-lien-ket-dao-tao-trung-cap', ['id' => 5])}}" class="m-menu__link "><i
+						class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
+						class="m-menu__link-text">Liên kết liên thông trình độ trung cấp lên đại học</span></a></li>
 		</ul>
 	</div>
 </li>

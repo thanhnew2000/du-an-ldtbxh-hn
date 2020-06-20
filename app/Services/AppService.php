@@ -21,6 +21,7 @@ abstract  class AppService
     public function getRepository()
     {
         return $this->repository->getRepository();
+        
     }
 
     public function setRepository()
@@ -44,7 +45,6 @@ abstract  class AppService
     public function create($request, $unsetColumn = [])
     {
         $attributes = $request->all();
-        // dd($attributes);
         if (count($unsetColumn) > 0) {
             foreach ($unsetColumn as $col) {
                 // dd($col);
@@ -57,7 +57,6 @@ abstract  class AppService
 
     public function update($id, $request, $unsetColumn = [])
     {
-        // dd($unsetColumn);
         $attributes = $request->all();
         if (count($unsetColumn) > 0) {
             foreach ($unsetColumn as $col) {

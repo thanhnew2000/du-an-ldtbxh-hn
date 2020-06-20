@@ -75,19 +75,18 @@
                         <div class="row">
                             <div class="col-md-6 mt-4">
                                 <div class="form-group m-form__group row">
-                                    <label class="col-lg-2 col-form-label">Nghề cấp 4</label>
+                                    <label class="col-lg-2 col-form-label">Ngành Nghề: </label>
                                     <div class="col-lg-8">
-                                        <select class="form-control nganh_nghe" onchange="setNameNganhNgheSearch(this)" 
-                                    @if (isset($params['nghe_id']))
-                                    name ="{{strlen($params['nghe_id'])==7?'nghe_id':''}}" @endif
-                                    id="nghe_cap_4">
-                                        <option value="" selected>Chọn</option>
-                                        @foreach ($nghe_cap_4 as $item)
-                                        <option @if (isset($params['nghe_id']))
-                                            {{( substr($params['nghe_id'],0,7) ==  $item->id ) ? 'selected' : ''}} @endif
-                                            value="{{$item->id}}">{{$item->id}}-{{$item->ten_nganh_nghe}}</option>
-                                        @endforeach    
-                                    </select>
+                                        <select name="nghe_id" class="form-control" id="nghe_id">
+                                            <option value="" >Chọn </option>
+                                            @foreach ($nganhNghe as $item)
+                                            <option 
+                                            @if(isset($params['nghe_id']) && $params['nghe_id'] == $item->id)
+                                                selected
+                                            @endif value="{{ $item->id }}">{{$item->id}} - {{$item->ten_nganh_nghe}}
+                                            </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                             </div>

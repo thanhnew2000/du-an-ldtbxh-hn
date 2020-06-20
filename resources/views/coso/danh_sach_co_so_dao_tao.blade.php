@@ -40,7 +40,7 @@
                                         @foreach ($loaihinh as $lh)
                                         <option value="{{ $lh->id }}" @if ($params['loai_hinh_co_so']==$lh->id )
                                             {{ 'selected' }}
-                                            @endif">{{ $lh->loai_hinh_co_so }}</option>
+                                            @endif>{{ $lh->loai_hinh_co_so }}</option>
                                         @endforeach
                                     </select>
                                 </div>

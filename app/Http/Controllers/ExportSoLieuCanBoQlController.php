@@ -115,23 +115,26 @@ class ExportSoLieuCanBoQlController extends Controller
         ->first();
 
         // dd($so_lieu_quan_ly_cua_co_so);
-        $worksheet->setCellValue('F9', $so_lieu_quan_ly_cua_co_so->tong_so_quan_ly);
-        $worksheet->setCellValue('G9', $so_lieu_quan_ly_cua_co_so->so_cb_quan_ly_nu);
-        $worksheet->setCellValue('H9', $so_lieu_quan_ly_cua_co_so->so_dan_toc);
-        $worksheet->setCellValue('I9', $so_lieu_quan_ly_cua_co_so->so_cb_giang_day);
-        $worksheet->setCellValue('J9', $so_lieu_quan_ly_cua_co_so->so_cb_da_boi_duong);
-        $worksheet->setCellValue('K9', $so_lieu_quan_ly_cua_co_so->so_danh_hieu);
-        $worksheet->setCellValue('L9', $so_lieu_quan_ly_cua_co_so->so_hieu_truong);
-        $worksheet->setCellValue('M9', $so_lieu_quan_ly_cua_co_so->so_hieu_pho);
-        $worksheet->setCellValue('N9', $so_lieu_quan_ly_cua_co_so->so_truong_khoa);
-        $worksheet->setCellValue('O9', $so_lieu_quan_ly_cua_co_so->so_pho_phong);
-        $worksheet->setCellValue('P9', $so_lieu_quan_ly_cua_co_so->so_to_truong);
-        $worksheet->setCellValue('Q9', $so_lieu_quan_ly_cua_co_so->so_trinh_do_tien_sy);
-        $worksheet->setCellValue('R9', $so_lieu_quan_ly_cua_co_so->so_trinh_do_thac_sy);
-        $worksheet->setCellValue('S9', $so_lieu_quan_ly_cua_co_so->so_trinh_do_dai_hoc);
-        $worksheet->setCellValue('T9', $so_lieu_quan_ly_cua_co_so->so_trinh_do_cao_dang);
-        $worksheet->setCellValue('U9', $so_lieu_quan_ly_cua_co_so->so_trinh_do_trung_cap);
-        $worksheet->setCellValue('V9', $so_lieu_quan_ly_cua_co_so->so_trinh_do_khac);
+        if($so_lieu_quan_ly_cua_co_so != null){
+            $worksheet->setCellValue('F9', $so_lieu_quan_ly_cua_co_so->tong_so_quan_ly);
+            $worksheet->setCellValue('G9', $so_lieu_quan_ly_cua_co_so->so_cb_quan_ly_nu);
+            $worksheet->setCellValue('H9', $so_lieu_quan_ly_cua_co_so->so_dan_toc);
+            $worksheet->setCellValue('I9', $so_lieu_quan_ly_cua_co_so->so_cb_giang_day);
+            $worksheet->setCellValue('J9', $so_lieu_quan_ly_cua_co_so->so_cb_da_boi_duong);
+            $worksheet->setCellValue('K9', $so_lieu_quan_ly_cua_co_so->so_danh_hieu);
+            $worksheet->setCellValue('L9', $so_lieu_quan_ly_cua_co_so->so_hieu_truong);
+            $worksheet->setCellValue('M9', $so_lieu_quan_ly_cua_co_so->so_hieu_pho);
+            $worksheet->setCellValue('N9', $so_lieu_quan_ly_cua_co_so->so_truong_khoa);
+            $worksheet->setCellValue('O9', $so_lieu_quan_ly_cua_co_so->so_pho_phong);
+            $worksheet->setCellValue('P9', $so_lieu_quan_ly_cua_co_so->so_to_truong);
+            $worksheet->setCellValue('Q9', $so_lieu_quan_ly_cua_co_so->so_trinh_do_tien_sy);
+            $worksheet->setCellValue('R9', $so_lieu_quan_ly_cua_co_so->so_trinh_do_thac_sy);
+            $worksheet->setCellValue('S9', $so_lieu_quan_ly_cua_co_so->so_trinh_do_dai_hoc);
+            $worksheet->setCellValue('T9', $so_lieu_quan_ly_cua_co_so->so_trinh_do_cao_dang);
+            $worksheet->setCellValue('U9', $so_lieu_quan_ly_cua_co_so->so_trinh_do_trung_cap);
+            $worksheet->setCellValue('V9', $so_lieu_quan_ly_cua_co_so->so_trinh_do_khac);
+        }
+       
 
         $arrayApha=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V'];
         foreach($arrayApha as $apha){

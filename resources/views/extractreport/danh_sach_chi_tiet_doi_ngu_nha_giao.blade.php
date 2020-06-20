@@ -41,6 +41,7 @@
 
     <div class="m-portlet">
         <form action="" method="get" class="m-form">
+            <input type="hidden" name="page_size" value="{{$params['page_size']}}">
             <div class="m-portlet__body">
                 <div class="m-form__section m-form__section--first">
                     <div class="m-form__heading">
@@ -51,27 +52,12 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Năm</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control" name="nam" id="nam">
-                                        <option value="" selected >-----Chọn năm-----</option>
-                               
-                                        <option 
-                                        @if (isset($params['nam']))
-                                        {{( $params['nam'] ==  $yearTime ) ? 'selected' : ''}}  
-                                        @endif
-                                        value="{{$yearTime}}">{{$yearTime}}</option>
-
-                                        <option 
-                                        @if (isset($params['nam']))
-                                        {{( $params['nam'] ==  $yearTime-1 ) ? 'selected' : ''}}  
-                                        @endif
-                                        value="{{$yearTime-1}}">{{$yearTime-1}}</option>
-
-                                        <option 
-                                        @if (isset($params['nam']))
-                                        {{( $params['nam'] ==  $yearTime-2 ) ? 'selected' : ''}}  
-                                        @endif
-                                        value="{{$yearTime-2}}">{{$yearTime-2}}</option>
-                                
+                                    <select name="nam" class="form-control select2">
+                                        <option value="">-----Chọn năm-----</option>
+                                        @foreach(config('common.nam.list') as $nam)
+                                        <option @if(isset($params['nam']) && $params['nam']==$nam) selected @endif
+                                            value="{{$nam}}">{{$nam}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -80,18 +66,14 @@
                             <div class="form-group m-form__group row">
                                 <label for="" class="col-lg-2 col-form-label">Đợt</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control" name="dot" id="dot">
-                                        <option value="" >-----Chọn đợt-----</option>
-                                        <option
-                                        @if (isset($params['dot']))
-                                            {{( $params['dot'] ==  1 ) ? 'selected' : ''}}  
-                                        @endif
-                                        value="1" >Đợt 1</option>
-                                        <option value="2"
-                                        @if (isset($params['dot']))
-                                        {{( $params['dot'] ==  2 ) ? 'selected' : ''}}  
-                                        @endif
-                                        >Đợt 2</option>
+                                    <select name="dot" id="" class="form-control select2">
+                                        <option value="">-----Chọn đợt-----</option>
+                                        <option @if(isset($params['dot']) && $params['dot']==config('common.dot.1'))
+                                            selected @endif value="{{config('common.dot.1')}}">
+                                            {{config('common.dot.1')}}</option>
+                                        <option @if(isset($params['dot']) && $params['dot']==config('common.dot.2'))
+                                            selected @endif value="{{config('common.dot.2')}}">
+                                            {{config('common.dot.2')}}</option>  
                                     </select>
                                 </div>
                             </div>
@@ -119,58 +101,62 @@
                     </select>
                 </div>
             </div>
-            <table class="table table-bordered m-table m-table--border-danger m-table--head-bg-primary table-responsive border">
-                <thead class="border">
-                    <tr class=" text-center border">
-                        <th rowspan="2">STT</th>
-                        <th rowspan="2">Năm</th>
-                        <th rowspan="2">Đợt</th>
-                        <th rowspan="2">Mã nghề</th>
-                        <th rowspan="2">Tên nghề</th>
-                        <th rowspan="2">Tổng sô</th>
-                        <th colspan="7">Trong đó</th>
-                        <th colspan="2">Chia theo cư hữu</th>
-                        <th colspan="6">Chia theo trình độ chuyên môn</th>
-                        <th colspan="6">Chia theo trình độ ngoại ngữ</th>
-                        <th colspan="2">Chia theo trình độ tin học</th>
-                        <th colspan="3">Chia theo trình độ kỹ năng nghề</th>
-                        <th colspan="3">Chia theo trình độ nghiệp vụ sư phạm</th>
-                        <th rowspan="2">Số nhà giáo tham gia đào tạo, bồi dưỡng trong năm</th>
-                        <th rowspan="2">Tác vụ</th>
+            <div class="row justify-content-center">
+            <h3>Cơ sở đào tạo: {{$thongtincoso[0]->ten}}</h3>
+            </div>
+            <table class=" text-center table table-bordered m-table m-table--border-danger m-table--head-bg-primary table-responsive border table-striped">
+                <thead>
+                    <tr>
+                        <th rowspan="2" class="border"><pre class="text-white">STT</pre></th>
+                        <th rowspan="2" class="border"><pre class="text-white">Năm</pre></th>
+                        <th rowspan="2" class="border"><pre class="text-white">Đợt</pre></th>
+                        <th rowspan="2" class="border"><pre class="text-white">Mã nghề</pre></th>
+                        <th rowspan="2" class="border"><pre class="text-white">Tên nghề</pre></th>
+                        <th rowspan="2" class="border"><pre class="text-white">Tổng sô</pre></th>
+                        <th colspan="7" class="border">Trong đó</th>
+                        <th colspan="2" class="border">Chia theo cư hữu</th>
+                        <th colspan="6" class="border">Chia theo trình độ chuyên môn</th>
+                        <th colspan="6" class="border">Chia theo trình độ ngoại ngữ</th>
+                        <th colspan="2" class="border">Chia theo trình độ tin học</th>
+                        <th colspan="3" class="border">Chia theo trình độ kỹ năng nghề</th>
+                        <th colspan="3" class="border">Chia theo trình độ nghiệp vụ sư phạm</th>
+                        <th rowspan="2" class="border"><pre class="text-white">Số nhà giáo <br>tham gia <br>đào tạo,<br>bồi dưỡng <br>trong năm</pre></th>
+                        <th rowspan="2" class="border"><pre class="text-white">Tác vụ</pre></th>
                     </tr>
-                    <tr class="pt-3 row2 border">
-                        <th>Nữ</th>
-                        <th>Dân tộc ít người</th>
-                        <th>Giáo sư</th>
-                        <th>Phó giáo sư</th>
-                        <th>Nhà giáo nhân dân, nghệ sĩ nhân dân, nghệ nhân nhân dân, thầy thuốc nhân dân</th>
-                        <th>Nhà giáo ưu tú, nghệ sĩ ưu tú, nghệ nhân ưu tú, thầy thuốc ưu tú</th>
-                        <th>Nhà giáo giảng dạy môn học chung</th>
-                        <th>Biên chế</th>
-                        <th>Hợp đồng (từ 1 năm trở lên)</th>
-                        <th>Tiến sỹ</th>
-                        <th>Thạc sỹ</th>
-                        <th>Đạt học</th>
-                        <th>Cao đẳng</th>
-                        <th>Trung cấp</th>
-                        <th>Trình độ khác</th>
-                        <th>Bậc 1</th>
-                        <th>Bậc 2</th>
-                        <th>Bậc 3</th>
-                        <th>Bậc 4</th>
-                        <th>Bậc 5</th>
-                        <th>Bậc 6</th>
-                        <th>Cơ bản</th>
-                        <th>Nâng cao</th>
+       
+                    <tr class="pt-3 row2">
+                        <th class="border"><pre class="text-white">Nữ</pre></th>
+                        <th class="border"><pre class="text-white">Dân tộc ít người</pre></th>
+                        <th class="border"><pre class="text-white">Giáo sư</pre></th>
+                        <th class="border"><pre class="text-white">Phó giáo sư</pre></th>
+                        <th class="border"><pre class="text-white">Nhà giáo nhân dân,<br>nghệ sĩ nhân dân,<br>nghệ nhân nhân dân,<br>thầy thuốc nhân dân</pre></th>
+                        <th class="border"><pre class="text-white">Nhà giáo ưu tú,<br>nghệ sĩ ưu tú,<br>nghệ nhân ưu tú,<br>thầy thuốc ưu tú</pre></th>
+                        <th class="border"><pre class="text-white">Nhà giáo giảng dạy<br>môn học chung</pre></th>
+                        <th class="border"><pre class="text-white">Biên chế</pre></th>
+                        <th class="border"><pre class="text-white">Hợp đồng<br>(từ 1 năm trở lên)</pre></th>
+                        <th class="border"><pre class="text-white">Tiến sỹ</pre></th>
+                        <th class="border"><pre class="text-white">Thạc sỹ</pre></th>
+                        <th class="border"><pre class="text-white">Đại học</pre></th>
+                        <th class="border"><pre class="text-white">Cao đẳng</pre></th>
+                        <th class="border"><pre class="text-white">Trung cấp</pre></th>
+                        <th class="border"><pre class="text-white">Trình độ khác</pre></th>
+                        <th class="border"><pre class="text-white">Bậc 1</pre></th>
+                        <th class="border"><pre class="text-white">Bậc 2</pre></th>
+                        <th class="border"><pre class="text-white">Bậc 3</pre></th>
+                        <th class="border"><pre class="text-white">Bậc 4</pre></th>
+                        <th class="border"><pre class="text-white">Bậc 5</pre></th>
+                        <th class="border"><pre class="text-white">Bậc 6</pre></th>
+                        <th class="border"><pre class="text-white">Cơ bản</pre></th>
+                        <th class="border"><pre class="text-white">Nâng cao</pre></th>
 
-                        <th>Chính chỉ KNN quốc gia bậc 1 (tương đương)</th>
-                        <th>Chính chỉ KNN quốc gia bậc 2 (tương đương)</th>
-                        <th>Chính chỉ KNN quốc gia bậc 3 (tương đương)</th>
+                        <th class="border"><pre class="text-white">Chính chỉ KNN quốc gia bậc 1 <br> (tương đương)</pre></th>
+                        <th class="border"><pre class="text-white">Chính chỉ KNN quốc gia bậc 2 <br> (tương đương)</pre></th>
+                        <th class="border"><pre class="text-white">Chính chỉ KNN quốc gia bậc 3 <br> (tương đương)</pre></th>
 
                         
-                        <th>Chính chỉ sư phạm dạy trình độ CĐ</th> 
-                        <th>Chính chỉ sư phạm dạy trình độ TC</th>
-                        <th>Chính chỉ sư phạm dạy trình độ SC</th>
+                        <th class="border"><pre class="text-white">Chính chỉ sư phạm <br> dạy trình độ CĐ</pre></th> 
+                        <th class="border"><pre class="text-white">Chính chỉ sư phạm <br> dạy trình độ TC</pre></th>
+                        <th class="border"><pre class="text-white">Chính chỉ sư phạm <br> dạy trình độ SC</pre></th>
 
                     </tr>
                 </thead>
@@ -227,7 +213,7 @@
                         <td>{{$item->so_nha_giao_tham_gia_dao_tao}}</td>
 
                         <td>
-                            <a href="{{route('xuatbc.sua-ds-nha-giao',['id'=>$item->id])}}">
+                            <a class="btn btn-sm btn-primary" target="_blank" href="{{route('xuatbc.sua-ds-nha-giao',['id'=>$item->id])}}">
                                 Sửa</a>
                            
                         </td>
@@ -267,7 +253,7 @@
             var reloadUrl = `${currentUrl}?dot=${dot}&nam=${nam}&page_size=${page_size}`;
             window.location.href = reloadUrl;
         });
-
+        $('.select2').select2();
     });
 </script>
 @endsection

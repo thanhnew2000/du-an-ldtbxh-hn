@@ -64,4 +64,19 @@ Route::group(['middleware' => 'auth'], function () {
      Route::get('chinh-sua-danh-sach-doi-ngu-ql', function () {
           return view('danhsachdoingunhagioa.chinh-sua-danh-sach-doi-ngu-ql');
      })->name('chinh_sua_ql');
+
+     Route::get('them_ket_qua_hop_tac_quoc_te', function () {
+          return view('ket-qua-hop-tac-quoc-te.them_ket_qua_hop_tac_quoc_te');
+     })->name('them_kq_qt');
+
+     Route::get('chinh_sua_ket_qua_hop_tac_quoc_te', function () {
+          return view('ket-qua-hop-tac-quoc-te.chinh_sua_ket_qua_hop_tac_quoc_te');
+     })->name('chinh_sua_kq_qt');
+
+     Route::get('views_chi_tiet_ket_qua_hop_tac_quoc_te', function () {
+          return view('ket-qua-hop-tac-quoc-te.views_chi_tiet_ket_qua_hop_tac_quoc_te');
+     })->name('views_kq_qt');
+     Route::get('views_ket_qua_hop_tac_quoc_te', function () {
+          return view('ket-qua-hop-tac-quoc-te.views_ket_qua_hop_tac_quoc_te');
+     })->name('views_kq_qt');
 });

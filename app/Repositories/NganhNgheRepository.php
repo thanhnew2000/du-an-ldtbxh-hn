@@ -28,11 +28,12 @@ class NganhNgheRepository extends BaseRepository implements NganhNgheRepositoryI
                 'id',
                 'ten_nganh_nghe',
                 'bac_nghe',
-                DB::raw('(select count(dk.id) 
-                                from giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao dk 
+                DB::raw('(select count(dk.id)
+                                from giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao dk
                                 where dk.nghe_id = nganh_nghe.id) as csdt_count')
             )
-            ->where('bac_nghe', $params['bac_nghe']);
+            ->where('bac_nghe', $params['bac_nghe'])
+            ->where('ma_cap_nghe', 4);
         if (isset($params['keyword']) && $params['keyword'] != null) {
             $queryBuilder->where(function ($query) use ($params) {
 
@@ -98,7 +99,6 @@ class NganhNgheRepository extends BaseRepository implements NganhNgheRepositoryI
 
     public function boSungNganhNgheVaoCoSo($attributes, $nghe_cao_dang = [], $nghe_trung_cap = [])
     {
-        // dd($attributes);
         $arrayInsert = [];
         if (isset($nghe_cao_dang)) {
             for ($i = 0; $i < count($nghe_cao_dang); $i++) {
@@ -107,7 +107,8 @@ class NganhNgheRepository extends BaseRepository implements NganhNgheRepositoryI
                     'nghe_id' => $nghe_cao_dang[$i],
                     'ten_quyet_dinh' => $attributes['ten_quyet_dinh'],
                     'trang_thai' => '1',
-                    'ngay_ban_hanh' => $attributes['ngay_ban_hanh']
+                    'ngay_ban_hanh' => $attributes['ngay_ban_hanh'],
+                    'anh_quyet_dinh' => $attributes['anh_quyet_dinh']
                 ];
             }
         }
@@ -119,11 +120,38 @@ class NganhNgheRepository extends BaseRepository implements NganhNgheRepositoryI
                     'nghe_id' => $nghe_trung_cap[$i],
                     'ten_quyet_dinh' => $attributes['ten_quyet_dinh'],
                     'trang_thai' => '1',
-                    'ngay_ban_hanh' => $attributes['ngay_ban_hanh']
+                    'ngay_ban_hanh' => $attributes['ngay_ban_hanh'],
+                    'anh_quyet_dinh' => $attributes['anh_quyet_dinh']
                 ];
             }
         }
         return DB::table('giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao')
             ->insert($arrayInsert);
+    }
+
+    public function getListNganhNghe(array $listIds = [], $selects = ['*'])
+    {
+        $query =  $this->model
+            ->select($selects);
+
+        if (!empty($listIds)) {
+            $query->whereIn('id', $listIds);
+        }
+
+        return $query->get();
+    }
+
+    public function search(array $params = [], array $selects = ['*'])
+    {
+        $limit = config('common.paginate_size.default');
+        $queryBuilder = $this->model
+            ->select($selects);
+
+        if (isset($params['keyword']) &&
+            ($params['keyword'] == 0 || !empty($params['keyword']))) {
+            $queryBuilder->whereLike('ten_nganh_nghe', $params['keyword']);
+        }
+
+        return $queryBuilder->paginate($limit);
     }
 }

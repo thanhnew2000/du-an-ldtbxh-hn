@@ -76,7 +76,6 @@ class validateAddDoiNguNhaGiao extends FormRequest
                 'nghe_id.min' => 'Vui lòng chọn ngành nghề',
                 'dot.min' => 'Vui lòng chọn đợt',
                 'nam.min' => 'Vui lòng chọn năm'
- 
         ];
     }
 }

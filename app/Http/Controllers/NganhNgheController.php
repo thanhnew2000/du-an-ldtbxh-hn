@@ -82,14 +82,13 @@ class NganhNgheController extends Controller
 
     public function thietlapnghechocosodaotao($csdtid = null, Request $request)
     {
-        // dd($csdtid);
         $dataCoSoDaoTao = $this->coSoDaoTaoService->getSingleCsdt($csdtid);
         $defaultCsdt = count($dataCoSoDaoTao) > 0
             ?   [
                 'id' => $dataCoSoDaoTao[0]->id,
                 'text' => $dataCoSoDaoTao[0]->ma_don_vi . ' - ' . $dataCoSoDaoTao[0]->ten
             ]
-            : null;
+            : [];
 
 
         $dsNghe = [];
@@ -107,7 +106,6 @@ class NganhNgheController extends Controller
         $allNgheTC = $this->nganhNgheService->getAllNganhNghe(5, $csdtid);
 
         $allNgheCD = $this->nganhNgheService->getAllNganhNghe(6, $csdtid);
-
 
         return view(
             'nganh-nghe.chon-co-so-dao-tao',
@@ -127,7 +125,27 @@ class NganhNgheController extends Controller
 
     public function boSungNganhNgheVaoCoSo(Request $request)
     {
-        $this->nganhNgheService->boSungNganhNgheVaoCoSo($request, ['_token']);
-        return redirect()->route('nghe.thiet-lap-nghe-cs', ['csdtid' => $request->get('co_so_id')])->with('mess', 'Thêm nghề vào cơ sở thành công');
+        if ($request->hasFile('anh-giay-phep')) {
+            $filePath = $request->file('anh-giay-phep')->store('uploads/anh-quyet-dinh');
+            $request->request->set('anh_quyet_dinh', $filePath);
+        }
+
+        $this->nganhNgheService->boSungNganhNgheVaoCoSo($request, ['_token', 'anh-giay-phep']);
+        return redirect()->route('csdt.thiet-lap-nghe-cs', ['csdtid' => $request->get('co_so_id')])->with('mess', 'Thêm nghề vào cơ sở thành công');
+    }
+
+    public function capNhatNganhNghe($id)
+    {
+        $data = $this->nganhNgheService->findById($id);
+        return view('nganh-nghe.cap-nhat-nganh-nghe', compact('data'));
+    }
+
+    public function search(Request $request)
+    {
+        $params['keyword'] = $request->get('keyword');
+        $params['page'] = $request->get('page');
+        $data = $this->nganhNgheService->search($params);
+
+        return response()->json($data);
     }
 }
