@@ -85,9 +85,8 @@ class QuanLyGiaoVienController extends Controller
         $oldInput = session()->getOldInput();
 
         $chucDanh = $giaoVien->giao_su == 1 ?
-            config('common.giao_vien.chuc_danh.giao_su') :
-            ($giaoVien->pho_giao_su ? config('common.giao_vien.chuc_danh.pho_giao_su') :
-            config('common.giao_vien.chuc_danh.khong'));
+            config('common.giao_vien.chuc_danh.giao_su') : ($giaoVien->pho_giao_su ? config('common.giao_vien.chuc_danh.pho_giao_su') :
+                config('common.giao_vien.chuc_danh.khong'));
 
         $giaoVienData = [
             'id_giao_vien' => $giaoVien->id,

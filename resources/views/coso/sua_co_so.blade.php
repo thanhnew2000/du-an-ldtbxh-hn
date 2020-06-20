@@ -325,6 +325,7 @@
                                         </select>
                                         <span class="text-danger" id="Err-loai_quyet_dinh"></span>
                                     </div>
+
                                 </form>
                             </div>
                             <div class="modal-footer">
@@ -346,33 +347,33 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function(){
         $('#devvn_quanhuyen').select2();
         $('#devvn_xaphuongthitran').select2();
         $('#co_quan_chu_quan_id').select2();
         $('#quyet_dinh_id').select2();
     });
 
-    $("#devvn_quanhuyen").change(function () {
-        axios.post('/xuat-bao-cao/ket-qua-tuyen-sinh/xa-phuong-theo-quan-huyen', {
-                id: $("#devvn_quanhuyen").val(),
-            })
-            .then(function (response) {
-                var htmldata = '<option value="" selected  >Xã / Phường</option>'
-                response.data.forEach(element => {
-                    htmldata += `<option value="${element.xaid}" >${element.name}</option>`
-                });
-                $('#devvn_xaphuongthitran').html(htmldata);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+    $("#devvn_quanhuyen" ).change(function() {
+    axios.post('/xuat-bao-cao/ket-qua-tuyen-sinh/xa-phuong-theo-quan-huyen', {
+                id:  $("#devvn_quanhuyen").val(),
+    })
+    .then(function (response) {
+        var htmldata = '<option value="" selected  >Xã / Phường</option>'
+            response.data.forEach(element => {
+            htmldata+=`<option value="${element.xaid}" >${element.name}</option>`   
+        });
+        $('#devvn_xaphuongthitran').html(htmldata);
+    })
+    .catch(function (error) {
+        console.log(error);
     });
-    $("#btn-them-co-quan").click(function (event) {
+});
+$("#btn-them-co-quan").click(function(event){
         event.preventDefault();
         $('#Err-ten').addClass('d-none');
         $('#Err-ma').addClass('d-none');
-        $.ajax({
+            $.ajax({
             type: "POST",
             dataType: "json",
             url: "{{route('co-quan-chu-quan.them')}}",
@@ -381,7 +382,7 @@
                 ma: $('#ma-co-quan-chu-quan').val(),
                 _token: '{{csrf_token()}}'
             },
-            success: function (response) {
+            success: function(response){
                 var htmldata = '<option selected disabled>---Chọn cơ quan---</option>'
                 response.data.forEach(element => {
                     htmldata += `<option value="${element.id}">${element.ten}</option>`
@@ -389,10 +390,10 @@
                 $('#co_quan_chu_quan_id').html(htmldata);
                 $('#message').html(response.message)
             },
-            error: function (data) {
+            error: function(data){
                 var errors = data.responseJSON;
-                if ($.isEmptyObject(errors) == false) {
-                    $.each(errors.errors, function (key, value) {
+                if($.isEmptyObject(errors) == false){
+                    $.each(errors.errors, function(key, value){
                         console.log(value);
                         var ErrorID = '#Err-' + key;
                         $(ErrorID).removeClass('d-none');
@@ -400,26 +401,26 @@
                     })
                 }
             }
-        });
+            });
     });
 
-    $("#btn-them-quyet-dinh-ajax").click(function (event) {
+    $("#btn-them-quyet-dinh-ajax").click(function(event){
         event.preventDefault();
         var dataPost = {
-            ten: $('#ten_quyet_dinh').val(),
-            van_ban_url: $('#url_van_ban').val(),
-            ngay_ban_hanh: $('#ngay_ban_hanh').val(),
-            ngay_hieu_luc: $('#ngay_hieu_luc').val(),
-            ngay_het_han: $('#ngay_het_han').val(),
-            loai_quyet_dinh: $('#loai_quyet_dinh').val(),
-            _token: $('#token').val(),
-        };
-        $.ajax({
+                ten: $('#ten_quyet_dinh').val(),
+                van_ban_url: $('#url_van_ban').val(),
+                ngay_ban_hanh: $('#ngay_ban_hanh').val(),
+                ngay_hieu_luc: $('#ngay_hieu_luc').val(),
+                ngay_het_han: $('#ngay_het_han').val(),
+                loai_quyet_dinh: $('#loai_quyet_dinh').val(),
+                _token: $('#token').val(),
+            };
+            $.ajax({
             type: "POST",
             dataType: "json",
             url: "{{route('quyet-dinh.add')}}",
             data: dataPost,
-            success: function (response) {
+            success: function(response){
                 var htmldata = '<option selected disabled>---Chọn quyết định---</option>'
                 response.data.forEach(element => {
                     htmldata += `<option value="${element.id}">${element.ten}</option>`
@@ -427,7 +428,7 @@
                 $('#quyet_dinh_id').html(htmldata);
                 $('#messageqd').html(response.messageqd)
             },
-            errors: function (dataErr) {
+            errors: function(dataErr){
                 var errors = dataErr.responseJSON;
                 console.log(errors);
                 // if($.isEmptyObject(errors) == false){
@@ -439,13 +440,12 @@
                 //     })
                 // }
             }
-        });
+            });
     });
 
-    $(document).ready(function () {
-        var logoImgUrl = $('#logo-co-so').attr('src');
-        SystemUtil.defaultImgUrl(logoImgUrl, '#logo-co-so', "{!! asset('uploads/avatars/default-img.png') !!}");
-    });
-
+$(document).ready(function(){
+			var logoImgUrl = $('#logo-co-so').attr('src');
+            SystemUtil.defaultImgUrl(logoImgUrl, '#logo-co-so', "{!! asset('uploads/avatars/default-img.png') !!}");
+		});
 </script>
 @endsection
