@@ -137,7 +137,7 @@ Route::group(['prefix' => 'ket-qua-tuyen-sinh'], function () {
 
 //phucnv BM:12
 Route::group(['prefix' => 'ket-qua-xay-dung-giao-trinh'], function () {
-    Route::get('/tong-hop', 'XayDungChuongTrinhGiaoTrinhController@tonghopxdchuongtrinh')
+    Route::get('/tong-hop', 'XayDungChuongTrinhGiaoTrinhController@index')
         ->name('xuatbc.ds-xd-giao-trinh');
 
     Route::get('/show/{id}', 'XayDungChuongTrinhGiaoTrinhController@show')

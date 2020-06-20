@@ -31,35 +31,22 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Tên cơ sở</label>
                                 <div class="col-lg-10">
-                                    <select name="co_so_id" class="form-control select2" id="co_so_id">
-                                        <option value="-1">-----Chọn cơ sở-----</option>
-                                        {{-- @foreach($params['get_co_so'] as $item)
-                                    <option 
-                                        value="{{$item->id}}">
-                                        {{$item->ten}}</option>
-                                        @endforeach --}}
+                                    <select name="" class="form-control " disabled>
+                                        @foreach ($params['co_so_dao_tao'] as $item)
+                                        <option {{ $data->co_so_id == $item->id ? 'selected' : '' }}
+                                            value="{{ $item->id }}">{{ $item->ten }}</option>
+                                        @endforeach
                                     </select>
-                                    <label id="co_so_id-error" class="error" for="co_so_id"></label>
-
-                                    {{-- @if ($errors->has('co_so_id'))
-                                <span class="text-danger">{{ $errors->first('co_so_id') }}</span>
-                                    @endif --}}
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-md-6">
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Tên nghề</label>
                                 <div class="col-lg-10">
-                                    <select name="nghe_id" class="form-control select2" id="nghe_id">
-                                        <option value="-1">-----Chọn ngành nghề-----</option>
-
+                                    <select name="" class="form-control " disabled>
+                                        <option>{{ $params['ten_nghe']}}</option>
                                     </select>
-                                    <label id="nghe_id-error" class="error" for="nghe_id"></label>
-                                    @if ($errors->has('nghe_id'))
-                                    <span class="text-danger">{{ $errors->first('nghe_id') }}</span>
-                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -69,18 +56,9 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Năm</label>
                                 <div class="col-lg-10">
-                                    <select name="nam" class="form-control ">
-                                        <option value="-1">-----Chọn năm-----</option>
-
-                                        @foreach(config('common.nam.list') as $nam)
-                                        <option {{ old('nam') == $nam ? 'selected' : '' }} value="{{$nam}}">{{$nam}}
-                                        </option>
-                                        @endforeach
-
+                                    <select name="" class="form-control " disabled>
+                                        <option>{{ $data->nam }}</option>
                                     </select>
-                                    @if ($errors->has('nam'))
-                                    <span class="text-danger">{{ $errors->first('nam') }}</span>
-                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -88,19 +66,9 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Đợt</label>
                                 <div class="col-lg-10">
-                                    <select name="dot" class="form-control ">
-                                        <option value="-1">-----Chọn đợt-----</option>
-                                        <option {{ old('dot') == config('common.dot.1') ? 'selected' : '' }}
-                                            value="{{config('common.dot.1')}}">
-                                            {{config('common.dot.1')}}</option>
-
-                                        <option {{ old('dot') == config('common.dot.2') ? 'selected' : '' }}
-                                            value="{{config('common.dot.2')}}">
-                                            {{config('common.dot.2')}}</option>
+                                    <select name="" class="form-control " disabled>
+                                        <option>{{ $data->dot }}</option>
                                     </select>
-                                    @if ($errors->has('dot'))
-                                    <span class="text-danger">{{ $errors->first('dot') }}</span>
-                                    @endif
                                 </div>
                             </div>
                         </div>

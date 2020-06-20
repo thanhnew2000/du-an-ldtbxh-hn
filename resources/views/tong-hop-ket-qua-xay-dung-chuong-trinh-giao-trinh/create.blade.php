@@ -9,7 +9,7 @@
 @endsection
 @section('content')
 <div class="m-content container-fluid">
-    <form action="{{ route('xuatbc.store-ds-xd-giao-trinh') }}" method="post" id="validate-form-add">
+    <form action="{{ route('xuatbc.store-ds-xd-giao-trinh') }}" method="post" id="validate-form-addd">
         @csrf
         <div class="m-portlet">
             <div class="m-portlet__head">
@@ -33,17 +33,17 @@
                                 <div class="col-lg-10">
                                     <select name="co_so_id" class="form-control select2" id="co_so_id">
                                         <option value="-1">-----Chọn cơ sở-----</option>
-                                        {{-- @foreach($params['get_co_so'] as $item)
-                                    <option 
+                                        @foreach($params['get_co_so'] as $item)
+                                        <option 
                                         value="{{$item->id}}">
                                         {{$item->ten}}</option>
-                                        @endforeach --}}
+                                        @endforeach
                                     </select>
                                     <label id="co_so_id-error" class="error" for="co_so_id"></label>
 
-                                    {{-- @if ($errors->has('co_so_id'))
-                                <span class="text-danger">{{ $errors->first('co_so_id') }}</span>
-                                    @endif --}}
+                                    @if ($errors->has('co_so_id'))
+                                     <span class="text-danger">{{ $errors->first('co_so_id') }}</span>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -69,7 +69,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Năm</label>
                                 <div class="col-lg-10">
-                                    <select name="nam" class="form-control ">
+                                    <select name="nam" class="form-control select2">
                                         <option value="-1">-----Chọn năm-----</option>
 
                                         @foreach(config('common.nam.list') as $nam)
@@ -78,6 +78,7 @@
                                         @endforeach
 
                                     </select>
+                                    <label id="nam-error" class="error" for="nam"></label>
                                     @if ($errors->has('nam'))
                                     <span class="text-danger">{{ $errors->first('nam') }}</span>
                                     @endif
@@ -88,7 +89,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Đợt</label>
                                 <div class="col-lg-10">
-                                    <select name="dot" class="form-control ">
+                                    <select name="dot" class="form-control select2">
                                         <option value="-1">-----Chọn đợt-----</option>
                                         <option {{ old('dot') == config('common.dot.1') ? 'selected' : '' }}
                                             value="{{config('common.dot.1')}}">
@@ -98,6 +99,7 @@
                                             value="{{config('common.dot.2')}}">
                                             {{config('common.dot.2')}}</option>
                                     </select>
+                                    <label id="dot-error" class="error" for="dot"></label>
                                     @if ($errors->has('dot'))
                                     <span class="text-danger">{{ $errors->first('dot') }}</span>
                                     @endif
@@ -398,108 +400,7 @@
 </div>
 @endsection
 @section('script')
-<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
-<script src="sweetalert2.min.js"></script>
-<link rel="stylesheet" href="sweetalert2.min.css">
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#co_so_id").change(function () {
-            var op = $("select option:selected").val();
-            axios
-                .get("/xuat-bao-cao/doi-ngu-nha-giao/nganhnghe/" + op)
-                .then(function (response) {
-                    var htmldata = '<option value="-1">-----Chọn ngành nghề-----</option>';
-                    response.data.forEach((element) => {
-                        htmldata +=
-                            `<option value="${element.id}" >${element.id} --- ${element.ten_nganh_nghe}</option>`;
-                    });
-                    $("#nghe_id").html(htmldata);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-        });
-
-        const listField = [
-            'tong_so_XD_chuong_trinh_moi',
-            'XD_chuong_trinh_moi_CD',
-            'XD_chuong_trinh_moi_TC',
-            'XD_chuong_trinh_moi_SC',
-
-            'tong_so_XD_giao_trinh_moi',
-            'XD_giao_trinh_moi_CD',
-            'XD_giao_trinh_moi_TC',
-            'XD_giao_trinh_moi_SC',
-
-            'kinh_phi_thuc_hien_xd_moi',
-
-            'tong_so_chuong_trinh_chinh_sua',
-            'sua_chuong_trinh_CD',
-            'sua_chuong_trinh_TC',
-            'sua_chuong_trinh_SC',
-
-            'tong_so_giao_trinh_chinh_sua',
-            'sua_giao_trinh_CD',
-            'sua_giao_trinh_TC',
-            'sua_giao_trinh_SC',
-
-            'kinh_phi_thuc_hien_chinh_sua'
-        ];
-        const rule = {
-            number: true,
-            digits: true,
-            min:0
-        };
-
-        let rules = {
-            co_so_id: {
-                min: 0
-            },
-            nghe_id: {
-                min: 0
-            },
-            nam: {
-                min: 0
-            },
-            dot: {
-                min: 0
-            }
-        };
-        listField.forEach(function (value) {
-            rules[value] = rule;
-        });
-
-        const mess = {
-            number: "Vui lòng nhập liệu hợp lệ",
-            digits: "Số liệu nhỏ nhất là 0",
-            min: "Số liệu nhỏ nhất là 0"
-        };
-
-        let messages = {
-            co_so_id: {
-                min: "Vui lòng chọn cơ sở"
-            },
-            nghe_id: {
-                min: "Vui lòng chọn ngành nghề"
-            },
-            nam: {
-                min: "Vui lòng chọn năm"
-            },
-            dot: {
-                min: "Vui lòng chọn đợt"
-            }
-        };
-        listField.forEach(function (value) {
-            messages[value] = mess;
-        });
-        $("#validate-form-add").validate({
-            rules: rules,
-            messages: messages
-        });
-    });
-
-</script>
+<script src="{!! asset('js/xay_dung_chuong_trinh_giao_trinh/validate-create.js') !!}"></script>
 @if (session('edit'))
 <script>
     Swal.fire({
@@ -510,7 +411,11 @@
         showconfirmButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: '<a class="text-white" href="{{ route('xuatbc.sua-dang-ky-chi-tieu-tuyen-sinh',['id'=>session('edit')]) }}">Edit</a>'
+        confirmButtonText: 'Edit'
+        }).then((result) => {
+            if (result.value) {
+                window.location.href = '{{ route('xuatbc.edit-ds-xd-giao-trinh',['id'=> 1]) }}';
+            }
         })
 </script>
 @endif
@@ -524,7 +429,6 @@
         showConfirmButton: false,
         timer: 3500
     })
-
 </script>
 @endif
 @endsection
