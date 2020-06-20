@@ -1,4 +1,3 @@
-
 @extends('layouts.admin')
 @section('title', "Tổng hợp số liệu học sinh")
 @section('content')
@@ -17,10 +16,10 @@
             </div>
         </div>
         <form action="" method="GET" class="m-form">
-     
+
             <div class="m-portlet__body">
                 <div class="m-form__section m-form__section--first">
-                    
+
                     <div class="m-form__heading">
                         <h3 class="m-form__heading-title">Bộ lọc:</h3>
                     </div>
@@ -30,13 +29,12 @@
                                 <label class="col-lg-2 col-form-label">Loại Hình Cơ Sở: </label>
                                 <div class="col-lg-8">
                                     <select name="loai_hinh" class="form-control ">
-                                        <option value="" >Chọn </option>
+                                        <option value="">Chọn </option>
                                         @foreach($loaiHinh as $item)
-                                        <option 
-                                            @if(isset($params['loai_hinh']) && $params['loai_hinh'] == $item->id)
-                                                selected
+                                        <option @if(isset($params['loai_hinh']) && $params['loai_hinh']==$item->id)
+                                            selected
                                             @endif
-                                        value="{{ $item->id }}">{{ $item->loai_hinh_co_so }}</option>
+                                            value="{{ $item->id }}">{{ $item->loai_hinh_co_so }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -47,12 +45,11 @@
                                 <label class="col-lg-2 col-form-label">Tên Cơ Sở: </label>
                                 <div class="col-lg-8">
                                     <select name="cs_id" class="form-control" id="co_so_id">
-                                        <option value="" >Chọn </option>
+                                        <option value="">Chọn </option>
                                         @foreach ($coso as $item)
-                                        <option 
-                                        @if(isset($params['cs_id']) && $params['cs_id'] == $item->id)
+                                        <option @if(isset($params['cs_id']) && $params['cs_id']==$item->id)
                                             selected
-                                        @endif value="{{ $item->id }}">{{$item->ten}}
+                                            @endif value="{{ $item->id }}">{{$item->ten}}
                                         </option>
                                         @endforeach
                                     </select>
@@ -64,17 +61,15 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group m-form__group row">
-                            <label class="col-lg-2 col-form-label">Năm:  </label>
+                            <label class="col-lg-2 col-form-label">Năm: </label>
                             <div class="col-lg-8">
                                 <select name="nam" class="form-control" id="nam">
-                                    <option value="" >Chọn </option>
+                                    <option value="">Chọn </option>
                                     @foreach (config('common.nam.list') as $item)
-                                    <option 
-                                    @if (isset($params['nam']))
-                                            {{( $params['nam'] ==  $item ) ? 'selected' : ''}}  
-                                            @endif
-                                            value="{{$item}}"> {{$item}}
-                                        </option>
+                                    <option @if (isset($params['nam']))
+                                        {{( $params['nam'] ==  $item ) ? 'selected' : ''}} @endif value="{{$item}}">
+                                        {{$item}}
+                                    </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -85,17 +80,11 @@
                             <label class="col-lg-2 col-form-label">Đợt: </label>
                             <div class="col-lg-8">
                                 <select class="form-control" name="dot" id="dot">
-                                    <option value="" >Chọn</option>
-                                    <option
-                                    @if (isset($params['dot']))
-                                        {{( $params['dot'] ==  1 ) ? 'selected' : ''}}  
-                                    @endif
-                                    value="1" >Đợt 1</option>
-                                    <option value="2"
-                                    @if (isset($params['dot']))
-                                    {{( $params['dot'] ==  2 ) ? 'selected' : ''}}  
-                                    @endif
-                                    >Đợt 2</option>
+                                    <option value="">Chọn</option>
+                                    <option @if (isset($params['dot'])) {{( $params['dot'] ==  1 ) ? 'selected' : ''}}
+                                        @endif value="1">Đợt 1</option>
+                                    <option value="2" @if (isset($params['dot']))
+                                        {{( $params['dot'] ==  2 ) ? 'selected' : ''}} @endif>Đợt 2</option>
                                 </select>
                             </div>
                         </div>
@@ -107,12 +96,11 @@
                             <label class="col-lg-2 col-form-label">Ngành Nghề</label>
                             <div class="col-lg-8">
                                 <select name="nghe_id" class="form-control" id="nghe_id">
-                                    <option value="" >Chọn </option>
+                                    <option value="">Chọn </option>
                                     @foreach ($nganhNghe as $item)
-                                    <option 
-                                    @if(isset($params['nghe_id']) && $params['nghe_id'] == $item->id)
+                                    <option @if(isset($params['nghe_id']) && $params['nghe_id']==$item->id)
                                         selected
-                                    @endif value="{{ $item->id }}">{{$item->id}} - {{$item->ten_nganh_nghe}}
+                                        @endif value="{{ $item->id }}">{{$item->id}} - {{$item->ten_nganh_nghe}}
                                     </option>
                                     @endforeach
                                 </select>
@@ -130,19 +118,19 @@
     </div>
     <div class="row mb-5 bieumau">
         <div class="col-lg-2">
-            <a href="" data-toggle="modal"  data-target="#exampleModal-tbm">
+            <a href="" data-toggle="modal" data-target="#exampleModal-tbm">
                 <i class="fa fa-download" aria-hidden="true"></i>
                 Tải xuống biểu mẫu
             </a>
         </div>
         <div class="col-lg-2">
-            <a href="" data-toggle="modal" ><i
-                    class="fa fa-upload" aria-hidden="true" data-target="#exampleModalImport"></i>
+            <a href="" data-toggle="modal"><i class="fa fa-upload" aria-hidden="true"
+                    data-target="#exampleModalImport"></i>
                 Tải lên file Excel</a>
         </div>
         <div class="col-lg-2">
             <a href="" data-toggle="modal" data-target="#exampleModalExportData"><i class="fa fa-file-excel"
-                aria-hidden="true"></i>
+                    aria-hidden="true"></i>
                 Xuất dữ liệu ra Excel</a>
         </div>
         <div class="col-lg-6 " style="text-align: right">
@@ -156,18 +144,16 @@
     <div class="m-portlet">
         <div class="m-portlet__body">
             <div class="col-12 form-group m-form__group d-flex justify-content-end">
-                 <label class="col-lg-2 col-form-label">Kích thước:</label>
-                 <div class="col-lg-2">
+                <label class="col-lg-2 col-form-label">Kích thước:</label>
+                <div class="col-lg-2">
                     <select class="form-control" id="page-size">
                         @foreach(config('common.paginate_size.list') as $size)
-                        <option 
-                            @if (isset($params['page_size']) && $params['page_size'] ==  $size)
-                                selected 
-                            @endif value="{{$size}}">{{$size}}
+                        <option @if (isset($params['page_size']) && $params['page_size']==$size) selected @endif
+                            value="{{$size}}">{{$size}}
                         </option>
                         @endforeach
                     </select>
-                </div> 
+                </div>
             </div>
             <table class="table m-table m-table--head-bg-brand">
                 <thead>
@@ -182,31 +168,33 @@
                     <th>Trung Cấp </th>
                     <th>Sơ Cấp </th>
                     <th>Khác </th>
+                    @can('xem_so_luong_sinh_vien_dang_theo_hoc')
                     <th>Chức năng</th>
-                   
+                    @endcan
                 </thead>
-
                 @php($i=1)
 
                 @forelse ($data as $qlsv)
-                    <tr>
-                        <td>{{$i++}}</td>
-                        <td>{{$qlsv->ten}}</td>
-                        <td>{{$qlsv->loai_hinh_co_so}}</td>
-                        <td>{{$qlsv->nam}}</td>
-                        <td>{{$qlsv->dot}}</td>
-                        <td>{{$qlsv->tong_so_HSSV_co_mat}}</td>
-                        <td>{{$qlsv->so_luong_cao_dang}}</td>
-                        <td>{{$qlsv->so_luong_trung_cap}}</td>
-                        <td>{{$qlsv->so_luong_so_cap}}</td>
-                        <td>{{$qlsv->so_luong_He_khac}}</td>
-                        <td>
-                            <a href="{{ route('xuatbc.chi-tiet-so-lieu', ['co_so_id'=>$qlsv->cs_id]) }}" class="btn btn-info btn-sm">Chi tiết</a>
-
-                        </td>
-                    </tr>
-                    @empty
-                    @endforelse($item as $data )
+                <tr>
+                    <td>{{$i++}}</td>
+                    <td>{{$qlsv->ten}}</td>
+                    <td>{{$qlsv->loai_hinh_co_so}}</td>
+                    <td>{{$qlsv->nam}}</td>
+                    <td>{{$qlsv->dot}}</td>
+                    <td>{{$qlsv->tong_so_HSSV_co_mat}}</td>
+                    <td>{{$qlsv->so_luong_cao_dang}}</td>
+                    <td>{{$qlsv->so_luong_trung_cap}}</td>
+                    <td>{{$qlsv->so_luong_so_cap}}</td>
+                    <td>{{$qlsv->so_luong_He_khac}}</td>
+                    @can('xem_so_luong_sinh_vien_dang_theo_hoc')
+                    <td>
+                        <a href="{{ route('xuatbc.chi-tiet-so-lieu', ['co_so_id'=>$qlsv->cs_id]) }}"
+                            class="btn btn-info btn-sm">Chi tiết</a>
+                    </td>
+                    @endcan
+                </tr>
+                @empty
+                @endforelse($item as $data )
                 </tbody>
             </table>
         </div>
@@ -220,128 +208,131 @@
 
 <form action="{{route('export.bieumau.hsdql')}}" method="post">
     @csrf
-    <div class="modal fade" id="exampleModal-tbm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
+    <div class="modal fade" id="exampleModal-tbm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Hãy chọn trường</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="true">&times;</span>
                     </button>
-                  </div>
-                  <div class="modal-body">
-                   <select name="id_cs" class="form-control">
-                       @foreach($coso as $csdt)
-                       <option value="{{$csdt->id}}">{{$csdt->ten}}</option>
-                       @endforeach
-                   </select>
-                  </div>
-                  <div class="modal-footer">
+                </div>
+                <div class="modal-body">
+                    <select name="id_cs" class="form-control">
+                        @foreach($coso as $csdt)
+                        <option value="{{$csdt->id}}">{{$csdt->ten}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
                     <button type="submit" onclick="clickDownloadTemplate()" class="btn btn-primary">Tải</a>
-                  </div>
                 </div>
+            </div>
         </div>
     </div>
-    </form>
+</form>
 
-    <form action="{{route('import.error.hssv-ql')}}" id="my_form_hssv_import" method="post" enctype="multipart/form-data" >
-        @csrf
-        <div class="modal fade " id="exampleModalImport" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Import file học sinh sinh viên</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <div class="form-group">
+<form action="{{route('import.error.hssv-ql')}}" id="my_form_hssv_import" method="post" enctype="multipart/form-data">
+    @csrf
+    <div class="modal fade " id="exampleModalImport" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Import file học sinh sinh viên</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
                         <input type="file" id="file_import_id" name="file_import">
-                        </div>
-                        <div class="form-group">
-                            <label for="">Chọn năm</label>
-                            <select name="nam_import" id="nam_id" class="form-control">
-                              <option value="2020">2020</option>
-                              <option value="2019">2019</option>
-                              <option value="2018">2018</option>
-                              <option value="2017">2017</option>
-                              <option value="2016">2016</option>
-                            </select> 
-                       </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Chọn năm</label>
+                        <select name="nam_import" id="nam_id" class="form-control">
+                            <option value="2020">2020</option>
+                            <option value="2019">2019</option>
+                            <option value="2018">2018</option>
+                            <option value="2017">2017</option>
+                            <option value="2016">2016</option>
+                        </select>
+                    </div>
 
                     <div class="form-group">
-                      <label for="">Chọn đợt</label>
-                      <select name="dot_import" id="dot_id" class="form-control">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                      </select>
+                        <label for="">Chọn đợt</label>
+                        <select name="dot_import" id="dot_id" class="form-control">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                        </select>
                     </div>
                 </div>
-                    <div class="modal-footer">
-                        <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoi">
-                        </p>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                        <button type="button" class="btn btn-primary" id="submitTai">Tải</a>
-                        <button  type="submit" hidden class="btn btn-primary" id="submitTaiok">Tải Error</a>
-                      </div>
+                <div class="modal-footer">
+                    <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoi">
+                    </p>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-primary" id="submitTai">Tải</a>
+                        <button type="submit" hidden class="btn btn-primary" id="submitTaiok">Tải Error</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<form action="{{route('export.data.hsql')}}" method="post" enctype="multipart/form-data">
+    @csrf
+    <div class="modal fade " id="exampleModalExportData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Xuất dữ liệu</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="">Chọn năm xuất</label>
+                        <select name="nam_muon_xuat" id="nam_id_xuat" class="form-control">
+                            <option value="2020">2020</option>
+                            <option value="2019">2019</option>
+                            <option value="2018">2018</option>
+                            <option value="2017">2017</option>
+                            <option value="2016">2016</option>
+                        </select>
                     </div>
+                    <div class="form-group">
+                        <label for="">Chọn đợt xuất</label>
+                        <select name="dot_muon_xuat" id="dot_id_xuat" class="form-control">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Chọn Trường</label>
+                        <select name="truong_id" id="truong_id_xuat" class="form-control">
+                            @foreach($coso as $csdt)
+                            <option value="{{$csdt->id}}">{{$csdt->ten}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoiXuat">
+                    </p>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                    {{-- <button type="button" class="btn btn-primary" id="clickXuatData">Tải</a> --}}
+                    <button type="submit" class="btn btn-primary" id="submitXuatData">Xuất</a>
+                </div>
             </div>
-            </div>
-        </form>
-
-
-        <form action="{{route('export.data.hsql')}}" method="post" enctype="multipart/form-data">
-          @csrf
-          <div class="modal fade " id="exampleModalExportData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Xuất dữ liệu</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                          <div class="form-group">
-                              <label for="">Chọn năm xuất</label>
-                              <select name="nam_muon_xuat" id="nam_id_xuat" class="form-control">
-                                <option value="2020">2020</option>
-                                <option value="2019">2019</option>
-                                <option value="2018">2018</option>
-                                <option value="2017">2017</option>
-                                <option value="2016">2016</option>
-                              </select>
-                        </div> 
-                        <div class="form-group">
-                                <label for="">Chọn đợt xuất</label>
-                                <select name="dot_muon_xuat" id="dot_id_xuat" class="form-control">
-                                  <option value="1">1</option>
-                                  <option value="2">2</option>
-                                </select>
-                          </div>
-                        <div class="form-group">
-                            <label for="">Chọn Trường</label>
-                            <select name="truong_id" id="truong_id_xuat" class="form-control">
-                              @foreach($coso as $csdt)
-                               <option value="{{$csdt->id}}">{{$csdt->ten}}</option>
-                              @endforeach
-                            </select>
-                        </div>
-
-                        </div>
-                        <div class="modal-footer">
-                          <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoiXuat">
-                          </p>
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                          {{-- <button type="button" class="btn btn-primary" id="clickXuatData">Tải</a> --}}
-                          <button  type="submit" class="btn btn-primary" id="submitXuatData">Xuất</a>
-                        </div>
-                      </div>
-              </div>
-              </div>
-          </form>
+        </div>
+    </div>
+</form>
 
 @endsection
 @section('script')
@@ -349,8 +340,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 <script>
-    
-         $("#file_import_id").change(function() {
+    $("#file_import_id").change(function() {
           var fileExtension = ['xlsx', 'xls'];
                  if($("#file_import_id")[0].files.length === 0){
                    $('#echoLoi').text('Hãy nhập file excel');
@@ -443,7 +433,6 @@
 
 </script>
 <script>
-
     $(document).ready(function(){
         $('#co_so_id').select2();
         $('#devvn_quanhuyen').select2();
@@ -479,5 +468,5 @@
         // console.log(new_url);
         window.location.href = new_url
       });
-    </script>
+</script>
 @endsection

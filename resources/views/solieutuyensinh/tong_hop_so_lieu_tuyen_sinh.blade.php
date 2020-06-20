@@ -1,4 +1,3 @@
-
 @extends('layouts.admin')
 @section('title', "Tổng hợp số liệu tuyển sinh")
 @section('style')
@@ -89,15 +88,16 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Nghề cấp 2</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control nganh_nghe" onchange="getNgheTheoCapBac(this)"
-                                    @if (isset($params['nganh_nghe']))
-                                    name ="{{strlen($params['nganh_nghe'])==3?'nganh_nghe':''}}" @endif
-                                    id="nghe_cap_2">
+                                    <select class="form-control nganh_nghe" onchange="getNgheTheoCapBac(this)" @if
+                                        (isset($params['nganh_nghe']))
+                                        name="{{strlen($params['nganh_nghe'])==3?'nganh_nghe':''}}" @endif
+                                        id="nghe_cap_2">
                                         <option value="" selected>Chọn</option>
                                         @foreach ($nghe_cap_2 as $item)
                                         <option @if (isset($params['nganh_nghe']))
-                                            {{( substr($params['nganh_nghe'],0,3) ==  $item->id ) ? 'selected' : ''}} @endif
-                                            value="{{$item->id}}">{{$item->id}}-{{$item->ten_nganh_nghe}}</option>
+                                            {{( substr($params['nganh_nghe'],0,3) ==  $item->id ) ? 'selected' : ''}}
+                                            @endif value="{{$item->id}}">{{$item->id}}-{{$item->ten_nganh_nghe}}
+                                        </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -122,22 +122,23 @@
                                 </div>
                             </div>
                         </div>
-                    
-                     
+
+
                         <div class="col-md-6">
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Nghề cấp 3</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control nganh_nghe" onchange="getNgheTheoCapBac(this)" 
-                                    @if (isset($params['nganh_nghe']))
-                                    name ="{{strlen($params['nganh_nghe'])==5?'nganh_nghe':''}}" @endif
-                                    id="nghe_cap_3">
-                                        <option value="" selected>Chọn</option>  
+                                    <select class="form-control nganh_nghe" onchange="getNgheTheoCapBac(this)" @if
+                                        (isset($params['nganh_nghe']))
+                                        name="{{strlen($params['nganh_nghe'])==5?'nganh_nghe':''}}" @endif
+                                        id="nghe_cap_3">
+                                        <option value="" selected>Chọn</option>
                                         @foreach ($nghe_cap_3 as $item)
                                         <option @if (isset($params['nganh_nghe']))
-                                            {{( substr($params['nganh_nghe'],0,5) ==  $item->id ) ? 'selected' : ''}} @endif
-                                            value="{{$item->id}}">{{$item->id}}-{{$item->ten_nganh_nghe}}</option>
-                                        @endforeach                            
+                                            {{( substr($params['nganh_nghe'],0,5) ==  $item->id ) ? 'selected' : ''}}
+                                            @endif value="{{$item->id}}">{{$item->id}}-{{$item->ten_nganh_nghe}}
+                                        </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -159,27 +160,28 @@
                                 </div>
                             </div>
                         </div>
-                      
+
                         <div class="col-md-6">
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Nghề cấp 4</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control nganh_nghe" onchange="setNameNganhNgheSearch(this)" 
-                                    @if (isset($params['nganh_nghe']))
-                                    name ="{{strlen($params['nganh_nghe'])==7?'nganh_nghe':''}}" @endif
-                                    id="nghe_cap_4">
+                                    <select class="form-control nganh_nghe" onchange="setNameNganhNgheSearch(this)" @if
+                                        (isset($params['nganh_nghe']))
+                                        name="{{strlen($params['nganh_nghe'])==7?'nganh_nghe':''}}" @endif
+                                        id="nghe_cap_4">
                                         <option value="" selected>Chọn</option>
                                         @foreach ($nghe_cap_4 as $item)
                                         <option @if (isset($params['nganh_nghe']))
-                                            {{( substr($params['nganh_nghe'],0,7) ==  $item->id ) ? 'selected' : ''}} @endif
-                                            value="{{$item->id}}">{{$item->id}}-{{$item->ten_nganh_nghe}}</option>
-                                        @endforeach    
+                                            {{( substr($params['nganh_nghe'],0,7) ==  $item->id ) ? 'selected' : ''}}
+                                            @endif value="{{$item->id}}">{{$item->id}}-{{$item->ten_nganh_nghe}}
+                                        </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
                         </div>
                     </div>
-                     <div class="row pt-4">                   
+                    <div class="row pt-4">
                         <div class="col-md-6 ">
                             <div class="form-group m-form__group row">
                                 <label for="" class="col-lg-2 col-form-label">Xã\Phường</label>
@@ -226,8 +228,10 @@
                 Xuất dữ liệu ra Excel</a>
         </div>
         <div class="col-lg-6 " style="text-align: right">
+            @can('them_moi_tong_hop_ket_qua_tuyen_sinh')
             <a href="{{route('themsolieutuyensinh')}}"><button type="button" class="btn btn-secondary">Thêm
                     mới</button></a>
+            @endcan
         </div>
     </div>
     <div class="m-portlet">
@@ -244,7 +248,8 @@
                     </select>
                 </div>
             </div>
-            <table class="table table-bordered m-table m-table--border-danger m-table--head-bg-primary table-responsive">
+            <table
+                class="table table-bordered m-table m-table--border-danger m-table--head-bg-primary table-responsive">
                 <thead>
                     <tr>
                         <th scope="col">STT</th>
@@ -281,11 +286,14 @@
                         <td>{{$item->tong_so_tuyen_sinh_cac_trinh_do}}</td>
                         <td>{{$item->tong_so_tuyen_sinh}}</td>
                         <td>{{$item->trang_thai}}</td>
+                        @can('xem_chi_tiet_tong_hop_ket_qua_tuyen_sinh')
                         <td>
                             <a href="{{route('chitietsolieutuyensinh',[
                             'co_so_id' => $item->id,
                         ])}}">Chi tiết</a>
                         </td>
+                        @endcan
+
                     </tr>
                     @endforeach
 
@@ -344,13 +352,13 @@
                         <div class="form-group">
                             <label for="">Chọn năm</label>
                             <select name="nam" id="nam_id" class="form-control">
-                              <option value="2020">2020</option>
-                              <option value="2019">2019</option>
-                              <option value="2018">2018</option>
-                              <option value="2017">2017</option>
-                              <option value="2016">2016</option>
-                            </select> 
-                       </div>
+                                <option value="2020">2020</option>
+                                <option value="2019">2019</option>
+                                <option value="2018">2018</option>
+                                <option value="2017">2017</option>
+                                <option value="2016">2016</option>
+                            </select>
+                        </div>
 
                         <div class="form-group">
                             <label for="">Chọn đợt</label>
@@ -394,8 +402,8 @@
                                 <option value="2018">2018</option>
                                 <option value="2017">2017</option>
                                 <option value="2016">2016</option>
-                              </select>
-                        </div> 
+                            </select>
+                        </div>
                         <div class="form-group">
                             <label for="">Chọn đợt xuất</label>
                             <select name="dot_muon_xuat" id="dot_id_xuat" class="form-control">
@@ -613,6 +621,6 @@ function clickDownloadTemplate(){
       });
     
     
-    </script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 @endsection

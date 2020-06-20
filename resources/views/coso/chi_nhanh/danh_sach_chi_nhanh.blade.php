@@ -93,10 +93,12 @@
                         <th>Hotline</th>
                         <th>Chi Nhánh</th>
                         <th>Mã chứng nhận</th>
+                        @can('them_moi_dia_diem_dao_tao')
                         <th colspan="2"><a href="{{ route('chi-nhanh.tao-moi') }}"
                                 class="btn btn-success btn-sm mr-3">Thêm
                                 mới</a>
                         </th>
+                        @endcan
                     </thead>
                     <tbody>
                         @php($i=1)
@@ -114,14 +116,18 @@
                                 @endif</td>
                             <td>{{$items->ma_chung_nhan_dang_ki_hoat_dong}}</td>
                             <td class="d-flex">
+                                @can('cap_nhat_dia_diem_dao_tao')
                                 <a href="{{route('chi-nhanh.cap-nhat', ['id'=> $items->id])}}"
                                     class="btn btn-primary btn-sm mr-3">Cập nhật</a>
+                                @endcan
+                                @can('xoa_dia_diem_dao_tao')
                                 <button type="button" class="btn btn-danger btn-sm" onclick="Confirm({{$items->id}})"
                                     data-toggle="modal" data-target="#m_modal_3">Xóa</button>
                                 <form action="{{ route('chi-nhanh.xoa',['id'=> $items->id ]) }}" method="post"
                                     id="xoa_chi_nhanh_{{ $items->id }}">
                                     @csrf
                                 </form>
+                                @endcan
                             </td>
                         </tr>
                         @empty

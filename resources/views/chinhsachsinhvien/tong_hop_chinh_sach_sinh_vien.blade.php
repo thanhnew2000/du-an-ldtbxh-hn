@@ -75,7 +75,7 @@
                                 <label class="col-lg-2 col-form-label">Năm</label>
                                 <div class="col-lg-8">
                                     <select class="form-control" name="nam" id="nam">
-                              
+
                                         @foreach (config('common.nam.list') as $item)
                                         <option @if (isset($params['nam']))
                                             {{( $params['nam'] ==  $item ) ? 'selected' : ''}} @endif value="{{$item}}">
@@ -92,7 +92,7 @@
                                 <label for="" class="col-lg-2 col-form-label">Đợt</label>
                                 <div class="col-lg-8">
                                     <select class="form-control" name="dot" id="dot">
-                                        
+
                                         <option @if (isset($params['dot']))
                                             {{( $params['dot'] ==  1 ) ? 'selected' : ''}} @endif value="1">Đợt 1
                                         </option>
@@ -126,7 +126,7 @@
                                 <label class="col-lg-2 col-form-label">Chính sách</label>
                                 <div class="col-lg-8">
                                     <select class="form-control" name="chinhsach" id="chinhsach">
-                                       
+
                                         @foreach ($chinhsach as $item)
                                         <option @if (isset($params['chinhsach']))
                                             {{( $params['chinhsach'] ==  $item->id ) ? 'selected' : ''}} @endif
@@ -164,8 +164,10 @@
                 Xuất dữ liệu ra Excel</a>
         </div>
         <div class="col-lg-6 " style="text-align: right">
+            @can('them_moi_tong_hop_thuc_hien_chinh_sach_cho_sv')
             <a href="{{route('xuatbc.them-chinh-sach-sinh-vien')}}"><button type="button" class="btn btn-secondary">Thêm
                     mới</button></a>
+            @endcan
         </div>
     </div>
     <div class="m-portlet">
@@ -229,10 +231,12 @@
                         <td>{{$item->ghi_chu}}</td>
                         <td>{{$item->ten_trang_thai}}</td>
                         <td>
+                            @can('cap_nhat_tong_hop_thuc_hien_chinh_sach_cho_sv')
                             @if ($item->trang_thai<3) <a
                                 href="{{route('xuatbc.sua-chinh-sach-sinh-vien', ['id' => $item->id])}}">
                                 Cập nhật</a>
                                 @endif
+                                @endcan
                         </td>
                     </tr>
 
@@ -293,15 +297,15 @@
                         <div class="form-group">
                             <label for="">Chọn năm</label>
                             <select name="nam" id="nam_id" class="form-control">
-                            @foreach (config('common.nam.list') as $nam)
-                            <option value="{{$nam}}">{{$nam}}</option>
-                             @endforeach
-                              {{-- <option value="2019">2019</option>
+                                @foreach (config('common.nam.list') as $nam)
+                                <option value="{{$nam}}">{{$nam}}</option>
+                                @endforeach
+                                {{-- <option value="2019">2019</option>
                               <option value="2018">2018</option>
                               <option value="2017">2017</option>
                               <option value="2016">2016</option> --}}
-                            </select> 
-                       </div>
+                            </select>
+                        </div>
 
                         <div class="form-group">
                             <label for="">Chọn đợt</label>
@@ -342,9 +346,9 @@
                             <select name="nam_muon_xuat" id="nam_id_xuat" class="form-control">
                                 @foreach (config('common.nam.list') as $nam)
                                 <option value="{{$nam}}">{{$nam}}</option>
-                                 @endforeach
-                              </select>
-                        </div> 
+                                @endforeach
+                            </select>
+                        </div>
                         <div class="form-group">
                             <label for="">Chọn đợt xuất</label>
                             <select name="dot_muon_xuat" id="dot_id_xuat" class="form-control">

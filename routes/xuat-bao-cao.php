@@ -46,7 +46,10 @@ Route::group(['prefix' => 'doi-ngu-quan-ly'], function () {
 });
 
 // cuong nc - tổng hợp sinh viên đang theo học
-Route::group(['prefix' => 'so-lieu-sinh-vien-dang-theo-hoc'], function () {
+
+Route::group([
+    'prefix' => 'so-lieu-sinh-vien-dang-theo-hoc',
+], function () {
     Route::get('/', 'ExtractController@tonghopsvdanghoc')
         ->name('xuatbc.ds-sv-dang-hoc');
 
@@ -75,7 +78,9 @@ Route::group(['prefix' => 'so-lieu-sinh-vien-dang-theo-hoc'], function () {
 // end cuong nc - tổng hợp sinh viên đang theo học
 
 //Xuân - Chính sách sinh viên
-Route::group(['prefix' => 'chinh-sach-sinh-vien'], function () {
+Route::group([
+    'prefix' => 'chinh-sach-sinh-vien'
+], function () {
     Route::get(
         '/tong-hop',
         'ExtractController@tonghopchinhsachsv'

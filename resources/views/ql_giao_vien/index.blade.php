@@ -2,7 +2,7 @@
 @section('content')
 <div class="m-content">
     @include('layouts.partials.filter', [
-        'config' => $filterConfig,
+    'config' => $filterConfig,
     ])
 
     <div class="row mb-5 bieumau">
@@ -13,13 +13,16 @@
             <a href=""><i class="la la-upload">Tải lên file excel</i></a>
         </div>
         <div class="col-lg-8 " style="text-align: right">
-        <a href="{{ route('ql-giao-vien.create') }}"><button type="button" class="btn btn-secondary">Thêm mới</button></a>
+            @can('them_moi_quan_ly_giao_vien')
+            <a href="{{ route('ql-giao-vien.create') }}"><button type="button" class="btn btn-secondary">Thêm
+                    mới</button></a>
+            @endcan
         </div>
     </div>
 
     @include('layouts.partials.table', [
-        'titles' => $titles,
-        'data' => $data
+    'titles' => $titles,
+    'data' => $data
     ])
 </div>
 @endsection

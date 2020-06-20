@@ -75,15 +75,15 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Nghề cấp 2</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control nganh_nghe" onchange="getNgheTheoCapBac(this)" 
-                                    @if (isset($params['nganh_nghe']))
-                                          name ="{{strlen($params['nganh_nghe'])==3?'nganh_nghe':''}}" @endif
-                                    id="nghe_cap_2">
+                                    <select class="form-control nganh_nghe" onchange="getNgheTheoCapBac(this)"
+                                        name="{{ isset($params['nganh_nghe']) && strlen($params['nganh_nghe'])==3 ? 'nganh_nghe' : ''}}"
+                                        id="nghe_cap_2">
                                         <option value="" selected>Chọn</option>
                                         @foreach ($nghe_cap_2 as $item)
                                         <option @if (isset($params['nganh_nghe']))
-                                            {{( substr($params['nganh_nghe'],0,3) ==  $item->id ) ? 'selected' : ''}} @endif
-                                            value="{{$item->id}}">{{$item->id}}-{{$item->ten_nganh_nghe}}</option>
+                                            {{( substr($params['nganh_nghe'],0,3) ==  $item->id ) ? 'selected' : ''}}
+                                            @endif value="{{$item->id}}">{{$item->id}}-{{$item->ten_nganh_nghe}}
+                                        </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -108,22 +108,22 @@
                                 </div>
                             </div>
                         </div>
-                    
-                     
+
+
                         <div class="col-md-6">
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Nghề cấp 3</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control nganh_nghe" onchange="getNgheTheoCapBac(this)" 
-                                    @if (isset($params['nganh_nghe']))
-                                          name ="{{strlen($params['nganh_nghe'])==5?'nganh_nghe':''}}" @endif
-                                    id="nghe_cap_3">
-                                        <option value="" selected>Chọn</option>  
+                                    <select class="form-control nganh_nghe"
+                                        name="{{ isset($params['nganh_nghe']) && strlen($params['nganh_nghe'])==5 ? 'nganh_nghe' : ''}}"
+                                        onchange="getNgheTheoCapBac(this)" id="nghe_cap_3">
+                                        <option value="" selected>Chọn</option>
                                         @foreach ($nghe_cap_3 as $item)
                                         <option @if (isset($params['nganh_nghe']))
-                                            {{( substr($params['nganh_nghe'],0,5) ==  $item->id ) ? 'selected' : ''}} @endif
-                                            value="{{$item->id}}">{{$item->id}}-{{$item->ten_nganh_nghe}}</option>
-                                        @endforeach                            
+                                            {{( substr($params['nganh_nghe'],0,5) ==  $item->id ) ? 'selected' : ''}}
+                                            @endif value="{{$item->id}}">{{$item->id}}-{{$item->ten_nganh_nghe}}
+                                        </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -145,27 +145,27 @@
                                 </div>
                             </div>
                         </div>
-                      
+
                         <div class="col-md-6">
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Nghề cấp 4</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control nganh_nghe" onchange="setNameNganhNgheSearch(this)" 
-                                    @if (isset($params['nganh_nghe']))
-                                          name ="{{strlen($params['nganh_nghe'])==7?'nganh_nghe':''}}" @endif
-                                    id="nghe_cap_4">
+                                    <select class="form-control nganh_nghe"
+                                        name="{{ isset($params['nganh_nghe']) && strlen($params['nganh_nghe'])==7 ? 'nganh_nghe' : ''}}"
+                                        onchange="setNameNganhNgheSearch(this)" id="nghe_cap_4">
                                         <option value="" selected>Chọn</option>
                                         @foreach ($nghe_cap_4 as $item)
                                         <option @if (isset($params['nganh_nghe']))
-                                            {{( substr($params['nganh_nghe'],0,7) ==  $item->id ) ? 'selected' : ''}} @endif
-                                            value="{{$item->id}}">{{$item->id}}-{{$item->ten_nganh_nghe}}</option>
-                                        @endforeach    
+                                            {{( substr($params['nganh_nghe'],0,7) ==  $item->id ) ? 'selected' : ''}}
+                                            @endif value="{{$item->id}}">{{$item->id}}-{{$item->ten_nganh_nghe}}
+                                        </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
                         </div>
                     </div>
-                     <div class="row pt-4">                   
+                    <div class="row pt-4">
                         <div class="col-md-6 ">
                             <div class="form-group m-form__group row">
                                 <label for="" class="col-lg-2 col-form-label">Xã\Phường</label>
@@ -195,24 +195,24 @@
         </form>
     </div>
     <section class="action-nav d-flex align-items-center justify-content-between mt-4 mb-4">
-    
-            <div class="col-lg-2">
-                <a href="javascript:" data-toggle="modal" data-target="#exampleModal">
-                    <i class="fa fa-download" aria-hidden="true"></i>
-                    Tải xuống biểu mẫu
-                </a>
-            </div>
-            <div class="col-lg-2">
-                <a href="javascript:" data-toggle="modal" id="upImport-file" data-target="#exampleModalImport"><i
-                        class="fa fa-upload" aria-hidden="true"></i>
-                    Tải lên file Excel</a>
-            </div>
-            <div class="col-lg-8">
-                <a href="javascript:" data-toggle="modal" data-target="#exampleModalExportData"><i class="fa fa-file-excel"
-                        aria-hidden="true"></i>
-                    Xuất dữ liệu ra Excel</a>
-            </div>
-  
+
+        <div class="col-lg-2">
+            <a href="javascript:" data-toggle="modal" data-target="#exampleModal">
+                <i class="fa fa-download" aria-hidden="true"></i>
+                Tải xuống biểu mẫu
+            </a>
+        </div>
+        <div class="col-lg-2">
+            <a href="javascript:" data-toggle="modal" id="upImport-file" data-target="#exampleModalImport"><i
+                    class="fa fa-upload" aria-hidden="true"></i>
+                Tải lên file Excel</a>
+        </div>
+        <div class="col-lg-8">
+            <a href="javascript:" data-toggle="modal" data-target="#exampleModalExportData"><i class="fa fa-file-excel"
+                    aria-hidden="true"></i>
+                Xuất dữ liệu ra Excel</a>
+        </div>
+
     </section>
     <div class="m-portlet">
         <div class="m-portlet__body">
@@ -237,9 +237,11 @@
                     <th scope="col">Xã Phường Thị Trấn</th>
                     <th scope="col">Tổng số sinh viên tốt nghiệp</th>
                     <th scope="col">Trạng thái</th>
+                    @can('them_moi_tong_hop_ket_qua_tot_nghiep')
                     <th>
                         <a href="{{ route('xuatbc.them-tong-hop') }}" class="btn btn-success btn-sm">Thêm mới</a>
                     </th>
+                    @endcan
                 </thead>
                 <tbody>
                     @php
@@ -254,11 +256,13 @@
                         <td>{{$item->xa_phuong}}</td>
                         <td>{{$item->tong_so_nguoi_tn}}</td>
                         <td>{{$item->trang_thai}}</td>
+                        @can('xem_chi_tiet_tong_hop_ket_qua_tot_nghiep')
                         <td>
                             <a href="{{route('xuatbc.chi-tiet-tong-hop',[
                             'id' => $item->id,
                         ])}}">Chi tiết</a>
                         </td>
+                        @endcan
                     </tr>
                     @endforeach
                 </tbody>
@@ -321,13 +325,13 @@
                     <div class="form-group">
                         <label for="">Chọn năm</label>
                         <select name="nam" id="nam_id" class="form-control">
-                          <option value="2020">2020</option>
-                          <option value="2019">2019</option>
-                          <option value="2018">2018</option>
-                          <option value="2017">2017</option>
-                          <option value="2016">2016</option>
-                        </select> 
-                   </div>
+                            <option value="2020">2020</option>
+                            <option value="2019">2019</option>
+                            <option value="2018">2018</option>
+                            <option value="2017">2017</option>
+                            <option value="2016">2016</option>
+                        </select>
+                    </div>
 
                     <div class="form-group">
                         <label for="">Chọn đợt</label>
@@ -352,8 +356,8 @@
 
 <form action="{{route('exportdatatotnghiep')}}" id="" method="post" enctype="multipart/form-data">
     @csrf
-    <div class="modal fade " id="exampleModalExportData" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade " id="exampleModalExportData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -371,8 +375,8 @@
                             <option value="2018">2018</option>
                             <option value="2017">2017</option>
                             <option value="2016">2016</option>
-                          </select>
-                    </div> 
+                        </select>
+                    </div>
                     <div class="form-group">
                         <label for="">Chọn đợt xuất</label>
                         <select name="dot_muon_xuat" id="dot_id_xuat" class="form-control">
@@ -582,6 +586,6 @@
       });
     
     
-    </script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 @endsection

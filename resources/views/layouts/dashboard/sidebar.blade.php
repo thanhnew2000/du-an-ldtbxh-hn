@@ -17,6 +17,8 @@
 				<h4 class="m-menu__section-text">Danh sách chức năng</h4>
 				<i class="m-menu__section-icon flaticon-more-v2"></i>
 			</li>
+			{{-- Start - CườngNC - UpdateSideBar - 18/06/2020 --}}
+
 			<li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a
 					href="javascript:;" class="m-menu__link m-menu__toggle"><i
 						class="m-menu__link-icon flaticon-layers"></i><span class="m-menu__link-text">Quản lý tài
@@ -25,46 +27,60 @@
 					<ul class="m-menu__subnav">
 						<li class="m-menu__item  m-menu__item--parent" aria-haspopup="true"><span
 								class="m-menu__link"><span class="m-menu__link-text">Base</span></span></li>
+						@canany(['them_tai_khoan','sua_tai_khoan'])
 						<li class="m-menu__item " aria-haspopup="true"><a href="{{route('account.list')}}"
 								class="m-menu__link "><i
 									class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 									class="m-menu__link-text">Quản lý tài khoản</span></a></li>
+						@endcan
 						<li class="m-menu__item " aria-haspopup="true"><a href="{{route('account.quyen-truy-cap')}}"
 								class="m-menu__link "><i
 									class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 									class="m-menu__link-text">Quản lý quyền truy cập</span></a></li>
+						{{-- Start - CườngNC - Update - Tạo Phân Quyền - 18/06/2020 --}}
 						<li class="m-menu__item " aria-haspopup="true"><a href="{{route('account.phan-quyen-tk')}}"
 								class="m-menu__link "><i
 									class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
-									class="m-menu__link-text">Phân quyền tài khoản</span></a></li>
+									class="m-menu__link-text">Quản lý quyền</span></a></li>
+						{{-- End - CườngNC - Update - Tạo Phân Quyền - 18/06/2020 --}}
 					</ul>
 				</div>
 			</li>
+
+
+
 			<li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a
 					href="javascript:;" class="m-menu__link m-menu__toggle"><i
 						class="m-menu__link-icon flaticon-share"></i><span class="m-menu__link-text">Quản lý cơ sở đào
 						tạo</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
 				<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 					<ul class="m-menu__subnav">
+						@canany(['them_moi_co_so_dao_tao','xem_chi_tiet_co_so_dao_tao','cap_nhat_co_so_dao_tao'])
 						<li class="m-menu__item " aria-haspopup="true"><a href="{{route('csdt.danh-sach')}}"
 								class="m-menu__link "><i
 									class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 									class="m-menu__link-text">Danh sách cơ sở đào tạo</span></a></li>
+						@endcan
+						@canany(['them_moi_dia_diem_dao_tao' , 'cap_nhat_dia_diem_dao_tao' , 'xoa_dia_diem_dao_tao'])
 						<li class="m-menu__item " aria-haspopup="true"><a href="{{route('csdt.chi-nhanh')}}"
 								class="m-menu__link "><i
 									class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 									class="m-menu__link-text">Danh sách địa điểm đào tạo</span></a></li>
-
+						@endcan
 					</ul>
 				</div>
 			</li>
+
+
+
 			<li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a
 					href="javascript:;" class="m-menu__link m-menu__toggle"><i
 						class="m-menu__link-icon flaticon-web"></i><span class="m-menu__link-text">Quản lý ngành
 						nghề</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
 				<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 					<ul class="m-menu__subnav">
-
+						@canany(['them_moi_nganh_nghe' , 'xem_chi_tiet_nganh_nghe' , 'cap_nhat_nganh_nghe',
+						'xoa_nganh_nghe'])
 						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
 							m-menu-submenu-toggle="hover"><a href="{{route('nghe.danh-sach')}}"
 								class="m-menu__link m-menu__toggle"><i
@@ -73,6 +89,8 @@
 									class="m-menu__ver-arrow la la-angle-right"></i></a>
 
 						</li>
+						@endcan
+
 						<li class="m-menu__item " aria-haspopup="true"><a href="{{route('nghe.chi-tieu-ts')}}"
 								class="m-menu__link "><i
 									class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
@@ -84,6 +102,8 @@
 					</ul>
 				</div>
 			</li>
+
+
 			{{-- HieuNT --}}
 			{{-- <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a
 					href="javascript:;" class="m-menu__link m-menu__toggle"><i
@@ -193,6 +213,9 @@
 {{-- VinhNB --}}
 
 {{-- Quản lý nhân sự --}}
+{{-- @canany(['them_moi_quan_ly_giao_vien' , 'cap_nhat_quan_ly_giao_vien',
+'them_moi_danh_sach_doi_ngu_nha_giao', 'cap_nhat_danh_sach_doi_ngu_nha_giao', 'chinh_sua_doi_ngu_nha_giao',
+'them_moi_danh_sach_doi_ngu_quan_ly', 'cap_nhat_danh_sach_doi_ngu_quan_ly', 'xem_chi_tiet_danh_sach_doi_ngu_quan_ly']) --}}
 <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;"
 		class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-avatar"></i><span
 			class="m-menu__link-text">Quản lý nhân
@@ -211,34 +234,38 @@
 		</ul>
 	</div>
 </li>
+{{-- @endcan --}}
 {{-- End Quản lý nhân sự --}}
 
 {{-- Quản lý sinh viên đang có mặt --}}
+
 <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
 	<a href="javascript:;" class="m-menu__link m-menu__toggle">
 		<i class="m-menu__link-icon flaticon-statistics"></i>
 		<span class="m-menu__link-text">Quản lý sinh viên đang theo học</span>
 		<i class="m-menu__ver-arrow la la-angle-right"></i>
 	</a>
+
 	<div class="m-menu__submenu ">
 		<span class="m-menu__arrow"></span>
 		<ul class="m-menu__subnav">
+			@canany(['them_so_luong_sinh_vien_dang_theo_hoc','sua_so_luong_sinh_vien_dang_theo_hoc','xem_so_luong_sinh_vien_dang_theo_hoc'])
 			<li class="m-menu__item " aria-haspopup="true">
-				@canany(['them_so_luong_sinh_vien_dang_theo_hoc','sua_so_luong_sinh_vien_dang_theo_hoc','xem_so_luong_sinh_vien_dang_theo_hoc'])
-				<a href="{{route('xuatbc.ds-sv-dang-hoc')}}"
-					class="m-menu__link ">
+				<a href="{{route('xuatbc.ds-sv-dang-hoc')}}" class="m-menu__link ">
 					<i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i>
 					<span class="m-menu__link-text">Tổng hợp sinh viên đang theo học</span>
 				</a>
-				@endcan
 			</li>
+			@endcan
 		</ul>
 	</div>
 </li>
+
 {{-- End quản lý sinh viên đang có mặt --}}
 
 
 {{-- Quản lý chính sách cho sinh viên --}}
+
 <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;"
 		class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-statistics"></i><span
 			class="m-menu__link-text">Quản lý chính
@@ -248,18 +275,23 @@
 			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('nhapbc.chinh-sach-sv')}}"
 					class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 						class="m-menu__link-text">Thực hiện chính sách cho sinh viên</span></a></li>
+			@canany(['them_moi_tong_hop_thuc_hien_chinh_sach_cho_sv' , 'cap_nhat_tong_hop_thuc_hien_chinh_sach_cho_sv'])
 			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('xuatbc.tong-hop-chinh-sach-sinh-vien')}}"
 					class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 						class="m-menu__link-text">Tổng hợp thực hiện chính sách cho SV</span></a></li>
+			@endcan
 		</ul>
 	</div>
 </li>
+
 {{-- End Quản lý chính sách cho sinh viên --}}
 
 {{-- Quản lý đăng kí chỉ tiêu --}}
+
 <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;"
 		class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-users"></i><span
-			class="m-menu__link-text">Quản lý đăng kí chỉ tiêu</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
+			class="m-menu__link-text">Quản lý đăng kí chỉ tiêu</span><i
+			class="m-menu__ver-arrow la la-angle-right"></i></a>
 	<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 		<ul class="m-menu__subnav">
 			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('xuatbc.ds-chi-tieu-ts')}}"
@@ -271,15 +303,19 @@
 {{-- End Quản lý đăng kí chỉ tiêu  --}}
 
 {{-- Quản lý kết quả tuyển sinh --}}
+
 <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;"
 		class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-grid-menu"></i><span
 			class="m-menu__link-text">Quản lý kết
 			quả tuyển sinh</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
 	<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 		<ul class="m-menu__subnav">
+			@canany(['them_moi_tong_hop_ket_qua_tuyen_sinh' , 'xem_chi_tiet_tong_hop_ket_qua_tuyen_sinh',
+			'sua_chi_tiet_tong_hop_ket_qua_tuyen_sinh'])
 			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('solieutuyensinh')}}"
 					class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 						class="m-menu__link-text">Kết quả tuyển sinh</span></a></li>
+			@endcan
 			<li class="m-menu__item " aria-haspopup="true">
 				<a href="{{route('nhapbc.ket-qua-ts')}}" class="m-menu__link ">
 					<i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i>
@@ -289,9 +325,11 @@
 		</ul>
 	</div>
 </li>
+
 {{-- End Quản lý kết quả tuyển sinh --}}
 
 {{-- Quản lý xây dựng chương trình giáo trình  --}}
+
 <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;"
 		class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-folder"></i><span
 			class="m-menu__link-text">Quản lý xd
@@ -312,6 +350,7 @@
 {{-- End quản lý xây dựng chương trình --}}
 
 {{-- Quản lý kết quả tốt nghiệp --}}
+
 <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;"
 		class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-technology-1"></i><span
 			class="m-menu__link-text">Quản lý kết
@@ -322,13 +361,16 @@
 			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('nhapbc.kq-tot-nghiep')}}"
 					class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 						class="m-menu__link-text">Kết quả tốt nghiệp</span></a></li>
+			@canany(['them_moi_tong_hop_ket_qua_tot_nghiep', 'xem_chi_tiet_tong_hop_ket_qua_tot_nghiep'])
 			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('xuatbc.ds-tot-nghiep')}}"
 					class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 						class="m-menu__link-text">Tổng hợp kết quả tốt nghiệp</span></a></li>
+			@endcan
 
 		</ul>
 	</div>
 </li>
+
 {{-- End quản lý kết quả tốt nghiệp --}}
 
 {{-- Quản lý đào tạo nghề  --}}
