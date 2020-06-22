@@ -370,7 +370,6 @@ public function importError($fileRead,$duoiFile,$path){
                     array_push($vitri,$arrayApha[$key_aphabel].$rowNumber);
                     }
                  }
-                  
            }
        }
     $spreadsheet2 = IOFactory::load($fileReadStorage);

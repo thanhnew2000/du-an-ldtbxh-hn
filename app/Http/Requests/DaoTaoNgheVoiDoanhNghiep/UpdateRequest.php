@@ -24,11 +24,7 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         $data = $this->all();
-<<<<<<< HEAD
-        unset($data['_token'],$data['khac']);
-=======
         unset($data['_token'],$data['khac'],$data['ten_doanh_nghiep']);
->>>>>>> 270990d09284d28a74a2cbad390bbd22e27077e5
         foreach ($data as $item=>$value) {
             if($value == null){
                 $getDataCheck[$item] = 'min:0|';
