@@ -225,10 +225,6 @@
                     aria-hidden="true"></i>
                 Xuất dữ liệu ra Excel</a>
         </div>
-        <div class="col-lg-6 " style="text-align: right">
-            <a href="{{route('themsolieutuyensinh')}}"><button type="button" class="btn btn-secondary">Thêm
-                    mới</button></a>
-        </div>
     </div>
     <div class="m-portlet">
         <div class="m-portlet__body">
@@ -260,7 +256,7 @@
                         <th scope="col">Kế hoạch tuyển sinh</th>
                         <th scope="col">Trạng thái</th>
                         <!-- <th scope="col">Chỉnh sửa</th> -->
-                        <th scope="col">Thao tác</th>
+                        <th scope="col"> <a href="{{route('themsolieutuyensinh')}}" class="btn btn-success btn-sm">Thêm mới</a></th>
                     </tr>
                 </thead>
                 <tbody>
