@@ -110,7 +110,7 @@
                         <th rowspan="2">Tổng số học sinh được cấp bằng tốt nghiệp theo hình thức hợp tác quốc tế</th>
                         <th rowspan="2">Tổng số hợp tác quốc tế trong đào tạo , bồi dưỡng giáo viên , cán bộ quản lý
                         </th>
-                        <th rowspan="2">Tổng số kinh phí đầu tư trang thiết bị , máy móc</th>
+                        <th rowspan="2">Tổng số kinh phí đầu tư trang thiết bị , máy móc <br> ( triệu đồng)</th>
                         <th rowspan="2">Trạng thái</th>
                         <th rowspan="2">
                             <a target="_blank" href="{{ route('xuatbc.them-ds-hop-tac-qte') }}" class="btn btn-success btn-sm">Thêm mới</a>
@@ -131,7 +131,7 @@
                         <td>{{ $item->tong_tuyen_sinh }}</td>
                         <td>{{ $item->tong_so_hs_duoc_cap_bang }}</td>
                         <td>{{ $item->tong_hop_tac_quoc_te_trong_dao_tao_boi_duong }}</td>
-                        <td>{{ $item->tong_kinh_phi }}</td>
+                        <td>{{ ($item->tong_kinh_phi / 1000000) }}</td>
                         <td>{{ $item->ten_trang_thai }}</td>
                         <td>
                             <a class="btn btn-info" href="{{ route('xuatbc.chi-tiet-ds-hop-tac-qte',['co_so_id' => $item->co_so_id]) }}" target="_blank">Chi tiết</a>
@@ -139,12 +139,8 @@
                     </tr>
                     @php
                     $stt ++;   
-                   @endphp
+                    @endphp
                     @endforeach
-
-                 
-                   
-
                 </tbody>
             </table>
             <div>
@@ -167,21 +163,6 @@
 
 
 @section('script')
-<script src="sweetalert2.min.js"></script>
-<link rel="stylesheet" href="sweetalert2.min.css">
-
-{{-- @if (session('kq'))
-<script>
-    Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'Thêm thành công !',
-        showConfirmButton: false,
-        timer: 3500
-    })
-
-</script>
-@endif --}}
 <script>
     var currentUrl = '{{route($route_name)}}';
     $(document).ready(function () {
@@ -194,10 +175,7 @@
                 `${currentUrl}?co_so_id=${co_so_id}&dot=${dot}&nam=${nam}&page_size=${page_size}`;
             window.location.href = reloadUrl;
         });
-
         $('.select2').select2();
-
     });
-
 </script>
 @endsection

@@ -152,11 +152,11 @@
                         
                         <th colspan="4">Chương trình </th>
                         <th colspan="4">Giáo trình</th>
-                        <th rowspan="2">Kinh phí</th>
+                        <th rowspan="2">Kinh phí <br> ( triệu đồng)</th>
                        
                         <th colspan="4">Chương trình </th>
                         <th colspan="4">Giáo trình</th>
-                        <th rowspan="2">Kinh phí</th>
+                        <th rowspan="2">Kinh phí <br> ( triệu đồng)</th>
 
                     </tr>
                     <tr>
@@ -205,7 +205,7 @@
                        <td>{{ $item->XD_giao_trinh_moi_TC }}</td>
                        <td>{{ $item->XD_giao_trinh_moi_SC }}</td>
 
-                       <td>{{ $item->kinh_phi_thuc_hien_xd_moi }}</td>
+                       <td>{{ ($item->kinh_phi_thuc_hien_xd_moi / 1000000) }}</td>
 
 
                        {{-- Chỉnh sửa --}}
@@ -219,7 +219,7 @@
                        <td>{{ $item->sua_giao_trinh_TC }}</td>
                        <td>{{ $item->sua_giao_trinh_SC }}</td>
 
-                       <td>{{ $item->kinh_phi_thuc_hien_chinh_sua }}</td>
+                       <td>{{ ($item->kinh_phi_thuc_hien_chinh_sua / 1000000) }}</td>
 
                        <td>
                            <a class="btn btn-info" href="{{ route('xuatbc.show-ds-xd-giao-trinh',['co_so_id' => $item->co_so_id]) }}" target="_blank">Chi tiết</a>

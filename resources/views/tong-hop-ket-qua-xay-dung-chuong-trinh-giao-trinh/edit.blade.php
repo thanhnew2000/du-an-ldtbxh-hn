@@ -98,7 +98,7 @@
                                     <div class="form-group m-form__group row">
                                         <label class="col-lg-7 col-form-label">Tổng số xây dựng chương chình</label>
                                         <div class="col-lg-5">
-                                            <input type="number" min="0" class="form-control m-input" placeholder="Nhập vào số"
+                                            <input type="number" min="0" class="form-control m-input name-field" placeholder="Nhập vào số"
                                                 name="tong_so_XD_chuong_trinh_moi" @if (old('tong_so_XD_chuong_trinh_moi'))
                                                 value="{{old('tong_so_XD_chuong_trinh_moi')}}" @else
                                                 value="{{ $data->tong_so_XD_chuong_trinh_moi }}" @endif>
@@ -112,7 +112,7 @@
                                     <div class="form-group m-form__group row">
                                         <label class="col-lg-7 col-form-label">Số lượng xây dựng chương chình CĐ</label>
                                         <div class="col-lg-5">
-                                            <input type="number" min="0" class="form-control m-input" placeholder="Nhập vào số"
+                                            <input type="number" min="0" class="form-control m-input name-field" placeholder="Nhập vào số"
                                                 name="XD_chuong_trinh_moi_CD" @if (old('XD_chuong_trinh_moi_CD'))
                                                 value="{{old('XD_chuong_trinh_moi_CD')}}" @else
                                                 value="{{ $data->XD_chuong_trinh_moi_CD }}" @endif>
@@ -126,7 +126,7 @@
                                     <div class="form-group m-form__group row">
                                         <label class="col-lg-7 col-form-label">Số lượng xây dựng chương chình CT</label>
                                         <div class="col-lg-5">
-                                            <input type="number" min="0" class="form-control m-input" placeholder="Nhập vào số"
+                                            <input type="number" min="0" class="form-control m-input name-field" placeholder="Nhập vào số"
                                                 name="XD_chuong_trinh_moi_TC" @if (old('XD_chuong_trinh_moi_TC'))
                                                 value="{{old('XD_chuong_trinh_moi_TC')}}" @else
                                                 value="{{ $data->XD_chuong_trinh_moi_TC }}" @endif>
@@ -140,7 +140,7 @@
                                     <div class="form-group m-form__group row">
                                         <label class="col-lg-7 col-form-label">Số lượng xây dựng chương chình SC</label>
                                         <div class="col-lg-5">
-                                            <input type="number" min="0" class="form-control m-input" placeholder="Nhập vào số"
+                                            <input type="number" min="0" class="form-control m-input name-field" placeholder="Nhập vào số"
                                                 name="XD_chuong_trinh_moi_SC" @if (old('XD_chuong_trinh_moi_SC'))
                                                 value="{{old('XD_chuong_trinh_moi_SC')}}" @else
                                                 value="{{ $data->XD_chuong_trinh_moi_SC }}" @endif>
@@ -154,7 +154,7 @@
                                     <div class="form-group m-form__group row">
                                         <label class="col-lg-7 col-form-label">Tổng số xây dựng giáo trình</label>
                                         <div class="col-lg-5">
-                                            <input type="number" min="0" class="form-control m-input" placeholder="Nhập vào số"
+                                            <input type="number" min="0" class="form-control m-input name-field" placeholder="Nhập vào số"
                                                 name="tong_so_XD_giao_trinh_moi" @if (old('tong_so_XD_giao_trinh_moi'))
                                                 value="{{old('tong_so_XD_giao_trinh_moi')}}" @else
                                                 value="{{ $data->tong_so_XD_giao_trinh_moi }}" @endif>
@@ -168,7 +168,7 @@
                                     <div class="form-group m-form__group row">
                                         <label class="col-lg-7 col-form-label">Số lượng xây dựng giáo trình CĐ</label>
                                         <div class="col-lg-5">
-                                            <input type="number" min="0" class="form-control m-input" placeholder="Nhập vào số"
+                                            <input type="number" min="0" class="form-control m-input name-field" placeholder="Nhập vào số"
                                                 name="XD_giao_trinh_moi_CD" @if (old('XD_giao_trinh_moi_CD'))
                                                 value="{{old('XD_giao_trinh_moi_CD')}}" @else
                                                 value="{{ $data->XD_giao_trinh_moi_CD }}" @endif>
@@ -182,7 +182,7 @@
                                     <div class="form-group m-form__group row">
                                         <label class="col-lg-7 col-form-label">Số lượng xây dựng giáo trình TC</label>
                                         <div class="col-lg-5">
-                                            <input type="number" min="0" class="form-control m-input" placeholder="Nhập vào số"
+                                            <input type="number" min="0" class="form-control m-input name-field" placeholder="Nhập vào số"
                                                 name="XD_giao_trinh_moi_TC" @if (old('XD_giao_trinh_moi_TC'))
                                                 value="{{old('XD_giao_trinh_moi_TC')}}" @else
                                                 value="{{ $data->XD_giao_trinh_moi_TC }}" @endif>
@@ -196,7 +196,7 @@
                                     <div class="form-group m-form__group row">
                                         <label class="col-lg-7 col-form-label">Số lượng xây dựng giáo trình SC</label>
                                         <div class="col-lg-5">
-                                            <input type="number" min="0" class="form-control m-input" placeholder="Nhập vào số"
+                                            <input type="number" min="0" class="form-control m-input name-field" placeholder="Nhập vào số"
                                                 name="XD_giao_trinh_moi_SC" @if (old('XD_giao_trinh_moi_SC'))
                                                 value="{{old('XD_giao_trinh_moi_SC')}}" @else
                                                 value="{{ $data->XD_giao_trinh_moi_SC }}" @endif>
@@ -210,7 +210,7 @@
                                     <div class="form-group m-form__group row">
                                         <label class="col-lg-7 col-form-label">Kinh phí thực hiện xây dựng</label>
                                         <div class="col-lg-5">
-                                            <input type="number" min="0" class="form-control m-input" placeholder="Nhập vào số"
+                                            <input type="number" min="0" class="form-control m-input name-field" placeholder="Nhập vào số"
                                                 name="kinh_phi_thuc_hien_xd_moi" @if (old('kinh_phi_thuc_hien_xd_moi'))
                                                 value="{{old('kinh_phi_thuc_hien_xd_moi')}}" @else
                                                 value="{{ $data->kinh_phi_thuc_hien_xd_moi }}" @endif>
@@ -248,7 +248,7 @@
                                     <div class="form-group m-form__group row">
                                         <label class="col-lg-7 col-form-label">Tổng số sửa chương trình</label>
                                         <div class="col-lg-5">
-                                            <input type="number" min="0" class="form-control m-input" placeholder="Nhập vào số"
+                                            <input type="number" min="0" class="form-control m-input name-field" placeholder="Nhập vào số"
                                                 name="tong_so_chuong_trinh_chinh_sua" @if (old('tong_so_chuong_trinh_chinh_sua'))
                                                 value="{{old('tong_so_chuong_trinh_chinh_sua')}}" @else
                                                 value="{{ $data->tong_so_chuong_trinh_chinh_sua }}" @endif>
@@ -262,7 +262,7 @@
                                     <div class="form-group m-form__group row">
                                         <label class="col-lg-7 col-form-label">Số lượng sửa chương chình CĐ</label>
                                         <div class="col-lg-5">
-                                            <input type="number" min="0" class="form-control m-input" placeholder="Nhập vào số"
+                                            <input type="number" min="0" class="form-control m-input name-field" placeholder="Nhập vào số"
                                                 name="sua_chuong_trinh_CD" @if (old('sua_chuong_trinh_CD'))
                                                 value="{{old('sua_chuong_trinh_CD')}}" @else
                                                 value="{{ $data->sua_chuong_trinh_CD }}" @endif>
@@ -275,7 +275,7 @@
                                     <div class="form-group m-form__group row">
                                         <label class="col-lg-7 col-form-label">Số lượng sửa chương chình CT</label>
                                         <div class="col-lg-5">
-                                            <input type="number" min="0" class="form-control m-input" placeholder="Nhập vào số"
+                                            <input type="number" min="0" class="form-control m-input name-field" placeholder="Nhập vào số"
                                                 name="sua_chuong_trinh_TC" @if (old('sua_chuong_trinh_TC'))
                                                 value="{{old('sua_chuong_trinh_TC')}}" @else
                                                 value="{{ $data->sua_chuong_trinh_TC }}" @endif>
@@ -288,7 +288,7 @@
                                     <div class="form-group m-form__group row">
                                         <label class="col-lg-7 col-form-label">Số lượng sửa chương chình SC</label>
                                         <div class="col-lg-5">
-                                            <input type="number" min="0" class="form-control m-input" placeholder="Nhập vào số"
+                                            <input type="number" min="0" class="form-control m-input name-field" placeholder="Nhập vào số"
                                             name="sua_chuong_trinh_SC" @if (old('sua_chuong_trinh_SC'))
                                             value="{{old('sua_chuong_trinh_SC')}}" @else
                                             value="{{ $data->sua_chuong_trinh_SC }}" @endif>
@@ -301,7 +301,7 @@
                                     <div class="form-group m-form__group row">
                                         <label class="col-lg-7 col-form-label">Tổng số sửa giáo trình</label>
                                         <div class="col-lg-5">
-                                            <input type="number" min="0" class="form-control m-input" placeholder="Nhập vào số"
+                                            <input type="number" min="0" class="form-control m-input name-field" placeholder="Nhập vào số"
                                                 name="tong_so_giao_trinh_chinh_sua" @if (old('tong_so_giao_trinh_chinh_sua'))
                                                 value="{{old('tong_so_giao_trinh_chinh_sua')}}" @else
                                                 value="{{ $data->tong_so_giao_trinh_chinh_sua }}" @endif>
@@ -315,7 +315,7 @@
                                     <div class="form-group m-form__group row">
                                         <label class="col-lg-7 col-form-label">Số lượng sửa giáo trình CĐ</label>
                                         <div class="col-lg-5">
-                                            <input type="number" min="0" class="form-control m-input" placeholder="Nhập vào số"
+                                            <input type="number" min="0" class="form-control m-input name-field" placeholder="Nhập vào số"
                                                 name="sua_giao_trinh_CD" @if (old('sua_giao_trinh_CD'))
                                                 value="{{old('sua_giao_trinh_CD')}}" @else
                                                 value="{{ $data->sua_giao_trinh_CD }}" @endif>
@@ -328,7 +328,7 @@
                                     <div class="form-group m-form__group row">
                                         <label class="col-lg-7 col-form-label">Số lượng sửa giáo trình TC</label>
                                         <div class="col-lg-5">
-                                            <input type="number" min="0" class="form-control m-input" placeholder="Nhập vào số"
+                                            <input type="number" min="0" class="form-control m-input name-field" placeholder="Nhập vào số"
                                             name="sua_giao_trinh_TC" @if (old('sua_giao_trinh_TC'))
                                             value="{{old('sua_giao_trinh_TC')}}" @else
                                             value="{{ $data->sua_giao_trinh_TC }}" @endif>
@@ -341,7 +341,7 @@
                                     <div class="form-group m-form__group row">
                                         <label class="col-lg-7 col-form-label">Số lượng sửa giáo trình SC</label>
                                         <div class="col-lg-5">
-                                            <input type="number" min="0" class="form-control m-input" placeholder="Nhập vào số"
+                                            <input type="number" min="0" class="form-control m-input name-field" placeholder="Nhập vào số"
                                             name="sua_giao_trinh_SC" @if (old('sua_giao_trinh_SC'))
                                             value="{{old('sua_giao_trinh_SC')}}" @else
                                             value="{{ $data->sua_giao_trinh_SC }}" @endif>
@@ -354,7 +354,7 @@
                                     <div class="form-group m-form__group row">
                                         <label class="col-lg-7 col-form-label">Kinh phí thực hiện sửa</label>
                                         <div class="col-lg-5">
-                                            <input type="number" min="0" class="form-control m-input" placeholder="Nhập vào số"
+                                            <input type="number" min="0" class="form-control m-input name-field" placeholder="Nhập vào số"
                                             name="kinh_phi_thuc_hien_chinh_sua" @if (old('kinh_phi_thuc_hien_chinh_sua'))
                                             value="{{old('kinh_phi_thuc_hien_chinh_sua')}}" @else
                                             value="{{ $data->kinh_phi_thuc_hien_chinh_sua }}" @endif>
@@ -394,7 +394,6 @@
         showConfirmButton: false,
         timer: 3500
     })
-
 </script>
 @endif
 @endsection

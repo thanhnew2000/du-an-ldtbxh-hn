@@ -188,7 +188,7 @@
                         <td>{{ $item->XD_giao_trinh_moi_CD }}</td>
                         <td>{{ $item->XD_giao_trinh_moi_TC }}</td>
                         <td>{{ $item->XD_giao_trinh_moi_SC }}</td>
-                        <td>{{ $item->kinh_phi_thuc_hien_xd_moi }}</td>
+                        <td>{{ $item->kinh_phi_thuc_hien_xd_moi }} VNĐ</td>
 
                         <td>{{ $item->ten_nghe }}</td>
                         <td>{{ $item->sua_chuong_trinh_CD }}</td>
@@ -198,7 +198,7 @@
                         <td>{{ $item->sua_giao_trinh_CD }}</td>
                         <td>{{ $item->sua_giao_trinh_TC }}</td>
                         <td>{{ $item->sua_giao_trinh_SC }}</td>
-                        <td>{{ $item->kinh_phi_thuc_hien_chinh_sua }}</td>
+                        <td>{{ $item->kinh_phi_thuc_hien_chinh_sua }} VNĐ</td>
                         <td>
                             <a target="_blank"
                             href="{{ route('xuatbc.edit-ds-xd-giao-trinh',['id'=>$item->id]) }}"
