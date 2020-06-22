@@ -45,7 +45,6 @@ abstract  class AppService
     public function create($request, $unsetColumn = [])
     {
         $attributes = $request->all();
-        // dd($attributes);
         if (count($unsetColumn) > 0) {
             foreach ($unsetColumn as $col) {
                 // dd($col);

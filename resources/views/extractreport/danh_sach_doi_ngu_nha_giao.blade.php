@@ -109,7 +109,7 @@ $stt = 1;
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Đợt</label>
                                 <div class="col-lg-8">
-                                    <select name="dot" id="" class="form-control ">
+                                    <select name="dot" id="" class="form-control select2">
                                         <option value="">-----Chọn đợt-----</option>
                                         <option @if(isset($params['dot']) && $params['dot']==config('common.dot.1'))
                                             selected @endif value="{{config('common.dot.1')}}">
@@ -125,7 +125,7 @@ $stt = 1;
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Năm</label>
                                 <div class="col-lg-8">
-                                    <select name="nam" class="form-control ">
+                                    <select name="nam" class="form-control select2">
                                         <option value="">-----Chọn năm-----</option>
                                         @foreach(config('common.nam.list') as $nam)
                                         <option @if(isset($params['nam']) && $params['nam']==$nam) selected @endif
@@ -190,7 +190,7 @@ $stt = 1;
                         <th>Ngành Nghề</th>
 
                         <th>
-                            <a href="{{ route('xuatbc.them-ds-nha-giao') }}" class="btn btn-success btn-sm">Thêm mới</a>
+                            <a target="_blank" href="{{ route('xuatbc.them-ds-nha-giao') }}" class="btn btn-success btn-sm">Thêm mới</a>
                         </th>
                     </tr>
                 </thead>
@@ -207,7 +207,7 @@ $stt = 1;
                         <td>{{ $item->dot }}</td>
                         <td>{{ $item->ten_nghe }}</td>
                         <td>
-                            <a href="{{ route('xuatbc.chi-tiet-theo-co-so',['co_so_id'=>$item->co_so_id]) }}"
+                            <a target="_blank" href="{{ route('xuatbc.chi-tiet-theo-co-so',['co_so_id'=>$item->co_so_id]) }}"
                                 class="btn btn-info btn-sm">Chi tiết</a>
                         </td>
                     </tr>
