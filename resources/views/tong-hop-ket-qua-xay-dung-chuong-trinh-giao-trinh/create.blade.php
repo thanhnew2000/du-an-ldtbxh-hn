@@ -130,7 +130,7 @@
                             <div class="row col-12">
                                 <div class="col-md-12">
                                     <div class="form-group m-form__group row">
-                                        <label class="col-lg-7 col-form-label">Tổng số xây dựng chương chình</label>
+                                        <label class="col-lg-7 col-form-label">Tổng số xây dựng chương trình</label>
                                         <div class="col-lg-5">
                                             <input type="number" min="0" class="form-control m-input name-field"
                                                 placeholder="Nhập vào số" name="tong_so_XD_chuong_trinh_moi"
@@ -143,7 +143,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group m-form__group row">
-                                        <label class="col-lg-7 col-form-label">Số lượng xây dựng chương chình CĐ</label>
+                                        <label class="col-lg-7 col-form-label">Số lượng xây dựng chương trình CĐ</label>
                                         <div class="col-lg-5">
                                             <input type="number" min="0" class="form-control m-input name-field"
                                                 placeholder="Nhập vào số" name="XD_chuong_trinh_moi_CD"
@@ -156,7 +156,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group m-form__group row">
-                                        <label class="col-lg-7 col-form-label">Số lượng xây dựng chương chình CT</label>
+                                        <label class="col-lg-7 col-form-label">Số lượng xây dựng chương trình CT</label>
                                         <div class="col-lg-5">
                                             <input type="number" min="0" class="form-control m-input name-field"
                                                 placeholder="Nhập vào số" name="XD_chuong_trinh_moi_TC"
@@ -169,7 +169,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group m-form__group row">
-                                        <label class="col-lg-7 col-form-label">Số lượng xây dựng chương chình SC</label>
+                                        <label class="col-lg-7 col-form-label">Số lượng xây dựng chương trình SC</label>
                                         <div class="col-lg-5">
                                             <input type="number" min="0" class="form-control m-input name-field"
                                                 placeholder="Nhập vào số" name="XD_chuong_trinh_moi_SC"

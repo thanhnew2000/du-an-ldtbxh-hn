@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -13,7 +12,6 @@ use App\Http\Requests\XayDungChuongTrinhGiaoTrinh\UpdateXayDungChuongTrinhGiaoTr
 
 class XayDungChuongTrinhGiaoTrinhController extends Controller
 {
-
     protected $XayDungChuongTrinhGiaoTrinhService;
 
     public function __construct(
@@ -52,7 +50,8 @@ class XayDungChuongTrinhGiaoTrinhController extends Controller
      * @author: phucnv
      * @created_at 2020-06-19
      */
-    public function show($co_so_id, Request $request){
+    public function show($co_so_id, Request $request)
+    {
         $check_co_so = $this->XayDungChuongTrinhGiaoTrinhService->checkTonTai($co_so_id);
         if (!$check_co_so) {
             return redirect()->route('xuatbc.ds-xd-giao-trinh');
@@ -63,9 +62,8 @@ class XayDungChuongTrinhGiaoTrinhController extends Controller
         $route_name = Route::current()->action['as'];
 
         $data = $this->XayDungChuongTrinhGiaoTrinhService->chiTietTheoCoSo($co_so_id,$params);
-        $params['get_nganh_nghe_theo_co_so'] = $this->XayDungChuongTrinhGiaoTrinhService->getNganhNghe();
+        $params['get_nganh_nghe_theo_co_so'] = $this->XayDungChuongTrinhGiaoTrinhService->getNganhNgheTheoCoSo($co_so_id);
         $thongtincoso = $this->XayDungChuongTrinhGiaoTrinhService->getSingleCsdt($co_so_id);
-    
         $data->withPath("?nghe_id=$request->nghe_id&dot=$request->dot&nam=$request->nam&page_size=$request->page_size");  
         
         if($data->count() < 1){
@@ -95,12 +93,13 @@ class XayDungChuongTrinhGiaoTrinhController extends Controller
     public function store(StoreXayDungChuongTrinhGiaoTrinhRequest $request)
     {
         $params = $request->all();
-        
         $kq = $this->XayDungChuongTrinhGiaoTrinhService->checkTonTaiKhiThem($params);
         if($kq){       
             return redirect()->route('xuatbc.create-ds-xd-giao-trinh')->with(['edit'=> $kq->id])->withInput();
         }
-
+        
+        $dateTime = Carbon::now();
+        $request->request->set('thoi_gian_cap_nhat', $dateTime->format('Y-m-d H:i:s'));
         $this->XayDungChuongTrinhGiaoTrinhService->create($request);
         return redirect()->route('xuatbc.create-ds-xd-giao-trinh')->with(['success'=> 'thêm thành công']);
     }
@@ -115,6 +114,7 @@ class XayDungChuongTrinhGiaoTrinhController extends Controller
         if (empty($data)) {
             return redirect()->route('xuatbc.ds-xd-giao-trinh');
         }
+
         $params['ten_nghe'] = $this->XayDungChuongTrinhGiaoTrinhService->findNganhNgheById($data->nghe_id)->ten_nganh_nghe;
         $params['co_so_dao_tao'] = $this->XayDungChuongTrinhGiaoTrinhService->getCoSoDaoTao();
         return view('tong-hop-ket-qua-xay-dung-chuong-trinh-giao-trinh.edit',compact('params','data'));
@@ -135,7 +135,7 @@ class XayDungChuongTrinhGiaoTrinhController extends Controller
         $dateTime = Carbon::now();
         $request->request->set('thoi_gian_cap_nhat', $dateTime->format('Y-m-d H:i:s'));
         $this->XayDungChuongTrinhGiaoTrinhService->update($id,$request);
-         return redirect()->back()->with(['success'=>'Cập nhật thành công !']);
+        return redirect()->back()->with(['success'=>'Cập nhật thành công !']);
     }
     
     //phucnv end BM:12
