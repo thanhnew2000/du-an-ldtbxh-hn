@@ -258,7 +258,7 @@
                     </p>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
                     <button type="button" class="btn btn-primary" id="submitTai"  onclick="closeModal('closeImportFile')">Tải</a>
-                        <button type="submit"  class="btn btn-primary" id="submitTaiok">Tải ok</a>
+                        <button type="submit" hidden  class="btn btn-primary" id="submitTaiok">Tải ok</a>
                 </div>
             </div>
         </div>
@@ -360,12 +360,6 @@
         });
 
         $('.select2').select2();
-
-        $(function() {
-            $( "#datepickerFrom" ).datepicker();
-            $( "#datepickerTo" ).datepicker();
-         });
-
          $('span.select2').css('width', '100%');
     });
 
@@ -373,7 +367,11 @@
 
 {{-- thanhv --}}
     <script>
-    
+         $(function() {
+            $( "#datepickerFrom" ).datepicker();
+            $( "#datepickerTo" ).datepicker();
+         });
+
          function closeModal(id) {
             $('#' + id).trigger('click');
         }
