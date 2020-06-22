@@ -102,6 +102,10 @@ Route::group(['prefix' => 'lien-ket-dao-tao'], function () {
     Route::get('/chi-tiet-lien-ket-dao-tao', 'ImportReportController@chitietlienketdaotao')->name('nhapbc.chi-tiet-lien-ket-dao-tao');
     Route::get('/them-moi-lien-ket-dao-tao', 'ImportReportController@themmoilienketdaotao')->name('nhapbc.them-moi-lien-ket-dao-tao');
     Route::get('/chinh-sua-lien-ket-dao-tao', 'ImportReportController@chinhsualienketdaotao')->name('nhapbc.chinh-sua-lien-ket-dao-tao');
+
+      //thanhnv import
+      Route::post('import-kq-lien-ket-dao-tao', 'LienKetDaoTaoController@importFile')->name('importketqua.lien-ket-dao-tao');
+      Route::post('import-error-kq-lien-ket-dao-tao', 'LienKetDaoTaoController@importError')->name('import.error.lien-ket-dao-tao');
 });
 
 Route::group(['prefix' => 'thiet-lap-deadline-bao-cao'], function () {
