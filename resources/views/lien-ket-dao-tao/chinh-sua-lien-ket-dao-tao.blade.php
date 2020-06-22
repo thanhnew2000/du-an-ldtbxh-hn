@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', "Sửa liên kết đào tạo")
+@section('title', "Cập nhật liên kết đào tạo")
 @section('style')
 {{-- <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
 <link href="{!! asset('tuyensinh/css/themtuyensinh.css') !!}" rel="stylesheet" type="text/css" /> --}}

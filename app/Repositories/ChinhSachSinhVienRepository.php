@@ -82,6 +82,6 @@ class ChinhSachSinhVienRepository extends BaseRepository implements ChinhSachSin
                 'chinh_sach.ten as ten_chinh_sach'
             ])
             ->where('tong_hop_chinh_sach_voi_hssv.id', $id);
-        return  $data->get()->first();
+        return  $data->first();
     }
 }

@@ -77,11 +77,17 @@ class ChinhSachSinhVienController extends Controller
         $datacheck =  $request->datacheck;
         $getdata = $this->ChinhSachSinhVienService->getSoLieu($datacheck);
         if ($getdata == 'tontai') {
-            return 1;
+            return response()->json([
+                'result' => 1,
+            ]);
         } else if ($getdata == null) {
-            return 2;
+            return response()->json([
+                'result' => 2,
+            ]);
         } else {
-            return $urledit = route('xuatbc.post-sua-chinh-sach-sinh-vien', ['id' => $getdata->id]);
+            return response()->json([
+                'result' => route('xuatbc.post-sua-chinh-sach-sinh-vien', ['id' => $getdata->id]),
+            ]);
         }
     }
     public function suachinhsachsinhvien($id)

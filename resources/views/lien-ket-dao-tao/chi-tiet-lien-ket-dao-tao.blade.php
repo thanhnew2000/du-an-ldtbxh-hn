@@ -59,7 +59,7 @@
                                 <div class="form-group m-form__group row">
                                     <label class="col-lg-2 col-form-label">Năm</label>
                                     <div class="col-lg-8">
-                                        <select class="form-control" name="nam" id="nam">
+                                        <select class="form-control select2" name="nam" id="nam">
                                             <option value="" selected>Chọn</option>
                                             @foreach (config('common.nam_tuyen_sinh.list') as $item)
                                             <option @if (isset($params['nam']))
@@ -75,7 +75,7 @@
                                 <div class="form-group m-form__group row">
                                     <label for="" class="col-lg-2 col-form-label">Đợt</label>
                                     <div class="col-lg-8">
-                                        <select class="form-control" name="dot" id="dot">
+                                        <select class="form-control select2" name="dot" id="dot">
                                             <option value="">Chọn</option>
                                             <option @if (isset($params['dot']))
                                                 {{( $params['dot'] ==  1 ) ? 'selected' : ''}} @endif value="1">Đợt 1
@@ -282,4 +282,11 @@
     </form>
 </div>
 
+@endsection
+@section('script')
+<script>
+    $(document).ready(function(){
+    $('.select2').select2();
+    });
+</script>
 @endsection

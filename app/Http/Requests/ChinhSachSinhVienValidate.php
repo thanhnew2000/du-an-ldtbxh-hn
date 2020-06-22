@@ -24,19 +24,18 @@ class ChinhSachSinhVienValidate extends FormRequest
     public function rules()
     {
         return [
-            'so_hssv_CD' => 'required|numeric|min:0',
-            'so_hssv_TC' => 'required|numeric|min:0',
-            'tong_so_hssv' => 'required|numeric|min:0',
-            'kinh_phi_CD' => 'required|numeric|min:0',
-            'kinh_phi_TC' => 'required|numeric|min:0',
-            'kinh_phi' => 'required|numeric|min:0',
+            'so_hssv_CD' => 'min:0|integer',
+            'so_hssv_TC' => 'min:0|integer',
+            'tong_so_hssv' => 'min:0|integer',
+            'kinh_phi_CD' => 'min:0|integer',
+            'kinh_phi_TC' => 'min:0|integer',
+            'kinh_phi' => 'min:0|integer',
         ];
     }
     public function messages()
     {
         return [
-            'required' => 'Vui lòng nhập số liệu',
-            'numeric' => 'Hãy điền số',
+            'integer' => 'Vui lòng nhập số nguyên',
             'min' => 'Số liệu nhỏ nhất là 0'
         ];
     }

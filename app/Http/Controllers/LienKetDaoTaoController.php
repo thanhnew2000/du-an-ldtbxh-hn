@@ -165,11 +165,17 @@ class LienKetDaoTaoController extends Controller
         $datacheck =  $request->datacheck;
         $getdata = $this->LienKetDaoTaoService->getSoLieu($datacheck);
         if ($getdata == 'tontai') {
-            return 1;
+            return response()->json([
+                'result' => 1,
+            ]);
         } else if ($getdata == null) {
-            return 2;
+            return response()->json([
+                'result' => 2,
+            ]);
         } else {
-            return $urledit = route('xuatbc.post-sua-lien-ket-dao-tao', ['id' => $getdata->id, 'bac_nghe' => 0]);
+            return response()->json([
+                'result' => route('xuatbc.post-sua-lien-ket-dao-tao', ['id' => $getdata->id, 'bac_nghe' => 0]),
+            ]);
         }
     }
 

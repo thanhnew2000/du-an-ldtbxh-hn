@@ -41,7 +41,7 @@
                                             {{$item->ten}}</option>
                                         @endforeach
                                     </select>
-
+                                    <label id="ten_don_vi-error" class="error" for="ten_don_vi"></label>
                                     @if ($errors->has('co_so_id'))
                                     <span class="text-danger">{{ $errors->first('co_so_id') }}</span>
                                     @endif

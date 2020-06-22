@@ -376,7 +376,7 @@ $("#btn-them-co-quan").click(function(event){
             $.ajax({
             type: "POST",
             dataType: "json",
-            url: '{{route('co-quan-chu-quan.them')}}',
+            url: "{{route('co-quan-chu-quan.them')}}",
             data: {
                 ten: $('#ten-co-quan-chu-quan').val(),
                 ma: $('#ma-co-quan-chu-quan').val(),
@@ -418,7 +418,7 @@ $("#btn-them-co-quan").click(function(event){
             $.ajax({
             type: "POST",
             dataType: "json",
-            url: '{{route('quyet-dinh.add')}}',
+            url: "{{route('quyet-dinh.add')}}",
             data: dataPost,
             success: function(response){
                 var htmldata = '<option selected disabled>---Chọn quyết định---</option>'

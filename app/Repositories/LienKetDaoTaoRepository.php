@@ -80,7 +80,9 @@ class LienKetDaoTaoRepository extends BaseRepository implements LienKetDaoTaoRep
         if (isset($params['devvn_quanhuyen']) && $params['devvn_quanhuyen'] != null) {
             $query->where('maqh', $params['devvn_quanhuyen']);
         }
-
+        if (isset($params['nganh_nghe']) && $params['nganh_nghe'] != null) {
+            $query->where('lien_ket_qua_tuyen_sinh.nghe_id', 'like', $params['nganh_nghe'] . '%');
+        }
         return $query->groupBy('co_so_id')->paginate($limit);
     }
     public function getCoSo()

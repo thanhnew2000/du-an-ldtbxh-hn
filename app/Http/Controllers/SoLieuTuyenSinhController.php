@@ -68,7 +68,11 @@ class SoLieuTuyenSinhController extends Controller
 
     public function chitietsolieutuyensinh($coSoId)
     {
-        $limit = 10;
+        if(isset(request()->page_size)){
+            $limit = request()->page_size;
+        }else{
+            $limit = 20;
+        }
         $params = request()->all();
         $thongtincoso = $this->SoLieuTuyenSinhService->getThongTinCoSo($coSoId);
         $data = $this->SoLieuTuyenSinhService->getChiTietSoLuongTuyenSinh($coSoId, $limit, $params);
