@@ -94,7 +94,7 @@ Route::group(['prefix' => 'dao-tao-nghe-cho-thanh-nien'], function(){
 });
 
 Route::group(['prefix' => 'dao-tao-nghe-doanh-nghiep'], function () {
-    Route::get('/', 'ImportReportController@ketquadaotaovoidoanhnghiep')->name('nhapbc.dao-tao-nghe-doanh-nghiep');
+    Route::get('/', 'DaoTaoNgheVoiDoanhNghiepController@index')->name('nhapbc.dao-tao-nghe-doanh-nghiep');
 });
 
 Route::group(['prefix' => 'lien-ket-dao-tao'], function () {
