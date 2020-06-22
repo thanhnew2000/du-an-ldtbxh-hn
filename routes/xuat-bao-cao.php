@@ -236,6 +236,12 @@ Route::group(['prefix' => 'lien-ket-dao-tao'], function () {
         ->name('xuatbc.tong-hop-lien-ket-dao-tao-get-ma-nganh-nghe');
     Route::post('/tong-hop-lien-ket-dao-tao-get-nghe-theo-cap-bac', 'LienKetDaoTaoController@getNgheTheoCapBac')
         ->name('xuatbc.tong-hop-lien-ket-dao-tao-get-nghe-theo-cap-bac');
+
+    // thanhvn export 6/19/2020
+
+    Route::post('export-form-nhap-lien-ket-dao-tao', 'LienKetDaoTaoController@exportForm')->name('layformbieumau-lien-ket-dao-tao');
+    Route::post('export-data-lien-ket-dao-tao', 'LienKetDaoTaoController@exportData')->name('exportdata-lien-ket-dao-tao');
+
 });
 // End Xuân
 
