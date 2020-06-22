@@ -421,7 +421,7 @@
                             @foreach($coso as $csdt)
                             <option value="{{$csdt->id}}">{{$csdt->ten}}</option>
                             @endforeach
-                            <option value="all">Tất cả</option>
+                            {{-- <option value="all">Tất cả</option> --}}
                         </select>
                     </div>
 

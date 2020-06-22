@@ -229,6 +229,7 @@ class LienKetDaoTaoService extends AppService
     }
 
     public function exportBieuMau($id_coso){
+        
         $co_so = DB::table('co_so_dao_tao')->where('id', $id_coso)->first();
         $spreadsheet = IOFactory::load('file_excel/bm16/bm16.xlsx');
 
