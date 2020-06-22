@@ -193,11 +193,17 @@ Route::group(['prefix' => 'dao-tao-nghe-thanh-nien'], function () {
         ->name('xuatbc.ds-dao-tao-thanh-nien');
 });
 
-
+// quảng tuyển sinh đòa tạo với doanh nghiệp
 Route::group(['prefix' => 'dao-tao-voi-doanh-nghiep'], function () {
-    Route::get('/tong-hop', 'ExtractController@tonghopdaotaovoidoanhnghiep')
+    Route::get('/tong-hop', 'DaoTaoNgheVoiDoanhNghiepController@index')
 
         ->name('xuatbc.ds-dao-tao-voi-doanh-nghiep');
+        Route::get('create', 'DaoTaoNgheVoiDoanhNghiepController@create')->name('xuatbc.dao-tao-nghe-doanh-nghiep.create');
+        Route::post('store', 'DaoTaoNgheVoiDoanhNghiepController@store')->name('xuatbc.dao-tao-nghe-doanh-nghiep.store');
+        Route::get('edit/{id}', 'DaoTaoNgheVoiDoanhNghiepController@edit')->name('xuatbc.dao-tao-nghe-doanh-nghiep.edit');
+        Route::post('update/{id}', 'DaoTaoNgheVoiDoanhNghiepController@update')->name('xuatbc.dao-tao-nghe-doanh-nghiep.update');
+        Route::get('show/{id}', 'DaoTaoNgheVoiDoanhNghiepController@show')->name('xuatbc.dao-tao-nghe-doanh-nghiep.show');
+        Route::post('/check-them-dao-tao-cho-nghe-voi-doanh-nghiep', 'DaoTaoNgheVoiDoanhNghiepController@getCheckTonTaiDaoTaoGanVoiDoanhNghiep')->name('xuatbc.dao-tao-nghe-doanh-nghiep.check_so_lieu');
 });
 
 
