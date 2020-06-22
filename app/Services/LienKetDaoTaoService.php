@@ -624,7 +624,6 @@ class LienKetDaoTaoService extends AppService
                 }
             }
 
-
         $spreadsheet2 = IOFactory::load($fileReadStorage);
         $worksheet = $spreadsheet2->getActiveSheet();
         Storage::delete($path);
