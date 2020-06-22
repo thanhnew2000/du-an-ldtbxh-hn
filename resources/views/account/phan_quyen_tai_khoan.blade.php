@@ -73,29 +73,27 @@
                     </select>
                 </div>
             </div>
+
             <table class="table m-table m-table--head-bg-brand">
                 <thead>
                     <th>STT</th>
                     <th>Tên quyền</th>
                     <th>Tên chức năng</th>
                     <th>
-                        <a href="" class="btn btn-success btn-sm">Thêm mới</a>
+                        <a href="{{ route('account.them-quyen') }}" class="btn btn-success btn-sm">Thêm mới</a>
                     </th>
                 </thead>
+                @php($i=1)
+                @foreach ($data as $role)
                 <tbody>
-
-
-
                     <tr>
-                        <th scope="row"></th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>{{$i++}}</td>
+                        <td>{{ $role->name }}</td>
+                        <td>{{ $role->permission_name }}</td>
                         <td><a class="btn btn-primary btn-sm" href="">Sửa</a></td>
                     </tr>
-
-
                 </tbody>
+                @endforeach
             </table>
             <div>
 

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 return [
     'them_tai_khoan',
@@ -28,4 +28,4 @@ return [
     'sua_chi_tiet_tong_hop_ket_qua_tuyen_sinh',
     'them_moi_tong_hop_ket_qua_tot_nghiep',
     'xem_chi_tiet_tong_hop_ket_qua_tot_nghiep'
-]
+];

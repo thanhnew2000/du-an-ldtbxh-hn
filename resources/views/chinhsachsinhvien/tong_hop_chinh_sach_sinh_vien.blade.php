@@ -74,21 +74,16 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Năm</label>
                                 <div class="col-lg-8">
-                                    <<<<<<< HEAD <select class="form-control" name="nam" id="nam">
 
-                                        =======
-                                        <select class="form-control select2" name="nam" id="nam">
-                                            <option value="">Chọn</option>
-                                            >>>>>>> master
-                                            @foreach (config('common.nam.list') as $item)
-                                            <option @if (isset($params['nam']))
-                                                {{( $params['nam'] ==  $item ) ? 'selected' : ''}} @endif
-                                                value="{{$item}}">
-                                                {{$item}}
-                                            </option>
-                                            @endforeach
-
-                                        </select>
+                                    <select class="form-control select2" name="nam" id="nam">
+                                        <option value="">Chọn</option>
+                                        @foreach (config('common.nam.list') as $item)
+                                        <option @if (isset($params['nam']))
+                                            {{( $params['nam'] ==  $item ) ? 'selected' : ''}} @endif value="{{$item}}">
+                                            {{$item}}
+                                        </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -96,20 +91,16 @@
                             <div class="form-group m-form__group row">
                                 <label for="" class="col-lg-2 col-form-label">Đợt</label>
                                 <div class="col-lg-8">
-                                    <<<<<<< HEAD <select class="form-control" name="dot" id="dot">
+                                    <select class="form-control select2" name="dot" id="dot">
+                                        <option value="" selected disabled>Chọn</option>
 
-                                        =======
-                                        <select class="form-control select2" name="dot" id="dot">
-                                            <option value="" selected disabled>Chọn</option>
-                                            >>>>>>> master
-                                            <option @if (isset($params['dot']))
-                                                {{( $params['dot'] ==  1 ) ? 'selected' : ''}} @endif value="1">Đợt 1
-                                            </option>
-                                            <option @if (isset($params['dot']))
-                                                {{( $params['dot'] ==  2 ) ? 'selected' : ''}} @endif value="2">Đợt 2
-                                            </option>
-                                        </select>
-
+                                        <option @if (isset($params['dot']))
+                                            {{( $params['dot'] ==  1 ) ? 'selected' : ''}} @endif value="1">Đợt 1
+                                        </option>
+                                        <option @if (isset($params['dot']))
+                                            {{( $params['dot'] ==  2 ) ? 'selected' : ''}} @endif value="2">Đợt 2
+                                        </option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
