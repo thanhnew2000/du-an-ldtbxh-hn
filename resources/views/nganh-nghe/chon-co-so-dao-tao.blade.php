@@ -206,7 +206,7 @@
                             <a href="{!! asset('storage/' . $cursor->anh_quyet_dinh) !!}" target="_blank"><i class="fas fa-eye"></i></a>
                         </td>
                         <td>
-                            <a href="javascript:;" class="btn btn-info btn-sm">Cập nhật</a>
+                            <a href="{{ route('nghe.cap-nhat', ['id'=> $cursor->nghe_id]) }}" class="btn btn-info btn-sm">Cập nhật</a>
                             <a href="" class="btn btn-danger btn-sm">Thu hồi</a>
                         </td>
                     </tr>
@@ -245,7 +245,6 @@
                 cache: true,
                 dataType: 'json',
                 processResults: function (data, params) {
-
                     return {
                         results: data.results,
                         pagination: {

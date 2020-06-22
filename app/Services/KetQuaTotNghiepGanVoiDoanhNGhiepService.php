@@ -68,20 +68,20 @@ class KetQuaTotNghiepGanVoiDoanhNGhiepService extends AppService
         $data = $this->repository->SuaKetQuaTotNghiepGanVoiDoanhNghiep($id);
         return $data;
     }
-    /////////////////////////////////
+
 
     public function getCheckTonTai($data, $requestParams)
     {
         $checkResult = $this->getSoLieu($data);
         unset($requestParams['_token']);
-        $route = route('xuatbc.them-lien-ket-dao-tao');
+        $route = route('xuatbc.them-ket-qua-tot-nghiep-voi-doanh-nghiep');
         if ($checkResult == 'tontai') {
             $message = 'Số liệu đã tồn tại !';
         }
         if (!isset($checkResult)) {
             $data = $this->repository->PostKetQuaTotNghiepGanVoiDoanhNghiep($requestParams);
             $message = 'Thêm số liệu thành công';
-            $route = route('xuatbc.tong-hop-lien-ket-dao-tao');
+            $route = route('xuatbc.ket-qua-tot-nghiep-voi-doanh-nghiep');
         }
         return ['route' => $route, 'message' => $message,];
     }

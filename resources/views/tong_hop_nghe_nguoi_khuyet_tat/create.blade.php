@@ -296,6 +296,11 @@
         </div>
     </div>
 </form>
+@if (session('thongbao'))
+<div class="thongbao" style="color: red; text-align: center;">
+  {{session('thongbao')}}
+</div>
+@endif
 </div>
 @endsection
 @section('script')

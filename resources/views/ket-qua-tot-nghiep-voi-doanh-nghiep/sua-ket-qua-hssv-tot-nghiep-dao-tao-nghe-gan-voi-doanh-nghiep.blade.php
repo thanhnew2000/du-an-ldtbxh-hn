@@ -1,7 +1,7 @@
 @extends('layouts.admin')
+@section('title', 'Cập nhật kết quả tốt nghiệp đào tạo nghề gắn với doanh nghiệp')
 @section('style')
-{{-- <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
-<link href="{!! asset('tuyensinh/css/themtuyensinh.css') !!}" rel="stylesheet" type="text/css" /> --}}
+
 <style>
     .batbuoc {
         color: red;

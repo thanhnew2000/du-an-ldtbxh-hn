@@ -62,8 +62,8 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapNhapBaoCaoRoutes();
 
-
-        //
+        // 17/06/2020 Tuanbt - chia thêm Route Giấy phép
+        $this->mapGiayPhepRoutes();
     }
 
     /**
@@ -147,5 +147,14 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('api')
             ->namespace($this->namespace)
             ->group(base_path('routes/api.php'));
+    }
+
+    // 17/06/2020 Tuanbt - chia thêm Route giay-phep
+    protected function mapGiayPhepRoutes()
+    {
+        Route::middleware('web', 'auth')
+            ->prefix('giay-phep')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/giay-phep.php'));
     }
 }
