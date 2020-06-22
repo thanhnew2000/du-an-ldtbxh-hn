@@ -26,6 +26,6 @@ class PhanQuyenController extends Controller
 
     public function themQuyen()
     {
-        
+        return view('account.them-quyen');
     }
 }
