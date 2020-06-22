@@ -95,6 +95,12 @@ Route::group(['prefix' => 'dao-tao-nghe-cho-thanh-nien'], function(){
 
 Route::group(['prefix' => 'dao-tao-nghe-doanh-nghiep'], function () {
     Route::get('/', 'DaoTaoNgheVoiDoanhNghiepController@index')->name('nhapbc.dao-tao-nghe-doanh-nghiep');
+
+    // thanhnv 6/22/2020
+    Route::post('import-dao-tao-nghe-gan-voi-doanh-nghiep','DaoTaoNgheVoiDoanhNghiepController@importFile')
+    ->name('import-dao-tao-nghe-gan-voi-doanh-nghiep');
+    Route::post('import-error-dao-tao-nghe-gan-voi-doanh-nghiep','DaoTaoNgheVoiDoanhNghiepController@importError')
+    ->name('import.error-dao-tao-nghe-gan-voi-doanh-nghiep');
 });
 
 Route::group(['prefix' => 'lien-ket-dao-tao'], function () {
