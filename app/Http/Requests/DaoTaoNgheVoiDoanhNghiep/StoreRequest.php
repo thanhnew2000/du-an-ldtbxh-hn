@@ -4,7 +4,7 @@ namespace App\Http\Requests\DaoTaoNgheVoiDoanhNghiep;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateRequest extends FormRequest
+class StoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,13 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         $data = $this->all();
-<<<<<<< HEAD
-        unset($data['_token'],$data['khac']);
-=======
-        unset($data['_token'],$data['khac'],$data['ten_doanh_nghiep']);
->>>>>>> 270990d09284d28a74a2cbad390bbd22e27077e5
+        $data = $this->all();
+        unset($data['_token'],$data['co_so_id'],$data['nghe_id'],$data['nam'],$data['dot'],$data['khac'],$data['ten_doanh_nghiep']);
+        $getDataCheck=[];
+        $getDataCheck['co_so_id'] = 'required|';
+        $getDataCheck['nghe_id'] = 'required|';
+        $getDataCheck['nam'] = 'required|';
+        $getDataCheck['dot'] = 'required|';
         foreach ($data as $item=>$value) {
             if($value == null){
                 $getDataCheck[$item] = 'min:0|';
@@ -42,6 +44,7 @@ class UpdateRequest extends FormRequest
     public function messages()
     {
         return [
+            'required'=>'Không được để trống',
             'min' => ':attribute không được nhỏ hơn 0',
             'integer' => ':attribute nguyên',
         ];

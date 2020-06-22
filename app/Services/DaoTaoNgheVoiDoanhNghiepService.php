@@ -15,6 +15,8 @@ use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
 use Carbon\Carbon;
+use Storage;
+
 class DaoTaoNgheVoiDoanhNghiepService extends AppService
 {
     protected $LoaiHinhCoSoRepositoryInterface;
@@ -71,13 +73,13 @@ class DaoTaoNgheVoiDoanhNghiepService extends AppService
 
         return $data;
     }
-    // quảng - 15/6 lấy tên cở sở đào tạo
+    // quảng - 22/6 lấy tên cở sở đào tạo
     public function getTenCoSoDaoTao()
     {
         return $this->repository->getTenCoSoDaoTao();
     }
 
-     // quảng - 15/6 lấy  cơ sở theo loại hình
+     // quảng - 22/6 lấy  cơ sở theo loại hình
      public function getCoSoTuyenSinhTheoLoaiHinh($id)
      {
          $data = $this->repository->getCoSoTuyenSinhTheoLoaiHinh($id);
@@ -92,13 +94,13 @@ class DaoTaoNgheVoiDoanhNghiepService extends AppService
          return  $this->repository->getXaPhuongTheoQuanHuyen($id);
      }
      
-     // quảng - 15/6 lấy tất cả ngành nghề theo từng cấp bậc
+     // quảng - 22/6 lấy tất cả ngành nghề theo từng cấp bậc
      public function getNganhNghe($ma_cap_nghe)
      {
          return  $this->repository->getNganhNghe($ma_cap_nghe);
      }
 
-     // quảng - 15/6  lọc ngành nghề theo từng cấp bậc
+     // quảng - 22/6  lọc ngành nghề theo từng cấp bậc
      public function getNgheTheoCapBac($id, $cap_nghe)
      {
          return  $this->repository->getNgheTheoCapBac($id, $cap_nghe);
@@ -135,19 +137,19 @@ class DaoTaoNgheVoiDoanhNghiepService extends AppService
         return $this->repository->getNganhNgheThuocCoSo($id);
     }
 
-    public function getCheckTonTaiDaoTaoChoNguoiKhuyetTat($data, $requestParams)
+    public function getCheckTonTaiDaoTaoGanVoiDoanhNghiep($data, $requestParams)
     {
         $checkResult = $this->getSoLieu($data);
-        unset($requestParams['_token']);
-        $route = route('nhapbc.dao-tao-khuyet-tat.create');
+        unset($requestParams['_token'],$requestParams['files']);
+        $route = route('xuatbc.dao-tao-nghe-doanh-nghiep.create');
         $message = $checkResult == 'tontai' ?
-            'Số liệu tuyển sinh đã tồn tại và được phê duyệt' :
-            'Số liệu tuyển sinh đã tồn tại';
+            'Số liệu đã tồn tại và được phê duyệt' :
+            'Số liệu đã tồn tại';
         
         if (!isset($checkResult)) {
             $data = $this->repository->store($requestParams);
-            $message = 'Thêm số liệu tuyển sinh thành công';
-            $route = route('nhapbc.dao-tao-khuyet-tat.show', [
+            $message = 'Thêm số liệu  thành công';
+            $route = route('xuatbc.dao-tao-nghe-doanh-nghiep.show', [
                 'id' => $requestParams['co_so_id'],
             ]);
         }
@@ -162,7 +164,7 @@ class DaoTaoNgheVoiDoanhNghiepService extends AppService
     {
         $dataCheckNew = $this->constructConditionParams($data);
 
-        return $this->repository->getCheckTonTaiDaoTaoChoNguoiKhuyetTat($dataCheckNew);
+        return $this->repository->getCheckTonTaiDaoTaoGanVoiDoanhNghiep($dataCheckNew);
     }
 
     protected function constructConditionParams($params)
@@ -180,6 +182,25 @@ class DaoTaoNgheVoiDoanhNghiepService extends AppService
     }
 
     // thanh 6/22/2020
+
+    public function exportFillRow($worksheet, $row, $tnien){
+        $worksheet->setCellValue('B'.$row, $tnien->ten_nganh_nghe.' - '.$tnien->nghe_id);
+        $worksheet->setCellValue('C'.$row, $tnien->tong_so);
+        $worksheet->setCellValue('D'.$row, $tnien->ket_qua_CD);
+        $worksheet->setCellValue('E'.$row, $tnien->ket_qua_TC);
+        $worksheet->setCellValue('F'.$row, $tnien->ket_qua_SC);
+        $worksheet->setCellValue('G'.$row, $tnien->ket_qua_duoi_3_thang);
+        $worksheet->setCellValue('H'.$row, $tnien->ten_doanh_nghiep);
+        $worksheet->setCellValue('I'.$row, $tnien->so_HSSV_duoc_cam_ket);
+        $worksheet->setCellValue('J'.$row, $tnien->doanh_nghiep_xay_dung_chuong_trinh);
+        $worksheet->setCellValue('K'.$row, $tnien->doanh_nghiep_tham_gia_giang_day);
+        $worksheet->setCellValue('L'.$row, $tnien->doanh_nghiep_bo_tro_trang_thiet_bi);
+        $worksheet->setCellValue('M'.$row, $tnien->doanh_nghiep_ho_tro_kinh_phi_dao_tao);
+        $worksheet->setCellValue('N'.$row, $tnien->doanh_nghiep_dat_hang_dao_tao);
+        $worksheet->setCellValue('O'.$row, $tnien->doanh_nghiep_tiep_nhan_HSSV_thuc_tap);
+        $worksheet->setCellValue('P'.$row, $tnien->khac);
+    }
+
     public function exportBieuMau($id_coso){
         $co_so = DB::table('co_so_dao_tao')->where('id', $id_coso)->first();
         $spreadsheet = IOFactory::load('file_excel/bm14/bm14.xlsx');
@@ -190,9 +211,6 @@ class DaoTaoNgheVoiDoanhNghiepService extends AppService
         
         $worksheet->getStyle("A1")->getFont()->setBold(true);
     
-        // tô nâu nền trường
-        // $worksheet->getColumnDimension('A')->setAutoSize(true);
-
         $co_so_nghe = $this->soLieuTuyenSinhRepository->getmanganhnghe($id_coso);
         
         $spreadsheet->getActiveSheet()->getProtection()->setSheet(true);
@@ -260,16 +278,15 @@ class DaoTaoNgheVoiDoanhNghiepService extends AppService
                       
                }
            }
-
         if(count($vitri) > 0 ){
                 $message='errorkitu';
                 return $message;  
         }
-
         $arrayData=[];
         $insertData=[];
         $updateData=[];
         $soDongNgNhap=(count($data) - 7);
+
 
         if($soDongNgNhap == count($co_so_nghe)){
             if($vitri == null || $vitri == ''){
@@ -294,7 +311,7 @@ class DaoTaoNgheVoiDoanhNghiepService extends AppService
 
                             'doanh_nghiep_xay_dung_chuong_trinh'=>$data[$i][9],
                             'doanh_nghiep_tham_gia_giang_day'=>$data[$i][10],
-                          'doanh_nghiep_bo_tro_trang_thiet_bi'=>$data[$i][11],
+                            'doanh_nghiep_bo_tro_trang_thiet_bi'=>$data[$i][11],
                             'doanh_nghiep_ho_tro_kinh_phi_dao_tao'=>$data[$i][12],
                             'doanh_nghiep_dat_hang_dao_tao'=>$data[$i][13],
                             'doanh_nghiep_tiep_nhan_HSSV_thuc_tap'=>$data[$i][14],
@@ -340,10 +357,22 @@ public function importError($fileRead,$duoiFile,$path){
     $truong = explode(' - ', $data[0][0]);
     $id_truong = array_pop($truong);
 
-    // $arrayApha=['A','B','C','D','E','F','G','E','F','G','H','I','J','K','L','M','N','O','P'];
+    $arrayApha=['C','D','E','F','G','H','I','J','K','L','M','N','O','P'];
 
-    $vitri  = $this->checkError($data,$arrayApha,7,2,15);
-
+    $vitri=[];
+    for($i = 7 ; $i < count($data); $i++){ 
+        $key_aphabel=-1;
+           $rowNumber = $i+1; 
+           for($j=  2 ; $j <= 15 ; $j++){  
+                 $key_aphabel++;
+                 if($j != 15 && $j !=7 ){
+                    if( is_string($data[$i][$j]) || $data[$i][$j] < 0 ){
+                    array_push($vitri,$arrayApha[$key_aphabel].$rowNumber);
+                    }
+                 }
+                  
+           }
+       }
     $spreadsheet2 = IOFactory::load($fileReadStorage);
     $worksheet = $spreadsheet2->getActiveSheet();
     Storage::delete($path);
@@ -364,6 +393,46 @@ public function importError($fileRead,$duoiFile,$path){
     header('Content-Disposition: attachment; filename="error.xlsx"');
     $writer->save("php://output");
 } 
+
+public function exportData($listCoSoId,$fromDate,$toDate){
+
+    $spreadsheet = IOFactory::load('file_excel/bm14/bm14.xlsx');
+    $worksheet = $spreadsheet->getActiveSheet();
+
+    $spreadsheet->getActiveSheet()->getProtection()->setSheet(true);
+    $spreadsheet->getDefaultStyle()->getProtection()->setLocked(true);
+
+    $worksheet->getColumnDimension('B')->setAutoSize(true);
+    $worksheet->getColumnDimension('C')->setAutoSize(true);
+
+    $arrayAphabe=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P'];
+
+    $co_so =  DB::table('co_so_dao_tao')->where('id', $listCoSoId)
+    ->orderBy('loai_truong', 'asc')
+    ->first();
+
+    $row=7;  
+    $dao_tao_tuyensinh_doanhnghiep = $this->repository->getTuyenSinhDaoTaoDoanhNghiepTimeFromTo($listCoSoId,$fromDate,$toDate);
+    $sothuTu=0;
+    $worksheet->setCellValue('A1', $co_so->ten.' - '.$co_so->id);
+    foreach($dao_tao_tuyensinh_doanhnghiep as $dtts_dn){
+    $row++;
+    foreach($arrayAphabe as $apha){
+        $worksheet->getStyle($apha.$row)
+        ->getBorders()
+        ->getAllBorders()
+        ->setBorderStyle(Border::BORDER_THIN);
+    }
+    $sothuTu++;
+    // fill data
+    $worksheet->setCellValue('A'.$row,$sothuTu);
+    $this->exportFillRow($worksheet, $row , $dtts_dn);
+    }
+     $writer =IOFactory::createWriter($spreadsheet, "Xlsx");
+     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+     header('Content-Disposition: attachment; filename="file-xuat.xlsx"');
+     $writer->save("php://output");
+}
 
 
 }

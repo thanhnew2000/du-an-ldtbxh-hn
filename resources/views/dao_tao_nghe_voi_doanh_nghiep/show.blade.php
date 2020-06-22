@@ -89,6 +89,18 @@
             {{session('thongbao')}}
             </div>
             @endif 
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon">
+                            <i class="m-menu__link-icon flaticon-web"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                            Chi tiết <small>Thông tin tuyển sinh đào tạo nghề với doanh nghiệp</small>
+                        </h3>
+                    </div>
+                </div>
+            </div>
             <div class="col-12 form-group m-form__group d-flex justify-content-end">
                 <label class="col-lg-2 col-form-label">Kích thước:</label>
                 <div class="col-lg-2">
@@ -102,6 +114,7 @@
                 </div>
             </div>
             <table class="table table-bordered m-table m-table--head-bg-primary table-responsive">
+           
                 <thead>
                     <tr class="text-center">
                         <th rowspan="2">STT</th>

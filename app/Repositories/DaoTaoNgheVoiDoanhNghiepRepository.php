@@ -147,7 +147,7 @@ class DaoTaoNgheVoiDoanhNghiepRepository extends BaseRepository implements DaoTa
 		return $result;
 	}
 
-	public function getCheckTonTaiDaoTaoChoNguoiKhuyetTat($arrcheck)
+	public function getCheckTonTaiDaoTaoGanVoiDoanhNghiep($arrcheck)
 	{
 			$kiem_tra = $this->table->where($arrcheck)->select('ket_qua_tuyen_sinh_gan_voi_doanh_nghiep.id','ket_qua_tuyen_sinh_gan_voi_doanh_nghiep.trang_thai')->first();
 			if($kiem_tra!=null){
@@ -186,6 +186,16 @@ class DaoTaoNgheVoiDoanhNghiepRepository extends BaseRepository implements DaoTa
 		->where('nam','=',$year)
 		->where('dot','=',$dot)
 		->select('id','nghe_id')->get();
+		return $data;
+	}
+
+	public function getTuyenSinhDaoTaoDoanhNghiepTimeFromTo($id_truong, $fromDate,$toDate)
+	{
+		$data = DB::table('ket_qua_tuyen_sinh_gan_voi_doanh_nghiep')->where('ket_qua_tuyen_sinh_gan_voi_doanh_nghiep.co_so_id', '=',$id_truong)
+		->where('thoi_gian_cap_nhat','>=',$fromDate)
+		->where('thoi_gian_cap_nhat','<=',$toDate)
+		->join('nganh_nghe','nganh_nghe.id','=','ket_qua_tuyen_sinh_gan_voi_doanh_nghiep.nghe_id')
+		->get();
 		return $data;
 	}
 

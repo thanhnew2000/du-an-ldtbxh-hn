@@ -193,7 +193,7 @@ Route::group(['prefix' => 'dao-tao-nghe-thanh-nien'], function () {
         ->name('xuatbc.ds-dao-tao-thanh-nien');
 });
 
-
+// quảng tuyển sinh đòa tạo với doanh nghiệp
 Route::group(['prefix' => 'dao-tao-voi-doanh-nghiep'], function () {
     Route::get('/tong-hop', 'DaoTaoNgheVoiDoanhNghiepController@index')
 
@@ -209,6 +209,8 @@ Route::group(['prefix' => 'dao-tao-voi-doanh-nghiep'], function () {
         ->name('layformbieumau.dao-tao-nghe-gan-voi-doanh-nghiep');
         Route::post('export-data-dao-tao-nghe-gan-voi-doanh-nghiep','DaoTaoNgheVoiDoanhNghiepController@exportData')
         ->name('exportdata.dao-tao-nghe-gan-voi-doanh-nghiep');
+        // quang
+        Route::post('/check-them-dao-tao-cho-nghe-voi-doanh-nghiep', 'DaoTaoNgheVoiDoanhNghiepController@getCheckTonTaiDaoTaoGanVoiDoanhNghiep')->name('xuatbc.dao-tao-nghe-doanh-nghiep.check_so_lieu');
 });
 
 
@@ -241,6 +243,12 @@ Route::group(['prefix' => 'lien-ket-dao-tao'], function () {
         ->name('xuatbc.tong-hop-lien-ket-dao-tao-get-ma-nganh-nghe');
     Route::post('/tong-hop-lien-ket-dao-tao-get-nghe-theo-cap-bac', 'LienKetDaoTaoController@getNgheTheoCapBac')
         ->name('xuatbc.tong-hop-lien-ket-dao-tao-get-nghe-theo-cap-bac');
+
+    // thanhvn export 6/19/2020
+
+    Route::post('export-form-nhap-lien-ket-dao-tao', 'LienKetDaoTaoController@exportForm')->name('layformbieumau-lien-ket-dao-tao');
+    Route::post('export-data-lien-ket-dao-tao', 'LienKetDaoTaoController@exportData')->name('exportdata-lien-ket-dao-tao');
+
 });
 // End Xuân
 

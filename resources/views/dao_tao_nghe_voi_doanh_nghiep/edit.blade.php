@@ -95,7 +95,7 @@
               <div class="form-group m-form__group row">
                 <label class="col-lg-5 col-form-label">Tổng số kết quả tuyển sinh, đào tạo gắn với doanh nghiệp </label>
                 <div class="col-lg-6">
-                    <input  value="{{$data->tong_so}}" name="tong_so"  min="0" step="1" name="" class="form-control" >
+                    <input type="number"  value="{{$data->tong_so}}" name="tong_so"  min="0" step="1" name="" class="form-control" >
                     @error('tong_so')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -106,7 +106,7 @@
               <div class="form-group m-form__group row">
                 <label class="col-lg-5 col-form-label">Kết quả tuyển sinh, đào tạo Cao đẳng gắn với doanh nghiệp </label>
                 <div class="col-lg-6">
-                <input  value="{{$data->ket_qua_CD}}" name="ket_qua_CD"  min="0" step="1" name="" class="form-control" >
+                <input type="number"  value="{{$data->ket_qua_CD}}" name="ket_qua_CD"  min="0" step="1" name="" class="form-control" >
                 @error('ket_qua_CD')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror  
@@ -119,7 +119,7 @@
               <div class="form-group m-form__group row">
                 <label class="col-lg-5 col-form-label">Kết quả tuyển sinh, đào tạo Trung cấp gắn với doanh nghiệp</label>
                 <div class="col-lg-6">
-                    <input  value="{{$data->ket_qua_TC}}" name="ket_qua_TC"  min="0" step="1" name="" class="form-control" >
+                    <input type="number"  value="{{$data->ket_qua_TC}}" name="ket_qua_TC"  min="0" step="1" name="" class="form-control" >
                     @error('ket_qua_TC')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -130,7 +130,7 @@
               <div class="form-group m-form__group row">
                 <label class="col-lg-5 col-form-label">Kết quả tuyển sinh, đào tạo Sơ cấp gắn với doanh nghiệp</label>
                 <div class="col-lg-6">
-                    <input  value="{{$data->ket_qua_SC}}" name="ket_qua_SC"  min="0" step="1" name="" class="form-control" >
+                    <input type="number"  value="{{$data->ket_qua_SC}}" name="ket_qua_SC"  min="0" step="1" name="" class="form-control" >
                     @error('ket_qua_SC')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -143,7 +143,7 @@
               <div class="form-group m-form__group row">
                 <label class="col-lg-5 col-form-label">Kết quả tuyển sinh, đào tạo dưới 3 tháng gắn với doanh nghiệp</label>
                 <div class="col-lg-6">
-                    <input  value="{{$data->ket_qua_duoi_3_thang}}" name="ket_qua_duoi_3_thang"  min="0" step="1" name="" class="form-control" >
+                    <input type="number"  value="{{$data->ket_qua_duoi_3_thang}}" name="ket_qua_duoi_3_thang"  min="0" step="1" name="" class="form-control" >
                     @error('ket_qua_duoi_3_thang')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -154,7 +154,7 @@
               <div class="form-group m-form__group row">
                 <label class="col-lg-5 col-form-label">Tên doanh nghiệp</label>
                 <div class="col-lg-6">
-                    <input  value="{{$data->ten_doanh_nghiep}}" name="ten_doanh_nghiep"  min="0" step="1" name="" class="form-control" >
+                    <input   value="{{$data->ten_doanh_nghiep}}" name="ten_doanh_nghiep" name="" class="form-control" >
                     @error('ten_doanh_nghiep')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -167,7 +167,7 @@
               <div class="form-group m-form__group row">
                 <label class="col-lg-5 col-form-label">Số HSSV được doanh nghiệp cam kết tuyển dụng sau tốt nghiệp (người)</label>
                 <div class="col-lg-6">
-                    <input  value="{{$data->so_HSSV_duoc_cam_ket}}" name="so_HSSV_duoc_cam_ket"  min="0" step="1" name="" class="form-control" >
+                    <input type="number"  value="{{$data->so_HSSV_duoc_cam_ket}}" name="so_HSSV_duoc_cam_ket"  min="0" step="1" name="" class="form-control" >
                     @error('so_HSSV_duoc_cam_ket')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -178,7 +178,7 @@
               <div class="form-group m-form__group row">
                 <label class="col-lg-5 col-form-label">Doanh nghiệp tham gia xây dựng chương trình, giáo trình đào tạo (bộ) </label>
                 <div class="col-lg-6">
-                    <input  value="{{$data->doanh_nghiep_xay_dung_chuong_trinh}}" name="doanh_nghiep_xay_dung_chuong_trinh"  min="0" step="1" name="" class="form-control" >
+                    <input type="number"  value="{{$data->doanh_nghiep_xay_dung_chuong_trinh}}" name="doanh_nghiep_xay_dung_chuong_trinh"  min="0" step="1" name="" class="form-control" >
                     @error('doanh_nghiep_xay_dung_chuong_trinh')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -191,7 +191,7 @@
               <div class="form-group m-form__group row">
                 <label class="col-lg-5 col-form-label">Doanh nghiệp tham gia giảng dạy (số giờ)</label>
                 <div class="col-lg-6">
-                    <input  value="{{$data->doanh_nghiep_tham_gia_giang_day}}" name="doanh_nghiep_tham_gia_giang_day"  min="0" step="1" name="" class="form-control" >
+                    <input type="number"  value="{{$data->doanh_nghiep_tham_gia_giang_day}}" name="doanh_nghiep_tham_gia_giang_day"  min="0" step="1" name="" class="form-control" >
                     @error('doanh_nghiep_tham_gia_giang_day')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -202,7 +202,7 @@
               <div class="form-group m-form__group row">
                 <label class="col-lg-5 col-form-label">Doanh nghiệp hỗ trợ trang thiết bị và nguyên, nhiên vật liệu đào tạo (triệu đồng)</label>
                 <div class="col-lg-6">
-                    <input  value="{{$data->doanh_nghiep_bo_tro_trang_thiet_bi}}" name="doanh_nghiep_bo_tro_trang_thiet_bi"  min="0" step="1" name="" class="form-control" >
+                    <input type="number"  value="{{$data->doanh_nghiep_bo_tro_trang_thiet_bi}}" name="doanh_nghiep_bo_tro_trang_thiet_bi"  min="0" step="1" name="" class="form-control" >
                     @error('doanh_nghiep_bo_tro_trang_thiet_bi')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -215,7 +215,7 @@
               <div class="form-group m-form__group row">
                 <label class="col-lg-5 col-form-label">Doanh nghiệp hỗ trợ kinh phí đào tạo (triệu đồng)</label>
                 <div class="col-lg-6">
-                    <input  value="{{$data->doanh_nghiep_ho_tro_kinh_phi_dao_tao}}" name="doanh_nghiep_ho_tro_kinh_phi_dao_tao"  min="0" step="1" name="" class="form-control" >
+                    <input type="number"  value="{{$data->doanh_nghiep_ho_tro_kinh_phi_dao_tao}}" name="doanh_nghiep_ho_tro_kinh_phi_dao_tao"  min="0" step="1" name="" class="form-control" >
                     @error('doanh_nghiep_ho_tro_kinh_phi_dao_tao')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -226,7 +226,7 @@
               <div class="form-group m-form__group row">
                 <label class="col-lg-5 col-form-label">Doanh nghiệp đặt hàng đào tạo (người)</label>
                 <div class="col-lg-6">
-                    <input  value="{{$data->doanh_nghiep_dat_hang_dao_tao}}" name="doanh_nghiep_dat_hang_dao_tao"  min="0" step="1" name="" class="form-control" >
+                    <input type="number"  value="{{$data->doanh_nghiep_dat_hang_dao_tao}}" name="doanh_nghiep_dat_hang_dao_tao"  min="0" step="1" name="" class="form-control" >
                     @error('doanh_nghiep_dat_hang_dao_tao')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -239,7 +239,7 @@
               <div class="form-group m-form__group row">
                 <label class="col-lg-5 col-form-label">Doanh nghiệp tiếp nhận HSSV vào thực tập (người)</label>
                 <div class="col-lg-6">
-                    <input  value="{{$data->doanh_nghiep_tiep_nhan_HSSV_thuc_tap}}" name="doanh_nghiep_tiep_nhan_HSSV_thuc_tap"  min="0" step="1" name="" class="form-control" >
+                    <input type="number"  value="{{$data->doanh_nghiep_tiep_nhan_HSSV_thuc_tap}}" name="doanh_nghiep_tiep_nhan_HSSV_thuc_tap"  min="0" step="1" name="" class="form-control" >
                     @error('doanh_nghiep_tiep_nhan_HSSV_thuc_tap')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -267,7 +267,7 @@
     <div class="row mt-4" style="float: right">
       <div class="col-md-12">
         <button type="button" class="btn btn-danger mr-5" style="width:90.28px"><a style="color: white;"
-            href="{{route('solieutuyensinh')}}">Hủy</a></button>
+            href="{{route('xuatbc.dao-tao-nghe-doanh-nghiep.show',['id'=>$data->co_so_id])}}">Hủy</a></button>
         <button type="submit" class="btn btn-primary">Chỉnh sửa</button>
 
       </div>

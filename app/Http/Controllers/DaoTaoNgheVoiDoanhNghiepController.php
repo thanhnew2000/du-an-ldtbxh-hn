@@ -8,6 +8,9 @@ use App\Services\DaoTaoNgheVoiDoanhNghiepService;
 
 use App\Http\Requests\DaoTaoNgheVoiDoanhNghiep\UpdateRequest;
 
+use App\Http\Requests\DaoTaoNgheVoiDoanhNghiep\StoreRequest;
+use Storage;
+
 class DaoTaoNgheVoiDoanhNghiepController extends Controller
 {
     protected $DaoTaoNgheVoiDoanhNghiepService;
@@ -66,7 +69,27 @@ class DaoTaoNgheVoiDoanhNghiepController extends Controller
      */
     public function create()
     {
-        return view('dao_tao_nghe_voi_doanh_nghiep.create');
+        $data = $this->DaoTaoNgheVoiDoanhNghiepService->getTenCoSoDaoTao();
+        return view('dao_tao_nghe_voi_doanh_nghiep.create',['ten_co_so'=>$data]);
+    }
+
+    public function getCheckTonTaiDaoTaoGanVoiDoanhNghiep(Request $request)
+    {
+        $datacheck=  $request->datacheck;
+        $getdata = $this->DaoTaoNgheVoiDoanhNghiepService->getSoLieu($datacheck);
+        if($getdata == 'tontai'){
+            return response()->json([
+                'result' => 1,
+            ]);
+        }else if($getdata == null){
+            return response()->json([
+                'result' => 2,
+            ]);
+        }else{
+            return response()->json([
+                'result' => route('xuatbc.dao-tao-nghe-doanh-nghiep.edit', ['id' => $getdata->id]),
+            ]);
+        }
     }
 
     /**
@@ -75,9 +98,30 @@ class DaoTaoNgheVoiDoanhNghiepController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        $requestParams = $request->all();
+        $data = [
+            [
+                'id' => "co_so_id",
+                'value' => $requestParams["co_so_id"],
+            ],
+            [
+                'id'=>'nghe_id',
+                'value'=>$requestParams["nghe_id"]
+            ],
+            [
+                'id'=>'nam',
+                'value'=>$requestParams["nam"]
+            ],
+            [
+                'id'=>'dot',
+                'value'=>$requestParams["dot"]
+            ],
+        ];
+
+        $result = $this->DaoTaoNgheVoiDoanhNghiepService->getCheckTonTaiDaoTaoGanVoiDoanhNghiep($data, $requestParams);
+        return redirect($result['route'])->with('thongbao', $result['message']);
     }
 
     /**

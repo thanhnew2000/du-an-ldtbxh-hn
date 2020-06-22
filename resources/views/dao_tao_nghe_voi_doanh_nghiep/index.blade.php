@@ -214,7 +214,7 @@
                         class="fa fa-upload" aria-hidden="true"></i>
                     Tải lên file Excel</a>
             </div>
-            <div class="col-lg-8">
+            <div class="col-lg-2">
                 <a href="javascript:" data-toggle="modal" data-target="#moDalExportData"><i class="fa fa-file-excel"
                         aria-hidden="true"></i>
                     Xuất dữ liệu ra Excel</a>
@@ -393,11 +393,11 @@
                         </div>
                         <div class="form-group">
                             <label for="">Chọn Trường</label>
-                            <select multiple name="truong_id[]" id="truong_id_xuat" class="form-control select2">
+                            <select  name="truong_id" id="truong_id_xuat" class="form-control">
                                 @foreach($coso as $csdt)
                                 <option value="{{$csdt->id}}">{{$csdt->ten}}</option>
                                 @endforeach
-                                <option value="all">Tất cả</option>
+                                {{-- <option value="all">Tất cả</option> --}}
                             </select>
                         </div>
 
@@ -412,7 +412,6 @@
             </div>
         </div>
     </form>
-
 </div>
 
 @endsection
