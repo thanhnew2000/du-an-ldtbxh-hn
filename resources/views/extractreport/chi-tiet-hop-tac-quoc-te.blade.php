@@ -122,7 +122,7 @@
                             quốc tế</th>
                         <th colspan="3">Hợp tác quốc tế trong đào tạo , bồi dưỡng giáo viên , cán bộ quản lý</th>
                         <th colspan="3">Hợp tác quốc tế trong đầu tư cơ sở vật chất , trang thiết bị</th>
-                        <th rowspan="2">Tác vụ</th>
+                        <th rowspan="2">Thao tác</th>
 
                     </tr>
                     <tr class="text-center">

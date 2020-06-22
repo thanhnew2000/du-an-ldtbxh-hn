@@ -71,4 +71,35 @@ class XayDungChuongTrinhGiaoTrinhReponsitory extends BaseRepository implements X
 
         return $kq;
     }
+
+    /* Danh sách chi tiết xây dựng chương trình giáo trình.
+     * @author: phucnv
+     * @created_at 2020-06-22
+     */
+    public function chiTietTheoCoSo($co_so_id, $params){
+        $queryBuilder = $this->table
+        ->leftjoin('co_so_dao_tao', 'ket_qua_xay_dung_chuong_trinh_giao_trinh.co_so_id', '=', 'co_so_dao_tao.id')
+        ->leftjoin('nganh_nghe', 'ket_qua_xay_dung_chuong_trinh_giao_trinh.nghe_id', '=', 'nganh_nghe.id')
+        ->select('ket_qua_xay_dung_chuong_trinh_giao_trinh.*',
+        DB::raw('co_so_dao_tao.ten as ten'),
+        DB::raw('nganh_nghe.id as ma_nghe'),
+        DB::raw('nganh_nghe.ten_nganh_nghe as ten_nghe')
+        )
+        ->where('ket_qua_xay_dung_chuong_trinh_giao_trinh.co_so_id', $co_so_id);
+
+       
+        if(isset($params['nam']) && $params['nam'] != null){
+            $queryBuilder->where('ket_qua_xay_dung_chuong_trinh_giao_trinh.nam', $params['nam']);
+        }
+        if(isset($params['dot']) && $params['dot'] != null){
+            $queryBuilder->where('ket_qua_xay_dung_chuong_trinh_giao_trinh.dot', $params['dot']);
+        }
+        if(isset($params['nghe_id']) && $params['nghe_id'] != null){
+            $queryBuilder->where('ket_qua_xay_dung_chuong_trinh_giao_trinh.nghe_id', $params['nghe_id']);
+        }
+
+        return $queryBuilder->orderByDesc('ket_qua_xay_dung_chuong_trinh_giao_trinh.nam')
+        ->orderByDesc('ket_qua_xay_dung_chuong_trinh_giao_trinh.dot')->paginate($params['page_size']);
+        
+    }
 }

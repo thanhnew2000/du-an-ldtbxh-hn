@@ -9,7 +9,7 @@
 @endsection
 @section('content')
 <div class="m-content container-fluid">
-    <form action="{{ route('xuatbc.store-ds-xd-giao-trinh') }}" method="post" id="validate-form-addd">
+    <form action="{{ route('xuatbc.store-ds-xd-giao-trinh') }}" method="post" id="validate-form-add">
         @csrf
         <div class="m-portlet">
             <div class="m-portlet__head">
@@ -390,7 +390,7 @@
         </div>
         <div class="d-flex justify-content-end">
             <div class="col-lg-1 ">
-                <a class="btn btn-danger">Hủy</a>
+                <a href="{{ route('xuatbc.ds-xd-giao-trinh') }}" class="btn btn-danger">Hủy</a>
             </div>
             <div>
                 <button type="submit" class="btn btn-primary">Thêm mới</button>

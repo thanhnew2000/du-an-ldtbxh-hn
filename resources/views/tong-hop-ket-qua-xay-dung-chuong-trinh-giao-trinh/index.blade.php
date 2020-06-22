@@ -145,7 +145,7 @@
                         <th colspan="9">Xây dựng mới</th>
                         <th colspan="9">Chỉnh sửa</th>
                         <th rowspan="3">
-                            <a href="" class="btn btn-success btn-sm">Thêm mới</a>
+                            <a target="_blank" href="{{ route('xuatbc.create-ds-xd-giao-trinh') }}" class="btn btn-success btn-sm">Thêm mới</a>
                         </th>
                     </tr>
                     <tr class="text-center">
@@ -222,8 +222,7 @@
                        <td>{{ $item->kinh_phi_thuc_hien_chinh_sua }}</td>
 
                        <td>
-                           <a class="btn btn-info" href="" target="_blank">Chi tiết</a>
-                           {{-- <a class="btn btn-info" href="{{ route('xuatbc.chi-tiet-ds-hop-tac-qte',['co_so_id' => $item->co_so_id]) }}" target="_blank">Chi tiết</a> --}}
+                           <a class="btn btn-info" href="{{ route('xuatbc.show-ds-xd-giao-trinh',['co_so_id' => $item->co_so_id]) }}" target="_blank">Chi tiết</a>
                        </td>
                    </tr>
                    @php

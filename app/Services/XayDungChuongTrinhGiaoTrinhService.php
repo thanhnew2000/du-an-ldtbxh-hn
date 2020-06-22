@@ -6,6 +6,7 @@ use App\Services\AppService;
 use App\Repositories\XayDungChuongTrinhGiaoTrinhReponsitory;
 use App\Repositories\NganhNgheRepository;
 use App\Repositories\CoSoDaoTaoRepository;
+use App\Repositories\ChiTieuTuyenSinhRepository;
 
 class XayDungChuongTrinhGiaoTrinhService extends AppService
 {
@@ -42,10 +43,6 @@ class XayDungChuongTrinhGiaoTrinhService extends AppService
         return $this->csdtRepository->getAll();
     }
 
-    public function getNganhNgheTheoCoSo($co_so_id){
-        return $this->repository->getNganhNgheTheoCoSo($co_so_id);
-    }
-
     public function checkTonTaiKhiThem($params){
         return $this->repository->checkTonTaiKhiThem($params);
     }
@@ -54,5 +51,28 @@ class XayDungChuongTrinhGiaoTrinhService extends AppService
     {
         return $this->nganhngheRepository->findById($id);
     }
+
+    public function checkTonTai($id)
+    {
+        return $this->csdtRepository->checkTonTai($id);
+    }
+
+    public function chiTietTheoCoSo($co_so_id, $params)
+    {
+        return $this->repository->chiTietTheoCoSo($co_so_id, $params);
+    }
+
+    public function getSingleCsdt($id)
+    {
+        return $this->csdtRepository->getSingleCsdt($id);
+    }
+
+
+    public function getNganhNgheTheoCoSo($co_so_id)
+    {
+        return $this->nganhngheRepository->getNganhNgheTheoCoSo($co_so_id);
+    }
+
+
 
 }

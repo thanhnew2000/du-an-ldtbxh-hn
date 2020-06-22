@@ -140,7 +140,7 @@ Route::group(['prefix' => 'ket-qua-xay-dung-giao-trinh'], function () {
     Route::get('/tong-hop', 'XayDungChuongTrinhGiaoTrinhController@index')
         ->name('xuatbc.ds-xd-giao-trinh');
 
-    Route::get('/show/{id}', 'XayDungChuongTrinhGiaoTrinhController@show')
+    Route::get('/show/{co_so_id}', 'XayDungChuongTrinhGiaoTrinhController@show')
         ->name('xuatbc.show-ds-xd-giao-trinh');
 
     Route::get('/create', 'XayDungChuongTrinhGiaoTrinhController@create')
