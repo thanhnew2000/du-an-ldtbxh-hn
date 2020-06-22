@@ -9,7 +9,7 @@ use App\Http\Requests\validateUpdateLienKetDaoTao;
 
 class LienKetDaoTaoController extends Controller
 {
-    protected $ChinhSachSinhVienService;
+    protected $LienKetDaoTaoService;
 
     public function __construct(LienKetDaoTaoService $LienKetDaoTaoService)
     {
@@ -18,8 +18,12 @@ class LienKetDaoTaoController extends Controller
     public function tonghoplienketdaotao()
     {
 
-        $limit = 20;
         $params = request()->all();
+        if (isset(request()->page_size)) {
+            $limit = request()->page_size;
+        } else {
+            $limit = 20;
+        }
         $data = $this->LienKetDaoTaoService->getTongHopLienKetDaoTao($params, $limit);
 
         $quanhuyen = $this->LienKetDaoTaoService->getTenQuanHuyen();
@@ -53,8 +57,12 @@ class LienKetDaoTaoController extends Controller
     public function tonghoplienketdaotaotheotrinhdo($id)
     {
 
-        $limit = 20;
         $params = request()->all();
+        if (isset(request()->page_size)) {
+            $limit = request()->page_size;
+        } else {
+            $limit = 20;
+        }
         $data = $this->LienKetDaoTaoService->getTongHopLienKetDaoTaoTheoTrinhDo($params, $limit, $id);
         $quanhuyen = $this->LienKetDaoTaoService->getTenQuanHuyen();
         if (isset(request()->devvn_quanhuyen)) {
@@ -101,7 +109,13 @@ class LienKetDaoTaoController extends Controller
     public function chitietlienketdaotao($co_so_id, $bac_nghe)
     {
 
-        $limit = 20;
+        $params = request()->all();
+        if (isset(request()->page_size)) {
+            $limit = request()->page_size;
+        } else {
+            $limit = 20;
+        }
+
         $params = request()->all();
         $data = $this->LienKetDaoTaoService->chitietlienketdaotao($co_so_id, $params, $limit, $bac_nghe);
         $data->appends(request()->input())->links();

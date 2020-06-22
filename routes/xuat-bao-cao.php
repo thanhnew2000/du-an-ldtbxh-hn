@@ -180,7 +180,6 @@ Route::group(['prefix' => 'dao-tao-nghe-thanh-nien'], function () {
 
     Route::post('export-form-nhap-dao-tao-thanh-nien', 'DaoTaoNgheThanhNienController@exportForm')->name('layformbieumau-dao-tao-thanh-nien');
     Route::post('export-data-dao-tao-thanh-nien', 'DaoTaoNgheThanhNienController@exportData')->name('exportdata-dao-tao-thanh-nien');
-
 });
 
 
@@ -240,7 +239,7 @@ Route::group(['prefix' => 'hop-tac-quoc-te'], function () {
 
     Route::get('/them', 'ExtractController@themTongHopHopTacQuocTe')
         ->name('xuatbc.them-ds-hop-tac-qte');
-    Route::post('/them', 'ExtractController@saveTongHopHopTacQuocTe');    
+    Route::post('/them', 'ExtractController@saveTongHopHopTacQuocTe');
 
     Route::get('/sua/{id}', 'ExtractController@suaTongHopHopTacQuocTe')
         ->name('xuatbc.sua-ds-hop-tac-qte');
@@ -262,3 +261,25 @@ Route::group(['prefix' => 'so-lieu-can-bo-quan-ly'], function () {
     Route::post('export-data-so-lieu-can-bo-quanly', 'ExportSoLieuCanBoQlController@exportDataSoLieuCanBoQuanLy')
         ->name('exportdata.solieucanbo.quanly');
 });
+
+//Xuân Kết quả tốt nghiệp gắn với doanh nghiệp BM:15
+Route::group(['prefix' => 'ket-qua-tot-nghiep-gan-voi-doanh-nghiep'], function () {
+    Route::get('/', 'KetQuaTotNghiepGanVoiDoanhNGhiepController@index')
+        ->name('xuatbc.ket-qua-tot-nghiep-voi-doanh-nghiep');
+    Route::get('show/{co_so_id}', 'KetQuaTotNghiepGanVoiDoanhNGhiepController@show')
+        ->name('xuatbc.chi-tiet-ket-qua-tot-nghiep-voi-doanh-nghiep');
+
+    Route::get('edit/{id}', 'KetQuaTotNghiepGanVoiDoanhNGhiepController@edit')
+        ->name('xuatbc.sua-ket-qua-tot-nghiep-voi-doanh-nghiep');
+    Route::post('update/{id}/{co_so_id}', 'KetQuaTotNghiepGanVoiDoanhNGhiepController@update')
+        ->name('xuatbc.post-sua-ket-qua-tot-nghiep-voi-doanh-nghiep');
+
+    Route::get('create', 'KetQuaTotNghiepGanVoiDoanhNGhiepController@create')
+        ->name('xuatbc.them-ket-qua-tot-nghiep-voi-doanh-nghiep');
+    Route::get('store', 'KetQuaTotNghiepGanVoiDoanhNGhiepController@store')
+        ->name('xuatbc.post-them-ket-qua-tot-nghiep-voi-doanh-nghiep');
+
+    Route::post('checktontai', 'KetQuaTotNghiepGanVoiDoanhNGhiepController@getCheckTonTai')
+        ->name('xuatbc.check-ton-tai');
+});
+//End Xuân

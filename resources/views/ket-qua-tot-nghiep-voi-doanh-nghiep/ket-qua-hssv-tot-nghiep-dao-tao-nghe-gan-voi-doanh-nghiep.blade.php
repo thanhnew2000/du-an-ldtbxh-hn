@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', "Tổng hợp liên kết đào tạo")
+@section('title', 'Kết quả tốt nghiệp đào tạo nghề gắn với doanh nghiệp')
 @section('style')
 <link href="{!! asset('tong_hop_nghe_nguoi_khuyet_tat/css/tong_hop_nghe_nguoi_khuyet_tat.css') !!}" rel="stylesheet"
     type="text/css" />
@@ -18,7 +18,7 @@
                         <i class="m-menu__link-icon flaticon-web"></i>
                     </span>
                     <h3 class="m-portlet__head-text">
-                        Liên kết đào tạo
+                        Kết quả học sinh, sinh viên tốt nghiệp đào tạo nghề gắn với doanh nghiệp
                     </h3>
                 </div>
             </div>
@@ -212,10 +212,7 @@
             </div>
         </form>
     </div>
-
-
-    <section class="action-nav d-flex align-items-center justify-content-between mt-4 mb-4">
-
+    <div class="row mb-5 bieumau">
         <div class="col-lg-2">
             <a href="javascript:" data-toggle="modal" data-target="#exampleModal">
                 <i class="fa fa-download" aria-hidden="true"></i>
@@ -233,15 +230,12 @@
                 Xuất dữ liệu ra Excel</a>
         </div>
         <div class="col-lg-6 " style="text-align: right">
-            <a href="{{route('xuatbc.them-lien-ket-dao-tao')}}"><button type="button" class="btn btn-info .bg-info">Thêm
-                    mới</button></a>
+            <a href="{{route('xuatbc.them-ket-qua-tot-nghiep-voi-doanh-nghiep')}}"><button type="button"
+                    class="btn btn-info .bg-info">Thêm mới</button></a>
         </div>
-
-    </section>
-
+    </div>
     <div class="m-portlet">
         <div class="m-portlet__body">
-
             <div class="col-12 form-group m-form__group d-flex justify-content-end">
                 <label class="col-lg-2 col-form-label">Kích thước:</label>
                 <div class="col-lg-2">
@@ -259,17 +253,18 @@
                 <strong>{{session('thongbao')}}</strong>
             </div>
             @endif
-            <table class="table table-bordered m-table  m-table--head-bg-primary">
+            <table class="table table-bordered m-table  m-table--head-bg-primary table-responsive">
                 <thead>
                     <tr>
-                        <th scope="col 1">STT</th>
-                        <th scope="col 1">Tên cơ sở đào tạo</th>
-                        <th scope="col 1">Năm</th>
-                        <th scope="col 1">Đợt</th>
-                        <th scope="col 1">Chỉ tiêu được giao</th>
-                        <th scope="col 1">Thực tuyển</th>
-                        <th scope="col 1">Số học sinh tốt nghiệp</th>
-                        <th scope="col 1">Thao tác</th>
+                        <th scope="col">STT</th>
+                        <th scope="col">Tên cơ sở đào tạo</th>
+
+                        <th scope="col">Năm</th>
+                        <th scope="col">Đợt</th>
+                        <th scope="col">Tổng số HSSV tốt nghiệp</th>
+                        <th scope="col">Số HSSV được tuyển dụng sau khi tốt nghiệp</th>
+                        <th scope="col">Mức lương doanh nghiệp trả cho HSSV</th>
+                        <th scope="col" colspan="2">Thao tác</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -282,29 +277,25 @@
                         <td>{{$item->ten}}</td>
                         <td>{{$item->nam}}</td>
                         <td>{{$item->dot}}</td>
-                        <td>{{$item->tong_chi_tieu}}</td>
-                        <td>{{$item->tong_thuc_tuyen}}</td>
-                        <td>{{$item->tong_so_HSSV_tot_nghiep}}</td>
-                        @if ($bac_nghe == 0)
-                        <td><a href="{{route('xuatbc.chi-tiet-lien-ket-dao-tao', ['co_so_id' => $item->co_so_id, 'bac_nghe' => 0])}}"
-                                class=".text-info">Chi tiết</a></td>
-                        @else
-                        <td><a href="{{route('xuatbc.chi-tiet-lien-ket-dao-tao', ['co_so_id' => $item->co_so_id, 'bac_nghe' => $item->bac_nghe])}}"
-                                class=".text-info">Chi tiết</a></td>
-                        @endif
 
-
+                        <td>{{$item->tong_tot_nghiep}}</td>
+                        <td>{{$item->tong_tuyen_dung}}</td>
+                        <td>{{number_format($item->tong_muc_luong,'0',',','.')}}</td>
+                        <td><a href="{{route('xuatbc.chi-tiet-ket-qua-tot-nghiep-voi-doanh-nghiep', ['co_so_id' => $item->co_so_id])}}"
+                                class=".text-info">Chi tiết</a></td>
                     </tr>
                     @endforeach
 
+
+
                 </tbody>
             </table>
-            <div class="d-flex justify-content-end  mt-3">{{$data->links()}}</div>
         </div>
     </div>
     <div class="m-portlet__foot d-flex justify-content-end">
+
     </div>
-    <form action="" method="post">
+    <form action="{{route('layformbieumausinhvien')}}" method="post">
         @csrf
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">

@@ -1,5 +1,4 @@
 @extends('layouts.admin')
-@section('title', "Chi tiết liên kết đào tạo")
 @section('style')
 <style>
     th {
@@ -10,6 +9,7 @@
 @section('content')
 
 <div class="m-content container-fluid">
+    <!-- Start info -->
     <div class="m-portlet">
         <div class="m-portlet__head">
             <div class="m-portlet__head-caption">
@@ -18,7 +18,7 @@
                         <i class="m-menu__link-icon flaticon-web"></i>
                     </span>
                     <h3 class="m-portlet__head-text">
-                        Chi tiết liên kết đào tạo
+                        Chi tiết kết quả tốt nghiệp đào tạo nghề gắn với doanh nghiệp
                     </h3>
                 </div>
             </div>
@@ -33,7 +33,9 @@
             <p>Quận/Huyện: {{$co_so->ten_quan_huyen}}</p>
         </div>
     </div>
+    <!-- End info -->
 
+    <!-- Start filter -->
     <div class="m-portlet">
         <div class="m-portlet__head">
             <div class="m-portlet__head-caption">
@@ -50,6 +52,7 @@
             <form action="" method="get" class="m-form">
                 <div class="m-portlet__body">
                     <div class="m-form__section m-form__section--first">
+
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group m-form__group row">
@@ -92,10 +95,10 @@
                 </div>
             </form>
         </div>
-
-
     </div>
+    <!-- End filter -->
 
+    <!-- Start content -->
     <div class="m-portlet">
         <div class="m-portlet__body">
             <div class="col-12 form-group m-form__group d-flex justify-content-end">
@@ -110,21 +113,36 @@
                     </select>
                 </div>
             </div>
-            <table class="table table-bordered m-table  m-table--head-bg-primary">
+            <table class="table table-bordered m-table m-table--head-bg-primary table-responsive">
                 <thead>
-                    <tr>
-                        <th scope="col 1">STT</th>
-                        <th scope="col 1">Năm</th>
-                        <th scope="col 1">Đợt</th>
-                        <th scope="col 1">Mã nghề</th>
-                        <th scope="col 1">Tên nghề nghề</th>
-                        <th scope="col 1">Chỉ tiêu được giao</th>
-                        <th scope="col 1">Thực tuyển</th>
-                        <th scope="col 1">Số học sinh tốt nghiệp</th>
-                        <th scope="col 1">Đơn vị liên kết</th>
-                        <th scope="col 1">Ghi chú</th>
-                        <th scope="col 1">Trạng thái</th>
-                        <th scope="col 1">Thao tác</th>
+                    <tr class="text-center">
+                        <th rowspan="2">STT</th>
+
+
+                        <th rowspan="2">Năm</th>
+                        <th rowspan="2">Đợt</th>
+                        <th rowspan="2">Tên nghề đào tạo</th>
+                        <th colspan="9">Kết quả HSSV tốt nghiệp gắn với doanh nghiệp</th>
+                        <th colspan="3">Kết quả giải quyết việc làm</th>
+                        <th rowspan="2">Trạng thái</th>
+                        <th rowspan="2">Thao tác</th>
+                    </tr>
+                    <tr class="pt-3 row2">
+                        <th>Tổng số HSSV tốt nghiệp</th>
+                        <th>Nhập học đầu khóa Cao Đẳng</th>
+                        <th>Số tốt nghiệp Cao đẳng</th>
+                        <th>Nhập học đầu khóa Trung cấp</th>
+                        <th>Số tốt nghiệp Trung cấp</th>
+                        <th>Nhập học đầu khóa Sơ cấp</th>
+                        <th>Số tốt nghiệp Sơ cấp </th>
+                        <th>Nhập học đầu khóa dưới 3 tháng</th>
+                        <th>Số tốt nghiệp dưới 3 tháng </th>
+
+                        <th>Tên doanh nghiệp </th>
+                        <th>Số HSSV được tuyển dụng sau tốt nghiệp</th>
+                        <th>Mức lương doanh nghiệp trả cho HSSV</th>
+
+
                     </tr>
                 </thead>
                 <tbody>
@@ -134,19 +152,27 @@
                     @foreach ($data as $item)
                     <tr>
                         <td>{{$i++}}</td>
+
+
                         <td>{{$item->nam}}</td>
                         <td>{{$item->dot}}</td>
-                        <td>{{$item->nghe_id}}</td>
-                        <td>{{$item->ten_nganh_nghe}}</td>
-                        <td>{{$item->chi_tieu}}</td>
-                        <td>{{$item->thuc_tuyen}}</td>
-                        <td>{{$item->so_HSSV_tot_nghiep}}</td>
-                        <td>{{$item->don_vi_lien_ket}}</td>
-                        <td>{{$item->ghi_chu}}</td>
+                        <td>{{$item->nghe_id}} - {{$item->ten_nganh_nghe}}</td>
+                        <td>{{$item->tong_HSSV_tot_nghiep}}</td>
+                        <td>{{$item->nhap_hoc_dau_tot_nghiep_CD}}</td>
+                        <td>{{$item->tot_nghiep_CD}}</td>
+                        <td>{{$item->nhap_hoc_dau_tot_nghiep_TC}}</td>
+                        <td>{{$item->tot_nghiep_TC}}</td>
+                        <td>{{$item->nhap_hoc_dau_tot_nghiep_SC}}</td>
+                        <td>{{$item->tot_nghiep_SC}}</td>
+                        <td>{{$item->duoi_3_thang_tot_nghiep_nhap_hoc_dau}}</td>
+                        <td>{{$item->duoi_3_thang_tot_nghiep}}</td>
+                        <td>{{$item->ten_doanh_nghiep}}</td>
+                        <td>{{$item->so_HSSV_duoc_tuyen_dung}}</td>
+                        <td>{{$item->muc_luong_doanh_nghiep_tra}}</td>
                         <td>{{$item->ten_trang_thai}}</td>
                         <td>
                             @if ($item->trang_thai<3) <a
-                                href="{{route('xuatbc.sua-lien-ket-dao-tao', ['id' => $item->id, 'bac_nghe' => $bac_nghe])}}">
+                                href="{{route('xuatbc.sua-ket-qua-tot-nghiep-voi-doanh-nghiep', ['id' => $item->id])}}">
                                 Cập nhật</a>
                                 @endif
                         </td>
@@ -158,6 +184,7 @@
             <div class="d-flex justify-content-end  mt-3">{{$data->links()}}</div>
         </div>
     </div>
+    <!-- End content -->
 
     <form action="{{route('layformbieumausinhvien')}}" method="post">
         @csrf
@@ -289,6 +316,18 @@
 
 @endsection
 @section('script')
+@if (session('thongbao_edit'))
+<script>
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Cập nhật thành công !',
+        showConfirmButton: false,
+        timer: 3500
+    })
+</script>
+@endif
+
 <script>
     $(document).ready(function(){
     $('.select2').select2();

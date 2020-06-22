@@ -346,21 +346,11 @@
 			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('nhapbc.dao-tao-thanh-nien.index')}}"
 					class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 						class="m-menu__link-text">Đào tạo nghề cho thanh niên</span></a></li>
-			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('nhapbc.dao-tao-nghe-doanh-nghiep')}}"
-					class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
+			<li class="m-menu__item " aria-haspopup="true"><a
+					href="{{route('xuatbc.ket-qua-tot-nghiep-voi-doanh-nghiep')}}" class="m-menu__link "><i
+						class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 						class="m-menu__link-text">Kết quả tốt nghiệp đào tạo nghề gắn với doanh
 						nghiệp</span></a></li>
-
-			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('xuatbc.ds-dao-tao-khuyet-tat')}}"
-					class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
-						class="m-menu__link-text">Tổng hợp đào tạo nghề cho người khuyết tật</span></a></li>
-			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('xuatbc.ds-dao-tao-thanh-nien')}}"
-					class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
-						class="m-menu__link-text">Tổng hợp đào tạo nghề cho thanh niên</span></a></li>
-			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('xuatbc.ds-dao-tao-voi-doanh-nghiep')}}"
-					class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
-						class="m-menu__link-text">Tổng hợp đào tạo nghề với doanh nghiệp</span></a></li>
-
 		</ul>
 	</div>
 </li>

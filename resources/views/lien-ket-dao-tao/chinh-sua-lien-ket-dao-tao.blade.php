@@ -42,8 +42,6 @@
                 <div class="col-lg-8">
                   <select class="form-control " name="ten_co_so" id="ten_co_so" disabled>
                     <option value="">{{$data->ten}}</option>
-
-
                   </select>
                 </div>
               </div>
@@ -153,9 +151,10 @@
     @endif
     <div class="row mt-4" style="float: right">
       <div class="col-md-12">
-        <button type="button" class="btn btn-danger mr-5" style="width:90.28px"><a style="color: white;"
-            href="{{route('xuatbc.chi-tiet-lien-ket-dao-tao', ['co_so_id' => $data->co_so_id, 'bac_nghe' => $bac_nghe])}}">Hủy</a></button>
-        <button type="submit" class="btn btn-primary">Chỉnh sửa</button>
+        <a style="color: white;"
+          href="{{route('xuatbc.chi-tiet-lien-ket-dao-tao', ['co_so_id' => $data->co_so_id, 'bac_nghe' => $bac_nghe])}}">
+          <button type="button" class="btn btn-danger mr-5">Hủy</button></a>
+        <button type="submit" class="btn btn-primary">Cập nhật</button>
 
       </div>
     </div>
