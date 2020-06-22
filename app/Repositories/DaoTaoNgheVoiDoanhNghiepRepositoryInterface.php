@@ -12,5 +12,10 @@ interface DaoTaoNgheVoiDoanhNghiepRepositoryInterface
     public function edit($id);
     public function getNganhNgheThuocCoSo($id);
     public function getCheckTonTaiDaoTaoGanVoiDoanhNghiep($arrcheck);
+    
+    public function getKhuyetTatCsNamDotNoJoin($id_truong,$year,$dot);
+    public function getKhuyetTatCsNamDot($id_truong,$year,$dot);
+    public function getTuyenSinhDaoTaoDoanhNghiepCsNamDot($id_truong, $year,$dot);
+    public function getTuyenSinhDaoTaoDoanhNghiepTimeFromTo($id_truong, $fromDate,$toDate);
 }
 ?>

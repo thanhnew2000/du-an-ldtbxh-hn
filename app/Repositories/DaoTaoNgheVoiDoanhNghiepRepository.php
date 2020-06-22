@@ -180,5 +180,26 @@ class DaoTaoNgheVoiDoanhNghiepRepository extends BaseRepository implements DaoTa
 		return $data;
 	}
 
+	public function getTuyenSinhDaoTaoDoanhNghiepCsNamDot($id_truong, $year,$dot)
+	{
+		$data =  DB::table('ket_qua_tuyen_sinh_gan_voi_doanh_nghiep')->where('co_so_id', '=', $id_truong)
+		->where('nam','=',$year)
+		->where('dot','=',$dot)
+		->select('id','nghe_id')->get();
+		return $data;
+	}
+
+	public function getTuyenSinhDaoTaoDoanhNghiepTimeFromTo($id_truong, $fromDate,$toDate)
+	{
+		$data = DB::table('ket_qua_tuyen_sinh_gan_voi_doanh_nghiep')->where('ket_qua_tuyen_sinh_gan_voi_doanh_nghiep.co_so_id', '=',$id_truong)
+		->where('thoi_gian_cap_nhat','>=',$fromDate)
+		->where('thoi_gian_cap_nhat','<=',$toDate)
+		->join('nganh_nghe','nganh_nghe.id','=','ket_qua_tuyen_sinh_gan_voi_doanh_nghiep.nghe_id')
+		->get();
+		return $data;
+	}
+
+
+
 }
  ?>
