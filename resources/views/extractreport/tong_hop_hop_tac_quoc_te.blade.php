@@ -360,7 +360,7 @@
         });
 
         $('.select2').select2();
-         $('span.select2').css('width', '100%');
+        $('span.select2').css('width', '100%');
     });
 
 </script>
@@ -371,6 +371,9 @@
             $( "#datepickerFrom" ).datepicker();
             $( "#datepickerTo" ).datepicker();
          });
+
+        //  $('.select2').select2();
+       
 
          function closeModal(id) {
             $('#' + id).trigger('click');

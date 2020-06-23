@@ -285,9 +285,7 @@ class HopTacQuocTeService extends AppService
         $spreadsheet = $this->createSpreadSheet($fileReadStorage,$duoiFile);
         $data = $spreadsheet->getActiveSheet()->toArray();
 
-
         $arrayAphabe=['C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q'];
-
         $vitri = $this->checkError($data, $arrayAphabe, 5, 2, 16);
 
         $spreadsheet2 = IOFactory::load($fileReadStorage);
