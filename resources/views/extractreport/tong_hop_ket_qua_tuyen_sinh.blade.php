@@ -312,7 +312,7 @@
                         </p>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
                         <button type="button" class="btn btn-primary" id="submitTai"  onclick="closeModal('closeImportFile')">Tải</a>
-                            <button type="submit"  class="btn btn-primary" id="submitTaiok">Tải ok</a>
+                            <button type="submit" hidden  class="btn btn-primary" id="submitTaiok">Tải ok</a>
                     </div>
                 </div>
             </div>
