@@ -541,14 +541,7 @@
 
 
     <script>
-        //   $(window).load(function() {
-        //      console.log(1);
-        //         $('#loading').removeClass('preloading');
-        //         $('#preload').css('display','none')
-        //     });
         $(document).ready(function() {
-            // $('#loading').removeClass('preloading');
-            // $('#preload').css('display','none')
             $('#co_so_id').select2();
         });
     </script>

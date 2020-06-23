@@ -306,3 +306,15 @@ Route::group(['prefix' => 'quan-ly-giao-vien'], function () {
   ->name('export-data-doi-ngu-nha-giao');
 });
   // thanhnv import export doi ngu nha giao bm-9
+
+  // quang quan ly giao duc nghe nghiep
+Route::group(['prefix' => 'quan-ly-giao-duc-nghe-nghiep'], function () {
+    Route::get('/', 'GiaoDucNgheNghiepController@index')->name('xuatbc.quan-ly-giao-duc-nghe-nghiep');   
+    Route::get('/create', 'GiaoDucNgheNghiepController@create')->name('xuatbc.quan-ly-giao-duc-nghe-nghiep.create');   
+    Route::post('/store', 'GiaoDucNgheNghiepController@store')->name('xuatbc.quan-ly-giao-duc-nghe-nghiep.store');   
+    Route::get('/edit/{id}', 'GiaoDucNgheNghiepController@edit')->name('xuatbc.quan-ly-giao-duc-nghe-nghiep.edit'); 
+    Route::post('/update/{id}', 'GiaoDucNgheNghiepController@update')->name('xuatbc.quan-ly-giao-duc-nghe-nghiep.update');   
+    Route::post('/check-them-giao-duc-nghe-nghiep', 'GiaoDucNgheNghiepController@getCheckTonTaiGiaoDucNgheNghiep')->name('xuatbc.quan-ly-giao-duc-nghe-nghiep.check_so_lieu');
+});
+ // quang quan ly giao duc nghe nghiep
+
