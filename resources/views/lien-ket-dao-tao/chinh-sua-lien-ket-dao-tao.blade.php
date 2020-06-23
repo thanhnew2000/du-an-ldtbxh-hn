@@ -17,7 +17,8 @@
 
 @section('content')
 <div class="m-content container-fluid">
-  <form action="{{route('xuatbc.post-sua-lien-ket-dao-tao', ['id' => $data->id , 'bac_nghe' => $bac_nghe])}}"
+  <form
+    action="{{route('xuatbc.post-sua-lien-ket-dao-tao', ['id' => $data->id , 'bac_nghe' => $bac_nghe, 'co_so_id' => $data->co_so_id])}}"
     id="validate-form" method="post">
     @csrf
     <div class="m-portlet">

@@ -289,6 +289,17 @@
 
 @endsection
 @section('script')
+@if (session('thongbao_update'))
+<script>
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Cập nhật thành công !',
+        showConfirmButton: false,
+        timer: 3500
+    })
+</script>
+@endif
 <script>
     $(document).ready(function(){
     $('.select2').select2();

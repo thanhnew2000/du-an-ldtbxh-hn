@@ -235,7 +235,7 @@ Route::group(['prefix' => 'lien-ket-dao-tao'], function () {
 
     Route::get('/sua-lien-ket-dao-tao/{id}/{bac_nghe}', 'LienKetDaoTaoController@sualienketdaotao')
         ->name('xuatbc.sua-lien-ket-dao-tao');
-    Route::post('/sua-lien-ket-dao-tao/{id}/{bac_nghe}', 'LienKetDaoTaoController@postsualienketdaotao')
+    Route::post('/sua-lien-ket-dao-tao/{id}/{bac_nghe}/{co_so_id}', 'LienKetDaoTaoController@postsualienketdaotao')
         ->name('xuatbc.post-sua-lien-ket-dao-tao');
 
     Route::post('/tong-hop-lien-ket-dao-tao-get-ma-nganh-nghe', 'LienKetDaoTaoController@getmanganhnghe')
@@ -309,7 +309,7 @@ Route::group(['prefix' => 'ket-qua-tot-nghiep-gan-voi-doanh-nghiep'], function (
 
     Route::get('create', 'KetQuaTotNghiepGanVoiDoanhNGhiepController@create')
         ->name('xuatbc.them-ket-qua-tot-nghiep-voi-doanh-nghiep');
-    Route::get('store', 'KetQuaTotNghiepGanVoiDoanhNGhiepController@store')
+    Route::post('store', 'KetQuaTotNghiepGanVoiDoanhNGhiepController@store')
         ->name('xuatbc.post-them-ket-qua-tot-nghiep-voi-doanh-nghiep');
 
     Route::post('checktontai', 'KetQuaTotNghiepGanVoiDoanhNGhiepController@getCheckTonTai')

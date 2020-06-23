@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+@section('title', 'Chi tiết kết quả tốt nghiệp đào tạo nghề gắn với doanh nghiệp')
 @section('style')
 <style>
     th {

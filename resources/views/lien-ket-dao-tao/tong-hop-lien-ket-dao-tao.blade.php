@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', "Tổng hợp liên kết đào tạo")
+@section('title', "Liên kết đào tạo")
 @section('style')
 <link href="{!! asset('tong_hop_nghe_nguoi_khuyet_tat/css/tong_hop_nghe_nguoi_khuyet_tat.css') !!}" rel="stylesheet"
     type="text/css" />
@@ -18,7 +18,11 @@
                         <i class="m-menu__link-icon flaticon-web"></i>
                     </span>
                     <h3 class="m-portlet__head-text">
-                        Liên kết đào tạo
+                        @if (isset($title))
+                        {{$title}}
+                        @else
+                        Tổng hợp liên kết đào tạo
+                        @endif
                     </h3>
                 </div>
             </div>
