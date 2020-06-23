@@ -203,6 +203,13 @@ Route::group(['prefix' => 'dao-tao-voi-doanh-nghiep'], function () {
         Route::get('edit/{id}', 'DaoTaoNgheVoiDoanhNghiepController@edit')->name('xuatbc.dao-tao-nghe-doanh-nghiep.edit');
         Route::post('update/{id}', 'DaoTaoNgheVoiDoanhNghiepController@update')->name('xuatbc.dao-tao-nghe-doanh-nghiep.update');
         Route::get('show/{id}', 'DaoTaoNgheVoiDoanhNghiepController@show')->name('xuatbc.dao-tao-nghe-doanh-nghiep.show');
+
+        // thanhnv 6/22/2020
+        Route::post('export-bieu-mau-dao-tao-nghe-gan-voi-doanh-nghiep','DaoTaoNgheVoiDoanhNghiepController@exportBieuMau')
+        ->name('layformbieumau.dao-tao-nghe-gan-voi-doanh-nghiep');
+        Route::post('export-data-dao-tao-nghe-gan-voi-doanh-nghiep','DaoTaoNgheVoiDoanhNghiepController@exportData')
+        ->name('exportdata.dao-tao-nghe-gan-voi-doanh-nghiep');
+        // quang
         Route::post('/check-them-dao-tao-cho-nghe-voi-doanh-nghiep', 'DaoTaoNgheVoiDoanhNghiepController@getCheckTonTaiDaoTaoGanVoiDoanhNghiep')->name('xuatbc.dao-tao-nghe-doanh-nghiep.check_so_lieu');
 });
 
