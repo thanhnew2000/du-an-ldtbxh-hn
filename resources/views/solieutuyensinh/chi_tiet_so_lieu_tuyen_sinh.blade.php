@@ -149,7 +149,7 @@
                         <th>Dân tộc thiểu số ít người</th>
                         <th>Hộ khẩu Hà Nội</th>
                         <th>Tuyển mới</th>
-                        <th>Liên Thông</th>
+                        <th>Liên thông</th>
                         {{-- end ket qua tuyen sinh cao đẳng--}}
                         {{-- start ket qua tuyen sinh trung cap--}}
                         <th>Tổng</th>
