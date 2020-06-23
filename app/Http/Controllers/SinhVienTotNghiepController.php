@@ -57,7 +57,11 @@ class SinhVienTotNghiepController extends Controller
     }
     public function show($coSoId)
     {
-        $limit=10;
+        if(isset(request()->page_size)){
+            $limit = request()->page_size;
+        }else{
+            $limit = 20;
+        }
         $params = request()->all();
         $thongtincoso = $this->SinhVienTotNghiepService->getThongTinCoSo($coSoId);
         $data = $this->SinhVienTotNghiepService->getChiTietTongHopTotNghiep($coSoId,$limit,$params);

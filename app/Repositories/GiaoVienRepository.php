@@ -89,4 +89,11 @@ class GiaoVienRepository extends BaseRepository implements GiaoVienRepositoryInt
 
         return $queryBuilder->paginate($limit);
     }
+    
+    public function giaoVienTheoTruong($id_truong){
+        $data=  DB::table('giao_vien')->where('giao_vien.co_so_id','=',$id_truong)
+          ->join('nganh_nghe','nganh_nghe.id','=','giao_vien.nghe_id')
+          ->get();
+          return $data;
+      }
 }

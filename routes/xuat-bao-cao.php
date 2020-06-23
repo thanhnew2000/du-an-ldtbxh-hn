@@ -207,11 +207,24 @@ Route::group(['prefix' => 'dao-tao-nghe-thanh-nien'], function () {
         ->name('xuatbc.ds-dao-tao-thanh-nien');
 });
 
-
+// quảng tuyển sinh đòa tạo với doanh nghiệp
 Route::group(['prefix' => 'dao-tao-voi-doanh-nghiep'], function () {
-    Route::get('/tong-hop', 'ExtractController@tonghopdaotaovoidoanhnghiep')
+    Route::get('/tong-hop', 'DaoTaoNgheVoiDoanhNghiepController@index')
 
         ->name('xuatbc.ds-dao-tao-voi-doanh-nghiep');
+        Route::get('create', 'DaoTaoNgheVoiDoanhNghiepController@create')->name('xuatbc.dao-tao-nghe-doanh-nghiep.create');
+        Route::post('store', 'DaoTaoNgheVoiDoanhNghiepController@store')->name('xuatbc.dao-tao-nghe-doanh-nghiep.store');
+        Route::get('edit/{id}', 'DaoTaoNgheVoiDoanhNghiepController@edit')->name('xuatbc.dao-tao-nghe-doanh-nghiep.edit');
+        Route::post('update/{id}', 'DaoTaoNgheVoiDoanhNghiepController@update')->name('xuatbc.dao-tao-nghe-doanh-nghiep.update');
+        Route::get('show/{id}', 'DaoTaoNgheVoiDoanhNghiepController@show')->name('xuatbc.dao-tao-nghe-doanh-nghiep.show');
+
+        // thanhnv 6/22/2020
+        Route::post('export-bieu-mau-dao-tao-nghe-gan-voi-doanh-nghiep','DaoTaoNgheVoiDoanhNghiepController@exportBieuMau')
+        ->name('layformbieumau.dao-tao-nghe-gan-voi-doanh-nghiep');
+        Route::post('export-data-dao-tao-nghe-gan-voi-doanh-nghiep','DaoTaoNgheVoiDoanhNghiepController@exportData')
+        ->name('exportdata.dao-tao-nghe-gan-voi-doanh-nghiep');
+        // quang
+        Route::post('/check-them-dao-tao-cho-nghe-voi-doanh-nghiep', 'DaoTaoNgheVoiDoanhNghiepController@getCheckTonTaiDaoTaoGanVoiDoanhNghiep')->name('xuatbc.dao-tao-nghe-doanh-nghiep.check_so_lieu');
 });
 
 
@@ -244,6 +257,12 @@ Route::group(['prefix' => 'lien-ket-dao-tao'], function () {
         ->name('xuatbc.tong-hop-lien-ket-dao-tao-get-ma-nganh-nghe');
     Route::post('/tong-hop-lien-ket-dao-tao-get-nghe-theo-cap-bac', 'LienKetDaoTaoController@getNgheTheoCapBac')
         ->name('xuatbc.tong-hop-lien-ket-dao-tao-get-nghe-theo-cap-bac');
+
+    // thanhvn export 6/19/2020
+
+    Route::post('export-form-nhap-lien-ket-dao-tao', 'LienKetDaoTaoController@exportForm')->name('layformbieumau-lien-ket-dao-tao');
+    Route::post('export-data-lien-ket-dao-tao', 'LienKetDaoTaoController@exportData')->name('exportdata-lien-ket-dao-tao');
+
 });
 // End Xuân
 
@@ -291,3 +310,13 @@ Route::group(['prefix' => 'so-lieu-can-bo-quan-ly'], function () {
     Route::post('export-data-so-lieu-can-bo-quanly', 'ExportSoLieuCanBoQlController@exportDataSoLieuCanBoQuanLy')
         ->name('exportdata.solieucanbo.quanly');
 });
+
+
+// thanhvn import export quan-ly-giao-vien
+Route::group(['prefix' => 'quan-ly-giao-vien'], function () {
+    Route::post('/export-bieu-mau-doi-ngu-nha-giao', 'QuanLyGiaoVienController@exportBieuMau')
+  ->name('export-bieu-mau-doi-ngu-nha-giao');   
+  Route::post('export-data-doi-ngu-nha-giao','QuanLyGiaoVienController@exportData')
+  ->name('export-data-doi-ngu-nha-giao');
+});
+  // thanhnv import export doi ngu nha giao bm-9
