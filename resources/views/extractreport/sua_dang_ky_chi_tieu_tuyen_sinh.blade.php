@@ -145,7 +145,7 @@
 </div>
 @endsection
 @section('script')
-<script src="{!! asset('js/dang-ky-chi-tieu-tuyen-sinh/validate-update-dk_chi_tieu_ts.js') !!}"></script>
+<script src="{!! asset('dang-ky-chi-tieu-tuyen-sinh/validate-update-dk_chi_tieu_ts.js') !!}"></script>
 @if (session('success'))
 <script>
     Swal.fire({

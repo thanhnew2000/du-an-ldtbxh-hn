@@ -400,7 +400,7 @@
 </div>
 @endsection
 @section('script')
-<script src="{!! asset('js/xay_dung_chuong_trinh_giao_trinh/validate-create.js') !!}"></script>
+<script src="{!! asset('xay_dung_chuong_trinh_giao_trinh/validate-create.js') !!}"></script>
 @if (session('edit'))
 <script>
     Swal.fire({
