@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
-use App\Http\Requests\TuyenSinhValidate;
+use App\Http\Requests\SoLieuTuyenSinh\StoreRequest;
+use App\Http\Requests\SoLieuTuyenSinh\UpdateRequest;
 use App\Services\SoLieuTuyenSinhService;
 
 class SoLieuTuyenSinhController extends Controller
@@ -92,7 +93,7 @@ class SoLieuTuyenSinhController extends Controller
         return view('solieutuyensinh.sua_so_luong_tuyen_sinh', compact('datatuyensinhid'));
     }
 
-    public function update($id, TuyenSinhValidate $request)
+    public function update($id, UpdateRequest $request)
     {
         $data = $this->SoLieuTuyenSinhService->update($id, $request);
         $datatuyensinh = $this->SoLieuTuyenSinhService->findById($id);
@@ -105,7 +106,7 @@ class SoLieuTuyenSinhController extends Controller
         return view('solieutuyensinh.them_so_lieu_tuyen_sinh', compact('data'));
     }
 
-    public function store(TuyenSinhValidate $request)
+    public function store(StoreRequest $request)
     {
         $requestParams = $request->all();
         $data = [

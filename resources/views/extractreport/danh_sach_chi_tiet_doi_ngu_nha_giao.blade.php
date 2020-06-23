@@ -121,7 +121,7 @@
                         <th colspan="3" class="border">Chia theo trình độ kỹ năng nghề</th>
                         <th colspan="3" class="border">Chia theo trình độ nghiệp vụ sư phạm</th>
                         <th rowspan="2" class="border"><pre class="text-white">Số nhà giáo <br>tham gia <br>đào tạo,<br>bồi dưỡng <br>trong năm</pre></th>
-                        <th rowspan="2" class="border"><pre class="text-white">Tác vụ</pre></th>
+                        <th rowspan="2" class="border"><pre class="text-white">Thao tác</pre></th>
                     </tr>
        
                     <tr class="pt-3 row2">

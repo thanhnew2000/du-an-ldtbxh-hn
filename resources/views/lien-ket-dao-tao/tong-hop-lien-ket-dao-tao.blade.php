@@ -1,9 +1,16 @@
 @extends('layouts.admin')
-@section('title', "Tổng hợp liên kết đào tạo")
+@section('title', "Liên kết đào tạo")
+@section('style')
+<link href="{!! asset('tong_hop_nghe_nguoi_khuyet_tat/css/tong_hop_nghe_nguoi_khuyet_tat.css') !!}" rel="stylesheet"
+    type="text/css" />
+@endsection
 @section('content')
 
 <div class="m-content container-fluid">
     <div class="m-portlet">
+        <div id="preload" class="preload-container text-center" style="display: none">
+            <img id="gif-load" src="{!! asset('images/loading.gif') !!}" alt="">
+        </div>
         <div class="m-portlet__head">
             <div class="m-portlet__head-caption">
                 <div class="m-portlet__head-title">
@@ -11,7 +18,11 @@
                         <i class="m-menu__link-icon flaticon-web"></i>
                     </span>
                     <h3 class="m-portlet__head-text">
-                        Liên kết đào tạo
+                        @if (isset($title))
+                        {{$title}}
+                        @else
+                        Tổng hợp liên kết đào tạo
+                        @endif
                     </h3>
                 </div>
             </div>
@@ -208,7 +219,7 @@
 
 
     <section class="action-nav d-flex align-items-center justify-content-between mt-4 mb-4">
-    
+
         <div class="col-lg-2">
             <a href="javascript:" data-toggle="modal" data-target="#moDal">
                 <i class="fa fa-download" aria-hidden="true"></i>
@@ -226,7 +237,7 @@
                 Xuất dữ liệu ra Excel</a>
         </div>
 
-</section>
+    </section>
 
     <div class="m-portlet">
         <div class="m-portlet__body">
@@ -292,16 +303,16 @@
         </div>
     </div>
 
-    
+
     <form action="{{route('layformbieumau-lien-ket-dao-tao')}}" method="post">
         @csrf
-        <div class="modal fade" id="moDal" tabindex="-1" role="dialog" aria-labelledby="moDalLabel"
-            aria-hidden="true">
+        <div class="modal fade" id="moDal" tabindex="-1" role="dialog" aria-labelledby="moDalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="moDalLabel">Hãy chọn trường</h5>
-                        <button type="button" id="closeFileBieuMau" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" id="closeFileBieuMau" class="close" data-dismiss="modal"
+                            aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -330,7 +341,8 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="moDalLabel">Import file</h5>
-                        <button type="button" id="closeImportFile" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" id="closeImportFile" class="close" data-dismiss="modal"
+                            aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -341,13 +353,13 @@
                         <div class="form-group">
                             <label for="">Chọn năm</label>
                             <select name="nam" id="nam_id" class="form-control">
-                              <option value="2020">2020</option>
-                              <option value="2019">2019</option>
-                              <option value="2018">2018</option>
-                              <option value="2017">2017</option>
-                              <option value="2016">2016</option>
+                                <option value="2020">2020</option>
+                                <option value="2019">2019</option>
+                                <option value="2018">2018</option>
+                                <option value="2017">2017</option>
+                                <option value="2016">2016</option>
                             </select>
-                       </div>
+                        </div>
 
                         <div class="form-group">
                             <label for="">Chọn đợt</label>
@@ -362,7 +374,8 @@
                         <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoi">
                         </p>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                        <button type="button" class="btn btn-primary" id="submitTai"  onclick="closeModal('closeImportFile')">Tải</a>
+                        <button type="button" class="btn btn-primary" id="submitTai"
+                            onclick="closeModal('closeImportFile')">Tải</a>
                             <button type="submit" hidden class="btn btn-primary" id="submitTaiok">Tải ok</a>
                     </div>
                 </div>
@@ -372,13 +385,14 @@
 
     <form action="{{route('exportdata-lien-ket-dao-tao')}}" id="" method="post" enctype="multipart/form-data">
         @csrf
-        <div class="modal fade " id="moDalExportData" tabindex="-1" role="dialog"
-            aria-labelledby="moDalLabel" aria-hidden="true">
+        <div class="modal fade " id="moDalExportData" tabindex="-1" role="dialog" aria-labelledby="moDalLabel"
+            aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="moDalLabel">Xuất dữ liệu</h5>
-                        <button type="button" id='closeXuatDuLieu' class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" id='closeXuatDuLieu' class="close" data-dismiss="modal"
+                            aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -399,10 +413,11 @@
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                             </select> --}}
-                            <div class='input-group date datepicker' name="datepicker" >
-                                <p>From: <input type="text" class="form-control" name="dateFrom" id="datepickerFrom"></p>
+                            <div class='input-group date datepicker' name="datepicker">
+                                <p>From: <input type="text" class="form-control" name="dateFrom" id="datepickerFrom">
+                                </p>
                                 <p>To: <input type="text" class="form-control" name="dateTo" id="datepickerTo"></p>
-                                   {{-- <span class="input-group-addon">
+                                {{-- <span class="input-group-addon">
                                          <span class="glyphicon glyphicon-calendar">
                                          </span>
                                   </span> --}}
@@ -410,7 +425,7 @@
                         </div>
                         <div class="form-group">
                             <label for="">Chọn Trường</label>
-                            <select  name="truong_id" id="truong_id_xuat" class="form-control">
+                            <select name="truong_id" id="truong_id_xuat" class="form-control">
                                 @foreach($coso as $csdt)
                                 <option value="{{$csdt->id}}">{{$csdt->ten}}</option>
                                 @endforeach
@@ -423,7 +438,8 @@
                         <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoiXuat">
                         </p>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                        <button type="submit" class="btn btn-primary" id="submitXuatData" onclick="closeModal('closeXuatDuLieu')">Tải</a>
+                        <button type="submit" class="btn btn-primary" id="submitXuatData"
+                            onclick="closeModal('closeXuatDuLieu')">Tải</a>
                     </div>
                 </div>
             </div>
@@ -442,9 +458,9 @@
         $( "#datepickerTo" ).datepicker();
       } );
     });
-    </script>
+</script>
 <script type="text/javascript">
-$('.select2').select2();
+    $('.select2').select2();
 $('span.select2').css('width', '100%');
 
 
@@ -550,6 +566,7 @@ function closeModal(id) {
         $('.select2').select2();
     });
     $("#loai_hinh" ).change(function() {
+        $('#preload').css('display','block')
         axios.post(url_tuyen_sinh_theo_loai_hinh, {
             id:  $("#loai_hinh").val(),
         })
@@ -559,6 +576,7 @@ function closeModal(id) {
                 htmldata+=`<option value="${element.id}" >${element.ten}</option>`   
             });
             $('#co_so_id').html(htmldata);
+            $('#preload').css('display','none')
         })
         .catch(function (error) {
             console.log(error);
@@ -566,6 +584,7 @@ function closeModal(id) {
     });
     
     $("#devvn_quanhuyen" ).change(function() {
+        $('#preload').css('display','block')
         axios.post(url_xa_phuong_theo_quan_huyen, {
                     id:  $("#devvn_quanhuyen").val(),
         })
@@ -574,6 +593,7 @@ function closeModal(id) {
                 response.data.forEach(element => {
                 htmldata+=`<option value="${element.xaid}" >${element.name}</option>`   
             });
+            $('#preload').css('display','none')
             $('#devvn_xaphuongthitran').html(htmldata);
         })
         .catch(function (error) {
@@ -584,6 +604,7 @@ function closeModal(id) {
     function getNgheTheoCapBac(id){
         setNameNganhNgheSearch(id)
         var cap_nghe = $(id).val().length==3 ? 3: 4
+        $('#preload').css('display','block')
         axios.post(url_nghe_theo_nghe_cap_bac, {
             id:  $(id).val(),
             cap: cap_nghe
@@ -594,8 +615,10 @@ function closeModal(id) {
                     htmldata+=`<option value="${element.id}">${element.id}-${element.ten_nganh_nghe}</option>`  
             });
             if ($(id).val().length==3 || $(id).val().length==0) {
+                $('#preload').css('display','none')
                 $('#nghe_cap_3').html(htmldata);
             }else{
+                $('#preload').css('display','none')
                 $('#nghe_cap_4').html(htmldata);
             }
             

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\GiaoVien\StoreRequest as GiaoVienStoreRequest;
-use App\Http\Requests\validateAddDoiNguNhaGiao;
-use App\Http\Requests\validateUpdateDoiNguNhaGiao;
+use App\Http\Requests\DoiNguNhaGiao\validateAddDoiNguNhaGiao;
+use App\Http\Requests\DoiNguNhaGiao\validateUpdateDoiNguNhaGiao;
 use Illuminate\Http\Request;
 use App\Repositories;
 use App\Services\QlsvService;
@@ -134,13 +134,8 @@ class ExtractController extends Controller
      */
     public function themDanhSachDoiNguNhaGiao()
     {
-        $cosodaotao = DB::table('co_so_dao_tao')->get();
-        $nam = Carbon::now()->year;
-        $param = [
-            'cosodaotao' => $cosodaotao,
-            'nam' => $nam
-        ];
-        return view('extractreport.them-moi-doi_ngu_nha_giao',compact('param'));
+        $params['cosodaotao'] = $this->DoiNguNhaGiaoService->getAllCoSoDaoTao();
+        return view('extractreport.them-moi-doi_ngu_nha_giao',compact('params'));
     }
 
     /* Danh sách ngành nghề theo ID cơ sở.
@@ -161,14 +156,14 @@ class ExtractController extends Controller
         $params = $request->all();
         $kq = $this->DoiNguNhaGiaoService->checkTonTaiKhiThem($params);
         if($kq){
-            return redirect()->route('xuatbc.them-ds-nha-giao')->with(['kq'=> $kq->id])->withInput();
+            return redirect()->route('xuatbc.them-ds-nha-giao')->with(['edit'=> $kq->id])->withInput();
         }
-
+    
         $dateTime = Carbon::now();
         $request->request->set('created_at', $dateTime->format('Y-m-d H:i:s'));
 
         $this->DoiNguNhaGiaoService->create($request);
-        return redirect()->route('xuatbc.ds-nha-giao')->with(['kq'=> 'thêm thành công']);
+        return redirect()->route('xuatbc.them-ds-nha-giao')->with(['success'=> 'thêm thành công']);
     }
 
     /* Màn hình cập nhật dữ liệu Danh sách đội ngũ nhà giáo.
@@ -182,14 +177,12 @@ class ExtractController extends Controller
             return redirect()->route('xuatbc.ds-nha-giao');
         }
 
-        $cosodaotao = DB::table('co_so_dao_tao')->get();
+        $cosodaotao = $this->DoiNguNhaGiaoService->getAllCoSoDaoTao();
         $nganh_nghe_theo_id = $this->NganhNgheService->findById($data->nghe_id);
         $ten_nghe = $nganh_nghe_theo_id->ten_nganh_nghe;
 
-        $nam = Carbon::now()->year;
         $params = [
             'cosodaotao' => $cosodaotao,
-            'nam' => $nam,
             'ten_nghe' => $ten_nghe
         ];
         return view('extractreport.chinh_sua_doi_ngu_nha_giao',compact('params','data'));
@@ -210,7 +203,7 @@ class ExtractController extends Controller
         $request->request->set('updated_at', $dateTime->format('Y-m-d H:i:s'));
         $this->DoiNguNhaGiaoService->update($id,$request);
 
-         return redirect()->back()->with(['thongbao'=>'Cập nhật thành công !']);
+         return redirect()->back()->with(['success'=>'Cập nhật thành công !']);
     }
     // phunv - end
 
@@ -429,15 +422,18 @@ class ExtractController extends Controller
         $params['co_so_dao_tao'] = $this->CoSoDaoTaoService->getAll();
         $data = $this->HopTacQuocTeService->getDanhSachKetQuaHopTacQuocTe($params);
 
+        // thanhnv
+        $coso = DB::table('co_so_dao_tao')->get();
+
         $data->withPath("?co_so_id=$request->co_so_id&dot=$request->dot&nam=$request->nam&page_size=$request->page_size");  
         if($data->count() < 1){
             return view('extractreport.tong_hop_hop_tac_quoc_te', 
-            compact('data','params','route_name'),
+            compact('data','params','route_name','coso'),
             ['thongbao'=>'Không tìm thấy kết quả !']);
         }    
 
         return view('extractreport.tong_hop_hop_tac_quoc_te',
-        compact('data','params','route_name'),
+        compact('data','params','route_name','coso'),
         ['thongbao'=>'']);
     }
 
@@ -550,10 +546,13 @@ class ExtractController extends Controller
         return view('extractreport.chi_tiet_tong_hop_ket_qua_tuyen_sinh');
     }
 
+
     public function tonghopxdchuongtrinh()
     {
         return view('extractreport.tong_hop_xay_dung_chuong_trinh_giao_trinh');
     }
+
+
     public function tonghopdaotaonguoikhuyettat()
     {
         return view('extractreport.tong_hop_dao_tao_nghe_cho_nguoi_khuyet_tat');
@@ -575,7 +574,6 @@ class ExtractController extends Controller
     public function tonghoptuyensinh(Request $request)
     {
         $params = $request->all();
-
         if(!isset($params['page_size'])) $params['page_size'] = config('common.paginate_size.default');
         $route_name = Route::current()->action['as'];
 
@@ -616,7 +614,6 @@ class ExtractController extends Controller
     public function saveChiTieuTuyenSinh(StoreChiTieuTuyenSinhRequest $request)
     {
         $params = $request->all();
-    
         $kq = $this->ChiTieuTuyenSinhService->checkTonTaiKhiThem($params);
         if($kq){
             return redirect()->route('xuatbc.them-dang-ky-chi-tieu-tuyen-sinh')->with(['edit'=> $kq->id])->withInput();
@@ -782,6 +779,60 @@ class ExtractController extends Controller
         }else{
             return response()->json(['messageError' => $kq ],200);   
         }
+    }
+
+    // thanhnv bm13
+
+    public function exportBieuMaubm13(Request $request){
+        $id_co_so = $request->id_cs;
+        $this->HopTacQuocTeService->exportBieuMau($id_co_so);
+    }
+    public function exportDatabm13(Request $request){
+        $listCoSoId = $request->truong_id;
+        $dateFrom = $request->dateFrom;
+        $dateTo = $request->dateTo;
+
+        $changeFrom = strtotime($dateFrom); 
+        $fromDate = date("Y-m-d", $changeFrom);
+
+        $changeTo = strtotime($dateTo); 
+        $toDate = date("Y-m-d", $changeTo);
+        $this->HopTacQuocTeService->exportData($listCoSoId ,$fromDate,$toDate);
+    }
+
+    public function importFilebm13(Request $request){
+        $dot=$request->dot;
+        $year=$request->nam;
+        $nameFile=$request->file->getClientOriginalName();
+        $nameFileArr=explode('.',$nameFile);
+        $duoiFile=end($nameFileArr);
+        
+        $fileRead = $_FILES['file']['tmp_name'];
+        $kq =  $this->HopTacQuocTeService->importFile($fileRead, $duoiFile, $year, $dot);
+        if($kq=='errorkitu'){
+                return response()->json('exportError',200);   
+        }else if($kq=='ok'){
+                return response()->json('ok',200); 
+        }else if($kq=='chiDuocNhap1CoSo'){
+                return response()->json(['messageError' => 'Chỉ nhập cho 1 cơ sở' ],200);   
+        }else if($kq=='noCorrectIdTruong'){
+            return response()->json(['messageError' => ' Trường không đúng hãy nhập lại' ],200);   
+        }else{
+            return response()->json(['messageError' => $kq ],200);   
+        }
+    }
+    public function importErrorbm13(Request $request){
+        $nameFile=$request->file_import->getClientOriginalName();
+        $nameFileArr=explode('.',$nameFile);
+        $duoiFile=end($nameFileArr);
+
+        $fileRead = $_FILES['file_import']['tmp_name'];
+        $pathLoad = Storage::putFile(
+            'uploads/excels',
+            $request->file('file_import')
+        );
+        $path = str_replace('/', '\\', $pathLoad);  
+        $this->HopTacQuocTeService->importError($fileRead, $duoiFile,$path);
     }
 
 

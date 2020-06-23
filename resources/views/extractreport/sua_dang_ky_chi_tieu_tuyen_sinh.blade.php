@@ -145,9 +145,7 @@
 </div>
 @endsection
 @section('script')
-<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
-<script src="sweetalert2.min.js"></script>
-<link rel="stylesheet" href="sweetalert2.min.css">
+<script src="{!! asset('js/dang-ky-chi-tieu-tuyen-sinh/validate-update-dk_chi_tieu_ts.js') !!}"></script>
 @if (session('success'))
 <script>
     Swal.fire({
@@ -159,46 +157,5 @@
     })
 </script>
 @endif
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#validate-form-updatee").validate({
-            rules: {
-                tong:{
-                    number: true,
-                    digits: true,
-                    min: 0
-                },
-                so_dang_ki_CD:{
-                    number: true,
-                    digits: true,
-                    min: 0
-                },
-                so_dang_ki_TC:{
-                    number: true,
-                    digits: true,
-                    min: 0
-                }
-            },
-            messages: {
-                tong:{
-                    number: "Vui lòng nhập liệu hợp lệ",
-                    digits: "Số liệu nhỏ nhất là 0",
-                    min: "Số liệu nhỏ nhất là 0"
-                },
-                so_dang_ki_CD:{
-                    number: "Vui lòng nhập liệu hợp lệ",
-                    digits: "Số liệu nhỏ nhất là 0",
-                    min: "Số liệu nhỏ nhất là 0"
-                },
-                so_dang_ki_TC:{
-                    number: "Vui lòng nhập liệu hợp lệ",
-                    digits: "Số liệu nhỏ nhất là 0",
-                    min: "Số liệu nhỏ nhất là 0"
-                }
-            }
-        });
-    });
-
-</script>
 @endsection
 
