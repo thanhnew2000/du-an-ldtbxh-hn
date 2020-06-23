@@ -62,6 +62,8 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapNhapBaoCaoRoutes();
 
+        $this->mapChartRoutes();
+
 
         //
     }
@@ -133,6 +135,15 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->namespace)
             ->group(base_path('routes/nhap-bao-cao.php'));
     }
+
+        // 2020-06-23 - hieupt - chia thêm route chart
+        protected function mapChartRoutes()
+        {
+            Route::middleware('web', 'auth')
+                ->prefix('chart')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/chart.php'));
+        }
 
     /**
      * Define the "api" routes for the application.
