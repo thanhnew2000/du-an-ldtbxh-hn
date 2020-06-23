@@ -186,9 +186,9 @@
                     </tbody>
                 </table>
                 <div class="col-md-12 d-flex justify-content-end">
-                    <a><button type="button" class="btn btn-danger mr-3"><a style="color: white"
-                                href="{{route('xuatbc.tong-hop-chinh-sach-sinh-vien')}}">Hủy</button></a>
-                    <button type="submit" class="btn btn-primary">Thêm mới</button>
+                    <a style="color: white" href="{{route('xuatbc.tong-hop-chinh-sach-sinh-vien')}}"><button
+                            type="button" class="btn btn-danger mr-3">Hủy</button>
+                        <button type="submit" class="btn btn-primary">Thêm mới</button>
                 </div>
             </div>
         </div>
@@ -216,4 +216,5 @@ $("#page-size").change(function() {
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="{!! asset('chinh_sach_sinh_vien/chinh_sach_sinh_vien.js') !!}"></script>
+<script src="{!! asset('chinh_sach_sinh_vien/validate-number.js') !!}"></script>
 @endsection
