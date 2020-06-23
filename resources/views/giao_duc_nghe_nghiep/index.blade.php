@@ -1,24 +1,13 @@
 @extends('layouts.admin')
-@section('title', "Tổng hợp đào tạo nghề cho người khuyết tật")
-@section('style')
-<link href="{!! asset('/css/main.css') !!}" rel="stylesheet" type="text/css" />
-<link href="{!! asset('tong_hop_nghe_nguoi_khuyet_tat/css/tong_hop_nghe_nguoi_khuyet_tat.css') !!}" rel="stylesheet" type="text/css" />
-<style>
-    .m-table.m-table--border-danger,
-    .m-table.m-table--border-danger th,
-    .m-table.m-table--border-danger td {
-        border-color: #bcb1b1;
-    }
-
-    table thead th[colspan="4"] {
-        border-bottom-width: 1px;
-        border-bottom: 1px solid #bcb1b1 !important;
-    }
-</style>
-@endsection
 @section('content')
-
-<div class="m-content container-fluid spinner-border text-muted" id="loading">
+@section('style')
+    <style>
+        .fa-check{
+            color: blue
+        }
+    </style>
+@endsection
+<div class="m-content container-fluid">
     <div id="preload" class="preload-container text-center" style="display: none">
         <img id="gif-load" src="{!! asset('images/loading.gif') !!}" alt="">
     </div>
@@ -30,7 +19,7 @@
                         <i class="m-menu__link-icon flaticon-web"></i>
                     </span>
                     <h3 class="m-portlet__head-text">
-                        Tổng hợp<small>đào tạo nghề cho người khuyết tật</small>
+                        Thông tin đăng ký giáo dục nghề nghiệp
                     </h3>
                 </div>
             </div>
@@ -216,127 +205,162 @@
             </div>
         </form>
     </div>
-    <section class="action-nav d-flex align-items-center justify-content-between mt-4 mb-4">
-    
+    <div class="row mb-5 bieumau">
         <div class="col-lg-2">
-            <a href="javascript:" data-toggle="modal" data-target="#moDal">
+            <a href="javascript:" data-toggle="modal" data-target="#exampleModal">
                 <i class="fa fa-download" aria-hidden="true"></i>
                 Tải xuống biểu mẫu
             </a>
         </div>
         <div class="col-lg-2">
-            <a href="javascript:" data-toggle="modal" id="upImport-file" data-target="#moDalImport"><i
+            <a href="javascript:" data-toggle="modal" id="upImport-file" data-target="#exampleModalImport"><i
                     class="fa fa-upload" aria-hidden="true"></i>
                 Tải lên file Excel</a>
         </div>
-        <div class="col-lg-8">
-            <a href="javascript:" data-toggle="modal" data-target="#moDalExportData"><i class="fa fa-file-excel"
+        <div class="col-lg-2">
+            <a href="javascript:" data-toggle="modal" data-target="#exampleModalExportData"><i class="fa fa-file-excel"
                     aria-hidden="true"></i>
                 Xuất dữ liệu ra Excel</a>
         </div>
-
-</section>
+        <div class="col-lg-6 " style="text-align: right">
+            <a href="{{route('xuatbc.quan-ly-giao-duc-nghe-nghiep.create')}}"><button type="button" class="btn btn-info .bg-info">Thêm
+                    mới</button></a>
+        </div>
+    </div>
     <div class="m-portlet">
-        <div class="m-portlet__body table-responsive">
-            <table
-                class="table table-bordered m-table m-table--border-danger m-table--head-bg-primary table-boder-white">
-                <div class="col-12 form-group m-form__group d-flex justify-content-end">
-                    <label class="col-lg-2 col-form-label">Kích thước:</label>
-                    <div class="col-lg-2">
-                        <select class="form-control" id="page-size">
-                            @foreach(config('common.paginate_size.list') as $size)
-                            <option @if (isset($params['page_size']))
-                                {{( $params['page_size'] ==  $size ) ? 'selected' : ''}} @endif value="{{$size}}">{{$size}}
-                            </option>
-                            @endforeach
-                        </select>
-                    </div>
+        <div class="m-portlet__body">
+            <div class="col-12 form-group m-form__group d-flex justify-content-end">
+                <label class="col-lg-2 col-form-label">Kích thước:</label>
+                <div class="col-lg-2">
+                    <select class="form-control" id="page-size">
+                        @foreach(config('common.paginate_size.list') as $size)
+                        <option @if (isset($params['page_size']))
+                            {{( $params['page_size'] ==  $size ) ? 'selected' : ''}} @endif value="{{$size}}">{{$size}}
+                        </option>
+                        @endforeach
+                    </select>
                 </div>
+            </div>
+            <table class="table table-bordered m-table table-boder-white m-table--head-bg-primary table-responsive">
                 <thead>
-                    <tr class="text-center">
-                        <th rowspan="2">STT</th>
-                        <th rowspan="2">Tên cơ sở</th>
-                        <th scope="col">Loại hình cơ sở</th>
-                        <th rowspan="2">Quận Huyện</th>
-                        <th rowspan="2">Xã Phường <br> Thị Trấn</th>
-                        <th colspan="1">Tuyển sinh</th>
-                        <th colspan="1">Tốt nghiệp</th>
-                        <th colspan="1">Kinh phí thực hiện</th>
-                        <th rowspan="2">
-                        <a href="{{route('nhapbc.dao-tao-khuyet-tat.create')}}" class="btn btn-success btn-sm">Thêm mới</a>
-                        </th>
+                    <tr>
+                        <th scope="col 1" rowspan="2">STT</th>
+                        <th scope="col 1" rowspan="2">Loại hình cơ sở</th>
+                        <th scope="col 1" rowspan="2">Cơ sở đào tạo</th>
+                        <th scope="col 1" rowspan="2">Cơ quan chủ quản</th>
+                        <th scope="col 1" rowspan="2">Quận Huyện</th>
+                        <th scope="col 1" rowspan="2">Xã Phường <br> Thị Trấn</th> 
+                        <th scope="col 1" rowspan="2" class="text-center">Quyết đinh thành lập/ <br>đổi tên/sáp nhập/giải thể</th>       
+                        <th scope="col 1" colspan="4" class="text-center">Giấy chứng nhận đăng ký hoạt động GDNN</th>
+                        <th scope="col 1" colspan="5" class="text-center">Tên ngành, nghề/ quy mô được cấp trong GCN</th>
+                        <th scope="col 1" rowspan="2">Thao tác</th>
                     </tr>
 
+                  
+
+                    <tr class="pt-3 row2">
+                        <th>Số ngày tháng năm cấp/ <br>địa điểm dào tạo</th>
+                        <th>Chưa được cấp</th>
+                        <th>Năm cấp ban đầu</th>
+                        <th>Năm cấp bổ sung</th>
+
+                        <th>STT</th>
+                        <th>Tên ngành nghề</th>
+                        <th>Mã cấp II</th>
+                        <th>Quy mô tuyển sinh TC</th>
+                        <th>Quy mô tuyển sinh SC</th>
+                    </tr>
                 </thead>
                 <tbody>
                     @php
                     $i = !isset($_GET['page']) ? 1 : ($limit * ($_GET['page']-1) + 1);
+                    $check ='fa fa-check';
                     @endphp
+
                     @foreach ($data as $item)
                     <tr>
-                        <td>{{$i++}}</td>
-                        <td>{{$item->ten}}</td>
-                        <td>{{$item->loai_hinh_co_so}}</td>
-                        <td>{{$item->quan_huyen}}</td>
-                        <td>{{$item->xa_phuong}}</td>
-                        <td>{{$item->tong_tuyen_sinh}}</td>
-                        <td>{{$item->tong_tot_nghiep}}</td>
-                        <td>{{number_format($item->tong_ngan_sach)}}</td>
-                        <td>
-                            <a href="{{route('nhapbc.dao-tao-khuyet-tat.show',[
-                                'id' => $item->id,
-                            ])}}">Chi tiết</a>
+                        <td rowspan="{{count($item->detail)+1}}">{{ $i++ }}</td>
+                        <td rowspan="{{count($item->detail)+1}}">{{$item->loai_hinh_co_so}}</td>
+                        <td rowspan="{{count($item->detail)+1}}">{{$item->ten}}</td>
+                        <td rowspan="{{count($item->detail)+1}}">{{$item->co_quan_chu_quan}}</td>
+                        <td rowspan="{{count($item->detail)+1}}">{{$item->quan_huyen}}</td>
+                        <td rowspan="{{count($item->detail)+1}}">{{$item->xa_phuong}}</td>
+                        <td rowspan="{{count($item->detail)+1}}">{{$item->quyet_dinh}}</td>
+                        <td rowspan="{{count($item->detail)+1}}">{{$item->so_ngay_thang_nam_cap_dia_diem_dao_tao}}</td>
+                        <td class="text-center " rowspan="{{count($item->detail)+1}}">
+                            <i class="{{$item->giay_chung_nhan==1 ? $check :''}}"></i>
+                            
+                        </td>
+                        <td class="text-center " rowspan="{{count($item->detail)+1}}">
+                            <i class="{{$item->giay_chung_nhan==2 ? $check :''}}"></i>
+                        </td>
+                        <td class="text-center " rowspan="{{count($item->detail)+1}}">
+                            <i class="{{$item->giay_chung_nhan==3 ? $check :''}}"></i>
                         </td>
                     </tr>
+                        @foreach ($item->detail as $key => $value)
+                        <tr>
+                            <td>{{$key=$key+1}}</td>
+                            <td>{{$value->ten_nganh_nghe}}</td>
+                            <td>{{$value->ma_cap_2}}</td>
+                            <td>{{$value->quy_mo_tuyen_sinh_TC}}</td>
+                            <td>{{$value->quy_mo_tuyen_sinh_SC}}</td>                    
+                            <td>
+                                @if ($value->trang_thai<3)  <a href="{{route('xuatbc.quan-ly-giao-duc-nghe-nghiep.edit',[
+                                    'id' => $value->id,
+                                ])}}">Sửa</a>
+                                @endif    
+                            </td>    
+                    </tr>
+                        @endforeach
                     @endforeach
-                    
+                        
+
+
                 </tbody>
             </table>
         </div>
-        <div class="m-portlet__foot d-flex justify-content-end">
-            {{$data->links()}}
-        </div>
     </div>
+    <div class="m-portlet__foot d-flex justify-content-end">
 
-
-    <form action="{{route('layformbieumau-dao-tao-khuyet-tat')}}" method="post">
+    </div>
+    <form action="" method="post">
         @csrf
-        <div class="modal fade" id="moDal" tabindex="-1" role="dialog" aria-labelledby="moDalLabel"
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="moDalLabel">Hãy chọn trường</h5>
-                        <button type="button" id="closeFileBieuMau" class="close" data-dismiss="modal" aria-label="Close">
+                        <h5 class="modal-title" id="exampleModalLabel">Hãy chọn trường</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <select name="id_cs" class="form-control">
-                            @foreach($coso as $csdt)
-                            <option value="{{$csdt->id}}">{{$csdt->ten}}</option>
-                            @endforeach
+
+                            <option value=""></option>
+
                         </select>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                        <button type="submit" onclick="closeModal('closeFileBieuMau')" class="btn btn-primary">Tải</a>
+                        <button type="submit" onclick="clickDownloadTemplate()" class="btn btn-primary">Tải</a>
                     </div>
                 </div>
             </div>
         </div>
     </form>
 
-    <form action="{{route('import.error.kq-dao-tao-nguoi-khuyet-tat')}}" id="my_form_kqts_import" method="post"
-        enctype="multipart/form-data">
+    <form action="" id="my_form_kqts_import" method="post" enctype="multipart/form-data">
         @csrf
-        <div class="modal fade " id="moDalImport" tabindex="-1" role="dialog" aria-labelledby="moDalLabel"
+        <div class="modal fade " id="exampleModalImport" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="moDalLabel">Import file</h5>
-                        <button type="button" id="closeImportFile" class="close" data-dismiss="modal" aria-label="Close">
+                        <h5 class="modal-title" id="exampleModalLabel">Import file</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -347,13 +371,13 @@
                         <div class="form-group">
                             <label for="">Chọn năm</label>
                             <select name="nam" id="nam_id" class="form-control">
-                              <option value="2020">2020</option>
-                              <option value="2019">2019</option>
-                              <option value="2018">2018</option>
-                              <option value="2017">2017</option>
-                              <option value="2016">2016</option>
+                                <option value="2020">2020</option>
+                                <option value="2019">2019</option>
+                                <option value="2018">2018</option>
+                                <option value="2017">2017</option>
+                                <option value="2016">2016</option>
                             </select>
-                       </div>
+                        </div>
 
                         <div class="form-group">
                             <label for="">Chọn đợt</label>
@@ -368,7 +392,7 @@
                         <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoi">
                         </p>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                        <button type="button" class="btn btn-primary" id="submitTai"  onclick="closeModal('closeImportFile')">Tải</a>
+                        <button type="button" class="btn btn-primary" id="submitTai">Tải</a>
                             <button type="submit" hidden class="btn btn-primary" id="submitTaiok">Tải ok</a>
                     </div>
                 </div>
@@ -376,15 +400,15 @@
         </div>
     </form>
 
-    <form action="{{route('exportdata-dao-tao-khuyet-tat')}}" id="" method="post" enctype="multipart/form-data">
+    <form action="" id="" method="post" enctype="multipart/form-data">
         @csrf
-        <div class="modal fade " id="moDalExportData" tabindex="-1" role="dialog"
-            aria-labelledby="moDalLabel" aria-hidden="true">
+        <div class="modal fade " id="exampleModalExportData" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="moDalLabel">Xuất dữ liệu</h5>
-                        <button type="button" id='closeXuatDuLieu' class="close" data-dismiss="modal" aria-label="Close">
+                        <h5 class="modal-title" id="exampleModalLabel">Xuất dữ liệu</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -397,7 +421,7 @@
                                 <option value="2018">2018</option>
                                 <option value="2017">2017</option>
                                 <option value="2016">2016</option>
-                              </select>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="">Chọn đợt xuất</label>
@@ -405,22 +429,12 @@
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                             </select>
-                            {{-- <div class='input-group date datepicker' name="datepicker" >
-                                <p>From: <input type="text" class="form-control" name="dateFrom" id="datepickerFrom"></p>
-                                <p>To: <input type="text" class="form-control" name="dateTo" id="datepickerTo"></p>
-                                   {{-- <span class="input-group-addon">
-                                         <span class="glyphicon glyphicon-calendar">
-                                         </span>
-                                  </span> --}}
-                            {{-- </div> --}}
                         </div>
                         <div class="form-group">
                             <label for="">Chọn Trường</label>
-                            <select multiple name="truong_id[]" id="truong_id_xuat" class="form-control select2">
-                                @foreach($coso as $csdt)
-                                <option value="{{$csdt->id}}">{{$csdt->ten}}</option>
-                                @endforeach
-                                <option value="all">Tất cả</option>
+                            <select name="truong_id" id="truong_id_xuat" class="form-control">
+                                <option value=""></option>
+
                             </select>
                         </div>
 
@@ -429,223 +443,111 @@
                         <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoiXuat">
                         </p>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                        <button type="submit" class="btn btn-primary" id="submitXuatData" onclick="closeModal('closeXuatDuLieu')">Tải</a>
+                        {{-- <button type="button" class="btn btn-primary" id="clickXuatData">Tải</a> --}}
+                        <button type="submit" class="btn btn-primary" id="submitXuatData">Tải</a>
                     </div>
                 </div>
             </div>
         </div>
     </form>
-
-
-
-    @endsection
-    @section('script')
+</div>
+@endsection
+@section('script')
+<script>
+    $(document).ready(function() {
+        $('#co_so_id').select2();
+    });
+</script>
+<script type="text/javascript">
+    var url_tuyen_sinh_theo_loai_hinh = "{{route('csTuyenSinhTheoLoaiHinh')}}"
+    var url_xa_phuong_theo_quan_huyen = "{{route('getXaPhuongTheoQuanHuyen')}}"
+    var url_nghe_theo_nghe_cap_bac= "{{route('getNgheTheoCapBac')}}"
+        $(document).ready(function(){
+        $('#co_so_id').select2();
+        $('#devvn_quanhuyen').select2();
+        $('#devvn_xaphuongthitran').select2();
+        $('#nghe_cap_2').select2();
+        $('#nghe_cap_3').select2();
+        $('#nghe_cap_4').select2();
+    });
+    $("#loai_hinh" ).change(function() {
+        $('#preload').css('display','block')
+        axios.post(url_tuyen_sinh_theo_loai_hinh, {
+            id:  $("#loai_hinh").val(),
+        })
+        .then(function (response) {
+            var htmldata = '<option value="">Chọn cơ sở</option>'
+                response.data.forEach(element => {
+                htmldata+=`<option value="${element.id}" >${element.ten}</option>`   
+            });
+            $('#co_so_id').html(htmldata);
+            $('#preload').css('display','none')
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    });
     
-    <script src="{{ asset('js/so_lieu_tuyen_sinh/tong_hop_so_lieu.js') }}"></script>
-    <script>
-
-        $('.select2').select2();
-         $('span.select2').css('width', '100%');
-
-
-         function closeModal(id) {
-            $('#' + id).trigger('click');
-        }
-
-
-        $("#file_import_id").change(function() {
-            var fileExtension = ['xlsx','xls'];
-            if($("#file_import_id")[0].files.length === 0){
-                $('#echoLoi').text('Hãy nhập file excel');
-            }else if($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
-                $message = "Hãy nhập file excel : "+fileExtension.join(', ');
-                $('#echoLoi').text($message);
-                return false;
-            }else{
-                $('#echoLoi').text('');
-             }
-        });
-
-
-            $("#submitTai").click(function(event){
-            var fileExtension = ['xlsx', 'xls'];
-            if($("#file_import_id")[0].files.length === 0){
-                    console.log('không có file');
-            }else if($.inArray($('#file_import_id').val().split('.').pop().toLowerCase(), fileExtension) == -1) {
-                    console.log('chưa file không đúng định dạng');
-            }else{
-                $('#moDalImport').modal('hide');
-                $('.loading').css('display','block');
-                var formData = new FormData();
-                var fileExcel = document.querySelector('#file_import_id');
-                formData.append("file", fileExcel.files[0]);
-                formData.append("dot", $('#dot_id').val());
-                formData.append("nam", $('#nam_id').val());
-
-                axios.post("{{route('importketqua.dao-tao-nguoi-khuyet-tat')}}", formData,{
-                    headers: {
-                            'Content-Type': 'multipart/form-data',
-                        }
-                    }).then(function (response) {
-                        console.log(response)
-                                if(response.data == 'ok'){
-                                    $('.loading').css('display','none');
-                                        Swal.fire({
-                                            position: 'center',
-                                            icon: 'success',
-                                            title: 'Cập nhập thành công',
-                                            showConfirmButton: false,
-                                            timer: 1700
-                                        })
-                                    window.location.reload();
-                                    console.log('Đã insert vào database');
-                                }else if(response.data == 'exportError'){
-                                    $('.loading').css('display','none');
-                                    $('#submitTaiok').trigger('click');
-                                    $('#my_form_kqts_import')[0].reset();
-                                }else{
-                                    $('.loading').css('display','none');
-                                    Swal.fire({
-                                        title: response.data.messageError,
-                                        icon: 'warning',
-                                        confirmButtonColor: '#3085d6',
-                                        confirmButtonText: 'Xác nhận'
-                                        }).then((result) => {
-                                        if (result.value) {
-                                            window.location.reload();
-                                        }else{
-                                            window.location.reload();
-                                        }
-                                        })
-                                }
-                        }).catch(function (error) {
-                        console.log(error);
-                        $('.loading').css('display','none');
-                        Swal.fire({
-                                    title: 'Lỗi về file muốn nhập !',
-                                    // text: "You won't be able to revert this!",
-                                    icon: 'warning',
-                                    confirmButtonColor: '#3085d6',
-                                    confirmButtonText: 'Xác nhận'
-                                    }).then((result) => {
-                                    if (result.value) {
-                                        window.location.reload();
-                                    }else{
-                                        window.location.reload();
-                                    }
-                                    })
-                        });
-                    }
+    $("#devvn_quanhuyen" ).change(function() {
+        $('#preload').css('display','block')
+        axios.post(url_xa_phuong_theo_quan_huyen, {
+                    id:  $("#devvn_quanhuyen").val(),
+        })
+        .then(function (response) {
+            var htmldata = '<option value="" selected  >Chọn</option>'
+                response.data.forEach(element => {
+                htmldata+=`<option value="${element.xaid}" >${element.name}</option>`   
             });
-    </script>
-
-
-    <script>
-        $(document).ready(function() {
-            $('#co_so_id').select2();
+            $('#devvn_xaphuongthitran').html(htmldata);
+            $('#preload').css('display','none')
+        })
+        .catch(function (error) {
+            console.log(error);
         });
-    </script>
-    <script type="text/javascript">
-        var url_tuyen_sinh_theo_loai_hinh = "{{route('csTuyenSinhTheoLoaiHinh')}}"
-        var url_xa_phuong_theo_quan_huyen = "{{route('getXaPhuongTheoQuanHuyen')}}"
-        var url_nghe_theo_nghe_cap_bac= "{{route('getNgheTheoCapBac')}}"
-            $(document).ready(function(){
-            $('#co_so_id').select2();
-            $('#devvn_quanhuyen').select2();
-            $('#devvn_xaphuongthitran').select2();
-            $('#nghe_cap_2').select2();
-            $('#nghe_cap_3').select2();
-            $('#nghe_cap_4').select2();
-        });
-        $("#loai_hinh" ).change(function() {
-            $('#preload').css('display','block')
-            axios.post(url_tuyen_sinh_theo_loai_hinh, {
-                id:  $("#loai_hinh").val(),
-            })
-            .then(function (response) {
-                var htmldata = '<option value="">Chọn cơ sở</option>'
+    });
+    
+    function getNgheTheoCapBac(id){
+        $('#preload').css('display','block')
+        var cap_nghe = $(id).val().length==3 ? 3: 4
+        axios.post(url_nghe_theo_nghe_cap_bac, {
+            id:  $(id).val(),
+            cap: cap_nghe
+        })
+        .then(function (response) {        
+            if ($(id).val().length==3 || $(id).val().length==0) {
+                var htmldata = '<option value="" selected  >Chọn Nghề</option>'
                     response.data.forEach(element => {
-                    htmldata+=`<option value="${element.id}" >${element.ten}</option>`   
-                });
-                $('#co_so_id').html(htmldata);
-                $('#preload').css('display','none')
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-        });
-        
-        $("#devvn_quanhuyen" ).change(function() {
-            $('#preload').css('display','block')
-            axios.post(url_xa_phuong_theo_quan_huyen, {
-                        id:  $("#devvn_quanhuyen").val(),
-            })
-            .then(function (response) {
-                var htmldata = '<option value="" selected  >Chọn</option>'
+                        htmldata+=`<option value="${element.id}">${element.id}-${element.ten_nganh_nghe}</option>`   
+                    });
+                $('#nghe_cap_3').html(htmldata);
+            }else{
+                var htmldata = ''
                     response.data.forEach(element => {
-                    htmldata+=`<option value="${element.xaid}" >${element.name}</option>`   
-                });
-                $('#devvn_xaphuongthitran').html(htmldata);
-                $('#preload').css('display','none')
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+                        htmldata+=`<option value="${element.id}">${element.id}-${element.ten_nganh_nghe}</option>`  
+                    });
+                $('#nghe_cap_4').html(htmldata);
+            }
+            $('#preload').css('display','none')
+            
+        })
+        .catch(function (error) {
+            console.log(error);
         });
-        
-        function getNgheTheoCapBac(id){
-            $('#preload').css('display','block')
-            var cap_nghe = $(id).val().length==3 ? 3: 4
-            axios.post(url_nghe_theo_nghe_cap_bac, {
-                id:  $(id).val(),
-                cap: cap_nghe
-            })
-            .then(function (response) {        
-                if ($(id).val().length==3 || $(id).val().length==0) {
-                    var htmldata = '<option value="" selected  >Chọn Nghề</option>'
-                        response.data.forEach(element => {
-                            htmldata+=`<option value="${element.id}">${element.id}-${element.ten_nganh_nghe}</option>`   
-                        });
-                    $('#nghe_cap_3').html(htmldata);
-                }else{
-                    var htmldata = ''
-                        response.data.forEach(element => {
-                            htmldata+=`<option value="${element.id}">${element.id}-${element.ten_nganh_nghe}</option>`  
-                        });
-                    $('#nghe_cap_4').html(htmldata);
-                }
-                $('#preload').css('display','none')
-                
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-        }
-        // function setNameNganhNgheSearch(id) {
-        //     var nganh_nghe = $('.nganh_nghe')
-        //     for (let index = 0; index < nganh_nghe.length; index++) {
-        //         $(nganh_nghe[index]).attr('name','')       
-        //     }
-        //     if ($(id).attr('multiple')=='multiple') {
-        //         $(id).attr('name','nganh_nghe[]')
-        //     }else{
-        //         $(id).attr('name','nganh_nghe')
-        //     }
-           
-        // }
-        
-          $("#page-size").change(function(){  
-            $("#page_size_hide").val($('#page-size').val())
-            var url = new URL(window.location.href);
-            var search_params = url.searchParams;
-            search_params.set('page_size', $("#page_size_hide").val());
-            search_params.set('page',1);
-            url.search = search_params.toString();
-            var new_url = url.toString();
-            window.location.href = new_url
-          });
-        
-        
-        </script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
-    @endsection
+    }
+
+    
+      $("#page-size").change(function(){  
+        $("#page_size_hide").val($('#page-size').val())
+        var url = new URL(window.location.href);
+        var search_params = url.searchParams;
+        search_params.set('page_size', $("#page_size_hide").val());
+        search_params.set('page',1);
+        url.search = search_params.toString();
+        var new_url = url.toString();
+        window.location.href = new_url
+      });
+    
+    
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>   
+@endsection
