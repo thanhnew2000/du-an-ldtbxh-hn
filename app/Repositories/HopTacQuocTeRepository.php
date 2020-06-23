@@ -75,5 +75,23 @@ class HopTacQuocTeRepository extends BaseRepository implements HopTacQuocTeRepos
         
         return $queryBuilder->orderByDesc('nam')->orderByDesc('dot')->paginate($params['page_size']);
     }
+
+
+    public function getHopTacQuocTeCsNamDot($id_truong, $year,$dot)
+	{
+		$data =  DB::table('ket_qua_hop_tac_quoc_te')->where('co_so_id', '=', $id_truong)
+		->where('nam','=',$year)
+		->where('dot','=',$dot)
+		->select('id','co_so_id')->first();
+		return $data;
+	}
+	public function getHopTacQuocTeTimeFromTo($id_truong, $fromDate,$toDate)
+	{
+		$data = DB::table('ket_qua_hop_tac_quoc_te')->where('co_so_id', '=',$id_truong)
+		->where('thoi_gian_cap_nhat','>=',$fromDate)
+		->where('thoi_gian_cap_nhat','<=',$toDate)
+		->get();
+		return $data;
+	}
   
 }

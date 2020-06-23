@@ -140,3 +140,8 @@ Route::group(['prefix' => 'ket-qua-tot-nghiep-gan-voi-doanh-nghiep'], function (
     Route::post('import-error-ket-qua-tot-nghiep-gan-voi-doanh-nghiep','KetQuaTotNghiepGanVoiDoanhNGhiepController@importError')
     ->name('import.error-ket-qua-tot-nghiep-gan-voi-doanh-nghiep');
 });
+// thanhnv 6/21/2020 import export bm13
+Route::group(['prefix' => 'hop-tac-quoc-te'], function () {
+    Route::post('import-hop-tac-quoc-te', 'ExtractController@importFilebm13')->name('import.hop-tac-quoc-te');
+    Route::post('import-error-hop-tac-quoc-te', 'ExtractController@importErrorbm13')->name('import.error.hop-tac-quoc-te');
+});

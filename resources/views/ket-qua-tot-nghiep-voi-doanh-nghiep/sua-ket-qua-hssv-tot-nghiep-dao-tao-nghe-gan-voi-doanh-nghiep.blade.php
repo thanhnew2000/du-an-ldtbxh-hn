@@ -214,7 +214,7 @@
                                     <tr>
                                         <td>Tổng số</td>
                                         <td><input type="number" min="0" step="1" name="tong_HSSV_tot_nghiep"
-                                                class="form-control"></td>
+                                            value="{{$data->tong_HSSV_tot_nghiep}}"  class="form-control"></td>
                                     </tr>
                                 </tbody>
                             </table>

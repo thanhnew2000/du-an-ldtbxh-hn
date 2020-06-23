@@ -429,15 +429,18 @@ class ExtractController extends Controller
         $params['co_so_dao_tao'] = $this->CoSoDaoTaoService->getAll();
         $data = $this->HopTacQuocTeService->getDanhSachKetQuaHopTacQuocTe($params);
 
+        // thanhnv
+        $coso = DB::table('co_so_dao_tao')->get();
+
         $data->withPath("?co_so_id=$request->co_so_id&dot=$request->dot&nam=$request->nam&page_size=$request->page_size");  
         if($data->count() < 1){
             return view('extractreport.tong_hop_hop_tac_quoc_te', 
-            compact('data','params','route_name'),
+            compact('data','params','route_name','coso'),
             ['thongbao'=>'Không tìm thấy kết quả !']);
         }    
 
         return view('extractreport.tong_hop_hop_tac_quoc_te',
-        compact('data','params','route_name'),
+        compact('data','params','route_name','coso'),
         ['thongbao'=>'']);
     }
 
@@ -719,4 +722,57 @@ class ExtractController extends Controller
 
         return redirect()->route('xuatbc.ds-nha-giao');
     }
+    // thanhvn bm13
+    public function exportBieuMaubm13(Request $request){
+        $id_co_so = $request->id_cs;
+        $this->HopTacQuocTeService->exportBieuMau($id_co_so);
+    }
+    public function exportDatabm13(Request $request){
+        $listCoSoId = $request->truong_id;
+        $dateFrom = $request->dateFrom;
+        $dateTo = $request->dateTo;
+
+        $changeFrom = strtotime($dateFrom); 
+        $fromDate = date("Y-m-d", $changeFrom);
+
+        $changeTo = strtotime($dateTo); 
+        $toDate = date("Y-m-d", $changeTo);
+        $this->HopTacQuocTeService->exportData($listCoSoId ,$fromDate,$toDate);
+    }
+
+    public function importFilebm13(Request $request){
+        $dot=$request->dot;
+        $year=$request->nam;
+        $nameFile=$request->file->getClientOriginalName();
+        $nameFileArr=explode('.',$nameFile);
+        $duoiFile=end($nameFileArr);
+        
+        $fileRead = $_FILES['file']['tmp_name'];
+        $kq =  $this->HopTacQuocTeService->importFile($fileRead, $duoiFile, $year, $dot);
+        if($kq=='errorkitu'){
+                return response()->json('exportError',200);   
+        }else if($kq=='ok'){
+                return response()->json('ok',200); 
+        }else if($kq=='chiDuocNhap1CoSo'){
+                return response()->json(['messageError' => 'Chỉ nhập cho 1 cơ sở' ],200);   
+        }else if($kq=='noCorrectIdTruong'){
+            return response()->json(['messageError' => ' Trường không đúng hãy nhập lại' ],200);   
+        }else{
+            return response()->json(['messageError' => $kq ],200);   
+        }
+    }
+    public function importErrorbm13(Request $request){
+        $nameFile=$request->file_import->getClientOriginalName();
+        $nameFileArr=explode('.',$nameFile);
+        $duoiFile=end($nameFileArr);
+
+        $fileRead = $_FILES['file_import']['tmp_name'];
+        $pathLoad = Storage::putFile(
+            'uploads/excels',
+            $request->file('file_import')
+        );
+        $path = str_replace('/', '\\', $pathLoad);  
+        $this->HopTacQuocTeService->importError($fileRead, $duoiFile,$path);
+    }
+
 }
