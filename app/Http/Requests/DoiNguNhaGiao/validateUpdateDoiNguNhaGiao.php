@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\HopTacQuocTe;
+namespace App\Http\Requests\DoiNguNhaGiao;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreHopTacQuocTeRequest extends FormRequest
+class validateUpdateDoiNguNhaGiao extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -38,13 +38,10 @@ class StoreHopTacQuocTeRequest extends FormRequest
 
     public function messages()
     {
-        return [      
-            'integer' => 'Hãy điền số',
-            'min' => 'Số liệu nhỏ nhất là 0', 
+        return [
+                'integer' => 'Hãy điền số',
+                'min' => 'Số liệu nhỏ nhất là 0', 
 
-            'co_so_id.min' => 'Vui lòng chọn đơn vị',
-            'dot.min' => 'Vui lòng chọn đợt',
-            'nam.min' => 'Vui lòng chọn năm'
-    ];
+        ];
     }
 }

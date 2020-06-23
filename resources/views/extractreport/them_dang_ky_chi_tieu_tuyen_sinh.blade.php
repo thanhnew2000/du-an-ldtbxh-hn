@@ -34,10 +34,9 @@
                                 <label class="col-lg-2 col-form-label">Tên cơ sở</label>
                                 <div class="col-lg-10">
                                     <select name="co_so_id" class="form-control select2" id="co_so_id">
-                                        <option value="-1">-----Chọn đơn vị-----</option>
+                                        <option value="-1">-----Chọn cơ sở-----</option>
                                         @foreach($params['get_co_so'] as $item)
                                         <option 
-                                        {{-- {{ old('co_so_id') == $item->id ? 'selected' : '' }} --}}
                                             value="{{$item->id}}">
                                             {{$item->ten}}</option>
                                         @endforeach
@@ -72,7 +71,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Năm</label>
                                 <div class="col-lg-10">
-                                    <select name="nam" class="form-control ">
+                                    <select name="nam" class="form-control select2">
                                         <option value="-1">-----Chọn năm-----</option>
 
                                         @foreach(config('common.nam.list') as $nam)
@@ -81,6 +80,7 @@
                                         @endforeach
 
                                     </select>
+                                    <label id="nam-error" class="error" for="nam"></label>
                                     @if ($errors->has('nam'))
                                     <span class="text-danger">{{ $errors->first('nam') }}</span>
                                     @endif
@@ -91,7 +91,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Đợt</label>
                                 <div class="col-lg-10">
-                                    <select name="dot" class="form-control ">
+                                    <select name="dot" class="form-control select2">
                                         <option value="-1">-----Chọn đợt-----</option>
                                         <option {{ old('dot') == config('common.dot.1') ? 'selected' : '' }}
                                             value="{{config('common.dot.1')}}">
@@ -101,6 +101,7 @@
                                             value="{{config('common.dot.2')}}">
                                             {{config('common.dot.2')}}</option>
                                     </select>
+                                    <label id="dot-error" class="error" for="dot"></label>
                                     @if ($errors->has('dot'))
                                     <span class="text-danger">{{ $errors->first('dot') }}</span>
                                     @endif
@@ -174,97 +175,7 @@
 </div>
 @endsection
 @section('script')
-<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
-<script src="sweetalert2.min.js"></script>
-<link rel="stylesheet" href="sweetalert2.min.css">
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#co_so_id").change(function () {
-            var op = $("select option:selected").val();
-            axios
-                .get("/xuat-bao-cao/doi-ngu-nha-giao/nganhnghe/" + op)
-                .then(function (response) {
-                    var htmldata = '<option value="-1">-----Chọn ngành nghề-----</option>';
-                    response.data.forEach((element) => {
-                        htmldata +=
-                            `<option value="${element.id}" >${element.id} --- ${element.ten_nganh_nghe}</option>`;
-                    });
-                    $("#nghe_id").html(htmldata);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-        });
-
-    });
-
-    $(document).ready(function () {
-        $("#validate-form-add").validate({
-            rules: {
-                co_so_id: {
-                    min: 0
-                },
-                nam: {
-                    min: 0
-                },
-                dot: {
-                    min: 0
-                },
-                nghe_id: {
-                    min: 0
-                },
-                tong: {
-                    number: true,
-                    digits: true,
-                    min:0
-                },
-                so_dang_ki_CD: {
-                    number: true,
-                    digits: true,
-                    min:0
-                },
-                so_dang_ki_TC: {
-                    number: true,
-                    digits: true,
-                    min:0
-                }
-            },
-            messages: {
-                co_so_id: {
-                    min: "Vui lòng chọn cơ sở"
-                },
-                nam: {
-                    min: "Vui lòng chọn năm"
-                },
-                dot: {
-                    min: "Vui lòng chọn đợt"
-                },
-                nghe_id: {
-                    min: "Vui lòng chọn ngành nghề"
-                },
-                tong: {
-                    number: "Vui lòng nhập liệu hợp lệ",
-                    digits: "Số liệu nhỏ nhất là 0",
-                    min: "Số liệu nhỏ nhất là 0"
-                },
-                so_dang_ki_CD: {
-                    number: "Vui lòng nhập liệu hợp lệ",
-                    digits: "Số liệu nhỏ nhất là 0",
-                    min: "Số liệu nhỏ nhất là 0"
-                },
-                so_dang_ki_TC: {
-                    number: "Vui lòng nhập liệu hợp lệ",
-                    digits: "Số liệu nhỏ nhất là 0",
-                    min: "Số liệu nhỏ nhất là 0"
-                }
-            }
-        });
-
-        $('.select2').select2();
-    });
-
-</script>
+<script src="{!! asset('js/dang-ky-chi-tieu-tuyen-sinh/validate-create-dk_chi_tieu_ts.js') !!}"></script>
 @if (session('edit'))
 <script>
     Swal.fire({
@@ -275,7 +186,11 @@
         showconfirmButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: '<a class="text-white" href="{{ route('xuatbc.sua-dang-ky-chi-tieu-tuyen-sinh',['id'=>session('edit')]) }}">Edit</a>'
+        confirmButtonText: 'Edit'
+        }).then((result) => {
+            if (result.value) {
+                window.location.href = '{{ route('xuatbc.sua-dang-ky-chi-tieu-tuyen-sinh',['id'=> session('edit')]) }}';
+            }
         })
 </script>
 @endif
@@ -292,5 +207,4 @@
 
 </script>
 @endif
-
 @endsection

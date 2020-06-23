@@ -51,7 +51,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Năm</label>
                                 <div class="col-lg-8">
-                                    <select name="nam" class="form-control ">
+                                    <select name="nam" class="form-control select2">
                                         <option value="">-----Chọn năm-----</option>
 
                                         @foreach(config('common.nam.list') as $nam)
@@ -67,7 +67,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Đợt</label>
                                 <div class="col-lg-8">
-                                    <select name="dot" class="form-control ">
+                                    <select name="dot" class="form-control select2">
                                         <option value="">-----Chọn đợt-----</option>
                                         <option @if(isset($params['dot']) && $params['dot']==config('common.dot.1'))
                                             selected @endif value="{{config('common.dot.1')}}">
@@ -122,7 +122,7 @@
                             quốc tế</th>
                         <th colspan="3">Hợp tác quốc tế trong đào tạo , bồi dưỡng giáo viên , cán bộ quản lý</th>
                         <th colspan="3">Hợp tác quốc tế trong đầu tư cơ sở vật chất , trang thiết bị</th>
-                        <th rowspan="2">Tác vụ</th>
+                        <th rowspan="2">Thao tác</th>
 
                     </tr>
                     <tr class="text-center">
@@ -217,6 +217,7 @@
                 `${currentUrl}?dot=${dot}&nam=${nam}&page_size=${page_size}`;
             window.location.href = reloadUrl;
         });
+        $('.select2').select2();
 
     });
 
