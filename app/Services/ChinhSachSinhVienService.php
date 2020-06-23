@@ -30,10 +30,8 @@ class ChinhSachSinhVienService extends AppService
     }
     public function checktontaiChinhSachSinhVien($data, $requestParams)
     {
-        $dataCheckNew = $this->constructConditionParams($data);
+        $kqkiemtra = $this->getSoLieu($data);
 
-        $kqkiemtra = $this->repository->checktontaiChinhSachSinhVien($dataCheckNew);
-        //dd($kqkiemtra);
         unset($requestParams['_token']);
         $route = route('xuatbc.them-chinh-sach-sinh-vien');
 
@@ -62,6 +60,14 @@ class ChinhSachSinhVienService extends AppService
 
         return $conditionData;
     }
+
+    public function getSoLieu($data)
+    {
+        $dataCheckNew = $this->constructConditionParams($data);
+
+        return $this->repository->checktontaiChinhSachSinhVien($dataCheckNew);
+    }
+
     public function getsuaChinhSachSinhVien($id)
     {
         return $this->repository->getsuaChinhSachSinhVien($id);

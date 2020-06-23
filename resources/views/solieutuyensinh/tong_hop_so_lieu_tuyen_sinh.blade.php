@@ -122,22 +122,22 @@
                                 </div>
                             </div>
                         </div>
-                    
-                     
+
+
                         <div class="col-md-6">
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Nghề cấp 3</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control nganh_nghe" onchange="getNgheTheoCapBac(this)" 
+                                    <select class="form-control nganh_nghe" onchange="getNgheTheoCapBac(this)"
                                     @if (isset($params['nganh_nghe']))
                                     name ="{{strlen($params['nganh_nghe'])==5?'nganh_nghe':''}}" @endif
                                     id="nghe_cap_3">
-                                        <option value="" selected>Chọn</option>  
+                                        <option value="" selected>Chọn</option>
                                         @foreach ($nghe_cap_3 as $item)
                                         <option @if (isset($params['nganh_nghe']))
                                             {{( substr($params['nganh_nghe'],0,5) ==  $item->id ) ? 'selected' : ''}} @endif
                                             value="{{$item->id}}">{{$item->id}}-{{$item->ten_nganh_nghe}}</option>
-                                        @endforeach                            
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -159,12 +159,12 @@
                                 </div>
                             </div>
                         </div>
-                      
+
                         <div class="col-md-6">
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Nghề cấp 4</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control nganh_nghe" onchange="setNameNganhNgheSearch(this)" 
+                                    <select class="form-control nganh_nghe" onchange="setNameNganhNgheSearch(this)"
                                     @if (isset($params['nganh_nghe']))
                                     name ="{{strlen($params['nganh_nghe'])==7?'nganh_nghe':''}}" @endif
                                     id="nghe_cap_4">
@@ -173,13 +173,13 @@
                                         <option @if (isset($params['nganh_nghe']))
                                             {{( substr($params['nganh_nghe'],0,7) ==  $item->id ) ? 'selected' : ''}} @endif
                                             value="{{$item->id}}">{{$item->id}}-{{$item->ten_nganh_nghe}}</option>
-                                        @endforeach    
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
                         </div>
                     </div>
-                     <div class="row pt-4">                   
+                     <div class="row pt-4">
                         <div class="col-md-6 ">
                             <div class="form-group m-form__group row">
                                 <label for="" class="col-lg-2 col-form-label">Xã\Phường</label>
@@ -225,10 +225,6 @@
                     aria-hidden="true"></i>
                 Xuất dữ liệu ra Excel</a>
         </div>
-        <div class="col-lg-6 " style="text-align: right">
-            <a href="{{route('themsolieutuyensinh')}}"><button type="button" class="btn btn-secondary">Thêm
-                    mới</button></a>
-        </div>
     </div>
     <div class="m-portlet">
         <div class="m-portlet__body">
@@ -260,7 +256,7 @@
                         <th scope="col">Kế hoạch tuyển sinh</th>
                         <th scope="col">Trạng thái</th>
                         <!-- <th scope="col">Chỉnh sửa</th> -->
-                        <th scope="col">Thao tác</th>
+                        <th scope="col"> <a href="{{route('themsolieutuyensinh')}}" class="btn btn-success btn-sm">Thêm mới</a></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -349,7 +345,7 @@
                               <option value="2018">2018</option>
                               <option value="2017">2017</option>
                               <option value="2016">2016</option>
-                            </select> 
+                            </select>
                        </div>
 
                         <div class="form-group">
@@ -395,7 +391,7 @@
                                 <option value="2017">2017</option>
                                 <option value="2016">2016</option>
                               </select>
-                        </div> 
+                        </div>
                         <div class="form-group">
                             <label for="">Chọn đợt xuất</label>
                             <select name="dot_muon_xuat" id="dot_id_xuat" class="form-control">
@@ -446,7 +442,7 @@
 $("#submitTai").click(function(event){
 var fileExtension = ['xlsx', 'xls'];
    if($("#file_import_id")[0].files.length === 0){
-         console.log('không có file');    
+         console.log('không có file');
    }else if($.inArray($('#file_import_id').val().split('.').pop().toLowerCase(), fileExtension) == -1) {
          console.log('chưa file không đúng định dạng');
    }else{
@@ -485,7 +481,7 @@ var fileExtension = ['xlsx', 'xls'];
                     confirmButtonColor: '#3085d6',
                     confirmButtonText: 'Xác nhận'
                     }).then((result) => {
-                    if (result.value) {  
+                    if (result.value) {
                         window.location.reload();
                     }else{
                         window.location.reload();
@@ -507,14 +503,14 @@ var fileExtension = ['xlsx', 'xls'];
                     confirmButtonColor: '#3085d6',
                     confirmButtonText: 'Xác nhận'
                     }).then((result) => {
-                    if (result.value) {  
+                    if (result.value) {
                         window.location.reload();
                     }else{
                         window.location.reload();
                     }
                     })
         });
-    }   
+    }
 });
 
 function clickDownloadTemplate(){
@@ -545,7 +541,7 @@ function clickDownloadTemplate(){
         .then(function (response) {
             var htmldata = '<option value="">Chọn cơ sở</option>'
                 response.data.forEach(element => {
-                htmldata+=`<option value="${element.id}" >${element.ten}</option>`   
+                htmldata+=`<option value="${element.id}" >${element.ten}</option>`
             });
             $('#co_so_id').html(htmldata);
         })
@@ -553,7 +549,7 @@ function clickDownloadTemplate(){
             console.log(error);
         });
     });
-    
+
     $("#devvn_quanhuyen" ).change(function() {
         axios.post(url_xa_phuong_theo_quan_huyen, {
                     id:  $("#devvn_quanhuyen").val(),
@@ -561,7 +557,7 @@ function clickDownloadTemplate(){
         .then(function (response) {
             var htmldata = '<option value="" selected  >Chọn</option>'
                 response.data.forEach(element => {
-                htmldata+=`<option value="${element.xaid}" >${element.name}</option>`   
+                htmldata+=`<option value="${element.xaid}" >${element.name}</option>`
             });
             $('#devvn_xaphuongthitran').html(htmldata);
         })
@@ -569,7 +565,7 @@ function clickDownloadTemplate(){
             console.log(error);
         });
     });
-    
+
     function getNgheTheoCapBac(id){
         setNameNganhNgheSearch(id)
         var cap_nghe = $(id).val().length==3 ? 3: 4
@@ -580,14 +576,14 @@ function clickDownloadTemplate(){
         .then(function (response) {
             var htmldata = '<option value="" selected  >Chọn nghề</option>'
                 response.data.forEach(element => {
-                    htmldata+=`<option value="${element.id}">${element.id}-${element.ten_nganh_nghe}</option>`  
+                    htmldata+=`<option value="${element.id}">${element.id}-${element.ten_nganh_nghe}</option>`
             });
             if ($(id).val().length==3 || $(id).val().length==0) {
                 $('#nghe_cap_3').html(htmldata);
             }else{
                 $('#nghe_cap_4').html(htmldata);
             }
-            
+
         })
         .catch(function (error) {
             console.log(error);
@@ -596,12 +592,12 @@ function clickDownloadTemplate(){
     function setNameNganhNgheSearch(id) {
         var nganh_nghe = $('.nganh_nghe')
         for (let index = 0; index < nganh_nghe.length; index++) {
-            $(nganh_nghe[index]).attr('name','')       
+            $(nganh_nghe[index]).attr('name','')
         }
         $(id).attr('name','nganh_nghe')
     }
-    
-      $("#page-size").change(function(){  
+
+      $("#page-size").change(function(){
         $("#page_size_hide").val($('#page-size').val())
         var url = new URL(window.location.href);
         var search_params = url.searchParams;
@@ -611,8 +607,8 @@ function clickDownloadTemplate(){
         var new_url = url.toString();
         window.location.href = new_url
       });
-    
-    
+
+
     </script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 @endsection

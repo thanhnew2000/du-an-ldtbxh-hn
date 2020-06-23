@@ -101,6 +101,19 @@
                 </div>
             </div>
         </div>
+        <div class="col-12 form-group m-form__group d-flex justify-content-end">
+            <label class="col-lg-2 col-form-label">Kích thước:</label>
+            <div class="col-lg-2">
+                <select class="form-control" id="page-size">
+                    @foreach(config('common.paginate_size.list') as $size)
+                    <option @if (isset($params['page_size']))
+                        {{( $params['page_size'] ==  $size ) ? 'selected' : ''}} @endif value="{{$size}}">{{$size}}
+                    </option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        
         <div class="m-portlet__body">
             <table class="table table-bordered m-table m-table--border-danger m-table--head-bg-primary table-responsive">
                 <thead>
@@ -136,7 +149,7 @@
                         <th>Dân tộc thiểu số ít người</th>
                         <th>Hộ khẩu Hà Nội</th>
                         <th>Tuyển mới</th>
-                        <th>Liên Thông</th>
+                        <th>Liên thông</th>
                         {{-- end ket qua tuyen sinh cao đẳng--}}
                         {{-- start ket qua tuyen sinh trung cap--}}
                         <th>Tổng</th>
@@ -188,10 +201,10 @@
                         <td>{{$item->so_tuyen_moi_Cao_dang}}</td>
                         <td>{{$item->so_lien_thong_Cao_dang}}</td>
                         <td class="tong">{{$item->so_luong_sv_Trung_cap}}</td>
-                        <td>{{$item->so_luong_sv_dan_toc_khac}}</td>
                         <td>{{$item->so_luong_sv_nu_Trung_cap}}</td>
                         <td>{{$item->so_luong_sv_dan_toc_Trung_cap}}</td>
                         <td>{{$item->so_luong_sv_ho_khau_HN_Trung_cap}}</td>
+                        <td>{{$item->ho_khau_HN_THCS_Trung_cap}}</td>
                         <td>{{$item->so_Tot_nghiep_THCS}}</td>
                         <td>{{$item->so_Tot_nghiep_THPT}}</td>
                         <td class="tong">{{$item->so_luong_sv_So_cap}}</td>
@@ -218,4 +231,7 @@
         </div>
     </div>
 </div>
+@endsection
+@section('script')
+<script src="{!! asset('page_size/page_size.js') !!}"></script>
 @endsection

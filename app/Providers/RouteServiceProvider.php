@@ -159,4 +159,13 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->namespace)
             ->group(base_path('routes/api.php'));
     }
+
+    // 17/06/2020 Tuanbt - chia thêm Route giay-phep
+    protected function mapGiayPhepRoutes()
+    {
+        Route::middleware('web', 'auth')
+            ->prefix('giay-phep')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/giay-phep.php'));
+    }
 }

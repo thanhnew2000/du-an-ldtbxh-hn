@@ -84,7 +84,7 @@
                         <td>
                             <a href="{{route('nghe.chi-tiet-nghe', ['ma_nghe' => $cursor->id])}}"
                                 class="btn btn-info btn-sm">Chi tiết</a>
-                            <a href="" class="btn btn-primary btn-sm">Cập nhật</a>
+                            <a href="{{ route('nghe.cap-nhat', ['id'=> $cursor->id]) }}" class="btn btn-primary btn-sm">Cập nhật</a>
                             <a href="" class="btn btn-danger btn-sm">Xóa</a>
                         </td>
                     </tr>

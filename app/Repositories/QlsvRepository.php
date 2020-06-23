@@ -24,7 +24,14 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
         ->join('devvn_quanhuyen', 'co_so_dao_tao.maqh', '=', 'devvn_quanhuyen.maqh')
         ->join('devvn_xaphuongthitran', 'co_so_dao_tao.xaid', '=', 'devvn_xaphuongthitran.xaid')
         ->join('loai_hinh_co_so', 'loai_hinh_co_so.id', '=', 'sv_dang_quan_ly.id_loai_hinh') 
-        ->select(
+        ->select([
+            DB::raw("
+            SUM(sv_dang_quan_ly.so_luong_sv_Cao_dang) as so_luong_cao_dang,
+            SUM(sv_dang_quan_ly.so_luong_sv_Trung_cap) as so_luong_trung_cap,
+            SUM(sv_dang_quan_ly.so_luong_sv_So_cap) as so_luong_so_cap,
+            SUM(sv_dang_quan_ly.so_luong_sv_he_khac) as so_luong_He_khac,
+            SUM(sv_dang_quan_ly.tong_so_HSSV_co_mat_cac_trinh_do) as tong_so_HSSV_co_mat" 
+        ),
             'sv_dang_quan_ly.*',
             'loai_hinh_co_so.loai_hinh_co_so',
             'co_so_dao_tao.id as cs_id',
@@ -32,12 +39,12 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
             'nganh_nghe.ten_nganh_nghe',
             'devvn_quanhuyen.name as ten_quan_huyen',
 			'devvn_xaphuongthitran.name as ten_xa_phuong'
-        );
-        // dd($query);
+        ]);
+        // dd($data);
         if(!empty($params['nam'])){
             $data->where('sv_dang_quan_ly.nam', $params['nam']);
         }	
-        if($params['dot']!= null){
+        if(!empty($params['dot'])){
             $data->where('sv_dang_quan_ly.dot', $params['dot']);
         }
         if (isset($params['loai_hinh']) && !empty($params['loai_hinh'])) {
@@ -49,16 +56,19 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
             $data->where('sv_dang_quan_ly.co_so_id', $params['cs_id']);
         }
         
-        if (isset($params['devvn_quanhuyen']) && $params['devvn_quanhuyen'] != null) {
-			$data->where('co_so_dao_tao.maqh', $params['devvn_quanhuyen']);
+        if (isset($params['nghe_id']) && !empty($params['nghe_id'])) {
+            $data->where('sv_dang_quan_ly.nghe_id', $params['nghe_id']);
         }
         
-		if (isset($params['devvn_xaphuongthitran']) && $params['devvn_xaphuongthitran'] != null) {
-			$data->where('co_so_dao_tao.xaid', $params['devvn_xaphuongthitran']);
-        }
-
+        // if (isset($params['devvn_quanhuyen']) && $params['devvn_quanhuyen'] != null) {
+		// 	$data->where('co_so_dao_tao.maqh', $params['devvn_quanhuyen']);
+        // }
+        
+		// if (isset($params['devvn_xaphuongthitran']) && $params['devvn_xaphuongthitran'] != null) {
+		// 	$data->where('co_so_dao_tao.xaid', $params['devvn_xaphuongthitran']);
+        // }
        
-        return $data->orderByDesc('sv_dang_quan_ly.id')->paginate($params['page_size']);
+        return $data->groupBy('sv_dang_quan_ly.co_so_id')->paginate($params['page_size']);
             
     }
     public function getCoSo()
@@ -110,11 +120,11 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
                 $data->where('sv_dang_quan_ly.dot', $queryData['dot']);
             }
             
-            if (isset($queryData['nganh_nghe']) && $queryData['nganh_nghe'] != null) {
-                $data->where('sv_dang_quan_ly.nghe_id', 'like', $data['nganh_nghe'].'%');
+            if (isset($queryData['nghe_id']) && !empty($queryData['nghe_id'])) {
+                $data->where('sv_dang_quan_ly.nghe_id', $queryData['nghe_id']);
             }
             // dd($queryData);
-            return $data->paginate($queryData['page_size']);
+            return $data->orderByDesc('sv_dang_quan_ly.co_so_id')->paginate($queryData['page_size']);
             
     }
 

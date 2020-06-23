@@ -35,7 +35,7 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 				'co_so_dao_tao.ten',
 				'loai_hinh_co_so.loai_hinh_co_so',
 				'devvn_quanhuyen.name as quan_huyen',
-				'devvn_xaphuongthitran.name as xa_phuong',
+				'devvn_xaphuongthitran.name as xa_phuong',	
 			])
 			->where('tuyen_sinh.nam', $params['nam'])
 			->where('tuyen_sinh.dot', $params['dot']);
@@ -210,6 +210,6 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 		$data = DB::table('nganh_nghe')->where('id', 'like', $id.'%')->where('ma_cap_nghe', $cap_nghe)->orderBy('ten_nganh_nghe')->get();
 		return $data;
 	}
-
+	
 }
  ?>

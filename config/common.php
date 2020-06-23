@@ -80,4 +80,9 @@ return [
             'co' => 1,
         ],
     ],
+    'loai_truong' => [
+        'cao_dang' => 'TRƯỜNG CAO ĐẲNG',
+        'trung_cap' => 'TRƯỜNG TRUNG CẤP',
+        'so_cap' => 'TRƯỜNG SƠ CẤP',
+    ],
 ];
