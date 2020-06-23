@@ -336,6 +336,13 @@ Route::group(['prefix' => 'ket-qua-tot-nghiep-gan-voi-doanh-nghiep'], function (
 
     Route::post('checktontai', 'KetQuaTotNghiepGanVoiDoanhNGhiepController@getCheckTonTai')
         ->name('xuatbc.check-ton-tai');
+
+
+        // thanhnv 6/22/2020 tot nghiep va doanh nghiep 
+    Route::post('export-bieu-mau-ket-qua-tot-nghiep-gan-voi-doanh-nghiep', 'KetQuaTotNghiepGanVoiDoanhNGhiepController@exportBieuMau')
+        ->name('layformbieumau.ket-qua-tot-nghiep-gan-voi-doanh-nghiep');
+    Route::post('export-data-ket-qua-tot-nghiep-gan-voi-doanh-nghiep', 'KetQuaTotNghiepGanVoiDoanhNGhiepController@exportData')
+        ->name('exportdata.ket-qua-tot-nghiep-gan-voi-doanh-nghiep');
 });
 //End Xuân
 
