@@ -161,8 +161,8 @@
     @endif
     <div class="row mt-4" style="float: right">
       <div class="col-md-12">
-        <button type="button" class="btn btn-danger mr-5" style="width:90.28px"><a style="color: white;"
-            href="{{route('xuatbc.tong-hop-lien-ket-dao-tao')}}">Hủy</a></button>
+        <a style="color: white;" href="{{route('xuatbc.tong-hop-lien-ket-dao-tao')}}"><button type="button"
+            class="btn btn-danger mr-5">Hủy</button></a>
         <button type="submit" class="btn btn-primary">Thêm mới</button>
 
       </div>

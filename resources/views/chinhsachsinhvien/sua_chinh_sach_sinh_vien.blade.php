@@ -182,9 +182,10 @@
                 </div>
             </div>
             <div class="col-md-12 d-flex justify-content-end pb-5">
-                <a><button type="button" class="btn btn-danger mr-5"><a style="color: white"
-                            href="{{route('xuatbc.tong-hop-chinh-sach-sinh-vien')}}">Hủy</button></a>
-                <button type="submit" class="btn btn-primary">Cập nhật</button>
+
+                <a style="color: white" href="{{route('xuatbc.tong-hop-chinh-sach-sinh-vien')}}"><button type="button"
+                        class="btn btn-danger mr-5">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Cập nhật</button>
             </div>
         </div>
     </form>
@@ -211,7 +212,6 @@ $("#page-size").change(function() {
 });
 </script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
-<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="{!! asset('chinh_sach_sinh_vien/validate-number.js') !!}"></script>
 @if (session('thongbao'))
 <script>
