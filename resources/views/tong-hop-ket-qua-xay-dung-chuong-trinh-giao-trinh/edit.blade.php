@@ -77,7 +77,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-6 mb-5">
+             <div class="col-lg-6 mb-5">
                 <div class="m-portlet m-portlet--mobile m-portlet--body-progress- h-100">
                     <div class="m-portlet__head">
                         <div class="m-portlet__head-caption">
@@ -226,7 +226,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> 
             <div class="col-lg-6 mb-5">
                 <div class="m-portlet m-portlet--mobile m-portlet--body-progress- h-100">
                     <div class="m-portlet__head">
@@ -384,7 +384,7 @@
 </div>
 @endsection
 @section('script')
-<script src="{!! asset('js/xay_dung_chuong_trinh_giao_trinh/validate-edit.js') !!}"></script>
+<script src="{!! asset('xay_dung_chuong_trinh_giao_trinh/validate-edit.js') !!}"></script>
 @if (session('success'))
 <script>
     Swal.fire({

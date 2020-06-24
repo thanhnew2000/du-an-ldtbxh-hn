@@ -705,7 +705,7 @@
 
 @endsection
 @section('script')
-<script src="{!! asset('js/doi-ngu-nha-giao/validate-create-doi-ngu-nha-giao.js') !!}"></script>
+<script src="{!! asset('doi-ngu-nha-giao/validate-create-doi-ngu-nha-giao.js') !!}"></script>
 @if (session('edit'))
 <script>
     Swal.fire({
