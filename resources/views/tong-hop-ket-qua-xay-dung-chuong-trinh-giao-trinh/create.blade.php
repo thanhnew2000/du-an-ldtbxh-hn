@@ -252,7 +252,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 mb-5">
+             <div class="col-lg-6 mb-5">
                 <div class="m-portlet m-portlet--mobile m-portlet--body-progress- h-100">
                     <div class="m-portlet__head">
                         <div class="m-portlet__head-caption">
@@ -386,7 +386,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> 
         </div>
         <div class="d-flex justify-content-end">
             <div class="col-lg-1 ">
