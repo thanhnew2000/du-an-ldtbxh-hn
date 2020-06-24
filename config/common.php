@@ -85,4 +85,12 @@ return [
         'trung_cap' => 'TRƯỜNG TRUNG CẤP',
         'so_cap' => 'TRƯỜNG SƠ CẤP',
     ],
+    'phe_duyet' => [
+        'trang_thai' => [
+            'cho_phe_duyet' => 1,
+            'tu_choi' => 2,
+            'phe_duyet_lan_1' => 3,
+            'phe_duyet_lan_2' => 4,
+        ],
+    ],
 ];

@@ -73,6 +73,9 @@ class XayDungChuongTrinhGiaoTrinhService extends AppService
         return $this->nganhngheRepository->getNganhNgheTheoCoSo($co_so_id);
     }
 
-
+    public function store(array $data = [])
+    {
+        return $this->repository->store($data);
+    }
 
 }

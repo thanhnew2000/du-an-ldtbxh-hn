@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests\validateUpdateKetQuaTotNghiepGanVoiDoanhNghiep;
 use App\Http\Requests\Excel\ExportDuLieu;
 use Storage;
+use App\Http\Requests\validateKetQuaTotNghiepGanVoiDoanhNghiep;
 
 class KetQuaTotNghiepGanVoiDoanhNGhiepController extends Controller
 {
@@ -145,7 +146,7 @@ class KetQuaTotNghiepGanVoiDoanhNGhiepController extends Controller
         $id_co_so = $request->id_cs;
         $this->KetQuaTotNghiepGanVoiDoanhNGhiepService->exportBieuMau($id_co_so);
     }
-    
+
     public function exportData(ExportDuLieu $request){
         $listCoSoId = $request->truong_id;
         $dateFrom = $request->dateFrom;

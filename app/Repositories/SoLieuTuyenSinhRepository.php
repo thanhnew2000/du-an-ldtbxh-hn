@@ -1,28 +1,30 @@
 <?php
+
 namespace App\Repositories;
+
 use Illuminate\Support\Facades\DB;
 use App\Repositories\BaseRepository;
-use Carbon\Carbon;
 use App\Models\TuyenSinh;
+use Carbon\Carbon;
 
-class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSinhInterface {
+class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSinhInterface
+{
 	// thanhnv 6/26/2020 them
 	protected $model;
+
 	public function __construct(TuyenSinh $model)
 	{
 		parent::__construct();
 		$this->model = $model;
 	}
-	
+
 	//lay model
 	public function getTable(){
-		 //return \App\Products::class;
 		return 'tuyen_sinh';
 	}
 
 	public function getSoLuongTuyenSinh($params, $limit = 10)
 	{
-		// dd($params);
 		$query = $this->table
 			->join('co_so_dao_tao', 'tuyen_sinh.co_so_id', '=', 'co_so_dao_tao.id')
 			->join('loai_hinh_co_so', 'co_so_dao_tao.ma_loai_hinh_co_so', '=', 'loai_hinh_co_so.id')
@@ -44,7 +46,7 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 				'co_so_dao_tao.ten',
 				'loai_hinh_co_so.loai_hinh_co_so',
 				'devvn_quanhuyen.name as quan_huyen',
-				'devvn_xaphuongthitran.name as xa_phuong',	
+				'devvn_xaphuongthitran.name as xa_phuong',
 			])
 			->where('tuyen_sinh.nam', $params['nam'])
 			->where('tuyen_sinh.dot', $params['dot']);
@@ -66,7 +68,6 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 			$query->where('tuyen_sinh.nghe_id', 'like', $params['nganh_nghe'].'%');
 		}
 
-		// dd($query->groupBy('co_so_id')->toSql());
 		return $query->groupBy('co_so_id')->paginate($limit);
 	}
 
@@ -89,18 +90,18 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 						'devvn_quanhuyen.name as ten_quan_huyen',
 						'devvn_xaphuongthitran.name as ten_xa_phuong'
 					);
-			
+
 		if($queryData['nam']!= null){
 			$data->where('tuyen_sinh.nam', $queryData['nam']);
-		}	
+		}
 		if($queryData['dot']!=null){
 			$data->where('tuyen_sinh.dot', $queryData['dot']);
 		}
 		return $data->orderBy('nam','desc')
 		->orderBy('dot', 'desc')
 		->paginate($limit);
-
 	}
+
 	public function getThongTinCoSo($coSoId)
 	{
 		$data = DB::table('co_so_dao_tao')
@@ -136,8 +137,7 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 
 	public function postthemsolieutuyensinh($getdata)
 	{
-		$result  = $this->table->insert($getdata);
-        return $result;
+		return $this->model->create($getdata);
 	}
 
 	public function getsuasolieutuyensinh($id)
@@ -148,16 +148,19 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 		->select('tuyen_sinh.*', 'nganh_nghe.ten_nganh_nghe','co_so_dao_tao.ten')->get()->first();
 		return $result;
 	}
+
 	public function getCheckTonTaiSoLieuTuyenSinh($arrcheck)
 	{
-			$kiem_tra = $this->table->where($arrcheck)->select('tuyen_sinh.id','tuyen_sinh.trang_thai')->first();
-			if($kiem_tra!=null){
-				if($kiem_tra->trang_thai >= 3){
-					return 'tontai';
-				};
-			}
-			return $kiem_tra;
+		$kiem_tra = $this->table->where($arrcheck)->select('tuyen_sinh.id','tuyen_sinh.trang_thai')->first();
+		if($kiem_tra!=null){
+			if($kiem_tra->trang_thai >= 3){
+				return 'tontai';
+			};
+		}
+
+		return $kiem_tra;
 	}
+
 	public function getDataSeachCoSo($id)
 	{
 		return $this->table->where('tuyen_sinh.co_so_id', '=', $id)->join('co_so_dao_tao', 'tuyen_sinh.co_so_id', '=', 'co_so_dao_tao.id')
@@ -177,7 +180,7 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 	}
 
 	public function getCoSoTuyenSinhTheoLoaiHinh($id)
-	{	
+	{
 		if($id==0){
 			$data = DB::table('co_so_dao_tao')
 			->select('co_so_dao_tao.id', 'co_so_dao_tao.ten')->get();
@@ -196,7 +199,7 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 	}
 
 	public function getXaPhuongTheoQuanHuyen($id)
-	{	
+	{
 		if($id==0){
 			$data = DB::table('devvn_xaphuongthitran')
 			->select('devvn_xaphuongthitran.xaid', 'devvn_xaphuongthitran.name')->get();
@@ -219,8 +222,8 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 		$data = DB::table('nganh_nghe')->where('id', 'like', $id.'%')->where('ma_cap_nghe', $cap_nghe)->orderBy('ten_nganh_nghe')->get();
 		return $data;
 	}
-	// thanh change to service 6/26/2020
 
+	// thanh change to service 6/26/2020
 	public function getSvTuyenSinhTimeFromTo($id_truong, $fromDate,$toDate){
 		$data =  DB::table('tuyen_sinh')->where('tuyen_sinh.co_so_id', '=',$id_truong)
 		->where('thoi_gian_cap_nhat','>=',$fromDate)
@@ -246,4 +249,3 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 		return $this->model->where('id',$key)->update($arrayData);
 	}
 }
- ?>
