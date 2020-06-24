@@ -267,14 +267,13 @@ Route::group(['prefix' => 'hop-tac-quoc-te'], function () {
     Route::post('/sua/{id}', 'ExtractController@updateTongHopHopTacQuocTe');
 
     // thanhnv 6/21/2020
-    
-    Route::post('export-bieu-mau-hop-tac-quoc-te','ExtractController@exportBieuMaubm13')
-    ->name('layformbieumau.hop-tac-quoc-te');
-    Route::post('export-data-chinh-sach-sv','ExtractController@exportDatabm13')
-    ->name('exportdata.bieumau.hop-tac-quoc-ten');
 
-    });
-    //phucnv end BM:13
+    Route::post('export-bieu-mau-hop-tac-quoc-te', 'ExtractController@exportBieuMaubm13')
+        ->name('layformbieumau.hop-tac-quoc-te');
+    Route::post('export-data-chinh-sach-sv', 'ExtractController@exportDatabm13')
+        ->name('exportdata.bieumau.hop-tac-quoc-ten');
+});
+//phucnv end BM:13
 
 
 //phucnv BM:8 

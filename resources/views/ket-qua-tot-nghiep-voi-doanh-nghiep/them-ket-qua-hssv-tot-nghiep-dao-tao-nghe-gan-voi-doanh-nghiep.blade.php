@@ -7,6 +7,10 @@
         color: red;
     }
 
+    .error {
+        color: red;
+    }
+
     table input {
         border: 1px solid #000 !important;
     }
@@ -25,7 +29,7 @@
 
 @section('content')
 <div class="m-content container-fluid">
-    <form action="{{route('xuatbc.post-them-ket-qua-tot-nghiep-voi-doanh-nghiep')}}" method="post">
+    <form id="form" action="{{route('xuatbc.post-them-ket-qua-tot-nghiep-voi-doanh-nghiep')}}" novalidate method="post">
         @csrf
         <div class="m-portlet">
             <div class="m-portlet__head">
@@ -134,7 +138,10 @@
                                     <tr>
                                         <td>Số HSSV nhập học đầu khóa</td>
                                         <td><input type="number" min="0" step="1" name="nhap_hoc_dau_tot_nghiep_CD"
-                                                class="form-control"></td>
+                                                class="form-control">
+                                            <label id="nhap_hoc_dau_tot_nghiep_CD-error" class="error"
+                                                for="nhap_hoc_dau_tot_nghiep_CD" style=""></label>
+                                        </td>
                                         <td><input type="number" min="0" step="1" name="nhap_hoc_dau_tot_nghiep_TC"
                                                 class="form-control"></td>
                                         <td><input type="number" min="0" step="1" name="nhap_hoc_dau_tot_nghiep_SC"
@@ -142,6 +149,7 @@
                                         <td><input type="number" min="0" step="1"
                                                 name="duoi_3_thang_tot_nghiep_nhap_hoc_dau" class="form-control"></td>
                                     </tr>
+
                                     <tr>
                                         <td>Số HSSV tốt nghiệp</td>
                                         <td><input type="number" min="0" step="1" name="tot_nghiep_CD"
@@ -263,6 +271,18 @@ var routeGetMaNganhNghe = "{{ route('get_ma_nganh_nghe') }}";
 $(document).ready(function(){
   $('#co_so_dao_tao').select2();
   $('#ma_nganh_nghe').select2();
+});
+</script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+<script>
+    $( "#form" ).validate({
+  rules: {
+    nhap_hoc_dau_tot_nghiep_CD: {
+      required: true
+    }
+  }
+
 });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
