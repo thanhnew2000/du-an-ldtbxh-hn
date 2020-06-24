@@ -94,7 +94,6 @@
           <div class="m-portlet__head">
             <div class="m-portlet__head-caption">
               <div class="m-portlet__head-title">
-
               </div>
             </div>
           </div>
