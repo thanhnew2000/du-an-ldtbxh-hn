@@ -19,14 +19,18 @@ use Storage;
 
 class GiaoDucNgheNghiepService extends AppService
 {
+    use ExcelTraitService;
     protected $LoaiHinhCoSoRepositoryInterface;
+    protected $soLieuTuyenSinhInterRepository;
 
     public function __construct(
-        LoaiHinhCoSoRepositoryInterface $loaiHinhCoSoRepository
+        LoaiHinhCoSoRepositoryInterface $loaiHinhCoSoRepository,
+        SoLieuTuyenSinhInterface $soLieuTuyenSinhRepository
 
     ) {
         parent::__construct();
         $this->loaiHinhCoSoRepository = $loaiHinhCoSoRepository;
+        $this->soLieuTuyenSinhRepository = $soLieuTuyenSinhRepository;
 
     }
 
@@ -304,9 +308,11 @@ class GiaoDucNgheNghiepService extends AppService
                 $bacDaoTaoId = $co_s->loai_truong;
 
                 $bacDaoTao = $this->bacDaoTaoOfTruong($co_s->loai_truong);
-                $worksheet->setCellValue('B' . $row, $bacDaoTao);
+                $worksheet->setCellValue('B'.$row, $bacDaoTao);
+                $worksheet->getStyle("A{$row}:P{$row}")->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('C7C7C7');
                 $worksheet->getStyle("B{$row}")->getFont()->setBold(true);
-                // $row++;
+                $row++;
+
             }
 
             $loai_hinh ='';

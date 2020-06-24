@@ -362,25 +362,19 @@ Route::group(['prefix' => 'quan-ly-giao-vien'], function () {
   // quang quan ly giao duc nghe nghiep
 Route::group(['prefix' => 'quan-ly-giao-duc-nghe-nghiep'], function () {
     Route::get('/', 'GiaoDucNgheNghiepController@index')->name('xuatbc.quan-ly-giao-duc-nghe-nghiep');   
-<<<<<<< HEAD
-
-  Route::get('/create', 'GiaoDucNgheNghiepController@create')->name('xuatbc.quan-ly-giao-duc-nghe-nghiep.create');   
-
-  Route::get('/edit/{id}', 'GiaoDucNgheNghiepController@edit')->name('xuatbc.quan-ly-giao-duc-nghe-nghiep.edit');  
-
-//   thanhnv 6/23/2020
-
-    Route::post('export-bieu-mau-quan-ly-giao-duc-nghe-nghiep', 'GiaoDucNgheNghiepController@exportBieuMau')
-    ->name('layformbieumau.quan-ly-giao-duc-nghe-nghiep');
-    Route::post('export-data-quan-ly-giao-duc-nghe-nghiep', 'GiaoDucNgheNghiepController@exportData')
-    ->name('exportdata.quan-ly-giao-duc-nghe-nghiep');
-=======
     Route::get('/create', 'GiaoDucNgheNghiepController@create')->name('xuatbc.quan-ly-giao-duc-nghe-nghiep.create');   
     Route::post('/store', 'GiaoDucNgheNghiepController@store')->name('xuatbc.quan-ly-giao-duc-nghe-nghiep.store');   
     Route::get('/edit/{id}', 'GiaoDucNgheNghiepController@edit')->name('xuatbc.quan-ly-giao-duc-nghe-nghiep.edit'); 
     Route::post('/update/{id}', 'GiaoDucNgheNghiepController@update')->name('xuatbc.quan-ly-giao-duc-nghe-nghiep.update');   
     Route::post('/check-them-giao-duc-nghe-nghiep', 'GiaoDucNgheNghiepController@getCheckTonTaiGiaoDucNgheNghiep')->name('xuatbc.quan-ly-giao-duc-nghe-nghiep.check_so_lieu');
->>>>>>> 760cd9528c0b079795b8851aa62f0bf7e218d0e6
+
+    
+    //   thanhnv 6/23/2020
+
+    Route::post('export-bieu-mau-quan-ly-giao-duc-nghe-nghiep', 'GiaoDucNgheNghiepController@exportBieuMau')
+    ->name('layformbieumau.quan-ly-giao-duc-nghe-nghiep');
+    Route::post('export-data-quan-ly-giao-duc-nghe-nghiep', 'GiaoDucNgheNghiepController@exportData')
+    ->name('exportdata.quan-ly-giao-duc-nghe-nghiep');
 });
  // quang quan ly giao duc nghe nghiep
 
