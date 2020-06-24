@@ -135,12 +135,26 @@ Route::group(['prefix' => 'ket-qua-tuyen-sinh'], function () {
 
 });
 
-
+//phucnv BM:12
 Route::group(['prefix' => 'ket-qua-xay-dung-giao-trinh'], function () {
-    Route::get('/tong-hop', 'ExtractController@tonghopxdchuongtrinh')
-
+    Route::get('/tong-hop', 'XayDungChuongTrinhGiaoTrinhController@index')
         ->name('xuatbc.ds-xd-giao-trinh');
+
+    Route::get('/show/{co_so_id}', 'XayDungChuongTrinhGiaoTrinhController@show')
+        ->name('xuatbc.show-ds-xd-giao-trinh');
+
+    Route::get('/create', 'XayDungChuongTrinhGiaoTrinhController@create')
+        ->name('xuatbc.create-ds-xd-giao-trinh');
+    Route::post('/store', 'XayDungChuongTrinhGiaoTrinhController@store')
+        ->name('xuatbc.store-ds-xd-giao-trinh');
+
+    Route::get('/{id}/edit', 'XayDungChuongTrinhGiaoTrinhController@edit')
+        ->name('xuatbc.edit-ds-xd-giao-trinh');
+    Route::post('/update/{id}', 'XayDungChuongTrinhGiaoTrinhController@update')
+        ->name('xuatbc.update-ds-xd-giao-trinh');
+        
 });
+//end phuc BM:12
 
 
 Route::group(['prefix' => 'ket-qua-tot-nghiep'], function () {
@@ -291,7 +305,11 @@ Route::group(['prefix' => 'chi-tieu-tuyen-sinh'], function () {
     Route::post('/sua/{id}', 'ExtractController@updateChiTieuTuyenSinh');
 
     Route::get('/chi-tiet/{co_so_id}', 'ExtractController@chitietChiTieuTuyenSinh')
-        ->name('xuatbc.chi-tiet-dang-ky-chi-tieu-tuyen-sinh');
+        ->name('xuatbc.chi-tiet-dang-ky-chi-tieu-tuyen-sinh'); 
+
+    // thanhnv export bm8
+    Route::post('export-form-dang-ky-chi-tieu-tuyen-sinh', 'ExtractController@exportFormBm8')->name('layformbieumau-dang-ky-chi-tieu-tuyen-sinh');
+    Route::post('export-data-dang-ky-chi-tieu-tuyen-sinh', 'ExtractController@exportDataBm8')->name('exportdata-dang-ky-chi-tieu-tuyen-sinh');
 });
 //phucnv end BM:8
 
@@ -322,6 +340,13 @@ Route::group(['prefix' => 'ket-qua-tot-nghiep-gan-voi-doanh-nghiep'], function (
 
     Route::post('checktontai', 'KetQuaTotNghiepGanVoiDoanhNGhiepController@getCheckTonTai')
         ->name('xuatbc.check-ton-tai');
+
+
+        // thanhnv 6/22/2020 tot nghiep va doanh nghiep 
+    Route::post('export-bieu-mau-ket-qua-tot-nghiep-gan-voi-doanh-nghiep', 'KetQuaTotNghiepGanVoiDoanhNGhiepController@exportBieuMau')
+        ->name('layformbieumau.ket-qua-tot-nghiep-gan-voi-doanh-nghiep');
+    Route::post('export-data-ket-qua-tot-nghiep-gan-voi-doanh-nghiep', 'KetQuaTotNghiepGanVoiDoanhNGhiepController@exportData')
+        ->name('exportdata.ket-qua-tot-nghiep-gan-voi-doanh-nghiep');
 });
 //End Xuân
 
@@ -337,6 +362,7 @@ Route::group(['prefix' => 'quan-ly-giao-vien'], function () {
   // quang quan ly giao duc nghe nghiep
 Route::group(['prefix' => 'quan-ly-giao-duc-nghe-nghiep'], function () {
     Route::get('/', 'GiaoDucNgheNghiepController@index')->name('xuatbc.quan-ly-giao-duc-nghe-nghiep');   
+<<<<<<< HEAD
 
   Route::get('/create', 'GiaoDucNgheNghiepController@create')->name('xuatbc.quan-ly-giao-duc-nghe-nghiep.create');   
 
@@ -348,6 +374,13 @@ Route::group(['prefix' => 'quan-ly-giao-duc-nghe-nghiep'], function () {
     ->name('layformbieumau.quan-ly-giao-duc-nghe-nghiep');
     Route::post('export-data-quan-ly-giao-duc-nghe-nghiep', 'GiaoDucNgheNghiepController@exportData')
     ->name('exportdata.quan-ly-giao-duc-nghe-nghiep');
+=======
+    Route::get('/create', 'GiaoDucNgheNghiepController@create')->name('xuatbc.quan-ly-giao-duc-nghe-nghiep.create');   
+    Route::post('/store', 'GiaoDucNgheNghiepController@store')->name('xuatbc.quan-ly-giao-duc-nghe-nghiep.store');   
+    Route::get('/edit/{id}', 'GiaoDucNgheNghiepController@edit')->name('xuatbc.quan-ly-giao-duc-nghe-nghiep.edit'); 
+    Route::post('/update/{id}', 'GiaoDucNgheNghiepController@update')->name('xuatbc.quan-ly-giao-duc-nghe-nghiep.update');   
+    Route::post('/check-them-giao-duc-nghe-nghiep', 'GiaoDucNgheNghiepController@getCheckTonTaiGiaoDucNgheNghiep')->name('xuatbc.quan-ly-giao-duc-nghe-nghiep.check_so_lieu');
+>>>>>>> 760cd9528c0b079795b8851aa62f0bf7e218d0e6
 });
  // quang quan ly giao duc nghe nghiep
 

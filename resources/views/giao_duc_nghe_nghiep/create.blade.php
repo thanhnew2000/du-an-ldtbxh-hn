@@ -1,11 +1,115 @@
 @extends('layouts.admin')
-@section('title', "Thêm mới thông tin đăng kí nghề nghiệp")
+@section('title', "Thêm mới quản lý giáo dục nghề nghiệp")
 @section('style')
 <link href="{!! asset('/css/main.css') !!}" rel="stylesheet" type="text/css" />
+<style>
+    .error {
+        color: red;
+    }
+
+    .alert-danger {
+        margin-top: 10px;
+    }
+</style>
 @endsection
 @section('content')
 <div class="m-content container-fluid">
-    <div class="m-portlet">
+<form action="{{route('xuatbc.quan-ly-giao-duc-nghe-nghiep.store')}}" id="formDemo" method="post">
+        <div class="m-portlet mt-5">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon">
+                            <i class="m-menu__link-icon flaticon-web"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                            Thêm mới<small>quản lý giáo dục nghề nghiệp</small>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+           
+                <div class="m-portlet__body">
+                    <div class="m-form__section m-form__section--first">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group m-form__group row">
+                                    <label class="col-lg-5 col-form-label">Tên cơ sở<span
+                                            class="batbuoc">*</span></label>
+                                    <div class="col-lg-7">
+                                        <select class="form-control" onchange="getdatacheck(this)" 
+                                            name="co_so_id" id="co_so_dao_tao">
+                                            <option value="">Chọn</option>
+                                            @foreach ($ten_co_so as $item)
+                                            <option value="{{$item->id}}">{{$item->ten}}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('co_so_id')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group m-form__group row">
+                                    <label class="col-lg-2 col-form-label">Năm<span class="batbuoc">*</span></label>
+                                    <div class="col-lg-10">
+                                        <select class="form-control " onchange="getdatacheck(this)"  name="nam"
+                                            id="nam">
+                                            <option value="">Chọn</option>
+                                            @foreach (config('common.nam_tuyen_sinh.list') as $item)
+                                            <option @if (isset($params['nam']))
+                                                {{( $params['nam'] ==  $item ) ? 'selected' : ''}} @endif
+                                                value="{{$item}}">
+                                                {{$item}}
+                                            </option>
+                                            @endforeach
+                                        </select>
+                                        @error('nam')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row pt-4">
+                            <div class="col-md-6">
+                                <div class="form-group m-form__group row">
+                                    <label class="col-lg-5 col-form-label">Nghề<span class="batbuoc">*</span></label>
+                                    <div class="col-lg-7">
+                                        <select class="form-control "  disabled onchange="getdatacheck(this)"
+                                            name="nghe_id" id="ma_nganh_nghe">
+                                            <option value="" selected>Mã ngành nghề</option>
+                                        </select>
+                                        @error('nghe_id')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group m-form__group row">
+                                    <label class="col-lg-2 col-form-label">Đợt<span class="batbuoc">*</span></label>
+                                    <div class="col-lg-10">
+                                        <select class="form-control "  onchange="getdatacheck(this)" name="dot"
+                                            id="dot">
+                                            <option value="" selected>Chọn</option>
+                                            <option value="1">Đợt 1</option>
+                                            <option value="2">Đợt 2</option>
+                                        </select>
+                                        @error('dot')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+        </div>
+    @csrf
+    <div class="m-portlet mt-5">
         <div class="m-portlet__head">
             <div class="m-portlet__head-caption">
                 <div class="m-portlet__head-title">
@@ -13,199 +117,105 @@
                         <i class="m-menu__link-icon flaticon-web"></i>
                     </span>
                     <h3 class="m-portlet__head-text">
-                       Thêm<small>thông tin đăng kí nghề nghiệp</small>
+                        Tên ngành, nghề/ quy mô được cấp trong GCN
                     </h3>
                 </div>
             </div>
         </div>
-    <form action="" method="get" class="m-form pt-5">
-        <input type="hidden" name="page_size" value="20">
         <div class="m-portlet__body">
             <div class="m-form__section m-form__section--first">
-                <div class="row">
-                    <div class="col-md-6">
+                <div class="row col-12">
+                    <div class="col-md-4">
                         <div class="form-group m-form__group row">
-                            <label class="col-lg-2 col-form-label">Tên đơn vị</label>
+                            <label class="col-lg-4 col-form-label">Mã cấp II</label>
                             <div class="col-lg-8">
-                                <select name="bac_nghe" class="form-control " id="ten_don_vi">
-                                    <option selected="" value="6">Chọn đơn vị</option>
-                                    <option value="5">FU</option>
-                                    <option selected="" value="6">Fpoly</option>
-                                </select>
+                                <input class="form-control m-input" value="{{ old('ma_cap_2') }}" placeholder="Nhập vào số" name="ma_cap_2">
+                                @error('ma_cap_2')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group m-form__group row">
-                            <label class="col-lg-2 col-form-label">Cơ quan chủ quản</label>
+                            <label class="col-lg-4 col-form-label">Quy mô tuyển sinh Trung Cấp</label>
                             <div class="col-lg-8">
-                                <select name="bac_nghe" class="form-control " id="ten_con_quan_chu_quan">
-                                    <option selected="" value="6">Chọn đơn vị</option>
-                                    <option value="5">FU</option>
-                                    <option selected="" value="6">Fpoly</option>
-                                </select>
+                                <input class="form-control m-input" value="{{ old('quy_mo_tuyen_sinh_TC') }} " placeholder="Nhập vào số"
+                                    name="quy_mo_tuyen_sinh_TC">
+                                @error('quy_mo_tuyen_sinh_TC')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group m-form__group row">
+                            <label class="col-lg-4 col-form-label">Quy mô tuyển sinh Sơ Cấp</label>
+                            <div class="col-lg-8">
+                                <input class="form-control m-input" value="{{ old('quy_mo_tuyen_sinh_SC') }} " placeholder="Nhập vào số"
+                                    name="quy_mo_tuyen_sinh_SC">
+                                @error('quy_mo_tuyen_sinh_SC')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </form>
-    </div>
-    <div class="row">
-        <div class="col-lg-6 mb-5">
-            <div class="m-portlet m-portlet--mobile m-portlet--body-progress- h-100">
-                <div class="m-portlet__head">
-                    <div class="m-portlet__head-caption">
-                <div class="m-portlet__head-title">
-                    <span class="m-portlet__head-icon">
-                        <i class="m-menu__link-icon flaticon-web"></i>
-                    </span>
-                    <h3 class="m-portlet__head-text">
-                       Giấy chứng nhận<small>đăng ký hoạt động GDNN</small>
-                    </h3>
-                </div>
-            </div>
-                </div>
-                <div class="m-portlet__body">
-                    <div class="m-form__section m-form__section--first">
-                        <div class="row col-12">
-                            <div class="col-md-12">
-                                <div class="form-group m-form__group row">
-                                    <label class="col-lg-5 col-form-label">Số ngày tháng năm cấp</label>
-                                    <div class="col-lg-7">
-                                        <input type="date" class="form-control m-input" 
-                                            name="keyword">
-                                    </div>
-                                </div>
-                                <div class="form-group m-form__group row">
-                                    <label class="col-lg-5 col-form-label">Địa điểm đào tạo</label>
-                                    <div class="col-lg-7">
-                                        <input type="text" class="form-control m-input" placeholder="Nhập địa điểm đào tạo"
-                                            name="keyword">
-                                    </div>
-                                </div>
-                                <div class="form-group m-form__group row">
-                                    <label class="col-lg-5 col-form-label">Quận/Huyện</label>
-                                    <div class="col-lg-7">
-                                        <select name="bac_nghe" class="form-control " >
-                                            <option selected="" value="6">Fpoly</option>
-                                            <option value="5">FU</option>
-                                            <option selected="" value="6">Chọn quận/huyện</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group m-form__group row">
-                                    <label class="col-lg-5 col-form-label">Phường/Xã</label>
-                                    <div class="col-lg-7">
-                                        <select name="bac_nghe" class="form-control " >
-                                            <option selected="" value="6">Fpoly</option>
-                                            <option value="5">FU</option>
-                                            <option selected="" value="6">Chọn phường/xã</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group m-form__group row">
-                                    <label class="col-lg-5 col-form-label">Giấy chứng nhận</label>
-                                    <div class="col-lg-7">
-                                        <select name="bac_nghe" class="form-control " >
-                                            <option selected="" value="6">Fpoly</option>
-                                            <option value="5">FU</option>
-                                            <option selected="" value="6">Chọn giấy chứng nhận</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                           
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6 mb-5">
-            <div class="m-portlet m-portlet--mobile m-portlet--body-progress- h-100">
-                <div class="m-portlet__head">
-                    <div class="m-portlet__head-caption">
-                        <div class="m-portlet__head-title">
-                            <span class="m-portlet__head-icon">
-                                <i class="m-menu__link-icon flaticon-web"></i>
-                            </span>
-                            <h3 class="m-portlet__head-text">
-                               Tên ngành, nghề<small>quy mô được cấp trong GCN</small>
-                            </h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="m-portlet__body">
-                    <div class="m-form__section m-form__section--first">
-                        <div class="row col-12">
-                            <div class="col-md-12">
-                                <div class="form-group m-form__group row">
-                                    <label class="col-lg-5 col-form-label">Tên ngành nghề</label>
-                                    <div class="col-lg-7">
-                                        <select name="bac_nghe" class="form-control " id="ten_nganh_nghe">
-                                            <option selected="" value="6">Btec</option>
-                                            <option value="5">FU</option>
-                                            <option selected="" value="6">Chọn tên ngành nghề</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group m-form__group row">
-                                    <label class="col-lg-5 col-form-label">Mã cấp</label>
-                                    <div class="col-lg-7">
-                                        <select name="bac_nghe" class="form-control " >
-                                            <option selected="" value="6">2</option>
-                                            <option value="5">1</option>
-                                            <option selected="" value="6">Chọn tên mã cấp</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group m-form__group row">
-                                    <label class="col-lg-5 col-form-label">Quy mô tuyển sinh TC</label>
-                                    <div class="col-lg-7">
-                                        <input type="number" class="form-control m-input" placeholder="Nhập vào số"
-                                            name="keyword">
-                                    </div>
-                                </div>
-                                <div class="form-group m-form__group row">
-                                    <label class="col-lg-5 col-form-label">Quy mô tuyển sinh SC</label>
-                                    <div class="col-lg-7">
-                                        <input type="number" class="form-control m-input" placeholder="Nhập vào số"
-                                            name="keyword">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
     </div>
     <div class="d-flex justify-content-end">
         <div class="col-lg-1 ">
-            <button type="submit" class="btn btn-danger">Hủy</button>
+            <a href="{{route('xuatbc.quan-ly-giao-duc-nghe-nghiep')}}" class="btn btn-danger">Hủy</a>
         </div>
-        <div >
+        <div>
             <button type="submit" class="btn btn-primary">Thêm mới</button>
         </div>
     </div>
+</form>
 </div>
-    @endsection
-    @section('script')
-<script>
-    $(document).ready(function() {
-    $('#ten_don_vi').select2();
-});
+@endsection
+@section('script')
+<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js">
 </script>
 <script>
-    $(document).ready(function() {
-    $('#ten_con_quan_chu_quan').select2();
-});
+    $("#formDemo").validate({
+            rules: {
+                ma_cap_2: {
+                    digits: true,
+                    min: 0
+                },
+                quy_mo_tuyen_sinh_TC: {
+                    digits: true,
+                    min: 0
+                },
+                quy_mo_tuyen_sinh_SC: {
+                    digits: true,
+                    min: 0
+                }
+            }
+        });
+        jQuery.extend(jQuery.validator.messages, {
+                    digits: "Vui lòng nhập số nguyên",
+                    min: "Giá trị nhỏ nhất là 0"   
+        });
 </script>
 <script>
+    $(window).bind("pageshow", function() {
+    arrcheck=[]
+    $("#co_so_dao_tao").select2().val('').trigger('change');
+    $('#nam').val('')
+    $('#dot').val('')
+    });
+    var routeCheck = "{{ route('xuatbc.quan-ly-giao-duc-nghe-nghiep.check_so_lieu') }}";
+    var routeGetMaNganhNghe = "{{ route('get_ma_nganh_nghe') }}";
     $(document).ready(function() {
-    $('#ten_nganh_nghe').select2();
-});
+        $('#co_so_dao_tao').select2();
+        $('#ma_nganh_nghe').select2();
+    });
 </script>
-
-    @endsection
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="{!! asset('giao_duc_nghe_nghiep/javascript/giao_duc_nghe_nghiep.js') !!}"></script>
+@endsection

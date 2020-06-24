@@ -1,11 +1,18 @@
 @extends('layouts.admin')
+@section('title', "Quản lý giáo dục nghề nghiệp")
 @section('content')
 @section('style')
-    <style>
-        .fa-check{
-            color: blue
-        }
-    </style>
+<link href="{!! asset('tong_hop_nghe_nguoi_khuyet_tat/css/tong_hop_nghe_nguoi_khuyet_tat.css') !!}" rel="stylesheet"
+    type="text/css" />
+<style>
+    .fa-check {
+        color: blue
+    }
+
+    .table-bordered td {
+        border: 1px solid #d5d7db;
+    }
+</style>
 @endsection
 <div class="m-content container-fluid">
     <div id="preload" class="preload-container text-center" style="display: none">
@@ -86,8 +93,7 @@
                                 <label class="col-lg-2 col-form-label">Nghề cấp 2</label>
                                 <div class="col-lg-8">
                                     <select class="form-control nganh_nghe" onchange="getNgheTheoCapBac(this)"
-                                    name="nghe_cap_2"
-                                    id="nghe_cap_2">
+                                        name="nghe_cap_2" id="nghe_cap_2">
                                         <option value="" selected>Chọn</option>
                                         @foreach ($nghe_cap_2 as $item)
                                         <option @if (isset($params['nghe_cap_2']))
@@ -117,21 +123,20 @@
                                 </div>
                             </div>
                         </div>
-                    
-                     
+
+
                         <div class="col-md-6">
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Nghề cấp 3</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control nganh_nghe" onchange="getNgheTheoCapBac(this)" 
-                                    name="nghe_cap_3"
-                                    id="nghe_cap_3">
-                                        <option value="" selected>Chọn</option>  
+                                    <select class="form-control nganh_nghe" onchange="getNgheTheoCapBac(this)"
+                                        name="nghe_cap_3" id="nghe_cap_3">
+                                        <option value="" selected>Chọn</option>
                                         @foreach ($nghe_cap_3 as $item)
                                         <option @if (isset($params['nghe_cap_3']))
                                             {{($params['nghe_cap_3'] ==  $item->id ) ? 'selected' : ''}} @endif
                                             value="{{$item->id}}">{{$item->id}}-{{$item->ten_nganh_nghe}}</option>
-                                        @endforeach                            
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -153,30 +158,24 @@
                                 </div>
                             </div>
                         </div>
-                      
                         <div class="col-md-6">
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Nghề cấp 4</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control nganh_nghe" onchange="setNameNganhNgheSearch(this)" multiple="multiple"
-                                    name="nghe_cap_4[]"
-                                    id="nghe_cap_4">
+                                    <select class="form-control nganh_nghe" onchange="setNameNganhNgheSearch(this)"
+                                        multiple="multiple" name="nghe_cap_4[]" id="nghe_cap_4">
                                         @foreach ($nghe_cap_4 as $item)
-                                        <option
-                                            @if (isset($params['nghe_cap_4']))
-                                                @foreach ($params['nghe_cap_4'] as $params4)
-                                                     {{($params4 ==  $item->id ) ? 'selected' : ''}}
-                                                @endforeach
-                                            @endif
+                                        <option @if (isset($params['nghe_cap_4'])) @foreach ($params['nghe_cap_4'] as
+                                            $params4) {{($params4 ==  $item->id ) ? 'selected' : ''}} @endforeach @endif
                                             value="{{$item->id}}">{{$item->id}}-{{$item->ten_nganh_nghe}}
                                         </option>
-                                        @endforeach    
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
                         </div>
                     </div>
-                     <div class="row pt-4">                   
+                    <div class="row pt-4">
                         <div class="col-md-6 ">
                             <div class="form-group m-form__group row">
                                 <label for="" class="col-lg-2 col-form-label">Xã\Phường</label>
@@ -229,6 +228,11 @@
         </div>
     </div>
     <div class="m-portlet">
+        @if (session('thongbao'))
+        <div class="alert alert-success">
+            {{session('thongbao')}}
+        </div>
+        @endif
         <div class="m-portlet__body">
             <div class="col-12 form-group m-form__group d-flex justify-content-end">
                 <label class="col-lg-2 col-form-label">Kích thước:</label>
@@ -250,14 +254,16 @@
                         <th scope="col 1" rowspan="2">Cơ sở đào tạo</th>
                         <th scope="col 1" rowspan="2">Cơ quan chủ quản</th>
                         <th scope="col 1" rowspan="2">Quận Huyện</th>
-                        <th scope="col 1" rowspan="2">Xã Phường <br> Thị Trấn</th> 
-                        <th scope="col 1" rowspan="2" class="text-center">Quyết đinh thành lập/ <br>đổi tên/sáp nhập/giải thể</th>       
+                        <th scope="col 1" rowspan="2">Xã Phường <br> Thị Trấn</th>
+                        <th scope="col 1" rowspan="2" class="text-center">Quyết đinh thành lập/ <br>đổi tên/sáp
+                            nhập/giải thể</th>
                         <th scope="col 1" colspan="4" class="text-center">Giấy chứng nhận đăng ký hoạt động GDNN</th>
-                        <th scope="col 1" colspan="5" class="text-center">Tên ngành, nghề/ quy mô được cấp trong GCN</th>
+                        <th scope="col 1" colspan="8" class="text-center">Tên ngành, nghề/ quy mô được cấp trong GCN
+                        </th>
                         <th scope="col 1" rowspan="2">Thao tác</th>
                     </tr>
 
-                  
+
 
                     <tr class="pt-3 row2">
                         <th>Số ngày tháng năm cấp/ <br>địa điểm dào tạo</th>
@@ -266,7 +272,10 @@
                         <th>Năm cấp bổ sung</th>
 
                         <th>STT</th>
+                        <th>Mã Nghề</th>
                         <th>Tên ngành nghề</th>
+                        <th>Năm</th>
+                        <th>Đợt</th>
                         <th>Mã cấp II</th>
                         <th>Quy mô tuyển sinh TC</th>
                         <th>Quy mô tuyển sinh SC</th>
@@ -279,43 +288,47 @@
                     @endphp
 
                     @foreach ($data as $item)
+                    @foreach ($item->detail as $key => $value)
+
                     <tr>
-                        <td rowspan="{{count($item->detail)+1}}">{{ $i++ }}</td>
-                        <td rowspan="{{count($item->detail)+1}}">{{$item->loai_hinh_co_so}}</td>
-                        <td rowspan="{{count($item->detail)+1}}">{{$item->ten}}</td>
-                        <td rowspan="{{count($item->detail)+1}}">{{$item->co_quan_chu_quan}}</td>
-                        <td rowspan="{{count($item->detail)+1}}">{{$item->quan_huyen}}</td>
-                        <td rowspan="{{count($item->detail)+1}}">{{$item->xa_phuong}}</td>
-                        <td rowspan="{{count($item->detail)+1}}">{{$item->quyet_dinh}}</td>
-                        <td rowspan="{{count($item->detail)+1}}">{{$item->so_ngay_thang_nam_cap_dia_diem_dao_tao}}</td>
-                        <td class="text-center " rowspan="{{count($item->detail)+1}}">
-                            <i class="{{$item->giay_chung_nhan==1 ? $check :''}}"></i>
-                            
-                        </td>
-                        <td class="text-center " rowspan="{{count($item->detail)+1}}">
-                            <i class="{{$item->giay_chung_nhan==2 ? $check :''}}"></i>
-                        </td>
-                        <td class="text-center " rowspan="{{count($item->detail)+1}}">
-                            <i class="{{$item->giay_chung_nhan==3 ? $check :''}}"></i>
-                        </td>
-                    </tr>
-                        @foreach ($item->detail as $key => $value)
-                        <tr>
+                        @if ($key==0)
+                            <td rowspan="{{count($item->detail)}}">{{ $i++ }}</td>
+                            <td rowspan="{{count($item->detail)}}">{{$item->loai_hinh_co_so}}</td>
+                            <td rowspan="{{count($item->detail)}}">{{$item->ten}}</td>
+                            <td rowspan="{{count($item->detail)}}">{{$item->co_quan_chu_quan}}</td>
+                            <td rowspan="{{count($item->detail)}}">{{$item->quan_huyen}}</td>
+                            <td rowspan="{{count($item->detail)}}">{{$item->xa_phuong}}</td>
+                            <td rowspan="{{count($item->detail)}}">{{$item->quyet_dinh}}</td>
+                            <td rowspan="{{count($item->detail)}}">{{$item->so_ngay_thang_nam_cap_dia_diem_dao_tao}}</td>
+                            <td class="text-center " rowspan="{{count($item->detail)}}">
+                                <i class="{{$item->giay_chung_nhan==1 ? $check :''}}"></i>
+
+                            </td>
+                            <td class="text-center " rowspan="{{count($item->detail)}}">
+                                <i class="{{$item->giay_chung_nhan==2 ? $check :''}}"></i>
+                            </td>
+                            <td class="text-center " rowspan="{{count($item->detail)}}">
+                                <i class="{{$item->giay_chung_nhan==3 ? $check :''}}"></i>
+                            </td>
+                        @endif
                             <td>{{$key=$key+1}}</td>
+                            <td>{{$value->nghe_id}}</td>
                             <td>{{$value->ten_nganh_nghe}}</td>
+                            <td>{{$value->nam}}</td>
+                            <td>{{$value->dot}}</td>
                             <td>{{$value->ma_cap_2}}</td>
                             <td>{{$value->quy_mo_tuyen_sinh_TC}}</td>
-                            <td>{{$value->quy_mo_tuyen_sinh_SC}}</td>                    
+                            <td>{{$value->quy_mo_tuyen_sinh_SC}}</td>
                             <td>
-                                @if ($value->trang_thai<3)  <a href="{{route('xuatbc.quan-ly-giao-duc-nghe-nghiep.edit',[
-                                    'id' => $value->id,
-                                ])}}">Sửa</a>
-                                @endif    
-                            </td>    
+                                @if ($value->trang_thai<3) <a href="{{route('xuatbc.quan-ly-giao-duc-nghe-nghiep.edit',[
+                                        'id' => $value->id,
+                                    ])}}">Sửa</a>
+                                    @endif
+                            </td>
                     </tr>
-                        @endforeach
                     @endforeach
-                        
+                    @endforeach
+
 
 
                 </tbody>
@@ -574,6 +587,7 @@
         $('#co_so_id').select2();
     });
 </script>
+<script src="{{ asset('js/so_lieu_tuyen_sinh/tong_hop_so_lieu.js') }}"></script>
 <script type="text/javascript">
     var url_tuyen_sinh_theo_loai_hinh = "{{route('csTuyenSinhTheoLoaiHinh')}}"
     var url_xa_phuong_theo_quan_huyen = "{{route('getXaPhuongTheoQuanHuyen')}}"
@@ -664,6 +678,6 @@
       });
     
     
-    </script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>   
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 @endsection

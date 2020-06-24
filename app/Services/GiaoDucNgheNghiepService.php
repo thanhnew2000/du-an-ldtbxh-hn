@@ -20,17 +20,13 @@ use Storage;
 class GiaoDucNgheNghiepService extends AppService
 {
     protected $LoaiHinhCoSoRepositoryInterface;
-    protected $SoLieuTuyenSinhInterface;
-    use ExcelTraitService;
 
     public function __construct(
-        LoaiHinhCoSoRepositoryInterface $loaiHinhCoSoRepository,
-        SoLieuTuyenSinhInterface $soLieuTuyenSinhRepository
+        LoaiHinhCoSoRepositoryInterface $loaiHinhCoSoRepository
 
     ) {
         parent::__construct();
         $this->loaiHinhCoSoRepository = $loaiHinhCoSoRepository;
-        $this->soLieuTuyenSinhRepository = $soLieuTuyenSinhRepository;
 
     }
 
@@ -55,21 +51,20 @@ class GiaoDucNgheNghiepService extends AppService
         $queryData['devvn_xaphuongthitran'] = isset($params['devvn_xaphuongthitran']) ? $params['devvn_xaphuongthitran'] : null;
         $queryData['nghe_cap_2'] = isset($params['nghe_cap_2']) ? $params['nghe_cap_2'] : null;
 
-        if(isset($params['nghe_cap_3'])){
+        if (isset($params['nghe_cap_3'])){
             $queryData['nghe_cap_2']=null;
             $queryData['nghe_cap_3']=$params['nghe_cap_3'];
         }else{
             $queryData['nghe_cap_3']=null;
         }
 
-        if(isset($params['nghe_cap_4'])){
+        if (isset($params['nghe_cap_4'])){
             $queryData['nghe_cap_2']=null;
             $queryData['nghe_cap_3']=null;
             $queryData['nghe_cap_4']=$params['nghe_cap_4'];
         }else{
             $queryData['nghe_cap_4']=null;
         }
-        // dd($queryData);
         $data = $this->repository->index($queryData, $limit);
 
         return $data;
@@ -81,19 +76,19 @@ class GiaoDucNgheNghiepService extends AppService
     }
 
      // quảng - 15/6 lấy  cơ sở theo loại hình
-     public function getCoSoTuyenSinhTheoLoaiHinh($id)
-     {
-         $data = $this->repository->getCoSoTuyenSinhTheoLoaiHinh($id);
-         return $data;
-     }
-     public function getTenQuanHuyen()
-     {
-         return  $this->repository->getTenQuanHuyen();
-     }
-     public function getXaPhuongTheoQuanHuyen($id)
-     {
-         return  $this->repository->getXaPhuongTheoQuanHuyen($id);
-     }
+    public function getCoSoTuyenSinhTheoLoaiHinh($id)
+    {
+        $data = $this->repository->getCoSoTuyenSinhTheoLoaiHinh($id);
+        return $data;
+    }
+    public function getTenQuanHuyen()
+    {
+        return  $this->repository->getTenQuanHuyen();
+    }
+    public function getXaPhuongTheoQuanHuyen($id)
+    {
+        return  $this->repository->getXaPhuongTheoQuanHuyen($id);
+    }
      
      // quảng - 15/6 lấy tất cả ngành nghề theo từng cấp bậc
      public function getNganhNghe($ma_cap_nghe)
@@ -102,24 +97,14 @@ class GiaoDucNgheNghiepService extends AppService
      }
 
      // quảng - 15/6  lọc ngành nghề theo từng cấp bậc
-     public function getNgheTheoCapBac($id, $cap_nghe)
-     {
-         return  $this->repository->getNgheTheoCapBac($id, $cap_nghe);
-     }
-
-     public function getThongTinCoSo($coSoId)
-     {
-         return  $this->repository->getThongTinCoSo($coSoId);
-     }
-
-     public function getChiTietDaoTaoNgheChoNguoiKhuyetTat($coSoId, $limit, $params)
+    public function getNgheTheoCapBac($id, $cap_nghe)
     {
-        $queryData = [];
-        $queryData['nam'] = isset($params['nam']) ? $params['nam'] : null;
-        $queryData['dot'] = isset($params['dot']) ? $params['dot'] : null;
-        $data = $this->repository->getChiTietDaoTaoNgheChoNguoiKhuyetTat($coSoId, $limit, $queryData);
-        return $data;
-    // dd($data);
+         return  $this->repository->getNgheTheoCapBac($id, $cap_nghe);
+    }
+
+    public function getThongTinCoSo($coSoId)
+    {
+         return  $this->repository->getThongTinCoSo($coSoId);
     }
 
     public function edit($id)
@@ -132,19 +117,19 @@ class GiaoDucNgheNghiepService extends AppService
         return $this->repository->getNganhNgheThuocCoSo($id);
     }
 
-    public function getCheckTonTaiDaoTaoChoNguoiKhuyetTat($data, $requestParams)
+    public function getCheckTonTaiGiaoDucNgheNghiep($data, $requestParams)
     {
         $checkResult = $this->getSoLieu($data);
         unset($requestParams['_token']);
-        $route = route('nhapbc.dao-tao-khuyet-tat.create');
+        $route = route('xuatbc.quan-ly-giao-duc-nghe-nghiep.create');
         $message = $checkResult == 'tontai' ?
-            'Số liệu tuyển sinh đã tồn tại và được phê duyệt' :
-            'Số liệu tuyển sinh đã tồn tại';
+            'Số liệu đã tồn tại và được phê duyệt' :
+            'Số liệu đã tồn tại';
         
         if (!isset($checkResult)) {
             $data = $this->repository->store($requestParams);
-            $message = 'Thêm số liệu tuyển sinh thành công';
-            $route = route('nhapbc.dao-tao-khuyet-tat.show', [
+            $message = 'Thêm số liệu thành công';
+            $route = route('xuatbc.quan-ly-giao-duc-nghe-nghiep', [
                 'id' => $requestParams['co_so_id'],
             ]);
         }
@@ -159,7 +144,7 @@ class GiaoDucNgheNghiepService extends AppService
     {
         $dataCheckNew = $this->constructConditionParams($data);
 
-        return $this->repository->getCheckTonTaiDaoTaoChoNguoiKhuyetTat($dataCheckNew);
+        return $this->repository->getCheckTonTaiGiaoDucNgheNghiep($dataCheckNew);
     }
 
     protected function constructConditionParams($params)
