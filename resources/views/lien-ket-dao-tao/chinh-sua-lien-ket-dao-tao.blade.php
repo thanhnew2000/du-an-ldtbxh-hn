@@ -106,18 +106,28 @@
                     <td>Chỉ tiêu</td>
                     <td><input type="number" min="0" step="1" name="chi_tieu" class="form-control"
                         value="{{$data->chi_tieu}}">
+                      @error('chi_tieu')
+                      <div class="alert alert-danger">{{ $message }}</div>
+                      @enderror
                     </td>
                   </tr>
                   <tr>
                     <td>Thực tuyển </td>
                     <td><input type="number" min="0" step="1" name="thuc_tuyen" class="form-control"
-                        value="{{$data->thuc_tuyen}}"></td>
-
+                        value="{{$data->thuc_tuyen}}">
+                      @error('thuc_tuyen')
+                      <div class="alert alert-danger">{{ $message }}</div>
+                      @enderror
+                    </td>
                   </tr>
                   <tr>
                     <td>Số HSSV tốt nghiệp</td>
                     <td><input type="number" min="0" step="1" name="so_HSSV_tot_nghiep" class="form-control"
-                        value="{{$data->so_HSSV_tot_nghiep}}"></td>
+                        value="{{$data->so_HSSV_tot_nghiep}}">
+                      @error('so_HSSV_tot_nghiep')
+                      <div class="alert alert-danger">{{ $message }}</div>
+                      @enderror
+                    </td>
                   </tr>
                   <tr>
                     <td>Đơn vị liên kết </td>
@@ -140,16 +150,7 @@
       </div>
 
     </div>
-    {{-- end liên kết --}}
-    @if ($errors->any())
-    <ul class="col-md-10 mx-auto">
-      @foreach ($errors->all() as $error)
-      <li class="thongbao " style="color: red;">
-        {{ $error }}
-      </li>
-      @endforeach
-    </ul>
-    @endif
+
     <div class="row mt-4" style="float: right">
       <div class="col-md-12">
         <a style="color: white;"
@@ -165,17 +166,4 @@
 @section('script')
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-<script src="{!! asset('chinh_sach_sinh_vien/validate-number.js') !!}"></script>
-@if (session('thongbao'))
-<script>
-  Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Cập nhật thành công !',
-        showConfirmButton: false,
-        timer: 3500
-    })
-</script>
-@endif
 @endsection

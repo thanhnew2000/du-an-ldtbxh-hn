@@ -23,13 +23,18 @@
     th {
         text-align: center;
     }
+
+    .error {
+        color: red;
+    }
 </style>
 <link href="{!! asset('/css/main.css') !!}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('content')
 <div class="m-content container-fluid">
-    <form id="form" action="{{route('xuatbc.post-them-ket-qua-tot-nghiep-voi-doanh-nghiep')}}" novalidate method="post">
+    <form action="{{route('xuatbc.post-them-ket-qua-tot-nghiep-voi-doanh-nghiep')}}" method="post"
+        id="validate-form-add">
         @csrf
         <div class="m-portlet">
             <div class="m-portlet__head">
@@ -53,11 +58,12 @@
                                 <div class="col-lg-8">
                                     <select class="form-control select2" onchange="getdatacheck(this)" required
                                         name="co_so_id" id="co_so_dao_tao">
-                                        <option value="">Chọn</option>
+                                        <option value="-1">Chọn</option>
                                         @foreach ($data as $item)
                                         <option value="{{$item->id}}">{{$item->ten}}</option>
                                         @endforeach
                                     </select>
+                                    <label id="co_so_dao_tao-error" class="error" for="co_so_dao_tao"></label>
                                 </div>
                             </div>
                         </div>
@@ -67,7 +73,7 @@
                                 <div class="col-lg-8">
                                     <select class="form-control select2" onchange="getdatacheck(this)" required
                                         name="nam" id="nam">
-                                        <option value="">Chọn</option>
+                                        <option value="-1">Chọn</option>
                                         @foreach (config('common.nam_tuyen_sinh.list') as $item)
                                         <option @if (isset($params['nam']))
                                             {{( $params['nam'] ==  $item ) ? 'selected' : ''}} @endif value="{{$item}}">
@@ -75,6 +81,7 @@
                                         </option>
                                         @endforeach
                                     </select>
+                                    <label id="nam-error" class="error" for="nam"></label>
                                 </div>
                             </div>
                         </div>
@@ -86,8 +93,9 @@
                                 <div class="col-lg-8">
                                     <select class="form-control select2" required disabled onchange="getdatacheck(this)"
                                         name="nghe_id" id="ma_nganh_nghe">
-                                        <option value="" selected>Mã ngành nghề</option>
+                                        <option value="-1" selected>Mã ngành nghề</option>
                                     </select>
+                                    <label id="ma_nganh_nghe-error" class="error" for="ma_nganh_nghe"></label>
                                 </div>
                             </div>
                         </div>
@@ -97,10 +105,11 @@
                                 <div class="col-lg-8">
                                     <select class="form-control select2" required onchange="getdatacheck(this)"
                                         name="dot" id="dot">
-                                        <option value="" selected>Chọn</option>
+                                        <option value="-1" selected>Chọn</option>
                                         <option value="1">Đợt 1</option>
                                         <option value="2">Đợt 2</option>
                                     </select>
+                                    <label id="dot-error" class="error" for="dot"></label>
                                 </div>
                             </div>
                         </div>
@@ -138,29 +147,47 @@
                                     <tr>
                                         <td>Số HSSV nhập học đầu khóa</td>
                                         <td><input type="number" min="0" step="1" name="nhap_hoc_dau_tot_nghiep_CD"
-                                                class="form-control">
-                                            <label id="nhap_hoc_dau_tot_nghiep_CD-error" class="error"
-                                                for="nhap_hoc_dau_tot_nghiep_CD" style=""></label>
-                                        </td>
+                                                class="form-control name-field"></td>
                                         <td><input type="number" min="0" step="1" name="nhap_hoc_dau_tot_nghiep_TC"
-                                                class="form-control"></td>
+                                                class="form-control name-field"></td>
                                         <td><input type="number" min="0" step="1" name="nhap_hoc_dau_tot_nghiep_SC"
-                                                class="form-control"></td>
+                                                class="form-control name-field"></td>
                                         <td><input type="number" min="0" step="1"
-                                                name="duoi_3_thang_tot_nghiep_nhap_hoc_dau" class="form-control"></td>
+                                                name="duoi_3_thang_tot_nghiep_nhap_hoc_dau"
+                                                class="form-control name-field"></td>
                                     </tr>
-
+                                    <td>
+                                    <td><label id="nhap_hoc_dau_tot_nghiep_CD-error" class="error"
+                                            for="nhap_hoc_dau_tot_nghiep_CD"></label></td>
+                                    <td><label id="nhap_hoc_dau_tot_nghiep_TC-error" class="error"
+                                            for="nhap_hoc_dau_tot_nghiep_TC"></label></td>
+                                    <td><label id="nhap_hoc_dau_tot_nghiep_SC-error" class="error"
+                                            for="nhap_hoc_dau_tot_nghiep_SC"></label></td>
+                                    <td><label id="duoi_3_thang_tot_nghiep_nhap_hoc_dau-error" class="error"
+                                            for="duoi_3_thang_tot_nghiep_nhap_hoc_dau"></label></td>
+                                    </td>
                                     <tr>
                                         <td>Số HSSV tốt nghiệp</td>
                                         <td><input type="number" min="0" step="1" name="tot_nghiep_CD"
-                                                class="form-control"></td>
+                                                class="form-control name-field"></td>
                                         <td><input type="number" min="0" step="1" name="tot_nghiep_TC"
-                                                class="form-control"></td>
+                                                class="form-control name-field"></td>
                                         <td><input type="number" min="0" step="1" name="tot_nghiep_SC"
-                                                class="form-control"></td>
+                                                class="form-control name-field"></td>
                                         <td><input type="number" min="0" step="1" name="duoi_3_thang_tot_nghiep"
-                                                class="form-control"></td>
+                                                class="form-control name-field"></td>
 
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><label id="tot_nghiep_CD-error" class="error" for="tot_nghiep_CD"></label>
+                                        </td>
+                                        <td><label id="tot_nghiep_TC-error" class="error" for="tot_nghiep_TC"></label>
+                                        </td>
+                                        <td><label id="tot_nghiep_SC-error" class="error" for="tot_nghiep_SC"></label>
+                                        </td>
+                                        <td><label id="duoi_3_thang_tot_nghiep-error" class="error"
+                                                for="duoi_3_thang_tot_nghiep"></label></td>
                                     </tr>
 
 
@@ -196,13 +223,13 @@
                                     <tr>
                                         <td>Số HSSV được doanh nghiệp tuyển dụng sau tốt nghiệp</td>
                                         <td><input type="number" min="0" step="1" name="so_HSSV_duoc_tuyen_dung"
-                                                class="form-control"></td>
+                                                class="form-control name-field"></td>
 
                                     </tr>
                                     <tr>
                                         <td>Mức lương doanh nghiệp trả cho HSSV</td>
                                         <td><input type="number" min="0" step="1" name="muc_luong_doanh_nghiep_tra"
-                                                class="form-control"></td>
+                                                class="form-control name-field"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -228,7 +255,7 @@
                                     <tr>
                                         <td>Tổng số</td>
                                         <td><input type="number" min="0" step="1" name="tong_HSSV_tot_nghiep"
-                                                class="form-control"></td>
+                                                class="form-control name-field"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -269,13 +296,12 @@
     var routeCheck = "{{ route('xuatbc.check-ton-tai') }}";
 var routeGetMaNganhNghe = "{{ route('get_ma_nganh_nghe') }}";
 $(document).ready(function(){
-  $('#co_so_dao_tao').select2();
-  $('#ma_nganh_nghe').select2();
+  $('.select2').select2();
 });
 </script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
-<script>
+{{-- <script>
     $( "#form" ).validate({
   rules: {
     nhap_hoc_dau_tot_nghiep_CD: {
@@ -284,7 +310,7 @@ $(document).ready(function(){
   }
 
 });
-</script>
+</script> --}}
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="{!! asset('lien_ket_dao_tao/lien_ket_dao_tao.js') !!}"></script>

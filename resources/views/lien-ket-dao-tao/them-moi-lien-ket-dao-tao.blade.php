@@ -44,6 +44,9 @@
                     <option value="{{$item->id}}">{{$item->ten}}</option>
                     @endforeach
                   </select>
+                  @error('co_so_id')
+                  <div class="alert alert-danger">{{ $message }}</div>
+                  @enderror
                 </div>
               </div>
             </div>
@@ -59,6 +62,9 @@
                     </option>
                     @endforeach
                   </select>
+                  @error('nam')
+                  <div class="alert alert-danger">{{ $message }}</div>
+                  @enderror
                 </div>
               </div>
             </div>
@@ -72,6 +78,9 @@
                     id="ma_nganh_nghe">
                     <option value="" selected>Mã ngành nghề</option>
                   </select>
+                  @error('nghe_id')
+                  <div class="alert alert-danger">{{ $message }}</div>
+                  @enderror
                 </div>
               </div>
             </div>
@@ -84,6 +93,9 @@
                     <option value="1">Đợt 1</option>
                     <option value="2">Đợt 2</option>
                   </select>
+                  @error('dot')
+                  <div class="alert alert-danger">{{ $message }}</div>
+                  @enderror
                 </div>
               </div>
             </div>
@@ -113,20 +125,32 @@
                   <tr>
                     <td>Chỉ tiêu</td>
                     <td><input type="number" min="0" step="1" name="chi_tieu" class="form-control">
+                      @error('chi_tieu')
+                      <div class="alert alert-danger">{{ $message }}</div>
+                      @enderror
                     </td>
                   </tr>
                   <tr>
                     <td>Thực tuyển</td>
-                    <td><input type="number" min="0" step="1" name="thuc_tuyen" class="form-control"></td>
+                    <td><input type="number" min="0" step="1" name="thuc_tuyen" class="form-control">
+                      @error('thuc_tuyen')
+                      <div class="alert alert-danger">{{ $message }}</div>
+                      @enderror
+                    </td>
 
                   </tr>
                   <tr>
                     <td>Số HSSV tốt nghiệp</td>
-                    <td><input type="number" min="0" step="1" name="so_HSSV_tot_nghiep" class="form-control"></td>
+                    <td><input type="number" min="0" step="1" name="so_HSSV_tot_nghiep" class="form-control">
+                      @error('so_HSSV_tot_nghiep')
+                      <div class="alert alert-danger">{{ $message }}</div>
+                      @enderror
+                    </td>
                   </tr>
                   <tr>
                     <td>Đơn vị liên kết </td>
-                    <td><input type="text" min="0" step="1" name="don_vi_lien_ket" class="form-control"></td>
+                    <td><input type="text" name="don_vi_lien_ket" class="form-control">
+                    </td>
                   </tr>
                   <tr>
                     <td>Ghi chú </td>
@@ -150,15 +174,7 @@
       {{session('thongbao')}}
     </div>
     @endif
-    @if ($errors->any())
-    <ul class="col-md-10 mx-auto">
-      @foreach ($errors->all() as $error)
-      <li class="thongbao " style="color: red;">
-        {{ $error }}
-      </li>
-      @endforeach
-    </ul>
-    @endif
+
     <div class="row mt-4" style="float: right">
       <div class="col-md-12">
         <a style="color: white;" href="{{route('xuatbc.tong-hop-lien-ket-dao-tao')}}"><button type="button"
