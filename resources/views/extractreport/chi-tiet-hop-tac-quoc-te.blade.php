@@ -204,7 +204,6 @@
 </div>
 @endsection
 @section('script')
-<script src="{{ asset('js/so_lieu_tuyen_sinh/tong_hop_so_lieu.js') }}"></script>
 <script type="text/javascript">
 
     var currentUrl = `{{route($route_name,['co_so_id'=>$thongtincoso[0]->id])}}`;
