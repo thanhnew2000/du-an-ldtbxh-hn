@@ -159,5 +159,3 @@ class SoLieuTuyenSinhService extends AppService
         return  $this->repository->getNgheTheoCapBac($id, $cap_nghe);
     }
 }
-
- ?>

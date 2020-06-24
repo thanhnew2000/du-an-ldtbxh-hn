@@ -93,9 +93,11 @@
                     <th>Số điện thoại</th>
                     <th>Cơ sở đào tạo</th>
                     <th>Trạng thái</th>
+                    @can('them_tai_khoan')
                     <th>
                         <a href="{{ route('account.tao-tk') }}" class="btn btn-success btn-sm">Thêm mới</a>
                     </th>
+                    @endcan
                 </thead>
                 <tbody>
                     @php
@@ -143,9 +145,11 @@
                             </form>
                         </td>
 
-
+                        @can('sua_tai_khoan')
                         <td><a class="btn btn-primary btn-sm"
                                 href="{{ route('account.edit',['id'=>$user->id]) }}">Sửa</a></td>
+                        @endcan
+
                     </tr>
                     @endforeach
 

@@ -45,7 +45,8 @@
                                         <select class="form-control" required name="nghe_id" id="nghe_id">
                                             <option value="{{ old('nghe_id') }}">Chọn </option>
                                             @foreach ($nganhNghe as $item)
-                                            <option class="form-control " value="{{$aQ->id}}">{{$item->ten_nganh_nghe}}
+                                            <option class="form-control " value="{{$item->id}}">
+                                                {{$item->ten_nganh_nghe}}
                                                 - {{$item->id}}</option>
                                             @endforeach
                                         </select>

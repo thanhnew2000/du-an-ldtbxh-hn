@@ -2,9 +2,9 @@
 @section('title', "Sửa tài khoản")
 @section('style')
 <style type="text/css">
-	.error {
-		color: red;
-	}
+    .error {
+        color: red;
+    }
 </style>
 @endsection
 @section('content')
@@ -22,51 +22,54 @@
                             <h3 class="m-portlet__head-text">
                                 Chỉnh sửa tài khoản
                             </h3>
-                            
-                            
+
+
                         </div>
-                       
-                     
+
+
                     </div>
                     <div class="m-portlet__head-caption " style="width:400px">
-                        
+
                         @if (session('thongbao'))
-						<div class="thongbao" style="color: green; text-align: center;">
-                             
+                        <div class="thongbao" style="color: green; text-align: center;">
+
                             <h4 class="m-portlet__head-text text-success">
                                 {{session('thongbao')}}
                             </h4>
-						</div>
-						@endif
-                     
+                        </div>
+                        @endif
+
                     </div>
                 </div>
 
 
                 <!--begin::Form-->
-                <form id="validate-form-update" class="m-form m-form--fit m-form--label-align-left" action="{{ route('account.update') }}" method="POST" >
+                <form id="validate-form-update" class="m-form m-form--fit m-form--label-align-left"
+                    action="{{ route('account.update') }}" method="POST">
                     <div class="m-portlet__body">
-                    
+
                         {{ csrf_field() }}
 
-                        <input class="form-control m-input" type="hidden" name="id" value="{{ $user->id }}" >
+                        <input class="form-control m-input" type="hidden" name="id" value="{{ $user->id }}">
 
-                 
-                  
+
+
 
                         <div class="form-group m-form__group row">
-                            <label  class="col-4 col-form-label">Họ và tên</label>
+                            <label class="col-4 col-form-label">Họ và tên</label>
                             <div class="col-6">
-                                <input class="form-control m-input" type="text" name="name" value="{{ $user->name }}" placeholder="Nhập Họ và Tên">
+                                <input class="form-control m-input" type="text" name="name" value="{{ $user->name }}"
+                                    placeholder="Nhập Họ và Tên">
                                 @if ($errors->has('name'))
                                 <span class="text-danger">{{ $errors->first('name') }}</span>
                                 @endif
                             </div>
                         </div>
                         <div class="form-group m-form__group row">
-                            <label  class="col-4 col-form-label">Số điện thoại</label>
+                            <label class="col-4 col-form-label">Số điện thoại</label>
                             <div class="col-6">
-                                <input class="form-control m-input" type="text" name="phone" value="{{ $user->phone_number }}" placeholder="Nhập Số điện thoại">
+                                <input class="form-control m-input" type="text" name="phone"
+                                    value="{{ $user->phone_number }}" placeholder="Nhập Số điện thoại">
                                 @if ($errors->has('phone'))
                                 <span class="text-danger">{{ $errors->first('phone') }}</span>
                                 @endif
@@ -74,30 +77,29 @@
                         </div>
                         {{-- 16/06/2020 - Th  --}}
                         <div class="form-group m-form__group row">
-                            <label  class="col-4 col-form-label">Phân Quyền: </label>
+                            <label class="col-4 col-form-label">Phân Quyền: </label>
                             <div class="col-6">
-								<select class="form-control m-input" name="role">
+                                <select class="form-control m-input" name="role">
                                     @foreach ($data as $role)
-                                        <option 
-                                         {{-- {{ ($role->id == $role->id) ?   'selected' : '' }} --}}
-                                         {{-- {{( $item->nam == '2020' ) ? 'selected' : ''}} --}}
-                                        value="{{ $role->id }}"> 
-                                        {{ $role->name }} 
+                                    <option {{-- {{ ($role->id == $role->id) ?   'selected' : '' }} --}}
+                                        {{-- {{( $item->nam == '2020' ) ? 'selected' : ''}} --}}
+                                        value="{{ $role->id }}">
+                                        {{ $role->name }}
                                     </option>
                                     @endforeach
-								</select>
+                                </select>
                             </div>
                         </div>
-                        
+
                     </div>
                     <div class="m-portlet__foot m-portlet__foot--fit">
                         <div class="m-form__actions">
                             <div class="row">
-                         
+
                                 <div class="col-12 d-flex justify-content-center">
-                                  
+
                                     <a href="{{ route('account.list') }}" class="btn btn-danger">Hủy</a>&nbsp&nbsp&nbsp
-                                    <button type="submit"  class="btn btn-success">Update</button>
+                                    <button type="submit" class="btn btn-success">Update</button>
                                 </div>
                             </div>
                         </div>
@@ -116,7 +118,7 @@
 
 @section('script')
 <script type="text/javascript">
-	$(document).ready(function() {
+    $(document).ready(function() {
         $("#validate-form-update").validate({
             rules: {
                 phone:{

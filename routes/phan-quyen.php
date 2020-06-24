@@ -44,7 +44,7 @@ them_moi_danh_sach_doi_ngu_quan_ly|cap_nhat_danh_sach_doi_ngu_quan_ly|xem_chi_ti
 });
 
 Route::group(['middleware' => ['permission:them_moi_tong_hop_thuc_hien_chinh_sach_cho_sv|
-cap_nhat_tong_hop_thuc_hien_chinh_sach_cho_sv']], function () {
+                                cap_nhat_tong_hop_thuc_hien_chinh_sach_cho_sv']], function () {
     Route::get(
         '/tong-hop',
         'ExtractController@tonghopchinhsachsv'
@@ -73,8 +73,8 @@ cap_nhat_tong_hop_thuc_hien_chinh_sach_cho_sv']], function () {
 
 
 Route::group(['middleware' => ['permission:them_moi_tong_hop_ket_qua_tuyen_sinh|
-xem_chi_tiet_tong_hop_ket_qua_tuyen_sinh|
-sua_chi_tiet_tong_hop_ket_qua_tuyen_sinh']], function () {
+                                xem_chi_tiet_tong_hop_ket_qua_tuyen_sinh|
+                                sua_chi_tiet_tong_hop_ket_qua_tuyen_sinh']], function () {
     Route::get('/tong-hop', 'ExtractController@tonghopkqtuyensinh')
         ->name('xuatbc.ds-ket-qua-ts');
     // thanhnv thêm xuất form nhập cho người dùng nhập Import

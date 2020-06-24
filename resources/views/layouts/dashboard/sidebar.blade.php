@@ -228,18 +228,18 @@
 {{-- VinhNB --}}
 
 {{-- Quản lý nhân sự --}}
-{{-- @canany(['them_moi_quan_ly_giao_vien' , 'cap_nhat_quan_ly_giao_vien',
-'them_moi_danh_sach_doi_ngu_nha_giao', 'cap_nhat_danh_sach_doi_ngu_nha_giao', 'chinh_sua_doi_ngu_nha_giao',
-'them_moi_danh_sach_doi_ngu_quan_ly', 'cap_nhat_danh_sach_doi_ngu_quan_ly', 'xem_chi_tiet_danh_sach_doi_ngu_quan_ly']) --}}
 <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;"
 		class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-avatar"></i><span
 			class="m-menu__link-text">Quản lý nhân
 			sự</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
 	<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 		<ul class="m-menu__subnav">
+			@canany(['them_moi_quan_ly_giao_vien'])
 			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('ql-giao-vien.index')}}"
 					class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 						class="m-menu__link-text">Quản lý giáo viên</span></a></li>
+			@endcan
+
 			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('xuatbc.ds-nha-giao')}}"
 					class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 						class="m-menu__link-text">Danh sách đội ngũ nhà giáo</span></a></li>
@@ -249,7 +249,6 @@
 		</ul>
 	</div>
 </li>
-{{-- @endcan --}}
 {{-- End Quản lý nhân sự --}}
 
 {{-- Quản lý sinh viên đang có mặt --}}
@@ -264,14 +263,12 @@
 	<div class="m-menu__submenu ">
 		<span class="m-menu__arrow"></span>
 		<ul class="m-menu__subnav">
-			@canany(['them_so_luong_sinh_vien_dang_theo_hoc','sua_so_luong_sinh_vien_dang_theo_hoc','xem_so_luong_sinh_vien_dang_theo_hoc'])
 			<li class="m-menu__item " aria-haspopup="true">
 				<a href="{{route('xuatbc.ds-sv-dang-hoc')}}" class="m-menu__link ">
 					<i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i>
 					<span class="m-menu__link-text">Tổng hợp sinh viên đang theo học</span>
 				</a>
 			</li>
-			@endcan
 		</ul>
 	</div>
 </li>

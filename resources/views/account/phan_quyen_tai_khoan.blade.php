@@ -78,7 +78,6 @@
                 <thead>
                     <th>STT</th>
                     <th>Tên quyền</th>
-                    <th>Tên chức năng</th>
                     <th>
                         <a href="{{ route('account.them-quyen') }}" class="btn btn-success btn-sm">Thêm mới</a>
                     </th>
@@ -89,8 +88,9 @@
                     <tr>
                         <td>{{$i++}}</td>
                         <td>{{ $role->name }}</td>
-                        <td>{{ $role->permission_name }}</td>
-                        <td><a class="btn btn-primary btn-sm" href="">Sửa</a></td>
+                        <td><a class="btn btn-primary btn-sm"
+                                href="{{ route('account.sua-quyen',['id'=>$role->id]) }}">Sửa</a>
+                        </td>
                     </tr>
                 </tbody>
                 @endforeach
@@ -102,7 +102,6 @@
 
         </div>
         <div class="m-portlet__foot d-flex justify-content-end">
-
         </div>
     </div>
 

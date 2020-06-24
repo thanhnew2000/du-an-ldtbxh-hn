@@ -37,8 +37,6 @@ class AccountController extends Controller
                 ->join('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
                 ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
                 ->select('users.*', DB::raw('co_so_dao_tao.ten as ten'), DB::raw('roles.name as role_name'))
-                // ->get();
-                // ->toSql();
                 ->paginate($params['page_size']);
 
             // dd($users);

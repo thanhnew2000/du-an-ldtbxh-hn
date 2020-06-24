@@ -18,8 +18,10 @@ Route::group(['middleware' => ['permission:them_tai_khoan|sua_tai_khoan']], func
 
 //2020-06-11 - cuongnc,hieupt - start phân quyền tài khoản
 Route::get('/phan-quyen-tai-khoan', 'PhanQuyenController@getQuyen')->name('account.phan-quyen-tk');
-Route::view('/chi-tiet-phan-quyen-tai-khoan', 'account.chi_tiet_phan_quyen_tai_khoan')->name('account.chi-tiet-phan-quyen');
 Route::get('/them-quyen', 'PhanQuyenController@themQuyen')->name('account.them-quyen');
+Route::post('/them-quyen', 'PhanQuyenController@saveQuyen');
+Route::get('/sua-quyen/{id}', 'PhanQuyenController@suaQuyen')->name('account.sua-quyen');
+Route::post('sua-quyen/{id}', 'PhanQuyenController@updateQuyen');
 // end phân quyền tài khoản
 
 Route::get('/cap-nhat-thong-tin-ca-nhan', 'AccountController@capnhatthongtincanhan');
