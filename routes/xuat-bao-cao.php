@@ -305,7 +305,11 @@ Route::group(['prefix' => 'chi-tieu-tuyen-sinh'], function () {
     Route::post('/sua/{id}', 'ExtractController@updateChiTieuTuyenSinh');
 
     Route::get('/chi-tiet/{co_so_id}', 'ExtractController@chitietChiTieuTuyenSinh')
-        ->name('xuatbc.chi-tiet-dang-ky-chi-tieu-tuyen-sinh');
+        ->name('xuatbc.chi-tiet-dang-ky-chi-tieu-tuyen-sinh'); 
+
+    // thanhnv export bm8
+    Route::post('export-form-dang-ky-chi-tieu-tuyen-sinh', 'ExtractController@exportFormBm8')->name('layformbieumau-dang-ky-chi-tieu-tuyen-sinh');
+    Route::post('export-data-dang-ky-chi-tieu-tuyen-sinh', 'ExtractController@exportDataBm8')->name('exportdata-dang-ky-chi-tieu-tuyen-sinh');
 });
 //phucnv end BM:8
 

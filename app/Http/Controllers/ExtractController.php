@@ -581,16 +581,19 @@ class ExtractController extends Controller
         $params['get_loai_hinh_co_so'] = $this->LoaiHinhCoSoService->getAll();
         $params['get_nganh_nghe'] = $this->NganhNgheService->getAll();
         $params['get_co_so'] = $this->CoSoDaoTaoService->getAll();
-    
+        
         $data->withPath("?loaihinhcoso=$request->loaihinhcoso&dot=$request->dot&nam=$request->nam&co_so_id=$request->co_so_id&page_size=$request->page_size");  
         
+        // thanhnv them co so
+        $coso = DB::table('co_so_dao_tao')->get();
+
         if($data->count() < 1){
             return view('extractreport.tong_hop_ket_qua_tuyen_sinh', 
-            compact('data','params','route_name'),
+            compact('data','params','route_name','coso'),
             ['thongbao'=>'Không tìm thấy kết quả !']);
         }      
         return view('extractreport.tong_hop_ket_qua_tuyen_sinh',
-        compact('data','params','route_name'),['thongbao'=>'']);
+        compact('data','params','route_name','coso'),['thongbao'=>'']);
     }
 
     /* Màn hình đăng ký chỉ tiêu tuyển sinh.
@@ -716,7 +719,70 @@ class ExtractController extends Controller
 
         return redirect()->route('xuatbc.ds-nha-giao');
     }
-    // thanhvn bm13
+
+    // thanhnv import export bieu mau 8
+
+    public function exportFormBm8(Request $request){
+        $id_co_so = $request->id_cs;
+        $this->ChiTieuTuyenSinhService->exportBieuMau($id_co_so);
+    }
+
+    public function exportDataBm8(Request $request){
+        $listCoSoId = $request->truong_id;
+        $dateFrom = $request->dateFrom;
+        $dateTo = $request->dateTo;
+
+        $changeFrom = strtotime($dateFrom); 
+        $fromDate = date("Y-m-d", $changeFrom);
+
+        $changeTo = strtotime($dateTo); 
+        $toDate = date("Y-m-d", $changeTo);
+        $this->ChiTieuTuyenSinhService->exportData($listCoSoId ,$fromDate,$toDate);
+    }
+
+    public function importErrorbm8(Request $request){
+        $dot=$request->dot;
+        $year=$request->nam;
+        $nameFile=$request->file_import->getClientOriginalName();
+        $nameFileArr=explode('.',$nameFile);
+        $duoiFile=end($nameFileArr);
+
+        $fileRead = $_FILES['file_import']['tmp_name'];
+        $pathLoad = Storage::putFile(
+            'uploads/excels',
+            $request->file('file_import')
+        );
+        $path = str_replace('/', '\\', $pathLoad);  
+        $this->ChiTieuTuyenSinhService->importError($fileRead, $duoiFile,$path);
+    }
+
+    public function importFilebm8(Request $request){
+        $dot=$request->dot;
+        $year=$request->nam;
+        $nameFile=$request->file->getClientOriginalName();
+        $nameFileArr=explode('.',$nameFile);
+        $duoiFile=end($nameFileArr);
+        
+        $fileRead = $_FILES['file']['tmp_name'];
+        $kq =  $this->ChiTieuTuyenSinhService->importFile($fileRead, $duoiFile, $year, $dot);
+
+        if($kq=='errorkitu'){
+                return response()->json('exportError',200);   
+        }else if($kq=='ok'){
+                return response()->json('ok',200); 
+        }else if($kq=='NgheUnsign'){
+                return response()->json(['messageError' => ' Số lượng nghề không phù hợp với nghề đã đăng kí' ],200);   
+        }else if($kq=='noCorrectIdTruong'){
+            return response()->json(['messageError' => ' Trường không đúng hãy nhập lại' ],200);   
+        }else if($kq=='ngheKoThuocTruong'){
+            return response()->json(['messageError' => 'Có nghề không thuộc trong trường' ],200);   
+        }else{
+            return response()->json(['messageError' => $kq ],200);   
+        }
+    }
+
+    // thanhnv bm13
+
     public function exportBieuMaubm13(Request $request){
         $id_co_so = $request->id_cs;
         $this->HopTacQuocTeService->exportBieuMau($id_co_so);
@@ -769,4 +835,6 @@ class ExtractController extends Controller
         $this->HopTacQuocTeService->importError($fileRead, $duoiFile,$path);
     }
 
+
+  
 }
