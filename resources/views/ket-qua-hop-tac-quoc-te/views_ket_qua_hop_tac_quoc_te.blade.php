@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', "Kết quả hợp tát quốc tế")
+@section('title', "Kết quả hợp tác quốc tế")
 @section('style')
 @endsection
 @section('content')

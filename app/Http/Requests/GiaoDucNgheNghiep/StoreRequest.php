@@ -26,10 +26,10 @@ class StoreRequest extends FormRequest
         $data = $this->all();
         unset($data['_token'],$data['co_so_id'],$data['nghe_id'],$data['nam'],$data['dot']);
         $getDataCheck=[];
-        $getDataCheck['co_so_id'] = 'required|';
-        $getDataCheck['nghe_id'] = 'required|';
-        $getDataCheck['nam'] = 'required|';
-        $getDataCheck['dot'] = 'required|';
+        $getDataCheck['co_so_id'] = 'required';
+        $getDataCheck['nghe_id'] = 'required';
+        $getDataCheck['nam'] = 'required';
+        $getDataCheck['dot'] = 'required';
         foreach ($data as $item=>$value) {
             if($value == null){
                 $getDataCheck[$item] = 'min:0|';

@@ -23,7 +23,7 @@ class GiaoDucNgheNghiepController extends Controller
     public function index()
     {
         $params = request()->all();
-        if(isset(request()->page_size)){
+        if (isset(request()->page_size)){
             $limit = request()->page_size;
         }else{
             $limit = 20;
@@ -32,7 +32,7 @@ class GiaoDucNgheNghiepController extends Controller
         $coso = $this->GiaoDucNgheNghiepService->getTenCoSoDaoTao();
         $quanhuyen = $this->GiaoDucNgheNghiepService->getTenQuanHuyen();
         $nghe_cap_2 = $this->GiaoDucNgheNghiepService->getNganhNghe(2);
-        if(isset(request()->devvn_quanhuyen)){
+        if (isset(request()->devvn_quanhuyen)){
             $xaphuongtheoquanhuyen = $this->GiaoDucNgheNghiepService->getXaPhuongTheoQuanHuyen(request()->devvn_quanhuyen);
         }else{
             $xaphuongtheoquanhuyen=[];
@@ -78,11 +78,11 @@ class GiaoDucNgheNghiepController extends Controller
     {
         $datacheck=  $request->datacheck;
         $getdata = $this->GiaoDucNgheNghiepService->getSoLieu($datacheck);
-        if($getdata == 'tontai'){
+        if ($getdata == 'tontai'){
             return response()->json([
                 'result' => 1,
             ]);
-        }else if($getdata == null){
+        }else if ($getdata == null){
             return response()->json([
                 'result' => 2,
             ]);
@@ -131,10 +131,6 @@ class GiaoDucNgheNghiepController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        return view('giao_duc_nghe_nghiep.show');
-    }
 
     /**
      * Show the form for editing the specified resource.
