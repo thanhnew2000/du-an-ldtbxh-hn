@@ -348,8 +348,7 @@
             $( "#datepickerTo" ).datepicker();
          });
 
-        //  $('.select2').select2();
-       
+            $('span.select2').css('width', '100%');
 
          function closeModal(id) {
             $('#' + id).trigger('click');
