@@ -176,6 +176,64 @@ class GiaoDucNgheNghiepRepository extends BaseRepository implements DaoTaoNgheCh
         return $result;
 	}
 
+	
+	// thanhnv 6/23/2020
+	public function getThongTinDangKyTimeFromTo($id_truong, $fromDate,$toDate)
+	{
+		$data = DB::table('thong_tin_dang_ky')->where('thong_tin_dang_ky.co_so_id', '=',$id_truong)
+		->where('create_at','>=',$fromDate)
+		->where('create_at','<=',$toDate)
+		->join('nganh_nghe','nganh_nghe.id','=','thong_tin_dang_ky.nghe_id')
+		// ->join('co_so_dao_tao','co_so_dao_tao.id','=','thong_tin_dang_ky.co_so_id')
+		->get();
+		return $data;
+	}
+
+	public function getGiaoDucNgheNghiepCsNamDot($id_truong, $year,$dot)
+	{
+		$data =  DB::table('thong_tin_dang_ky')->where('co_so_id', '=', $id_truong)
+		->where('nam','=',$year)
+		->where('dot','=',$dot)
+		->select('id','nghe_id')->get();
+		return $data;
+	}
+
+	public function getAllCsJoinChuQuanVaDangKyGiay()
+	{
+		$data =  DB::table('co_so_dao_tao')
+		->join('co_quan_chu_quan','co_quan_chu_quan.id','=','co_so_dao_tao.co_quan_chu_quan_id')
+		->join('giay_chung_nhan_dang_ky_hoat_dong_giao_duc_nghe_nghiep','co_so_dao_tao.quyet_dinh_id','=','giay_chung_nhan_dang_ky_hoat_dong_giao_duc_nghe_nghiep.id')
+		->select('co_so_dao_tao.id','co_so_dao_tao.ten','co_so_dao_tao.ma_loai_hinh_co_so','co_so_dao_tao.giay_chung_nhan_id','co_so_dao_tao.loai_truong','giay_chung_nhan_dang_ky_hoat_dong_giao_duc_nghe_nghiep.quyet_dinh'
+		,'co_quan_chu_quan.ten as ten_chu_quan'
+		,'giay_chung_nhan_dang_ky_hoat_dong_giao_duc_nghe_nghiep.so_ngay_thang_nam_cap_dia_diem_dao_tao')
+		->orderBy('loai_truong', 'asc')
+		->get();
+		return $data;
+	}
+	public function getSomeCsJoinChuQuanVaDangKyGiay($listCoSoId)
+	{
+		$data =  DB::table('co_so_dao_tao')->whereIn('co_so_dao_tao.id', $listCoSoId)
+		->join('co_quan_chu_quan','co_quan_chu_quan.id','=','co_so_dao_tao.co_quan_chu_quan_id')
+		->join('giay_chung_nhan_dang_ky_hoat_dong_giao_duc_nghe_nghiep','co_so_dao_tao.quyet_dinh_id','=','giay_chung_nhan_dang_ky_hoat_dong_giao_duc_nghe_nghiep.id')
+		->select('co_so_dao_tao.id','co_so_dao_tao.ten','co_so_dao_tao.ma_loai_hinh_co_so','co_so_dao_tao.giay_chung_nhan_id','co_so_dao_tao.loai_truong','giay_chung_nhan_dang_ky_hoat_dong_giao_duc_nghe_nghiep.quyet_dinh'
+		,'co_quan_chu_quan.ten as ten_chu_quan'
+		,'giay_chung_nhan_dang_ky_hoat_dong_giao_duc_nghe_nghiep.so_ngay_thang_nam_cap_dia_diem_dao_tao')
+		->orderBy('loai_truong', 'asc')
+		->get();
+		return $data;
+	}
+	public function getOnlyOneCsJoinChuQuanVaDangKyGiay($id_coso)
+	{
+		$data =    DB::table('co_so_dao_tao')->where('co_so_dao_tao.id', $id_coso)
+		->join('co_quan_chu_quan','co_quan_chu_quan.id','=','co_so_dao_tao.co_quan_chu_quan_id')
+        ->join('giay_chung_nhan_dang_ky_hoat_dong_giao_duc_nghe_nghiep','co_so_dao_tao.quyet_dinh_id','=','giay_chung_nhan_dang_ky_hoat_dong_giao_duc_nghe_nghiep.id')
+        ->select('co_so_dao_tao.id','co_so_dao_tao.ten','co_so_dao_tao.ma_loai_hinh_co_so','co_so_dao_tao.giay_chung_nhan_id','co_so_dao_tao.loai_truong','giay_chung_nhan_dang_ky_hoat_dong_giao_duc_nghe_nghiep.quyet_dinh'
+        ,'co_quan_chu_quan.ten as ten_chu_quan'
+        ,'giay_chung_nhan_dang_ky_hoat_dong_giao_duc_nghe_nghiep.so_ngay_thang_nam_cap_dia_diem_dao_tao')
+        ->orderBy('loai_truong', 'asc')
+        ->first();
+		return $data;
+	}
 
 }
  ?>
