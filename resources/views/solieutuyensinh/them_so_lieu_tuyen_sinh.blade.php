@@ -4,7 +4,7 @@
 {{-- <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
 <link href="{!! asset('tuyensinh/css/themtuyensinh.css') !!}" rel="stylesheet" type="text/css" /> --}}
 <style>
-  .batbuoc {
+  .batbuoc,.error {
     color: red;
   }
 
@@ -20,7 +20,7 @@
 
 @section('content')
 <div class="m-content container-fluid">
-  <form action="{{route('postthemsolieutuyensinh')}}" method="post">
+  <form action="{{route('postthemsolieutuyensinh')}}" method="post" id="validate-form">
     @csrf
     <div class="m-portlet">
       <div class="m-portlet__head">
@@ -42,7 +42,7 @@
               <div class="form-group m-form__group row">
                 <label class="col-lg-2 col-form-label">Tên cơ sở đào tạo <span class="batbuoc">*</span></label>
                 <div class="col-lg-8">
-                  <select class="form-control " onchange="getdatacheck(this)"  required name="co_so_id"
+                  <select class="form-control " onchange="getdatacheck(this)"   name="co_so_id"
                     id="co_so_dao_tao">
                     <option value="">Chọn</option>
                     @foreach ($data as $item)
@@ -60,7 +60,7 @@
               <div class="form-group m-form__group row">
                 <label class="col-lg-2 col-form-label">Mã ngành nghề<span class="batbuoc">*</span></label>
                 <div class="col-lg-8">
-                  <select class="form-control "  disabled onchange="getdatacheck(this)" required name="nghe_id"
+                  <select class="form-control "  disabled onchange="getdatacheck(this)"  name="nghe_id"
                     id="ma_nganh_nghe">
                     <option value="" selected>Mã ngành nghề</option>
                   </select>
@@ -76,7 +76,7 @@
               <div class="form-group m-form__group row">
                 <label class="col-lg-2 col-form-label">Năm tuyển sinh<span class="batbuoc">*</span></label>
                 <div class="col-lg-8">
-                  <select class="form-control " onchange="getdatacheck(this)" required name="nam" id="nam">
+                  <select class="form-control " onchange="getdatacheck(this)"  name="nam" id="nam">
                     <option value="">Chọn</option>
                     @foreach (config('common.nam_tuyen_sinh.list') as $item)
                       <option 
@@ -98,7 +98,7 @@
               <div class="form-group m-form__group row">
                 <label class="col-lg-2 col-form-label">Đợt tuyển sinh<span class="batbuoc">*</span></label>
                 <div class="col-lg-8">
-                  <select class="form-control "  onchange="getdatacheck(this)" required name="dot" id="dot">
+                  <select class="form-control "  onchange="getdatacheck(this)"  name="dot" id="dot">
                     <option value="" selected>Chọn</option>
                     <option value="1">Đợt 1</option>
                     <option value="2">Đợt 2</option>
@@ -115,7 +115,10 @@
               <div class="form-group m-form__group row">
                 <label class="col-lg-2 col-form-label">Báo cáo url:</label>
                 <div class="col-lg-8">
-                  <input type="text" class="form-control m-input" placeholder="Nhập url báo cáo" name="bao_cao_url">
+                  <input type="text" class="form-control" value="{{ old('bao_cao_url') }}" placeholder="Nhập url báo cáo" name="bao_cao_url">
+                  @error('bao_cao_url')
+                  <div class="alert alert-danger">{{ $message }}</div>
+                  @enderror
                 </div>
               </div>
             </div>
@@ -152,26 +155,26 @@
                   <tbody>
                     <tr>
                       <td>Kết hoạch tuyển sinh</td>
-                      <td><input type="number" min="0" step="1"
-                          name="ke_hoach_tuyen_sinh_cao_dang" class="form-control" >
+                      <td><input type="number" value="{{ old('ke_hoach_tuyen_sinh_cao_dang') }}"
+                          name="ke_hoach_tuyen_sinh_cao_dang" class="form-control m-input" >
                             @error('ke_hoach_tuyen_sinh_cao_dang')
                   <div class="alert alert-danger">{{ $message }}</div>
                   @enderror
                         
                         </td>
-                      <td><input type="number" min="0" step="1"
+                      <td><input type="number" value="{{ old('ke_hoach_tuyen_sinh_trung_cap') }}"
                          name="ke_hoach_tuyen_sinh_trung_cap"
-                          class="form-control" >
+                          class="form-control m-input" >
                           @error('ke_hoach_tuyen_sinh_trung_cap')
                   <div class="alert alert-danger">{{ $message }}</div>
                   @enderror</td>
-                      <td><input type="number" min="0" step="1" 
-                          name="ke_hoach_tuyen_sinh_so_cap" class="form-control" >
+                      <td><input type="number" value="{{ old('ke_hoach_tuyen_sinh_so_cap') }}" 
+                          name="ke_hoach_tuyen_sinh_so_cap" class="form-control m-input" >
                           @error('ke_hoach_tuyen_sinh_so_cap')
                   <div class="alert alert-danger">{{ $message }}</div>
                   @enderror</td>
-                      <td><input type="number" min="0" step="1" 
-                          name="ke_hoach_tuyen_sinh_khac" class="form-control" >
+                      <td><input type="number" value="{{ old('ke_hoach_tuyen_sinh_khac') }}" 
+                          name="ke_hoach_tuyen_sinh_khac" class="form-control m-input" >
                           @error('ke_hoach_tuyen_sinh_khac')
                   <div class="alert alert-danger">{{ $message }}</div>
                   @enderror</td>
@@ -212,47 +215,47 @@
                   <tbody>
                     <tr>
                       <td>Tổng số nữ</td>
-                      <td><input type="number" min="0" step="1" 
-                          name="so_luong_sv_nu_Cao_dang" class="form-control" >
+                      <td><input type="number" value="{{ old('so_luong_sv_nu_Cao_dang') }}" 
+                          name="so_luong_sv_nu_Cao_dang" class="form-control m-input" >
                           @error('so_luong_sv_nu_Cao_dang')
                   <div class="alert alert-danger">{{ $message }}</div>
                   @enderror</td>
-                      <td><input type="number" min="0" step="1" 
-                          name="so_luong_sv_nu_Trung_cap" class="form-control" >
+                      <td><input type="number" value="{{ old('so_luong_sv_nu_Trung_cap') }}" 
+                          name="so_luong_sv_nu_Trung_cap" class="form-control m-input" >
                           @error('so_luong_sv_nu_Trung_cap')
                   <div class="alert alert-danger">{{ $message }}</div>
                   @enderror</td>
-                      <td><input type="number" min="0" step="1" 
-                          name="so_luong_sv_nu_So_cap" class="form-control" >
+                      <td><input type="number" value="{{ old('so_luong_sv_nu_So_cap') }}" 
+                          name="so_luong_sv_nu_So_cap" class="form-control m-input" >
                           @error('so_luong_sv_nu_So_cap')
                   <div class="alert alert-danger">{{ $message }}</div>
                   @enderror</td>
-                      <td><input type="number" min="0" step="1"
-                          name="so_luong_sv_nu_khac" class="form-control" >
+                      <td><input type="number" value="{{ old('so_luong_sv_nu_khac') }}"
+                          name="so_luong_sv_nu_khac" class="form-control m-input" >
                           @error('so_luong_sv_nu_khac')
                   <div class="alert alert-danger">{{ $message }}</div>
                   @enderror</td>
                     </tr>
                     <tr>
                       <td>Tổng số dân tộc thiểu số ít người</td>
-                      <td><input type="number" min="0" step="1" 
-                          name="so_luong_sv_dan_toc_Cao_dang" class="form-control" >
+                      <td><input type="number" value="{{ old('so_luong_sv_dan_toc_Cao_dang') }}" 
+                          name="so_luong_sv_dan_toc_Cao_dang" class="form-control m-input" >
                           @error('so_luong_sv_dan_toc_Cao_dang')
                   <div class="alert alert-danger">{{ $message }}</div>
                   @enderror</td>
-                      <td><input type="number" min="0" step="1"
+                      <td><input type="number" value="{{ old('so_luong_sv_dan_toc_Trung_cap') }}"
                           name="so_luong_sv_dan_toc_Trung_cap"
-                          class="form-control" >
+                          class="form-control m-input" >
                           @error('so_luong_sv_dan_toc_Trung_cap')
                   <div class="alert alert-danger">{{ $message }}</div>
                   @enderror</td>
-                      <td><input type="number" min="0" step="1" 
-                          name="so_luong_sv_dan_toc_So_cap" class="form-control" >
+                      <td><input type="number" value="{{ old('so_luong_sv_dan_toc_So_cap') }}" 
+                          name="so_luong_sv_dan_toc_So_cap" class="form-control m-input" >
                           @error('so_luong_sv_dan_toc_So_cap')
                   <div class="alert alert-danger">{{ $message }}</div>
                   @enderror</td>
-                      <td><input type="number" min="0" step="1" 
-                          name="so_luong_sv_dan_toc_khac" class="form-control" >
+                      <td><input type="number" value="{{ old('so_luong_sv_dan_toc_khac') }}" 
+                          name="so_luong_sv_dan_toc_khac" class="form-control m-input" >
                           @error('so_luong_sv_dan_toc_khac')
                   <div class="alert alert-danger">{{ $message }}</div>
                   @enderror</td>
@@ -260,48 +263,48 @@
                     </tr>
                     <tr>
                       <td>Tống số hộ khẩu Hà Nội</td>
-                      <td><input type="number" min="0" step="1"
+                      <td><input type="number" value="{{ old('so_luong_sv_ho_khau_HN_Cao_dang') }}"
                           
-                          name="so_luong_sv_ho_khau_HN_Cao_dang" class="form-control" >
+                          name="so_luong_sv_ho_khau_HN_Cao_dang" class="form-control m-input" >
                           @error('so_luong_sv_ho_khau_HN_Cao_dang')
                   <div class="alert alert-danger">{{ $message }}</div>
                   @enderror</td>
-                      <td><input type="number" min="0" step="1"
+                      <td><input type="number" value="{{ old('so_luong_sv_ho_khau_HN_Trung_cap') }}"
                           
-                          name="so_luong_sv_ho_khau_HN_Trung_cap" class="form-control" >
+                          name="so_luong_sv_ho_khau_HN_Trung_cap" class="form-control m-input" >
                           @error('so_luong_sv_ho_khau_HN_Trung_cap')
                   <div class="alert alert-danger">{{ $message }}</div>
                   @enderror</td>
-                      <td><input type="number" min="0" step="1"
-                         name="so_luong_sv_ho_khau_HN_So_cap"class="form-control" >
+                      <td><input type="number" value="{{ old('so_luong_sv_ho_khau_HN_So_cap') }}"
+                         name="so_luong_sv_ho_khau_HN_So_cap"class="form-control m-input" >
                           @error('so_luong_sv_ho_khau_HN_So_cap')
                   <div class="alert alert-danger">{{ $message }}</div>
                   @enderror</td>
-                      <td><input type="number" min="0" step="1" 
-                          name="so_luong_sv_ho_khau_HN_khac" class="form-control" >
+                      <td><input type="number" value="{{ old('so_luong_sv_ho_khau_HN_khac') }}" 
+                          name="so_luong_sv_ho_khau_HN_khac" class="form-control m-input" >
                           @error('so_luong_sv_ho_khau_HN_khac')
                   <div class="alert alert-danger">{{ $message }}</div>
                   @enderror</td>
                     </tr>
                     <tr>
                       <td>Tổng số kết quả tuyển sinh</td>
-                      <td><input type="number" min="0" step="1" 
-                          name="so_luong_sv_Cao_dang" class="form-control" >
+                      <td><input type="number" value="{{ old('so_luong_sv_Cao_dang') }}" 
+                          name="so_luong_sv_Cao_dang" class="form-control m-input" >
                           @error('so_luong_sv_Cao_dang')
                   <div class="alert alert-danger">{{ $message }}</div>
                   @enderror</td>
-                      <td><input type="number" min="0" step="1"
-                          name="so_luong_sv_Trung_cap" class="form-control" >
+                      <td><input type="number" value="{{ old('so_luong_sv_Trung_cap') }}"
+                          name="so_luong_sv_Trung_cap" class="form-control m-input" >
                           @error('so_luong_sv_Trung_cap')
                   <div class="alert alert-danger">{{ $message }}</div>
                   @enderror</td>
-                      <td><input type="number" min="0" step="1"
-                          name="so_luong_sv_So_cap" class="form-control" >
+                      <td><input type="number" value="{{ old('so_luong_sv_So_cap') }}"
+                          name="so_luong_sv_So_cap" class="form-control m-input" >
                           @error('so_luong_sv_So_cap')
                   <div class="alert alert-danger">{{ $message }}</div>
                   @enderror</td>
-                      <td><input type="number" min="0" step="1"
-                          name="so_luong_sv_he_khac" class="form-control" >
+                      <td><input type="number" value="{{ old('so_luong_sv_he_khac') }}"
+                          name="so_luong_sv_he_khac" class="form-control m-input" >
                           @error('so_luong_sv_he_khac')
                   <div class="alert alert-danger">{{ $message }}</div>
                   @enderror</td>
@@ -339,16 +342,16 @@
                   <tbody>
                     <tr>
                       <td>Hộ khẩu Hà Nội tốt nghiệp THCS</td>
-                      <td><input type="number"  min="0" step="1"
-                          name="ho_khau_HN_THCS_Trung_cap" class="form-control" >
+                      <td><input type="number" value="{{ old('ho_khau_HN_THCS_Trung_cap') }}" 
+                          name="ho_khau_HN_THCS_Trung_cap" class="form-control m-input" >
                           @error('ho_khau_HN_THCS_Trung_cap')
                   <div class="alert alert-danger">{{ $message }}</div>
                   @enderror</td>
                     </tr>
                     <tr>
                       <td>Số tốt nghiệp THCS</td>
-                      <td><input type="number" min="0" step="1" 
-                          name="so_Tot_nghiep_THCS" class="form-control" >
+                      <td><input type="number" value="{{ old('so_Tot_nghiep_THCS') }}" 
+                          name="so_Tot_nghiep_THCS" class="form-control m-input" >
                           @error('so_Tot_nghiep_THCS')
                   <div class="alert alert-danger">{{ $message }}</div>
                   @enderror</td>
@@ -356,8 +359,8 @@
                     </tr>
                     <tr>
                       <td>Số tốt nghiệp THPT</td>
-                      <td><input type="number" min="0" step="1" 
-                          name="so_Tot_nghiep_THPT" class="form-control" >
+                      <td><input type="number" value="{{ old('so_Tot_nghiep_THPT') }}" 
+                          name="so_Tot_nghiep_THPT" class="form-control m-input" >
                           @error('so_Tot_nghiep_THPT')
                   <div class="alert alert-danger">{{ $message }}</div>
                   @enderror</td>
@@ -390,16 +393,16 @@
                   <tbody>
                     <tr>
                       <td>Tuyển mới</td>
-                      <td><input type="number" min="0" step="1" 
-                          name="so_tuyen_moi_Cao_dang" class="form-control" >
+                      <td><input type="number" value="{{ old('so_tuyen_moi_Cao_dang') }}" 
+                          name="so_tuyen_moi_Cao_dang" class="form-control m-input" >
                           @error('so_tuyen_moi_Cao_dang')
                   <div class="alert alert-danger">{{ $message }}</div>
                   @enderror</td>
                     </tr>
                     <tr>
                       <td>Liên thông</td>
-                      <td><input type="number" min="0" step="1" 
-                          name="so_lien_thong_Cao_dang" class="form-control" >
+                      <td><input type="number" value="{{ old('so_lien_thong_Cao_dang') }}" 
+                          name="so_lien_thong_Cao_dang" class="form-control m-input" >
                           @error('so_lien_thong_Cao_dang')
                   <div class="alert alert-danger">{{ $message }}</div>
                   @enderror</td>
@@ -437,24 +440,24 @@
                   <tbody>
                     <tr>
                       <td>Tổng số tuyển sinh nữ</td>
-                      <td><input name="tong_so_nu" type="number" min="0" step="1"
-                          class="form-control" >
+                      <td><input name="tong_so_nu" type="number" value="{{ old('tong_so_nu') }}"
+                          class="form-control m-input" >
                           @error('tong_so_nu')
                   <div class="alert alert-danger">{{ $message }}</div>
                   @enderror</td>
                     </tr>
                     <tr>
                       <td>Tổng số tuyển sinh dân tộc thiểu số ít người</td>
-                      <td><input name="tong_so_dan_toc" type="number"
-                          min="0" step="1" class="form-control" >
+                      <td><input name="tong_so_dan_toc" type="number"value="{{ old('tong_so_dan_toc') }}"
+                           class="form-control m-input" >
                           @error('tong_so_dan_toc')
                   <div class="alert alert-danger">{{ $message }}</div>
                   @enderror</td>
                     </tr>
                     <tr>
                       <td>Tổng số tuyển sinh hộ khẩu Hà Nội</td>
-                      <td><input  name="tong_ho_khau_HN" type="number"
-                          min="0" step="1" class="form-control" >
+                      <td><input  name="tong_ho_khau_HN" type="number" value="{{ old('tong_ho_khau_HN') }}"
+                           class="form-control m-input" >
                           @error('tong_ho_khau_HN')
                   <div class="alert alert-danger">{{ $message }}</div>
                   @enderror</td>
@@ -462,7 +465,7 @@
                     <tr>
                       <td>Tổng số tuyển sinh các trình độ</td>
                       <td><input 
-                          name="tong_so_tuyen_sinh_cac_trinh_do" type="number" min="0" step="1" class="form-control">
+                          name="tong_so_tuyen_sinh_cac_trinh_do" type="number" value="{{ old('tong_so_tuyen_sinh_cac_trinh_do') }}" class="form-control m-input">
                           @error('tong_so_tuyen_sinh_cac_trinh_do')
                           <div class="alert alert-danger">{{ $message }}</div>
                           @enderror             
@@ -470,8 +473,8 @@
                     </tr>
                     <tr>
                       <td>Tổng số kế hoạch tuyển sinh</td>
-                      <td><input  name="tong_so_tuyen_sinh" type="number"
-                          min="0" step="1" class="form-control" >
+                      <td><input  name="tong_so_tuyen_sinh" type="number" value="{{ old('tong_so_tuyen_sinh') }}"
+                           class="form-control m-input" >
                           @error('tong_so_tuyen_sinh')
                   <div class="alert alert-danger">{{ $message }}</div>
                   @enderror</td>
@@ -513,4 +516,6 @@ $(document).ready(function(){
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="{!! asset('tuyensinh/js/tuyensinh.js') !!}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/additional-methods.min.js"></script>
+<script src="{!! asset('validate/validate_store_update.js') !!}"></script>
 @endsection

@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\DaoTaoNgheChoThanhNienService;
-use App\Http\Requests\DaoTaoThanhNien\StoreUpdateRequest;
+use App\Http\Requests\DaoTaoThanhNien\UpdateRequest;
+use App\Http\Requests\DaoTaoThanhNien\StoreRequest;
 class DaoTaoNgheThanhNienController extends Controller
 {
 
@@ -75,7 +76,7 @@ class DaoTaoNgheThanhNienController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreUpdateRequest $request)
+    public function store(StoreRequest $request)
     {
         $requestParams = $request->all();
         $data = [
@@ -160,7 +161,7 @@ class DaoTaoNgheThanhNienController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreUpdateRequest $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
         $this->DaoTaoNgheChoThanhNienService->update($id,$request);
         $get_id = $this->DaoTaoNgheChoThanhNienService->findById($id);
