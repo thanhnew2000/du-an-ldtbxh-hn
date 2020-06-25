@@ -130,15 +130,7 @@
                 </table>
             </div>
 
-            @if ($errors->any())
-            <ul class="col-md-10 mx-auto">
-                @foreach ($errors->all() as $error)
-                <li class="thongbao " style="color: red;">
-                    {{ $error }}
-                </li>
-                @endforeach
-            </ul>
-            @endif
+
         </div>
         <div class="m-portlet m-portlet--full-height ">
             <div class="m-portlet__head">

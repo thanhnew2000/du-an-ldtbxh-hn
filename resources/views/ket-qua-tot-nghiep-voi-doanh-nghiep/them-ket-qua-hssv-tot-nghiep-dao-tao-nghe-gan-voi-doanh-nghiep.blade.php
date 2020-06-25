@@ -34,7 +34,7 @@
 @section('content')
 <div class="m-content container-fluid">
     <form action="{{route('xuatbc.post-them-ket-qua-tot-nghiep-voi-doanh-nghiep')}}" method="post"
-        id="validate-form-add">
+        id="validate-form-add" novalidate>
         @csrf
         <div class="m-portlet">
             <div class="m-portlet__head">

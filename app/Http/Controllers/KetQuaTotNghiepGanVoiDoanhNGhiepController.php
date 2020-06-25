@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Services\KetQuaTotNghiepGanVoiDoanhNGhiepService;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\validateUpdateKetQuaTotNghiepGanVoiDoanhNghiep;
+use App\Http\Requests\XayDungChuongTrinhGiaoTrinh\UpdateXayDungChuongTrinhGiaoTrinhRequest;
+
 use Storage;
 
 class KetQuaTotNghiepGanVoiDoanhNGhiepController extends Controller
@@ -139,63 +141,67 @@ class KetQuaTotNghiepGanVoiDoanhNGhiepController extends Controller
 
     // thanhnv 6/22/2020 import export
 
-    public function exportBieuMau(Request $request){
+    public function exportBieuMau(Request $request)
+    {
         $id_co_so = $request->id_cs;
         $this->KetQuaTotNghiepGanVoiDoanhNGhiepService->exportBieuMau($id_co_so);
     }
-    
-    public function exportData(Request $request){
+
+    public function exportData(Request $request)
+    {
         $listCoSoId = $request->truong_id;
         $dateFrom = $request->dateFrom;
         $dateTo = $request->dateTo;
 
-        $changeFrom = strtotime($dateFrom); 
+        $changeFrom = strtotime($dateFrom);
         $fromDate = date("Y-m-d", $changeFrom);
 
-        $changeTo = strtotime($dateTo); 
+        $changeTo = strtotime($dateTo);
         $toDate = date("Y-m-d", $changeTo);
-        $this->KetQuaTotNghiepGanVoiDoanhNGhiepService->exportData($listCoSoId ,$fromDate,$toDate);
+        $this->KetQuaTotNghiepGanVoiDoanhNGhiepService->exportData($listCoSoId, $fromDate, $toDate);
     }
 
-    public function importFile(Request $request){
-        $dot=$request->dot;
-        $year=$request->nam;
-        $nameFile=$request->file->getClientOriginalName();
-        $nameFileArr=explode('.',$nameFile);
-        $duoiFile=end($nameFileArr);
-        
+    public function importFile(Request $request)
+    {
+        $dot = $request->dot;
+        $year = $request->nam;
+        $nameFile = $request->file->getClientOriginalName();
+        $nameFileArr = explode('.', $nameFile);
+        $duoiFile = end($nameFileArr);
+
         $fileRead = $_FILES['file']['tmp_name'];
         $kq =  $this->KetQuaTotNghiepGanVoiDoanhNGhiepService->importFile($fileRead, $duoiFile, $year, $dot);
 
-        if($kq=='errorkitu'){
-                return response()->json('exportError',200);   
-        }else if($kq=='ok'){
-                return response()->json('ok',200); 
-        }else if($kq=='NgheUnsign'){
-                return response()->json(['messageError' => ' Số lượng nghề không phù hợp với nghề đã đăng kí' ],200);   
-        }else if($kq=='noCorrectIdTruong'){
-            return response()->json(['messageError' => ' Trường không đúng hãy nhập lại' ],200);   
-        }else if($kq=='ngheKoThuocTruong'){
-            return response()->json(['messageError' => 'Có nghề không thuộc trong trường' ],200);   
-        }else{
-            return response()->json(['messageError' => $kq ],200);   
+        if ($kq == 'errorkitu') {
+            return response()->json('exportError', 200);
+        } else if ($kq == 'ok') {
+            return response()->json('ok', 200);
+        } else if ($kq == 'NgheUnsign') {
+            return response()->json(['messageError' => ' Số lượng nghề không phù hợp với nghề đã đăng kí'], 200);
+        } else if ($kq == 'noCorrectIdTruong') {
+            return response()->json(['messageError' => ' Trường không đúng hãy nhập lại'], 200);
+        } else if ($kq == 'ngheKoThuocTruong') {
+            return response()->json(['messageError' => 'Có nghề không thuộc trong trường'], 200);
+        } else {
+            return response()->json(['messageError' => $kq], 200);
         }
     }
 
-    public function importError(Request $request){
-        $dot=$request->dot;
-        $year=$request->nam;
+    public function importError(Request $request)
+    {
+        $dot = $request->dot;
+        $year = $request->nam;
 
-        $nameFile=$request->file_import->getClientOriginalName();
-        $nameFileArr=explode('.',$nameFile);
-        $duoiFile=end($nameFileArr);
+        $nameFile = $request->file_import->getClientOriginalName();
+        $nameFileArr = explode('.', $nameFile);
+        $duoiFile = end($nameFileArr);
 
         $fileRead = $_FILES['file_import']['tmp_name'];
         $pathLoad = Storage::putFile(
             'uploads/excels',
             $request->file('file_import')
         );
-        $path = str_replace('/', '\\', $pathLoad);  
-        $this->KetQuaTotNghiepGanVoiDoanhNGhiepService->importError($fileRead, $duoiFile,$path);
+        $path = str_replace('/', '\\', $pathLoad);
+        $this->KetQuaTotNghiepGanVoiDoanhNGhiepService->importError($fileRead, $duoiFile, $path);
     }
 }

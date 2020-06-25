@@ -23,29 +23,36 @@ class validateUpdateKetQuaTotNghiepGanVoiDoanhNghiep extends FormRequest
      */
     public function rules()
     {
-        return [
-            'nhap_hoc_dau_tot_nghiep_CD' => 'min:0',
-            'nhap_hoc_dau_tot_nghiep_TC' => 'min:0',
-            'nhap_hoc_dau_tot_nghiep_SC' => 'min:0',
-            'duoi_3_thang_tot_nghiep_nhap_hoc_dau' => 'min:0',
-
-            'tot_nghiep_CD' => 'min:0',
-            'tot_nghiep_TC' => 'min:0',
-            'tot_nghiep_SC' => 'min:0',
-            'duoi_3_thang_tot_nghiep' => 'min:0',
-
-            'tong_HSSV_tot_nghiep' => 'min:0',
-            'so_HSSV_duoc_tuyen_dung' => 'min:0',
-            'muc_luong_doanh_nghiep_tra' => 'min:0',
-
-        ];
+        $data = $this->all();
+        unset($data['_token']);
+        unset($data['ten_doanh_nghiep']);
+        $getDataCheck = [];
+        foreach ($data as $item => $value) {
+            if ($value == null) {
+                $getDataCheck[$item] = 'min:0|';
+            } else {
+                $getDataCheck[$item] = 'min:0|integer|';
+            }
+        }
+        return $getDataCheck;
     }
 
     public function messages()
     {
         return [
-
-            'min' => 'Số liệu nhỏ nhất là 0'
+            'min' => ':attribute không được nhỏ hơn 0',
+            'integer' => ':attribute nguyên',
         ];
+    }
+
+    public function attributes()
+    {
+        $data = $this->all();
+        unset($data['_token']);
+        $attributes = [];
+        foreach ($data as $item => $value) {
+            $attributes[$item] = "Nhập số";
+        }
+        return $attributes;
     }
 }

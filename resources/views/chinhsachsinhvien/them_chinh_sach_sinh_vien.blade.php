@@ -16,7 +16,7 @@
 
 @section('content')
 <div class="m-content container-fluid">
-    <form action="{{route('xuatbc.post-them-chinh-sach-sinh-vien')}}" method="POST" class="m-form">
+    <form action="{{route('xuatbc.post-them-chinh-sach-sinh-vien')}}" method="POST" novalidate class="m-form">
         @csrf
         <div class="m-portlet">
             <div class="m-portlet__head">
