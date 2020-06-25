@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ChinhSachSinhVienValidate extends FormRequest
+class UpdateChinhSachSinhVienValidate extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,12 +24,9 @@ class ChinhSachSinhVienValidate extends FormRequest
     public function rules()
     {
         $data = $this->all();
-        unset($data['_token'], $data['co_so_id'], $data['chinh_sach_id'], $data['nam'], $data['dot']);
+        unset($data['_token']);
+
         $getDataCheck = [];
-        $getDataCheck['co_so_id'] = 'required|';
-        $getDataCheck['chinh_sach_id'] = 'required|';
-        $getDataCheck['nam'] = 'required|';
-        $getDataCheck['dot'] = 'required|';
         foreach ($data as $item => $value) {
             if ($value == null) {
                 $getDataCheck[$item] = 'min:0|';
@@ -43,7 +40,6 @@ class ChinhSachSinhVienValidate extends FormRequest
     public function messages()
     {
         return [
-            'required' => 'Không được để trống',
             'min' => ':attribute không được nhỏ hơn 0',
             'integer' => ':attribute nguyên',
         ];

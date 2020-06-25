@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Services\ChinhSachSinhVienService;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\ChinhSachSinhVienValidate;
+use App\Http\Requests\UpdateChinhSachSinhVienValidate;
+
 
 class ChinhSachSinhVienController extends Controller
 {
@@ -96,7 +98,7 @@ class ChinhSachSinhVienController extends Controller
         return view('chinhsachsinhvien.sua_chinh_sach_sinh_vien', compact('data'));
     }
 
-    public function postsuachinhsachsinhvien($id, ChinhSachSinhVienValidate $request)
+    public function postsuachinhsachsinhvien($id, UpdateChinhSachSinhVienValidate $request)
     {
         $data = $this->ChinhSachSinhVienService->update($id, $request);
         return redirect()->route('xuatbc.tong-hop-chinh-sach-sinh-vien')->with('thongbao_edit', 'Cập nhật số liệu chính sách sinh viên thành công');

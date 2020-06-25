@@ -6,6 +6,10 @@
     color: red;
   }
 
+  .error {
+    color: red;
+  }
+
   table input {
     border: 1px solid #000 !important;
   }
@@ -15,7 +19,7 @@
 
 @section('content')
 <div class="m-content container-fluid">
-  <form action="{{route('xuatbc.post-them-lien-ket-dao-tao')}}" method="post">
+  <form action="{{route('xuatbc.post-them-lien-ket-dao-tao')}}" id="validate-form-add" novalidate method="post">
     @csrf
     <div class="m-portlet">
       <div class="m-portlet__head">
@@ -37,13 +41,13 @@
               <div class="form-group m-form__group row">
                 <label class="col-lg-2 col-form-label">Tên cơ sở đào tạo</label>
                 <div class="col-lg-8">
-                  <select class="form-control select2" onchange="getdatacheck(this)" required name="co_so_id"
-                    id="co_so_dao_tao">
+                  <select class="form-control select2" onchange="getdatacheck(this)" name="co_so_id" id="co_so_dao_tao">
                     <option value="">Chọn</option>
                     @foreach ($data as $item)
                     <option value="{{$item->id}}">{{$item->ten}}</option>
                     @endforeach
                   </select>
+                  <label id="co_so_dao_tao-error" class="error" for="co_so_dao_tao"></label>
                   @error('co_so_id')
                   <div class="alert alert-danger">{{ $message }}</div>
                   @enderror
@@ -54,7 +58,7 @@
               <div class="form-group m-form__group row">
                 <label class="col-lg-2 col-form-label">Năm</label>
                 <div class="col-lg-8">
-                  <select class="form-control select2" onchange="getdatacheck(this)" required name="nam" id="nam">
+                  <select class="form-control select2" onchange="getdatacheck(this)" name="nam" id="nam">
                     <option value="">Chọn</option>
                     @foreach (config('common.nam_tuyen_sinh.list') as $item)
                     <option @if (isset($params['nam'])) {{( $params['nam'] ==  $item ) ? 'selected' : ''}} @endif
@@ -62,6 +66,7 @@
                     </option>
                     @endforeach
                   </select>
+                  <label id="nam-error" class="error" for="nam"></label>
                   @error('nam')
                   <div class="alert alert-danger">{{ $message }}</div>
                   @enderror
@@ -74,10 +79,11 @@
               <div class="form-group m-form__group row">
                 <label class="col-lg-2 col-form-label">Tên nghề đào tạo</label>
                 <div class="col-lg-8">
-                  <select class="form-control select2" required disabled onchange="getdatacheck(this)" name="nghe_id"
+                  <select class="form-control select2" disabled onchange="getdatacheck(this)" name="nghe_id"
                     id="ma_nganh_nghe">
                     <option value="" selected>Mã ngành nghề</option>
                   </select>
+                  <label id="nghe_id-error" class="error" for="nghe_id"></label>
                   @error('nghe_id')
                   <div class="alert alert-danger">{{ $message }}</div>
                   @enderror
@@ -88,11 +94,12 @@
               <div class="form-group m-form__group row">
                 <label class="col-lg-2 col-form-label">Đợt</label>
                 <div class="col-lg-8">
-                  <select class="form-control select2" required onchange="getdatacheck(this)" name="dot" id="dot">
+                  <select class="form-control select2" onchange="getdatacheck(this)" name="dot" id="dot">
                     <option value="" selected>Chọn</option>
                     <option value="1">Đợt 1</option>
                     <option value="2">Đợt 2</option>
                   </select>
+                  <label id="dot-error" class="error" for="dot"></label>
                   @error('dot')
                   <div class="alert alert-danger">{{ $message }}</div>
                   @enderror
@@ -124,7 +131,7 @@
                 <tbody>
                   <tr>
                     <td>Chỉ tiêu</td>
-                    <td><input type="number" min="0" step="1" name="chi_tieu" class="form-control">
+                    <td><input type="number" min="0" step="1" name="chi_tieu" class="form-control name-field">
                       @error('chi_tieu')
                       <div class="alert alert-danger">{{ $message }}</div>
                       @enderror
@@ -132,7 +139,7 @@
                   </tr>
                   <tr>
                     <td>Thực tuyển</td>
-                    <td><input type="number" min="0" step="1" name="thuc_tuyen" class="form-control">
+                    <td><input type="number" min="0" step="1" name="thuc_tuyen" class="form-control name-field">
                       @error('thuc_tuyen')
                       <div class="alert alert-danger">{{ $message }}</div>
                       @enderror
@@ -141,7 +148,7 @@
                   </tr>
                   <tr>
                     <td>Số HSSV tốt nghiệp</td>
-                    <td><input type="number" min="0" step="1" name="so_HSSV_tot_nghiep" class="form-control">
+                    <td><input type="number" min="0" step="1" name="so_HSSV_tot_nghiep" class="form-control name-field">
                       @error('so_HSSV_tot_nghiep')
                       <div class="alert alert-danger">{{ $message }}</div>
                       @enderror

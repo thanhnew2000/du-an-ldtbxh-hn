@@ -1,11 +1,11 @@
-$("#co_so_dao_tao").change(function() {
+$("#co_so_dao_tao").change(function () {
     var op = $("select option:selected").val();
     axios
         .post(routeGetMaNganhNghe, {
             id: $("#co_so_dao_tao").val(),
         })
-        .then(function(response) {
-            var htmldata = '<option value="-1" >Chọn</option>';
+        .then(function (response) {
+            var htmldata = '<option value="" >Chọn</option>';
             response.data.forEach((element) => {
                 htmldata += `<option value="${element.id}" >${element.ten_nganh_nghe}-${element.id}</option>`;
             });
@@ -17,10 +17,10 @@ $("#co_so_dao_tao").change(function() {
 
             $("#ma_nganh_nghe").html(htmldata);
         })
-        .catch(function(error) {
+        .catch(function (error) {
             console.log(error);
         });
-    if (op <= -1) {
+    if (op == '') {
         $("#ma_nganh_nghe-error").html("");
     } else {
         $("#ma_nganh_nghe-error").html("");
@@ -28,24 +28,24 @@ $("#co_so_dao_tao").change(function() {
     }
 });
 //phuc validate js
-$('[name="co_so_id"]').change(function() {
+$('[name="co_so_id"]').change(function () {
     let op = $(this).val();
-    let mes = op > 0 ? "" : "Vui lòng chọn cơ sở";
+    let mes = op != '' ? "" : "Vui lòng chọn cơ sở";
     $("#co_so_dao_tao-error").html(mes);
 });
-$('[name="nghe_id"]').change(function() {
+$('[name="nghe_id"]').change(function () {
     let op = $(this).val();
-    let mes = op > 0 ? "" : "Vui lòng chọn ngành nghề";
+    let mes = op != '' ? "" : "Vui lòng chọn ngành nghề";
     $("#ma_nganh_nghe-error").html(mes);
 });
-$('[name="nam"]').change(function() {
+$('[name="nam"]').change(function () {
     let op = $(this).val();
-    let mes = op > 0 ? "" : "Vui lòng chọn năm";
+    let mes = op != '' ? "" : "Vui lòng chọn năm";
     $("#nam-error").html(mes);
 });
-$('[name="dot"]').change(function() {
+$('[name="dot"]').change(function () {
     let op = $(this).val();
-    let mes = op > 0 ? "" : "Vui lòng chọn đợt";
+    let mes = op != '' ? "" : "Vui lòng chọn đợt";
     $("#dot-error").html(mes);
 });
 
@@ -57,48 +57,48 @@ nodeList.forEach((element) => {
 const rule = {
     number: true,
     digits: true,
-    min: 0,
+    min: 0
 };
 
 let rules = {
     co_so_id: {
-        min: 0,
+        required: true,
     },
     nghe_id: {
-        min: 0,
+        required: true,
     },
     nam: {
-        min: 0,
+        required: true,
     },
     dot: {
-        min: 0,
+        required: true,
     },
 };
-listField.forEach(function(value) {
+listField.forEach(function (value) {
     rules[value] = rule;
 });
 
 const mess = {
     number: "Vui lòng nhập liệu hợp lệ",
-    digits: "Số liệu nhỏ nhất là 0",
+    digits: "Vui lòng nhập số nguyên",
     min: "Số liệu nhỏ nhất là 0",
 };
 
 let messages = {
     co_so_id: {
-        min: "Vui lòng chọn cơ sở",
+        required: "Vui lòng chọn cơ sở",
     },
     nghe_id: {
-        min: "Vui lòng chọn ngành nghề",
+        required: "Vui lòng chọn ngành nghề",
     },
     nam: {
-        min: "Vui lòng chọn năm",
+        required: "Vui lòng chọn năm",
     },
     dot: {
-        min: "Vui lòng chọn đợt",
+        required: "Vui lòng chọn đợt",
     },
 };
-listField.forEach(function(value) {
+listField.forEach(function (value) {
     messages[value] = mess;
 });
 $("#validate-form-add").validate({
@@ -137,7 +137,7 @@ function getdatacheck(id) {
             .post(routeCheck, {
                 datacheck: arrcheck,
             })
-            .then(function(response) {
+            .then(function (response) {
                 console.log(response.data);
                 if (response.data.result == 1) {
                     swal("Dữ liệu đã tồn tại và được phê duyệt", {
@@ -155,7 +155,7 @@ function getdatacheck(id) {
                     removeselect();
                 }
             })
-            .catch(function(error) {
+            .catch(function (error) {
                 console.log(error);
             });
     }

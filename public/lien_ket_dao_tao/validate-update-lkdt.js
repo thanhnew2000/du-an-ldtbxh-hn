@@ -10,7 +10,7 @@ const rule = {
 };
 
 let rules = {};
-listField.forEach(function(value) {
+listField.forEach(function (value) {
     rules[value] = rule;
 });
 
@@ -21,7 +21,7 @@ const mess = {
 };
 
 let messages = {};
-listField.forEach(function(value) {
+listField.forEach(function (value) {
     messages[value] = mess;
 });
 $("#validate-form-update").validate({

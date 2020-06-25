@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Services\KetQuaTotNghiepGanVoiDoanhNGhiepService;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\validateUpdateKetQuaTotNghiepGanVoiDoanhNghiep;
-use App\Http\Requests\XayDungChuongTrinhGiaoTrinh\UpdateXayDungChuongTrinhGiaoTrinhRequest;
+use App\Http\Requests\validateKetQuaTotNghiepGanVoiDoanhNghiep;
+
 
 use Storage;
 
@@ -94,7 +95,7 @@ class KetQuaTotNghiepGanVoiDoanhNGhiepController extends Controller
         return view('ket-qua-tot-nghiep-voi-doanh-nghiep.them-ket-qua-hssv-tot-nghiep-dao-tao-nghe-gan-voi-doanh-nghiep', compact('data'));
     }
 
-    public function store(Request $request)
+    public function store(validateKetQuaTotNghiepGanVoiDoanhNghiep $request)
     {
         $requestParams = $request->all();
         $data = [
