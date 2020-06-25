@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\TuVanHoTroRepository;
+use App\Repositories\TuVanHoTroRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\LoaiHinhCoSoRepository;
 use App\Repositories\LoaiHinhCoSoRepositoryInterface;
@@ -34,6 +36,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(NganhNgheRepositoryInterface::class, NganhNgheRepository::class);
         $this->app->bind(SoLieuCanBoQuanLyRepositoryInterface::class, SoLieuCanBoQuanLyRepository::class);
         $this->app->bind(DoiNguNhaGiaoInterface::class, DoiNguNhaGiaoRepository::class);
+        $this->app->bind(TuVanHoTroRepositoryInterface::class, TuVanHoTroRepository::class);
     }
 
     /**

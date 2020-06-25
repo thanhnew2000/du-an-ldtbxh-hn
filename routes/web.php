@@ -79,4 +79,5 @@ Route::group(['middleware' => 'auth'], function () {
           return view('ket-qua-hop-tac-quoc-te.views_ket_qua_hop_tac_quoc_te');
      })->name('views_kq_qt');
 });
- 
+Route::get('/tu-van-ho-tro', 'TuVanHoTroController@clientSendForm')->name('tu-van.gui-ho-tro');
+Route::post('/tu-van-ho-tro/gui-yeu-cau', 'TuVanHoTroController@postClientSendForm')->name('tu-van.submit-ho-tro');
