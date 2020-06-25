@@ -49,15 +49,31 @@
 	<!--start footer -->
 	@include('layouts.dashboard.footer')
 	<!--end footer -->
+	<input type="hidden" id="api-get-notify-list" value="{{route('api.get-notify-list')}}">
 </body>
 <!-- start script -->
 @include('layouts.dashboard.script')
 @yield('script')
 <script>
+    var firebaseConfig = {
+        apiKey: "AIzaSyBgsIr_D6abvJfc88zzLajDN6Y4VRrtNxs",
+        authDomain: "ldtbxhhn-2eede.firebaseapp.com",
+        databaseURL: "https://ldtbxhhn-2eede.firebaseio.com",
+        projectId: "ldtbxhhn-2eede",
+        storageBucket: "ldtbxhhn-2eede.appspot.com",
+        messagingSenderId: "813977702932",
+        appId: "1:813977702932:web:c59614e111376f2f1e4d01",
+        measurementId: "G-VDPZR40YYC"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
 	$(document).ready(function(){
-			var avatarImgUrl = $('.m-topbar__userpic>img').attr('src');
-            SystemUtil.defaultImgUrl(avatarImgUrl, '.m-topbar__userpic>img', "{!! asset('uploads/avatars/user.png') !!}");
-		});
+		var avatarImgUrl = $('.m-topbar__userpic>img').attr('src');
+		SystemUtil.defaultImgUrl(avatarImgUrl, '.m-topbar__userpic>img', "{!! asset('uploads/avatars/user.png') !!}");
+
+		SystemUtil.getFirebaseNotify({{\Illuminate\Support\Facades\Auth::id()}});
+	});
 </script>
 <!-- end script -->
 

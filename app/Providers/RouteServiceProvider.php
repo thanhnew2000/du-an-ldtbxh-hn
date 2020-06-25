@@ -62,6 +62,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapNhapBaoCaoRoutes();
 
+        $this->mapHoTroRoutes();
 
         //
     }
@@ -132,6 +133,15 @@ class RouteServiceProvider extends ServiceProvider
             ->prefix('nhap-bao-cao')
             ->namespace($this->namespace)
             ->group(base_path('routes/nhap-bao-cao.php'));
+    }
+
+    // 2020-05-30 - thienth - chia thêm route nhap-bao-cao
+    protected function mapHoTroRoutes()
+    {
+        Route::middleware('web', 'auth')
+            ->prefix('tu-van-ho-tro')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/ho-tro.php'));
     }
 
     /**
