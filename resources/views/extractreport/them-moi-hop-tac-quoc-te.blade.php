@@ -41,7 +41,7 @@
                                             {{$item->ten}}</option>
                                         @endforeach
                                     </select>
-
+                                    <label id="ten_don_vi-error" class="error" for="ten_don_vi"></label>
                                     @if ($errors->has('co_so_id'))
                                     <span class="text-danger">{{ $errors->first('co_so_id') }}</span>
                                     @endif
@@ -52,7 +52,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Năm</label>
                                 <div class="col-lg-8">
-                                    <select name="nam" class="form-control ">
+                                    <select name="nam" class="form-control select2">
                                         <option value="-1">-----Chọn năm-----</option>
 
                                         @foreach(config('common.nam.list') as $nam)
@@ -61,6 +61,7 @@
                                         @endforeach
 
                                     </select>
+                                    <label id="nam-error" class="error" for="nam"></label>
                                     @if ($errors->has('nam'))
                                     <span class="text-danger">{{ $errors->first('nam') }}</span>
                                     @endif
@@ -73,7 +74,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Đợt</label>
                                 <div class="col-lg-8">
-                                    <select name="dot" class="form-control ">
+                                    <select name="dot" class="form-control select2">
                                         <option value="-1">-----Chọn đợt-----</option>
                                         <option {{ old('dot') == config('common.dot.1') ? 'selected' : '' }}
                                             value="{{config('common.dot.1')}}">
@@ -83,6 +84,7 @@
                                             value="{{config('common.dot.2')}}">
                                             {{config('common.dot.2')}}</option>
                                     </select>
+                                    <label id="dot-error" class="error" for="dot"></label>
                                     @if ($errors->has('dot'))
                                     <span class="text-danger">{{ $errors->first('dot') }}</span>
                                     @endif
@@ -115,7 +117,7 @@
                                     <div class="form-group m-form__group row">
                                         <label class="col-lg-7 col-form-label">Cao đẳng</label>
                                         <div class="col-lg-5">
-                                            <input type="number" class="form-control m-input" placeholder="Nhập vào số"
+                                            <input type="number" min="0" class="form-control m-input name-field" placeholder="Nhập vào số"
                                                 name="tong_tuyen_sinh_CD" value="{{old('tong_tuyen_sinh_CD')}}">
 
                                             @if ($errors->has('tong_tuyen_sinh_CD'))
@@ -126,7 +128,7 @@
                                     <div class="form-group m-form__group row">
                                         <label class="col-lg-7 col-form-label">Trung cấp</label>
                                         <div class="col-lg-5">
-                                            <input type="number" class="form-control m-input" placeholder="Nhập vào số"
+                                            <input type="number" min="0" class="form-control m-input name-field" placeholder="Nhập vào số"
                                                 name="tong_tuyen_sinh_TC" value="{{old('tong_tuyen_sinh_TC')}}">
 
                                             @if ($errors->has('tong_tuyen_sinh_TC'))
@@ -137,7 +139,7 @@
                                     <div class="form-group m-form__group row">
                                         <label class="col-lg-7 col-form-label">Sơ cấp</label>
                                         <div class="col-lg-5">
-                                            <input type="number" class="form-control m-input" placeholder="Nhập vào số"
+                                            <input type="number" min="0" class="form-control m-input name-field" placeholder="Nhập vào số"
                                                 name="tong_tuyen_sinh_SC" value="{{old('tong_tuyen_sinh_SC')}}">
 
                                             @if ($errors->has('tong_tuyen_sinh_SC'))
@@ -150,7 +152,7 @@
                                             trình
                                             đào tạo quốc tế</label>
                                         <div class="col-lg-5">
-                                            <input type="number" class="form-control m-input" placeholder="Nhập vào số"
+                                            <input type="number" min="0" class="form-control m-input name-field" placeholder="Nhập vào số"
                                                 name="tong_tuyen_sinh" value="{{old('tong_tuyen_sinh')}}">
 
                                             @if ($errors->has('tong_tuyen_sinh'))
@@ -188,7 +190,7 @@
                                             ngoài
                                             hợp tác đào tạo cấp bằng</label>
                                         <div class="col-lg-5">
-                                            <input type="number" class="form-control m-input" placeholder="Nhập vào số"
+                                            <input type="number" min="0" class="form-control m-input name-field" placeholder="Nhập vào số"
                                                 name="so_hs_duoc_cac_don_vi_cap_bang"
                                                 value="{{ old('so_hs_duoc_cac_don_vi_cap_bang') }}">
 
@@ -203,7 +205,7 @@
                                             thức
                                             hợp tác quốc tế</label>
                                         <div class="col-lg-5">
-                                            <input type="number" class="form-control m-input" placeholder="Nhập vào số"
+                                            <input type="number" min="0" class="form-control m-input name-field" placeholder="Nhập vào số"
                                                 name="so_hs_duoc_nha_truong_cap_bang"
                                                 value="{{ old('so_hs_duoc_nha_truong_cap_bang') }}">
 
@@ -217,7 +219,7 @@
                                         <label class="col-lg-7 col-form-label">Tổng số học sinh được cấp bằng tốt
                                             nghiệp</label>
                                         <div class="col-lg-5">
-                                            <input type="number" class="form-control m-input" placeholder="Nhập vào số"
+                                            <input type="number" min="0" class="form-control m-input name-field" placeholder="Nhập vào số"
                                                 name="tong_so_hs_duoc_cap_bang"
                                                 value="{{ old('tong_so_hs_duoc_cap_bang') }}">
 
@@ -257,7 +259,7 @@
                                         <label class="col-lg-7 col-form-label">Số GV được đào tạo , bồi dưỡng , tập
                                             huấn</label>
                                         <div class="col-lg-5">
-                                            <input type="number" class="form-control m-input" placeholder="Nhập vào số"
+                                            <input type="number" min="0" class="form-control m-input name-field" placeholder="Nhập vào số"
                                                 name="so_gv_duoc_dao_tao_boi_duong"
                                                 value="{{ old('so_gv_duoc_dao_tao_boi_duong') }}">
 
@@ -271,7 +273,7 @@
                                         <label class="col-lg-7 col-form-label">Số cán bọ được đào tạo , bồi dưỡng , tập
                                             huấn</label>
                                         <div class="col-lg-5">
-                                            <input type="number" class="form-control m-input" placeholder="Nhập vào số"
+                                            <input type="number" min="0" class="form-control m-input name-field" placeholder="Nhập vào số"
                                                 name="so_can_bo_quan_ly_duoc_dao_tao_boi_duong"
                                                 value="{{ old('so_can_bo_quan_ly_duoc_dao_tao_boi_duong') }}">
 
@@ -286,7 +288,7 @@
                                             bồi
                                             dưỡng GV , CB</label>
                                         <div class="col-lg-5">
-                                            <input type="number" class="form-control m-input" placeholder="Nhập vào số"
+                                            <input type="number" min="0" class="form-control m-input name-field" placeholder="Nhập vào số"
                                                 name="tong_hop_tac_quoc_te_trong_dao_tao_boi_duong"
                                                 value="{{ old('tong_hop_tac_quoc_te_trong_dao_tao_boi_duong') }}">
 
@@ -323,7 +325,7 @@
                                     <div class="form-group m-form__group row">
                                         <label class="col-lg-7 col-form-label">Số phòng học được đầu tư</label>
                                         <div class="col-lg-5">
-                                            <input type="number" class="form-control m-input" placeholder="Nhập vào số"
+                                            <input type="number" min="0" class="form-control m-input name-field" placeholder="Nhập vào số"
                                                 name="so_phong_hoc_duoc_dau_tu"
                                                 value="{{ old('so_phong_hoc_duoc_dau_tu') }}">
 
@@ -336,7 +338,7 @@
                                     <div class="form-group m-form__group row">
                                         <label class="col-lg-7 col-form-label">Số nhà xưởng thực hành đầu từ</label>
                                         <div class="col-lg-5">
-                                            <input type="number" class="form-control m-input" placeholder="Nhập vào số"
+                                            <input type="number" min="0" class="form-control m-input name-field" placeholder="Nhập vào số"
                                                 name="so_nha_xuong_duoc_dau_tu"
                                                 value="{{ old('so_nha_xuong_duoc_dau_tu') }}">
 
@@ -350,7 +352,7 @@
                                         <label class="col-lg-7 col-form-label">Tổng kinh phí đầu tư trang thiết bị , máy
                                             móc</label>
                                         <div class="col-lg-5">
-                                            <input type="number" class="form-control m-input" placeholder="Nhập vào số"
+                                            <input type="number" min="0" class="form-control m-input name-field" placeholder="Nhập vào số"
                                                 name="tong_kinh_phi" value="{{ old('tong_kinh_phi') }}">
 
                                             @if ($errors->has('tong_kinh_phi'))
@@ -375,7 +377,7 @@
                                 <label class="col-lg-6 col-form-label">Số học sinh có việc làm sau khi tốt nghiệp chương
                                     trình hơp tác quốc tế</label>
                                 <div class="col-lg-6">
-                                    <input type="number" class="form-control m-input" placeholder="Nhập vào số"
+                                    <input type="number" min="0" class="form-control m-input name-field" placeholder="Nhập vào số"
                                         name="so_hs_co_viec_lam_sau_khi_tot_nghiep"
                                         value="{{ old('so_hs_co_viec_lam_sau_khi_tot_nghiep') }}">
 
@@ -394,7 +396,7 @@
                                     phát
                                     triển thao hình thức hợp tác quốc tế</label>
                                 <div class="col-lg-6">
-                                    <input type="number" class="form-control m-input" placeholder="Nhập vào số"
+                                    <input type="number" min="0" class="form-control m-input name-field" placeholder="Nhập vào số"
                                         name="so_luong_chuong_trinh_xay_dung_phat_trien"
                                         value="{{ old('so_luong_chuong_trinh_xay_dung_phat_trien') }}">
 
@@ -422,10 +424,7 @@
 </form>
 @endsection
 @section('script')
-<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
-<script src="sweetalert2.min.js"></script>
-<link rel="stylesheet" href="sweetalert2.min.css">
-
+<script src="{!! asset('hop-tac-quoc-te/validate-create-htqt.js') !!}"></script>
 @if (session('success'))
 <script>
     Swal.fire({
@@ -440,90 +439,20 @@
 
 @if (session('edit'))
 <script>
-  Swal.fire({
-  title: 'Dữ liệu đã tồn tại',
-  icon: 'warning',
-  text: 'Bạn có thể chuyển tới Chỉnh sửa! ',
-  confirmButtonText: 'OK',
-  cancelButtonText: '<a href="{{route('xuatbc.sua-ds-hop-tac-qte',['id'=>session('edit')])}}">Edit</a>',
-  cancelButtonColor: '#d33',
-  showCancelButton: true,
-  showCloseButton: true
-})
+    Swal.fire({
+        title: 'Dữ liệu đã tồn tại',
+        text: "Bạn có thể chuyển tới Chỉnh sửa!",
+        icon: 'warning',
+        showCancelButton: true,
+        showconfirmButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Edit'
+        }).then((result) => {
+            if (result.value) {
+                window.location.href = '{{ route('xuatbc.sua-ds-hop-tac-qte',['id'=> session('edit')]) }}';
+            }
+        })
 </script>
 @endif
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        const listField = [
-            'tong_tuyen_sinh_CD',
-            'tong_tuyen_sinh_TC',
-            'tong_tuyen_sinh_SC',
-            'tong_tuyen_sinh',
-
-            'so_hs_duoc_cac_don_vi_cap_bang',
-            'so_hs_duoc_nha_truong_cap_bang',
-            'tong_so_hs_duoc_cap_bang',
-
-            'so_gv_duoc_dao_tao_boi_duong',
-            'so_can_bo_quan_ly_duoc_dao_tao_boi_duong',
-            'tong_hop_tac_quoc_te_trong_dao_tao_boi_duong',
-
-            'so_phong_hoc_duoc_dau_tu',
-            'so_nha_xuong_duoc_dau_tu',
-            'tong_kinh_phi',
-
-            'so_hs_co_viec_lam_sau_khi_tot_nghiep',
-            'so_luong_chuong_trinh_xay_dung_phat_trien'
-        ];
-        const rule = {
-            required: true,
-            number: true,
-            digits: true
-        };
-
-        let rules = {
-            co_so_id: {
-                min: 0
-            },
-            nam: {
-                min: 0
-            },
-            dot: {
-                min: 0
-            }
-        };
-        listField.forEach(function (value) {
-            rules[value] = rule;
-        });
-
-        const mess = {
-            required: "Vui lòng nhập số liệu",
-            number: "Vui lòng nhập liệu hợp lệ",
-            digits: "Số liệu nhỏ nhất là 0"
-        };
-
-        let messages = {
-            co_so_id: {
-                min: "Vui lòng chọn cơ sở"
-            },
-            nam: {
-                min: "Vui lòng chọn năm"
-            },
-            dot: {
-                min: "Vui lòng chọn đợt"
-            }
-        };
-        listField.forEach(function (value) {
-            messages[value] = mess;
-        });
-        $("#validate-form-add").validate({
-            rules: rules,
-            messages: messages
-
-        });
-        $('.select2').select2();
-    });
-
-</script>
 @endsection

@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', "Thêm số liệu tuyển sinh")
+@section('title', "Cập nhật liên kết đào tạo")
 @section('style')
 {{-- <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
 <link href="{!! asset('tuyensinh/css/themtuyensinh.css') !!}" rel="stylesheet" type="text/css" /> --}}
@@ -17,7 +17,9 @@
 
 @section('content')
 <div class="m-content container-fluid">
-  <form action="{{route('postthemsolieutuyensinh')}}" method="post">
+  <form
+    action="{{route('xuatbc.post-sua-lien-ket-dao-tao', ['id' => $data->id , 'bac_nghe' => $bac_nghe, 'co_so_id' => $data->co_so_id])}}"
+    id="validate-form" method="post">
     @csrf
     <div class="m-portlet">
       <div class="m-portlet__head">
@@ -35,14 +37,12 @@
       <div class="m-portlet__body">
         <div class="m-form__section m-form__section--first">
           <div class="row">
-          <div class="col-md-6">
+            <div class="col-md-6">
               <div class="form-group m-form__group row">
                 <label class="col-lg-2 col-form-label">Tên cơ sở đào tạo</label>
                 <div class="col-lg-8">
-                  <select class="form-control " name="nam" id="nam">
-                    <option value="">Chọn</option>
-                    
-                      <option value=""> </option>
+                  <select class="form-control " name="ten_co_so" id="ten_co_so" disabled>
+                    <option value="">{{$data->ten}}</option>
                   </select>
                 </div>
               </div>
@@ -51,9 +51,9 @@
               <div class="form-group m-form__group row">
                 <label class="col-lg-2 col-form-label">Năm</label>
                 <div class="col-lg-8">
-                  <select class="form-control " name="nam" id="nam">
-                    <option value="">Chọn</option>
-                      <option value=""> </option>
+                  <select class="form-control " name="nam" id="nam" disabled>
+                    <option value="">{{$data->nam}}</option>
+
                   </select>
                 </div>
               </div>
@@ -64,9 +64,8 @@
               <div class="form-group m-form__group row">
                 <label class="col-lg-2 col-form-label">Tên nghề đào tạo</label>
                 <div class="col-lg-8">
-                  <select class="form-control " name="nam" id="nam">
-                    <option value="">Chọn</option>
-                      <option value=""> </option>
+                  <select class="form-control " name="ten_nganh_nghe" id="ten_nganh_nghe" disabled>
+                    <option value="">{{$data->nghe_id}} - {{$data->ten_nganh_nghe}}</option>
                   </select>
                 </div>
               </div>
@@ -75,10 +74,9 @@
               <div class="form-group m-form__group row">
                 <label class="col-lg-2 col-form-label">Đợt</label>
                 <div class="col-lg-8">
-                  <select class="form-control " name="dot" id="dot">
-                    <option value="" selected>Chọn</option>
-                    <option value="1">Đợt 1</option>
-                    <option value="2">Đợt 2</option>
+                  <select class="form-control " name="dot" id="dot" disabled>
+                    <option value="">{{$data->dot}}</option>
+
                   </select>
                 </div>
               </div>
@@ -89,112 +87,60 @@
       </div>
     </div>
 
-      {{-- start liên kết --}}
-      <div class="row">
-        <div class="col-xl-6">
-          <div class="m-portlet m-portlet--full-height ">
-            <div class="m-portlet__head">
-              <div class="m-portlet__head-caption">
-                <div class="m-portlet__head-title">
-                  <h3 class="m-portlet__head-text">
-                    Liên kết Cao đẳng lên Đại học
-                  </h3>
-                </div>
-              </div>
-            </div>
-            <div class="m-portlet__body">
-              <div class="tab-content">
-                <table class="table m-table m-table--head-bg-brand">
-                  <tbody>
-                    <tr>
-                      <td>Chỉ tiêu Cao đẳng</td>
-                      <td><input type="number"  min="0" step="1"
-                          name="ho_khau_HN_THCS_Trung_cap" class="form-control" ></td>
-                    </tr>
-                    <tr>
-                      <td>Thực tuyển Cao đẳng</td>
-                      <td><input type="number" min="0" step="1" 
-                          name="so_Tot_nghiep_THCS" class="form-control" ></td>
-  
-                    </tr>
-                    <tr>
-                      <td>Số HSSV tốt nghiệp Cao đẳng</td>
-                      <td><input type="number" min="0" step="1" 
-                          name="so_Tot_nghiep_THPT" class="form-control" ></td>
-                    </tr>
-                    <tr>
-                      <td>Đơn vị liên kết Cao đẳng </td>
-                      <td><input type="number" min="0" step="1" 
-                          name="so_Tot_nghiep_THPT" class="form-control" ></td>
-                    </tr>
-                    <tr>
-                      <td>Ghi chú </td>
-                      <td>
-                        <textarea class="form-control" rows="3" style="border: 1px solid #000000"></textarea>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+    {{-- start liên kết --}}
+    <div class="row">
+      <div class="col-xl-12">
+        <div class="m-portlet m-portlet--full-height ">
+          <div class="m-portlet__head">
+            <div class="m-portlet__head-caption">
+              <div class="m-portlet__head-title">
+
               </div>
             </div>
           </div>
-        </div>
-        <div class="col-xl-6">
-          <div class="m-portlet m-portlet--full-height ">
-            <div class="m-portlet__head">
-              <div class="m-portlet__head-caption">
-                <div class="m-portlet__head-title">
-                  <h3 class="m-portlet__head-text">
-                    Liên kết Trung cấp lên Đại học
-                  </h3>
-                </div>
-              </div>
-            </div>
-            <div class="m-portlet__body">
-              <div class="tab-content">
-                <table class="table m-table m-table--head-bg-brand">
-                  <tbody>
-                    <tr>
-                      <td>Chỉ tiêu Cao đẳng</td>
-                      <td><input type="number"  min="0" step="1"
-                          name="ho_khau_HN_THCS_Trung_cap" class="form-control" ></td>
-                    </tr>
-                    <tr>
-                      <td>Thực tuyển Cao đẳng</td>
-                      <td><input type="number" min="0" step="1" 
-                          name="so_Tot_nghiep_THCS" class="form-control" ></td>
-  
-                    </tr>
-                    <tr>
-                      <td>Số HSSV tốt nghiệp Cao đẳng</td>
-                      <td><input type="number" min="0" step="1" 
-                          name="so_Tot_nghiep_THPT" class="form-control" ></td>
-                    </tr>
-                    <tr>
-                      <td>Đơn vị liên kết Cao đẳng </td>
-                      <td><input type="number" min="0" step="1" 
-                          name="so_Tot_nghiep_THPT" class="form-control" ></td>
-                    </tr>
-                    <tr>
-                      <td>Ghi chú </td>
-                      <td>
-                        <textarea class="form-control" rows="3" style="border: 1px solid #000000"></textarea>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+          <div class="m-portlet__body">
+            <div class="tab-content">
+              <table class="table m-table m-table--head-bg-brand">
+                <tbody>
+                  <tr>
+                    <td>Chỉ tiêu</td>
+                    <td><input type="number" min="0" step="1" name="chi_tieu" class="form-control"
+                        value="{{$data->chi_tieu}}">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Thực tuyển </td>
+                    <td><input type="number" min="0" step="1" name="thuc_tuyen" class="form-control"
+                        value="{{$data->thuc_tuyen}}"></td>
+
+                  </tr>
+                  <tr>
+                    <td>Số HSSV tốt nghiệp</td>
+                    <td><input type="number" min="0" step="1" name="so_HSSV_tot_nghiep" class="form-control"
+                        value="{{$data->so_HSSV_tot_nghiep}}"></td>
+                  </tr>
+                  <tr>
+                    <td>Đơn vị liên kết </td>
+                    <td><input type="text" name="don_vi_lien_ket" class="form-control"
+                        value="{{$data->don_vi_lien_ket}}"></td>
+                  </tr>
+                  <tr>
+                    <td>Ghi chú </td>
+                    <td>
+                      <textarea class="form-control" name="ghi_chu" rows="3" style="border: 1px solid #000000">
+                      {{$data->ghi_chu}}
+                      </textarea>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
       </div>
-      {{-- end liên kết --}}
 
-    @if (session('thongbao'))
-    <div class="thongbao" style="color: red; text-align: center;">
-      {{session('thongbao')}}
     </div>
-    @endif
+    {{-- end liên kết --}}
     @if ($errors->any())
     <ul class="col-md-10 mx-auto">
       @foreach ($errors->all() as $error)
@@ -206,9 +152,10 @@
     @endif
     <div class="row mt-4" style="float: right">
       <div class="col-md-12">
-        <button type="button" class="btn btn-danger mr-5" style="width:90.28px"><a style="color: white;"
-            href="{{route('solieutuyensinh')}}">Hủy</a></button>
-        <button type="submit" class="btn btn-primary">Chỉnh sửa</button>
+        <a style="color: white;"
+          href="{{route('xuatbc.chi-tiet-lien-ket-dao-tao', ['co_so_id' => $data->co_so_id, 'bac_nghe' => $bac_nghe])}}">
+          <button type="button" class="btn btn-danger mr-5">Hủy</button></a>
+        <button type="submit" class="btn btn-primary">Cập nhật</button>
 
       </div>
     </div>
@@ -216,16 +163,19 @@
 </div>
 @endsection
 @section('script')
-<script>
-var routeCheck = "{{ route('so_lieu_tuyen_sinh.check_so_lieu') }}";
-var routeGetMaNganhNghe = "{{ route('get_ma_nganh_nghe') }}";
-
-$(document).ready(function(){
-  $('#co_so_dao_tao').select2();
-  $('#ma_nganh_nghe').select2();
-});
-</script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="{!! asset('tuyensinh/js/tuyensinh.js') !!}"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="{!! asset('chinh_sach_sinh_vien/validate-number.js') !!}"></script>
+@if (session('thongbao'))
+<script>
+  Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Cập nhật thành công !',
+        showConfirmButton: false,
+        timer: 3500
+    })
+</script>
+@endif
 @endsection

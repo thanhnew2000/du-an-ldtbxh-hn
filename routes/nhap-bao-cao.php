@@ -15,6 +15,13 @@ Route::group(['prefix' => 'quan-ly-giao-vien'], function () {
     Route::post('store', 'QuanLyGiaoVienController@store')->name('ql-giao-vien.store');
     Route::get('edit/{giaoVien}', 'QuanLyGiaoVienController@edit')->name('ql-giao-vien.edit');
     Route::post('update/{giaoVien}', 'QuanLyGiaoVienController@update')->name('ql-giao-vien.update');
+
+    // thanhnv import export doi ngu nha giao bm-9
+    Route::post('import-file-ql-giao-vien', 'QuanLyGiaoVienController@importFile')
+    ->name('import-quan-ly-giao-vien');
+    Route::post('import-error-ql-giao-vien', 'QuanLyGiaoVienController@importError')
+    ->name('import-error-quan-ly-giao-vien');
+
 });
 
 Route::resource('so-lieu-can-bo-quan-ly', 'SoLieuCanBoQuanLyController');
@@ -56,11 +63,23 @@ Route::group(['prefix' => 'ket-qua-tot-nghiep'], function () {
     Route::post('import-kq-tot_nghiep', 'ImportKqTotNghiepController@importFile')->name('import.ket-qua-tot-nghiep');
     Route::post('import-error-kq-tot_nghiep', 'ImportKqTotNghiepController@importError')->name('import.error.ket-qua-tot-nghiep');
 });
-
+// quảng đạo tạo nghề cho người khuyết tât
 Route::group(['prefix' => 'dao-tao-nghe-cho-nguoi-khuyet-tat'], function () {
-    Route::get('/', 'ImportReportController@daotaonguoikhuyetat')->name('nhapbc.dao-tao-khuye-tat');
+    Route::get('/', 'DaoTaoNgheChoNguoiKhuyetTatController@index')->name('nhapbc.dao-tao-khuyet-tat');
+    Route::get('/create', 'DaoTaoNgheChoNguoiKhuyetTatController@create')->name('nhapbc.dao-tao-khuyet-tat.create');
+    Route::post('/store', 'DaoTaoNgheChoNguoiKhuyetTatController@store')->name('nhapbc.dao-tao-khuyet-tat.store');
+    Route::get('/show/{id}', 'DaoTaoNgheChoNguoiKhuyetTatController@show')->name('nhapbc.dao-tao-khuyet-tat.show');
+    Route::get('/edit/{id}', 'DaoTaoNgheChoNguoiKhuyetTatController@edit')->name('nhapbc.dao-tao-khuyet-tat.edit');
+    Route::post('/update/{id}', 'DaoTaoNgheChoNguoiKhuyetTatController@update')->name('nhapbc.dao-tao-khuyet-tat.update');
+    Route::post('/check-them-dao-tao-cho-nguoi-khuyet-tat', 'DaoTaoNgheChoNguoiKhuyetTatController@getCheckTonTaiDaoTaoChoNguoiKhuyetTat')->name('nhapbc.dao-tao-khuyet-tat.check_so_lieu');
+
+        //thanhnv import
+    Route::post('import-kq-dao-tao-nguoi-khuyet-tat', 'DaoTaoNgheChoNguoiKhuyetTatController@importFile')->name('importketqua.dao-tao-nguoi-khuyet-tat');
+    Route::post('import-error-kq-dao-tao-nguoi-khuyet-tat', 'DaoTaoNgheChoNguoiKhuyetTatController@importError')->name('import.error.kq-dao-tao-nguoi-khuyet-tat');
+
 });
 
+// quảng đào tạo nghề cho thanh niên
 Route::group(['prefix' => 'dao-tao-nghe-cho-thanh-nien'], function(){
     Route::get('/', 'DaoTaoNgheThanhNienController@index')->name('nhapbc.dao-tao-thanh-nien.index');
     Route::get('/edit/{id}', 'DaoTaoNgheThanhNienController@edit')->name('nhapbc.dao-tao-thanh-nien.edit');
@@ -69,10 +88,20 @@ Route::group(['prefix' => 'dao-tao-nghe-cho-thanh-nien'], function(){
     Route::post('/store', 'DaoTaoNgheThanhNienController@store')->name('nhapbc.dao-tao-thanh-nien.store');
     Route::get('/show/{id}', 'DaoTaoNgheThanhNienController@show')->name('nhapbc.dao-tao-thanh-nien.show');
     Route::post('/check-them-dao-tao-thanh-nien', 'DaoTaoNgheThanhNienController@getCheckDaoTaoThanhNien')->name('nhapbc.dao-tao-thanh-nien.check_so_lieu');
+     
+    //thanhnv import
+    Route::post('import-kq-dao-tao-thanh-nien', 'DaoTaoNgheThanhNienController@importFile')->name('importketqua.dao-tao-thanh-nien');
+    Route::post('import-error-kq-dao-tao-thanh-nien', 'DaoTaoNgheThanhNienController@importError')->name('import.error.kq-dao-tao-thanh-nien');
 });
 
 Route::group(['prefix' => 'dao-tao-nghe-doanh-nghiep'], function () {
-    Route::get('/', 'ImportReportController@ketquadaotaovoidoanhnghiep')->name('nhapbc.dao-tao-nghe-doanh-nghiep');
+    Route::get('/', 'DaoTaoNgheVoiDoanhNghiepController@index')->name('nhapbc.dao-tao-nghe-doanh-nghiep');
+
+    // thanhnv 6/22/2020
+    Route::post('import-dao-tao-nghe-gan-voi-doanh-nghiep','DaoTaoNgheVoiDoanhNghiepController@importFile')
+    ->name('import-dao-tao-nghe-gan-voi-doanh-nghiep');
+    Route::post('import-error-dao-tao-nghe-gan-voi-doanh-nghiep','DaoTaoNgheVoiDoanhNghiepController@importError')
+    ->name('import.error-dao-tao-nghe-gan-voi-doanh-nghiep');
 });
 
 Route::group(['prefix' => 'lien-ket-dao-tao'], function () {
@@ -80,6 +109,10 @@ Route::group(['prefix' => 'lien-ket-dao-tao'], function () {
     Route::get('/chi-tiet-lien-ket-dao-tao', 'ImportReportController@chitietlienketdaotao')->name('nhapbc.chi-tiet-lien-ket-dao-tao');
     Route::get('/them-moi-lien-ket-dao-tao', 'ImportReportController@themmoilienketdaotao')->name('nhapbc.them-moi-lien-ket-dao-tao');
     Route::get('/chinh-sua-lien-ket-dao-tao', 'ImportReportController@chinhsualienketdaotao')->name('nhapbc.chinh-sua-lien-ket-dao-tao');
+
+      //thanhnv import
+      Route::post('import-kq-lien-ket-dao-tao', 'LienKetDaoTaoController@importFile')->name('importketqua.lien-ket-dao-tao');
+      Route::post('import-error-kq-lien-ket-dao-tao', 'LienKetDaoTaoController@importError')->name('import.error.lien-ket-dao-tao');
 });
 
 Route::group(['prefix' => 'thiet-lap-deadline-bao-cao'], function () {
@@ -94,8 +127,25 @@ Route::group(['prefix' => 'phe-duyet-bao-cao'], function () {
     Route::get('/', 'ImportReportController@pheduyetbaocao')->name('nhapbc.phe-duyet-bao-cao');
 });
 
-// thanhnv them group
+// thanhnv them group so-lieu-sinh-vien-dang-theo-hoc
 Route::group(['prefix' => 'so-lieu-sinh-vien-dang-theo-hoc'], function () {
     Route::post('import-hs-sv-quan-li', 'ImportHsQlController@importFileHsQl')->name('import.hssv.ql');
     Route::post('import-error-hs-sv-quan-li', 'ImportHsQlController@importErrorHsQl')->name('import.error.hssv-ql');
+});
+// thanh import 6/21/2020
+Route::group(['prefix' => 'chi-tieu-tuyen-sinh'], function () {
+    Route::post('import-dang-ky-chi-tieu-tuyen-sinh', 'ExtractController@importFilebm8')->name('import.dang-ky-chi-tieu-tuyen-sinh');
+    Route::post('import-error-dang-ky-chi-tieu-tuyen-sinh', 'ExtractController@importErrorbm8')->name('import.error.dang-ky-chi-tieu-tuyen-sinh');
+});
+// thanhnv 6/22/2020
+Route::group(['prefix' => 'ket-qua-tot-nghiep-gan-voi-doanh-nghiep'], function () {
+    Route::post('import-ket-qua-tot-nghiep-gan-voi-doanh-nghiep','KetQuaTotNghiepGanVoiDoanhNGhiepController@importFile')
+    ->name('import-ket-qua-tot-nghiep-gan-voi-doanh-nghiep');
+    Route::post('import-error-ket-qua-tot-nghiep-gan-voi-doanh-nghiep','KetQuaTotNghiepGanVoiDoanhNGhiepController@importError')
+    ->name('import.error-ket-qua-tot-nghiep-gan-voi-doanh-nghiep');
+});
+// thanhnv 6/21/2020 import export bm13
+Route::group(['prefix' => 'hop-tac-quoc-te'], function () {
+    Route::post('import-hop-tac-quoc-te', 'ExtractController@importFilebm13')->name('import.hop-tac-quoc-te');
+    Route::post('import-error-hop-tac-quoc-te', 'ExtractController@importErrorbm13')->name('import.error.hop-tac-quoc-te');
 });

@@ -116,6 +116,11 @@ table td {
     max-height: 100px;
 }
 
+.img-size-200 {
+    max-width: 200px;
+    max-height: 200px;
+}
+
 .img-size-70 {
     max-width: 70px;
     max-height: 70px;
@@ -165,10 +170,14 @@ table td {
 #chon-nghe-trung-cap+.select2-container {
     width: 100% !important;
 }
+.anh-giay-phep {
+    width: 100%;
+    height: 235px;
+    overflow: auto;
+}
 
-/* update more */
-* {
-    font-family: 'Roboto', sans-serif;
+.anh-giay-phep img {
+    width: 100%;
 }
 
 .tu-van-ho-tro-portlet .yeu-cau-ho-tro-quoc-huy{

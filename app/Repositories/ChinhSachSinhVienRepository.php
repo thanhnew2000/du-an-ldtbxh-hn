@@ -21,13 +21,17 @@ class ChinhSachSinhVienRepository extends BaseRepository implements ChinhSachSin
             ->join('co_so_dao_tao', 'tong_hop_chinh_sach_voi_hssv.co_so_id', '=', 'co_so_dao_tao.id')
             ->join('trang_thai', 'tong_hop_chinh_sach_voi_hssv.trang_thai', '=', 'trang_thai.id')
             ->join('chinh_sach', 'tong_hop_chinh_sach_voi_hssv.chinh_sach_id', '=', 'chinh_sach.id')
+            ->join('loai_hinh_co_so', 'co_so_dao_tao.ma_loai_hinh_co_so', '=', 'loai_hinh_co_so.id')
+            ->join('devvn_quanhuyen', 'co_so_dao_tao.maqh', '=', 'devvn_quanhuyen.maqh')
             ->select([
                 'tong_hop_chinh_sach_voi_hssv.*',
                 'trang_thai.ten_trang_thai as ten_trang_thai',
                 'co_so_dao_tao.ten',
                 'co_so_dao_tao.maqh as maqh',
                 'co_so_dao_tao.ma_loai_hinh_co_so as ma_loai_hinh_co_so',
-                'chinh_sach.ten as ten_chinh_sach'
+                'chinh_sach.ten as ten_chinh_sach',
+                'loai_hinh_co_so.loai_hinh_co_so',
+                'devvn_quanhuyen.name as quan_huyen',
             ])
             ->where('tong_hop_chinh_sach_voi_hssv.nam', $params['nam'])
             ->where('tong_hop_chinh_sach_voi_hssv.dot', $params['dot']);
@@ -44,20 +48,21 @@ class ChinhSachSinhVienRepository extends BaseRepository implements ChinhSachSin
         if (isset($params['chinhsach']) && $params['chinhsach'] != null) {
             $query->where('chinh_sach_id', $params['chinhsach']);
         }
-        //dd($query->orderBy('tong_hop_chinh_sach_voi_hssv.id', 'asc')->paginate($limit));
+
 
         return $query->orderBy('tong_hop_chinh_sach_voi_hssv.id', 'asc')->paginate($limit);
     }
 
     public function checktontaiChinhSachSinhVien($arraycheck)
     {
-
-        $check = $this->table->where($arraycheck)->select('co_so_id', 'nam', 'dot', 'trang_thai', 'chinh_sach_id')->first();
+        $check = $this->table->where($arraycheck)->select('tong_hop_chinh_sach_voi_hssv.id', 'tong_hop_chinh_sach_voi_hssv.trang_thai')
+            ->first();
         if ($check != null) {
-            if ($check->co_so_id) {
+            if ($check->trang_thai >= 3) {
                 return  'tontai';
             }
         }
+
         return $check;
     }
 
@@ -77,6 +82,6 @@ class ChinhSachSinhVienRepository extends BaseRepository implements ChinhSachSin
                 'chinh_sach.ten as ten_chinh_sach'
             ])
             ->where('tong_hop_chinh_sach_voi_hssv.id', $id);
-        return  $data->get()->first();
+        return  $data->first();
     }
 }

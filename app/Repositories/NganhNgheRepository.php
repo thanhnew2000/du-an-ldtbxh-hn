@@ -28,8 +28,8 @@ class NganhNgheRepository extends BaseRepository implements NganhNgheRepositoryI
                 'id',
                 'ten_nganh_nghe',
                 'bac_nghe',
-                DB::raw('(select count(dk.id) 
-                                from giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao dk 
+                DB::raw('(select count(dk.id)
+                                from giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao dk
                                 where dk.nghe_id = nganh_nghe.id) as csdt_count')
             )
             ->where('bac_nghe', $params['bac_nghe'])
@@ -99,7 +99,6 @@ class NganhNgheRepository extends BaseRepository implements NganhNgheRepositoryI
 
     public function boSungNganhNgheVaoCoSo($attributes, $nghe_cao_dang = [], $nghe_trung_cap = [])
     {
-        // dd($attributes);
         $arrayInsert = [];
         if (isset($nghe_cao_dang)) {
             for ($i = 0; $i < count($nghe_cao_dang); $i++) {
@@ -129,4 +128,42 @@ class NganhNgheRepository extends BaseRepository implements NganhNgheRepositoryI
         return DB::table('giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao')
             ->insert($arrayInsert);
     }
+
+    public function getListNganhNghe(array $listIds = [], $selects = ['*'])
+    {
+        $query =  $this->model
+            ->select($selects);
+
+        if (!empty($listIds)) {
+            $query->whereIn('id', $listIds);
+        }
+
+        return $query->get();
+    }
+
+    public function search(array $params = [], array $selects = ['*'])
+    {
+        $limit = config('common.paginate_size.default');
+        $queryBuilder = $this->model
+            ->select($selects);
+
+        if (isset($params['keyword']) &&
+            ($params['keyword'] == 0 || !empty($params['keyword']))) {
+            $queryBuilder->whereLike('ten_nganh_nghe', $params['keyword']);
+        }
+
+        return $queryBuilder->paginate($limit);
+    }
+
+    public function getNganhNgheTheoCoSo($co_so_id){
+        $nganhnghe = DB::table('giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao')
+        ->join('nganh_nghe','giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.nghe_id','=','nganh_nghe.id')
+        ->where('giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.co_so_id', $co_so_id)
+        ->where('nganh_nghe.ma_cap_nghe', 4)
+        ->select('nganh_nghe.*')
+        ->get();
+        return $nganhnghe;
+
+    }
+    
 }
