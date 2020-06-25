@@ -2,10 +2,18 @@
 @section('title', "Sửa tổng hợp đào tạo nghề cho người khuyết tật")
 @section('style')
 <link href="{!! asset('/css/main.css') !!}" rel="stylesheet" type="text/css" />
+<style>
+    .error{
+        color: red;
+    }
+    .alert-danger{
+        margin-top: 10px;
+    }
+</style>
 @endsection
 @section('content')
 <div class="m-content container-fluid">
-<form action="{{route('nhapbc.dao-tao-khuyet-tat.update',['id'=>$data->id])}}" method="post" class="m-form pt-5" >
+<form action="{{route('nhapbc.dao-tao-khuyet-tat.update',['id'=>$data->id])}}" id="validate-form" method="post" class="m-form pt-5" >
     @csrf
     <div class="m-portlet mt-5">
         <div class="m-portlet__head">
@@ -272,6 +280,6 @@
 </div>
 @endsection
 @section('script')
-
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/additional-methods.min.js"></script>
+<script src="{!! asset('validate/validate_store_update.js') !!}"></script>
 @endsection

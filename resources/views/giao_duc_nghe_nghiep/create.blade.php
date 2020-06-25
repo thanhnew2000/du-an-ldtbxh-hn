@@ -3,7 +3,7 @@
 @section('style')
 <link href="{!! asset('/css/main.css') !!}" rel="stylesheet" type="text/css" />
 <style>
-    .error {
+    .batbuoc,.error {
         color: red;
     }
 
@@ -14,7 +14,7 @@
 @endsection
 @section('content')
 <div class="m-content container-fluid">
-<form action="{{route('xuatbc.quan-ly-giao-duc-nghe-nghiep.store')}}" id="formDemo" method="post">
+<form action="{{route('xuatbc.quan-ly-giao-duc-nghe-nghiep.store')}}" id="validate-form" method="post">
         <div class="m-portlet mt-5">
             <div class="m-portlet__head">
                 <div class="m-portlet__head-caption">
@@ -129,7 +129,7 @@
                         <div class="form-group m-form__group row">
                             <label class="col-lg-4 col-form-label">Mã cấp II</label>
                             <div class="col-lg-8">
-                                <input class="form-control m-input" value="{{ old('ma_cap_2') }}" placeholder="Nhập vào số" name="ma_cap_2">
+                                <input type="number" class="form-control m-input" value="{{ old('ma_cap_2') }}" placeholder="Nhập vào số" name="ma_cap_2">
                                 @error('ma_cap_2')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -140,7 +140,7 @@
                         <div class="form-group m-form__group row">
                             <label class="col-lg-4 col-form-label">Quy mô tuyển sinh Trung Cấp</label>
                             <div class="col-lg-8">
-                                <input class="form-control m-input" value="{{ old('quy_mo_tuyen_sinh_TC') }} " placeholder="Nhập vào số"
+                                <input type="number" class="form-control m-input" value="{{ old('quy_mo_tuyen_sinh_TC') }} " placeholder="Nhập vào số"
                                     name="quy_mo_tuyen_sinh_TC">
                                 @error('quy_mo_tuyen_sinh_TC')
                                 <div class="alert alert-danger">{{ $message }}</div>
@@ -152,7 +152,7 @@
                         <div class="form-group m-form__group row">
                             <label class="col-lg-4 col-form-label">Quy mô tuyển sinh Sơ Cấp</label>
                             <div class="col-lg-8">
-                                <input class="form-control m-input" value="{{ old('quy_mo_tuyen_sinh_SC') }} " placeholder="Nhập vào số"
+                                <input type="number" class="form-control m-input" value="{{ old('quy_mo_tuyen_sinh_SC') }} " placeholder="Nhập vào số"
                                     name="quy_mo_tuyen_sinh_SC">
                                 @error('quy_mo_tuyen_sinh_SC')
                                 <div class="alert alert-danger">{{ $message }}</div>
@@ -180,28 +180,6 @@
 <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js">
 </script>
 <script>
-    $("#formDemo").validate({
-            rules: {
-                ma_cap_2: {
-                    digits: true,
-                    min: 0
-                },
-                quy_mo_tuyen_sinh_TC: {
-                    digits: true,
-                    min: 0
-                },
-                quy_mo_tuyen_sinh_SC: {
-                    digits: true,
-                    min: 0
-                }
-            }
-        });
-        jQuery.extend(jQuery.validator.messages, {
-                    digits: "Vui lòng nhập số nguyên",
-                    min: "Giá trị nhỏ nhất là 0"   
-        });
-</script>
-<script>
     $(window).bind("pageshow", function() {
     arrcheck=[]
     $("#co_so_dao_tao").select2().val('').trigger('change');
@@ -218,4 +196,6 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="{!! asset('giao_duc_nghe_nghiep/javascript/giao_duc_nghe_nghiep.js') !!}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/additional-methods.min.js"></script>
+<script src="{!! asset('validate/validate_store_update.js') !!}"></script>
 @endsection
