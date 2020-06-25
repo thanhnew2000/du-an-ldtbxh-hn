@@ -7,6 +7,10 @@
         color: red;
     }
 
+    .error {
+        color: red;
+    }
+
     table input {
         border: 1px solid #000 !important;
     }
@@ -16,7 +20,8 @@
 
 @section('content')
 <div class="m-content container-fluid">
-    <form action="{{route('xuatbc.post-sua-chinh-sach-sinh-vien', ['id' => $data->id])}}" method="POST" class="m-form">
+    <form id="validate-form-update" action="{{route('xuatbc.post-sua-chinh-sach-sinh-vien', ['id' => $data->id])}}"
+        method="POST" class="m-form">
         @csrf
         <div class="m-portlet">
             <div class="m-portlet__head">
@@ -40,7 +45,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Tên cơ sở đào tạo</label>
                                 <div class="col-lg-8">
-                                    <select name="co_so_id" class="form-control" required id="co_so_id" disabled>
+                                    <select name="co_so_id" class="form-control" id="co_so_id" disabled>
                                         <option value="" selected>{{$data->ten}}</option>
                                     </select>
                                 </div>
@@ -50,7 +55,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Năm</label>
                                 <div class="col-lg-8">
-                                    <select name="nam" class="form-control " required name="nam" disabled>
+                                    <select name="nam" class="form-control " name="nam" disabled>
                                         <option value="" selected>{{$data->nam}} </option>
                                     </select>
                                 </div>
@@ -63,8 +68,7 @@
                                 <label class="col-lg-2 col-form-label">Chính sách
                                 </label>
                                 <div class="col-lg-8">
-                                    <select name="chinh_sach_id" class="form-control" required name="chinh_sach_id"
-                                        disabled>
+                                    <select name="chinh_sach_id" class="form-control" name="chinh_sach_id" disabled>
                                         <option value="" selected>{{$data->ten_chinh_sach}} </option>
                                     </select>
                                 </div>
@@ -75,7 +79,7 @@
                                 <label class="col-lg-2 col-form-label">Đợt
                                 </label>
                                 <div class="col-lg-8">
-                                    <select name="dot" class="form-control" required name="dot" disabled>
+                                    <select name="dot" class="form-control" name="dot" disabled>
                                         <option value="" selected>{{$data->dot}} </option>
                                     </select>
                                 </div>
@@ -105,22 +109,41 @@
 
                         <tr>
                             <td>Số Lượng Sinh Viên</td>
-                            <td><input class="form-control" min="0" name="so_hssv_CD" type="number"
+                            <td><input class="form-control name-field" min="0" name="so_hssv_CD" type="number"
                                     value="{{$data->so_hssv_CD}}">
+
+                                @error('so_hssv_CD')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+
                             </td>
-                            <td><input class="form-control" min="0" name="so_hssv_TC" type="number"
+                            <td><input class="form-control name-field" min="0" name="so_hssv_TC" type="number"
                                     value="{{$data->so_hssv_TC}}">
+
+                                @error('so_hssv_TC')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+
                             </td>
 
                         </tr>
 
                         <tr>
                             <td>Kinh phí</td>
-                            <td><input class="form-control" min="0" name="kinh_phi_CD" type="number"
+                            <td><input class="form-control name-field" min="0" name="kinh_phi_CD" type="number"
                                     value="{{$data->kinh_phi_CD}}">
+
+                                @error('kinh_phi_CD')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+
                             </td>
-                            <td><input class="form-control" min="0" name="kinh_phi_TC" type="number"
+                            <td><input class="form-control name-field" min="0" name="kinh_phi_TC" type="number"
                                     value="{{$data->kinh_phi_TC}}">
+
+                                @error('kinh_phi_TC')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </td>
 
                         </tr>
@@ -130,15 +153,7 @@
                 </table>
             </div>
 
-            @if ($errors->any())
-            <ul class="col-md-10 mx-auto">
-                @foreach ($errors->all() as $error)
-                <li class="thongbao " style="color: red;">
-                    {{ $error }}
-                </li>
-                @endforeach
-            </ul>
-            @endif
+
         </div>
         <div class="m-portlet m-portlet--full-height ">
             <div class="m-portlet__head">
@@ -162,13 +177,25 @@
                         <tbody>
                             <tr>
                                 <td>Tổng số lượng sinh viên</td>
-                                <td><input name="tong_so_hssv" type="number" min="0" class="form-control"
-                                        value="{{$data->tong_so_hssv}}"></td>
+                                <td><input name="tong_so_hssv" type="number" min="0" class="form-control name-field"
+                                        value="{{$data->tong_so_hssv}}">
+
+                                    @error('tong_so_hssv')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+
+                                </td>
                             </tr>
                             <tr>
                                 <td>Tổng kinh phí</td>
-                                <td><input name="kinh_phi" type="number" min="0" class="form-control"
-                                        value="{{$data->kinh_phi}}"></td>
+                                <td><input name="kinh_phi" type="number" min="0" class="form-control name-field"
+                                        value="{{$data->kinh_phi}}">
+
+                                    @error('kinh_phi')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+
+                                </td>
                             </tr>
                             <tr>
                                 <td>Ghi chú</td>
@@ -184,8 +211,12 @@
             <div class="col-md-12 d-flex justify-content-end pb-5">
 
                 <a style="color: white" href="{{route('xuatbc.tong-hop-chinh-sach-sinh-vien')}}"><button type="button"
-                        class="btn btn-danger mr-5">Hủy</button>
-                    <button type="submit" class="btn btn-primary">Cập nhật</button>
+                        class="btn btn-danger mr-5">Hủy</button></a>
+                @if ($data->trang_thai >= 3)
+                @else
+                <button type="submit" class="btn btn-primary">Cập nhật</button>
+                @endif
+
             </div>
         </div>
     </form>
@@ -212,6 +243,7 @@ $("#page-size").change(function() {
 });
 </script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+<script src="{!! asset('lien_ket_dao_tao/validate-update-lkdt.js') !!}"></script>
 <script src="{!! asset('chinh_sach_sinh_vien/validate-number.js') !!}"></script>
 @if (session('thongbao'))
 <script>

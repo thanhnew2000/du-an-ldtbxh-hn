@@ -231,12 +231,15 @@
                     class="fa fa-upload" aria-hidden="true"></i>
                 Tải lên file Excel</a>
         </div>
-        <div class="col-lg-8">
+        <div class="col-lg-2">
             <a href="javascript:" data-toggle="modal" data-target="#moDalExportData"><i class="fa fa-file-excel"
                     aria-hidden="true"></i>
                 Xuất dữ liệu ra Excel</a>
         </div>
-
+        <div class="col-lg-6 " style="text-align: right">
+            <a href="{{route('xuatbc.them-lien-ket-dao-tao')}}"><button type="button" class="btn btn-info .bg-info">Thêm
+                    mới</button></a>
+        </div>
     </section>
 
     <div class="m-portlet">
@@ -450,6 +453,7 @@
 
 @endsection
 @section('script')
+<script src="{{ asset('js/so_lieu_tuyen_sinh/tong_hop_so_lieu.js') }}"></script>
 <script>
     $(document).ready(function(){
         
