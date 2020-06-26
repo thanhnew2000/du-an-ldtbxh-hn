@@ -88,8 +88,8 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Nghề cấp 2</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control nganh_nghe" onchange="getNgheTheoCapBac(this)" @if
-                                        (isset($params['nganh_nghe']))
+                                    <select class="form-control nganh_nghe" onchange="getNgheTheoCapBac(this)"
+                                        @if(isset($params['nganh_nghe']))
                                         name="{{strlen($params['nganh_nghe'])==3?'nganh_nghe':''}}" @endif
                                         id="nghe_cap_2">
                                         <option value="" selected>Chọn</option>
@@ -128,8 +128,8 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Nghề cấp 3</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control nganh_nghe" onchange="getNgheTheoCapBac(this)" @if
-                                        (isset($params['nganh_nghe']))
+                                    <select class="form-control nganh_nghe" onchange="getNgheTheoCapBac(this)"
+                                        @if(isset($params['nganh_nghe']))
                                         name="{{strlen($params['nganh_nghe'])==5?'nganh_nghe':''}}" @endif
                                         id="nghe_cap_3">
                                         <option value="" selected>Chọn</option>
@@ -165,8 +165,8 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Nghề cấp 4</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control nganh_nghe" onchange="setNameNganhNgheSearch(this)" @if
-                                        (isset($params['nganh_nghe']))
+                                    <select class="form-control nganh_nghe" onchange="setNameNganhNgheSearch(this)"
+                                        @if(isset($params['nganh_nghe']))
                                         name="{{strlen($params['nganh_nghe'])==7?'nganh_nghe':''}}" @endif
                                         id="nghe_cap_4">
                                         <option value="" selected>Chọn</option>
@@ -259,7 +259,8 @@
                         <th scope="col">Kế hoạch tuyển sinh</th>
                         <th scope="col">Trạng thái</th>
                         <!-- <th scope="col">Chỉnh sửa</th> -->
-                        <th scope="col"> <a href="{{route('themsolieutuyensinh')}}" class="btn btn-success btn-sm">Thêm mới</a></th>
+                        <th scope="col"> <a href="{{route('themsolieutuyensinh')}}" class="btn btn-success btn-sm">Thêm
+                                mới</a></th>
                     </tr>
                 </thead>
                 <tbody>

@@ -138,47 +138,47 @@
                 </h3>
               </div>
             </div>
-            <div class="m-portlet__body">
-              <div class="tab-content">
-                <table class="table m-table m-table--head-bg-brand">
-                  <thead>
-                    <tr>
-                      <th scope="col">Danh mục</th>
-                      <th scope="col">Cao đẳng</th>
-                      <th scope="col">Trung cấp</th>
-                      <th scope="col">Sơ cấp</th>
-                      <th scope="col">Khác</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Kết hoạch tuyển sinh</td>
-                      <td><input type="number" value="{{ old('ke_hoach_tuyen_sinh_cao_dang') }}"
-                          name="ke_hoach_tuyen_sinh_cao_dang" class="form-control m-input">
-                        @error('ke_hoach_tuyen_sinh_cao_dang')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
+          </div>
+          <div class="m-portlet__body">
+            <div class="tab-content">
+              <table class="table m-table m-table--head-bg-brand">
+                <thead>
+                  <tr>
+                    <th scope="col">Danh mục</th>
+                    <th scope="col">Cao đẳng</th>
+                    <th scope="col">Trung cấp</th>
+                    <th scope="col">Sơ cấp</th>
+                    <th scope="col">Khác</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Kết hoạch tuyển sinh</td>
+                    <td><input type="number" value="{{ old('ke_hoach_tuyen_sinh_cao_dang') }}"
+                        name="ke_hoach_tuyen_sinh_cao_dang" class="form-control m-input">
+                      @error('ke_hoach_tuyen_sinh_cao_dang')
+                      <div class="alert alert-danger">{{ $message }}</div>
+                      @enderror
 
-                      </td>
-                      <td><input type="number" value="{{ old('ke_hoach_tuyen_sinh_trung_cap') }}"
-                          name="ke_hoach_tuyen_sinh_trung_cap" class="form-control m-input">
-                        @error('ke_hoach_tuyen_sinh_trung_cap')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror</td>
-                      <td><input type="number" value="{{ old('ke_hoach_tuyen_sinh_so_cap') }}"
-                          name="ke_hoach_tuyen_sinh_so_cap" class="form-control m-input">
-                        @error('ke_hoach_tuyen_sinh_so_cap')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror</td>
-                      <td><input type="number" value="{{ old('ke_hoach_tuyen_sinh_khac') }}"
-                          name="ke_hoach_tuyen_sinh_khac" class="form-control m-input">
-                        @error('ke_hoach_tuyen_sinh_khac')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+                    </td>
+                    <td><input type="number" value="{{ old('ke_hoach_tuyen_sinh_trung_cap') }}"
+                        name="ke_hoach_tuyen_sinh_trung_cap" class="form-control m-input">
+                      @error('ke_hoach_tuyen_sinh_trung_cap')
+                      <div class="alert alert-danger">{{ $message }}</div>
+                      @enderror</td>
+                    <td><input type="number" value="{{ old('ke_hoach_tuyen_sinh_so_cap') }}"
+                        name="ke_hoach_tuyen_sinh_so_cap" class="form-control m-input">
+                      @error('ke_hoach_tuyen_sinh_so_cap')
+                      <div class="alert alert-danger">{{ $message }}</div>
+                      @enderror</td>
+                    <td><input type="number" value="{{ old('ke_hoach_tuyen_sinh_khac') }}"
+                        name="ke_hoach_tuyen_sinh_khac" class="form-control m-input">
+                      @error('ke_hoach_tuyen_sinh_khac')
+                      <div class="alert alert-danger">{{ $message }}</div>
+                      @enderror</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -197,116 +197,116 @@
                 </h3>
               </div>
             </div>
-            <div class="m-portlet__body">
-              <div class="tab-content">
-                <table class="table m-table m-table--head-bg-brand">
-                  <thead>
-                    <tr>
-                      <th scope="col">Danh mục</th>
-                      <th scope="col">Cao đẳng</th>
-                      <th scope="col">Trung cấp</th>
-                      <th scope="col">Sơ cấp</th>
-                      <th scope="col">Khác</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Tổng số nữ</td>
-                      <td><input type="number" value="{{ old('so_luong_sv_nu_Cao_dang') }}"
-                          name="so_luong_sv_nu_Cao_dang" class="form-control m-input">
-                        @error('so_luong_sv_nu_Cao_dang')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror</td>
-                      <td><input type="number" value="{{ old('so_luong_sv_nu_Trung_cap') }}"
-                          name="so_luong_sv_nu_Trung_cap" class="form-control m-input">
-                        @error('so_luong_sv_nu_Trung_cap')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror</td>
-                      <td><input type="number" value="{{ old('so_luong_sv_nu_So_cap') }}" name="so_luong_sv_nu_So_cap"
-                          class="form-control m-input">
-                        @error('so_luong_sv_nu_So_cap')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror</td>
-                      <td><input type="number" value="{{ old('so_luong_sv_nu_khac') }}" name="so_luong_sv_nu_khac"
-                          class="form-control m-input">
-                        @error('so_luong_sv_nu_khac')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror</td>
-                    </tr>
-                    <tr>
-                      <td>Tổng số dân tộc thiểu số ít người</td>
-                      <td><input type="number" value="{{ old('so_luong_sv_dan_toc_Cao_dang') }}"
-                          name="so_luong_sv_dan_toc_Cao_dang" class="form-control m-input">
-                        @error('so_luong_sv_dan_toc_Cao_dang')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror</td>
-                      <td><input type="number" value="{{ old('so_luong_sv_dan_toc_Trung_cap') }}"
-                          name="so_luong_sv_dan_toc_Trung_cap" class="form-control m-input">
-                        @error('so_luong_sv_dan_toc_Trung_cap')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror</td>
-                      <td><input type="number" value="{{ old('so_luong_sv_dan_toc_So_cap') }}"
-                          name="so_luong_sv_dan_toc_So_cap" class="form-control m-input">
-                        @error('so_luong_sv_dan_toc_So_cap')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror</td>
-                      <td><input type="number" value="{{ old('so_luong_sv_dan_toc_khac') }}"
-                          name="so_luong_sv_dan_toc_khac" class="form-control m-input">
-                        @error('so_luong_sv_dan_toc_khac')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror</td>
+          </div>
+          <div class="m-portlet__body">
+            <div class="tab-content">
+              <table class="table m-table m-table--head-bg-brand">
+                <thead>
+                  <tr>
+                    <th scope="col">Danh mục</th>
+                    <th scope="col">Cao đẳng</th>
+                    <th scope="col">Trung cấp</th>
+                    <th scope="col">Sơ cấp</th>
+                    <th scope="col">Khác</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Tổng số nữ</td>
+                    <td><input type="number" value="{{ old('so_luong_sv_nu_Cao_dang') }}" name="so_luong_sv_nu_Cao_dang"
+                        class="form-control m-input">
+                      @error('so_luong_sv_nu_Cao_dang')
+                      <div class="alert alert-danger">{{ $message }}</div>
+                      @enderror</td>
+                    <td><input type="number" value="{{ old('so_luong_sv_nu_Trung_cap') }}"
+                        name="so_luong_sv_nu_Trung_cap" class="form-control m-input">
+                      @error('so_luong_sv_nu_Trung_cap')
+                      <div class="alert alert-danger">{{ $message }}</div>
+                      @enderror</td>
+                    <td><input type="number" value="{{ old('so_luong_sv_nu_So_cap') }}" name="so_luong_sv_nu_So_cap"
+                        class="form-control m-input">
+                      @error('so_luong_sv_nu_So_cap')
+                      <div class="alert alert-danger">{{ $message }}</div>
+                      @enderror</td>
+                    <td><input type="number" value="{{ old('so_luong_sv_nu_khac') }}" name="so_luong_sv_nu_khac"
+                        class="form-control m-input">
+                      @error('so_luong_sv_nu_khac')
+                      <div class="alert alert-danger">{{ $message }}</div>
+                      @enderror</td>
+                  </tr>
+                  <tr>
+                    <td>Tổng số dân tộc thiểu số ít người</td>
+                    <td><input type="number" value="{{ old('so_luong_sv_dan_toc_Cao_dang') }}"
+                        name="so_luong_sv_dan_toc_Cao_dang" class="form-control m-input">
+                      @error('so_luong_sv_dan_toc_Cao_dang')
+                      <div class="alert alert-danger">{{ $message }}</div>
+                      @enderror</td>
+                    <td><input type="number" value="{{ old('so_luong_sv_dan_toc_Trung_cap') }}"
+                        name="so_luong_sv_dan_toc_Trung_cap" class="form-control m-input">
+                      @error('so_luong_sv_dan_toc_Trung_cap')
+                      <div class="alert alert-danger">{{ $message }}</div>
+                      @enderror</td>
+                    <td><input type="number" value="{{ old('so_luong_sv_dan_toc_So_cap') }}"
+                        name="so_luong_sv_dan_toc_So_cap" class="form-control m-input">
+                      @error('so_luong_sv_dan_toc_So_cap')
+                      <div class="alert alert-danger">{{ $message }}</div>
+                      @enderror</td>
+                    <td><input type="number" value="{{ old('so_luong_sv_dan_toc_khac') }}"
+                        name="so_luong_sv_dan_toc_khac" class="form-control m-input">
+                      @error('so_luong_sv_dan_toc_khac')
+                      <div class="alert alert-danger">{{ $message }}</div>
+                      @enderror</td>
 
-                    </tr>
-                    <tr>
-                      <td>Tống số hộ khẩu Hà Nội</td>
-                      <td><input type="number" value="{{ old('so_luong_sv_ho_khau_HN_Cao_dang') }}"
-                          name="so_luong_sv_ho_khau_HN_Cao_dang" class="form-control m-input">
-                        @error('so_luong_sv_ho_khau_HN_Cao_dang')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror</td>
-                      <td><input type="number" value="{{ old('so_luong_sv_ho_khau_HN_Trung_cap') }}"
-                          name="so_luong_sv_ho_khau_HN_Trung_cap" class="form-control m-input">
-                        @error('so_luong_sv_ho_khau_HN_Trung_cap')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror</td>
-                      <td><input type="number" value="{{ old('so_luong_sv_ho_khau_HN_So_cap') }}"
-                          name="so_luong_sv_ho_khau_HN_So_cap" class="form-control m-input">
-                        @error('so_luong_sv_ho_khau_HN_So_cap')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror</td>
-                      <td><input type="number" value="{{ old('so_luong_sv_ho_khau_HN_khac') }}"
-                          name="so_luong_sv_ho_khau_HN_khac" class="form-control m-input">
-                        @error('so_luong_sv_ho_khau_HN_khac')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror</td>
-                    </tr>
-                    <tr>
-                      <td>Tổng số kết quả tuyển sinh</td>
-                      <td><input type="number" value="{{ old('so_luong_sv_Cao_dang') }}" name="so_luong_sv_Cao_dang"
-                          class="form-control m-input">
-                        @error('so_luong_sv_Cao_dang')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror</td>
-                      <td><input type="number" value="{{ old('so_luong_sv_Trung_cap') }}" name="so_luong_sv_Trung_cap"
-                          class="form-control m-input">
-                        @error('so_luong_sv_Trung_cap')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror</td>
-                      <td><input type="number" value="{{ old('so_luong_sv_So_cap') }}" name="so_luong_sv_So_cap"
-                          class="form-control m-input">
-                        @error('so_luong_sv_So_cap')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror</td>
-                      <td><input type="number" value="{{ old('so_luong_sv_he_khac') }}" name="so_luong_sv_he_khac"
-                          class="form-control m-input">
-                        @error('so_luong_sv_he_khac')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror</td>
-                    </tr>
+                  </tr>
+                  <tr>
+                    <td>Tống số hộ khẩu Hà Nội</td>
+                    <td><input type="number" value="{{ old('so_luong_sv_ho_khau_HN_Cao_dang') }}"
+                        name="so_luong_sv_ho_khau_HN_Cao_dang" class="form-control m-input">
+                      @error('so_luong_sv_ho_khau_HN_Cao_dang')
+                      <div class="alert alert-danger">{{ $message }}</div>
+                      @enderror</td>
+                    <td><input type="number" value="{{ old('so_luong_sv_ho_khau_HN_Trung_cap') }}"
+                        name="so_luong_sv_ho_khau_HN_Trung_cap" class="form-control m-input">
+                      @error('so_luong_sv_ho_khau_HN_Trung_cap')
+                      <div class="alert alert-danger">{{ $message }}</div>
+                      @enderror</td>
+                    <td><input type="number" value="{{ old('so_luong_sv_ho_khau_HN_So_cap') }}"
+                        name="so_luong_sv_ho_khau_HN_So_cap" class="form-control m-input">
+                      @error('so_luong_sv_ho_khau_HN_So_cap')
+                      <div class="alert alert-danger">{{ $message }}</div>
+                      @enderror</td>
+                    <td><input type="number" value="{{ old('so_luong_sv_ho_khau_HN_khac') }}"
+                        name="so_luong_sv_ho_khau_HN_khac" class="form-control m-input">
+                      @error('so_luong_sv_ho_khau_HN_khac')
+                      <div class="alert alert-danger">{{ $message }}</div>
+                      @enderror</td>
+                  </tr>
+                  <tr>
+                    <td>Tổng số kết quả tuyển sinh</td>
+                    <td><input type="number" value="{{ old('so_luong_sv_Cao_dang') }}" name="so_luong_sv_Cao_dang"
+                        class="form-control m-input">
+                      @error('so_luong_sv_Cao_dang')
+                      <div class="alert alert-danger">{{ $message }}</div>
+                      @enderror</td>
+                    <td><input type="number" value="{{ old('so_luong_sv_Trung_cap') }}" name="so_luong_sv_Trung_cap"
+                        class="form-control m-input">
+                      @error('so_luong_sv_Trung_cap')
+                      <div class="alert alert-danger">{{ $message }}</div>
+                      @enderror</td>
+                    <td><input type="number" value="{{ old('so_luong_sv_So_cap') }}" name="so_luong_sv_So_cap"
+                        class="form-control m-input">
+                      @error('so_luong_sv_So_cap')
+                      <div class="alert alert-danger">{{ $message }}</div>
+                      @enderror</td>
+                    <td><input type="number" value="{{ old('so_luong_sv_he_khac') }}" name="so_luong_sv_he_khac"
+                        class="form-control m-input">
+                      @error('so_luong_sv_he_khac')
+                      <div class="alert alert-danger">{{ $message }}</div>
+                      @enderror</td>
+                  </tr>
 
-                  </tbody>
-                </table>
-              </div>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -325,43 +325,43 @@
                 </h3>
               </div>
             </div>
-            <div class="m-portlet__body">
-              <div class="tab-content">
-                <table class="table m-table m-table--head-bg-brand">
-                  <thead>
-                    <tr>
-                      <th scope="col" colspan="4">Trung cấp</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Hộ khẩu Hà Nội tốt nghiệp THCS</td>
-                      <td><input type="number" value="{{ old('ho_khau_HN_THCS_Trung_cap') }}"
-                          name="ho_khau_HN_THCS_Trung_cap" class="form-control m-input">
-                        @error('ho_khau_HN_THCS_Trung_cap')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror</td>
-                    </tr>
-                    <tr>
-                      <td>Số tốt nghiệp THCS</td>
-                      <td><input type="number" value="{{ old('so_Tot_nghiep_THCS') }}" name="so_Tot_nghiep_THCS"
-                          class="form-control m-input">
-                        @error('so_Tot_nghiep_THCS')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror</td>
+          </div>
+          <div class="m-portlet__body">
+            <div class="tab-content">
+              <table class="table m-table m-table--head-bg-brand">
+                <thead>
+                  <tr>
+                    <th scope="col" colspan="4">Trung cấp</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Hộ khẩu Hà Nội tốt nghiệp THCS</td>
+                    <td><input type="number" value="{{ old('ho_khau_HN_THCS_Trung_cap') }}"
+                        name="ho_khau_HN_THCS_Trung_cap" class="form-control m-input">
+                      @error('ho_khau_HN_THCS_Trung_cap')
+                      <div class="alert alert-danger">{{ $message }}</div>
+                      @enderror</td>
+                  </tr>
+                  <tr>
+                    <td>Số tốt nghiệp THCS</td>
+                    <td><input type="number" value="{{ old('so_Tot_nghiep_THCS') }}" name="so_Tot_nghiep_THCS"
+                        class="form-control m-input">
+                      @error('so_Tot_nghiep_THCS')
+                      <div class="alert alert-danger">{{ $message }}</div>
+                      @enderror</td>
 
-                    </tr>
-                    <tr>
-                      <td>Số tốt nghiệp THPT</td>
-                      <td><input type="number" value="{{ old('so_Tot_nghiep_THPT') }}" name="so_Tot_nghiep_THPT"
-                          class="form-control m-input">
-                        @error('so_Tot_nghiep_THPT')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+                  </tr>
+                  <tr>
+                    <td>Số tốt nghiệp THPT</td>
+                    <td><input type="number" value="{{ old('so_Tot_nghiep_THPT') }}" name="so_Tot_nghiep_THPT"
+                        class="form-control m-input">
+                      @error('so_Tot_nghiep_THPT')
+                      <div class="alert alert-danger">{{ $message }}</div>
+                      @enderror</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -376,34 +376,34 @@
                 </h3>
               </div>
             </div>
-            <div class="m-portlet__body">
-              <div class="tab-content">
-                <table class="table m-table m-table--head-bg-brand">
-                  <thead>
-                    <tr>
-                      <th scope="col" colspan="4">Cao đẳng</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Tuyển mới</td>
-                      <td><input type="number" value="{{ old('so_tuyen_moi_Cao_dang') }}" name="so_tuyen_moi_Cao_dang"
-                          class="form-control m-input">
-                        @error('so_tuyen_moi_Cao_dang')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror</td>
-                    </tr>
-                    <tr>
-                      <td>Liên thông</td>
-                      <td><input type="number" value="{{ old('so_lien_thong_Cao_dang') }}" name="so_lien_thong_Cao_dang"
-                          class="form-control m-input">
-                        @error('so_lien_thong_Cao_dang')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+          </div>
+          <div class="m-portlet__body">
+            <div class="tab-content">
+              <table class="table m-table m-table--head-bg-brand">
+                <thead>
+                  <tr>
+                    <th scope="col" colspan="4">Cao đẳng</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Tuyển mới</td>
+                    <td><input type="number" value="{{ old('so_tuyen_moi_Cao_dang') }}" name="so_tuyen_moi_Cao_dang"
+                        class="form-control m-input">
+                      @error('so_tuyen_moi_Cao_dang')
+                      <div class="alert alert-danger">{{ $message }}</div>
+                      @enderror</td>
+                  </tr>
+                  <tr>
+                    <td>Liên thông</td>
+                    <td><input type="number" value="{{ old('so_lien_thong_Cao_dang') }}" name="so_lien_thong_Cao_dang"
+                        class="form-control m-input">
+                      @error('so_lien_thong_Cao_dang')
+                      <div class="alert alert-danger">{{ $message }}</div>
+                      @enderror</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -422,60 +422,60 @@
                 </h3>
               </div>
             </div>
-            <div class="m-portlet__body">
-              <div class="tab-content">
-                <table class="table m-table m-table--head-bg-brand">
-                  <thead>
-                    <tr>
-                      <th scope="col">Danh mục</th>
-                      <th scope="col">Trong đó</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Tổng số tuyển sinh nữ</td>
-                      <td><input name="tong_so_nu" type="number" value="{{ old('tong_so_nu') }}"
-                          class="form-control m-input">
-                        @error('tong_so_nu')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror</td>
-                    </tr>
-                    <tr>
-                      <td>Tổng số tuyển sinh dân tộc thiểu số ít người</td>
-                      <td><input name="tong_so_dan_toc" type="number" value="{{ old('tong_so_dan_toc') }}"
-                          class="form-control m-input">
-                        @error('tong_so_dan_toc')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror</td>
-                    </tr>
-                    <tr>
-                      <td>Tổng số tuyển sinh hộ khẩu Hà Nội</td>
-                      <td><input name="tong_ho_khau_HN" type="number" value="{{ old('tong_ho_khau_HN') }}"
-                          class="form-control m-input">
-                        @error('tong_ho_khau_HN')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror</td>
-                    </tr>
-                    <tr>
-                      <td>Tổng số tuyển sinh các trình độ</td>
-                      <td><input name="tong_so_tuyen_sinh_cac_trinh_do" type="number"
-                          value="{{ old('tong_so_tuyen_sinh_cac_trinh_do') }}" class="form-control m-input">
-                        @error('tong_so_tuyen_sinh_cac_trinh_do')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Tổng số kế hoạch tuyển sinh</td>
-                      <td><input name="tong_so_tuyen_sinh" type="number" value="{{ old('tong_so_tuyen_sinh') }}"
-                          class="form-control m-input">
-                        @error('tong_so_tuyen_sinh')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+          </div>
+          <div class="m-portlet__body">
+            <div class="tab-content">
+              <table class="table m-table m-table--head-bg-brand">
+                <thead>
+                  <tr>
+                    <th scope="col">Danh mục</th>
+                    <th scope="col">Trong đó</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Tổng số tuyển sinh nữ</td>
+                    <td><input name="tong_so_nu" type="number" value="{{ old('tong_so_nu') }}"
+                        class="form-control m-input">
+                      @error('tong_so_nu')
+                      <div class="alert alert-danger">{{ $message }}</div>
+                      @enderror</td>
+                  </tr>
+                  <tr>
+                    <td>Tổng số tuyển sinh dân tộc thiểu số ít người</td>
+                    <td><input name="tong_so_dan_toc" type="number" value="{{ old('tong_so_dan_toc') }}"
+                        class="form-control m-input">
+                      @error('tong_so_dan_toc')
+                      <div class="alert alert-danger">{{ $message }}</div>
+                      @enderror</td>
+                  </tr>
+                  <tr>
+                    <td>Tổng số tuyển sinh hộ khẩu Hà Nội</td>
+                    <td><input name="tong_ho_khau_HN" type="number" value="{{ old('tong_ho_khau_HN') }}"
+                        class="form-control m-input">
+                      @error('tong_ho_khau_HN')
+                      <div class="alert alert-danger">{{ $message }}</div>
+                      @enderror</td>
+                  </tr>
+                  <tr>
+                    <td>Tổng số tuyển sinh các trình độ</td>
+                    <td><input name="tong_so_tuyen_sinh_cac_trinh_do" type="number"
+                        value="{{ old('tong_so_tuyen_sinh_cac_trinh_do') }}" class="form-control m-input">
+                      @error('tong_so_tuyen_sinh_cac_trinh_do')
+                      <div class="alert alert-danger">{{ $message }}</div>
+                      @enderror
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Tổng số kế hoạch tuyển sinh</td>
+                    <td><input name="tong_so_tuyen_sinh" type="number" value="{{ old('tong_so_tuyen_sinh') }}"
+                        class="form-control m-input">
+                      @error('tong_so_tuyen_sinh')
+                      <div class="alert alert-danger">{{ $message }}</div>
+                      @enderror</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
