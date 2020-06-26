@@ -220,8 +220,11 @@ class DaoTaoNgheVoiDoanhNghiepService extends AppService
         $this->lockedCellInExcel($worksheet,$arrayLock);
 
         $row=7;
+        $soThuTu=0;
         foreach($co_so_nghe as $cs_n){
+            $soThuTu++;
             $row ++;
+            $worksheet->setCellValue("A{$row}", $soThuTu);
             $worksheet->setCellValue('B'.$row, $cs_n->ten_nganh_nghe.' - '.$cs_n->id);
             $worksheet->setCellValue("C{$row}", "=SUM(D{$row}:G{$row})");
         };

@@ -133,11 +133,11 @@
         <div class="col-lg-2">
             <a href="" data-toggle="modal"  data-target="#exampleModal-tbm">
                 <i class="fa fa-download" aria-hidden="true"></i>
-                Tải xuống biểu mẫu
+                Tải xuống biểu mẫuu
             </a>
         </div>
         <div class="col-lg-2">
-            <a href="" data-toggle="modal" data-target="#exampleModalImport">
+            <a href="" data-toggle="modal" data-target="#moDalImport">
                 <i class="fa fa-upload" aria-hidden="true" ></i>
                 Tải lên file Excel</a>
         </div>
@@ -220,7 +220,7 @@
                 <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Hãy chọn trường</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" id="closeFileBieuMau"  class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
@@ -233,21 +233,21 @@
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                    <button type="submit" onclick="clickDownloadTemplate()" class="btn btn-primary">Tải</a>
+                    <button type="submit" onclick="closeModal('closeFileBieuMau')" class="btn btn-primary">Tải</a>
                   </div>
                 </div>
         </div>
     </div>
     </form>
 
-    <form action="{{route('import.error.hssv-ql')}}" id="my_form_hssv_import" method="post" enctype="multipart/form-data" >
+    <form action="{{route('import.error.hssv-ql')}}" id="form_import_file" method="post" enctype="multipart/form-data" >
         @csrf
-        <div class="modal fade " id="exampleModalImport" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade " id="moDalImport" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Import file học sinh sinh viên</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <h5 class="modal-title" id="exampleModalLabel">Import file</h5>
+                        <button type="button" id="closeImportFile" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
@@ -278,7 +278,7 @@
                         <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoi">
                         </p>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                        <button type="button" class="btn btn-primary" id="submitTai">Tải</a>
+                        <button type="button" class="btn btn-primary" id="submitTai" >Tải</a>
                         <button  type="submit" hidden class="btn btn-primary" id="submitTaiok">Tải Error</a>
                       </div>
                     </div>
@@ -294,7 +294,7 @@
                       <div class="modal-content">
                         <div class="modal-header">
                           <h5 class="modal-title" id="exampleModalLabel">Xuất dữ liệu</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <button type="button" id='closeXuatDuLieu' class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
                         </div>
@@ -331,7 +331,7 @@
                           </p>
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
                           {{-- <button type="button" class="btn btn-primary" id="clickXuatData">Tải</a> --}}
-                          <button  type="submit" class="btn btn-primary" id="submitXuatData">Xuất</a>
+                          <button  type="submit" class="btn btn-primary" id="submitXuatData" onclick="closeModal('closeXuatDuLieu')">Xuất</a>
                         </div>
                       </div>
               </div>
@@ -343,102 +343,15 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+    {{-- thanhvn update js 6/25/2020 --}}
+    <script>
+        var routeImport = "{{route('import.hssv.ql')}}";
+    </script>
+    <script src="{!! asset('excel-js/js-xuat-time.js') !!}"></script>
+    <script src="{!! asset('excel-js/js-form.js') !!}"></script>
+    {{-- end --}}
+
 <script>
-    
-         $("#file_import_id").change(function() {
-          var fileExtension = ['xlsx', 'xls'];
-                 if($("#file_import_id")[0].files.length === 0){
-                   $('#echoLoi').text('Hãy nhập file excel');
-                 }else if($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
-                    $message = "Hãy nhập file excel : "+fileExtension.join(', ');
-                    $('#echoLoi').text($message);
-                    return false;
-                 }else{
-                    $('#echoLoi').text('');
-                 }
-         });
-
-
-         $("#submitTai").click(function(event){
-          var fileExtension = ['xlsx', 'xls'];
-                
-                if($("#file_import_id")[0].files.length === 0){
-                   console.log('không có file');    
-                 }else if($.inArray($('#file_import_id').val().split('.').pop().toLowerCase(), fileExtension) == -1) {
-                  console.log('chưa file không đúng định dạng');
-                 }else{
-                  $('#exampleModalImport').modal('hide');
-                  $('.loading').css('display','block');
-                  var formData = new FormData();
-                  var fileExcel = document.querySelector('#file_import_id');
-                  formData.append("file", fileExcel.files[0]);
-                    formData.append("dot_import", $('#dot_id').val());
-                    formData.append("nam_import", $('#nam_id').val());
-                    axios.post("{{route('import.hssv.ql')}}", formData,{
-                    headers: {
-                          'Content-Type': 'multipart/form-data',
-                        }
-                        }).then(function (response) {
-                            // console.log(response)
-                            if(response.data == 'ok'){
-                            $('.loading').css('display','none');
-                              Swal.fire({
-                              position: 'center',
-                              icon: 'success',
-                              title: 'Cập nhập thành công',
-                              showConfirmButton: false,
-                              timer: 1700
-                            })
-                            window.location.reload();
-                            console.log('Đã insert vào database');
-                            }else if(response.data == 'problem'){
-                            $('.loading').css('display','none');
-                            console.log('Có vấn đề về thông tin muốn nhập');
-                            Swal.fire({
-                                title: 'Có vấn đề về thông tin muốn nhập !',
-                                // text: "You won't be able to revert this!",
-                                icon: 'warning',
-                                confirmButtonColor: '#3085d6',
-                                confirmButtonText: 'Xác nhận'
-                                }).then((result) => {
-                                if (result.value) {  
-                                    window.location.reload();
-                                }else{
-                                    window.location.reload();
-                                }
-                                })
-                            }else{
-                              $('.loading').css('display','none');
-                                $('#submitTaiok').trigger('click');
-                                $('#my_form_hssv_import')[0].reset();
-                            }
-                       }).catch(function (error) {
-                          $('.loading').css('display','none');
-                          console.log(error);
-                          Swal.fire({
-                              title: 'Lỗi về file muốn nhập !',
-                              // text: "You won't be able to revert this!",
-                              icon: 'warning',
-                              confirmButtonColor: '#3085d6',
-                              confirmButtonText: 'Xác nhận'
-                              }).then((result) => {
-                              if (result.value) {  
-                                  window.location.reload();
-                              }else{
-                                  window.location.reload();
-                              }
-                            })
-                      });
-                }
-                });
-
-            function clickDownloadTemplate(){
-               $('#exampleModal').modal('hide');
-            }
-
-</script>
-<script>
-
     $(document).ready(function(){
         $('#co_so_id').select2();
         $('#devvn_quanhuyen').select2();

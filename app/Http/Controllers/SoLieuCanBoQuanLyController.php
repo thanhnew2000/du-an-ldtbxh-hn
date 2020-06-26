@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests\SoLieuCanBoQuanLy\UpdateRequest;
 use App\Models\SoLieuCanBoQuanLy;
 use App\CoSoDaoTao;
+use Storage;
 
 class SoLieuCanBoQuanLyController extends Controller
 {
@@ -161,5 +162,59 @@ class SoLieuCanBoQuanLyController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    // thanhvn update change service 6/24/2020
+    public function exportBieuMau(Request $request){
+        $id_co_so = $request->id_cs;
+        $this->soLieuCBQLService->exportBieuMau($id_co_so);
+    }
+    
+    public function exportData(Request $request){
+        $listCoSoId = $request->truong_id;
+        $nam_muon_xuat = $request->nam_muon_xuat;
+        $dot_muon_xuat = $request->dot_muon_xuat;
+
+        $this->soLieuCBQLService->exportData($listCoSoId ,$nam_muon_xuat,$dot_muon_xuat);
+    }
+
+    public function importFile(Request $request){
+        $dot=$request->dot;
+        $year=$request->nam;
+        $nameFile=$request->file->getClientOriginalName();
+        $nameFileArr=explode('.',$nameFile);
+        $duoiFile=end($nameFileArr);
+        
+        $fileRead = $_FILES['file']['tmp_name'];
+        $kq =  $this->soLieuCBQLService->importFile($fileRead, $duoiFile, $year, $dot);
+
+        if($kq=='errorkitu'){
+                return response()->json('exportError',200);   
+        }else if($kq=='ok'){
+                return response()->json('ok',200); 
+        }else if($kq=='nhapKhongDungDong'){
+                return response()->json(['messageError' => 'Chỉ nhập đúng dòng trường đã chọn' ],200);   
+        }else if($kq=='noCorrectIdTruong'){
+            return response()->json(['messageError' => ' Trường không đúng hãy nhập lại' ],200);   
+        }else{
+            return response()->json(['messageError' => $kq ],200);   
+        }
+    }
+
+    public function importError(Request $request){
+        $dot=$request->dot;
+        $year=$request->nam;
+
+        $nameFile=$request->file_import->getClientOriginalName();
+        $nameFileArr=explode('.',$nameFile);
+        $duoiFile=end($nameFileArr);
+
+        $fileRead = $_FILES['file_import']['tmp_name'];
+        $pathLoad = Storage::putFile(
+            'uploads/excels',
+            $request->file('file_import')
+        );
+        $path = str_replace('/', '\\', $pathLoad);  
+        $this->soLieuCBQLService->importError($fileRead, $duoiFile,$path);
     }
 }

@@ -31,6 +31,8 @@ use App\Http\Requests\DoiNguNhaGiao\ExportRequest;
 use App\Http\Requests\DoiNguNhaGiao\ExportBieuMauRequest;
 use App\Http\Requests\DoiNguNhaGiao\ImportRequest;
 use Psy\Readline\Readline;
+
+use App\Http\Requests\Excel\ExportDuLieu;
 use Storage;
 
 class ExtractController extends Controller
@@ -727,7 +729,7 @@ class ExtractController extends Controller
         $this->ChiTieuTuyenSinhService->exportBieuMau($id_co_so);
     }
 
-    public function exportDataBm8(Request $request){
+    public function exportDataBm8(ExportDuLieu $request){
         $listCoSoId = $request->truong_id;
         $dateFrom = $request->dateFrom;
         $dateTo = $request->dateTo;
@@ -787,7 +789,7 @@ class ExtractController extends Controller
         $id_co_so = $request->id_cs;
         $this->HopTacQuocTeService->exportBieuMau($id_co_so);
     }
-    public function exportDatabm13(Request $request){
+    public function exportDatabm13(ExportDuLieu $request){
         $listCoSoId = $request->truong_id;
         $dateFrom = $request->dateFrom;
         $dateTo = $request->dateTo;
@@ -835,6 +837,56 @@ class ExtractController extends Controller
         $this->HopTacQuocTeService->importError($fileRead, $duoiFile,$path);
     }
 
+    // thanhnv update change service bm4 6/25/2020
 
-  
+    public function exportBieuMaubm4(Request $request){
+        $id_co_so = $request->id_cs;
+        $this->QlsvService->exportBieuMau($id_co_so);
+    }
+    public function exportDatabm4(Request $request){
+        $listCoSoId = $request->truong_id;
+        $nam_muon_xuat = $request->nam_muon_xuat;
+        $dot_muon_xuat = $request->dot_muon_xuat;
+        $this->QlsvService->exportData($listCoSoId ,$nam_muon_xuat,$dot_muon_xuat);
+    }
+    public function importFilebm4(Request $request){
+        $dot=$request->dot;
+        $year=$request->nam;
+        $nameFile=$request->file->getClientOriginalName();
+        $nameFileArr=explode('.',$nameFile);
+        $duoiFile=end($nameFileArr);
+        
+        $fileRead = $_FILES['file']['tmp_name'];
+        $kq =  $this->QlsvService->importFile($fileRead, $duoiFile, $year, $dot);
+
+        if($kq=='errorkitu'){
+                return response()->json('exportError',200);   
+        }else if($kq=='ok'){
+                return response()->json('ok',200); 
+        }else if($kq=='NgheUnsign'){
+                return response()->json(['messageError' => ' Số lượng nghề nhập không phù hợp với lượng nghề đã đăng kí' ],200);   
+        }else if($kq=='noCorrectIdTruong'){
+            return response()->json(['messageError' => ' Trường không đúng hãy nhập lại' ],200);   
+        }else if($kq=='ngheKoThuocTruong'){
+            return response()->json(['messageError' => 'Có nghề không thuộc trong trường' ],200);   
+        }else{
+            return response()->json(['messageError' => $kq ],200);   
+        }
+    }
+
+    public function importErrorbm4(Request $request){
+        $dot=$request->dot;
+        $year=$request->nam;
+        $nameFile=$request->file_import->getClientOriginalName();
+        $nameFileArr=explode('.',$nameFile);
+        $duoiFile=end($nameFileArr);
+
+        $fileRead = $_FILES['file_import']['tmp_name'];
+        $pathLoad = Storage::putFile(
+            'uploads/excels',
+            $request->file('file_import')
+        );
+        $path = str_replace('/', '\\', $pathLoad);  
+        $this->QlsvService->importError($fileRead, $duoiFile,$path);
+    }
 }

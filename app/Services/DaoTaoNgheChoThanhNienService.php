@@ -292,8 +292,7 @@ class DaoTaoNgheChoThanhNienService extends AppService
                 $bacDaoTaoId = $co_s->loai_truong;
 
                 $bacDaoTao = $this->bacDaoTaoOfTruong($co_s->loai_truong);
-
-              $worksheet->setCellValue('B' . $row, $bacDaoTao);
+                  $worksheet->setCellValue('B' . $row, $bacDaoTao);
 
                 $worksheet->getStyle("B{$row}")->getFont()->setBold(true);
                 $lockRange = "A{$row}:AE{$row}";
