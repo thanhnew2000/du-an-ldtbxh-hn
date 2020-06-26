@@ -117,7 +117,9 @@
                         <th colspan="7">Kết quả tuyển sinh Trung cấp</th>
                         <th colspan="4">Kết quả tuyển sinh Sơ cấp</th>
                         <th colspan="4">Kết quả tuyển sinh Khác</th>
+                        @can('sua_chi_tiet_tong_hop_ket_qua_tuyen_sinh')
                         <th rowspan="2">Thao tác</th>
+                        @endcan
                     </tr>
                     <tr class="pt-3 row2">
                         <th>Tổng</th>
@@ -203,13 +205,13 @@
                         <td>{{$item->so_luong_sv_nu_khac}}</td>
                         <td>{{$item->so_luong_sv_dan_toc_khac}}</td>
                         <td>{{$item->so_luong_sv_ho_khau_HN_khac}}</td>
+                        @can('sua_chi_tiet_tong_hop_ket_qua_tuyen_sinh')
                         <td>
-                            @can('sua_chi_tiet_tong_hop_ket_qua_tuyen_sinh')
                             @if ($item->trang_thai<3) <a href="{{route('suasolieutuyensinh',['id'=>$item->id])}}">
                                 Sửa</a>
                                 @endif
-                                @endcan
                         </td>
+                        @endcan
                     </tr>
                     @endforeach
 

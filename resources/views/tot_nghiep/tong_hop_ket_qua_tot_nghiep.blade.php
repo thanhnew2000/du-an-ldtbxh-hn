@@ -237,6 +237,7 @@
                     <th scope="col">Xã Phường Thị Trấn</th>
                     <th scope="col">Tổng số sinh viên tốt nghiệp</th>
                     <th scope="col">Trạng thái</th>
+                    <th scope="col">Chức năng</th>
                     @can('them_moi_tong_hop_ket_qua_tot_nghiep')
                     <th>
                         <a href="{{ route('xuatbc.them-tong-hop') }}" class="btn btn-success btn-sm">Thêm mới</a>

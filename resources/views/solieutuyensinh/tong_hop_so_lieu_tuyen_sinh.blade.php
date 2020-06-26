@@ -73,7 +73,6 @@
                                 <div class="col-lg-8">
                                     <select class="form-control" name="nam" id="nam">
                                         <option value="" selected disabled>Chọn</option>
-
                                         @foreach (config('common.nam_tuyen_sinh.list') as $item)
                                         <option @if (isset($params['nam']))
                                             {{( $params['nam'] ==  $item ) ? 'selected' : ''}} @endif value="{{$item}}">
@@ -88,9 +87,9 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Nghề cấp 2</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control nganh_nghe" onchange="getNgheTheoCapBac(this)" @if
-                                        (isset($params['nganh_nghe']))
+                                    <select @if (isset($params['nganh_nghe']))
                                         name="{{strlen($params['nganh_nghe'])==3?'nganh_nghe':''}}" @endif
+                                        class="form-control nganh_nghe" onchange="getNgheTheoCapBac(this)"
                                         id="nghe_cap_2">
                                         <option value="" selected>Chọn</option>
                                         @foreach ($nghe_cap_2 as $item)
@@ -128,9 +127,9 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Nghề cấp 3</label>
                                 <div class="col-lg-8">
-                                    <<<<<<< HEAD <select class="form-control nganh_nghe"
-                                        onchange="getNgheTheoCapBac(this)" @if (isset($params['nganh_nghe']))
+                                    <select @if (isset($params['nganh_nghe']))
                                         name="{{strlen($params['nganh_nghe'])==5?'nganh_nghe':''}}" @endif
+                                        class="form-control nganh_nghe" onchange="getNgheTheoCapBac(this)"
                                         id="nghe_cap_3">
                                         <option value="" selected>Chọn</option>
                                         @foreach ($nghe_cap_3 as $item)
@@ -138,20 +137,8 @@
                                             {{( substr($params['nganh_nghe'],0,5) ==  $item->id ) ? 'selected' : ''}}
                                             @endif value="{{$item->id}}">{{$item->id}}-{{$item->ten_nganh_nghe}}
                                         </option>
-                                        =======
-                                        <select class="form-control nganh_nghe" onchange="getNgheTheoCapBac(this)" @if
-                                            (isset($params['nganh_nghe']))
-                                            name="{{strlen($params['nganh_nghe'])==5?'nganh_nghe':''}}" @endif
-                                            id="nghe_cap_3">
-                                            <option value="" selected>Chọn</option>
-                                            @foreach ($nghe_cap_3 as $item)
-                                            <option @if (isset($params['nganh_nghe']))
-                                                {{( substr($params['nganh_nghe'],0,5) ==  $item->id ) ? 'selected' : ''}}
-                                                @endif value="{{$item->id}}">{{$item->id}}-{{$item->ten_nganh_nghe}}
-                                            </option>
-                                            >>>>>>> master
-                                            @endforeach
-                                        </select>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -177,9 +164,9 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Nghề cấp 4</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control nganh_nghe" onchange="setNameNganhNgheSearch(this)" @if
-                                        (isset($params['nganh_nghe']))
+                                    <select @if (isset($params['nganh_nghe']))
                                         name="{{strlen($params['nganh_nghe'])==7?'nganh_nghe':''}}" @endif
+                                        class="form-control nganh_nghe" onchange="setNameNganhNgheSearch(this)"
                                         id="nghe_cap_4">
                                         <option value="" selected>Chọn</option>
                                         @foreach ($nghe_cap_4 as $item)
@@ -239,12 +226,6 @@
                     aria-hidden="true"></i>
                 Xuất dữ liệu ra Excel</a>
         </div>
-        <div class="col-lg-6 " style="text-align: right">
-            @can('them_moi_tong_hop_ket_qua_tuyen_sinh')
-            <a href="{{route('themsolieutuyensinh')}}"><button type="button" class="btn btn-secondary">Thêm
-                    mới</button></a>
-            @endcan
-        </div>
     </div>
     <div class="m-portlet">
         <div class="m-portlet__body">
@@ -276,8 +257,14 @@
                         <th scope="col">Kết quả tuyển sinh</th>
                         <th scope="col">Kế hoạch tuyển sinh</th>
                         <th scope="col">Trạng thái</th>
+                        @can('xem_chi_tiet_tong_hop_ket_qua_tuyen_sinh')
+                        <th scope="col">Chức năng</th>
+                        @endcan
                         <!-- <th scope="col">Chỉnh sửa</th> -->
-                        <th scope="col">Thao tác</th>
+                        @can('them_moi_tong_hop_ket_qua_tuyen_sinh')
+                        <th scope="col"> <a href="{{route('themsolieutuyensinh')}}" class="btn btn-success btn-sm">Thêm
+                                mới</a></th>
+                        @endcan
                     </tr>
                 </thead>
                 <tbody>
@@ -305,7 +292,6 @@
                         ])}}">Chi tiết</a>
                         </td>
                         @endcan
-
                     </tr>
                     @endforeach
 
@@ -364,93 +350,86 @@
                         <div class="form-group">
                             <label for="">Chọn năm</label>
                             <select name="nam" id="nam_id" class="form-control">
-                                <<<<<<< HEAD <option value="2020">2020</option>
-                                    <option value="2019">2019</option>
-                                    <option value="2018">2018</option>
-                                    <option value="2017">2017</option>
-                                    <option value="2016">2016</option>
+                                <option value="2020">2020</option>
+                                <option value="2019">2019</option>
+                                <option value="2018">2018</option>
+                                <option value="2017">2017</option>
+                                <option value="2016">2016</option>
                             </select>
                         </div>
-                        =======
-                        <option value="2020">2020</option>
-                        <option value="2019">2019</option>
-                        <option value="2018">2018</option>
-                        <option value="2017">2017</option>
-                        <option value="2016">2016</option>
-                        </select>
-                    </div>
-                    >>>>>>> master
 
-                    <div class="form-group">
-                        <label for="">Chọn đợt</label>
-                        <select name="dot" id="dot_id" class="form-control">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                        </select>
-                    </div>
+                        <div class="form-group">
+                            <label for="">Chọn đợt</label>
+                            <select name="dot" id="dot_id" class="form-control">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </div>
 
-                </div>
-                <div class="modal-footer">
-                    <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoi">
-                    </p>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                    <button type="button" class="btn btn-primary" id="submitTai">Tải</a>
-                        <button type="submit" hidden class="btn btn-primary" id="submitTaiok">Tải ok</a>
+                    </div>
+                    <div class="modal-footer">
+                        <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoi">
+                        </p>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                        <button type="button" class="btn btn-primary" id="submitTai">Tải</a>
+                            <button type="submit" hidden class="btn btn-primary" id="submitTaiok">Tải ok</a>
+                    </div>
                 </div>
             </div>
         </div>
-</div>
-</form>
+    </form>
 
-<form action="{{route('exportdatatuyensinh')}}" id="" method="post" enctype="multipart/form-data">
-    @csrf
-    <div class="modal fade " id="exampleModalExportData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Xuất dữ liệu</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="">Chọn năm xuất</label>
-                        <select name="nam_muon_xuat" id="nam_id_xuat" class="form-control">
-                            <option value="2020">2020</option>
-                            <option value="2019">2019</option>
-                            <option value="2018">2018</option>
-                            <option value="2017">2017</option>
-                            <option value="2016">2016</option>
-                            <<<<<<< HEAD </select>======= </select>>>>>>>> master </div> <div class="form-group">
-                                <label for="">Chọn đợt xuất</label>
-                                <select name="dot_muon_xuat" id="dot_id_xuat" class="form-control">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                </select>
+    <form action="{{route('exportdatatuyensinh')}}" id="" method="post" enctype="multipart/form-data">
+        @csrf
+        <div class="modal fade " id="exampleModalExportData" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Xuất dữ liệu</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <div class="form-group">
-                        <label for="">Chọn Trường</label>
-                        <select name="truong_id" id="truong_id_xuat" class="form-control">
-                            @foreach($coso as $csdt)
-                            <option value="{{$csdt->id}}">{{$csdt->ten}}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="">Chọn năm xuất</label>
+                            <select name="nam_muon_xuat" id="nam_id_xuat" class="form-control">
+                                <option value="2020">2020</option>
+                                <option value="2019">2019</option>
+                                <option value="2018">2018</option>
+                                <option value="2017">2017</option>
+                                <option value="2016">2016</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Chọn đợt xuất</label>
+                            <select name="dot_muon_xuat" id="dot_id_xuat" class="form-control">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Chọn Trường</label>
+                            <select name="truong_id" id="truong_id_xuat" class="form-control">
+                                @foreach($coso as $csdt)
+                                <option value="{{$csdt->id}}">{{$csdt->ten}}</option>
+                                @endforeach
+                            </select>
+                        </div>
 
-                </div>
-                <div class="modal-footer">
-                    <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoiXuat">
-                    </p>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                    {{-- <button type="button" class="btn btn-primary" id="clickXuatData">Tải</a> --}}
-                    <button type="submit" class="btn btn-primary" id="submitXuatData">Tải</a>
+                    </div>
+                    <div class="modal-footer">
+                        <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoiXuat">
+                        </p>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                        {{-- <button type="button" class="btn btn-primary" id="clickXuatData">Tải</a> --}}
+                        <button type="submit" class="btn btn-primary" id="submitXuatData">Tải</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</form>
+    </form>
 </div>
 
 @endsection
@@ -638,8 +617,8 @@ function clickDownloadTemplate(){
         var new_url = url.toString();
         window.location.href = new_url
       });
-    
-    
+
+
 </script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 @endsection

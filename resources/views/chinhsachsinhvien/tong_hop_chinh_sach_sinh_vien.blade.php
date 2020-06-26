@@ -208,8 +208,9 @@
                         <th rowspan="2">Tổng kinh phí </th>
                         <th rowspan="2">Ghi chú </th>
                         <th rowspan="2">Trạng thái</th>
+                        @can('cap_nhat_tong_hop_thuc_hien_chinh_sach_cho_sv')
                         <th rowspan="2">Thao tác</th>
-
+                        @endcan
                     </tr>
                     <tr class="pt-3 row2">
                         <th>Cao đẳng</th>
@@ -239,14 +240,14 @@
                         <td>{{number_format($item->kinh_phi,'0',',','.')}} </td>
                         <td>{{$item->ghi_chu}}</td>
                         <td>{{$item->ten_trang_thai}}</td>
+                        @can('cap_nhat_tong_hop_thuc_hien_chinh_sach_cho_sv')
                         <td>
-                            @can('cap_nhat_tong_hop_thuc_hien_chinh_sach_cho_sv')
                             @if ($item->trang_thai<3) <a
                                 href="{{route('xuatbc.sua-chinh-sach-sinh-vien', ['id' => $item->id])}}">
                                 Cập nhật</a>
                                 @endif
-                                @endcan
                         </td>
+                        @endcan
                     </tr>
 
                     @endforeach

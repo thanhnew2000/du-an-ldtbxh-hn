@@ -92,6 +92,7 @@
                     <th>Email</th>
                     <th>Số điện thoại</th>
                     <th>Cơ sở đào tạo</th>
+                    <th>Tên quyền</th>
                     <th>Trạng thái</th>
                     @can('them_tai_khoan')
                     <th>
@@ -127,7 +128,7 @@
 
                         <td>{{ $user->phone_number }}</td>
                         <td>{{ $user->ten }}</td>
-
+                        <td>{{ $user->role_name }}</td>
                         <td>
                             <form class="m-form">
 

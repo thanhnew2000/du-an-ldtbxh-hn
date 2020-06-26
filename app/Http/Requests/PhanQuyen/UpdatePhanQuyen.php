@@ -8,11 +8,6 @@ use Spatie\Permission\Models\Role;
 class UpdatePhanQuyen extends FormRequest
 {
 
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
     public function authorize()
     {
         return true;

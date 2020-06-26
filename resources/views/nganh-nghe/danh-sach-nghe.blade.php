@@ -71,6 +71,7 @@
                     <th>Mã Nghề</th>
                     <th>Tên nghề</th>
                     <th>Số trường được cấp</th>
+                    <th>Chức năng</th>
                     @can('them_moi_nganh_nghe')
                     <th>
                         <a href="" class="btn btn-success btn-sm">Thêm mới</a>

@@ -99,6 +99,7 @@
                         <th>Hotline</th>
                         <th>Chi Nhánh</th>
                         <th>Mã chứng nhận</th>
+                        <th>Chức năng</th>
                         @can('them_moi_dia_diem_dao_tao')
                         <th colspan="2"><a href="{{ route('chi-nhanh.tao-moi') }}"
                                 class="btn btn-success btn-sm mr-3">Thêm

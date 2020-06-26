@@ -10,33 +10,41 @@
 use Illuminate\Support\Facades\Route;
 
 //phucnv - Tổng hợp đội ngũ nhà giáo
-Route::group(['prefix' => 'doi-ngu-nha-giao'], function () {
-    Route::get('/tong-hop', 'ExtractController@danhsachnhagiao')
-        ->name('xuatbc.ds-nha-giao');
+Route::group(
+    [
+        'prefix' => 'doi-ngu-nha-giao',
+        'middleware' => ['permission:them_moi_danh_sach_doi_ngu_nha_giao
+                        |cap_nhat_danh_sach_doi_ngu_nha_giao|
+                        chi_tiet_danh_sach_doi_ngu_nha_giao']
+    ],
+    function () {
+        Route::get('/tong-hop', 'ExtractController@danhsachnhagiao')
+            ->name('xuatbc.ds-nha-giao');
 
-    Route::get('/them-ds-nha-giao', 'ExtractController@themDanhSachDoiNguNhaGiao')
-        ->name('xuatbc.them-ds-nha-giao');
-    Route::post('/them-ds-nha-giao', 'ExtractController@saveDanhSachDoiNguNhaGiao');
+        Route::get('/them-ds-nha-giao', 'ExtractController@themDanhSachDoiNguNhaGiao')
+            ->name('xuatbc.them-ds-nha-giao');
+        Route::post('/them-ds-nha-giao', 'ExtractController@saveDanhSachDoiNguNhaGiao');
 
-    Route::get(
-        '/sua-ds-nha-giao/{id}',
-        'ExtractController@suaDanhSachDoiNguNhaGiao'
-    )
-        ->name('xuatbc.sua-ds-nha-giao');
-    Route::post(
-        '/sua-ds-nha-giao/{id}',
-        'ExtractController@updateDanhSachDoiNguNhaGiao'
-    );
+        Route::get(
+            '/sua-ds-nha-giao/{id}',
+            'ExtractController@suaDanhSachDoiNguNhaGiao'
+        )
+            ->name('xuatbc.sua-ds-nha-giao');
+        Route::post(
+            '/sua-ds-nha-giao/{id}',
+            'ExtractController@updateDanhSachDoiNguNhaGiao'
+        );
 
-    Route::get('/nganhnghe/{co_so_id}', 'ExtractController@layNganhNgheTheoCoSo')->name('xuatbc.lay-nganh-nghe-theo-co-so');
+        Route::get('/nganhnghe/{co_so_id}', 'ExtractController@layNganhNgheTheoCoSo')->name('xuatbc.lay-nganh-nghe-theo-co-so');
 
-    Route::get('/chitiet/{co_so_id}', 'ExtractController@chiTietTheoCoSo')->name("xuatbc.chi-tiet-theo-co-so");
-    Route::post('export', 'ExtractController@export')->name('doi-ngu-nha-giao.export');
-    Route::post('export-bieu-mau', 'ExtractController@exportBieuMau')
-        ->name('doi-ngu-nha-giao.export-bieu-mau');
-    Route::post('import', 'ExtractController@import')
-        ->name('doi-ngu-nha-giao.import');
-});
+        Route::get('/chitiet/{co_so_id}', 'ExtractController@chiTietTheoCoSo')->name("xuatbc.chi-tiet-theo-co-so");
+        Route::post('export', 'ExtractController@export')->name('doi-ngu-nha-giao.export');
+        Route::post('export-bieu-mau', 'ExtractController@exportBieuMau')
+            ->name('doi-ngu-nha-giao.export-bieu-mau');
+        Route::post('import', 'ExtractController@import')
+            ->name('doi-ngu-nha-giao.import');
+    }
+);
 //end phucnv - Tổng hợp đội ngũ nhà giáo
 
 
@@ -53,6 +61,9 @@ Route::group(['prefix' => 'doi-ngu-quan-ly'], function () {
 
 Route::group([
     'prefix' => 'so-lieu-sinh-vien-dang-theo-hoc',
+    'middleware' => ['permission:xem_so_luong_sinh_vien_dang_theo_hoc
+    |sua_so_luong_sinh_vien_dang_theo_hoc
+    |them_so_luong_sinh_vien_dang_theo_hoc']
 ], function () {
     Route::get('/', 'ExtractController@tonghopsvdanghoc')
         ->name('xuatbc.ds-sv-dang-hoc');
@@ -83,7 +94,9 @@ Route::group([
 
 //Xuân - Chính sách sinh viên
 Route::group([
-    'prefix' => 'chinh-sach-sinh-vien'
+    'prefix' => 'chinh-sach-sinh-vien',
+    'middleware' => ['permission:them_moi_tong_hop_thuc_hien_chinh_sach_cho_sv|
+    cap_nhat_tong_hop_thuc_hien_chinh_sach_cho_sv']
 ], function () {
     Route::get(
         '/tong-hop',
@@ -117,7 +130,12 @@ Route::group([
 });
 //END Xuân - Chính sách sinh viên
 
-Route::group(['prefix' => 'ket-qua-tuyen-sinh'], function () {
+Route::group([
+    'prefix' => 'ket-qua-tuyen-sinh',
+    'middleware' => ['permission:them_moi_tong_hop_ket_qua_tuyen_sinh|
+            xem_chi_tiet_tong_hop_ket_qua_tuyen_sinh|
+            sua_chi_tiet_tong_hop_ket_qua_tuyen_sinh']
+], function () {
     Route::get('/tong-hop', 'ExtractController@tonghopkqtuyensinh')
         ->name('xuatbc.ds-ket-qua-ts');
     // thanhnv thêm xuất form nhập cho người dùng nhập Import
