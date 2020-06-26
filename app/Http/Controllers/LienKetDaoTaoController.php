@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\LienKetDaoTaoService;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\SoLieuTuyenSinh\StoreRequest;
 use App\Http\Requests\validateUpdateLienKetDaoTao;
+use Storage;
 
 class LienKetDaoTaoController extends Controller
 {
-    protected $ChinhSachSinhVienService;
+    protected $LienKetDaoTaoService;
 
     public function __construct(LienKetDaoTaoService $LienKetDaoTaoService)
     {
@@ -18,8 +20,12 @@ class LienKetDaoTaoController extends Controller
     public function tonghoplienketdaotao()
     {
 
-        $limit = 20;
         $params = request()->all();
+        if (isset(request()->page_size)) {
+            $limit = request()->page_size;
+        } else {
+            $limit = 20;
+        }
         $data = $this->LienKetDaoTaoService->getTongHopLienKetDaoTao($params, $limit);
 
         $quanhuyen = $this->LienKetDaoTaoService->getTenQuanHuyen();
@@ -53,8 +59,12 @@ class LienKetDaoTaoController extends Controller
     public function tonghoplienketdaotaotheotrinhdo($id)
     {
 
-        $limit = 20;
         $params = request()->all();
+        if (isset(request()->page_size)) {
+            $limit = request()->page_size;
+        } else {
+            $limit = 20;
+        }
         $data = $this->LienKetDaoTaoService->getTongHopLienKetDaoTaoTheoTrinhDo($params, $limit, $id);
         $quanhuyen = $this->LienKetDaoTaoService->getTenQuanHuyen();
         if (isset(request()->devvn_quanhuyen)) {
@@ -69,7 +79,13 @@ class LienKetDaoTaoController extends Controller
         $loai_hinh = $this->LienKetDaoTaoService->getLoaiHinhCoSo();
         $coso = $this->LienKetDaoTaoService->getCoSo();
         $data->appends(request()->input())->links();
-
+        $title = "";
+        if ($id == 5) {
+            $title = "Liên kết đào tạo trình độ Trung Cấp lên Đại Học";
+        }
+        if ($id == 6) {
+            $title = "Liên kết đào tạo trình độ Cao Đẳng lên Đại Học";
+        }
 
         return view('lien-ket-dao-tao.tong-hop-lien-ket-dao-tao', compact(
             'data',
@@ -82,7 +98,8 @@ class LienKetDaoTaoController extends Controller
             'nghe_cap_4',
             'loai_hinh',
             'coso',
-            'bac_nghe'
+            'bac_nghe',
+            'title'
         ));
     }
     public function getmanganhnghe(Request $request)
@@ -101,7 +118,13 @@ class LienKetDaoTaoController extends Controller
     public function chitietlienketdaotao($co_so_id, $bac_nghe)
     {
 
-        $limit = 20;
+        $params = request()->all();
+        if (isset(request()->page_size)) {
+            $limit = request()->page_size;
+        } else {
+            $limit = 20;
+        }
+
         $params = request()->all();
         $data = $this->LienKetDaoTaoService->chitietlienketdaotao($co_so_id, $params, $limit, $bac_nghe);
         $data->appends(request()->input())->links();
@@ -118,11 +141,11 @@ class LienKetDaoTaoController extends Controller
         return view('lien-ket-dao-tao.chinh-sua-lien-ket-dao-tao', compact('data', 'bac_nghe'));
     }
 
-    public function postsualienketdaotao($id, validateUpdateLienKetDaoTao $request, $bac_nghe)
+    public function postsualienketdaotao($id, validateUpdateLienKetDaoTao $request, $bac_nghe, $co_so_id)
     {
 
         $data = $this->LienKetDaoTaoService->update($id, $request);
-        return redirect()->route('xuatbc.sua-lien-ket-dao-tao', ['id' => $id, 'bac_nghe' => $bac_nghe])->with('thongbao', 'Cập nhật số liệu chính sách sinh viên thành công');
+        return redirect()->route('xuatbc.chi-tiet-lien-ket-dao-tao', ['co_so_id' => $co_so_id, 'bac_nghe' => $bac_nghe])->with('thongbao_update', 'Cập nhật số liệu thành công');
     }
 
     public function themlienketdaotao()
@@ -131,7 +154,7 @@ class LienKetDaoTaoController extends Controller
         return view('lien-ket-dao-tao.them-moi-lien-ket-dao-tao', compact('data'));
     }
 
-    public function postthemlienketdaotao(Request $request)
+    public function postthemlienketdaotao(StoreRequest $request)
     {
         $requestParams = $request->all();
 
@@ -176,5 +199,70 @@ class LienKetDaoTaoController extends Controller
                 'result' => route('xuatbc.post-sua-lien-ket-dao-tao', ['id' => $getdata->id, 'bac_nghe' => 0]),
             ]);
         }
+    }
+
+    public function exportForm(Request $request)
+    {
+        $id_co_so = $request->id_cs;
+        $this->LienKetDaoTaoService->exportBieuMau($id_co_so);
+    }
+    public function exportData(Request $request)
+    {
+        $listCoSoId = $request->truong_id;
+        $dateFrom = $request->dateFrom;
+        $dateTo = $request->dateTo;
+
+        $changeFrom = strtotime($dateFrom);
+        $fromDate = date("Y-m-d", $changeFrom);
+
+        $changeTo = strtotime($dateTo);
+        $toDate = date("Y-m-d", $changeTo);
+        $this->LienKetDaoTaoService->exportData($listCoSoId, $fromDate, $toDate);
+    }
+
+
+    public function importFile(Request $request)
+    {
+        $dot = $request->dot;
+        $year = $request->nam;
+        $nameFile = $request->file->getClientOriginalName();
+        $nameFileArr = explode('.', $nameFile);
+        $duoiFile = end($nameFileArr);
+
+        // $fileRead = $_FILES['file']['tmp_name'];
+        $fileRead = $_FILES['file']['tmp_name'];
+        $kq =  $this->LienKetDaoTaoService->importFile($fileRead, $duoiFile, $year, $dot);
+
+        if ($kq == 'errorkitu') {
+            return response()->json('exportError', 200);
+        } else if ($kq == 'ok') {
+            return response()->json('ok', 200);
+        } else if ($kq == 'NgheUnsign') {
+            return response()->json(['messageError' => ' Số lượng nghề không phù hợp với nghề đã đăng kí'], 200);
+        } else if ($kq == 'noCorrectIdTruong') {
+            return response()->json(['messageError' => ' Trường không đúng '], 200);
+        } else if ($kq == 'ngheKoThuocTruong') {
+            return response()->json(['messageError' => 'Có nghề không thuộc trong trường'], 200);
+        } else {
+            return response()->json(['messageError' => $kq], 200);
+        }
+    }
+
+    public function importError(Request $request)
+    {
+        $dot = $request->dot;
+        $year = $request->nam;
+
+        $nameFile = $request->file_import->getClientOriginalName();
+        $nameFileArr = explode('.', $nameFile);
+        $duoiFile = end($nameFileArr);
+
+        $fileRead = $_FILES['file_import']['tmp_name'];
+        $pathLoad = Storage::putFile(
+            'uploads/excels',
+            $request->file('file_import')
+        );
+        $path = str_replace('/', '\\', $pathLoad);
+        $this->LienKetDaoTaoService->importError($fileRead, $duoiFile, $path);
     }
 }

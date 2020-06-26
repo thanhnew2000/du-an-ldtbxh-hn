@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Services\SinhVienTotNghiepService;
+use App\Http\Requests\TotNghiep\UpdateRequest;
+use App\Http\Requests\TotNghiep\StoreRequest;
 
-use App\Http\Requests\TotNghiep\StoreUpdateRequest;
 class SinhVienTotNghiepController extends Controller
 {
     protected $SinhVienTotNghiepService;
@@ -57,7 +57,11 @@ class SinhVienTotNghiepController extends Controller
     }
     public function show($coSoId)
     {
-        $limit=10;
+        if(isset(request()->page_size)){
+            $limit = request()->page_size;
+        }else{
+            $limit = 20;
+        }
         $params = request()->all();
         $thongtincoso = $this->SinhVienTotNghiepService->getThongTinCoSo($coSoId);
         $data = $this->SinhVienTotNghiepService->getChiTietTongHopTotNghiep($coSoId,$limit,$params);
@@ -75,7 +79,7 @@ class SinhVienTotNghiepController extends Controller
         return view('tot_nghiep.sua_tong_hop_ket_qua_tot_nghiep',['data_tuyen_sinh_id'=>$data_tuyen_sinh_id]);
     }
 
-    public function update($id,StoreUpdateRequest $request)
+    public function update($id,UpdateRequest $request)
     {
         $data = $this->SinhVienTotNghiepService->update($id,$request);
         $data_tot_nghiep =$this->SinhVienTotNghiepService->findById($id);
@@ -87,7 +91,7 @@ class SinhVienTotNghiepController extends Controller
         $data = $this->SinhVienTotNghiepService->getTenCoSoDaoTao();
         return view('tot_nghiep.them_tong_hop_ket_qua_tot_nghiep',compact('data'));
     }
-    public function store(StoreUpdateRequest $request)
+    public function store(StoreRequest $request)
     {
         $requestParams = $request->all();
         $data = [

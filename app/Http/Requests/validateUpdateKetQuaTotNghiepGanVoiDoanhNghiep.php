@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\DaoTaoThanhNien;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreUpdateRequest extends FormRequest
+class validateUpdateKetQuaTotNghiepGanVoiDoanhNghiep extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,11 +25,12 @@ class StoreUpdateRequest extends FormRequest
     {
         $data = $this->all();
         unset($data['_token']);
-        $getDataCheck=[];
-        foreach ($data as $item=>$value) {
-            if($value == null){
+        unset($data['ten_doanh_nghiep']);
+        $getDataCheck = [];
+        foreach ($data as $item => $value) {
+            if ($value == null) {
                 $getDataCheck[$item] = 'min:0|';
-            }else{
+            } else {
                 $getDataCheck[$item] = 'min:0|integer|';
             }
         }
@@ -48,9 +49,9 @@ class StoreUpdateRequest extends FormRequest
     {
         $data = $this->all();
         unset($data['_token']);
-        $attributes=[];
-        foreach ($data as $item=>$value) {
-            $attributes[$item]="Nhập số";
+        $attributes = [];
+        foreach ($data as $item => $value) {
+            $attributes[$item] = "Nhập số";
         }
         return $attributes;
     }
