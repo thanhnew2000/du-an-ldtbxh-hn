@@ -53,6 +53,7 @@ class ChinhSachSinhVienValidate extends FormRequest
     {
         $data = $this->all();
         unset($data['_token']);
+        unset($data['ghi_chu']);
         $attributes = [];
         foreach ($data as $item => $value) {
             $attributes[$item] = "Nhập số";
