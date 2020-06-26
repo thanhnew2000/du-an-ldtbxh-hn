@@ -50,10 +50,6 @@
             <form action="" method="get" class="m-form">
                 <div class="m-portlet__body">
                     <div class="m-form__section m-form__section--first">
-
-
-
-
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group m-form__group row">
@@ -103,7 +99,16 @@
     <div class="m-portlet">
         <div class="m-portlet__body">
             <div class="col-12 form-group m-form__group d-flex justify-content-end">
-
+                <label class="col-lg-2 col-form-label">Kích thước:</label>
+                <div class="col-lg-2">
+                    <select class="form-control" id="page-size">
+                        @foreach(config('common.paginate_size.list') as $size)
+                        <option @if (isset($params['page_size']))
+                            {{( $params['page_size'] ==  $size ) ? 'selected' : ''}} @endif value="{{$size}}">{{$size}}
+                        </option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
             <table class="table table-bordered m-table  m-table--head-bg-primary">
                 <thead>
@@ -112,7 +117,7 @@
                         <th scope="col 1">Năm</th>
                         <th scope="col 1">Đợt</th>
                         <th scope="col 1">Mã nghề</th>
-                        <th scope="col 1">Tên nghề nghề</th>
+                        <th scope="col 1">Tên nghề</th>
                         <th scope="col 1">Chỉ tiêu được giao</th>
                         <th scope="col 1">Thực tuyển</th>
                         <th scope="col 1">Số học sinh tốt nghiệp</th>
@@ -133,8 +138,8 @@
                         <td>{{$item->dot}}</td>
                         <td>{{$item->nghe_id}}</td>
                         <td>{{$item->ten_nganh_nghe}}</td>
-                        <th>{{$item->chi_tieu}}</th>
-                        <th>{{$item->thuc_tuyen}}</th>
+                        <td>{{$item->chi_tieu}}</td>
+                        <td>{{$item->thuc_tuyen}}</td>
                         <td>{{$item->so_HSSV_tot_nghiep}}</td>
                         <td>{{$item->don_vi_lien_ket}}</td>
                         <td>{{$item->ghi_chu}}</td>
@@ -284,9 +289,21 @@
 
 @endsection
 @section('script')
+@if (session('thongbao_update'))
+<script>
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Cập nhật thành công !',
+        showConfirmButton: false,
+        timer: 3500
+    })
+</script>
+@endif
 <script>
     $(document).ready(function(){
     $('.select2').select2();
     });
 </script>
+<script src="{!! asset('page_size/page_size.js') !!}"></script>
 @endsection

@@ -111,4 +111,25 @@ class ChiTieuTuyenSinhRepository extends BaseRepository implements ChiTieuTuyenS
 
         return $kq;
     }
+
+    // thanhnv 6/21/2020 
+
+    public function getDangKiChiTieuTuyenSinhCsNamDot($id_truong, $year,$dot)
+	{
+		$data =  DB::table('dang_ki_chi_tieu_tuyen_sinh')->where('co_so_id', '=', $id_truong)
+		->where('nam','=',$year)
+		->where('dot','=',$dot)
+		->select('id','nghe_id')->get();
+		return $data;
+	}
+
+    public function getDangKiChiTieuTuyenSinhTimeFromTo($id_truong, $fromDate,$toDate)
+	{
+		$data = DB::table('dang_ki_chi_tieu_tuyen_sinh')->where('dang_ki_chi_tieu_tuyen_sinh.co_so_id', '=',$id_truong)
+		->where('thoi_gian_cap_nhat','>=',$fromDate)
+		->where('thoi_gian_cap_nhat','<=',$toDate)
+		->join('nganh_nghe','nganh_nghe.id','=','dang_ki_chi_tieu_tuyen_sinh.nghe_id')
+		->get();
+		return $data;
+	}
 }

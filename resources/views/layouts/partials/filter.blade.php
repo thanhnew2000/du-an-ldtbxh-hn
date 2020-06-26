@@ -10,7 +10,7 @@
                         <i class="m-menu__link-icon flaticon-web"></i>
                     </span>
                     <h3 class="m-portlet__head-text">
-                        Tổng hợp kết quả<small>tốt nghiệp</small>
+                        Tổng hợp <small>quản lý giáo viên</small>
                     </h3>
                 </div>
             </div>
