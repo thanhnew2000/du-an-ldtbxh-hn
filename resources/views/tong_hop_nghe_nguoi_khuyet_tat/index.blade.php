@@ -2,7 +2,8 @@
 @section('title', "Tổng hợp đào tạo nghề cho người khuyết tật")
 @section('style')
 <link href="{!! asset('/css/main.css') !!}" rel="stylesheet" type="text/css" />
-<link href="{!! asset('tong_hop_nghe_nguoi_khuyet_tat/css/tong_hop_nghe_nguoi_khuyet_tat.css') !!}" rel="stylesheet" type="text/css" />
+<link href="{!! asset('tong_hop_nghe_nguoi_khuyet_tat/css/tong_hop_nghe_nguoi_khuyet_tat.css') !!}" rel="stylesheet"
+    type="text/css" />
 <style>
     .m-table.m-table--border-danger,
     .m-table.m-table--border-danger th,
@@ -97,8 +98,7 @@
                                 <label class="col-lg-2 col-form-label">Nghề cấp 2</label>
                                 <div class="col-lg-8">
                                     <select class="form-control nganh_nghe" onchange="getNgheTheoCapBac(this)"
-                                    name="nghe_cap_2"
-                                    id="nghe_cap_2">
+                                        name="nghe_cap_2" id="nghe_cap_2">
                                         <option value="" selected>Chọn</option>
                                         @foreach ($nghe_cap_2 as $item)
                                         <option @if (isset($params['nghe_cap_2']))
@@ -128,21 +128,20 @@
                                 </div>
                             </div>
                         </div>
-                    
-                     
+
+
                         <div class="col-md-6">
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Nghề cấp 3</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control nganh_nghe" onchange="getNgheTheoCapBac(this)" 
-                                    name="nghe_cap_3"
-                                    id="nghe_cap_3">
-                                        <option value="" selected>Chọn</option>  
+                                    <select class="form-control nganh_nghe" onchange="getNgheTheoCapBac(this)"
+                                        name="nghe_cap_3" id="nghe_cap_3">
+                                        <option value="" selected>Chọn</option>
                                         @foreach ($nghe_cap_3 as $item)
                                         <option @if (isset($params['nghe_cap_3']))
                                             {{($params['nghe_cap_3'] ==  $item->id ) ? 'selected' : ''}} @endif
                                             value="{{$item->id}}">{{$item->id}}-{{$item->ten_nganh_nghe}}</option>
-                                        @endforeach                            
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -164,30 +163,25 @@
                                 </div>
                             </div>
                         </div>
-                      
+
                         <div class="col-md-6">
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Nghề cấp 4</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control nganh_nghe" onchange="setNameNganhNgheSearch(this)" multiple="multiple"
-                                    name="nghe_cap_4[]"
-                                    id="nghe_cap_4">
+                                    <select class="form-control nganh_nghe" onchange="setNameNganhNgheSearch(this)"
+                                        multiple="multiple" name="nghe_cap_4[]" id="nghe_cap_4">
                                         @foreach ($nghe_cap_4 as $item)
-                                        <option
-                                            @if (isset($params['nghe_cap_4']))
-                                                @foreach ($params['nghe_cap_4'] as $params4)
-                                                     {{($params4 ==  $item->id ) ? 'selected' : ''}}
-                                                @endforeach
-                                            @endif
+                                        <option @if (isset($params['nghe_cap_4'])) @foreach ($params['nghe_cap_4'] as
+                                            $params4) {{($params4 ==  $item->id ) ? 'selected' : ''}} @endforeach @endif
                                             value="{{$item->id}}">{{$item->id}}-{{$item->ten_nganh_nghe}}
                                         </option>
-                                        @endforeach    
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
                         </div>
                     </div>
-                     <div class="row pt-4">                   
+                    <div class="row pt-4">
                         <div class="col-md-6 ">
                             <div class="form-group m-form__group row">
                                 <label for="" class="col-lg-2 col-form-label">Xã\Phường</label>
@@ -217,7 +211,7 @@
         </form>
     </div>
     <section class="action-nav d-flex align-items-center justify-content-between mt-4 mb-4">
-    
+
         <div class="col-lg-2">
             <a href="javascript:" data-toggle="modal" data-target="#moDal">
                 <i class="fa fa-download" aria-hidden="true"></i>
@@ -235,7 +229,7 @@
                 Xuất dữ liệu ra Excel</a>
         </div>
 
-</section>
+    </section>
     <div class="m-portlet">
         <div class="m-portlet__body table-responsive">
             <table
@@ -246,7 +240,8 @@
                         <select class="form-control" id="page-size">
                             @foreach(config('common.paginate_size.list') as $size)
                             <option @if (isset($params['page_size']))
-                                {{( $params['page_size'] ==  $size ) ? 'selected' : ''}} @endif value="{{$size}}">{{$size}}
+                                {{( $params['page_size'] ==  $size ) ? 'selected' : ''}} @endif value="{{$size}}">
+                                {{$size}}
                             </option>
                             @endforeach
                         </select>
@@ -263,7 +258,8 @@
                         <th colspan="1">Tốt nghiệp</th>
                         <th colspan="1">Kinh phí thực hiện</th>
                         <th rowspan="2">
-                        <a href="{{route('nhapbc.dao-tao-khuyet-tat.create')}}" class="btn btn-success btn-sm">Thêm mới</a>
+                            <a href="{{route('nhapbc.dao-tao-khuyet-tat.create')}}" class="btn btn-success btn-sm">Thêm
+                                mới</a>
                         </th>
                     </tr>
 
@@ -289,7 +285,7 @@
                         </td>
                     </tr>
                     @endforeach
-                    
+
                 </tbody>
             </table>
         </div>
@@ -301,13 +297,13 @@
 
     <form action="{{route('layformbieumau-dao-tao-khuyet-tat')}}" method="post">
         @csrf
-        <div class="modal fade" id="moDal" tabindex="-1" role="dialog" aria-labelledby="moDalLabel"
-            aria-hidden="true">
+        <div class="modal fade" id="moDal" tabindex="-1" role="dialog" aria-labelledby="moDalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="moDalLabel">Hãy chọn trường</h5>
-                        <button type="button" id="closeFileBieuMau" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" id="closeFileBieuMau" class="close" data-dismiss="modal"
+                            aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -336,7 +332,8 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="moDalLabel">Import file</h5>
-                        <button type="button" id="closeImportFile" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" id="closeImportFile" class="close" data-dismiss="modal"
+                            aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -347,13 +344,13 @@
                         <div class="form-group">
                             <label for="">Chọn năm</label>
                             <select name="nam" id="nam_id" class="form-control">
-                              <option value="2020">2020</option>
-                              <option value="2019">2019</option>
-                              <option value="2018">2018</option>
-                              <option value="2017">2017</option>
-                              <option value="2016">2016</option>
+                                <option value="2020">2020</option>
+                                <option value="2019">2019</option>
+                                <option value="2018">2018</option>
+                                <option value="2017">2017</option>
+                                <option value="2016">2016</option>
                             </select>
-                       </div>
+                        </div>
 
                         <div class="form-group">
                             <label for="">Chọn đợt</label>
@@ -368,7 +365,8 @@
                         <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoi">
                         </p>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                        <button type="button" class="btn btn-primary" id="submitTai"  onclick="closeModal('closeImportFile')">Tải</a>
+                        <button type="button" class="btn btn-primary" id="submitTai"
+                            onclick="closeModal('closeImportFile')">Tải</a>
                             <button type="submit" hidden class="btn btn-primary" id="submitTaiok">Tải ok</a>
                     </div>
                 </div>
@@ -378,13 +376,14 @@
 
     <form action="{{route('exportdata-dao-tao-khuyet-tat')}}" id="" method="post" enctype="multipart/form-data">
         @csrf
-        <div class="modal fade " id="moDalExportData" tabindex="-1" role="dialog"
-            aria-labelledby="moDalLabel" aria-hidden="true">
+        <div class="modal fade " id="moDalExportData" tabindex="-1" role="dialog" aria-labelledby="moDalLabel"
+            aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="moDalLabel">Xuất dữ liệu</h5>
-                        <button type="button" id='closeXuatDuLieu' class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" id='closeXuatDuLieu' class="close" data-dismiss="modal"
+                            aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -397,7 +396,7 @@
                                 <option value="2018">2018</option>
                                 <option value="2017">2017</option>
                                 <option value="2016">2016</option>
-                              </select>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="">Chọn đợt xuất</label>
@@ -429,7 +428,8 @@
                         <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoiXuat">
                         </p>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                        <button type="submit" class="btn btn-primary" id="submitXuatData" onclick="closeModal('closeXuatDuLieu')">Tải</a>
+                        <button type="submit" class="btn btn-primary" id="submitXuatData"
+                            onclick="closeModal('closeXuatDuLieu')">Tải</a>
                     </div>
                 </div>
             </div>
@@ -440,10 +440,9 @@
 
     @endsection
     @section('script')
-    
+
     <script src="{{ asset('js/so_lieu_tuyen_sinh/tong_hop_so_lieu.js') }}"></script>
     <script>
-
         $('.select2').select2();
          $('span.select2').css('width', '100%');
 
@@ -646,6 +645,6 @@
           });
         
         
-        </script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
     @endsection

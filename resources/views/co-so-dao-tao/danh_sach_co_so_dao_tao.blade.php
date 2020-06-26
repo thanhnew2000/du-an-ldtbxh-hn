@@ -26,7 +26,8 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Tên cơ sở:</label>
                                 <div class="col-lg-8">
-                                    <input type="text" value="{{ $params['ten_co_so'] }}" name="ten_co_so" class="form-control m-input" placeholder="từ khóa tên cơ sở">
+                                    <input type="text" value="{{ $params['ten_co_so'] }}" name="ten_co_so"
+                                        class="form-control m-input" placeholder="từ khóa tên cơ sở">
                                 </div>
                             </div>
                         </div>
@@ -51,7 +52,8 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Mã đơn vị:</label>
                                 <div class="col-lg-8">
-                                    <input type="text" name="ma_don_vi" value="{{ $params['ma_don_vi'] }}" class="form-control m-input" placeholder="mã đơn vị">
+                                    <input type="text" name="ma_don_vi" value="{{ $params['ma_don_vi'] }}"
+                                        class="form-control m-input" placeholder="mã đơn vị">
                                 </div>
 
                             </div>
@@ -66,7 +68,7 @@
                                         @foreach ($quanhuyen as $qh)
                                         <option value="{{ $qh->maqh}}" @if ($params['quanhuyen']==$qh->maqh )
                                             {{ 'selected' }}
-                                            @endif">{{ $qh->name }}</option>
+                                            @endif>{{ $qh->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -90,7 +92,7 @@
                 <strong>{!! \Session::get('mess') !!}</strong>
             </div>
             @endif
-            <table class="table m-table m-table--head-bg-brand">
+            <table class="table m-table m-table--head-bg-brand table-responsive">
                 <thead>
                     <th>STT</th>
                     <th>Tên cơ sở đào tạo</th>
@@ -115,7 +117,8 @@
                         <td>{{$csdt->qd_ten}}</td>
                         <td>{{$csdt->dia_chi}}</td>
                         <td class="d-flex">
-                            <a href="{{route('csdt.chi-tiet', ['id'=> $csdt->id])}}" class="btn btn-info btn-sm mr-3">Chi
+                            <a href="{{route('csdt.chi-tiet', ['id'=> $csdt->id])}}"
+                                class="btn btn-info btn-sm mr-3">Chi
                                 tiết</a>
                             <a href="{{route('csdt.cap-nhat', ['id'=> $csdt->id])}}" class="btn btn-primary btn-sm">Cập
                                 nhật</a>
@@ -135,8 +138,8 @@
 @section('script')
 <script>
     $(document).ready(function() {
-        $('#devvn_quanhuyen').select2();
-    });
+            $('#devvn_quanhuyen').select2();
+        });
 </script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 @endsection

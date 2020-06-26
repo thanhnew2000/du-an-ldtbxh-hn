@@ -41,7 +41,6 @@
                                     {{ $message }}
                                     @enderror
                                 </p>
-
                             </div>
 
                             <div class="form-group col-lg-12">

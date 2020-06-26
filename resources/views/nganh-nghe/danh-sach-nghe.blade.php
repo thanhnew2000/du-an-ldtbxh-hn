@@ -84,7 +84,8 @@
                         <td>
                             <a href="{{route('nghe.chi-tiet-nghe', ['ma_nghe' => $cursor->id])}}"
                                 class="btn btn-info btn-sm">Chi tiết</a>
-                            <a href="{{ route('nghe.cap-nhat', ['id'=> $cursor->id]) }}" class="btn btn-primary btn-sm">Cập nhật</a>
+                            <a href="{{ route('nghe.cap-nhat', ['id'=> $cursor->id]) }}"
+                                class="btn btn-primary btn-sm">Cập nhật</a>
                             <a href="" class="btn btn-danger btn-sm">Xóa</a>
                         </td>
                     </tr>
@@ -109,7 +110,6 @@
             var reloadUrl = `${currentUrl}?bac_nghe=${bac_nghe}&keyword=${keyword}&page_size=${page_size}`;
             window.location.href = reloadUrl;
         });
-
     });
 </script>
 @endsection

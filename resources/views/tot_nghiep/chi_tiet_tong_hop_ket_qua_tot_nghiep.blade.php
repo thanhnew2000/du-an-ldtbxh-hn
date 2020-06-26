@@ -16,8 +16,7 @@
     th[colspan="6"],
     th[colspan="7"],
     th[colspan="8"],
-    th[colspan="9"]
-     {
+    th[colspan="9"] {
         border-bottom-width: 1px;
         border-bottom: 1px solid #bcb1b1 !important;
     }
@@ -181,7 +180,6 @@
                         <th>Hộ khẩu Hà Nội</th>
                         {{-- end Trình độ sơ cấp --}}
 
-
                         {{-- start Trình độ sơ cấp --}}
                         <th>Số SV nhập học đầu khóa</th>
                         <th>Số SV đủ điều kiện thi xét TN</th>
@@ -191,7 +189,7 @@
                         <th>Hộ khẩu Hà Nội</th>
                         {{-- end Trình độ sơ cấp --}}
 
-                        
+
                         {{-- start việc làm tốt nghiệp --}}
                         <th>Cao Đẳng</th>
                         <th>Hộ khẩu Hà Nội trình độ Cao Đẳng</th>
@@ -203,7 +201,7 @@
                         <th>Hộ khẩu HN thuộc đối tượng tốt nghiệp THCS</th>
                         {{-- end việc làm tốt nghiệp --}}
 
-                        
+
                         {{-- start việc làm tốt nghiệp --}}
                         <th>Sơ Cấp</th>
                         <th>Hộ khẩu Hà Nội trình độ Sơ Cấp</th>
@@ -261,10 +259,10 @@
                         <td>{{$item->SoLuong_HSSV_TN_Kha_Gioi_CD}}</td>
 
 
-                       
 
 
-                      
+
+
                         <td>{{$item->SoSV_NhapHoc_DauKhoa_TrinhDoTC}}</td>
                         <td>{{$item->SoSV_Du_DieuKienTHhi_XetTN_TrinhDoTC}}</td>
                         <td>{{$item->SoSV_TN_TrinhDoTC}}</td>
@@ -293,9 +291,9 @@
                         <td>{{$item->SoNguoi_HoKhauHN_NgheKhac}}</td>
 
 
-        
 
-                     
+
+
 
                         <td>{{$item->SoNguoi_CoViecLamNgay_SauKhi_TN_CD}}</td>
                         <td>{{$item->CoViecLam_HoKhauHN_TrinhDoCD}}</td>
@@ -312,11 +310,11 @@
                         <td>{{$item->SoNguoi_HoKhauHN_TrinhDo_DaoTao_NgheKhac}}</td>
 
                         <td>{{number_format($item->MucLuong_TB_CD)}}</td>
-                        <td>{{number_format($item->MucLuong_TB_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoCD)}}</td>                                           
+                        <td>{{number_format($item->MucLuong_TB_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoCD)}}</td>
 
                         <td>{{number_format($item->MucLuong_TB_TC)}}</td>
                         <td>{{number_format($item->MucLuong_TB_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoTC)}}</td>
-                                     
+
 
                         <td>{{number_format($item->MucLuong_TB_SC)}}</td>
                         <td>{{number_format($item->MucLuong_TB_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoSC)}}</td>
@@ -324,13 +322,12 @@
                         <td>{{number_format($item->MucLuong_TB_NgheKhac)}}</td>
                         <td>{{number_format($item->MucLuong_TB_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoNgheKhac)}}
                         </td>
-
-
-                        <td>
-                            @if ($item->trang_thai<3) <a href="{{route('xuatbc.sua-tong-hop',['id'=>$item->id])}}">
-                                Sửa</a>
-                                @endif
-                        </td>
+                        <<<<<<< HEAD=======>>>>>>> master
+                            <td>
+                                @if ($item->trang_thai<3) <a href="{{route('xuatbc.sua-tong-hop',['id'=>$item->id])}}">
+                                    Sửa</a>
+                                    @endif
+                            </td>
                     </tr>
                     @endforeach
 

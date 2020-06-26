@@ -37,7 +37,6 @@ Route::get('/dashboard', 'AnalysisController@index')
 
 Route::group(['middleware' => 'auth'], function () {
 
-
      Route::group(['prefix' => 'chart'], function () {
           Route::get('/bieu-do-bao-cao-ngan-sach', 'ChartController@bdbaocaongansach');
           Route::get('/bieu-do-ket-qua-tuyen-sinh', 'ChartController@bdkqtuyensinh');
@@ -54,29 +53,28 @@ Route::group(['middleware' => 'auth'], function () {
 
      Route::group(['prefix' => 'feedback'], function () {
           Route::get('/nhan-tin-bao-loi-he-thong', 'FeedbackController@nhantinbaoloi');
-     });  
-     Route::get('danh-sach-doi-ngu-nha-giao',function(){
+     });
+     Route::get('danh-sach-doi-ngu-nha-giao', function () {
           return view('danhsachdoingunhagioa.danh-sach-doi-ngu-nha-giao');
      })->name('danh');
-     Route::get('them-moi-danh-sach-doi-ngu-nha-giao',function(){
+     Route::get('them-moi-danh-sach-doi-ngu-nha-giao', function () {
           return view('danhsachdoingunhagioa.them-moi-danh-sach-gv');
      })->name('them_ds');
-     Route::get('chinh-sua-danh-sach-doi-ngu-ql',function(){
+     Route::get('chinh-sua-danh-sach-doi-ngu-ql', function () {
           return view('danhsachdoingunhagioa.chinh-sua-danh-sach-doi-ngu-ql');
      })->name('chinh_sua_ql');
-     Route::get('them_ket_qua_hop_tac_quoc_te',function(){
+     Route::get('them_ket_qua_hop_tac_quoc_te', function () {
           return view('ket-qua-hop-tac-quoc-te.them_ket_qua_hop_tac_quoc_te');
      })->name('them_kq_qt');
 
-     Route::get('chinh_sua_ket_qua_hop_tac_quoc_te',function(){
+     Route::get('chinh_sua_ket_qua_hop_tac_quoc_te', function () {
           return view('ket-qua-hop-tac-quoc-te.chinh_sua_ket_qua_hop_tac_quoc_te');
      })->name('chinh_sua_kq_qt');
 
-     Route::get('views_chi_tiet_ket_qua_hop_tac_quoc_te',function(){
+     Route::get('views_chi_tiet_ket_qua_hop_tac_quoc_te', function () {
           return view('ket-qua-hop-tac-quoc-te.views_chi_tiet_ket_qua_hop_tac_quoc_te');
      })->name('views_kq_qt');
-     Route::get('views_ket_qua_hop_tac_quoc_te',function(){
+     Route::get('views_ket_qua_hop_tac_quoc_te', function () {
           return view('ket-qua-hop-tac-quoc-te.views_ket_qua_hop_tac_quoc_te');
      })->name('views_kq_qt');
 });
- 
