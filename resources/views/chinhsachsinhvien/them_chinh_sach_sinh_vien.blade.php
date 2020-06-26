@@ -54,7 +54,7 @@
                                     @error('co_so_id')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
-                                    <label id="co_so_dao_tao-error" class="error" for="co_so_id"></label>
+                                    <label id="co_so_id-error" class="error" for="co_so_id"></label>
                                 </div>
                             </div>
                         </div>
@@ -151,31 +151,42 @@
                     <tbody>
                         <tr>
                             <td>Số Lượng Sinh Viên</td>
-                            <td><input class="form-control" min="0" name="so_hssv_CD" type="number">
+                            <td><input class="form-control name-field" min="0" name="so_hssv_CD" type="number">
                                 @error('so_hssv_CD')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </td>
-                            <td><input class="form-control" min="0" name="so_hssv_TC" type="number">
+                            <td><input class="form-control name-field" min="0" name="so_hssv_TC" type="number">
                                 @error('so_hssv_TC')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </td>
                         </tr>
+                        <tr>
+                            <td></td>
+                            <td><label id="so_hssv_CD-error" class="error" for="so_hssv_CD"></label></td>
+                            <td><label id="so_hssv_TC-error" class="error" for="so_hssv_TC" style=""></label></td>
+                        </tr>
 
                         <tr>
                             <td>Kinh phí</td>
-                            <td><input class="form-control" min="0" name="kinh_phi_CD" type="number">
+                            <td><input class="form-control name-field" min="0" name="kinh_phi_CD" type="number">
                                 @error('kinh_phi_CD')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </td>
-                            <td><input class="form-control" min="0" name="kinh_phi_TC" type="number">
+                            <td><input class="form-control name-field" min="0" name="kinh_phi_TC" type="number">
                                 @error('kinh_phi_TC')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </td>
 
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                            <td><label id="kinh_phi_CD-error" class="error" for="kinh_phi_CD"></label></td>
+                            <td><label id="kinh_phi_TC-error" class="error" for="kinh_phi_TC"></label></td>
                         </tr>
 
                     </tbody>
@@ -205,7 +216,7 @@
                     <tbody>
                         <tr>
                             <td>Tổng số lượng sinh viên</td>
-                            <td><input name="tong_so_hssv" type="number" min="0" step="1" class="form-control">
+                            <td><input name="tong_so_hssv" type="number" min="0" class="form-control name-field">
                                 @error('tong_so_hssv')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -213,7 +224,7 @@
                         </tr>
                         <tr>
                             <td>Tổng kinh phí</td>
-                            <td><input name="kinh_phi" type="number" min="0" step="1" class="form-control">
+                            <td><input name="kinh_phi" type="number" min="0" class="form-control name-field">
                                 @error('kinh_phi')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -258,6 +269,6 @@ $("#page-size").change(function() {
 </script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="{!! asset('chinh_sach_sinh_vien/chinh_sach_sinh_vien.js') !!}"></script>
+<script src="{!! asset('chinh_sach_sinh_vien/validate-create-cssv.js') !!}"></script>
 <script src="{!! asset('chinh_sach_sinh_vien/validate-number.js') !!}"></script>
 @endsection

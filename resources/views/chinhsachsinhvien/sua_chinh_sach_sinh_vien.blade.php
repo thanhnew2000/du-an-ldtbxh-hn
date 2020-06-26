@@ -127,6 +127,11 @@
                             </td>
 
                         </tr>
+                        <tr>
+                            <td></td>
+                            <td><label id="so_hssv_CD-error" class="error" for="so_hssv_CD"></label></td>
+                            <td><label id="so_hssv_TC-error" class="error" for="so_hssv_TC" style=""></label></td>
+                        </tr>
 
                         <tr>
                             <td>Kinh phí</td>
@@ -146,6 +151,11 @@
                                 @enderror
                             </td>
 
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><label id="kinh_phi_CD-error" class="error" for="kinh_phi_CD"></label></td>
+                            <td><label id="kinh_phi_TC-error" class="error" for="kinh_phi_TC"></label></td>
                         </tr>
 
 
@@ -243,7 +253,7 @@ $("#page-size").change(function() {
 });
 </script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
-<script src="{!! asset('lien_ket_dao_tao/validate-update-lkdt.js') !!}"></script>
+<script src="{!! asset('chinh_sach_sinh_vien/validate-update-cssv.js') !!}"></script>
 <script src="{!! asset('chinh_sach_sinh_vien/validate-number.js') !!}"></script>
 @if (session('thongbao'))
 <script>
