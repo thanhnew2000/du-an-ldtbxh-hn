@@ -251,10 +251,12 @@ class ChinhSachSinhVienService extends AppService
                         } 
                         if (count($updateData) > 0) {
                             foreach($updateData as $key => $value)
-                                DB::table('tong_hop_chinh_sach_voi_hssv')->where('id',$key)->update($value);
+                            $this->repository->updateChinhSachSv($key,$value);
+                                // DB::table('tong_hop_chinh_sach_voi_hssv')->where('id',$key)->update($value);
                             }  
                             if (count($arrayToInsert) > 0) {
-                                DB::table('tong_hop_chinh_sach_voi_hssv')->insert($arrayToInsert);
+                            $this->repository->createChinhSachSv($arrayToInsert);
+                                // DB::table('tong_hop_chinh_sach_voi_hssv')->insert($arrayToInsert);
                             }    
             
                         $message='ok';

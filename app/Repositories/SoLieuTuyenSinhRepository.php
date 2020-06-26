@@ -3,8 +3,17 @@ namespace App\Repositories;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\BaseRepository;
 use Carbon\Carbon;
-class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSinhInterface {
+use App\Models\TuyenSinh;
 
+class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSinhInterface {
+	// thanhnv 6/26/2020 them
+	protected $model;
+	public function __construct(TuyenSinh $model)
+	{
+		parent::__construct();
+		$this->model = $model;
+	}
+	
 	//lay model
 	public function getTable(){
 		 //return \App\Products::class;
@@ -227,6 +236,14 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 		->where('dot','=',$dot)
 		->select('id','nghe_id')->get();
 		return $data;
+	}
+
+	// thanhnv 6/26/2020 sửa model create update
+	public function createTuyenSinh($arrayData){
+		return $this->model->create($arrayData);
+	}
+	public function updateTuyenSinh($key,$arrayData){
+		return $this->model->where('id',$key)->update($arrayData);
 	}
 }
  ?>

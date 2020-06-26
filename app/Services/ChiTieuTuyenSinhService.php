@@ -321,11 +321,13 @@ class ChiTieuTuyenSinhService extends AppService
                  }   
                  if (count($updateData) > 0) {
                  foreach($updateData as $key => $value)
-                     DB::table('dang_ki_chi_tieu_tuyen_sinh')->where('id',$key)->update($value);
+                     $this->repository->updateChiTieuTuyenSinh($key,$value);
+                    //  DB::table('dang_ki_chi_tieu_tuyen_sinh')->where('id',$key)->update($value);
                  }  
  
                  if (count($insertData) > 0) {
-                     DB::table('dang_ki_chi_tieu_tuyen_sinh')->insert($insertData);
+                    $this->repository->createChiTieuTuyenSinh($insertData);
+                    //  DB::table('dang_ki_chi_tieu_tuyen_sinh')->insert($insertData);
                  }    
  
                   $message='ok';

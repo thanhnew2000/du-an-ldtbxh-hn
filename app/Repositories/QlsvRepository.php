@@ -6,12 +6,22 @@ namespace App\Repositories;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\QlsvRepositoryInterface;
+use App\Models\QuanLiSinhVienDangTheoHoc;
 use Dotenv\Result\Result;
 
 class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
 {
-
     protected $table;
+    // thanhnv 6/26/2020 thêm model 
+    protected $model;
+
+	public function __construct(QuanLiSinhVienDangTheoHoc $model)
+	{
+		parent::__construct();
+		$this->model = $model;
+    }
+    
+
     public function getTable()
     {
         return 'sv_dang_quan_ly';
@@ -175,4 +185,13 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
        ->orderBy('sv_dang_quan_ly.nghe_id', 'asc')->get();
        return $data;
     }
+
+
+    // thanhnv 6/26/2020 sửa model create update
+	public function createQlSinhVienDangTheoHoc($arrayData){
+		return $this->model->create($arrayData);
+	}
+	public function updateQlSinhVienDangTheoHoc($key,$arrayData){
+		return $this->model->where('id',$key)->update($arrayData);
+	}
 }

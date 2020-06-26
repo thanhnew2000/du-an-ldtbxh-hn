@@ -2,10 +2,19 @@
 namespace App\Repositories;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\BaseRepository;
+use App\Models\TotNghiep;
 use Carbon\Carbon;
 class SinhVienTotNghiepRepository extends BaseRepository implements SinhVienTotNghiepInterface {
 
 	//lay model
+	// thanhnv 6/26/2020 them
+	protected $model;
+	public function __construct(TotNghiep $model)
+	{
+		parent::__construct();
+		$this->model = $model;
+    }
+	
 	public function getTable(){
 		return 'sv_tot_nghiep';
     }
@@ -177,5 +186,13 @@ class SinhVienTotNghiepRepository extends BaseRepository implements SinhVienTotN
 		return $data;
 	}
 
+
+	// thanhnv 6/26/2020 sửa model create update
+	public function createTotNghiep($arrayData){
+		return $this->model->create($arrayData);
+	}
+	public function updateTotNghiep($key,$arrayData){
+		return $this->model->where('id',$key)->update($arrayData);
+	}
 }
  ?>

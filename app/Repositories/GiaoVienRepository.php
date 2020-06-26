@@ -96,4 +96,11 @@ class GiaoVienRepository extends BaseRepository implements GiaoVienRepositoryInt
           ->get();
           return $data;
       }
+
+
+    // thanhnv 6/26/2020 sửa model create update
+	public function createQuanLiGiaoVien($arrayData){
+		return $this->model->create($arrayData);
+	}
+
 }

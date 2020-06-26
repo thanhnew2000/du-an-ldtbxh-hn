@@ -25,7 +25,7 @@ class ExportDuLieu extends FormRequest
     {
         return [
                 'dateFrom' => 'required',
-                'dateTo' => 'required',
+                'dateTo' => 'required|after_or_equal:dateFrom',
                 'truong_id' => 'required',
         ];
     }
@@ -35,6 +35,7 @@ class ExportDuLieu extends FormRequest
             'dateFrom.required' => 'Bạn chưa nhập ngày bắt đầu xuất',
             'dateTo.required' => 'Bạn chưa nhập ngày kết thúc đầu xuất',
             'truong_id.required' => 'Bạn chưa chọn trường',
+            'dateTo.after_or_equal' => 'Sai lệch thời gian',
         ];
     }
 }

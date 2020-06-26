@@ -318,10 +318,12 @@ public function importFile($fileRead, $duoiFile, $year, $dot){
             } 
             if (count($updateData) > 0) {
             foreach($updateData as $key => $value)
-                DB::table('sv_dang_quan_ly')->where('id',$key)->update($value);
+                 $this->repository->updateQlSinhVienDangTheoHoc($key,$value);
+                // DB::table('sv_dang_quan_ly')->where('id',$key)->update($value);
             }  
             if (count($insertData) > 0) {
-                DB::table('sv_dang_quan_ly')->insert($insertData);
+                $this->repository->createQlSinhVienDangTheoHoc($insertData);
+                // DB::table('sv_dang_quan_ly')->insert($insertData);
             }    
             $message='ok';
             return $message;  

@@ -262,9 +262,11 @@ class SoLieuCanBoQuanLyService extends AppService
                         ];
 
                        if(empty($checkSoLieuCanBo)){
-                            DB::table('so_lieu_can_bo_quan_ly')->insert($arrayData);
+                            // DB::table('so_lieu_can_bo_quan_ly')->insert($arrayData);
+                            $this->soLieuCBQLRepository->createSoLieuCanBoQl($arrayData);
                        }else {
-                          DB::table('so_lieu_can_bo_quan_ly')->where('id',$checkSoLieuCanBo->id)->update($arrayData);
+                         //   DB::table('so_lieu_can_bo_quan_ly')->where('id',$checkSoLieuCanBo->id)->update($arrayData);
+                          $this->soLieuCBQLRepository->updateSoLieuCanBoQl($checkSoLieuCanBo->id,$arrayData);
                        }
 
                 $message='ok';

@@ -4,11 +4,21 @@ namespace App\Repositories;
 
 use App\Repositories\BaseRepository;
 use App\Repositories\ChiTieuTuyenSinhRepositoryInterface;
+use App\Models\ChiTieuTuyenSinh;
 use Illuminate\Support\Facades\DB;
 
 
 class ChiTieuTuyenSinhRepository extends BaseRepository implements ChiTieuTuyenSinhRepositoryInterface
-{
+{   
+    // thanhnv 6/26/2020 create model 
+    protected $model;
+
+	public function __construct(ChiTieuTuyenSinh $model)
+	{
+		parent::__construct();
+		$this->model = $model;
+    }
+
     public function getTable()
     {
         return 'dang_ki_chi_tieu_tuyen_sinh';
@@ -131,5 +141,13 @@ class ChiTieuTuyenSinhRepository extends BaseRepository implements ChiTieuTuyenS
 		->join('nganh_nghe','nganh_nghe.id','=','dang_ki_chi_tieu_tuyen_sinh.nghe_id')
 		->get();
 		return $data;
+    }
+    
+       	// thanhnv 6/26/2020 sửa model create update
+	public function createChiTieuTuyenSinh($arrayData){
+		return $this->model->create($arrayData);
+	}
+	public function updateChiTieuTuyenSinh($key,$arrayData){
+		return $this->model->where('id',$key)->update($arrayData);
 	}
 }

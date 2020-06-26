@@ -5,8 +5,17 @@ namespace App\Repositories;
 use App\Repositories\BaseRepository;
 use App\Repositories\HopTacQuocTeRepositoryInterface;
 use Illuminate\Support\Facades\DB;
+use App\Models\KetQuaHopTacQuocTe;
+
 class HopTacQuocTeRepository extends BaseRepository implements HopTacQuocTeRepositoryInterface
 {
+    protected $model;
+
+	public function __construct(KetQuaHopTacQuocTe $model)
+	{
+		parent::__construct();
+		$this->model = $model;
+	}
 
     public function getTable()
     {
@@ -92,6 +101,14 @@ class HopTacQuocTeRepository extends BaseRepository implements HopTacQuocTeRepos
 		->where('thoi_gian_cap_nhat','<=',$toDate)
 		->get();
 		return $data;
+    }
+    
+    // thanhnv 6/26/2020 sửa model create update
+	public function createHopTacQuocTe($arrayData){
+		return $this->model->create($arrayData);
+	}
+	public function updateHopTacQuocTe($key,$arrayData){
+		return $this->model->where('id',$key)->update($arrayData);
 	}
   
 }

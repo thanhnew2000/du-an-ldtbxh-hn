@@ -106,4 +106,12 @@ class SoLieuCanBoQuanLyRepository extends BaseRepository
 
         return $queryBuilder->paginate($limit);
     }
+
+        // thanhnv 6/26/2020 sửa model create update
+        public function createSoLieuCanBoQl($arrayData){
+            return $this->model->create($arrayData);
+        }
+        public function updateSoLieuCanBoQl($key,$arrayData){
+            return $this->model->where('id',$key)->update($arrayData);
+        }
 }

@@ -334,10 +334,10 @@ class DaoTaoNgheVoiDoanhNghiepService extends AppService
                 }   
                 if (count($updateData) > 0) {
                 foreach($updateData as $key => $value)
-                    DB::table('ket_qua_tuyen_sinh_gan_voi_doanh_nghiep')->where('id',$key)->update($value);
+                    $this->repository->updateNgheVoiDoanhNghiep($key,$value);
                 }  
                 if (count($insertData) > 0) {
-                    DB::table('ket_qua_tuyen_sinh_gan_voi_doanh_nghiep')->insert($insertData);
+                   $this->repository->createNgheVoiDoanhNghiep($insertData); 
                 }    
 
                 $message='ok';

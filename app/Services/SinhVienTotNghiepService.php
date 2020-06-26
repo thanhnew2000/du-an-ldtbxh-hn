@@ -467,10 +467,12 @@ class SinhVienTotNghiepService extends AppService
                 }   
                 if (count($updateData) > 0) {
                 foreach($updateData as $key => $value)
-                    DB::table('sv_tot_nghiep')->where('id',$key)->update($value);
+                $this->repository->updateTotNghiep($key,$value);
+                    // DB::table('sv_tot_nghiep')->where('id',$key)->update($value);
                 }  
                 if (count($insertData) > 0) {
-                    DB::table('sv_tot_nghiep')->insert($insertData);
+                    $this->repository->createTotNghiep($insertData);
+                    // DB::table('sv_tot_nghiep')->insert($insertData);
                 }    
 
                 $message='ok';
