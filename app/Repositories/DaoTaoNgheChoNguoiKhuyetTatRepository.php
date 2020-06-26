@@ -117,7 +117,7 @@ class DaoTaoNgheChoNguoiKhuyetTatRepository extends BaseRepository implements Da
             ->join('devvn_xaphuongthitran', 'co_so_dao_tao.xaid', '=', 'devvn_xaphuongthitran.xaid')
 			->select(
 						'ket_qua_dao_tao_nguoi_khuyet_tat.*',
-						'nganh_nghe.ten_nganh_nghe',
+						'nganh_nghe.ten_nganh_nghe'
 					);
 			
 		if($queryData['nam']!= null){

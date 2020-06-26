@@ -109,92 +109,90 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-            <div class="m-portlet mt-5">
-                <div class="m-portlet__head">
-                    <div class="m-portlet__head-caption">
-                        <div class="m-portlet__head-title">
-                            <span class="m-portlet__head-icon">
-                                <i class="m-menu__link-icon flaticon-web"></i>
-                            </span>
-                            <h3 class="m-portlet__head-text">
-                                Kinh phí
-                            </h3>
-                        </div>
+
+        </div>
+        <div class="m-portlet mt-5">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon">
+                            <i class="m-menu__link-icon flaticon-web"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                            Kinh phí
+                        </h3>
                     </div>
                 </div>
-                <div class="m-portlet__body">
-                    <div class="m-form__section m-form__section--first">
-                        <div class="row col-12">
-                            <div class="col-md-3">
-                                <div class="form-group m-form__group row">
-                                    <label class="col-lg-4 col-form-label">Tổng kinh phí</label>
-                                    <div class="col-lg-8">
-                                        <input type="number" value="{{ old('tong_ngan_sach') }}"
-                                            class="form-control m-input" placeholder="Nhập vào số"
-                                            name="tong_ngan_sach">
-                                        @error('tong_ngan_sach')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group m-form__group row">
-                                    <label class="col-lg-4 col-form-label">Ngân sách TW</label>
-                                    <div class="col-lg-8">
-                                        <input type="number" value="{{ old('ngan_sach_TW') }}"
-                                            class="form-control m-input" placeholder="Nhập vào số" name="ngan_sach_TW">
-                                        @error('ngan_sach_TW')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group m-form__group row">
-                                    <label class="col-lg-4 col-form-label">Ngân sách TP</label>
-                                    <div class="col-lg-8">
-                                        <input type="number" value="{{ old('ngan_sach_TP') }}"
-                                            class="form-control m-input" placeholder="Nhập vào số" name="ngan_sach_TP">
-                                        @error('ngan_sach_TP')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group m-form__group row">
-                                    <label class="col-lg-4 col-form-label">Ngân sách khác</label>
-                                    <div class="col-lg-8">
-                                        <input type="number" value="{{ old('ngan_sach_khac') }}"
-                                            class="form-control m-input" placeholder="Nhập vào số"
-                                            name="ngan_sach_khac">
-                                        @error('ngan_sach_khac')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
+            </div>
+            <div class="m-portlet__body">
+                <div class="m-form__section m-form__section--first">
+                    <div class="row col-12">
+                        <div class="col-md-3">
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-4 col-form-label">Tổng kinh phí</label>
+                                <div class="col-lg-8">
+                                    <input type="number" value="{{ old('tong_ngan_sach') }}"
+                                        class="form-control m-input" placeholder="Nhập vào số" name="tong_ngan_sach">
+                                    @error('tong_ngan_sach')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-3">
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-4 col-form-label">Ngân sách TW</label>
+                                <div class="col-lg-8">
+                                    <input type="number" value="{{ old('ngan_sach_TW') }}" class="form-control m-input"
+                                        placeholder="Nhập vào số" name="ngan_sach_TW">
+                                    @error('ngan_sach_TW')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-4 col-form-label">Ngân sách TP</label>
+                                <div class="col-lg-8">
+                                    <input type="number" value="{{ old('ngan_sach_TP') }}" class="form-control m-input"
+                                        placeholder="Nhập vào số" name="ngan_sach_TP">
+                                    @error('ngan_sach_TP')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-4 col-form-label">Ngân sách khác</label>
+                                <div class="col-lg-8">
+                                    <input type="number" value="{{ old('ngan_sach_khac') }}"
+                                        class="form-control m-input" placeholder="Nhập vào số" name="ngan_sach_khac">
+                                    @error('ngan_sach_khac')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
             </div>
-            <div class="row mb-5">
-                <div class="col-lg-6">
-                    <div class="m-portlet m-portlet--mobile m-portlet--body-progress- h-100">
-                        <div class="m-portlet__head">
-                            <div class="m-portlet__head-caption">
-                                <div class="m-portlet__head-title">
-                                    <span class="m-portlet__head-icon">
-                                        <i class="m-menu__link-icon flaticon-web"></i>
-                                    </span>
-                                    <h3 class="m-portlet__head-text">
-                                        Tuyển sinh
-                                    </h3>
-                                </div>
+
+        </div>
+        <div class="row mb-5">
+            <div class="col-lg-6">
+                <div class="m-portlet m-portlet--mobile m-portlet--body-progress- h-100">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title">
+                                <span class="m-portlet__head-icon">
+                                    <i class="m-menu__link-icon flaticon-web"></i>
+                                </span>
+                                <h3 class="m-portlet__head-text">
+                                    Tuyển sinh
+                                </h3>
                             </div>
                         </div>
                     </div>
@@ -213,27 +211,85 @@
                                             @enderror
                                         </div>
                                     </div>
-                                </div>
-                                <div class="form-group m-form__group row">
-                                    <label class="col-lg-5 col-form-label">Nữ</label>
-                                    <div class="col-lg-7">
-                                        <input type="number" value="{{ old('tuyen_sinh_nu') }}"
-                                            class="form-control m-input" placeholder="Nhập vào số" name="tuyen_sinh_nu">
-                                        @error('tuyen_sinh_nu')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
+                                    <div class="form-group m-form__group row">
+                                        <label class="col-lg-5 col-form-label">Nữ</label>
+                                        <div class="col-lg-7">
+                                            <input type="number" value="{{ old('tuyen_sinh_nu') }}"
+                                                class="form-control m-input" placeholder="Nhập vào số"
+                                                name="tuyen_sinh_nu">
+                                            @error('tuyen_sinh_nu')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-form__group row">
+                                        <label class="col-lg-5 col-form-label">Hộ khẩu Hà Nội</label>
+                                        <div class="col-lg-7">
+                                            <input type="number" value="{{ old('tuyen_sinh_ho_khau_HN') }}"
+                                                class="form-control m-input" placeholder="Nhập vào số"
+                                                name="tuyen_sinh_ho_khau_HN">
+                                            @error('tuyen_sinh_ho_khau_HN')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group m-form__group row">
-                                <label class="col-lg-5 col-form-label">Hộ khẩu Hà Nội</label>
-                                <div class="col-lg-7">
-                                    <input type="number" value="{{ old('tuyen_sinh_ho_khau_HN') }}"
-                                        class="form-control m-input" placeholder="Nhập vào số"
-                                        name="tuyen_sinh_ho_khau_HN">
-                                    @error('tuyen_sinh_ho_khau_HN')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="m-portlet m-portlet--mobile m-portlet--body-progress- h-100">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title">
+                                <span class="m-portlet__head-icon">
+                                    <i class="m-menu__link-icon flaticon-web"></i>
+                                </span>
+                                <h3 class="m-portlet__head-text">
+                                    Tốt nghiệp
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-portlet__body">
+                        <div class="m-form__section m-form__section--first">
+                            <div class="row col-12">
+                                <div class="col-md-12">
+                                    <div class="form-group m-form__group row">
+                                        <label class="col-lg-5 col-form-label">Tổng tốt nghiệp</label>
+                                        <div class="col-lg-7">
+                                            <input type="number" value="{{ old('tong_tot_nghiep') }}"
+                                                class="form-control m-input" placeholder="Nhập vào số"
+                                                name="tong_tot_nghiep">
+                                            @error('tong_tot_nghiep')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-form__group row">
+                                        <label class="col-lg-5 col-form-label">Nữ</label>
+                                        <div class="col-lg-7">
+                                            <input type="number" value="{{ old('tot_nghiep_nu') }}"
+                                                class="form-control m-input" placeholder="Nhập vào số"
+                                                name="tot_nghiep_nu">
+                                            @error('tot_nghiep_nu')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-form__group row">
+                                        <label class="col-lg-5 col-form-label">Hộ khẩu Hà Nội</label>
+                                        <div class="col-lg-7">
+                                            <input type="number" value="{{ old('tot_nghiep_ho_khau_HN') }}"
+                                                class="form-control m-input" placeholder="Nhập vào số"
+                                                name="tot_nghiep_ho_khau_HN">
+                                            @error('tot_nghiep_ho_khau_HN')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -241,82 +297,22 @@
                 </div>
             </div>
         </div>
-</div>
-<div class="col-lg-6">
-    <div class="m-portlet m-portlet--mobile m-portlet--body-progress- h-100">
-        <div class="m-portlet__head">
-            <div class="m-portlet__head-caption">
-                <div class="m-portlet__head-title">
-                    <span class="m-portlet__head-icon">
-                        <i class="m-menu__link-icon flaticon-web"></i>
-                    </span>
-                    <h3 class="m-portlet__head-text">
-                        Tốt nghiệp
-                    </h3>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="m-portlet__body">
-        <div class="m-form__section m-form__section--first">
-            <div class="row col-12">
-                <div class="col-md-12">
-                    <div class="form-group m-form__group row">
-                        <label class="col-lg-5 col-form-label">Tổng tốt nghiệp</label>
-                        <div class="col-lg-7">
-                            <input type="number" value="{{ old('tong_tot_nghiep') }}" class="form-control m-input"
-                                placeholder="Nhập vào số" name="tong_tot_nghiep">
-                            @error('tong_tot_nghiep')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group m-form__group row">
-                    <label class="col-lg-5 col-form-label">Nữ</label>
-                    <div class="col-lg-7">
-                        <input type="number" value="{{ old('tot_nghiep_nu') }}" class="form-control m-input"
-                            placeholder="Nhập vào số" name="tot_nghiep_nu">
-                        @error('tot_nghiep_nu')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-            </div>
-            <div class="form-group m-form__group row">
-                <label class="col-lg-5 col-form-label">Hộ khẩu Hà Nội</label>
-                <div class="col-lg-7">
-                    <input type="number" value="{{ old('tot_nghiep_ho_khau_HN') }}" class="form-control m-input"
-                        placeholder="Nhập vào số" name="tot_nghiep_ho_khau_HN">
-                    @error('tot_nghiep_ho_khau_HN')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-</div>
-</div>
-</div>
 
 
-<div class="d-flex justify-content-end">
-    <div class="col-lg-1 ">
-        <a href="{{route('nhapbc.dao-tao-khuyet-tat')}}" class="btn btn-danger">Hủy</a>
+        <div class="d-flex justify-content-end">
+            <div class="col-lg-1 ">
+                <a href="{{route('nhapbc.dao-tao-khuyet-tat')}}" class="btn btn-danger">Hủy</a>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">Thêm mới</button>
+            </div>
+        </div>
+    </form>
+    @if (session('thongbao'))
+    <div class="thongbao" style="color: red; text-align: center;">
+        {{session('thongbao')}}
     </div>
-    <div>
-        <button type="submit" class="btn btn-primary">Thêm mới</button>
-    </div>
-</div>
-</div>
-</form>
-@if (session('thongbao'))
-<div class="thongbao" style="color: red; text-align: center;">
-    {{session('thongbao')}}
-</div>
-@endif
+    @endif
 </div>
 @endsection
 @section('script')

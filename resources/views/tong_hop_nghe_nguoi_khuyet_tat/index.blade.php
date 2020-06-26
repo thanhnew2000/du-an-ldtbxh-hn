@@ -620,19 +620,6 @@
                 console.log(error);
             });
         }
-        // function setNameNganhNgheSearch(id) {
-        //     var nganh_nghe = $('.nganh_nghe')
-        //     for (let index = 0; index < nganh_nghe.length; index++) {
-        //         $(nganh_nghe[index]).attr('name','')       
-        //     }
-        //     if ($(id).attr('multiple')=='multiple') {
-        //         $(id).attr('name','nganh_nghe[]')
-        //     }else{
-        //         $(id).attr('name','nganh_nghe')
-        //     }
-           
-        // }
-        
           $("#page-size").change(function(){  
             $("#page_size_hide").val($('#page-size').val())
             var url = new URL(window.location.href);

@@ -180,6 +180,7 @@
                         <th>Hộ khẩu Hà Nội</th>
                         {{-- end Trình độ sơ cấp --}}
 
+
                         {{-- start Trình độ sơ cấp --}}
                         <th>Số SV nhập học đầu khóa</th>
                         <th>Số SV đủ điều kiện thi xét TN</th>
@@ -322,12 +323,13 @@
                         <td>{{number_format($item->MucLuong_TB_NgheKhac)}}</td>
                         <td>{{number_format($item->MucLuong_TB_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoNgheKhac)}}
                         </td>
-                        <<<<<<< HEAD=======>>>>>>> master
-                            <td>
-                                @if ($item->trang_thai<3) <a href="{{route('xuatbc.sua-tong-hop',['id'=>$item->id])}}">
-                                    Sửa</a>
-                                    @endif
-                            </td>
+
+
+                        <td>
+                            @if ($item->trang_thai<3) <a href="{{route('xuatbc.sua-tong-hop',['id'=>$item->id])}}">
+                                Sửa</a>
+                                @endif
+                        </td>
                     </tr>
                     @endforeach
 
