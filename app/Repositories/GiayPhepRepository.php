@@ -27,13 +27,16 @@ class GiayPhepRepository extends BaseRepository implements GiayPhepRepositoryInt
     {
         return $this->model->create($attributes);
     }
-    public function getGiayPhep($id)
+    public function getGiayPhep($params)
     {
-        return $this->table
+        $queryBulder = $this->table
             ->join('co_so_dao_tao', 'co_so_dao_tao.id', '=', 'giay_phep.co_so_id')
             ->select('giay_phep.*', DB::raw('co_so_dao_tao.ten as ten_co_so'))
-            ->where('giay_phep.co_so_id', $id)
-            ->paginate(10);
+            ->where('giay_phep.co_so_id', $params['co_so_id']);
+        if (isset($params['giay_phep_id'])) {
+            $queryBulder->where('giay_phep.id', $params['giay_phep_id']);
+        };
+        return $queryBulder->orderBy('giay_phep.ngay_ban_hanh')->paginate(10);
     }
 
     public function store(array $params = [])
@@ -42,7 +45,6 @@ class GiayPhepRepository extends BaseRepository implements GiayPhepRepositoryInt
     }
     public function updateGiayPhep($id, array $params = [])
     {
-        // dd($params);
         return $this->model->find($id)->update($params);
     }
 }

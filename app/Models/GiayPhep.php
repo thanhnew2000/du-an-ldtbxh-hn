@@ -16,9 +16,8 @@ class GiayPhep extends Model
         'ngay_ban_hanh',
         'ngay_hieu_luc',
         'ngay_het_han',
-        'mo_ta',
+        'mo_ta'
     ];
-
     public function setNgayBanHanhAttribute($value)
     {
         $this->attributes['ngay_ban_hanh'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');

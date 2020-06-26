@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: ginv2
@@ -18,14 +19,24 @@ class ChungNhanDangKyService extends AppService
         return ChungNhanDangKyNgheRepository::class;
     }
 
-    public function getCoSoDaoTaoTheoNghe($params){
-        
+    public function getCoSoDaoTaoTheoNghe($params)
+    {
+
         return $this->repository->getCoSoDaoTaoTheoNghe($params);
-        
     }
 
-    public function getNgheTheoCoSoDaoTao($params){
+    public function getNgheTheoCoSoDaoTao($params)
+    {
 
         return $this->repository->getNgheTheoCoSoDaoTao($params);
+    }
+
+    public function getNgheTheoGiayPhep($id)
+    {
+        return $this->repository->getNgheTheoGiayPhep($id);
+    }
+    public function xoaNgheTrongGiayPhep($params)
+    {
+        return $this->repository->xoaNgheTrongGiayPhep($params);
     }
 }

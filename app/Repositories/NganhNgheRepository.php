@@ -105,10 +105,8 @@ class NganhNgheRepository extends BaseRepository implements NganhNgheRepositoryI
                 $arrayInsert[] = [
                     'co_so_id' => $attributes['co_so_id'],
                     'nghe_id' => $nghe_cao_dang[$i],
-                    'ten_quyet_dinh' => $attributes['ten_quyet_dinh'],
-                    'trang_thai' => '1',
-                    'ngay_ban_hanh' => $attributes['ngay_ban_hanh'],
-                    'anh_quyet_dinh' => $attributes['anh_quyet_dinh']
+                    'giay_phep_id' => $attributes['giay_phep_id'],
+                    'trang_thai' => '1'
                 ];
             }
         }
@@ -118,10 +116,8 @@ class NganhNgheRepository extends BaseRepository implements NganhNgheRepositoryI
                 $arrayInsert[] = [
                     'co_so_id' => $attributes['co_so_id'],
                     'nghe_id' => $nghe_trung_cap[$i],
-                    'ten_quyet_dinh' => $attributes['ten_quyet_dinh'],
-                    'trang_thai' => '1',
-                    'ngay_ban_hanh' => $attributes['ngay_ban_hanh'],
-                    'anh_quyet_dinh' => $attributes['anh_quyet_dinh']
+                    'giay_phep_id' => $attributes['giay_phep_id'],
+                    'trang_thai' => '1'
                 ];
             }
         }
@@ -147,8 +143,10 @@ class NganhNgheRepository extends BaseRepository implements NganhNgheRepositoryI
         $queryBuilder = $this->model
             ->select($selects);
 
-        if (isset($params['keyword']) &&
-            ($params['keyword'] == 0 || !empty($params['keyword']))) {
+        if (
+            isset($params['keyword']) &&
+            ($params['keyword'] == 0 || !empty($params['keyword']))
+        ) {
             $queryBuilder->whereLike('ten_nganh_nghe', $params['keyword']);
         }
 

@@ -3,11 +3,14 @@
 @section('style')
 <link href="{!! asset('/css/main.css') !!}" rel="stylesheet" type="text/css" />
 <style>
-    .m-table.m-table--border-danger, .m-table.m-table--border-danger th, .m-table.m-table--border-danger td{
-        border-color: #bcb1b1 ;
-    } 
-    table thead th[colspan="4"]{
-        border-bottom-width:1px;
+    .m-table.m-table--border-danger,
+    .m-table.m-table--border-danger th,
+    .m-table.m-table--border-danger td {
+        border-color: #bcb1b1;
+    }
+
+    table thead th[colspan="4"] {
+        border-bottom-width: 1px;
         border-bottom: 1px solid #bcb1b1 !important;
     }
 </style>
@@ -37,14 +40,12 @@
                                 <label class="col-lg-2 col-form-label">Năm</label>
                                 <div class="col-lg-8">
                                     <select class="form-control" name="nam" id="nam">
-                                        <option value="" selected >Chọn</option>
+                                        <option value="" selected>Chọn</option>
                                         @foreach (config('common.nam_tuyen_sinh.list') as $item)
-                                        <option 
-                                        @if (isset($params['nam']))
-                                                {{( $params['nam'] ==  $item ) ? 'selected' : ''}}  
-                                                @endif
-                                                value="{{$item}}"> {{$item}}
-                                            </option>
+                                        <option @if (isset($params['nam']))
+                                            {{( $params['nam'] ==  $item ) ? 'selected' : ''}} @endif value="{{$item}}">
+                                            {{$item}}
+                                        </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -55,17 +56,12 @@
                                 <label for="" class="col-lg-2 col-form-label">Đợt</label>
                                 <div class="col-lg-8">
                                     <select class="form-control" name="dot" id="dot">
-                                        <option value="" >Chọn</option>
-                                        <option
-                                        @if (isset($params['dot']))
-                                            {{( $params['dot'] ==  1 ) ? 'selected' : ''}}  
-                                        @endif
-                                        value="1" >Đợt 1</option>
-                                        <option value="2"
-                                        @if (isset($params['dot']))
-                                        {{( $params['dot'] ==  2 ) ? 'selected' : ''}}  
-                                        @endif
-                                        >Đợt 2</option>
+                                        <option value="">Chọn</option>
+                                        <option @if (isset($params['dot']))
+                                            {{( $params['dot'] ==  1 ) ? 'selected' : ''}} @endif value="1">Đợt 1
+                                        </option>
+                                        <option value="2" @if (isset($params['dot']))
+                                            {{( $params['dot'] ==  2 ) ? 'selected' : ''}} @endif>Đợt 2</option>
                                     </select>
                                 </div>
                             </div>
@@ -80,13 +76,13 @@
             </div>
         </form>
     </div>
-    
+
     <div class="m-portlet">
-        @if (session('thongbao')) 
+        @if (session('thongbao'))
         <div class="alert alert-success">
-        {{session('thongbao')}}
+            {{session('thongbao')}}
         </div>
-        @endif 
+        @endif
         <div class="m-portlet__body table-responsive">
             <div class="m-portlet__head">
                 <div class="m-portlet__head-caption">
@@ -100,14 +96,16 @@
                     </div>
                 </div>
             </div>
-            <table class="table table-bordered m-table m-table--border-danger m-table--head-bg-primary table-boder-white">
+            <table
+                class="table table-bordered m-table m-table--border-danger m-table--head-bg-primary table-boder-white">
                 <div class="col-12 form-group m-form__group d-flex justify-content-end">
                     <label class="col-lg-2 col-form-label">Kích thước:</label>
                     <div class="col-lg-2">
                         <select class="form-control" id="page-size">
                             @foreach(config('common.paginate_size.list') as $size)
                             <option @if (isset($params['page_size']))
-                                {{( $params['page_size'] ==  $size ) ? 'selected' : ''}} @endif value="{{$size}}">{{$size}}
+                                {{( $params['page_size'] ==  $size ) ? 'selected' : ''}} @endif value="{{$size}}">
+                                {{$size}}
                             </option>
                             @endforeach
                         </select>
@@ -137,7 +135,7 @@
                         <th rowspan="2">Ngân sách TP</th>
                         <th rowspan="2">Ngân sách Khác</th>
                     </tr>
-                    
+
                 </thead>
                 <tbody>
                     @php
@@ -161,14 +159,14 @@
                         <td>{{$item->ngan_sach_TP}}</td>
                         <td>{{$item->ngan_sach_khac}}</td>
                         <td>
-                            @if ($item->trang_thai<3)  <a href="{{route('nhapbc.dao-tao-khuyet-tat.edit',[
+                            @if ($item->trang_thai<3) <a href="{{route('nhapbc.dao-tao-khuyet-tat.edit',[
                                 'id' => $item->id,
                             ])}}">Sửa</a>
-                            @endif
+                                @endif
                         </td>
                     </tr>
                     @endforeach
-                    
+
                 </tbody>
             </table>
         </div>
@@ -176,12 +174,12 @@
             {{$data->links()}}
         </div>
     </div>
-@endsection
-@section('script')
-<script>
-    $(document).ready(function() {
+    @endsection
+    @section('script')
+    <script>
+        $(document).ready(function() {
     $('#ten_co_so').select2();
 });
-</script>
-<script src="{!! asset('page_size/page_size.js') !!}"></script>
-@endsection
+    </script>
+    <script src="{!! asset('page_size/page_size.js') !!}"></script>
+    @endsection
