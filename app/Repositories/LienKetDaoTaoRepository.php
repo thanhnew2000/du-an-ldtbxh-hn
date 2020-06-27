@@ -8,16 +8,16 @@ use App\Models\LienKetQuaTuyenSinh;
 
 
 class LienKetDaoTaoRepository extends BaseRepository implements LienKetDaoTaoRepositoryInterface
-{   
+{
     protected $model;
 
-	public function __construct(LienKetQuaTuyenSinh $model)
-	{
-		parent::__construct();
-		$this->model = $model;
+    public function __construct(LienKetQuaTuyenSinh $model)
+    {
+        parent::__construct();
+        $this->model = $model;
     }
-    
-    
+
+
     public function getTable()
     {
         return 'lien_ket_qua_tuyen_sinh';
@@ -195,8 +195,7 @@ class LienKetDaoTaoRepository extends BaseRepository implements LienKetDaoTaoRep
 
     public function getCheckTonTaiLienKetDaoTao($arraycheck)
     {
-        $check = $this->table->where($arraycheck)->select('lien_ket_qua_tuyen_sinh.id', 'lien_ket_qua_tuyen_sinh.trang_thai')
-            ->first();
+        $check = $this->table->where($arraycheck)->first();
         if ($check != null) {
             if ($check->trang_thai >= 3) {
                 return  'tontai';
@@ -224,69 +223,71 @@ class LienKetDaoTaoRepository extends BaseRepository implements LienKetDaoTaoRep
         return $data;
     }
 
-   
-    public function getLkDaoTaoCsNamDot($id_truong, $year,$dot)
-	{
-		$data =  DB::table('lien_ket_qua_tuyen_sinh')->where('lien_ket_qua_tuyen_sinh.co_so_id', '=', $id_truong)
-		->where('lien_ket_qua_tuyen_sinh.nam','=',$year)
-        ->where('lien_ket_qua_tuyen_sinh.dot','=',$dot)
-        ->join('nganh_nghe','nganh_nghe.id','=','lien_ket_qua_tuyen_sinh.nghe_id')
-        ->select('lien_ket_qua_tuyen_sinh.id','lien_ket_qua_tuyen_sinh.nghe_id')
-		->get();
-		return $data;
+
+    public function getLkDaoTaoCsNamDot($id_truong, $year, $dot)
+    {
+        $data =  DB::table('lien_ket_qua_tuyen_sinh')->where('lien_ket_qua_tuyen_sinh.co_so_id', '=', $id_truong)
+            ->where('lien_ket_qua_tuyen_sinh.nam', '=', $year)
+            ->where('lien_ket_qua_tuyen_sinh.dot', '=', $dot)
+            ->join('nganh_nghe', 'nganh_nghe.id', '=', 'lien_ket_qua_tuyen_sinh.nghe_id')
+            ->select('lien_ket_qua_tuyen_sinh.id', 'lien_ket_qua_tuyen_sinh.nghe_id')
+            ->get();
+        return $data;
     }
 
     public function getLkDaoTaoCsCaoDang($id_truong)
-	{
-        $data =DB::table('giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao')->where('giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.co_so_id', '=', $id_truong)
-		->join('nganh_nghe', 'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.nghe_id', '=', 'nganh_nghe.id')
-		->where('nganh_nghe.bac_nghe','=',6)->get();
-		return $data;
-    }
-    
-    public function getLkDaoTaoCsTrungCap($id_truong)
-	{
-        $data =DB::table('giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao')->where('giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.co_so_id', '=', $id_truong)
-		->join('nganh_nghe', 'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.nghe_id', '=', 'nganh_nghe.id')
-		->where('nganh_nghe.bac_nghe','=',5)->get();
-		return $data;
+    {
+        $data = DB::table('giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao')->where('giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.co_so_id', '=', $id_truong)
+            ->join('nganh_nghe', 'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.nghe_id', '=', 'nganh_nghe.id')
+            ->where('nganh_nghe.bac_nghe', '=', 6)->get();
+        return $data;
     }
 
-    public function getLkDaoTaoCsTimeCaoDang($id_truong, $fromDate,$toDate)
-	{
-        $data =DB::table('lien_ket_qua_tuyen_sinh')->where('lien_ket_qua_tuyen_sinh.co_so_id', '=', $id_truong)
-        ->where('thoi_gian_cap_nhat','>=',$fromDate)
-        ->where('thoi_gian_cap_nhat','<=',$toDate)
-		->join('nganh_nghe', 'lien_ket_qua_tuyen_sinh.nghe_id', '=', 'nganh_nghe.id')
-		->where('nganh_nghe.bac_nghe','=',6)->get();
-		return $data;
+    public function getLkDaoTaoCsTrungCap($id_truong)
+    {
+        $data = DB::table('giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao')->where('giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.co_so_id', '=', $id_truong)
+            ->join('nganh_nghe', 'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.nghe_id', '=', 'nganh_nghe.id')
+            ->where('nganh_nghe.bac_nghe', '=', 5)->get();
+        return $data;
     }
-    
-    public function getLkDaoTaoCsTimeTrungCap($id_truong, $fromDate,$toDate)
-	{
-        $data =DB::table('lien_ket_qua_tuyen_sinh')->where('lien_ket_qua_tuyen_sinh.co_so_id', '=', $id_truong)
-        ->where('thoi_gian_cap_nhat','>=',$fromDate)
-        ->where('thoi_gian_cap_nhat','<=',$toDate)
-		->join('nganh_nghe', 'lien_ket_qua_tuyen_sinh.nghe_id', '=', 'nganh_nghe.id')
-		->where('nganh_nghe.bac_nghe','=',5)->get();
-		return $data;
+
+    public function getLkDaoTaoCsTimeCaoDang($id_truong, $fromDate, $toDate)
+    {
+        $data = DB::table('lien_ket_qua_tuyen_sinh')->where('lien_ket_qua_tuyen_sinh.co_so_id', '=', $id_truong)
+            ->where('thoi_gian_cap_nhat', '>=', $fromDate)
+            ->where('thoi_gian_cap_nhat', '<=', $toDate)
+            ->join('nganh_nghe', 'lien_ket_qua_tuyen_sinh.nghe_id', '=', 'nganh_nghe.id')
+            ->where('nganh_nghe.bac_nghe', '=', 6)->get();
+        return $data;
     }
-    
+
+    public function getLkDaoTaoCsTimeTrungCap($id_truong, $fromDate, $toDate)
+    {
+        $data = DB::table('lien_ket_qua_tuyen_sinh')->where('lien_ket_qua_tuyen_sinh.co_so_id', '=', $id_truong)
+            ->where('thoi_gian_cap_nhat', '>=', $fromDate)
+            ->where('thoi_gian_cap_nhat', '<=', $toDate)
+            ->join('nganh_nghe', 'lien_ket_qua_tuyen_sinh.nghe_id', '=', 'nganh_nghe.id')
+            ->where('nganh_nghe.bac_nghe', '=', 5)->get();
+        return $data;
+    }
+
     // public function getLkDaoTaoCsTimeFromTo($id_truong, $fromDate,$toDate)
-	// {
-	// 	$data = DB::table('lien_ket_qua_tuyen_sinh')->where('lien_ket_qua_tuyen_sinh.co_so_id', '=',$id_truong)
-	// 	->where('thoi_gian_cap_nhat','>=',$fromDate)
-	// 	->where('thoi_gian_cap_nhat','<=',$toDate)
-	// 	->join('nganh_nghe','nganh_nghe.id','=','lien_ket_qua_tuyen_sinh.nghe_id')
-	// 	->get();
-	// 	return $data;
+    // {
+    // 	$data = DB::table('lien_ket_qua_tuyen_sinh')->where('lien_ket_qua_tuyen_sinh.co_so_id', '=',$id_truong)
+    // 	->where('thoi_gian_cap_nhat','>=',$fromDate)
+    // 	->where('thoi_gian_cap_nhat','<=',$toDate)
+    // 	->join('nganh_nghe','nganh_nghe.id','=','lien_ket_qua_tuyen_sinh.nghe_id')
+    // 	->get();
+    // 	return $data;
     // }
-    
-    	// thanhnv 6/26/2020 sửa model create update
-	public function createLienKetDaoTao($arrayData){
-		return $this->model->insert($arrayData);
-	}
-	public function updateLienKetDaoTao($key,$arrayData){
-		return $this->model->where('id',$key)->update($arrayData);
-	}
+
+    // thanhnv 6/26/2020 sửa model create update
+    public function createLienKetDaoTao($arrayData)
+    {
+        return $this->model->insert($arrayData);
+    }
+    public function updateLienKetDaoTao($key, $arrayData)
+    {
+        return $this->model->where('id', $key)->update($arrayData);
+    }
 }

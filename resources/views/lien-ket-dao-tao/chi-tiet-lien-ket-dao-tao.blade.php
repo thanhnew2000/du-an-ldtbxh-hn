@@ -110,6 +110,11 @@
                     </select>
                 </div>
             </div>
+            @if (session('thongbao'))
+            <div class="alert alert-success" role="alert">
+                <strong>{{session('thongbao')}}</strong>
+            </div>
+            @endif
             <table class="table table-bordered m-table  m-table--head-bg-primary">
                 <thead>
                     <tr>
