@@ -263,7 +263,7 @@ class LienKetDaoTaoController extends Controller
             'uploads/excels',
             $request->file('file_import')
         );
-        $path = str_replace('/', '\\', $pathLoad);
-        $this->LienKetDaoTaoService->importError($fileRead, $duoiFile, $path);
+        // $path = str_replace('/', '\\', $pathLoad);
+        $this->LienKetDaoTaoService->importError($fileRead, $duoiFile, $pathLoad);
     }
 }

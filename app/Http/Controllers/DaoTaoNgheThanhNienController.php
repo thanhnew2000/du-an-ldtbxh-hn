@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Services\DaoTaoNgheChoThanhNienService;
 use App\Http\Requests\DaoTaoThanhNien\UpdateRequest;
 use App\Http\Requests\DaoTaoThanhNien\StoreRequest;
+use App\Http\Requests\Excel\ExportDuLieu;
+
 class DaoTaoNgheThanhNienController extends Controller
 {
 
@@ -183,7 +185,7 @@ class DaoTaoNgheThanhNienController extends Controller
         $id_co_so = $request->id_cs;
         $this->DaoTaoNgheChoThanhNienService->exportBieuMau($id_co_so);
     }
-    public function exportData(Request $request){
+    public function exportData(ExportDuLieu $request){
         $listCoSoId = $request->truong_id;
         $dateFrom = $request->dateFrom;
         $dateTo = $request->dateTo;

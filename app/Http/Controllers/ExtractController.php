@@ -754,8 +754,8 @@ class ExtractController extends Controller
             'uploads/excels',
             $request->file('file_import')
         );
-        $path = str_replace('/', '\\', $pathLoad);  
-        $this->ChiTieuTuyenSinhService->importError($fileRead, $duoiFile,$path);
+        // $path = str_replace('/', '\\', $pathLoad);  
+        $this->ChiTieuTuyenSinhService->importError($fileRead, $duoiFile,$pathLoad);
     }
 
     public function importFilebm8(Request $request){
@@ -833,8 +833,8 @@ class ExtractController extends Controller
             'uploads/excels',
             $request->file('file_import')
         );
-        $path = str_replace('/', '\\', $pathLoad);  
-        $this->HopTacQuocTeService->importError($fileRead, $duoiFile,$path);
+        // $path = str_replace('/', '\\', $pathLoad);  
+        $this->HopTacQuocTeService->importError($fileRead, $duoiFile,$pathLoad);
     }
 
     // thanhnv update change service bm4 6/25/2020
@@ -886,7 +886,7 @@ class ExtractController extends Controller
             'uploads/excels',
             $request->file('file_import')
         );
-        $path = str_replace('/', '\\', $pathLoad);  
-        $this->QlsvService->importError($fileRead, $duoiFile,$path);
+        // $path = str_replace('/', '\\', $pathLoad);  
+        $this->QlsvService->importError($fileRead, $duoiFile,$pathLoad);
     }
 }

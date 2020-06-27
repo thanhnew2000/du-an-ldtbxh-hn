@@ -147,7 +147,7 @@ class ChinhSachSinhVienController extends Controller
             'uploads/excels',
             $request->file('file_import')
         );
-        $path = str_replace('/', '\\', $pathLoad);  
-        $this->ChinhSachSinhVienService->importError($fileRead, $duoiFile,$path);
+        // $path = str_replace('/', '\\', $pathLoad);  
+        $this->ChinhSachSinhVienService->importError($fileRead, $duoiFile,$pathLoad);
     }
 }

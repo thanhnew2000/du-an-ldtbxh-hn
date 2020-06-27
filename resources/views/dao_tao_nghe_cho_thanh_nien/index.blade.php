@@ -420,7 +420,7 @@
                         <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoiXuat">
                         </p>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                        <button type="submit" class="btn btn-primary" id="submitXuatData" onclick="closeModal('closeXuatDuLieu')">Tải</a>
+                        <button type="submit" class="btn btn-primary" id="submitXuatData" >Tải</a>
                     </div>
                 </div>
             </div>
@@ -442,6 +442,7 @@ $(document).ready(function(){
   var routeImport = "{{route('importketqua.dao-tao-thanh-nien')}}";
 
 </script>
+<script src="{!! asset('excel-js/js-xuat-time.js') !!}"></script>
 <script src="{!! asset('excel-js/js-form.js') !!}"></script>
 {{-- end --}}
 
