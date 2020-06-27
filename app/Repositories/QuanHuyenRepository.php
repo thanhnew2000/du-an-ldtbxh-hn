@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Repositories;
+
 use App\Repositories\BaseRepository;
 use Faker\Provider\Base;
 use Illuminate\Support\Facades\DB;
 
-class QuanHuyenRepository extends BaseRepository implements QuanHuyenRepositoryInterface {
+class QuanHuyenRepository extends BaseRepository implements QuanHuyenRepositoryInterface
+{
 
     public function getTable()
     {
@@ -26,5 +28,3 @@ class QuanHuyenRepository extends BaseRepository implements QuanHuyenRepositoryI
         return $queryBuilder->get();
     }
 }
-
-?>

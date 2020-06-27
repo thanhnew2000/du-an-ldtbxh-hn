@@ -18,9 +18,9 @@ class GiayPhepService extends AppService
     {
         return $this->repository->create($request);
     }
-    public function getGiayPhep($id)
+    public function getGiayPhep($params)
     {
-        return $this->repository->getGiayPhep($id);
+        return $this->repository->getGiayPhep($params);
     }
     public function store($request)
     {

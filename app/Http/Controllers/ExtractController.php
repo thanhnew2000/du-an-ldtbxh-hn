@@ -205,7 +205,7 @@ class ExtractController extends Controller
         $request->request->set('updated_at', $dateTime->format('Y-m-d H:i:s'));
         $this->DoiNguNhaGiaoService->update($id,$request);
 
-         return redirect()->back()->with(['success'=>'Cập nhật thành công !']);
+        return redirect()->route('xuatbc.chi-tiet-theo-co-so',['co_so_id' => $data->co_so_id])->with(['success'=>'Cập nhật thành công !']);
     }
     // phunv - end
 
