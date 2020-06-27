@@ -24,16 +24,22 @@
                 <form action="{{ route('chi-nhanh.tao-moi')}}" method="POST">
                     {{ csrf_field() }}
                     <div class="main-form row d-flex justify-content-around">
+                        @if (isset($params['co_so_id']))
+                        <input type="hidden" value="csdt_id" value="{{ $params['co_so_id'] }}">
+                        @endif
                         <div class="col-left col-lg-5">
                             <div class="form-group col-lg-12">
-
                                 <label class="form-name mr-3" for="">Tên cơ sở đào tạo</label>
-                                <select class="form-control" name="co_so_id">
+                                <select class="form-control" name="co_so_id" id="ten_co_so">
                                     <option disabled selected>Chọn cơ sở đào tạo</option>
                                     @foreach ($csdt as $cs)
                                     <option value=" {{ $cs->id }}" @if (old('co_so_id')==$cs->id )
                                         {{ 'selected' }}
-                                        @endif>{{ $cs->ten }}</option>
+                                        @endif
+                                        @if (isset($params['co_so_id']) && $params['co_so_id'] == $cs->id)
+                                        selected
+                                        @endif
+                                        >{{ $cs->ten }}</option>
                                     @endforeach
                                 </select>
                                 <p class="form-text text-danger">
@@ -49,8 +55,8 @@
                             <div class="form-group col-lg-12">
                                 <label for="" class="col-4 form-name">Chi Nhánh</label>
                                 <select class="form-control" name="chi_nhanh_chinh">
-                                    <option value="1">Chi nhánh chính</option>
-                                    <option value="0">Chi nhánh phụ</option>
+                                    <option value="0">Chi nhánh chính</option>
+                                    <option value="1">Chi nhánh phụ</option>
                                 </select>
                                 <p id="helpId" class="form-text text-danger">
                                     @error('chi_nhanh_chinh')
@@ -158,6 +164,7 @@
     $(document).ready(function(){
         $('#devvn_quanhuyen').select2();
         $('#devvn_xaphuongthitran').select2();
+        $('#ten_co_so').select2();
     });
 
     $("#devvn_quanhuyen" ).change(function() {

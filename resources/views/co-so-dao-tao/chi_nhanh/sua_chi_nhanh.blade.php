@@ -29,7 +29,8 @@
                         <div class="col-left col-lg-5">
                             <div class="form-group col-lg-12">
 
-                                <label class="form-name mr-3" for="">Tên cơ sở đào tạo</label>
+                                <label class="form-name mr-3" for="">Tên cơ sở đào tạo <span
+                                        class="text-danger">(*)</span></label>
                                 <select class="form-control" name="co_so_id" id="co-so-dao-tao">
                                     <option selected value="{{ $item->csdt_id }}">{{ $item->csdt_ten }}</option>
                                     @foreach ($csdt as $cs)
@@ -44,7 +45,7 @@
                             </div>
 
                             <div class="form-group col-lg-12">
-                                <label for="" class="col-4 form-name">Chi Nhánh</label>
+                                <label for="" class="form-name">Chi Nhánh <span class="text-danger">(*)</span></label>
                                 <select class="form-control" name="chi_nhanh_chinh">
                                     <option selected value="{{ $item->chi_nhanh_chinh }}">@if ($item->chi_nhanh_chinh ==
                                         1)
@@ -92,7 +93,8 @@
                         </div>
                         <div class="col-right col-lg-5">
                             <div class="form-group col-lg-12">
-                                <label for="" class="col-4 form-name">Địa Chỉ</label>
+                                <label for="" class="col-4 form-name">Địa Chỉ <span
+                                        class="text-danger">(*)</span></label>
                                 <input type="text" name="dia_chi" id="" class="form-control"
                                     value="{{ $item->dia_chi }}">
                                 <p id="helpId" class="form-text text-danger">
@@ -103,7 +105,8 @@
                             </div>
 
                             <div class="form-group col-lg-12">
-                                <label for="" class="col-6 form-name">Mã chứng nhận hoạt động</label>
+                                <label for="" class="form-name">Mã chứng nhận hoạt động <span
+                                        class="text-danger">(*)</span></label>
                                 <input type="text" name="ma_chung_nhan_dang_ki_hoat_dong" id="" class="form-control"
                                     value="{{ $item->ma_chung_nhan_dang_ki_hoat_dong }}">
                                 <p id="helpId" class="form-text text-danger">
@@ -113,7 +116,8 @@
                                 </p>
                             </div>
                             <div class="form-group col-lg-12">
-                                <label for="" class="col-4 form-name">Trạng thái cấp</label>
+                                <label for="" class="form-name">Trạng thái cấp <span
+                                        class="text-danger">(*)</span></label>
                                 <select class="form-control" name="da_duoc_cap" id="">
                                     <option selected value="{{ $item->da_duoc_cap }}">@if ( $item->da_duoc_cap == 1)
                                         Đã cấp
@@ -131,7 +135,7 @@
                                 </p>
                             </div>
                             <div class="form-group col-lg-12">
-                                <label for="" class="col-4 form-name">Hotline</label>
+                                <label for="" class="form-name">Hotline <span class="text-danger">(*)</span></label>
                                 <input type="text" name="hotline" id="" class="form-control"
                                     value="{{ $item->hotline }}">
                                 <p id="helpId" class="form-text text-danger">

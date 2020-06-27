@@ -92,7 +92,7 @@
                 <strong>{!! \Session::get('mess') !!}</strong>
             </div>
             @endif
-            <table class="table m-table m-table--head-bg-brand table-responsive">
+            <table class="table m-table m-table--head-bg-brand">
                 <thead>
                     <th>STT</th>
                     <th>Tên cơ sở đào tạo</th>
@@ -101,12 +101,12 @@
                     <th>Logo</th>
                     <th>Quyết định</th>
                     <th>Địa chỉ</th>
-                    <th colspan="2"><a href="{{route('csdt.tao-moi')}}" class="btn btn-success btn-sm mr-3">Thêm mới</a>
+                    <th><a href="{{route('csdt.tao-moi')}}" class="btn btn-success btn-sm mr-3">Thêm mới</a>
                     </th>
                 </thead>
                 <tbody>
                     @php($i=1)
-                    @foreach($data as $csdt)
+                    @forelse($data as $csdt)
                     <tr>
                         <td>{{$i++}}</td>
                         <td>{{$csdt->ten}}</td>
@@ -116,15 +116,28 @@
                         </td>
                         <td>{{$csdt->qd_ten}}</td>
                         <td>{{$csdt->dia_chi}}</td>
-                        <td class="d-flex">
-                            <a href="{{route('csdt.chi-tiet', ['id'=> $csdt->id])}}"
-                                class="btn btn-info btn-sm mr-3">Chi
-                                tiết</a>
-                            <a href="{{route('csdt.cap-nhat', ['id'=> $csdt->id])}}" class="btn btn-primary btn-sm">Cập
-                                nhật</a>
+                        <td>
+                            <div class="d-flex">
+                                <div>
+                                    <a href="{{route('csdt.chi-tiet', ['id'=> $csdt->id])}}"
+                                        class="btn btn-info btn-sm mr-3">Chi
+                                        tiết</a>
+                                </div>
+                                <div>
+                                    <a href="{{route('csdt.cap-nhat', ['id'=> $csdt->id])}}"
+                                        class="btn btn-primary btn-sm">Cập
+                                        nhật</a>
+                                </div>
+                            </div>
                         </td>
                     </tr>
-                    @endforeach
+                    @empty
+                    <tr>
+                        <td colspan="8" class="text-center text-danger">
+                            Không tìm thấy cơ sở nào phù hợp
+                        </td>
+                    </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
