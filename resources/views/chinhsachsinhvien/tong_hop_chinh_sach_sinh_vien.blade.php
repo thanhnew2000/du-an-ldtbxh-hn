@@ -164,18 +164,21 @@
                 Xuất dữ liệu ra Excel</a>
         </div>
         <div class="col-lg-6 " style="text-align: right">
-            <a href="{{route('xuatbc.them-chinh-sach-sinh-vien')}}"><button type="button" class="btn btn-secondary">Thêm
+            <a href="{{route('xuatbc.them-chinh-sach-sinh-vien')}}"><button type="button"
+                    class="btn btn-info .bg-info">Thêm
                     mới</button></a>
         </div>
     </div>
-    <div class="m-portlet">
-        <div class="m-portlet__body">
+    <div class="m-portlet pr-5">
+
+        <div class="m-portlet__body table-responsive">
 
             @if (session('thongbao'))
             <div class="alert alert-success" role="alert">
                 <strong>{{session('thongbao')}}</strong>
             </div>
             @endif
+
             <div class="col-12 form-group m-form__group d-flex justify-content-end">
                 <label class="col-lg-2 col-form-label">Kích thước:</label>
                 <div class="col-lg-2">
@@ -388,7 +391,7 @@
 <script src="{!! asset('excel-js/js-form.js') !!}"></script>
 {{-- end --}}
 
-<script src="{{ asset('js/chinh_sach_sinh_vien/chinh-sach-sinh-vien.js') }}"></script>
+<script src="{{ asset('chinh_sach_sinh_vien/chinh_sach_sinh_vien.js') }}"></script>
 <script type="text/javascript">
     $(document).ready(function() {
     $('.select2').select2();
@@ -405,5 +408,15 @@ $("#page-size").change(function() {
 });
 </script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
-
+@if (session('thongbao_edit'))
+<script>
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Cập nhật thành công !',
+        showConfirmButton: false,
+        timer: 3500
+    })
+</script>
+@endif
 @endsection

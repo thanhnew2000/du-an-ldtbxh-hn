@@ -3,10 +3,11 @@
 @section('style')
 <link href="{!! asset('/css/main.css') !!}" rel="stylesheet" type="text/css" />
 <style>
-    .error {
+     .batbuoc,.error {
         color: red;
     }
-    .alert-danger{
+
+    .alert-danger {
         margin-top: 10px;
     }
 </style>
@@ -86,7 +87,7 @@
         </div>
 
     </div>
-    <form action="{{route('xuatbc.quan-ly-giao-duc-nghe-nghiep.update',['id'=>$data->id])}}" id="formDemo"
+    <form action="{{route('xuatbc.quan-ly-giao-duc-nghe-nghiep.update',['id'=>$data->id])}}" id="validate-form"
         method="post">
         @csrf
         <div class="m-portlet mt-5">
@@ -109,7 +110,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-4 col-form-label">Mã cấp II</label>
                                 <div class="col-lg-8">
-                                    <input value="{{$data->ma_cap_2}}" class="form-control m-input"
+                                    <input type="number" value="{{$data->ma_cap_2}}" class="form-control m-input"
                                         placeholder="Nhập vào số" name="ma_cap_2">
                                     @error('ma_cap_2')
                                     <div class="alert alert-danger">{{ $message }}</div>
@@ -121,7 +122,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-4 col-form-label">Quy mô tuyển sinh Trung Cấp</label>
                                 <div class="col-lg-8">
-                                    <input value="{{$data->quy_mo_tuyen_sinh_TC}}" class="form-control m-input"
+                                    <input type="number" value="{{$data->quy_mo_tuyen_sinh_TC}}" class="form-control m-input"
                                         placeholder="Nhập vào số" name="quy_mo_tuyen_sinh_TC">
                                     @error('quy_mo_tuyen_sinh_TC')
                                     <div class="alert alert-danger">{{ $message }}</div>
@@ -133,7 +134,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-4 col-form-label">Quy mô tuyển sinh Sơ Cấp</label>
                                 <div class="col-lg-8">
-                                    <input value="{{$data->quy_mo_tuyen_sinh_SC}}" class="form-control m-input"
+                                    <input type="number" value="{{$data->quy_mo_tuyen_sinh_SC}}" class="form-control m-input"
                                         placeholder="Nhập vào số" name="quy_mo_tuyen_sinh_SC">
                                     @error('quy_mo_tuyen_sinh_SC')
                                     <div class="alert alert-danger">{{ $message }}</div>
@@ -160,27 +161,6 @@
 @section('script')
 <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js">
 </script>
-<script>
-    $("#formDemo").validate({
-            rules: {
-                ma_cap_2: {
-                    digits: true,
-                    min: 0
-                },
-                quy_mo_tuyen_sinh_TC: {
-                    digits: true,
-                    min: 0
-                },
-                quy_mo_tuyen_sinh_SC: {
-                    digits: true,
-                    min: 0
-                }
-            }
-        });
-        jQuery.extend(jQuery.validator.messages, {
-                    digits: "Vui lòng nhập số nguyên",
-                    min: "Giá trị nhỏ nhất là 0"   
-        });
-</script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/additional-methods.min.js"></script>
+<script src="{!! asset('validate/validate_store_update.js') !!}"></script>
 @endsection

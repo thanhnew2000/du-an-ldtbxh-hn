@@ -117,7 +117,7 @@
                         <th scope="col 1">Năm</th>
                         <th scope="col 1">Đợt</th>
                         <th scope="col 1">Mã nghề</th>
-                        <th scope="col 1">Tên nghề nghề</th>
+                        <th scope="col 1">Tên nghề</th>
                         <th scope="col 1">Chỉ tiêu được giao</th>
                         <th scope="col 1">Thực tuyển</th>
                         <th scope="col 1">Số học sinh tốt nghiệp</th>

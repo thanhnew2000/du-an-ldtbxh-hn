@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class validateUpdateKetQuaTotNghiepGanVoiDoanhNghiep extends FormRequest
+class UpdateChinhSachSinhVienValidate extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,7 @@ class validateUpdateKetQuaTotNghiepGanVoiDoanhNghiep extends FormRequest
     {
         $data = $this->all();
         unset($data['_token']);
-        unset($data['ten_doanh_nghiep']);
+
         $getDataCheck = [];
         foreach ($data as $item => $value) {
             if ($value == null) {

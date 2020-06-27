@@ -23,20 +23,41 @@ class ChinhSachSinhVienValidate extends FormRequest
      */
     public function rules()
     {
-        return [
-            'so_hssv_CD' => 'min:0|integer',
-            'so_hssv_TC' => 'min:0|integer',
-            'tong_so_hssv' => 'min:0|integer',
-            'kinh_phi_CD' => 'min:0|integer',
-            'kinh_phi_TC' => 'min:0|integer',
-            'kinh_phi' => 'min:0|integer',
-        ];
+        $data = $this->all();
+        unset($data['_token'], $data['co_so_id'], $data['chinh_sach_id'], $data['nam'], $data['dot']);
+        $getDataCheck = [];
+        $getDataCheck['co_so_id'] = 'required|';
+        $getDataCheck['chinh_sach_id'] = 'required|';
+        $getDataCheck['nam'] = 'required|';
+        $getDataCheck['dot'] = 'required|';
+        foreach ($data as $item => $value) {
+            if ($value == null) {
+                $getDataCheck[$item] = 'min:0|';
+            } else {
+                $getDataCheck[$item] = 'min:0|integer|';
+            }
+        }
+        return $getDataCheck;
     }
+
     public function messages()
     {
         return [
-            'integer' => 'Vui lòng nhập số nguyên',
-            'min' => 'Số liệu nhỏ nhất là 0'
+            'required' => 'Không được để trống',
+            'min' => ':attribute không được nhỏ hơn 0',
+            'integer' => ':attribute nguyên',
         ];
+    }
+
+    public function attributes()
+    {
+        $data = $this->all();
+        unset($data['_token']);
+        unset($data['ghi_chu']);
+        $attributes = [];
+        foreach ($data as $item => $value) {
+            $attributes[$item] = "Nhập số";
+        }
+        return $attributes;
     }
 }

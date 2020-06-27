@@ -8,5 +8,4 @@ interface ChinhSachSinhVienRepositoryInterface
     public function checktontaiChinhSachSinhVien($requestParams);
     public function getsuaChinhSachSinhVien($id);
     public function postthemChinhSachSinhVien($data);
-
 }

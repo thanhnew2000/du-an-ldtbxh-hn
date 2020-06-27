@@ -151,3 +151,11 @@ Route::group(['prefix' => 'hop-tac-quoc-te'], function () {
     Route::post('import-hop-tac-quoc-te', 'ExtractController@importFilebm13')->name('import.hop-tac-quoc-te');
     Route::post('import-error-hop-tac-quoc-te', 'ExtractController@importErrorbm13')->name('import.error.hop-tac-quoc-te');
 });
+
+// thanhnv 6/24/2020 bm1
+Route::group(['prefix' => 'quan-ly-giao-duc-nghe-nghiep'], function () {
+    Route::post('import-quan-ly-giao-duc-nghe-nghiep', 'GiaoDucNgheNghiepController@importFile')->name('import.quan-ly-giao-duc-nghe-nghiep');
+    Route::post('import-error-quan-ly-giao-duc-nghe-nghiep', 'GiaoDucNgheNghiepController@importError')->name('import.error.quan-ly-giao-duc-nghe-nghiep');
+});
+
+

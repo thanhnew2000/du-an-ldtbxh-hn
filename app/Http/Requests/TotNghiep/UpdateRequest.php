@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\TotNghiep;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class validateUpdateKetQuaTotNghiepGanVoiDoanhNghiep extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,18 +25,16 @@ class validateUpdateKetQuaTotNghiepGanVoiDoanhNghiep extends FormRequest
     {
         $data = $this->all();
         unset($data['_token']);
-        unset($data['ten_doanh_nghiep']);
-        $getDataCheck = [];
-        foreach ($data as $item => $value) {
-            if ($value == null) {
+        $getDataCheck=[];
+        foreach ($data as $item=>$value) {
+            if($value == null){
                 $getDataCheck[$item] = 'min:0|';
-            } else {
+            }else{
                 $getDataCheck[$item] = 'min:0|integer|';
             }
         }
         return $getDataCheck;
     }
-
     public function messages()
     {
         return [
@@ -49,9 +47,9 @@ class validateUpdateKetQuaTotNghiepGanVoiDoanhNghiep extends FormRequest
     {
         $data = $this->all();
         unset($data['_token']);
-        $attributes = [];
-        foreach ($data as $item => $value) {
-            $attributes[$item] = "Nhập số";
+        $attributes=[];
+        foreach ($data as $item=>$value) {
+            $attributes[$item]="Nhập số";
         }
         return $attributes;
     }

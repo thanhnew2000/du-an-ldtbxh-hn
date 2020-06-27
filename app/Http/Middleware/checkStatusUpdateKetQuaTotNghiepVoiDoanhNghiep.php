@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Illuminate\Support\Facades\DB;
 use Closure;
 
-class checkStatusUpdateSoLieuTuyenSinh
+class checkStatusUpdateKetQuaTotNghiepVoiDoanhNghiep
 {
     /**
      * Handle an incoming request.
@@ -17,9 +17,9 @@ class checkStatusUpdateSoLieuTuyenSinh
     public function handle($request, Closure $next)
     {
         $id = $request->id;
-        $trangthai = DB::table('tuyen_sinh')->where('id', $id)->select('tuyen_sinh.trang_thai')->first();
+        $trangthai = DB::table('ket_qua_tot_nghiep_gan_voi_doanh_nghiep')->where('id', $id)->select('ket_qua_tot_nghiep_gan_voi_doanh_nghiep.trang_thai')->first();
         if ($trangthai->trang_thai > 3) {
-            return redirect()->route('solieutuyensinh');
+            return redirect()->route('xuatbc.ket-qua-tot-nghiep-voi-doanh-nghiep');
         }
         return $next($request);
     }
