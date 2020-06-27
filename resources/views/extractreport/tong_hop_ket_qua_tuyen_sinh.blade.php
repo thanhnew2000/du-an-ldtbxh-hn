@@ -151,12 +151,14 @@
                     class="fa fa-upload" aria-hidden="true"></i>
                 Tải lên file Excell</a>
         </div>
-        <div class="col-lg-8">
+        <div class="col-lg-6">
             <a href="javascript:" data-toggle="modal" data-target="#moDalExportData"><i class="fa fa-file-excel"
                     aria-hidden="true"></i>
                 Xuất dữ liệu ra Excel</a>
         </div>
-
+        <div class="col-lg-2 text-center">
+            <a target="_blank" href="{{ route('xuatbc.them-dang-ky-chi-tieu-tuyen-sinh') }}" class="btn btn-success btn-sm">Thêm mới</a>
+        </div>
 </section>
 
 
@@ -184,9 +186,7 @@
                         <th rowspan="2">Năm</th>
                         <th rowspan="2">Đợt</th>
                         <th colspan="3">Đăng ký chỉ tiêu tuyển sinh</th>
-                        <th rowspan="2">
-                        <a target="_blank" href="{{ route('xuatbc.them-dang-ky-chi-tieu-tuyen-sinh') }}" class="btn btn-success btn-sm">Thêm mới</a>
-                        </th>
+                        <th rowspan="2"></th>
                     </tr>
                     <tr class="text-center">
                         <th rowspan="2">Tổng số</th>
@@ -196,11 +196,11 @@
                 </thead>
                 <tbody>
                     @php
-                    $stt = 1;
+                    $i = !isset($_GET['page']) ? 1 : ($params['page_size'] * ($_GET['page']-1) + 1);
                     @endphp
                   @foreach ($data as $item)
                     <tr>
-                        <td>{{ $stt }}</td>
+                        <td>{{ $i++ }}</td>
                         <td>{{ $item->ten }}</td>
                         <td>{{ $item->ten_loai_hinh_co_so }}</td>
                         <td>{{ $item->ma_nghe }}</td>
@@ -218,9 +218,7 @@
                                 class="btn btn-info btn-sm">Chi tiết</a>
                         </td>
                     </tr>
-                    @php
-                    $stt++;
-                    @endphp
+
                       
                   @endforeach
                 </tbody>
@@ -414,6 +412,17 @@
 
     });
 </script>
+@if (session('success'))
+<script>
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Thêm mới thành công !',
+        showConfirmButton: false,
+        timer: 3500
+    })
+</script>
+@endif
 {{-- thanhnv update change to service 6/26/2020 --}}
 <script>
     var routeImport = "{{route('import.dang-ky-chi-tieu-tuyen-sinh')}}" ;
