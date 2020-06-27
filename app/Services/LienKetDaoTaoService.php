@@ -20,6 +20,7 @@ use Storage;
 class LienKetDaoTaoService extends AppService
 {
     protected $SoLieuTuyenSinhInterface;
+    use ExcelTraitService;
 
     public function __construct(
         SoLieuTuyenSinhInterface $soLieuTuyenSinhRepository
@@ -139,43 +140,6 @@ class LienKetDaoTaoService extends AppService
     }
 
     // thanhnv import export  6/19/2020
-
-    public function createSpreadSheet($fileRead,$duoiFile){
-        if ($duoiFile =='xls') {
-            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
-         }else {
-            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-         }
-        $reader->setReadDataOnly(true);
-        $spreadsheet = $reader->load($fileRead);
-        return $spreadsheet;
-    }
-
-
-
-    public function lockedCellInExcel($worksheet,$arrayLock){
-        foreach($arrayLock as $cellLock){
-            $worksheet->getStyle($cellLock)->getProtection()->setLocked(Protection::PROTECTION_PROTECTED);
-        }
-    }
-    
-    
-    public function bacDaoTaoOfTruong($loaitruong){
-        $loai_truong ='';
-        switch ($loaitruong) {
-            case 3:
-                $loai_truong = 'TRƯỜNG SƠ CẤP';
-                break;
-            case 2:
-                $loai_truong = 'TRƯỜNG TRUNG CẤP';
-                break;
-            case 1:
-                $loai_truong = 'TRƯỜNG CAO ĐẲNG';
-                break;
-        } 
-      return $loai_truong;
-    }
-
     
     public function exportFillRow($worksheet, $row, $lt_dao_tao){
         $worksheet->setCellValue('B'.$row, $lt_dao_tao->ten_nganh_nghe.' - '.$lt_dao_tao->nghe_id);
@@ -259,10 +223,8 @@ class LienKetDaoTaoService extends AppService
             $worksheet->setCellValue('A'.$row,$sothutuCaoDang);
             $worksheet->setCellValue('B'.$row, $cs_n_cao_dang->ten_nganh_nghe.' - '.$cs_n_cao_dang->id);
 
-
             $worksheet->getStyle('A'.$row)->getProtection()->setLocked(Protection::PROTECTION_PROTECTED);
             $worksheet->getStyle('B'.$row)->getProtection()->setLocked(Protection::PROTECTION_PROTECTED);
-
         };
 
         $row++;
@@ -539,7 +501,6 @@ class LienKetDaoTaoService extends AppService
                                 'so_HSSV_tot_nghiep'=>$arrayDuLieu[$i][4],
                                 'don_vi_lien_ket'=>$arrayDuLieu[$i][5],
                                 'ghi_chu'=>$arrayDuLieu[$i][6],
-
                             ];
                             if(array_key_exists($id_nghe_nhap,$id_nghe_lkdt_da_co)){
                                 $updateData[$id_nghe_lkdt_da_co[$id_nghe_nhap]]=$arrayData;
@@ -554,12 +515,12 @@ class LienKetDaoTaoService extends AppService
                  }
                  if (count($updateData) > 0) {
                     foreach($updateData as $key => $value){
-                        DB::table('lien_ket_qua_tuyen_sinh')->where('id',$key)->update($value);
+                        $this->repository->updateLienKetDaoTao($key,$value);
+
                     }
                  }  
- 
                  if (count($insertData) > 0) {
-                     DB::table('lien_ket_qua_tuyen_sinh')->insert($insertData);
+                    $this->repository->createLienKetDaoTao($insertData);
                  }    
 
                 $message='ok';
@@ -611,33 +572,14 @@ class LienKetDaoTaoService extends AppService
 
         // check Error
         $arrayRunForError=['C','D','E'];
-        $vitri=[];
-        for($i = 0; $i < count($arrayDuLieu); $i++){ 
-            $key_aphabel=-1;
-            $rowNumber = $i+1; 
-            for($j = 2 ; $j < 5; $j++){ 
-                // 5 vì bỏ CỘT F G
-                $key_aphabel++;
-                    if( (is_string($arrayDuLieu[$i][$j])) || ($arrayDuLieu[$i][$j] < 0)){
-                    array_push($vitri,$arrayRunForError[$key_aphabel].$loi[$i]);
-                    }
-                }
-            }
+                 // 0 2 4
+       $vitri=$this->checkError($arrayDuLieu, $arrayRunForError, 0 , 2, 4);
 
         $spreadsheet2 = IOFactory::load($fileReadStorage);
         $worksheet = $spreadsheet2->getActiveSheet();
         Storage::delete($path);
 
-        for($i = 0; $i < count($vitri);$i++){
-            $worksheet->getStyle($vitri[$i])
-            ->getBorders()
-            ->getAllBorders()
-            ->setBorderStyle(Border::BORDER_THIN);
-            //  màu ô
-            $worksheet->getStyle($vitri[$i])->getFill()
-            ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-            ->getStartColor()->setARGB('FFFF0000');
-        }  
+        $this->errorRebBackGroud($vitri,$worksheet);
 
         $writer = IOFactory::createWriter($spreadsheet2, "Xlsx"); 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');

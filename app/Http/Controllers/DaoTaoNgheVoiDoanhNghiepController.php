@@ -9,6 +9,8 @@ use App\Services\DaoTaoNgheVoiDoanhNghiepService;
 use App\Http\Requests\DaoTaoNgheVoiDoanhNghiep\UpdateRequest;
 
 use App\Http\Requests\DaoTaoNgheVoiDoanhNghiep\StoreRequest;
+use App\Http\Requests\Excel\ExportDuLieu;
+
 use Storage;
 
 class DaoTaoNgheVoiDoanhNghiepController extends Controller
@@ -191,7 +193,7 @@ class DaoTaoNgheVoiDoanhNghiepController extends Controller
         $this->DaoTaoNgheVoiDoanhNghiepService->exportBieuMau($id_co_so);
     }
     
-    public function exportData(Request $request){
+    public function exportData(ExportDuLieu $request){
         $listCoSoId = $request->truong_id;
         $dateFrom = $request->dateFrom;
         $dateTo = $request->dateTo;

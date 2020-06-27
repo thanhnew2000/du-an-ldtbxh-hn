@@ -4,11 +4,20 @@ namespace App\Repositories;
 
 use Illuminate\Support\Facades\DB;
 use App\Repositories\BaseRepository;
+use App\Models\ChinhSachSinhVien;
 use Carbon\Carbon;
 
 
 class ChinhSachSinhVienRepository extends BaseRepository implements ChinhSachSinhVienRepositoryInterface
 {
+    protected $model;
+
+	public function __construct(ChinhSachSinhVien $model)
+	{
+		parent::__construct();
+		$this->model = $model;
+    }
+    
     public function getTable()
     {
         return 'tong_hop_chinh_sach_voi_hssv';
@@ -83,5 +92,13 @@ class ChinhSachSinhVienRepository extends BaseRepository implements ChinhSachSin
             ])
             ->where('tong_hop_chinh_sach_voi_hssv.id', $id);
         return  $data->first();
+    }
+
+    // thanhnv 6/26/2020 sửa model create update
+    public function createChinhSachSv($arrayData){
+        return $this->model->insert($arrayData);
+    }
+    public function updateChinhSachSv($key,$arrayData){
+        return $this->model->where('id',$key)->update($arrayData);
     }
 }

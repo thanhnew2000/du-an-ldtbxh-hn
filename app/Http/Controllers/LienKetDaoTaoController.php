@@ -7,6 +7,7 @@ use App\Services\LienKetDaoTaoService;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\SoLieuTuyenSinh\StoreRequest;
 use App\Http\Requests\validateUpdateLienKetDaoTao;
+use App\Http\Requests\Excel\ExportDuLieu;
 use Storage;
 
 class LienKetDaoTaoController extends Controller
@@ -206,7 +207,7 @@ class LienKetDaoTaoController extends Controller
         $id_co_so = $request->id_cs;
         $this->LienKetDaoTaoService->exportBieuMau($id_co_so);
     }
-    public function exportData(Request $request)
+    public function exportData(ExportDuLieu $request)
     {
         $listCoSoId = $request->truong_id;
         $dateFrom = $request->dateFrom;

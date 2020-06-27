@@ -2,10 +2,21 @@
 namespace App\Repositories;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\BaseRepository;
+use App\Models\KetQuaDaoTaoChoThanhNien;
 use Carbon\Carbon;
 class DaoTaoNgheChoThanhNienReponsitory extends BaseRepository implements DaoTaoNgheChoThanhNienRrponsitoryInterface {
 
 	//lay model
+		// thanhnv 6/26/2020 model 
+	protected $model;
+
+	public function __construct(KetQuaDaoTaoChoThanhNien $model)
+	{
+		parent::__construct();
+		$this->model = $model;
+    }
+	
+	
 	public function getTable(){
 		return 'ket_qua_dao_tao_cho_thanh_nien';
     }
@@ -182,6 +193,14 @@ class DaoTaoNgheChoThanhNienReponsitory extends BaseRepository implements DaoTao
 		->join('nganh_nghe','nganh_nghe.id','=','ket_qua_dao_tao_cho_thanh_nien.nghe_id')
 		->get();
 		return $data;
+	}
+
+	// thanhnv 6/26/2020 sửa model create update
+	public function createNgheThanhNien($arrayData){
+		return $this->model->insert($arrayData);
+	}
+	public function updateNgheThanhNien($key,$arrayData){
+		return $this->model->where('id',$key)->update($arrayData);
 	}
 
 }
