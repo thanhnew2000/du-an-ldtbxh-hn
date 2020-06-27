@@ -165,8 +165,8 @@ class GiaoDucNgheNghiepRepository extends BaseRepository implements GiaoDucNgheN
 	public function getThongTinDangKyTimeFromTo($id_truong, $fromDate,$toDate)
 	{
 		$data = DB::table('thong_tin_dang_ky')->where('thong_tin_dang_ky.co_so_id', '=',$id_truong)
-		->where('create_at','>=',$fromDate)
-		->where('create_at','<=',$toDate)
+		->where('created_at','>=',$fromDate)
+		->where('created_at','<=',$toDate)
 		->join('nganh_nghe','nganh_nghe.id','=','thong_tin_dang_ky.nghe_id')
 		// ->join('co_so_dao_tao','co_so_dao_tao.id','=','thong_tin_dang_ky.co_so_id')
 		->get();
