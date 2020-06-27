@@ -530,7 +530,7 @@ class LienKetDaoTaoService extends AppService
    
 
     public function importError($fileRead,$duoiFile,$path){
-        $fileReadStorage= storage_path('app\public\\'.$path);
+        $fileReadStorage= storage_path('app/public\\'.$path);
       
         $spreadsheet = $this->createSpreadSheet($fileReadStorage,$duoiFile);
         $data = $spreadsheet->getActiveSheet()->toArray();

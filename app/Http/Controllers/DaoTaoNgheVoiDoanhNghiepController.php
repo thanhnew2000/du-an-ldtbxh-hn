@@ -244,8 +244,8 @@ class DaoTaoNgheVoiDoanhNghiepController extends Controller
             'uploads/excels',
             $request->file('file_import')
         );
-        $path = str_replace('/', '\\', $pathLoad);  
-        $this->DaoTaoNgheVoiDoanhNghiepService->importError($fileRead, $duoiFile,$path);
+        // $path = str_replace('/', '\\', $pathLoad);  
+        $this->DaoTaoNgheVoiDoanhNghiepService->importError($fileRead, $duoiFile,$pathLoad);
     }
 
 }
