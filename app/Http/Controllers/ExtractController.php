@@ -165,7 +165,7 @@ class ExtractController extends Controller
         $request->request->set('created_at', $dateTime->format('Y-m-d H:i:s'));
 
         $this->DoiNguNhaGiaoService->create($request);
-        return redirect()->route('xuatbc.them-ds-nha-giao')->with(['success'=> 'thêm thành công']);
+        return redirect()->route('xuatbc.ds-nha-giao')->with(['success'=> 'thêm thành công']);
     }
 
     /* Màn hình cập nhật dữ liệu Danh sách đội ngũ nhà giáo.
