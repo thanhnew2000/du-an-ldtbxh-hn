@@ -11,14 +11,14 @@ use Dotenv\Result\Result;
 
 class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
 {
-    protected $table;
+ 
     // thanhnv 6/26/2020 thêm model 
     protected $model;
-
-	public function __construct(QuanLiSinhVienDangTheoHoc $model)
+    protected $table;
+	public function __construct(QuanLiSinhVienDangTheoHoc $models)
 	{
 		parent::__construct();
-		$this->model = $model;
+		$this->model = $models;
     }
     
 
@@ -189,7 +189,7 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
 
     // thanhnv 6/26/2020 sửa model create update
 	public function createQlSinhVienDangTheoHoc($arrayData){
-		return $this->model->create($arrayData);
+		return $this->model->insert($arrayData);
 	}
 	public function updateQlSinhVienDangTheoHoc($key,$arrayData){
 		return $this->model->where('id',$key)->update($arrayData);

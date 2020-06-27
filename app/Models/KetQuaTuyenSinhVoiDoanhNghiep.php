@@ -12,7 +12,7 @@ class KetQuaTuyenSinhVoiDoanhNghiep extends Model
         'dot',
         'nghe_id',
         'co_so_id',
-
+        
         'tong_so',
         'ket_qua_CD',
         'ket_qua_TC',

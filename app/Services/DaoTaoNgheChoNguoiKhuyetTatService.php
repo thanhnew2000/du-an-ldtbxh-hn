@@ -402,7 +402,7 @@ class DaoTaoNgheChoNguoiKhuyetTatService extends AppService
                  }   
                  if (count($updateData) > 0) {
                  foreach($updateData as $key => $value)
-                     DB::table('ket_qua_dao_tao_nguoi_khuyet_tat')->where('id',$key)->update($value);
+                    //  DB::table('ket_qua_dao_tao_nguoi_khuyet_tat')->where('id',$key)->update($value);
                     $this->repository->updateDtNguoiKhuyetTat($key,$value);
 
                  }  

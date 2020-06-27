@@ -331,13 +331,16 @@ class DaoTaoNgheVoiDoanhNghiepService extends AppService
                         return $message; 
                     };
 
-                }   
+                }    
+                //    dd($updateData,$insertData);
                 if (count($updateData) > 0) {
                 foreach($updateData as $key => $value)
-                    $this->repository->updateNgheVoiDoanhNghiep($key,$value);
+                     DB::table('ket_qua_tuyen_sinh_gan_voi_doanh_nghiep')->where('id',$key)->update($value);
+                    // $this->repository->updateNgheVoiDoanhNghiep($key,$value);
                 }  
                 if (count($insertData) > 0) {
-                   $this->repository->createNgheVoiDoanhNghiep($insertData); 
+                     DB::table('ket_qua_tuyen_sinh_gan_voi_doanh_nghiep')->insert($insertData);
+                //    $this->repository->createNgheVoiDoanhNghiep($insertData); 
                 }    
 
                 $message='ok';

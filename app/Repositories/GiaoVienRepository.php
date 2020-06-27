@@ -92,15 +92,14 @@ class GiaoVienRepository extends BaseRepository implements GiaoVienRepositoryInt
     
     public function giaoVienTheoTruong($id_truong){
         $data=  DB::table('giao_vien')->where('giao_vien.co_so_id','=',$id_truong)
-          ->join('nganh_nghe','nganh_nghe.id','=','giao_vien.nghe_id')
-          ->get();
-          return $data;
+        ->get();
+        return $data;
       }
 
 
     // thanhnv 6/26/2020 sửa model create update
 	public function createQuanLiGiaoVien($arrayData){
-		return $this->model->create($arrayData);
+		return $this->model->insert($arrayData);
 	}
 
 }

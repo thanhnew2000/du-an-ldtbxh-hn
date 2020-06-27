@@ -3,7 +3,6 @@ namespace App\Repositories;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\BaseRepository;
 use App\Models\KetQuaTuyenSinhVoiDoanhNghiep;
-
 use Carbon\Carbon;
 class DaoTaoNgheVoiDoanhNghiepRepository extends BaseRepository implements DaoTaoNgheVoiDoanhNghiepRepositoryInterface {
 
@@ -15,6 +14,7 @@ class DaoTaoNgheVoiDoanhNghiepRepository extends BaseRepository implements DaoTa
 		parent::__construct();
 		$this->model = $model;
 	}
+	
 	
 	public function getTable(){
 		return 'ket_qua_tuyen_sinh_gan_voi_doanh_nghiep';
@@ -211,7 +211,7 @@ class DaoTaoNgheVoiDoanhNghiepRepository extends BaseRepository implements DaoTa
 
 	// thanhnv 6/26/2020 sửa model create update
 	public function createNgheVoiDoanhNghiep($arrayData){
-		return $this->model->create($arrayData);
+		return $this->model->insert($arrayData);
 	}
 	public function updateNgheVoiDoanhNghiep($key,$arrayData){
 		return $this->model->where('id',$key)->update($arrayData);

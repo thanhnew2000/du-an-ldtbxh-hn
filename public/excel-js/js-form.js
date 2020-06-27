@@ -51,7 +51,7 @@ $("#file_import_id").change(function() {
                                    showConfirmButton: false,
                                    timer: 1700
                                })
-                           window.location.reload();
+                        //    window.location.reload();
                            console.log('Đã insert vào database');
                        }else if(response.data == 'exportError'){
                            $('.loading').css('display','none');
@@ -65,11 +65,11 @@ $("#file_import_id").change(function() {
                                confirmButtonColor: '#3085d6',
                                confirmButtonText: 'Xác nhận'
                                }).then((result) => {
-                               if (result.value) {
-                                   window.location.reload();
-                               }else{
-                                   window.location.reload();
-                               }
+                            //    if (result.value) {
+                            //        window.location.reload();
+                            //    }else{
+                            //        window.location.reload();
+                            //    }
                                })
                        }
                }).catch(function (error) {
@@ -82,11 +82,11 @@ $("#file_import_id").change(function() {
                            confirmButtonColor: '#3085d6',
                            confirmButtonText: 'Xác nhận'
                            }).then((result) => {
-                           if (result.value) {
-                               window.location.reload();
-                           }else{
-                               window.location.reload();
-                           }
+                        //    if (result.value) {
+                        //        window.location.reload();
+                        //    }else{
+                        //        window.location.reload();
+                        //    }
                            })
                });
            }

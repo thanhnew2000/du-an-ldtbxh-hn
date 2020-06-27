@@ -133,7 +133,7 @@
         <div class="col-lg-2">
             <a href="" data-toggle="modal"  data-target="#exampleModal-tbm">
                 <i class="fa fa-download" aria-hidden="true"></i>
-                Tải xuống biểu mẫuu
+                Tải xuống biểu mẫu
             </a>
         </div>
         <div class="col-lg-2">
@@ -347,7 +347,7 @@
     <script>
         var routeImport = "{{route('import.hssv.ql')}}";
     </script>
-    <script src="{!! asset('excel-js/js-xuat-time.js') !!}"></script>
+    {{-- <script src="{!! asset('excel-js/js-xuat-time.js') !!}"></script> --}}
     <script src="{!! asset('excel-js/js-form.js') !!}"></script>
     {{-- end --}}
 

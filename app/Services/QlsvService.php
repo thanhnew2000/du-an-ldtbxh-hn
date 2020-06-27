@@ -302,7 +302,6 @@ public function importFile($fileRead, $duoiFile, $year, $dot){
                         'so_luong_sv_nu_khac'=>$data[$i][24],
                         'so_luong_sv_dan_toc_khac'=>$data[$i][25],
                         'so_luong_sv_ho_khau_HN_khac'=>$data[$i][26],
-
                         'thoi_gian_cap_nhat'=>Carbon::now(),
                         ];
 
