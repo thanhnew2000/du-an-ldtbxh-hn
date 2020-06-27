@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class validateUpdateLienKetDaoTao extends FormRequest
+class validateCreateLienKetDaoTao extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,15 +21,17 @@ class validateUpdateLienKetDaoTao extends FormRequest
      *
      * @return array
      */
-
     public function rules()
     {
         $data = $this->all();
-        unset($data['_token']);
+        unset($data['_token'], $data['co_so_id'], $data['nghe_id'], $data['nam'], $data['dot']);
         unset($data['don_vi_lien_ket']);
         unset($data['ghi_chu']);
-
         $getDataCheck = [];
+        $getDataCheck['co_so_id'] = 'required|';
+        $getDataCheck['nghe_id'] = 'required|';
+        $getDataCheck['nam'] = 'required|';
+        $getDataCheck['dot'] = 'required|';
         foreach ($data as $item => $value) {
             if ($value == null) {
                 $getDataCheck[$item] = 'min:0|';
@@ -43,6 +45,7 @@ class validateUpdateLienKetDaoTao extends FormRequest
     public function messages()
     {
         return [
+            'required' => 'Không được để trống',
             'min' => ':attribute không được nhỏ hơn 0',
             'integer' => ':attribute nguyên',
         ];
@@ -52,8 +55,6 @@ class validateUpdateLienKetDaoTao extends FormRequest
     {
         $data = $this->all();
         unset($data['_token']);
-        unset($data['don_vi_lien_ket']);
-        unset($data['ghi_chu']);
         $attributes = [];
         foreach ($data as $item => $value) {
             $attributes[$item] = "Nhập số";
