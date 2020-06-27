@@ -6,12 +6,22 @@ namespace App\Repositories;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\QlsvRepositoryInterface;
+use App\Models\QuanLiSinhVienDangTheoHoc;
 use Dotenv\Result\Result;
 
 class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
 {
-
+ 
+    // thanhnv 6/26/2020 thêm model 
+    protected $model;
     protected $table;
+	public function __construct(QuanLiSinhVienDangTheoHoc $models)
+	{
+		parent::__construct();
+		$this->model = $models;
+    }
+    
+
     public function getTable()
     {
         return 'sv_dang_quan_ly';
@@ -166,5 +176,22 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
         // dd($maNganhNghe);
         return $maNganhNghe;
     }
+    // thanhnv 6/25/2020
+    public function getSvdqlJoinNganhNgheNamDot($id_truong,$nam_muon_xuat,$dot_muon_xuat){
+       $data = DB::table('sv_dang_quan_ly')->where('sv_dang_quan_ly.co_so_id','=',$id_truong)
+        ->join('nganh_nghe','nganh_nghe.id','=','sv_dang_quan_ly.nghe_id')
+        ->where('sv_dang_quan_ly.nam','=',$nam_muon_xuat)
+        ->where('sv_dang_quan_ly.dot','=',$dot_muon_xuat)
+       ->orderBy('sv_dang_quan_ly.nghe_id', 'asc')->get();
+       return $data;
+    }
 
+
+    // thanhnv 6/26/2020 sửa model create update
+	public function createQlSinhVienDangTheoHoc($arrayData){
+		return $this->model->insert($arrayData);
+	}
+	public function updateQlSinhVienDangTheoHoc($key,$arrayData){
+		return $this->model->where('id',$key)->update($arrayData);
+	}
 }

@@ -402,11 +402,14 @@ class DaoTaoNgheChoNguoiKhuyetTatService extends AppService
                  }   
                  if (count($updateData) > 0) {
                  foreach($updateData as $key => $value)
-                     DB::table('ket_qua_dao_tao_nguoi_khuyet_tat')->where('id',$key)->update($value);
+                    //  DB::table('ket_qua_dao_tao_nguoi_khuyet_tat')->where('id',$key)->update($value);
+                    $this->repository->updateDtNguoiKhuyetTat($key,$value);
+
                  }  
  
                  if (count($insertData) > 0) {
-                     DB::table('ket_qua_dao_tao_nguoi_khuyet_tat')->insert($insertData);
+                    $this->repository->createDtNguoiKhuyetTat($insertData);
+                    //  DB::table('ket_qua_dao_tao_nguoi_khuyet_tat')->insert($insertData);
                  }    
  
                   $message='ok';

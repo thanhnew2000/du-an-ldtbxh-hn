@@ -6,9 +6,7 @@ use Illuminate\Http\Request;
 use App\Services\KetQuaTotNghiepGanVoiDoanhNGhiepService;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\validateUpdateKetQuaTotNghiepGanVoiDoanhNghiep;
-use App\Http\Requests\validateKetQuaTotNghiepGanVoiDoanhNghiep;
-
-
+use App\Http\Requests\Excel\ExportDuLieu;
 use Storage;
 
 class KetQuaTotNghiepGanVoiDoanhNGhiepController extends Controller
@@ -147,9 +145,8 @@ class KetQuaTotNghiepGanVoiDoanhNGhiepController extends Controller
         $id_co_so = $request->id_cs;
         $this->KetQuaTotNghiepGanVoiDoanhNGhiepService->exportBieuMau($id_co_so);
     }
-
-    public function exportData(Request $request)
-    {
+    
+    public function exportData(ExportDuLieu $request){
         $listCoSoId = $request->truong_id;
         $dateFrom = $request->dateFrom;
         $dateTo = $request->dateTo;
@@ -202,7 +199,7 @@ class KetQuaTotNghiepGanVoiDoanhNGhiepController extends Controller
             'uploads/excels',
             $request->file('file_import')
         );
-        $path = str_replace('/', '\\', $pathLoad);
-        $this->KetQuaTotNghiepGanVoiDoanhNGhiepService->importError($fileRead, $duoiFile, $path);
+        // $path = str_replace('/', '\\', $pathLoad);
+        $this->KetQuaTotNghiepGanVoiDoanhNGhiepService->importError($fileRead, $duoiFile, $pathLoad);
     }
 }

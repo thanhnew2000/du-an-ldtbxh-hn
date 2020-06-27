@@ -4,9 +4,20 @@ namespace App\Repositories;
 
 
 use Illuminate\Support\Facades\DB;
+use App\Models\LienKetQuaTuyenSinh;
+
 
 class LienKetDaoTaoRepository extends BaseRepository implements LienKetDaoTaoRepositoryInterface
-{
+{   
+    protected $model;
+
+	public function __construct(LienKetQuaTuyenSinh $model)
+	{
+		parent::__construct();
+		$this->model = $model;
+    }
+    
+    
     public function getTable()
     {
         return 'lien_ket_qua_tuyen_sinh';
@@ -269,5 +280,13 @@ class LienKetDaoTaoRepository extends BaseRepository implements LienKetDaoTaoRep
 	// 	->join('nganh_nghe','nganh_nghe.id','=','lien_ket_qua_tuyen_sinh.nghe_id')
 	// 	->get();
 	// 	return $data;
-	// }
+    // }
+    
+    	// thanhnv 6/26/2020 sửa model create update
+	public function createLienKetDaoTao($arrayData){
+		return $this->model->insert($arrayData);
+	}
+	public function updateLienKetDaoTao($key,$arrayData){
+		return $this->model->where('id',$key)->update($arrayData);
+	}
 }

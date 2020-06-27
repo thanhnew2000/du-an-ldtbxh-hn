@@ -330,10 +330,10 @@ class KetQuaTotNghiepGanVoiDoanhNGhiepService extends AppService
                 // dd($updateData);  
                 if (count($updateData) > 0) {
                 foreach($updateData as $key => $value)
-                    DB::table('ket_qua_tot_nghiep_gan_voi_doanh_nghiep')->where('id',$key)->update($value);
+                    $this->repository->updateTotNghiepVoiDoanhNghiep($key,$value);
                 }  
                 if (count($insertData) > 0) {
-                    DB::table('ket_qua_tot_nghiep_gan_voi_doanh_nghiep')->insert($insertData);
+                    $this->repository->createTotNghiepVoiDoanhNghiep($insertData);
                 }    
 
                 $message='ok';
@@ -347,7 +347,7 @@ class KetQuaTotNghiepGanVoiDoanhNGhiepService extends AppService
     }
 
     public function importError($fileRead,$duoiFile,$path){
-        $fileReadStorage= storage_path('app\public\\'.$path);
+        $fileReadStorage= storage_path('app/public/'.$path);
     
         $spreadsheet = $this->createSpreadSheet($fileReadStorage,$duoiFile);
         $data = $spreadsheet->getActiveSheet()->toArray();

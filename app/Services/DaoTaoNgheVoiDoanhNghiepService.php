@@ -220,8 +220,11 @@ class DaoTaoNgheVoiDoanhNghiepService extends AppService
         $this->lockedCellInExcel($worksheet,$arrayLock);
 
         $row=7;
+        $soThuTu=0;
         foreach($co_so_nghe as $cs_n){
+            $soThuTu++;
             $row ++;
+            $worksheet->setCellValue("A{$row}", $soThuTu);
             $worksheet->setCellValue('B'.$row, $cs_n->ten_nganh_nghe.' - '.$cs_n->id);
             $worksheet->setCellValue("C{$row}", "=SUM(D{$row}:G{$row})");
         };
@@ -328,13 +331,16 @@ class DaoTaoNgheVoiDoanhNghiepService extends AppService
                         return $message; 
                     };
 
-                }   
+                }    
+                //    dd($updateData,$insertData);
                 if (count($updateData) > 0) {
                 foreach($updateData as $key => $value)
-                    DB::table('ket_qua_tuyen_sinh_gan_voi_doanh_nghiep')->where('id',$key)->update($value);
+                     DB::table('ket_qua_tuyen_sinh_gan_voi_doanh_nghiep')->where('id',$key)->update($value);
+                    // $this->repository->updateNgheVoiDoanhNghiep($key,$value);
                 }  
                 if (count($insertData) > 0) {
-                    DB::table('ket_qua_tuyen_sinh_gan_voi_doanh_nghiep')->insert($insertData);
+                     DB::table('ket_qua_tuyen_sinh_gan_voi_doanh_nghiep')->insert($insertData);
+                //    $this->repository->createNgheVoiDoanhNghiep($insertData); 
                 }    
 
                 $message='ok';
@@ -349,7 +355,7 @@ class DaoTaoNgheVoiDoanhNghiepService extends AppService
 
 
 public function importError($fileRead,$duoiFile,$path){
-    $fileReadStorage= storage_path('app\public\\'.$path);
+    $fileReadStorage= storage_path('app/public/'.$path);
   
     $spreadsheet = $this->createSpreadSheet($fileReadStorage,$duoiFile);
     $data = $spreadsheet->getActiveSheet()->toArray();

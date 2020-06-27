@@ -15,4 +15,8 @@ interface QlsvRepositoryInterface
     public function getTenQuanHuyen();
     public function getTenXaPhuongTheoQuanHuyen($id);
     public function getMaNganhNghe();
+    // thanhnv 6/25/2020 
+    public function getSvdqlJoinNganhNgheNamDot($id_truong,$nam_muon_xuat,$dot_muon_xuat);
+    public function createQlSinhVienDangTheoHoc($arrayData);
+    public function updateQlSinhVienDangTheoHoc($key,$arrayData);
 }

@@ -7,6 +7,11 @@ use App\Services\SinhVienTotNghiepService;
 use App\Http\Requests\TotNghiep\UpdateRequest;
 use App\Http\Requests\TotNghiep\StoreRequest;
 
+use App\Http\Requests\TotNghiep\StoreUpdateRequest;
+
+use App\Http\Requests\Excel\ExportDuLieu;
+use Storage;
+
 class SinhVienTotNghiepController extends Controller
 {
     protected $SinhVienTotNghiepService;
@@ -129,5 +134,66 @@ class SinhVienTotNghiepController extends Controller
         }else{
             return $urledit = route('xuatbc.sua-tong-hop', ['id' => $getdata->id]);
         }
+    }
+    // thanhnv 6/25/2020 update change to service 
+
+    public function exportBieuMau(Request $request){
+        $id_co_so = $request->id_cs;
+        $this->SinhVienTotNghiepService->exportBieuMau($id_co_so);
+    }
+    
+    public function exportData(ExportDuLieu $request){
+        $listCoSoId = $request->truong_id;
+        $dateFrom = $request->dateFrom;
+        $dateTo = $request->dateTo;
+
+        $changeFrom = strtotime($dateFrom); 
+        $fromDate = date("Y-m-d", $changeFrom);
+
+        $changeTo = strtotime($dateTo); 
+        $toDate = date("Y-m-d", $changeTo);
+        $this->SinhVienTotNghiepService->exportData($listCoSoId ,$fromDate,$toDate);
+    }
+
+    public function importFile(Request $request){
+        $dot=$request->dot;
+        $year=$request->nam;
+        $nameFile=$request->file->getClientOriginalName();
+        $nameFileArr=explode('.',$nameFile);
+        $duoiFile=end($nameFileArr);
+        
+        $fileRead = $_FILES['file']['tmp_name'];
+        $kq =  $this->SinhVienTotNghiepService->importFile($fileRead, $duoiFile, $year, $dot);
+
+        if($kq=='errorkitu'){
+                return response()->json('exportError',200);   
+        }else if($kq=='ok'){
+                return response()->json('ok',200); 
+        }else if($kq=='NgheUnsign'){
+                return response()->json(['messageError' => ' Số lượng nghề không phù hợp với nghề đã đăng kí' ],200);   
+        }else if($kq=='noCorrectIdTruong'){
+            return response()->json(['messageError' => ' Trường không đúng hãy nhập lại' ],200);   
+        }else if($kq=='ngheKoThuocTruong'){
+            return response()->json(['messageError' => 'Có nghề không thuộc trong trường' ],200);   
+        }else{
+            return response()->json(['messageError' => $kq ],200);   
+        }
+    }
+
+    public function importError(Request $request){
+        $dot=$request->dot;
+        $year=$request->nam;
+
+        $nameFile=$request->file_import->getClientOriginalName();
+        $nameFileArr=explode('.',$nameFile);
+        $duoiFile=end($nameFileArr);
+
+        $fileRead = $_FILES['file_import']['tmp_name'];
+        $pathLoad = Storage::putFile(
+            'uploads/excels',
+            $request->file('file_import')
+        );
+        // $path = str_replace('/', '\\', $pathLoad);  
+        $this->SinhVienTotNghiepService->importError($fileRead, $duoiFile,$pathLoad);
     }
 }

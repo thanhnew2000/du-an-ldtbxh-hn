@@ -80,6 +80,19 @@ trait ExcelTraitService
         } 
       return $loai_truong;
     }
+    
+    public function errorRebBackGroud($vitri,$worksheet){
+        for($i = 0; $i < count($vitri);$i++){
+            $worksheet->getStyle($vitri[$i])
+            ->getBorders()
+            ->getAllBorders()
+            ->setBorderStyle(Border::BORDER_THIN);
+            //  màu ô
+            $worksheet->getStyle($vitri[$i])->getFill()
+            ->setFillType(Fill::FILL_SOLID)
+            ->getStartColor()->setARGB('FFFF0000');
+        }  
+    }
 
     
 
