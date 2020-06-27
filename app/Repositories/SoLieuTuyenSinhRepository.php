@@ -3,8 +3,17 @@ namespace App\Repositories;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\BaseRepository;
 use Carbon\Carbon;
-class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSinhInterface {
+use App\Models\TuyenSinh;
 
+class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSinhInterface {
+	// thanhnv 6/26/2020 them
+	protected $model;
+	public function __construct(TuyenSinh $model)
+	{
+		parent::__construct();
+		$this->model = $model;
+	}
+	
 	//lay model
 	public function getTable(){
 		 //return \App\Products::class;
@@ -210,6 +219,31 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 		$data = DB::table('nganh_nghe')->where('id', 'like', $id.'%')->where('ma_cap_nghe', $cap_nghe)->orderBy('ten_nganh_nghe')->get();
 		return $data;
 	}
-	
+	// thanh change to service 6/26/2020
+
+	public function getSvTuyenSinhTimeFromTo($id_truong, $fromDate,$toDate){
+		$data =  DB::table('tuyen_sinh')->where('tuyen_sinh.co_so_id', '=',$id_truong)
+		->where('thoi_gian_cap_nhat','>=',$fromDate)
+		->where('thoi_gian_cap_nhat','<=',$toDate)
+		->join('nganh_nghe','nganh_nghe.id','=','tuyen_sinh.nghe_id')
+		->get();
+		return $data;
+	}
+	public function getTuyenSinhCsNamDot($id_truong, $year,$dot)
+	{
+		$data =  DB::table('tuyen_sinh')->where('co_so_id', '=', $id_truong)
+		->where('nam','=',$year)
+		->where('dot','=',$dot)
+		->select('id','nghe_id')->get();
+		return $data;
+	}
+
+	// thanhnv 6/26/2020 sửa model create update
+	public function createTuyenSinh($arrayData){
+		return $this->model->create($arrayData);
+	}
+	public function updateTuyenSinh($key,$arrayData){
+		return $this->model->where('id',$key)->update($arrayData);
+	}
 }
  ?>

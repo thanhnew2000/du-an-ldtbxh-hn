@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Services\GiaoDucNgheNghiepService;
 use App\Http\Requests\GiaoDucNgheNghiep\UpdateRequest;
 use App\Http\Requests\GiaoDucNgheNghiep\StoreRequest;
+use App\Http\Requests\Excel\ExportDuLieu;
+
 
 class GiaoDucNgheNghiepController extends Controller
 {
@@ -176,7 +178,7 @@ class GiaoDucNgheNghiepController extends Controller
         $this->GiaoDucNgheNghiepService->exportBieuMau($id_co_so);
     }
 
-    public function exportData(Request $request){
+    public function exportData(ExportDuLieu $request){
         $listCoSoId = $request->truong_id;
         $dateFrom = $request->dateFrom;
         $dateTo = $request->dateTo;
@@ -227,7 +229,7 @@ class GiaoDucNgheNghiepController extends Controller
             'uploads/excels',
             $request->file('file_import')
         );
-        $path = str_replace('/', '\\', $pathLoad);  
-        $this->GiaoDucNgheNghiepService->importError($fileRead, $duoiFile,$path);
+        // $path = str_replace('/', '\\', $pathLoad);  
+        $this->GiaoDucNgheNghiepService->importError($fileRead, $duoiFile,$pathLoad);
     }
 }

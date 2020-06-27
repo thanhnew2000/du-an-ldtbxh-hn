@@ -2,10 +2,19 @@
 namespace App\Repositories;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\BaseRepository;
+use App\Models\TotNghiep;
 use Carbon\Carbon;
 class SinhVienTotNghiepRepository extends BaseRepository implements SinhVienTotNghiepInterface {
 
 	//lay model
+	// thanhnv 6/26/2020 them
+	protected $model;
+	public function __construct(TotNghiep $model)
+	{
+		parent::__construct();
+		$this->model = $model;
+    }
+	
 	public function getTable(){
 		return 'sv_tot_nghiep';
     }
@@ -159,5 +168,31 @@ class SinhVienTotNghiepRepository extends BaseRepository implements SinhVienTotN
         return $result;
 	}
 
+	// thanhnv update change to service 6/25/2020
+	public function getSvTotNghiepTimeFromTo($id_truong, $fromDate,$toDate){
+		$data = DB::table('sv_tot_nghiep')->where('sv_tot_nghiep.co_so_id', '=',$id_truong)
+		->where('thoi_gian_cap_nhat','>=',$fromDate)
+		->where('thoi_gian_cap_nhat','<=',$toDate)
+		->join('nganh_nghe','nganh_nghe.id','=','sv_tot_nghiep.nghe_id')
+		->get();
+		return $data;
+	}
+	public function getTotNghiepCsNamDot($id_truong, $year,$dot)
+	{
+		$data =  DB::table('sv_tot_nghiep')->where('co_so_id', '=', $id_truong)
+		->where('nam','=',$year)
+		->where('dot','=',$dot)
+		->select('id','nghe_id')->get();
+		return $data;
+	}
+
+
+	// thanhnv 6/26/2020 sửa model create update
+	public function createTotNghiep($arrayData){
+		return $this->model->create($arrayData);
+	}
+	public function updateTotNghiep($key,$arrayData){
+		return $this->model->where('id',$key)->update($arrayData);
+	}
 }
  ?>

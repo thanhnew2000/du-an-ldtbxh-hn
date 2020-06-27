@@ -261,11 +261,15 @@ class HopTacQuocTeService extends AppService
                 //  }   
                  if (count($updateData) > 0) {
                  foreach($updateData as $key => $value)
-                     DB::table('ket_qua_hop_tac_quoc_te')->where('id',$key)->update($value);
+                    //  DB::table('ket_qua_hop_tac_quoc_te')->where('id',$key)->update($value);
+                    $this->repository->updateHopTacQuocTe($key,$value);
+
                  }  
  
                  if (count($insertData) > 0) {
-                     DB::table('ket_qua_hop_tac_quoc_te')->insert($insertData);
+                    $this->repository->createHopTacQuocTe($insertData);
+
+                    //  DB::table('ket_qua_hop_tac_quoc_te')->insert($insertData);
                  }    
  
                   $message='ok';
@@ -280,7 +284,7 @@ class HopTacQuocTeService extends AppService
 
 
     public function importError($fileRead,$duoiFile,$path){
-        $fileReadStorage= storage_path('app\public\\'.$path);
+        $fileReadStorage= storage_path('app/public/'.$path);
       
         $spreadsheet = $this->createSpreadSheet($fileReadStorage,$duoiFile);
         $data = $spreadsheet->getActiveSheet()->toArray();
