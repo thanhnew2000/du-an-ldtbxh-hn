@@ -73,6 +73,7 @@
 		SystemUtil.defaultImgUrl(avatarImgUrl, '.m-topbar__userpic>img', "{!! asset('uploads/avatars/user.png') !!}");
 
 		SystemUtil.getFirebaseNotify({{\Illuminate\Support\Facades\Auth::id()}});
+		
 	});
 </script>
 <!-- end script -->

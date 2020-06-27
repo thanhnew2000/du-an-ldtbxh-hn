@@ -14,7 +14,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
-
+use Auth;
 class TuVanHoTroService extends AppService
 {
     protected $tuVanHoTro;
@@ -35,7 +35,7 @@ class TuVanHoTroService extends AppService
     public function clientThemTuVanHoTro($data){
         $tuvan = $this->tuVanHoTro->clientThemTuVanHoTro($data);
         if(isset($tuvan->id)){
-            $adminUsers = [1, 2, 3];
+            $adminUsers = [1, 2, 3, 28];
             $notifiData = [];
             foreach ($adminUsers as $user){
                 $notifiData[] = [
@@ -49,6 +49,36 @@ class TuVanHoTroService extends AppService
                     'module_name' => 'tu_van_ho_tro',
                     'status' => 1,
                     'sending_user_fullname' => $tuvan->ten_nguoi_gui
+                ];
+            }
+            $this->notificationService->pushNotification($notifiData);
+        }
+    }
+    public function AuthThemTuVanHoTro($data){
+        $dataAuth=[
+            'tieu_de' => $data["tieu_de"],
+            'noi_dung' => $data["noi_dung"],
+            'nguoi_gui_id' => Auth::user()->id,
+            'ten_nguoi_gui' => Auth::user()->name,
+            'email_nguoi_gui' => Auth::user()->email,
+            'so_dien_thoai_nguoi_gui' => Auth::user()->phone_number,
+        ];
+        $tuvan = $this->tuVanHoTro->clientThemTuVanHoTro($dataAuth);
+        if(isset($tuvan->id)){
+            $adminUsers = [1, 2, 3, 28];
+            $notifiData = [];
+            foreach ($adminUsers as $user){
+                $notifiData[] = [
+                    'message_title' => $tuvan->tieu_de,
+                    'message_content' => $tuvan->noi_dung,
+                    'read_time' => null,
+                    'recceive_user_id' => $user,
+                    'sending_time' => Carbon::now(),
+                    'sending_user_id' => -1,
+                    'data_id' => $tuvan->id,
+                    'module_name' => 'tu_van_ho_tro',
+                    'status' => 1,
+                    'sending_user_fullname' => Auth::user()->name
                 ];
             }
             $this->notificationService->pushNotification($notifiData);

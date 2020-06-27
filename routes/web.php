@@ -53,7 +53,8 @@ Route::group(['middleware' => 'auth'], function () {
      });
 
      Route::group(['prefix' => 'feedback'], function () {
-          Route::get('/nhan-tin-bao-loi-he-thong', 'FeedbackController@nhantinbaoloi');
+          Route::get('/nhan-tin-bao-loi-he-thong', 'FeedbackController@nhantinbaoloi')->name('feedback.nhan-tin-bao-loi-he-thong');
+          Route::post('/tu-van-ho-tro', 'FeedbackController@postClientSendForm')->name('tu-van.ho-tro');
      });  
      Route::get('danh-sach-doi-ngu-nha-giao',function(){
           return view('danhsachdoingunhagioa.danh-sach-doi-ngu-nha-giao');
