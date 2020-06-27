@@ -103,9 +103,6 @@ class ChungNhanDangKyNgheRepository extends BaseRepository implements ChungNhanD
         if (isset($params['ma_quan_huyen']) && $params['ma_quan_huyen'] != null) {
             $queryBuilder->where('co_so_dao_tao.maqh', $params['ma_quan_huyen']);
         }
-        //        if(isset($params['ma_phuong_xa']) && $params['ma_phuong_xa'] != null){
-        //            $queryBuilder->where('co_so_dao_tao.xaid', $params['xaid']);
-        //        }
         return $queryBuilder->paginate($params['page_size']);
     }
 
@@ -113,20 +110,46 @@ class ChungNhanDangKyNgheRepository extends BaseRepository implements ChungNhanD
     {
         $queryBuilder = $this->table
             ->select(
-                'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.id as chung_nhan_id',
-                'nghe_id',
-                'ten_quyet_dinh',
-                'anh_quyet_dinh',
+                'nganh_nghe.ten_nganh_nghe as ten_nghe',
+                'nganh_nghe.id as ma_nghe',
+                'nganh_nghe.bac_nghe',
 
+                'quy_mo_tuyen_sinh',
                 'trang_thai',
-                'ngay_ban_hanh',
 
-                'nganh_nghe.ten_nganh_nghe',
-                'nganh_nghe.bac_nghe'
+                'giay_phep.ten_giay_phep',
+                'giay_phep.ngay_ban_hanh',
+                'giay_phep.ngay_het_han',
+                'giay_phep.anh_giay_phep'
             )
-            ->join('nganh_nghe', 'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.nghe_id', '=', 'nganh_nghe.id')
-            ->where('giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.trang_thai', config('common.trang_thai_nghe.hoat_dong'))
+            ->join('nganh_nghe', 'nganh_nghe.id', '=', 'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.nghe_id')
+            ->join('giay_phep', 'giay_phep.id', '=', 'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.giay_phep_id')
             ->where('giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.co_so_id', $params['co_so_id']);
+        // dd($queryBuilder->toSql());
         return $queryBuilder->paginate($params['page_size']);
+    }
+
+    public function getNgheTheoGiayPhep($params)
+    {
+        $queryBuilder = $this->table->select(
+            'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.id as giay_chung_nhan_id',
+            'nghe_id',
+            'nganh_nghe.ten_nganh_nghe as ten_nghe',
+            'nganh_nghe.bac_nghe',
+            'quy_mo_tuyen_sinh'
+        )
+            ->join('nganh_nghe', 'nganh_nghe.id', '=', 'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.nghe_id')
+            ->where('giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.co_so_id', $params['co_so_id'])
+            ->where('giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.giay_phep_id', $params['giay_phep_id']);;
+        return $queryBuilder->orderByDesc('giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.id')->paginate($params['page_size']);
+    }
+
+    public function xoaNgheTrongGiayPhep($params)
+    {
+        return $this->table
+            ->where('co_so_id', $params['co_so_id'])
+            ->where('giay_phep_id', $params['giay_phep_id'])
+            ->where('nghe_id', $params['nghe_id'])
+            ->delete();
     }
 }

@@ -3,14 +3,21 @@
 @section('style')
 {{-- <link href="{!! asset('tuyensinh/css/chitiettuyensinh.css') !!}" rel="stylesheet" type="text/css" /> --}}
 <style>
-    .m-table.m-table--border-danger, .m-table.m-table--border-danger th, .m-table.m-table--border-danger td{
-        border-color: #bcb1b1 ;
-    } 
-    table thead th[colspan="4"],th[colspan="5"],th[colspan="6"],th[colspan="7"]{
-        border-bottom-width:1px;
+    .m-table.m-table--border-danger,
+    .m-table.m-table--border-danger th,
+    .m-table.m-table--border-danger td {
+        border-color: #bcb1b1;
+    }
+
+    table thead th[colspan="4"],
+    th[colspan="5"],
+    th[colspan="6"],
+    th[colspan="7"] {
+        border-bottom-width: 1px;
         border-bottom: 1px solid #bcb1b1 !important;
     }
-    .tong{
+
+    .tong {
         font-weight: bold;
     }
 </style>
@@ -40,14 +47,12 @@
                                 <label class="col-lg-2 col-form-label">Năm</label>
                                 <div class="col-lg-8">
                                     <select class="form-control" name="nam" id="nam">
-                                        <option value="" selected >Chọn</option>
+                                        <option value="" selected>Chọn</option>
                                         @foreach (config('common.nam_tuyen_sinh.list') as $item)
-                                        <option 
-                                        @if (isset($params['nam']))
-                                                {{( $params['nam'] ==  $item ) ? 'selected' : ''}}  
-                                                @endif
-                                                value="{{$item}}"> {{$item}}
-                                            </option>
+                                        <option @if (isset($params['nam']))
+                                            {{( $params['nam'] ==  $item ) ? 'selected' : ''}} @endif value="{{$item}}">
+                                            {{$item}}
+                                        </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -58,17 +63,12 @@
                                 <label for="" class="col-lg-2 col-form-label">Đợt</label>
                                 <div class="col-lg-8">
                                     <select class="form-control" name="dot" id="dot">
-                                        <option value="" >Chọn</option>
-                                        <option
-                                        @if (isset($params['dot']))
-                                            {{( $params['dot'] ==  1 ) ? 'selected' : ''}}  
-                                        @endif
-                                        value="1" >Đợt 1</option>
-                                        <option value="2"
-                                        @if (isset($params['dot']))
-                                        {{( $params['dot'] ==  2 ) ? 'selected' : ''}}  
-                                        @endif
-                                        >Đợt 2</option>
+                                        <option value="">Chọn</option>
+                                        <option @if (isset($params['dot']))
+                                            {{( $params['dot'] ==  1 ) ? 'selected' : ''}} @endif value="1">Đợt 1
+                                        </option>
+                                        <option value="2" @if (isset($params['dot']))
+                                            {{( $params['dot'] ==  2 ) ? 'selected' : ''}} @endif>Đợt 2</option>
                                     </select>
                                 </div>
                             </div>
@@ -84,11 +84,11 @@
         </form>
     </div>
     <div class="m-portlet">
-        @if (session('thongbao')) 
+        @if (session('thongbao'))
         <div class="alert alert-success">
-        {{session('thongbao')}}
+            {{session('thongbao')}}
         </div>
-        @endif   
+        @endif
         <div class="m-portlet__head">
             <div class="m-portlet__head-caption">
                 <div class="m-portlet__head-title">
@@ -115,7 +115,8 @@
         </div>
         
         <div class="m-portlet__body">
-            <table class="table table-bordered m-table m-table--border-danger m-table--head-bg-primary table-responsive">
+            <table
+                class="table table-bordered m-table m-table--border-danger m-table--head-bg-primary table-responsive">
                 <thead>
                     <tr class=" text-center ">
                         <th rowspan="2">STT</th>
@@ -218,7 +219,7 @@
                         <td>
                             @if ($item->trang_thai<3) <a href="{{route('suasolieutuyensinh',['id'=>$item->id])}}">
                                 Sửa</a>
-                            @endif
+                                @endif
                         </td>
                     </tr>
                     @endforeach

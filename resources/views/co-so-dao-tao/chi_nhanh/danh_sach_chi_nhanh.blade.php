@@ -91,33 +91,67 @@
                     <strong>{!! \Session::get('mess-success') !!}</strong>
                 </div>
                 @endif
+                <div class="m-portlet__head-caption mt-3">
+                    @if (isset($chiNhanhDefault))
+                    <div class="m-portlet__head-title pt-3 pb-3">
+                        <h5 class="m-portlet__head-text">
+                            Danh sách địa điểm đào tạo trường:
+                            <b>{{ $chiNhanhDefault->ten }}</b>
+
+                        </h5>
+                    </div>
+                    @endif
+                </div>
+
                 <table class="table m-table m-table--head-bg-brand">
                     <thead>
                         <th>STT</th>
+                        @if (!isset($chiNhanhDefault))
                         <th>Tên cơ sở</th>
+                        @endif
                         <th>Địa chỉ</th>
                         <th>Hotline</th>
-                        <th>Chi Nhánh</th>
+                        <th>Loại chi nhánh</th>
                         <th>Mã chứng nhận</th>
-                        <th colspan="2"><a href="{{ route('chi-nhanh.tao-moi') }}"
-                                class="btn btn-success btn-sm mr-3">Thêm
+                        <th>
+                            @if (isset($chiNhanhDefault))
+                            <form action="{{ route('chi-nhanh.tao-moi') }}" method="get">
+                                <input type="hidden" name="co_so_id" value="{{ $chiNhanhDefault->id }}">
+                                <button type="submit" class="btn btn-success btn-sm mr-3">Thêm mới</button>
+                            </form>
+                            @else
+                            <a href="{{ route('chi-nhanh.tao-moi') }}" class="btn btn-success btn-sm mr-3">Thêm
                                 mới</a>
+                            @endif
                         </th>
                     </thead>
                     <tbody>
+                        @if (isset($chiNhanhDefault))
+                        <tr>
+                            <td>0</td>
+                            <td>{{ $chiNhanhDefault->dia_chi }}</td>
+                            <td>{{ $chiNhanhDefault->dien_thoai }}</td>
+                            <td>Chi nhánh chính</td>
+                        </tr>
+                        @endif
+
                         @php($i=1)
+
                         @forelse($data as $items)
                         <tr>
                             <td>{{$i++}}</td>
+                            @if (!isset($chiNhanhDefault))
                             <td>{{$items->ten}}</td>
+                            @endif
                             <td>{{$items->dia_chi}}</td>
                             <td>{{$items->hotline}}</td>
                             <td>
                                 @if ($items->chi_nhanh_chinh == 1)
                                 Chi nhánh chính
-                                @else
+                                @elseif($items->chi_nhanh_chinh == 0)
                                 Chi nhánh phụ
-                                @endif</td>
+                                @endif
+                            </td>
                             <td>{{$items->ma_chung_nhan_dang_ki_hoat_dong}}</td>
                             <td class="d-flex">
                                 <a href="{{route('chi-nhanh.cap-nhat', ['id'=> $items->id])}}"
@@ -131,9 +165,6 @@
                             </td>
                         </tr>
                         @empty
-                        <tr>
-                            <td colspan="7" class="text-center text-danger">Không có địa điểm đào tạo khác!</td>
-                        </tr>
                         @endforelse
                         <div class="modal fade" id="m_modal_3" tabindex="-1" role="dialog"
                             aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: none;">
