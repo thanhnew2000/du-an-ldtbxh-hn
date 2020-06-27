@@ -177,11 +177,13 @@
                         <td>{{ $item->tong }}</td>
                         <td>{{ $item->so_dang_ki_CD }}</td>
                         <td>{{ $item->so_dang_ki_TC }}</td>
+                        @can('cap_nhat_tong_hop_dang_ky_chi_tieu_tuyen_sinh')
                         <td>
                             <a target="_blank"
                             href="{{ route('xuatbc.sua-dang-ky-chi-tieu-tuyen-sinh',['id'=>$item->id]) }}"
                                 class="btn btn-info btn-sm">Sửa</a>
                         </td>
+                        @endcan
                     </tr>
                     @php
                     $stt++;

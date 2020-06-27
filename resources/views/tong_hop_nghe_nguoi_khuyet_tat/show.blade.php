@@ -160,12 +160,14 @@
                         <td>{{$item->ngan_sach_TW}}</td>
                         <td>{{$item->ngan_sach_TP}}</td>
                         <td>{{$item->ngan_sach_khac}}</td>
+                        @can('cap_nhat_tong_hop_dao_tao_nghe_cho_nguoi_khuyet_tat')
                         <td>
                             @if ($item->trang_thai<3)  <a href="{{route('nhapbc.dao-tao-khuyet-tat.edit',[
                                 'id' => $item->id,
                             ])}}">Sửa</a>
                             @endif
                         </td>
+                        @endcan  
                     </tr>
                     @endforeach
                     

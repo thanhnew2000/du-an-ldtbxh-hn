@@ -18,7 +18,7 @@
 				<i class="m-menu__section-icon flaticon-more-v2"></i>
 			</li>
 			{{-- Start - CườngNC - UpdateSideBar - 18/06/2020 --}}
-			@canany(['them_tai_khoan','sua_tai_khoan'])
+			@canany(['them_tai_khoan','sua_tai_khoan','vo_hieu_hoa_tai_khoan'])
 			<li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a
 					href="javascript:;" class="m-menu__link m-menu__toggle"><i
 						class="m-menu__link-icon flaticon-layers"></i><span class="m-menu__link-text">Quản lý tài
@@ -295,7 +295,8 @@
 {{-- End Quản lý chính sách cho sinh viên --}}
 
 {{-- Quản lý đăng kí chỉ tiêu --}}
-
+@canany(['them_moi_tong_hop_dang_ky_chi_tieu_tuyen_sinh','chi_tiet_tong_hop_dang_ky_chi_tieu_tuyen_sinh', 
+		'cap_nhat_tong_hop_dang_ky_chi_tieu_tuyen_sinh'])
 <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;"
 		class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-users"></i><span
 			class="m-menu__link-text">Quản lý đăng kí chỉ tiêu</span><i
@@ -308,6 +309,7 @@
 		</ul>
 	</div>
 </li>
+@endcan
 {{-- End Quản lý đăng kí chỉ tiêu  --}}
 
 {{-- Quản lý kết quả tuyển sinh --}}
@@ -319,7 +321,6 @@
 			quả tuyển sinh</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
 	<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 		<ul class="m-menu__subnav">
-
 			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('solieutuyensinh')}}"
 					class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 						class="m-menu__link-text">Kết quả tuyển sinh</span></a></li>
@@ -337,7 +338,8 @@
 {{-- End Quản lý kết quả tuyển sinh --}}
 
 {{-- Quản lý xây dựng chương trình giáo trình  --}}
-
+@canany(['them_moi_tong_hop_xay_dung_chuong_trinh_giao_trinh','chi_tiet_tong_hop_xay_dung_chuong_trinh_giao_trinh',
+		'cap_nhat_tong_hop_xay_dung_chuong_trinh_giao_trinh'])
 <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;"
 		class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-folder"></i><span
 			class="m-menu__link-text">Quản lý xd
@@ -355,10 +357,11 @@
 		</ul>
 	</div>
 </li>
+@endcan
 {{-- End quản lý xây dựng chương trình --}}
 
 {{-- Quản lý kết quả tốt nghiệp --}}
-@canany(['them_moi_tong_hop_ket_qua_tot_nghiep', 'xem_chi_tiet_tong_hop_ket_qua_tot_nghiep'])
+@canany(['them_moi_tong_hop_ket_qua_tot_nghiep', 'xem_chi_tiet_tong_hop_ket_qua_tot_nghiep', 'cap_nhat_chi_tiet_tong_hop_ket_qua_tot_nghiep'])
 <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;"
 		class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-technology-1"></i><span
 			class="m-menu__link-text">Quản lý kết
@@ -380,6 +383,12 @@
 {{-- End quản lý kết quả tốt nghiệp --}}
 
 {{-- Quản lý đào tạo nghề  --}}
+@canany(['them_moi_tong_hop_dao_tao_nghe_cho_nguoi_khuyet_tat','chi_tiet_tong_hop_dao_tao_nghe_cho_nguoi_khuyet_tat',
+		'cap_nhat_tong_hop_dao_tao_nghe_cho_nguoi_khuyet_tat','them_moi_tong_hop_nghe_cho_thanh_nien',
+		'chi_tiet_tong_hop_nghe_cho_thanh_nien','cap_nhat_tong_hop_nghe_cho_thanh_nien',
+		'them_moi_ket_qua_hoc_sinh_tot_nghiep_dao_tao_nghe_voi_doanh_nghiep','chi_tiet_ket_qua_hoc_sinh_tot_nghiep_dao_tao_nghe_voi_doanh_nghiep',
+		'cap_nhat_ket_qua_hoc_sinh_tot_nghiep_dao_tao_nghe_voi_doanh_nghiep','them_moi_ket_qua_tuyen_sinh_dao_tao_nghe_gan_voi_doanh_nghiep',
+		'chi_tiet_ket_qua_tuyen_sinh_dao_tao_nghe_gan_voi_doanh_nghiep','cap_nhat_ket_qua_tuyen_sinh_dao_tao_nghe_gan_voi_doanh_nghiep'])
 <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;"
 		class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-interface-1"></i><span
 			class="m-menu__link-text">Quản lý đào
@@ -409,9 +418,14 @@
 		</ul>
 	</div>
 </li>
+@endcan
 {{-- End Quản lý đào tạo nghề --}}
 
 {{-- Quản lý liên kết đào tạo --}}
+@canany(['them_moi_tong_hop_lien_ket_lien_thong_trinh_do','chi_tiet_tong_hop_lien_ket_lien_thong_trinh_do','cap_nhat_tong_hop_lien_ket_lien_thong_trinh_do',
+		'them_moi_lien_ket_dao_tao_trinh_do_cao_dang_len_dai_hoc','chi_tiet_lien_ket_dao_tao_trinh_do_cao_dang_len_dai_hoc',
+		'cap_nhat_lien_ket_dao_tao_trinh_do_cao_dang_len_dai_hoc','them_moi_lien_ket_dao_tao_trinh_do_trung_cap_len_dai_hoc',
+		'chi_tiet_lien_ket_dao_tao_trinh_do_trung_cap_len_dai_hoc','cap_nhat_lien_ket_dao_tao_trinh_do_trung_cap_len_dai_hoc'])
 <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;"
 		class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-globe"></i><span
 			class="m-menu__link-text">Quản lý liên
@@ -432,20 +446,24 @@
 		</ul>
 	</div>
 </li>
+@endcan
 {{-- End quản lý liên kết đào tạo --}}
 
 {{-- Quản lý hoạt động giáo dục nghề nhiệp --}}
+@canany(['them_moi_tong_hop_giao_duc_nghe_nghiep','chi_tiet_tong_hop_giao_duc_nghe_nghiep','cap_nhat_tong_hop_giao_duc_nghe_nghiep'])
 <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;"
-	class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-globe"></i><span
-		class="m-menu__link-text">Quản lý giáo dục nghề nghiệp</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
-<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
-	<ul class="m-menu__subnav">
-		<li class="m-menu__item " aria-haspopup="true"><a href="{{route('xuatbc.quan-ly-giao-duc-nghe-nghiep')}}"
-				class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
-					class="m-menu__link-text">Tổng hợp giáo dục nghề nghiệp</span></a></li>
-	</ul>
-</div>
+		class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-globe"></i><span
+			class="m-menu__link-text">Quản lý giáo dục nghề nghiệp</span><i
+			class="m-menu__ver-arrow la la-angle-right"></i></a>
+	<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
+		<ul class="m-menu__subnav">
+			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('xuatbc.quan-ly-giao-duc-nghe-nghiep')}}"
+					class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
+						class="m-menu__link-text">Tổng hợp giáo dục nghề nghiệp</span></a></li>
+		</ul>
+	</div>
 </li>
+@endcan
 {{-- End Quản lý hoạt động giáo dục nghề nhiệp --}}
 
 {{-- Quản lý thiết lập deadline  --}}
@@ -482,6 +500,7 @@
 {{-- End Quản lý phê duyệt --}}
 
 {{-- Quản lý tổng hợp hợp tác quốc tế --}}
+@canany(['them_moi_tong_hop_hop_tac_quoc_te','chi_tiet_tong_hop_hop_tac_quoc_te','cap_nhat_tong_hop_hop_tac_quoc_te'])
 <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;"
 		class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-interface-1"></i><span
 			class="m-menu__link-text">Quản lý tổng
@@ -494,6 +513,7 @@
 		</ul>
 	</div>
 </li>
+@endcan
 {{-- End Quản lý tổng hợp hợp tác quốc tế --}}
 {{-- End VinhNB --}}
 

@@ -86,7 +86,9 @@ Route::group(['prefix' => 'dao-tao-nghe-cho-nguoi-khuyet-tat'], function () {
 });
 
 // quảng đào tạo nghề cho thanh niên
-Route::group(['prefix' => 'dao-tao-nghe-cho-thanh-nien'], function () {
+Route::group(['prefix' => 'dao-tao-nghe-cho-thanh-nien',
+                'middleware' => ['permission:them_moi_tong_hop_nghe_cho_thanh_nien|chi_tiet_tong_hop_nghe_cho_thanh_nien|
+              cap_nhat_tong_hop_nghe_cho_thanh_nien']], function () {
     Route::get('/', 'DaoTaoNgheThanhNienController@index')->name('nhapbc.dao-tao-thanh-nien.index');
     Route::get('/edit/{id}', 'DaoTaoNgheThanhNienController@edit')->name('nhapbc.dao-tao-thanh-nien.edit');
     Route::post('/update/{id}', 'DaoTaoNgheThanhNienController@update')->name('nhapbc.dao-tao-thanh-nien.update');

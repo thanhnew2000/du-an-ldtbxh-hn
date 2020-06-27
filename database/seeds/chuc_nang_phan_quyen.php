@@ -15,6 +15,7 @@ class chuc_nang_phan_quyen extends Seeder
 
         // Permission::create(['name' => 'them_tai_khoan']);
         // Permission::create(['name' => 'sua_tai_khoan']);
+        Permission::create(['name' => 'vo_hieu_hoa_tai_khoan']);
 
         // Permission::create(['name' => 'them_moi_co_so_dao_tao']);
         // Permission::create(['name' => 'xem_chi_tiet_co_so_dao_tao']);
@@ -50,7 +51,50 @@ class chuc_nang_phan_quyen extends Seeder
 
         // Permission::create(['name' => 'them_moi_tong_hop_ket_qua_tot_nghiep']);
         // Permission::create(['name' => 'xem_chi_tiet_tong_hop_ket_qua_tot_nghiep']);
+        Permission::create(['name' => 'cap_nhat_chi_tiet_tong_hop_ket_qua_tot_nghiep']);
+        
+        Permission::create(['name' => 'them_moi_tong_hop_danh_ký_chi_tieu_tuyen_sinh']);
+        Permission::create(['name' => 'chi_tiet_tong_hop_danh_ký_chi_tieu_tuyen_sinh']);
+        Permission::create(['name' => 'cap_nhat_tong_hop_danh_ký_chi_tieu_tuyen_sinh']);
 
-        // Permission::create(['name' => 'cap_nhat_chi_tiet_tong_hop_ket_qua_tot_nghiep']);
+        Permission::create(['name' => 'them_moi_tong_hop_xay_dung_chuong_trinh_giao_trinh']);
+        Permission::create(['name' => 'chi_tiet_tong_hop_xay_dung_chuong_trinh_giao_trinh']);
+        Permission::create(['name' => 'cap_nhat_tong_hop_xay_dung_chuong_trinh_giao_trinh']);
+
+        Permission::create(['name' => 'them_moi_tong_hop_dao_tao_nghe_cho_nguoi_khuyet_tat']);
+        Permission::create(['name' => 'chi_tiet_tong_hop_dao_tao_nghe_cho_nguoi_khuyet_tat']);
+        Permission::create(['name' => 'cap_nhat_tong_hop_dao_tao_nghe_cho_nguoi_khuyet_tat']);
+
+        Permission::create(['name' => 'them_moi_tong_hop_nghe_cho_thanh_nien']);
+        Permission::create(['name' => 'chi_tiet_tong_hop_nghe_cho_thanh_nien']);
+        Permission::create(['name' => 'cap_nhat_tong_hop_nghe_cho_thanh_nien']);
+
+        Permission::create(['name' => 'them_moi_ket_qua_hoc_sinh_tot_nghiep_dao_tao_nghe_voi_doanh_nghiep']);
+        Permission::create(['name' => 'chi_tiet_ket_qua_hoc_sinh_tot_nghiep_dao_tao_nghe_voi_doanh_nghiep']);
+        Permission::create(['name' => 'cap_nhat_ket_qua_hoc_sinh_tot_nghiep_dao_tao_nghe_voi_doanh_nghiep']);
+
+        Permission::create(['name' => 'them_moi_ket_qua_tuyen_sinh_dao_tao_nghe_gan_voi_doanh_nghiep']);
+        Permission::create(['name' => 'chi_tiet_ket_qua_tuyen_sinh_dao_tao_nghe_gan_voi_doanh_nghiep']);
+        Permission::create(['name' => 'cap_nhat_ket_qua_tuyen_sinh_dao_tao_nghe_gan_voi_doanh_nghiep']);
+
+        Permission::create(['name' => 'them_moi_tong_hop_lien_ket_lien_thong_trinh_do']);
+        Permission::create(['name' => 'chi_tiet_tong_hop_lien_ket_lien_thong_trinh_do']);
+        Permission::create(['name' => 'cap_nhat_tong_hop_lien_ket_lien_thong_trinh_do']);
+
+        Permission::create(['name' => 'them_moi_lien_ket_dao_tao_trinh_do_cao_dang_len_dai_hoc']);
+        Permission::create(['name' => 'chi_tiet_lien_ket_dao_tao_trinh_do_cao_dang_len_dai_hoc']);
+        Permission::create(['name' => 'cap_nhat_lien_ket_dao_tao_trinh_do_cao_dang_len_dai_hoc']);
+
+        Permission::create(['name' => 'them_moi_lien_ket_dao_tao_trinh_do_trung_cap_len_dai_hoc']);
+        Permission::create(['name' => 'chi_tiet_lien_ket_dao_tao_trinh_do_trung_cap_len_dai_hoc']);
+        Permission::create(['name' => 'cap_nhat_lien_ket_dao_tao_trinh_do_trung_cap_len_dai_hoc']);
+
+        Permission::create(['name' => 'them_moi_tong_hop_giao_duc_nghe_nghiep']);
+        Permission::create(['name' => 'chi_tiet_tong_hop_giao_duc_nghe_nghiep']);
+        Permission::create(['name' => 'cap_nhat_tong_hop_giao_duc_nghe_nghiep']);
+
+        Permission::create(['name' => 'them_moi_tong_hop_hop_tac_quoc_te']);
+        Permission::create(['name' => 'chi_tiet_tong_hop_hop_tac_quoc_te']);
+        Permission::create(['name' => 'cap_nhat_tong_hop_hop_tac_quoc_te']);
     }
 }

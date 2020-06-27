@@ -9,6 +9,7 @@ return [
     'quan_ly_tai_khoan' => [
         '4' => 'Thêm tài khoản',
         '5' => 'Sửa tài khoản',
+        '33' => 'Vô hiệu hóa tài khoản'
     ],
     'quan_ly_co_so_dao_tao' => [
         '6' => 'Thêm mới cơ sở đào tạo',
@@ -51,6 +52,62 @@ return [
     ],
     'quan_ly_tot_nghiep' => [
         '28' => 'Thêm mới tổng hợp kết quả tốt nghiệp',
-        '29' => 'Xem chi tiết tổng hợp kết quả tốt nghiệp'
+        '29' => 'Xem chi tiết tổng hợp kết quả tốt nghiệp',
+        '34' => 'Cập nhật chi tiết tổng hợp kết quả tốt nghiệp'
+    ],
+    'quan_ly_dang_ky_chi_tieu' => [
+        '35' => 'Thêm mới tổng hợp đăng ký chỉ tiêu tuyển sinh',
+        '36' => 'Chi tiết tổng hợp đăng ký chỉ tiêu tuyển sinh',
+        '37' => 'Cập nhật tổng hợp đăng ký chỉ tiêu tuyển sinh'
+    ],
+    'quan_ly_xay_dung_chuong_trinh_giao_trinh' => [
+        '38' => 'Thêm mới tổng hợp xây dựng chương trình giáo trình',
+        '39' => 'Chi tiết tổng hợp xây dựng chương trình giáo trình',
+        '40' => 'Cập nhật tổng hợp xây dựng chương trình giáo trình'
+    ],
+    'quan_ly_dao_tao_nghe_cho_nguoi_khuyet_tat' => [
+        '41' => 'Thêm mới tổng hợp đào tạo nghề cho người khuyết tật',
+        '42' => 'Chi tiết tổng hợp đào tạo nghề cho người khuyết tật',
+        '43' => 'Cập nhật tổng hợp đào tạo nghề cho người khuyết tật'
+    ],
+    'quan_ly_dao_tao_nghe_cho_thanh_nien' => [
+        '44' => 'Thêm mới tổng hợp nghề cho thanh niên',
+        '45' => 'Chi tiết tổng hợp nghề cho thanh niên',
+        '46' => 'Cập nhật tổng hợp nghề cho thanh niên'
+    ],
+    'ket_qua_tot_nghiep_dao_tao_nghe_voi_doanh_nghiep' => [
+        '47' => 'Thêm mới kết quả học sinh/sinh viên tốt nghiệp đào tạo nghề với doanh nghiệp',
+        '48' => 'Chi tiết kết quả học sinh/sinh viên tốt nghiệp đào tạo nghề với doanh nghiệp',
+        '49' => 'Cập nhật kết quả học sinh/sinh viên tốt nghiệp đào tạo nghề với doanh nghiệp'
+    ],
+    'ket_qua_tuyen_sinh_dao_tao_nghe_voi_doanh_nghiep' => [
+        '50' => 'Thêm mới kết quả tuyển sinh đào tạo nghề gắn với doanh nghiệp',
+        '51' => 'Chi tiết kết quả tuyển sinh đào tạo nghề gắn với doanh nghiệp',
+        '52' => 'Cập nhật kết quả tuyển sinh đào tạo nghề gắn với doanh nghiệp'
+    ],
+    'tong_hop_lien_ket_lien_thong' => [
+        '53' => 'Thêm mới tổng hợp liên kết/liên thông trình độ',
+        '54' => 'Chi tiết tổng hợp liên kết/liên thông trình độ',
+        '55' => 'Cập nhật tổng hợp liên kết/liên thông trình độ'
+    ],
+    'lien_ket_lien_thong_cao_dang_len_dai_hoc' => [
+        '56' => 'Thêm mới liên kết đào tạo trình độ Cao Đẳng lên Đại Học',
+        '57' => 'Chi tiết liên kết đào tạo trình độ Cao Đẳng lên Đại Học',
+        '58' => 'Cập nhật liên kết đào tạo trình độ Cao Đẳng lên Đại Học'
+    ],
+    'lien_ket_lien_thong_trung_cap_len_dai_hoc' => [
+        '59' => 'Thêm mới liên kết đào tạo trình độ Trung Cấp lên Đại Học',
+        '60' => 'Chi tiết liên kết đào tạo trình độ Trung Cấp lên Đại Học',
+        '61' => 'Cập nhật liên kết đào tạo trình độ Trung Cấp lên Đại Học'
+    ],
+    'tong_hop_giao_duc_nghe_nghiep' => [
+        '62' => 'Thêm mới tổng hợp giáo dục nghề nghiệp',
+        '63' => 'Chi tiết tổng hợp giáo dục nghề nghiệp',
+        '64' => 'Cập nhật tổng hợp giáo dục nghề nghiệp'
+    ],
+    'tong_hop_hop_tac_quoc_te' => [
+        '65' => 'Thêm mới tổng hợp, hợp tác quốc tế',
+        '66' => 'Chi tiết tổng hợp, hợp tác quốc tế',
+        '67' => 'Cập nhật tổng hợp, hợp tác quốc tế'
     ]
 ];

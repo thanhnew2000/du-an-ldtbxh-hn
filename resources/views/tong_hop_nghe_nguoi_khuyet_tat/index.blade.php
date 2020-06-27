@@ -262,9 +262,11 @@
                         <th colspan="1">Tuyển sinh</th>
                         <th colspan="1">Tốt nghiệp</th>
                         <th colspan="1">Kinh phí thực hiện</th>
+                        @can('them_moi_tong_hop_dao_tao_nghe_cho_nguoi_khuyet_tat')
                         <th rowspan="2">
-                        <a href="{{route('nhapbc.dao-tao-khuyet-tat.create')}}" class="btn btn-success btn-sm">Thêm mới</a>
+                            <a href="{{route('nhapbc.dao-tao-khuyet-tat.create')}}" class="btn btn-success btn-sm">Thêm mới</a>
                         </th>
+                        @endcan 
                     </tr>
 
                 </thead>
@@ -282,11 +284,14 @@
                         <td>{{$item->tong_tuyen_sinh}}</td>
                         <td>{{$item->tong_tot_nghiep}}</td>
                         <td>{{number_format($item->tong_ngan_sach)}}</td>
+                        @can('chi_tiet_tong_hop_dao_tao_nghe_cho_nguoi_khuyet_tat')
                         <td>
                             <a href="{{route('nhapbc.dao-tao-khuyet-tat.show',[
                                 'id' => $item->id,
                             ])}}">Chi tiết</a>
                         </td>
+                        @endcan
+                        
                     </tr>
                     @endforeach
                     
