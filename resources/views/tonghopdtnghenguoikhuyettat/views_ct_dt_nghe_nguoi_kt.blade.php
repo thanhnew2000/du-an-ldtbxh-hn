@@ -3,11 +3,14 @@
 @section('style')
 {{-- <link href="{!! asset('tuyensinh/css/chitiettuyensinh.css') !!}" rel="stylesheet" type="text/css" /> --}}
 <style>
-    .m-table.m-table--border-danger, .m-table.m-table--border-danger th, .m-table.m-table--border-danger td{
-        border-color: #bcb1b1 ;
-    } 
-    table thead th[colspan="4"]{
-        border-bottom-width:1px;
+    .m-table.m-table--border-danger,
+    .m-table.m-table--border-danger th,
+    .m-table.m-table--border-danger td {
+        border-color: #bcb1b1;
+    }
+
+    table thead th[colspan="4"] {
+        border-bottom-width: 1px;
         border-bottom: 1px solid #bcb1b1 !important;
     }
 </style>
@@ -22,7 +25,7 @@
                         <i class="m-menu__link-icon flaticon-web"></i>
                     </span>
                     <h3 class="m-portlet__head-text">
-                       Chi tiết<small>đào tạo nghề cho người khuyết tật</small>
+                        Chi tiết<small>đào tạo nghề cho người khuyết tật</small>
                     </h3>
                 </div>
             </div>
@@ -92,16 +95,17 @@
     </div>
     <div class="m-portlet">
         <div class="m-portlet__body table-responsive">
-            <table class="table table-bordered m-table m-table--border-danger m-table--head-bg-primary table-boder-white">
+            <table
+                class="table table-bordered m-table m-table--border-danger m-table--head-bg-primary table-boder-white">
                 <div class="col-12 form-group m-form__group d-flex justify-content-end">
                     <label class="col-lg-2 col-form-label">Kích thước:</label>
                     <div class="col-lg-2">
                         <select class="form-control" id="page-size">
-                                                    <option selected="" value="20">20</option>
-                                                    <option value="50">50</option>
-                                                    <option value="80">80</option>
-                                                    <option value="100">100</option>
-                            
+                            <option selected="" value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="80">80</option>
+                            <option value="100">100</option>
+
                         </select>
                     </div>
                 </div>
@@ -124,7 +128,7 @@
                         <th rowspan="2">Ngân sách TP</th>
                         <th rowspan="2">Ngân sách Khác</th>
                     </tr>
-                    
+
                 </thead>
                 <tbody>
                     <tr>
@@ -139,7 +143,7 @@
                         <td>2</td>
                         <td>2</td>
                         <td>2</td>
-                        </tr>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -160,13 +164,14 @@
                     <li class="page-item disabled" aria-disabled="true"><span class="page-link">...</span></li>
                     <li class="page-item"><a class="page-link" href="http://127.0.0.1:8000/danhSach?page=27">27</a></li>
                     <li class="page-item"><a class="page-link" href="http://127.0.0.1:8000/danhSach?page=28">28</a></li>
-        
+
                     <li class="page-item">
-                        <a class="page-link" href="http://127.0.0.1:8000/danhSach?page=2" rel="next" aria-label="Next »">›</a>
+                        <a class="page-link" href="http://127.0.0.1:8000/danhSach?page=2" rel="next"
+                            aria-label="Next »">›</a>
                     </li>
                 </ul>
             </nav>
-        
+
         </div>
     </div>
 </div>

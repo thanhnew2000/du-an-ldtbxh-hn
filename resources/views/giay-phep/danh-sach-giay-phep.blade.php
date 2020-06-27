@@ -15,34 +15,19 @@
                 </div>
             </div>
         </div>
-        <div class="m-portlet__body">
-            <form action="">
-                <div class="d-flex justify-content-center">
-                    <div class="col-6">
-                        <div class="form-group m-form__group mb-4 d-flex align-items-center">
-                            <label for="exampleInputEmail1" class="col-3">Cơ sở đào tạo: </label>
-                            <select class="custom-select form-control" name="co_so_id" id="co-so-id-js">
-                                @if(count($defaultCsdt) > 0)
-                                <option value="{{$defaultCsdt['id']}}" selected="selected">
-                                    {{$defaultCsdt['text']}}</option>
-                                @endif
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
     </div>
     <div class="m-portlet">
         <div class="m-portlet__body">
             @if (\Session::has('mess-success'))
-            <div class="alert alert-success" role="alert">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                </button>
                 <strong>{!! \Session::get('mess-success') !!}</strong>
             </div>
             @endif
 
             @if (count($defaultCsdt) > 0)
-            <table class="table m-table m-table--head-bg-brand">
+            <table class="table m-table m-table--head-bg-brand table-reponsive">
                 <thead>
                     <tr>
                         <th>STT</th>
@@ -53,8 +38,9 @@
                         <th>Ngày hết hạn</th>
                         <th>Ảnh giấy phép</th>
                         <th>@if (count($defaultCsdt) > 0)
-                            <a href="{{ route('giay-phep.tao-moi', ['id' => $defaultCsdt['id']] )}}" class="btn btn-success btn-sm">Thêm mới</a>
-                        @endif</th>
+                            <a href="{{ route('giay-phep.tao-moi', ['id' => $defaultCsdt['id']] )}}"
+                                class="btn btn-success btn-sm">Thêm mới</a>
+                            @endif</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -72,8 +58,18 @@
                         <td><a href="{!! asset('storage/' . $item->anh_giay_phep) !!}" target="_blank"><i
                                     class="fas fa-eye"></i> xem ảnh</a></td>
                         <td>
-                            <a href="{{ route('giay-phep.cap-nhat', ['id'=>$item->id]) }}"
-                                class="btn btn-primary btn-sm">Cập nhật</a>
+                            @if (count($defaultCsdt) > 0)
+                            <a class="btn btn-primary btn-sm"
+                                href="{{ route('giay-phep.chi-tiet', ['giay_phep_id' => $item->id, 'co_so_id' => $defaultCsdt['id']]) }}">Xem
+                                chi tiết</a>
+                            @endif
+                            {{-- <form action="{{ route('giay-phep.chi-tiet') }}" method="get">
+                            <input type="hidden" name="giay_phep_id" value="{{$item->id}}">
+                            @if (count($defaultCsdt) > 0)
+                            <input type="hidden" name="co_so_id" value="{{$defaultCsdt['id']}}">
+                            @endif
+                            <button type="submit" class="btn btn-primary btn-sm">Xem chi tiết</button>
+                            </form> --}}
                         </td>
                     </tr>
                     @empty
@@ -85,9 +81,9 @@
                 </tbody>
             </table>
             @else
-                <h5 class="text-center text-danger">Vui lòng chọn trường</h5>
+            <h5 class="text-center text-danger">Vui lòng chọn trường</h5>
             @endif
-            
+
         </div>
     </div>
 </div>

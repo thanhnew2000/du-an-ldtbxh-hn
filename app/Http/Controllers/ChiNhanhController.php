@@ -3,14 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Services\ChiNhanhService;
+use App\Services\CoSoDaoTaoService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ChiNhanhController extends Controller
 {
     protected $ChiNhanhService;
-    public function __construct(ChiNhanhService $ChiNhanhService)
+    protected $coSoDaoTaoService;
+    public function __construct(ChiNhanhService $ChiNhanhService,
+    CoSoDaoTaoService $coSoDaoTaoService
+    )
     {
+        $this->coSoDaoTaoService = $coSoDaoTaoService;
         $this->ChiNhanhService = $ChiNhanhService;
     }
 
@@ -25,16 +30,20 @@ class ChiNhanhController extends Controller
         } else {
             $data = $this->ChiNhanhService->getChiNhanh($params);
         }
+        $chiNhanhDefault = $this->coSoDaoTaoService->findById($id);
         $quanhuyen = DB::table('devvn_quanhuyen')->get();
-        return view('co-so-dao-tao.chi_nhanh.danh_sach_chi_nhanh', compact('data', 'quanhuyen', 'params'));
+        return view('co-so-dao-tao.chi_nhanh.danh_sach_chi_nhanh', compact('data', 'quanhuyen', 'params', 'chiNhanhDefault'));
     }
 
-    public function themchinhanh()
+    public function themchinhanh(Request $request)
     {
+        if(isset($request->co_so_id)){
+            $params['co_so_id'] = $request->co_so_id;
+        }
         $csdt = DB::table('co_so_dao_tao')->get();
         $quanhuyen = DB::table('devvn_quanhuyen')->get();
         $xaphuong = DB::table('devvn_xaphuongthitran')->get();
-        return view('co-so-dao-tao.chi_nhanh.them_chi_nhanh', compact('csdt', 'quanhuyen', 'xaphuong'));
+        return view('co-so-dao-tao.chi_nhanh.them_chi_nhanh', compact('csdt', 'quanhuyen', 'xaphuong', 'params'));
     }
 
     public function savethemchinhanh(Request $request)
@@ -64,7 +73,12 @@ class ChiNhanhController extends Controller
         );
 
         $this->ChiNhanhService->create($request, ['_token']);
-        return redirect()->route('csdt.chi-nhanh')->withInput()->with('mess-success', 'Đã thêm thành công');
+
+        if(isset($request->csdt_id)){
+            return redirect()->route('csdt.chi-nhanh', ['id' => $request->csdt_id])->withInput()->with('mess-success', 'Đã thêm thành công');
+        } else{
+            return redirect()->route('csdt.chi-nhanh')->withInput()->with('mess-success', 'Đã thêm thành công');
+        }
     }
 
     public function suachinhanh($id)

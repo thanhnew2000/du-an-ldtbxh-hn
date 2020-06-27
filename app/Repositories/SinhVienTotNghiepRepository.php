@@ -127,7 +127,7 @@ class SinhVienTotNghiepRepository extends BaseRepository implements SinhVienTotN
 			->join('nganh_nghe', 'sv_tot_nghiep.nghe_id', '=', 'nganh_nghe.id')
 			->select(
 						'sv_tot_nghiep.*',
-						'nganh_nghe.ten_nganh_nghe',
+						'nganh_nghe.ten_nganh_nghe'
 					);
 			
 		if($queryData['nam']!= null){
