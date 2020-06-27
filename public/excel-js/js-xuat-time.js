@@ -19,7 +19,7 @@ $("#submitXuatData").click(function(){
      ){
         $('#echoLoiXuat').text('Bạn hãy nhập đầy đủ thông tin muốn xuất');
         return false;
-    }else if(new Date(fromDate) <  new Date(dateTo)){
+    }else if(new Date(fromDate) >  new Date(dateTo)){
         $('#echoLoiXuat').text('Sai ngày muốn xuất');
         return false;
     }else{

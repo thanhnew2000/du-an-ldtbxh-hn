@@ -9,6 +9,8 @@ use App\Services\DaoTaoNgheChoNguoiKhuyetTatService;
 use App\Http\Requests\DaoTaoNgheChoNguoiKhuyetTat\StoreRequest;
 
 use App\Http\Requests\DaoTaoNgheChoNguoiKhuyetTat\UpdateRequest;
+use App\Http\Requests\Excel\ExcelNamDot;
+
 
 class DaoTaoNgheChoNguoiKhuyetTatController extends Controller
 {
@@ -190,7 +192,7 @@ class DaoTaoNgheChoNguoiKhuyetTatController extends Controller
         $id_co_so = $request->id_cs;
         $this->DaoTaoNgheChoNguoiKhuyetTatService->exportBieuMau($id_co_so);
     }
-    public function exportData(Request $request){
+    public function exportData(ExcelNamDot $request){
         $listCoSoId = $request->truong_id;
         $year = $request->nam_muon_xuat;
         $dot = $request->dot_muon_xuat;

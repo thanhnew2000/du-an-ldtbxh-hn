@@ -214,7 +214,7 @@ class SoLieuCanBoQuanLyController extends Controller
             'uploads/excels',
             $request->file('file_import')
         );
-        $path = str_replace('/', '\\', $pathLoad);  
-        $this->soLieuCBQLService->importError($fileRead, $duoiFile,$path);
+        // $path = str_replace('/', '\\', $pathLoad);  
+        $this->soLieuCBQLService->importError($fileRead, $duoiFile,$pathLoad);
     }
 }

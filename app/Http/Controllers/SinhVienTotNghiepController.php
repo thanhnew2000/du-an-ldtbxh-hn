@@ -193,7 +193,7 @@ class SinhVienTotNghiepController extends Controller
             'uploads/excels',
             $request->file('file_import')
         );
-        $path = str_replace('/', '\\', $pathLoad);  
-        $this->SinhVienTotNghiepService->importError($fileRead, $duoiFile,$path);
+        // $path = str_replace('/', '\\', $pathLoad);  
+        $this->SinhVienTotNghiepService->importError($fileRead, $duoiFile,$pathLoad);
     }
 }
