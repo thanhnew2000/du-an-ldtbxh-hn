@@ -493,7 +493,7 @@ class ExtractController extends Controller
         }
 
         $this->HopTacQuocTeService->create($request);
-        return redirect()->route('xuatbc.them-ds-hop-tac-qte')->with(['success'=> 'thêm thành công']);
+        return redirect()->route('xuatbc.ds-hop-tact-qte')->with(['success'=> 'thêm thành công']);
     }
 
 
@@ -527,7 +527,7 @@ class ExtractController extends Controller
         $dateTime = Carbon::now();
         $request->request->set('thoi_gian_cap_nhat', $dateTime->format('Y-m-d H:i:s'));
         $this->HopTacQuocTeService->update($id,$request);
-        return redirect()->back()->with(['success'=>'Cập nhật thành công !']);
+        return redirect()->route('xuatbc.chi-tiet-ds-hop-tac-qte',['co_so_id' => $data->co_so_id])->with(['success'=> 'thêm thành công']);
     }
 
     //phucnv end BM:13

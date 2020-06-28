@@ -1,10 +1,14 @@
 $(document).ready(function() {
+    $('[type="number"]').on("blur", function() {
+        var value = $(this).val();
+
+        $(this).val(Number(value));
+    });
     let nodeList = document.querySelectorAll('.name-field');
     const listField = [];
     nodeList.forEach(element => {
         listField.push(element.getAttribute('name'));
     });
-    console.log(listField);
     const rule = {
         number: true,
         digits: true,
@@ -18,7 +22,7 @@ $(document).ready(function() {
 
     const mess = {
         number: "Vui lòng nhập liệu hợp lệ",
-        digits: "Số liệu nhỏ nhất là 0",
+        digits: "Vui lòng nhập số nguyên",
         min: "Số liệu nhỏ nhất là 0"
     };
 

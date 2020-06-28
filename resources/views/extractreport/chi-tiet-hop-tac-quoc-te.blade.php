@@ -145,11 +145,11 @@
                 </thead>
                 <tbody>
                     @php
-                    $stt =1;
+                   $i = !isset($_GET['page']) ? 1 : ($params['page_size'] * ($_GET['page']-1) + 1);
                     @endphp
                     @foreach ($data as $item)
                     <tr>
-                        <td>{{ $stt }}</td>
+                        <td>{{ $i++ }}</td>
                         <td>{{ $item->ten_co_so }}</td>
                         <td>{{ $item->nam }}</td>
                         <td>{{ $item->dot }}</td>
@@ -172,16 +172,13 @@
 
                         <td>{{ $item->so_phong_hoc_duoc_dau_tu }}</td>
                         <td>{{ $item->so_nha_xuong_duoc_dau_tu }}</td>
-                        <td><b>{{ $item->tong_kinh_phi	 }}</b></td>
+                        <td><b>{{ ($item->tong_kinh_phi / 1000000) }}</b></td>
 
                         <td>
                             <a class="btn btn-sm btn-primary" target="_blank" href="{{route('xuatbc.sua-ds-hop-tac-qte',['id'=>$item->id])}}">
                                 Sửa</a>                        
                         </td>
                     </tr>
-                    @php
-                    $stt++;
-                    @endphp
                     @endforeach
                     
                 </tbody>
@@ -221,5 +218,15 @@
     });
 
 </script>
-
+@if (session('success'))
+<script>
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Cập nhật thành công !',
+        showConfirmButton: false,
+        timer: 3500
+    })
+</script>
+@endif
 @endsection
