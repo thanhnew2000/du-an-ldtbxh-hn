@@ -115,19 +115,22 @@
     </form>
     </div>
     <div class="m-portlet">
+        <div class="table-responsive pt-5">
+            <div class="col-12 form-group m-form__group d-flex justify-content-end">
+                <label class="col-lg-2 col-form-label">Kích thước:</label>
+                <div class="col-lg-2">
+                    <select class="form-control" id="page-size">
+                        @foreach(config('common.paginate_size.list') as $size)
+                        <option @if($params['page_size']==$size) selected @endif value="{{$size}}">{{$size}}</option>
+                        @endforeach
+
+                    </select>
+                </div>
+            </div>
+        </div>
         <div class="m-portlet__body table-responsive">
             <table class="table table-bordered m-table m-table- m-table--head-bg-primary table-boder-white">
-                <div class="col-12 form-group m-form__group d-flex justify-content-end">
-                    <label class="col-lg-2 col-form-label">Kích thước:</label>
-                    <div class="col-lg-2">
-                        <select class="form-control" id="page-size">
-                            @foreach(config('common.paginate_size.list') as $size)
-                            <option @if($params['page_size']==$size) selected @endif value="{{$size}}">{{$size}}</option>
-                            @endforeach
-    
-                        </select>
-                    </div>
-                </div>
+
                 <thead>
                     <tr class="text-center">
                         <th rowspan="3">STT</th>
@@ -148,12 +151,12 @@
                         <th rowspan="2">Tên nghề</th>
                         <th colspan="3">Xây dựng mới<br>chương trình</th>
                         <th colspan="3">Xây dựng mới<br>giáo trình</th>
-                        <th rowspan="2">Kinh phí thực hiện xây dựng mới</th>
+                        <th rowspan="2">Kinh phí thực hiện xây dựng mới <br> (triệu đồng)</th>
 
                         <th rowspan="2">Tên nghề</th>
                         <th colspan="3">Chỉnh sửa<br>chương trình</th>
                         <th colspan="3">Chỉnh sửa<br>giáo trình</th>
-                        <th rowspan="2">Kinh phí thực hiện chỉnh sửa</th>
+                        <th rowspan="2">Kinh phí thực hiện chỉnh sửa <br> (triệu đồng)</th>
                     </tr>
                     <tr class="text-center">
                         <th rowspan="1">CĐ</th>
@@ -172,12 +175,12 @@
                 </thead>
                
                 <tbody>
-                    @php
-                    $stt = 1;
-                    @endphp
+                @php
+                $i = !isset($_GET['page']) ? 1 : ($params['page_size'] * ($_GET['page']-1) + 1);
+                @endphp
                   @foreach ($data as $item)
                     <tr>
-                        <td>{{ $stt }}</td>
+                        <td>{{ $i++ }}</td>
                         <td>{{ $item->nam }}</td>
                         <td>{{ $item->dot }}</td>
                         <td>{{ $item->ten }}</td>
@@ -191,7 +194,7 @@
                         <td>{{ $item->XD_giao_trinh_moi_CD }}</td>
                         <td>{{ $item->XD_giao_trinh_moi_TC }}</td>
                         <td>{{ $item->XD_giao_trinh_moi_SC }}</td>
-                        <td>{{ $item->kinh_phi_thuc_hien_xd_moi }} VNĐ</td>
+                        <td>{{ ($item->kinh_phi_thuc_hien_xd_moi/1000000) }}</td>
 
                         <td>{{ $item->ten_nghe }}</td>
                         <td>{{ $item->sua_chuong_trinh_CD }}</td>
@@ -201,18 +204,14 @@
                         <td>{{ $item->sua_giao_trinh_CD }}</td>
                         <td>{{ $item->sua_giao_trinh_TC }}</td>
                         <td>{{ $item->sua_giao_trinh_SC }}</td>
-                        <td>{{ $item->kinh_phi_thuc_hien_chinh_sua }} VNĐ</td>
-                        @can('cap_nhat_tong_hop_xay_dung_chuong_trinh_giao_trinh')
+                        <td>{{ ($item->kinh_phi_thuc_hien_chinh_sua/1000000) }}</td>
                         <td>
                             <a target="_blank"
                             href="{{ route('xuatbc.edit-ds-xd-giao-trinh',['id'=>$item->id]) }}"
-                                class="btn btn-info btn-sm">Sửa</a>
+                                class="btn btn-info btn-sm">Cập nhật</a>
                         </td>
                         @endcan
                     </tr>
-                    @php
-                    $stt++;
-                    @endphp
                       
                   @endforeach
                 </tbody>
@@ -252,4 +251,15 @@
     
         });
     </script>
+    @if (session('success'))
+    <script>
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Cập nhật thành công !',
+            showConfirmButton: false,
+            timer: 3500
+        })
+    </script>
+    @endif
 @endsection

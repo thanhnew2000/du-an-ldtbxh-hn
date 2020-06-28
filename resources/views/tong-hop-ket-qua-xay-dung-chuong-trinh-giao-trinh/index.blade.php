@@ -112,8 +112,11 @@
         <div class="col-lg-2">
             <a href=""><i class="la la-download">Tải xuống biểu mẫu</i></a>
         </div>
-        <div class="col-lg-2">
+        <div class="col-lg-8">
             <a href=""><i class="la la-upload">Tải lên file excel</i></a>
+        </div>
+        <div class="col-lg-2 text-center">
+            <a target="_blank" href="{{ route('xuatbc.create-ds-xd-giao-trinh') }}" class="btn btn-success btn-sm">Thêm mới</a>                      
         </div>
     </div>
     <div class="m-portlet">
@@ -144,11 +147,7 @@
                         <th rowspan="3">Đợt</th>
                         <th colspan="9">Xây dựng mới</th>
                         <th colspan="9">Chỉnh sửa</th>
-                        @can('them_moi_tong_hop_xay_dung_chuong_trinh_giao_trinh')
-                        <th rowspan="3">
-                            <a target="_blank" href="{{ route('xuatbc.create-ds-xd-giao-trinh') }}" class="btn btn-success btn-sm">Thêm mới</a>
-                        </th>
-                        @endcan
+                        <th rowspan="3">Thao tác</th>
                     </tr>
                     <tr class="text-center">
                         
@@ -185,11 +184,11 @@
                 </thead>
                 <tbody>
                     @php
-                    $stt = 1;   
-                   @endphp
+                    $i = !isset($_GET['page']) ? 1 : ($params['page_size'] * ($_GET['page']-1) + 1);
+                    @endphp
                    @foreach ($data as $item)
                    <tr>
-                       <td>{{ $stt }}</td>
+                       <td>{{ $i++ }}</td>
                        <td>{{ $item->ten }}</td>
                        <td>{{ $item->ma_nghe }}</td>
                        <td>{{ $item->ten_nghe }}</td>
@@ -228,9 +227,6 @@
                             </td>
                         @endcan
                    </tr>
-                   @php
-                   $stt ++;   
-                  @endphp
                    @endforeach
                 </tbody>
             </table>
@@ -270,4 +266,15 @@
 
     });
 </script>
+@if (session('success'))
+<script>
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Thêm thành công !',
+        showConfirmButton: false,
+        timer: 3500
+    })
+</script>
+@endif
 @endsection

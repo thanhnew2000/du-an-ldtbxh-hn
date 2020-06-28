@@ -161,11 +161,11 @@
                 </thead>
                 <tbody>
                     @php
-                    $stt = 1;
+                    $i = !isset($_GET['page']) ? 1 : ($params['page_size'] * ($_GET['page']-1) + 1);
                     @endphp
                   @foreach ($data as $item)
                     <tr>
-                        <td>{{ $stt }}</td>
+                        <td>{{ $i++ }}</td>
                         <td>{{ $item->ma_nghe }}</td>
                         <td>{{ $item->ten_nghe }}</td>
                         <td>{{ $item->ten }}</td>
@@ -185,9 +185,7 @@
                         </td>
                         @endcan
                     </tr>
-                    @php
-                    $stt++;
-                    @endphp
+
                       
                   @endforeach
                 </tbody>
@@ -226,4 +224,15 @@
 
     });
 </script>
+@if (session('success'))
+<script>
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Cập nhật thành công !',
+        showConfirmButton: false,
+        timer: 3500
+    })
+</script>
+@endif
 @endsection
