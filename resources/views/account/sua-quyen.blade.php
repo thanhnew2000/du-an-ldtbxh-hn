@@ -9,7 +9,7 @@
                         <i class="m-menu__link-icon flaticon-layers"></i>
                     </span>
                     <h3 class="m-portlet__head-text">
-                        Thêm vai trò
+                        Sửa vai trò
                     </h3>
                 </div>
             </div>
