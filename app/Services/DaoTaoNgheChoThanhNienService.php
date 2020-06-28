@@ -292,8 +292,7 @@ class DaoTaoNgheChoThanhNienService extends AppService
                 $bacDaoTaoId = $co_s->loai_truong;
 
                 $bacDaoTao = $this->bacDaoTaoOfTruong($co_s->loai_truong);
-
-              $worksheet->setCellValue('B' . $row, $bacDaoTao);
+                  $worksheet->setCellValue('B' . $row, $bacDaoTao);
 
                 $worksheet->getStyle("B{$row}")->getFont()->setBold(true);
                 $lockRange = "A{$row}:AE{$row}";
@@ -461,11 +460,13 @@ class DaoTaoNgheChoThanhNienService extends AppService
                  }   
                  if (count($updateData) > 0) {
                  foreach($updateData as $key => $value)
-                     DB::table('ket_qua_dao_tao_cho_thanh_nien')->where('id',$key)->update($value);
+                 $this->repository->updateNgheThanhNien($key,$value);
+                    //  DB::table('ket_qua_dao_tao_cho_thanh_nien')->where('id',$key)->update($value);
                  }  
  
                  if (count($insertData) > 0) {
-                     DB::table('ket_qua_dao_tao_cho_thanh_nien')->insert($insertData);
+                    $this->repository->createNgheThanhNien($insertData);
+                    //  DB::table('ket_qua_dao_tao_cho_thanh_nien')->insert($insertData);
                  }    
  
                   $message='ok';

@@ -159,7 +159,11 @@
         <a style="color: white;"
           href="{{route('xuatbc.chi-tiet-lien-ket-dao-tao', ['co_so_id' => $data->co_so_id, 'bac_nghe' => $bac_nghe])}}">
           <button type="button" class="btn btn-danger mr-5">Hủy</button></a>
+
+        @if ($data->trang_thai >= 3)
+        @else
         <button type="submit" class="btn btn-primary">Cập nhật</button>
+        @endif
 
       </div>
     </div>

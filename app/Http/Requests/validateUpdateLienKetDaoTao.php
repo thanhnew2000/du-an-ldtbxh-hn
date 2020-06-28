@@ -26,6 +26,9 @@ class validateUpdateLienKetDaoTao extends FormRequest
     {
         $data = $this->all();
         unset($data['_token']);
+        unset($data['don_vi_lien_ket']);
+        unset($data['ghi_chu']);
+
         $getDataCheck = [];
         foreach ($data as $item => $value) {
             if ($value == null) {
@@ -49,6 +52,8 @@ class validateUpdateLienKetDaoTao extends FormRequest
     {
         $data = $this->all();
         unset($data['_token']);
+        unset($data['don_vi_lien_ket']);
+        unset($data['ghi_chu']);
         $attributes = [];
         foreach ($data as $item => $value) {
             $attributes[$item] = "Nhập số";

@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\LienKetDaoTaoService;
 use Illuminate\Support\Facades\DB;
-use App\Http\Requests\SoLieuTuyenSinh\StoreRequest;
 use App\Http\Requests\validateUpdateLienKetDaoTao;
+use App\Http\Requests\validateCreateLienKetDaoTao;
+use App\Http\Requests\Excel\ExportDuLieu;
 use Storage;
 
 class LienKetDaoTaoController extends Controller
@@ -154,7 +155,7 @@ class LienKetDaoTaoController extends Controller
         return view('lien-ket-dao-tao.them-moi-lien-ket-dao-tao', compact('data'));
     }
 
-    public function postthemlienketdaotao(StoreRequest $request)
+    public function postthemlienketdaotao(validateCreateLienKetDaoTao $request)
     {
         $requestParams = $request->all();
 
@@ -196,7 +197,7 @@ class LienKetDaoTaoController extends Controller
             ]);
         } else {
             return response()->json([
-                'result' => route('xuatbc.post-sua-lien-ket-dao-tao', ['id' => $getdata->id, 'bac_nghe' => 0]),
+                'result' => route('xuatbc.sua-lien-ket-dao-tao', ['id' => $getdata->id, 'bac_nghe' => 0]),
             ]);
         }
     }
@@ -206,7 +207,7 @@ class LienKetDaoTaoController extends Controller
         $id_co_so = $request->id_cs;
         $this->LienKetDaoTaoService->exportBieuMau($id_co_so);
     }
-    public function exportData(Request $request)
+    public function exportData(ExportDuLieu $request)
     {
         $listCoSoId = $request->truong_id;
         $dateFrom = $request->dateFrom;
@@ -262,7 +263,7 @@ class LienKetDaoTaoController extends Controller
             'uploads/excels',
             $request->file('file_import')
         );
-        $path = str_replace('/', '\\', $pathLoad);
-        $this->LienKetDaoTaoService->importError($fileRead, $duoiFile, $path);
+        // $path = str_replace('/', '\\', $pathLoad);
+        $this->LienKetDaoTaoService->importError($fileRead, $duoiFile, $pathLoad);
     }
 }

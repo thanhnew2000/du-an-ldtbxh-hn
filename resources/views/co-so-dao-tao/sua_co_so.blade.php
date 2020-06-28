@@ -156,6 +156,11 @@
                                 <label class="form-name" for="">Website</label>
                                 <input type="text" class="form-control" value="{{ old('website', $item->website) }}"
                                     name="website" id="" aria-describedby="helpId" placeholder="">
+                                <p id="helpId" class="form-text text-danger">
+                                    @error('website')
+                                    {{ $message }}
+                                    @enderror
+                                </p>
                             </div>
 
                             <div class="form-group col-lg-12">
@@ -170,6 +175,11 @@
                                             <option value="{{ $qh->maqh }}">{{ $qh->name }}</option>
                                             @endforeach
                                         </select>
+                                        <p id="helpId" class="form-text text-danger">
+                                            @error('maqh')
+                                            {{ $message }}
+                                            @enderror
+                                        </p>
                                     </div>
 
                                     <div class="">
@@ -179,6 +189,11 @@
                                             <option selected value="{{ $item->xaid }}">{{ $item->tenxaphuong }}
                                             </option>
                                         </select>
+                                        <p id="helpId" class="form-text text-danger">
+                                            @error('xaid')
+                                            {{ $message }}
+                                            @enderror
+                                        </p>
                                     </div>
                                 </div>
                             </div>

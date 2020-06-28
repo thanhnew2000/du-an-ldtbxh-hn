@@ -139,8 +139,8 @@
                                 <tbody>
                                     <tr>
                                         <td>Tổng số người học tốt nghiệp</td>
-                                        <td><input type="number" value="{{ old('Tong_SoNguoi_TN') }}" va name="Tong_SoNguoi_TN"
-                                                class="form-control m-input">
+                                        <td><input type="number" value="{{ old('Tong_SoNguoi_TN') }}" va
+                                                name="Tong_SoNguoi_TN" class="form-control m-input">
                                             @error('Tong_SoNguoi_TN')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -158,12 +158,12 @@
                                     </tr>
                                     <tr>
                                         <td>Tổng số dân tộc thiểu số ít người</td>
-                                        <td><input type="number" value="{{ old('DanToc_ThieuSo_ItNguoi') }}" va name="DanToc_ThieuSo_ItNguoi"
-                                                class="form-control m-input">
-                                                @error('DanToc_ThieuSo_ItNguoi')
-                                                <div class="alert alert-danger">{{ $message }}</div>
-                                                @enderror
-                                            </td>
+                                        <td><input type="number" value="{{ old('DanToc_ThieuSo_ItNguoi') }}" va
+                                                name="DanToc_ThieuSo_ItNguoi" class="form-control m-input">
+                                            @error('DanToc_ThieuSo_ItNguoi')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>Tốt nghiệp Nữ</td>
@@ -205,8 +205,8 @@
                                 <tbody>
                                     <tr>
                                         <td>Số sinh viên nhập học đầu khóa</td>
-                                        <td><input type="number" value="{{ old('SoSV_NhapHoc_DauKhoa_TrinhDoCD') }}" va name="SoSV_NhapHoc_DauKhoa_TrinhDoCD"
-                                                class="form-control m-input">
+                                        <td><input type="number" value="{{ old('SoSV_NhapHoc_DauKhoa_TrinhDoCD') }}" va
+                                                name="SoSV_NhapHoc_DauKhoa_TrinhDoCD" class="form-control m-input">
                                             @error('SoSV_NhapHoc_DauKhoa_TrinhDoCD')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -214,7 +214,8 @@
                                     </tr>
                                     <tr>
                                         <td>Số sinh viên đủ điều kiện thi xét TN</td>
-                                        <td><input type="number" value="{{ old('SoSV_Du_DieuKienThi_XetTN_TrinhDoCD') }}" va
+                                        <td><input type="number"
+                                                value="{{ old('SoSV_Du_DieuKienThi_XetTN_TrinhDoCD') }}" va
                                                 name="SoSV_Du_DieuKienThi_XetTN_TrinhDoCD" class="form-control m-input">
                                             @error('SoSV_Du_DieuKienThi_XetTN_TrinhDoCD')
                                             <div class="alert alert-danger">{{ $message }}</div>
@@ -224,8 +225,8 @@
                                     </tr>
                                     <tr>
                                         <td>Số sinh viên tốt nghiệp</td>
-                                        <td><input type="number" value="{{ old('SoSV_TN_TrinhDoCD') }}" va name="SoSV_TN_TrinhDoCD"
-                                                class="form-control m-input">
+                                        <td><input type="number" value="{{ old('SoSV_TN_TrinhDoCD') }}" va
+                                                name="SoSV_TN_TrinhDoCD" class="form-control m-input">
                                             @error('SoSV_TN_TrinhDoCD')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -233,8 +234,8 @@
                                     </tr>
                                     <tr>
                                         <td>Tốt nghiệp Nữ</td>
-                                        <td><input type="number" value="{{ old('SoLuong_Nu_SV_CD') }}" va name="SoLuong_Nu_SV_CD"
-                                                class="form-control m-input">
+                                        <td><input type="number" value="{{ old('SoLuong_Nu_SV_CD') }}" va
+                                                name="SoLuong_Nu_SV_CD" class="form-control m-input">
                                             @error('SoLuong_Nu_SV_CD')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -242,8 +243,8 @@
                                     </tr>
                                     <tr>
                                         <td>Dân tộc thiểu số ít người</td>
-                                        <td><input type="number" value="{{ old('DanToc_ThieuSo_ItNguoi_CD') }}" va name="DanToc_ThieuSo_ItNguoi_CD"
-                                                class="form-control m-input">
+                                        <td><input type="number" value="{{ old('DanToc_ThieuSo_ItNguoi_CD') }}" va
+                                                name="DanToc_ThieuSo_ItNguoi_CD" class="form-control m-input">
                                             @error('DanToc_ThieuSo_ItNguoi_CD')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -251,8 +252,8 @@
                                     </tr>
                                     <tr>
                                         <td>Hộ khẩu Hà Nội</td>
-                                        <td><input type="number" value="{{ old('SoSV_HoKhauHN_CD') }}" va name="SoSV_HoKhauHN_CD"
-                                                class="form-control m-input">
+                                        <td><input type="number" value="{{ old('SoSV_HoKhauHN_CD') }}" va
+                                                name="SoSV_HoKhauHN_CD" class="form-control m-input">
                                             @error('SoSV_HoKhauHN_CD')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -260,8 +261,8 @@
                                     </tr>
                                     <tr>
                                         <td>Số HSSV tốt nghiệp khá, giỏi</td>
-                                        <td><input type="number" value="{{ old('SoLuong_HSSV_TN_Kha_Gioi_CD') }}" va name="SoLuong_HSSV_TN_Kha_Gioi_CD"
-                                                class="form-control m-input">
+                                        <td><input type="number" value="{{ old('SoLuong_HSSV_TN_Kha_Gioi_CD') }}" va
+                                                name="SoLuong_HSSV_TN_Kha_Gioi_CD" class="form-control m-input">
                                             @error('SoLuong_HSSV_TN_Kha_Gioi_CD')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -295,8 +296,8 @@
                                 <tbody>
                                     <tr>
                                         <td>Số sinh viên nhập học đầu khóa</td>
-                                        <td><input type="number" value="{{ old('SoSV_NhapHoc_DauKhoa_TrinhDoSC') }}" va name="SoSV_NhapHoc_DauKhoa_TrinhDoSC"
-                                                class="form-control m-input">
+                                        <td><input type="number" value="{{ old('SoSV_NhapHoc_DauKhoa_TrinhDoSC') }}" va
+                                                name="SoSV_NhapHoc_DauKhoa_TrinhDoSC" class="form-control m-input">
                                             @error('SoSV_NhapHoc_DauKhoa_TrinhDoSC')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -304,7 +305,8 @@
                                     </tr>
                                     <tr>
                                         <td>Số sinh viên đủ điều kiện thi xét TN</td>
-                                        <td><input type="number" value="{{ old('SoSV_Du_DieuKienThi_XetTN_TrinhDoSC') }}" va
+                                        <td><input type="number"
+                                                value="{{ old('SoSV_Du_DieuKienThi_XetTN_TrinhDoSC') }}" va
                                                 name="SoSV_Du_DieuKienThi_XetTN_TrinhDoSC" class="form-control m-input">
                                             @error('SoSV_Du_DieuKienThi_XetTN_TrinhDoSC')
                                             <div class="alert alert-danger">{{ $message }}</div>
@@ -313,8 +315,8 @@
                                     </tr>
                                     <tr>
                                         <td>Số sinh viên tốt nghiệp</td>
-                                        <td><input type="number" value="{{ old('SoSV_TN_TrinhDoSC') }}" va name="SoSV_TN_TrinhDoSC"
-                                                class="form-control m-input">
+                                        <td><input type="number" value="{{ old('SoSV_TN_TrinhDoSC') }}" va
+                                                name="SoSV_TN_TrinhDoSC" class="form-control m-input">
                                             @error('SoSV_TN_TrinhDoSC')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -322,8 +324,8 @@
                                     </tr>
                                     <tr>
                                         <td>Tốt nghiệp Nữ</td>
-                                        <td><input type="number" value="{{ old('SoLuong_Nu_SV_SC') }}" va name="SoLuong_Nu_SV_SC"
-                                                class="form-control m-input">
+                                        <td><input type="number" value="{{ old('SoLuong_Nu_SV_SC') }}" va
+                                                name="SoLuong_Nu_SV_SC" class="form-control m-input">
                                             @error('SoLuong_Nu_SV_SC')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -331,8 +333,8 @@
                                     </tr>
                                     <tr>
                                         <td>Dân tộc thiểu số ít người</td>
-                                        <td><input type="number" value="{{ old('DanToc_ThieuSo_ItNguoi_SC') }}" va name="DanToc_ThieuSo_ItNguoi_SC"
-                                                class="form-control m-input">
+                                        <td><input type="number" value="{{ old('DanToc_ThieuSo_ItNguoi_SC') }}" va
+                                                name="DanToc_ThieuSo_ItNguoi_SC" class="form-control m-input">
                                             @error('DanToc_ThieuSo_ItNguoi_SC')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -340,8 +342,8 @@
                                     </tr>
                                     <tr>
                                         <td>Hộ khẩu Hà Nội</td>
-                                        <td><input type="number" value="{{ old('SoSV_HoKhauHN_SC') }}" va name="SoSV_HoKhauHN_SC"
-                                                class="form-control m-input">
+                                        <td><input type="number" value="{{ old('SoSV_HoKhauHN_SC') }}" va
+                                                name="SoSV_HoKhauHN_SC" class="form-control m-input">
                                             @error('SoSV_HoKhauHN_SC')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -379,8 +381,8 @@
                                 <tbody>
                                     <tr>
                                         <td>Số sinh viên nhập học đầu khóa</td>
-                                        <td><input type="number" value="{{ old('SoSV_NhapHoc_DauKhoa_TrinhDoTC') }}" va name="SoSV_NhapHoc_DauKhoa_TrinhDoTC"
-                                                class="form-control m-input">
+                                        <td><input type="number" value="{{ old('SoSV_NhapHoc_DauKhoa_TrinhDoTC') }}" va
+                                                name="SoSV_NhapHoc_DauKhoa_TrinhDoTC" class="form-control m-input">
                                             @error('SoSV_NhapHoc_DauKhoa_TrinhDoTC')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -388,7 +390,8 @@
                                     </tr>
                                     <tr>
                                         <td>Số sinh viên đủ điều kiện thi xét TN</td>
-                                        <td><input type="number" value="{{ old('SoSV_Du_DieuKienTHhi_XetTN_TrinhDoTC') }}" va
+                                        <td><input type="number"
+                                                value="{{ old('SoSV_Du_DieuKienTHhi_XetTN_TrinhDoTC') }}" va
                                                 name="SoSV_Du_DieuKienTHhi_XetTN_TrinhDoTC"
                                                 class="form-control m-input">
                                             @error('SoSV_Du_DieuKienTHhi_XetTN_TrinhDoTC')
@@ -399,8 +402,8 @@
                                     </tr>
                                     <tr>
                                         <td>Số sinh viên tốt nghiệp</td>
-                                        <td><input type="number" value="{{ old('SoSV_TN_TrinhDoTC') }}" va name="SoSV_TN_TrinhDoTC"
-                                                class="form-control m-input">
+                                        <td><input type="number" value="{{ old('SoSV_TN_TrinhDoTC') }}" va
+                                                name="SoSV_TN_TrinhDoTC" class="form-control m-input">
                                             @error('SoSV_TN_TrinhDoTC')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -408,8 +411,8 @@
                                     </tr>
                                     <tr>
                                         <td>Tốt nghiệp Nữ</td>
-                                        <td><input type="number" value="{{ old('SoLuong_Nu_SV_TC') }}" va name="SoLuong_Nu_SV_TC"
-                                                class="form-control m-input">
+                                        <td><input type="number" value="{{ old('SoLuong_Nu_SV_TC') }}" va
+                                                name="SoLuong_Nu_SV_TC" class="form-control m-input">
                                             @error('SoLuong_Nu_SV_TC')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -417,8 +420,8 @@
                                     </tr>
                                     <tr>
                                         <td>Dân tộc thiểu số ít người</td>
-                                        <td><input type="number" value="{{ old('DanToc_ThieuSo_ItNguoi_TC') }}" va name="DanToc_ThieuSo_ItNguoi_TC"
-                                                class="form-control m-input">
+                                        <td><input type="number" value="{{ old('DanToc_ThieuSo_ItNguoi_TC') }}" va
+                                                name="DanToc_ThieuSo_ItNguoi_TC" class="form-control m-input">
                                             @error('DanToc_ThieuSo_ItNguoi_TC')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -426,8 +429,8 @@
                                     </tr>
                                     <tr>
                                         <td>Hộ khẩu Hà Nội</td>
-                                        <td><input type="number" value="{{ old('SoSV_HoKhauHN_TC') }}" va name="SoSV_HoKhauHN_TC"
-                                                class="form-control m-input">
+                                        <td><input type="number" value="{{ old('SoSV_HoKhauHN_TC') }}" va
+                                                name="SoSV_HoKhauHN_TC" class="form-control m-input">
                                             @error('SoSV_HoKhauHN_TC')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -435,8 +438,8 @@
                                     </tr>
                                     <tr>
                                         <td>Trong đó hộ khẩu Hà Nội thuộc đối tượng tốt nghiệp THCS</td>
-                                        <td><input type="number" value="{{ old('HoKhau_HN_Thuoc_DoiTuong_TN_TC') }}" va name="HoKhau_HN_Thuoc_DoiTuong_TN_TC"
-                                                class="form-control m-input">
+                                        <td><input type="number" value="{{ old('HoKhau_HN_Thuoc_DoiTuong_TN_TC') }}" va
+                                                name="HoKhau_HN_Thuoc_DoiTuong_TN_TC" class="form-control m-input">
                                             @error('HoKhau_HN_Thuoc_DoiTuong_TN_TC')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -444,8 +447,8 @@
                                     </tr>
                                     <tr>
                                         <td>Số HSSV tốt nghiệp khá, giỏi</td>
-                                        <td><input type="number" value="{{ old('SoLuong_HSSV_TN_Kha_Gioi_TC') }}" va name="SoLuong_HSSV_TN_Kha_Gioi_TC"
-                                                class="form-control m-input">
+                                        <td><input type="number" value="{{ old('SoLuong_HSSV_TN_Kha_Gioi_TC') }}" va
+                                                name="SoLuong_HSSV_TN_Kha_Gioi_TC" class="form-control m-input">
                                             @error('SoLuong_HSSV_TN_Kha_Gioi_TC')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -479,8 +482,8 @@
                                 <tbody>
                                     <tr>
                                         <td>Số sinh viên nhập học đầu khóa</td>
-                                        <td><input type="number" value="{{ old('SoSV_NhapHoc_DauKhoa_NgheKhac') }}" va name="SoSV_NhapHoc_DauKhoa_NgheKhac"
-                                                class="form-control m-input">
+                                        <td><input type="number" value="{{ old('SoSV_NhapHoc_DauKhoa_NgheKhac') }}" va
+                                                name="SoSV_NhapHoc_DauKhoa_NgheKhac" class="form-control m-input">
                                             @error('SoSV_NhapHoc_DauKhoa_NgheKhac')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -488,8 +491,8 @@
                                     </tr>
                                     <tr>
                                         <td>Số sinh viên đủ điều kiện thi xét TN</td>
-                                        <td><input type="number" value="{{ old('SoSV_DuKienThi_XetTN_NgheKhac') }}" va name="SoSV_DuKienThi_XetTN_NgheKhac"
-                                                class="form-control m-input">
+                                        <td><input type="number" value="{{ old('SoSV_DuKienThi_XetTN_NgheKhac') }}" va
+                                                name="SoSV_DuKienThi_XetTN_NgheKhac" class="form-control m-input">
                                             @error('SoSV_DuKienThi_XetTN_NgheKhac')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -498,8 +501,8 @@
                                     </tr>
                                     <tr>
                                         <td>Số sinh viên tốt nghiệp</td>
-                                        <td><input type="number" value="{{ old('SoSV_TN_NgheKhac') }}" va name="SoSV_TN_NgheKhac"
-                                                class="form-control m-input">
+                                        <td><input type="number" value="{{ old('SoSV_TN_NgheKhac') }}" va
+                                                name="SoSV_TN_NgheKhac" class="form-control m-input">
                                             @error('SoSV_TN_NgheKhac')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -507,8 +510,8 @@
                                     </tr>
                                     <tr>
                                         <td>Tốt nghiệp Nữ</td>
-                                        <td><input type="number" value="{{ old('SoLuong_Nu_SV_NgheKhac') }}" va name="SoLuong_Nu_SV_NgheKhac"
-                                                class="form-control m-input">
+                                        <td><input type="number" value="{{ old('SoLuong_Nu_SV_NgheKhac') }}" va
+                                                name="SoLuong_Nu_SV_NgheKhac" class="form-control m-input">
                                             @error('SoLuong_Nu_SV_NgheKhac')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -516,8 +519,8 @@
                                     </tr>
                                     <tr>
                                         <td>Dân tộc thiểu số ít người</td>
-                                        <td><input type="number" value="{{ old('DanToc_ThieuSo_ItNguoi_NgheKhac') }}" va name="DanToc_ThieuSo_ItNguoi_NgheKhac"
-                                                class="form-control m-input">
+                                        <td><input type="number" value="{{ old('DanToc_ThieuSo_ItNguoi_NgheKhac') }}" va
+                                                name="DanToc_ThieuSo_ItNguoi_NgheKhac" class="form-control m-input">
                                             @error('DanToc_ThieuSo_ItNguoi_NgheKhac')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -525,8 +528,8 @@
                                     </tr>
                                     <tr>
                                         <td>Hộ khẩu Hà Nội</td>
-                                        <td><input type="number" value="{{ old('SoNguoi_HoKhauHN_NgheKhac') }}" va name="SoNguoi_HoKhauHN_NgheKhac"
-                                                class="form-control m-input">
+                                        <td><input type="number" value="{{ old('SoNguoi_HoKhauHN_NgheKhac') }}" va
+                                                name="SoNguoi_HoKhauHN_NgheKhac" class="form-control m-input">
                                             @error('SoNguoi_HoKhauHN_NgheKhac')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -565,8 +568,9 @@
                                 <tbody>
                                     <tr>
                                         <td>Số người có việc làm ngay sau khi tốt nghiệp</td>
-                                        <td><input type="number" value="{{ old('SoNguoi_CoViecLamNgay_SauKhi_TN_CD') }}" va
-                                                name="SoNguoi_CoViecLamNgay_SauKhi_TN_CD" class="form-control m-input">
+                                        <td><input type="number" value="{{ old('SoNguoi_CoViecLamNgay_SauKhi_TN_CD') }}"
+                                                va name="SoNguoi_CoViecLamNgay_SauKhi_TN_CD"
+                                                class="form-control m-input">
                                             @error('SoNguoi_CoViecLamNgay_SauKhi_TN_CD')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -574,8 +578,8 @@
                                     </tr>
                                     <tr>
                                         <td>Hộ khẩu Hà Nội</td>
-                                        <td><input type="number" value="{{ old('CoViecLam_HoKhauHN_TrinhDoCD') }}" va name="CoViecLam_HoKhauHN_TrinhDoCD"
-                                                class="form-control m-input">
+                                        <td><input type="number" value="{{ old('CoViecLam_HoKhauHN_TrinhDoCD') }}" va
+                                                name="CoViecLam_HoKhauHN_TrinhDoCD" class="form-control m-input">
                                             @error('CoViecLam_HoKhauHN_TrinhDoCD')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -610,7 +614,8 @@
                                 <tbody>
                                     <tr>
                                         <td>Số người có việc làm ngay sau khi tốt nghiệp</td>
-                                        <td><input type="number" value="{{ old('SoNguoiHoc_CoViecLamNgay_SauKhi_TN_TrinhDoSC') }}" va
+                                        <td><input type="number"
+                                                value="{{ old('SoNguoiHoc_CoViecLamNgay_SauKhi_TN_TrinhDoSC') }}" va
                                                 name="SoNguoiHoc_CoViecLamNgay_SauKhi_TN_TrinhDoSC"
                                                 class="form-control m-input">
                                             @error('SoNguoiHoc_CoViecLamNgay_SauKhi_TN_TrinhDoSC')
@@ -620,8 +625,8 @@
                                     </tr>
                                     <tr>
                                         <td>Hộ khẩu Hà Nội</td>
-                                        <td><input type="number" value="{{ old('SoLuong_HoKhauHN_TrinhDoSC') }}" va name="SoLuong_HoKhauHN_TrinhDoSC"
-                                                class="form-control m-input">
+                                        <td><input type="number" value="{{ old('SoLuong_HoKhauHN_TrinhDoSC') }}" va
+                                                name="SoLuong_HoKhauHN_TrinhDoSC" class="form-control m-input">
                                             @error('SoLuong_HoKhauHN_TrinhDoSC')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -660,7 +665,8 @@
                                 <tbody>
                                     <tr>
                                         <td>Số người có việc làm ngay sau khi tốt nghiệp</td>
-                                        <td><input type="number" value="{{ old('SoNguoiHoc_CoViecLamNgay_SauKhi_TN_TrinhDoTC') }}" va
+                                        <td><input type="number"
+                                                value="{{ old('SoNguoiHoc_CoViecLamNgay_SauKhi_TN_TrinhDoTC') }}" va
                                                 name="SoNguoiHoc_CoViecLamNgay_SauKhi_TN_TrinhDoTC"
                                                 class="form-control m-input">
                                             @error('SoNguoiHoc_CoViecLamNgay_SauKhi_TN_TrinhDoTC')
@@ -670,8 +676,8 @@
                                     </tr>
                                     <tr>
                                         <td>Hộ khẩu Hà Nội</td>
-                                        <td><input type="number" value="{{ old('CoViecLam_HoKhauHN_TrinhDo_TC') }}" va name="CoViecLam_HoKhauHN_TrinhDo_TC"
-                                                class="form-control m-input">
+                                        <td><input type="number" value="{{ old('CoViecLam_HoKhauHN_TrinhDo_TC') }}" va
+                                                name="CoViecLam_HoKhauHN_TrinhDo_TC" class="form-control m-input">
                                             @error('CoViecLam_HoKhauHN_TrinhDo_TC')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -680,8 +686,9 @@
                                     </tr>
                                     <tr>
                                         <td>Hộ khẩu Hà Nội Trình độ Trung cấp tốt nghiệp THCS</td>
-                                        <td><input type="number" value="{{ old('SV_CoViecLam_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoTC') }}" va
-                                                name="SV_CoViecLam_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoTC"
+                                        <td><input type="number"
+                                                value="{{ old('SV_CoViecLam_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoTC') }}"
+                                                va name="SV_CoViecLam_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoTC"
                                                 class="form-control m-input">
                                             @error('SV_CoViecLam_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoTC')
                                             <div class="alert alert-danger">{{ $message }}</div>
@@ -717,8 +724,9 @@
                                 <tbody>
                                     <tr>
                                         <td>Số người có việc làm ngay sau khi tốt nghiệp</td>
-                                        <td><input type="number" value="{{ old('SoNguoiHoc_CoViecLamNgay_SauKhi_TN_DaoTao_NgheKhac') }}" va
-                                                name="SoNguoiHoc_CoViecLamNgay_SauKhi_TN_DaoTao_NgheKhac"
+                                        <td><input type="number"
+                                                value="{{ old('SoNguoiHoc_CoViecLamNgay_SauKhi_TN_DaoTao_NgheKhac') }}"
+                                                va name="SoNguoiHoc_CoViecLamNgay_SauKhi_TN_DaoTao_NgheKhac"
                                                 class="form-control m-input">
                                             @error('SoNguoiHoc_CoViecLamNgay_SauKhi_TN_DaoTao_NgheKhac')
                                             <div class="alert alert-danger">{{ $message }}</div>
@@ -727,7 +735,8 @@
                                     </tr>
                                     <tr>
                                         <td>Hộ khẩu Hà Nội</td>
-                                        <td><input type="number" value="{{ old('SoNguoi_HoKhauHN_TrinhDo_DaoTao_NgheKhac') }}" va
+                                        <td><input type="number"
+                                                value="{{ old('SoNguoi_HoKhauHN_TrinhDo_DaoTao_NgheKhac') }}" va
                                                 name="SoNguoi_HoKhauHN_TrinhDo_DaoTao_NgheKhac"
                                                 class="form-control m-input">
                                             @error('SoNguoi_HoKhauHN_TrinhDo_DaoTao_NgheKhac')
@@ -772,26 +781,26 @@
                                 <tbody>
                                     <tr>
                                         <td>Mức lương trung bình</td>
-                                        <td><input type="number" value="{{ old('MucLuong_TB_CD') }}" va name="MucLuong_TB_CD"
-                                                class="form-control m-input">
+                                        <td><input type="number" value="{{ old('MucLuong_TB_CD') }}" va
+                                                name="MucLuong_TB_CD" class="form-control m-input">
                                             @error('MucLuong_TB_CD')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
                                         </td>
-                                        <td><input type="number" value="{{ old('MucLuong_TB_TC') }}" va name="MucLuong_TB_TC"
-                                                class="form-control m-input">
+                                        <td><input type="number" value="{{ old('MucLuong_TB_TC') }}" va
+                                                name="MucLuong_TB_TC" class="form-control m-input">
                                             @error('MucLuong_TB_TC')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
                                         </td>
-                                        <td><input type="number" value="{{ old('MucLuong_TB_SC') }}" va name="MucLuong_TB_SC"
-                                                class="form-control m-input">
+                                        <td><input type="number" value="{{ old('MucLuong_TB_SC') }}" va
+                                                name="MucLuong_TB_SC" class="form-control m-input">
                                             @error('MucLuong_TB_SC')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
                                         </td>
-                                        <td><input type="number" value="{{ old('MucLuong_TB_NgheKhac') }}" va name="MucLuong_TB_NgheKhac"
-                                                class="form-control m-input">
+                                        <td><input type="number" value="{{ old('MucLuong_TB_NgheKhac') }}" va
+                                                name="MucLuong_TB_NgheKhac" class="form-control m-input">
                                             @error('MucLuong_TB_NgheKhac')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -799,29 +808,33 @@
                                     </tr>
                                     <tr>
                                         <td>Hộ khẩu Hà Nội</td>
-                                        <td><input type="number" value="{{ old('MucLuong_TB_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoCD') }}" va
-                                                name="MucLuong_TB_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoCD"
+                                        <td><input type="number"
+                                                value="{{ old('MucLuong_TB_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoCD') }}"
+                                                va name="MucLuong_TB_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoCD"
                                                 class="form-control m-input">
                                             @error('MucLuong_TB_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoCD')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
                                         </td>
-                                        <td><input type="number" value="{{ old('MucLuong_TB_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoTC') }}" va
-                                                name="MucLuong_TB_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoTC"
+                                        <td><input type="number"
+                                                value="{{ old('MucLuong_TB_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoTC') }}"
+                                                va name="MucLuong_TB_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoTC"
                                                 class="form-control m-input">
                                             @error('MucLuong_TB_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoTC')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
                                         </td>
-                                        <td><input type="number" value="{{ old('MucLuong_TB_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoSC') }}" va
-                                                name="MucLuong_TB_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoSC"
+                                        <td><input type="number"
+                                                value="{{ old('MucLuong_TB_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoSC') }}"
+                                                va name="MucLuong_TB_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoSC"
                                                 class="form-control m-input">
                                             @error('MucLuong_TB_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoSC')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
                                         </td>
-                                        <td><input type="number" value="{{ old('MucLuong_TB_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoNgheKhac') }}" va
-                                                name="MucLuong_TB_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoNgheKhac"
+                                        <td><input type="number"
+                                                value="{{ old('MucLuong_TB_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoNgheKhac') }}"
+                                                va name="MucLuong_TB_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoNgheKhac"
                                                 class="form-control m-input">
                                             @error('MucLuong_TB_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoNgheKhac')
                                             <div class="alert alert-danger">{{ $message }}</div>

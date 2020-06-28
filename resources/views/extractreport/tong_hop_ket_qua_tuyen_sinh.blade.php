@@ -149,7 +149,7 @@
         <div class="col-lg-2">
             <a href="javascript:" data-toggle="modal" id="upImport-file" data-target="#moDalImport"><i
                     class="fa fa-upload" aria-hidden="true"></i>
-                Tải lên file Excel</a>
+                Tải lên file Excell</a>
         </div>
         <div class="col-lg-8">
             <a href="javascript:" data-toggle="modal" data-target="#moDalExportData"><i class="fa fa-file-excel"
@@ -275,7 +275,7 @@
         </div>
     </form>
 
-    <form action="{{route('import.error.dang-ky-chi-tieu-tuyen-sinh')}}" id="id_form_import_file" method="post"
+    <form action="{{route('import.error.dang-ky-chi-tieu-tuyen-sinh')}}" id="form_import_file" method="post"
         enctype="multipart/form-data">
         @csrf
         <div class="modal fade " id="moDalImport" tabindex="-1" role="dialog" aria-labelledby="moDalLabel"
@@ -316,7 +316,7 @@
                         <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoi">
                         </p>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                        <button type="button" class="btn btn-primary" id="submitTai"  onclick="closeModal('closeImportFile')">Tải</a>
+                        <button type="button" class="btn btn-primary" id="submitTai">Tải</a>
                             <button type="submit" hidden  class="btn btn-primary" id="submitTaiok">Tải ok</a>
                     </div>
                 </div>
@@ -354,8 +354,14 @@
                                 <option value="2">2</option>
                             </select> --}}
                             <div class='input-group date datepicker' name="datepicker" >
-                                <p>From: <input type="text" class="form-control" name="dateFrom" id="datepickerFrom"></p>
-                                <p>To: <input type="text" class="form-control" name="dateTo" id="datepickerTo"></p>
+                            <p>From: <input type="text" class="form-control" name="dateFrom" id="datepickerFrom"> </p>
+                                @error('dateFrom')
+                                     <div class="alert alert-danger">{{$message}}</div>
+                                @enderror
+                            <p>To: <input type="text" class="form-control" name="dateTo" id="datepickerTo"></p>
+                                @error('dateTo')
+                                    <div class="alert alert-danger">{{$message}}</div>
+                                 @enderror
                                    {{-- <span class="input-group-addon">
                                          <span class="glyphicon glyphicon-calendar">
                                          </span>
@@ -372,12 +378,16 @@
                             </select>
                         </div>
 
+                        @error('truong_id')
+                             <div class="alert alert-danger">{{$message}}</div>
+                       @enderror
+
                     </div>
                     <div class="modal-footer">
                         <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoiXuat">
                         </p>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                        <button type="submit" class="btn btn-primary" id="submitXuatData" onclick="closeModal('closeXuatDuLieu')">Tải</a>
+                        <button type="submit" class="btn btn-primary" id="submitXuatData">Tải</a>
                     </div>
                 </div>
             </div>
@@ -401,112 +411,19 @@
             window.location.href = reloadUrl;
         });
 
-        $('.select2').select2();
-
         // thanhnv
-
         $( function() {
             $( "#datepickerFrom" ).datepicker();
             $( "#datepickerTo" ).datepicker();
-
-            $('.select2').select2();
-            $('span.select2').css('width', '100%');
         });
 
     });
 </script>
-{{-- thanhnv --}}
-
+{{-- thanhnv update change to service 6/26/2020 --}}
 <script>
-
-     function closeModal(id) {
-        $('#' + id).trigger('click');
-    }
-
-
-    $("#file_import_id").change(function() {
-        var fileExtension = ['xlsx','xls'];
-        if($("#file_import_id")[0].files.length === 0){
-            $('#echoLoi').text('Hãy nhập file excel');
-        }else if($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
-            $message = "Hãy nhập file excel : "+fileExtension.join(', ');
-            $('#echoLoi').text($message);
-            return false;
-        }else{
-            $('#echoLoi').text('');
-         }
-    });
-
-
-        $("#submitTai").click(function(event){
-        var fileExtension = ['xlsx', 'xls'];
-        if($("#file_import_id")[0].files.length === 0){
-                console.log('không có file');
-        }else if($.inArray($('#file_import_id').val().split('.').pop().toLowerCase(), fileExtension) == -1) {
-                console.log('chưa file không đúng định dạng');
-        }else{
-            $('#moDalImport').modal('hide');
-            $('.loading').css('display','block');
-            var formData = new FormData();
-            var fileExcel = document.querySelector('#file_import_id');
-            formData.append("file", fileExcel.files[0]);
-            formData.append("dot", $('#dot_id').val());
-            formData.append("nam", $('#nam_id').val());
-
-            axios.post("{{route('import.dang-ky-chi-tieu-tuyen-sinh')}}", formData,{
-                headers: {
-                        'Content-Type': 'multipart/form-data',
-                    }
-                }).then(function (response) {
-                    console.log(response)
-                            if(response.data == 'ok'){
-                                $('.loading').css('display','none');
-                                    Swal.fire({
-                                        position: 'center',
-                                        icon: 'success',
-                                        title: 'Cập nhập thành công',
-                                        showConfirmButton: false,
-                                        timer: 1700
-                                    })
-                                window.location.reload();
-                                console.log('Đã insert vào database');
-                            }else if(response.data == 'exportError'){
-                                $('.loading').css('display','none');
-                                $('#submitTaiok').trigger('click');
-                                $('#id_form_import_file')[0].reset();
-                            }else{
-                                $('.loading').css('display','none');
-                                Swal.fire({
-                                    title: response.data.messageError,
-                                    icon: 'warning',
-                                    confirmButtonColor: '#3085d6',
-                                    confirmButtonText: 'Xác nhận'
-                                    }).then((result) => {
-                                    if (result.value) {
-                                        window.location.reload();
-                                    }else{
-                                        window.location.reload();
-                                    }
-                                    })
-                            }
-                    }).catch(function (error) {
-                    console.log(error);
-                    $('.loading').css('display','none');
-                    Swal.fire({
-                                title: 'Lỗi về file muốn nhập !',
-                                // text: "You won't be able to revert this!",
-                                icon: 'warning',
-                                confirmButtonColor: '#3085d6',
-                                confirmButtonText: 'Xác nhận'
-                                }).then((result) => {
-                                if (result.value) {
-                                    window.location.reload();
-                                }else{
-                                    window.location.reload();
-                                }
-                                })
-                    });
-                }
-        });
+    var routeImport = "{{route('import.dang-ky-chi-tieu-tuyen-sinh')}}" ;
 </script>
+<script src="{!! asset('excel-js/js-xuat-time.js') !!}"></script>
+<script src="{!! asset('excel-js/js-form.js') !!}"></script>
+{{-- end --}}
 @endsection

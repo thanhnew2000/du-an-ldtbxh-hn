@@ -37,7 +37,6 @@ Route::get('/dashboard', 'AnalysisController@index')
 
 Route::group(['middleware' => 'auth'], function () {
 
-
      Route::group(['prefix' => 'chart'], function () {
           Route::get('/bieu-do-bao-cao-ngan-sach', 'ChartController@bdbaocaongansach');
           Route::get('/bieu-do-ket-qua-tuyen-sinh', 'ChartController@bdkqtuyensinh');
@@ -64,7 +63,6 @@ Route::group(['middleware' => 'auth'], function () {
      Route::get('chinh-sua-danh-sach-doi-ngu-ql', function () {
           return view('danhsachdoingunhagioa.chinh-sua-danh-sach-doi-ngu-ql');
      })->name('chinh_sua_ql');
-
      Route::get('them_ket_qua_hop_tac_quoc_te', function () {
           return view('ket-qua-hop-tac-quoc-te.them_ket_qua_hop_tac_quoc_te');
      })->name('them_kq_qt');

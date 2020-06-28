@@ -369,8 +369,10 @@ class GiaoDucNgheNghiepService extends AppService
                 // fill data
                 $this->exportFillRow($worksheet, $row , $ttdk);
             }
-
-            $this->formartMargeing($worksheet,$arrayCenter,$startGop,$row);
+            if(count($thong_tin_dang_ky) > 0){
+                  $this->formartMargeing($worksheet,$arrayCenter,$startGop,$row);
+            }
+          
          }
          $writer =IOFactory::createWriter($spreadsheet, "Xlsx");
          header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
@@ -467,7 +469,7 @@ class GiaoDucNgheNghiepService extends AppService
     }
 
     public function importError($fileRead,$duoiFile,$path){
-        $fileReadStorage= storage_path('app\public\\'.$path);
+        $fileReadStorage= storage_path('app/public/'.$path);
       
         $spreadsheet = $this->createSpreadSheet($fileReadStorage,$duoiFile);
         $data = $spreadsheet->getActiveSheet()->toArray();

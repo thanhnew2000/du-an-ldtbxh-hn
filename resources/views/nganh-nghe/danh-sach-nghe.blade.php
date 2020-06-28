@@ -92,9 +92,10 @@
                             @endcan
 
                             @can('cap_nhat_nganh_nghe')
-                            <a href="" class="btn btn-primary btn-sm">Cập nhật</a>
+                            <a href="{{ route('nghe.cap-nhat', ['id'=> $cursor->id]) }}"
+                                class="btn btn-primary btn-sm">Cập nhật</a>
                             @endcan
-
+                            
                             @can('xoa_nganh_nghe')
                             <a href="" class="btn btn-danger btn-sm">Xóa</a>
                             @endcan
@@ -122,7 +123,6 @@
             var reloadUrl = `${currentUrl}?bac_nghe=${bac_nghe}&keyword=${keyword}&page_size=${page_size}`;
             window.location.href = reloadUrl;
         });
-
     });
 </script>
 @endsection

@@ -3,9 +3,6 @@
 @section('style')
 @endsection
 @section('content')
-@php
-$stt = 1;
-@endphp
 <div class="m-content container-fluid">
     <div class="m-portlet">
         <div class="m-portlet__head">
@@ -198,9 +195,12 @@ $stt = 1;
                     </tr>
                 </thead>
                 <tbody>
+                    @php
+                    $i = !isset($_GET['page']) ? 1 : ($params['page_size'] * ($_GET['page']-1) + 1);
+                    @endphp
                     @foreach ($data as $item)
                     <tr>
-                        <td>{{ $stt }}</td>
+                        <td>{{ $i++ }}</td>
                         <td>{{ $item->ten }}</td>
                         <td>{{ $item->ten_loai_hinh_co_so }}</td>
                         <td>{{ $item->ten_co_quan_chu_quan }}</td>
@@ -218,9 +218,6 @@ $stt = 1;
                         @endcan
 
                     </tr>
-                    @php
-                    $stt++;
-                    @endphp
                     @endforeach
 
                 </tbody>
@@ -384,16 +381,15 @@ $stt = 1;
 <script src="{{ asset('vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 <link rel="stylesheet" href="sweetalert2.min.css">
 
-@if (session('kq'))
+@if (session('success'))
 <script>
     Swal.fire({
-        position: 'top-end',
+        position: 'center',
         icon: 'success',
-        title: 'Thêm thành công !',
+        title: 'Thêm mới thành công !',
         showConfirmButton: false,
         timer: 3500
     })
-
 </script>
 @endif
 <script>

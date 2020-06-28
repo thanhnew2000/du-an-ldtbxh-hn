@@ -1,4 +1,9 @@
 $(document).ready(function() {
+    $('[type="number"]').on("blur", function() {
+        var value = $(this).val();
+
+        $(this).val(Number(value));
+    });
     $("#co_so_id").change(function() {
         var op = $("select option:selected").val();
         axios
@@ -73,7 +78,7 @@ $(document).ready(function() {
 
     const mess = {
         number: "Vui lòng nhập liệu hợp lệ",
-        digits: "Số liệu nhỏ nhất là 0",
+        digits: "Vui lòng nhập số nguyên",
         min: "Số liệu nhỏ nhất là 0",
     };
 
