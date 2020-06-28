@@ -2,7 +2,7 @@
 @section('content')
 <div class="m-content">
     @include('layouts.partials.filter', [
-        'config' => $filterConfig,
+    'config' => $filterConfig,
     ])
 
     <div class="row mb-5 bieumau">
@@ -17,19 +17,17 @@
                     class="fa fa-upload" aria-hidden="true"></i>
                 Tải lên file Excel</a>
         </div>
-        <div class="col-lg-6">
-            <a href="javascript:" data-toggle="modal" data-target="#exampleModalExportData"><i class="fa fa-upload"
-                    aria-hidden="true"></i>
-                Xuất dữ liệu ra Excel</a>
-        </div>
-        <div class="col-lg-2" style="text-align: right">
-        <a href="{{ route('ql-giao-vien.create') }}"><button type="button" class="btn btn-secondary">Thêm mới</button></a>
+        <div class="col-lg-8 " style="text-align: right">
+            @can('them_moi_quan_ly_giao_vien')
+            <a href="{{ route('ql-giao-vien.create') }}"><button type="button" class="btn btn-secondary">Thêm
+                    mới</button></a>
+            @endcan
         </div>
     </div>
 
     @include('layouts.partials.table', [
-        'titles' => $titles,
-        'data' => $data
+    'titles' => $titles,
+    'data' => $data
     ])
 </div>
 
@@ -93,10 +91,10 @@
 
 <form action="{{route('export-data-doi-ngu-nha-giao')}}" id="" method="post" enctype="multipart/form-data">
     @csrf
-    <div class="modal fade " id="exampleModalExportData" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade " id="exampleModalExportData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content"> 
+            <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Xuất dữ liệu</h5>
                     <button type="button" id='closeXuatDuLieu' class="close" data-dismiss="modal" aria-label="Close">
@@ -118,7 +116,8 @@
                     <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoiXuat">
                     </p>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                    <button type="submit" class="btn btn-primary"  onclick="closeModal('closeXuatDuLieu')"  id="submitXuatData">Tải</a>
+                    <button type="submit" class="btn btn-primary" onclick="closeModal('closeXuatDuLieu')"
+                        id="submitXuatData">Tải</a>
                 </div>
             </div>
         </div>

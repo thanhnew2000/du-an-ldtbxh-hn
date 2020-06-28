@@ -45,7 +45,6 @@ class GiaoVienService extends AppService
         $this->trinhDoGVRepository = $trinhDoGVRepository;
         $this->nganhNgheRepository = $nganhNgheRepository;
         $this->soLieuTuyenSinhRepository = $soLieuTuyenSinhRepository;
-
     }
 
     public function getFilterConfig()
@@ -68,7 +67,7 @@ class GiaoVienService extends AppService
     {
         $result = $this->giaoVienRepository->getList($params, $limit);
         $result->each(function ($value, $key) {
-            if (!empty($value->nghe_giang_day)){
+            if (!empty($value->nghe_giang_day)) {
                 $value->nghe_giang_day = str_replace(',', '<br>', $value->nghe_giang_day);
             }
         });
@@ -180,7 +179,7 @@ class GiaoVienService extends AppService
         return $data;
     }
 
-    
+
     // thanhnv import export 6/17/2020 branch bm9
     
 
@@ -199,37 +198,40 @@ class GiaoVienService extends AppService
                         }
                 }
             }
-            return $vitri;
-    }
+             return $vitri;
+        }
+       
+    
 
-    public function exportFillRow($worksheet, $row, $gv){
+    public function exportFillRow($worksheet, $row, $gv)
+    {
 
-        $worksheet->setCellValue('B'.$row, $gv->ten);
+        $worksheet->setCellValue('B' . $row, $gv->ten);
 
-        $gender = ($gv->gioi_tinh ==1) ? 'C' : 'D';
-        $worksheet->setCellValue($gender.$row,'x');
+        $gender = ($gv->gioi_tinh == 1) ? 'C' : 'D';
+        $worksheet->setCellValue($gender . $row, 'x');
 
         $worksheet->setCellValue('E'.$row, $gv->mon_chung);
         $worksheet->setCellValue('F'.$row, $gv->nghe_giang_day);
 
-        $worksheet->setCellValue('G'.$row, ($gv->dan_toc_it_nguoi==1) ? 'x' : '');
+        $worksheet->setCellValue('G' . $row, ($gv->dan_toc_it_nguoi == 1) ? 'x' : '');
 
-        if($gv->giao_su ==1){
-             $worksheet->setCellValue('H'.$row, 'x');
-        }else if($gv->pho_giao_su==1){
-           $worksheet->setCellValue('I'.$row, 'x');
-        }
-        
-        if($gv->nha_giao_nhan_dan ==1){
-             $worksheet->setCellValue('J'.$row, 'x');
-        }else if($gv->nha_giao_uu_tu==1){
-           $worksheet->setCellValue('K'.$row, 'x');
+        if ($gv->giao_su == 1) {
+            $worksheet->setCellValue('H' . $row, 'x');
+        } else if ($gv->pho_giao_su == 1) {
+            $worksheet->setCellValue('I' . $row, 'x');
         }
 
-        if($gv->loai_hop_dong ==1){
-           $worksheet->setCellValue('L'.$row, 'x');
-        }else{
-           $worksheet->setCellValue('M'.$row, 'x');
+        if ($gv->nha_giao_nhan_dan == 1) {
+            $worksheet->setCellValue('J' . $row, 'x');
+        } else if ($gv->nha_giao_uu_tu == 1) {
+            $worksheet->setCellValue('K' . $row, 'x');
+        }
+
+        if ($gv->loai_hop_dong == 1) {
+            $worksheet->setCellValue('L' . $row, 'x');
+        } else {
+            $worksheet->setCellValue('M' . $row, 'x');
         }
        
         $worksheet->setCellValue('N'.$row,'');
@@ -249,66 +251,66 @@ class GiaoVienService extends AppService
            $worksheet->setCellValue('T'.$row, $gv->trinh_do_khac);
         // }
 
-       //  TRINH DO NGOAI NGU
-        if($gv->trinh_do_ngoai_ngu ==1){
-           $worksheet->setCellValue('U'.$row, 'x');
-        }else if($gv->trinh_do_ngoai_ngu==2){
-           $worksheet->setCellValue('V'.$row, 'x');
-        }else if($gv->trinh_do_ngoai_ngu==3){
-           $worksheet->setCellValue('W'.$row, 'x');
-        }else if($gv->trinh_do_ngoai_ngu==4){
-           $worksheet->setCellValue('X'.$row, 'x');
-        }else if($gv->trinh_do_ngoai_ngu==5){
-           $worksheet->setCellValue('Y'.$row, 'x');
-        }else if($gv->trinh_do_ngoai_ngu==6){
-           $worksheet->setCellValue('Z'.$row, 'x');
+        //  TRINH DO NGOAI NGU
+        if ($gv->trinh_do_ngoai_ngu == 1) {
+            $worksheet->setCellValue('U' . $row, 'x');
+        } else if ($gv->trinh_do_ngoai_ngu == 2) {
+            $worksheet->setCellValue('V' . $row, 'x');
+        } else if ($gv->trinh_do_ngoai_ngu == 3) {
+            $worksheet->setCellValue('W' . $row, 'x');
+        } else if ($gv->trinh_do_ngoai_ngu == 4) {
+            $worksheet->setCellValue('X' . $row, 'x');
+        } else if ($gv->trinh_do_ngoai_ngu == 5) {
+            $worksheet->setCellValue('Y' . $row, 'x');
+        } else if ($gv->trinh_do_ngoai_ngu == 6) {
+            $worksheet->setCellValue('Z' . $row, 'x');
         }
 
-        $tin_hoc = ($gv->trinh_do_tin_hoc ==1) ? 'AA' : 'AB';
-        $worksheet->setCellValue( $tin_hoc.$row, 'x');
+        $tin_hoc = ($gv->trinh_do_tin_hoc == 1) ? 'AA' : 'AB';
+        $worksheet->setCellValue($tin_hoc . $row, 'x');
 
-        
-        if($gv->trinh_do_ky_nang_nghe ==1){
-           $worksheet->setCellValue('AC'.$row, 'x');
-        }else if($gv->trinh_do_ky_nang_nghe==2){
-           $worksheet->setCellValue('AD'.$row, 'x');
-        }else if($gv->trinh_do_ky_nang_nghe==3){
-           $worksheet->setCellValue('AE'.$row, 'x');
+
+        if ($gv->trinh_do_ky_nang_nghe == 1) {
+            $worksheet->setCellValue('AC' . $row, 'x');
+        } else if ($gv->trinh_do_ky_nang_nghe == 2) {
+            $worksheet->setCellValue('AD' . $row, 'x');
+        } else if ($gv->trinh_do_ky_nang_nghe == 3) {
+            $worksheet->setCellValue('AE' . $row, 'x');
         }
 
-        if($gv->trinh_do_nghiep_vu_su_pham ==1){
-           $worksheet->setCellValue('AF'.$row, 'x');
-        }else if($gv->trinh_do_nghiep_vu_su_pham==2){
-           $worksheet->setCellValue('AG'.$row, 'x');
-        }else if($gv->trinh_do_nghiep_vu_su_pham==3){
-           $worksheet->setCellValue('AH'.$row, 'x');
+        if ($gv->trinh_do_nghiep_vu_su_pham == 1) {
+            $worksheet->setCellValue('AF' . $row, 'x');
+        } else if ($gv->trinh_do_nghiep_vu_su_pham == 2) {
+            $worksheet->setCellValue('AG' . $row, 'x');
+        } else if ($gv->trinh_do_nghiep_vu_su_pham == 3) {
+            $worksheet->setCellValue('AH' . $row, 'x');
         }
 
-        $worksheet->setCellValue('AI'.$row,$gv->ten_lop_dao_tao);
-        $worksheet->setCellValue('AJ'.$row,$gv->thoi_gian_dao_tao);
-
+        $worksheet->setCellValue('AI' . $row, $gv->ten_lop_dao_tao);
+        $worksheet->setCellValue('AJ' . $row, $gv->thoi_gian_dao_tao);
     }
 
-    public function exportBieuMau($id_coso){
+    public function exportBieuMau($id_coso)
+    {
 
         $co_so = DB::table('co_so_dao_tao')->where('id', $id_coso)->first();
         $spreadsheet = IOFactory::load('file_excel/quanligiaovien/bieu-mau-ds-ql-giao-vien.xlsx');
         $worksheet = $spreadsheet->getActiveSheet();
-        
+
         $worksheet->setCellValue('B4', "Trường: $co_so->ten - $id_coso ");
 
-        $loai_hinh='';
-        $cap_quan_li='';
+        $loai_hinh = '';
+        $cap_quan_li = '';
         if ($co_so->ma_loai_hinh_co_so == 9) {
-            $loai_hinh='Tư thục';
-        }else if($co_so->ma_loai_hinh_co_so == 4){
-            $cap_quan_li='Trung ương';
-            $loai_hinh='Công lập';
-        }else if($co_so->ma_loai_hinh_co_so == 15){
-            $cap_quan_li='Địa phương';
-            $loai_hinh='Công lập';
-        }else if($co_so->ma_loai_hinh_co_so == 14){
-            $loai_hinh='Đầu tư nước ngoài';
+            $loai_hinh = 'Tư thục';
+        } else if ($co_so->ma_loai_hinh_co_so == 4) {
+            $cap_quan_li = 'Trung ương';
+            $loai_hinh = 'Công lập';
+        } else if ($co_so->ma_loai_hinh_co_so == 15) {
+            $cap_quan_li = 'Địa phương';
+            $loai_hinh = 'Công lập';
+        } else if ($co_so->ma_loai_hinh_co_so == 14) {
+            $loai_hinh = 'Đầu tư nước ngoài';
         }
 
         $worksheet->setCellValue('B5', "Loại hình: $loai_hinh ");
@@ -321,14 +323,15 @@ class GiaoVienService extends AppService
 
         $spreadsheet->getActiveSheet()->getProtection()->setSheet(true);
         $spreadsheet->getDefaultStyle()->getProtection()->setLocked(false);
-        
+
         $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment; filename="file-form-nhap.xlsx"');
         $writer->save("php://output");
     }
 
-    public function exportData($id_truong){
+    public function exportData($id_truong)
+    {
         $spreadsheet = IOFactory::load('file_excel/quanligiaovien/bieu-mau-ds-ql-giao-vien.xlsx');
         $worksheet = $spreadsheet->getActiveSheet();
 
@@ -337,18 +340,18 @@ class GiaoVienService extends AppService
         $spreadsheet->getDefaultStyle()->getProtection()->setLocked(false);
         $worksheet->setCellValue('B4', "Trường: $co_so->ten - $id_truong ");
 
-        $loai_hinh='';
-        $cap_quan_li='';
+        $loai_hinh = '';
+        $cap_quan_li = '';
         if ($co_so->ma_loai_hinh_co_so == 9) {
-            $loai_hinh='Tư thục';
-        }else if($co_so->ma_loai_hinh_co_so == 4){
-            $cap_quan_li='Trung ương';
-            $loai_hinh='Công lập';
-        }else if($co_so->ma_loai_hinh_co_so == 15){
-            $cap_quan_li='Địa phương';
-            $loai_hinh='Công lập';
-        }else if($co_so->ma_loai_hinh_co_so == 14){
-            $loai_hinh='Đầu tư nước ngoài';
+            $loai_hinh = 'Tư thục';
+        } else if ($co_so->ma_loai_hinh_co_so == 4) {
+            $cap_quan_li = 'Trung ương';
+            $loai_hinh = 'Công lập';
+        } else if ($co_so->ma_loai_hinh_co_so == 15) {
+            $cap_quan_li = 'Địa phương';
+            $loai_hinh = 'Công lập';
+        } else if ($co_so->ma_loai_hinh_co_so == 14) {
+            $loai_hinh = 'Đầu tư nước ngoài';
         }
 
         $worksheet->setCellValue('B5', "Loại hình: $loai_hinh ");
@@ -361,36 +364,37 @@ class GiaoVienService extends AppService
         $worksheet->getColumnDimension('E')->setAutoSize(true);
         $worksheet->getColumnDimension('F')->setAutoSize(true);
 
-        $giao_vien= $this->giaoVienRepository->giaoVienTheoTruong($id_truong);
+        $giao_vien = $this->giaoVienRepository->giaoVienTheoTruong($id_truong);
 
-        $arrayAphabe=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ'];
-        $row=16;
-        foreach($giao_vien as $gv){
-            $row ++;
+        $arrayAphabe = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG', 'AH', 'AI', 'AJ'];
+        $row = 16;
+        foreach ($giao_vien as $gv) {
+            $row++;
             // border đen các ô
-            foreach($arrayAphabe as $apha){
-                $worksheet->getStyle($apha.$row)
-                ->getBorders()
-                ->getAllBorders()
-                ->setBorderStyle(Border::BORDER_THIN);
+            foreach ($arrayAphabe as $apha) {
+                $worksheet->getStyle($apha . $row)
+                    ->getBorders()
+                    ->getAllBorders()
+                    ->setBorderStyle(Border::BORDER_THIN);
             }
 
-            $this->exportFillRow($worksheet,$row,$gv);
-              // // KHÓA CÁC DÒNG Ô
-              foreach($arrayAphabe as $apha){
-                $worksheet->getStyle($apha.$row)->getProtection()->setLocked(Protection::PROTECTION_PROTECTED);
+            $this->exportFillRow($worksheet, $row, $gv);
+            // // KHÓA CÁC DÒNG Ô
+            foreach ($arrayAphabe as $apha) {
+                $worksheet->getStyle($apha . $row)->getProtection()->setLocked(Protection::PROTECTION_PROTECTED);
             }
         }
         $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-         header('Content-Disposition: attachment; filename="file-xuat.xlsx"');
-         $writer->save("php://output");
+        header('Content-Disposition: attachment; filename="file-xuat.xlsx"');
+        $writer->save("php://output");
     }
 
-    public function importFile($fileRead,$duoiFile){
-        $message='';
-        $spreadsheet = $this->createSpreadSheet($fileRead,$duoiFile);
-        $data =$spreadsheet->getActiveSheet()->toArray();
+    public function importFile($fileRead, $duoiFile)
+    {
+        $message = '';
+        $spreadsheet = $this->createSpreadSheet($fileRead, $duoiFile);
+        $data = $spreadsheet->getActiveSheet()->toArray();
 
         $truong = explode(' - ', $data[3][1]);
         $id_truong = array_pop($truong);
@@ -493,47 +497,4 @@ class GiaoVienService extends AppService
                     return $message; 
                 }
     }
-}
-
-public function importError($fileRead, $duoiFile){
-    $message='';
-    $spreadsheet = $this->createSpreadSheet($fileRead,$duoiFile);
-    $data =$spreadsheet->getActiveSheet()->toArray();
-
-    $arrayApha=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ'];
-     
-    $vitri=$this->checkErrorGiaoVien($data,$arrayApha);
-
-    $spreadsheet2 = \PhpOffice\PhpSpreadsheet\IOFactory::load('file_excel/quanligiaovien/bieu-mau-ds-ql-giao-vien.xlsx');
-    $worksheet = $spreadsheet2->getActiveSheet();
-    $worksheet->setCellValue('B4', $data[3][1]);
-    $worksheet->setCellValue('B5', $data[4][1]);
-    $worksheet->setCellValue('B6', $data[5][1]);
-    $worksheet->setCellValue('B7', $data[6][1]);
-     
-    $stt=15;
-     for($i = 15; $i < count($data); $i++){  
-        $stt++;
-         for($j=1;$j < count($arrayApha); $j++){
-           $worksheet->setCellValue($arrayApha[$j].$stt,$data[$i][$j]);
-       }
-     }
-    //  khóa 
-     $spreadsheet2->getActiveSheet()->getProtection()->setSheet(true);
-     $spreadsheet2->getDefaultStyle()->getProtection()->setLocked(false);
-     $worksheet->getColumnDimension('F')->setAutoSize(true);
-
-     for($i = 0; $i < count($vitri);$i++){
-        // $worksheet->getStyle($vitri[$i])->applyFromArray($styleArray);
-         //  màu ô
-        $worksheet->getStyle($vitri[$i])->getFill()
-          ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-          ->getStartColor()->setARGB('FFFF0000');
-     }  
-
-     $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet2, "Xlsx"); 
-     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-     header('Content-Disposition: attachment; filename="error.xlsx"');
-     $writer->save("php://output");
-}
 }

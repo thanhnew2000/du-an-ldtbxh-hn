@@ -40,7 +40,8 @@
                                 <label class="col-lg-2 col-form-label">Từ khóa:</label>
                                 <div class="col-lg-8">
                                     <input type="text" class="form-control m-input" @if(isset($keyword))
-                                        value="{{$keyword}}" @endif placeholder="Tìm kiếm Name, Email, Phone , Cơ sở ..." name="keyword">
+                                        value="{{$keyword}}" @endif
+                                        placeholder="Tìm kiếm Name, Email, Phone , Cơ sở ..." name="keyword">
                                 </div>
                             </div>
                         </div>
@@ -91,10 +92,13 @@
                     <th>Email</th>
                     <th>Số điện thoại</th>
                     <th>Cơ sở đào tạo</th>
+                    <th>Tên quyền</th>
                     <th>Trạng thái</th>
+                    @can('them_tai_khoan')
                     <th>
                         <a href="{{ route('account.tao-tk') }}" class="btn btn-success btn-sm">Thêm mới</a>
                     </th>
+                    @endcan
                 </thead>
                 <tbody>
                     @php
@@ -117,20 +121,22 @@
                         $i++;
                         @endphp
                         <td>{{ $user->name }}</td>
-                        <td><img width="60" class="td_show-avatar" src="{!! displayAvatar($user->avatar) !!}" alt="avatar">
+                        <td><img width="60" class="td_show-avatar" src="{!! displayAvatar($user->avatar) !!}"
+                                alt="avatar">
                         </td>
                         <td>{{ $user->email }}</td>
 
                         <td>{{ $user->phone_number }}</td>
                         <td>{{ $user->ten }}</td>
-
+                        <td>{{ $user->role_name }}</td>
                         <td>
                             <form class="m-form">
 
                                 <span class="m-switch m-switch--outline m-switch--icon m-switch--success">
                                     <label>
-                                        <input type="checkbox" onclick="editstatus({{ $user->id }})"
-                                            name="" @if ($user->status == 1)
+                                        <input type="checkbox" onclick="editstatus(this)" user-id="{{ $user->id }}"
+                                            name="" @if ($user->status ==
+                                        1)
                                         checked
                                         @endif>
                                         <span></span>
@@ -140,9 +146,11 @@
                             </form>
                         </td>
 
-
+                        @can('sua_tai_khoan')
                         <td><a class="btn btn-primary btn-sm"
                                 href="{{ route('account.edit',['id'=>$user->id]) }}">Sửa</a></td>
+                        @endcan
+
                     </tr>
                     @endforeach
 
@@ -203,15 +211,16 @@
     //     $('#showavatar').attr('src', reader.result);
     // }
 
-    function editstatus($id) {
+    function editstatus(element) {
         console.log('Đang thay đổi status');
         // console.log($id);
 
+        let userId = $(element).attr('user-id')
         axios.post('/account/edit-status', {
-                id: $id
+                id: userId
             })
             .then(function (response) {
-                // console.log('Thay đổi status THÀNH CÔNG');
+                console.log('Thay đổi status THÀNH CÔNG');
             })
             .catch(function (error) {
                 // console.log(error);

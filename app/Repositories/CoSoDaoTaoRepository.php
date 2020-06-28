@@ -174,6 +174,6 @@ class CoSoDaoTaoRepository extends BaseRepository implements CoSoDaoTaoRepositor
 
     public function checkTonTai($id)
     {
-      return DB::table('co_so_dao_tao')->where('id', $id)->first();
+        return DB::table('co_so_dao_tao')->where('id', $id)->first();
     }
 }

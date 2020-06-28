@@ -221,10 +221,11 @@
                        <td>{{ $item->sua_giao_trinh_SC }}</td>
 
                        <td>{{ ($item->kinh_phi_thuc_hien_chinh_sua / 1000000) }}</td>
-
-                       <td>
-                           <a class="btn btn-info" href="{{ route('xuatbc.show-ds-xd-giao-trinh',['co_so_id' => $item->co_so_id]) }}" target="_blank">Chi tiết</a>
-                       </td>
+                        @can('chi_tiet_tong_hop_xay_dung_chuong_trinh_giao_trinh')
+                            <td>
+                                <a class="btn btn-info" href="{{ route('xuatbc.show-ds-xd-giao-trinh',['co_so_id' => $item->co_so_id]) }}" target="_blank">Chi tiết</a>
+                            </td>
+                        @endcan
                    </tr>
                    @endforeach
                 </tbody>

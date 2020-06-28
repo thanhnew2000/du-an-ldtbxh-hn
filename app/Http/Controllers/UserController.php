@@ -9,15 +9,18 @@ use App\User;
 use Carbon\Carbon;
 use Mail;
 use Illuminate\Support\Str;
-use Hash;
+// use Hash;
 use Storage;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\ResetPassWord;
 use App\Http\Requests\RegisterAccount;
 use App\Http\Requests\UpdateAccount;
 class UserController extends Controller
 {
     public function getdangkytaikhoan(){
-        return view('account.dang_ky');
+        $user = DB::table('roles')->get();
+        // dd($user);
+        return view('account.dang_ky', compact('user'));
     }
 
     public function dangkytaikhoan(RegisterAccount $request){
@@ -31,12 +34,16 @@ class UserController extends Controller
         $user->code = $code;
         $user->time_code= Carbon::now();
         $user->save();
+        DB::table('model_has_roles')->insert(['role_id'=>$request->role,
+                                              'model_type'=> 'App\User' ,
+                                              'model_id'=>$user->id]);
         $email = $user->email;
         $url = route('link_reset_password',['code'=>$user->code,'email'=>$email]);
         $data=[
             'route'=>$url,
             'title'=>"Tài khoản được đăng ký thành công"
         ];
+
         Mail::send('account.email_dang_ky',$data,function($message) use ($email) {
             $message->to($email,'Reset password')->subject('Bạn đã được đăng ký tài khoản');
         });
@@ -44,8 +51,8 @@ class UserController extends Controller
     }
 
     public function getcapnhattaikhoan(){
-        $user = Auth::user();
-        return view('account.cap_nhat_tai_khoan',  compact('user'));
+       $user = Auth::user();
+        return view('account.cap_nhat_tai_khoan', compact('user'));
     }
 
     public function capnhattaikhoan(UpdateAccount $request){
@@ -109,7 +116,14 @@ class UserController extends Controller
         echo $numberPhone == 0 ? "true" : "false";
     }
 
-
+    public function create(RegisterAccount $request ){
+        return User::create([
+            'name' => $request['name'],
+            'phone_number' =>$request['phone_number'],
+            'email' => $request['email'],
+            'password' =>Hash::make($request['password']),
+        ]);
+    }
    
 
 

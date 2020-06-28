@@ -140,7 +140,10 @@
                         <th rowspan="3">Mã Nghề</th>
                         <th colspan="8">Xây dựng mới</th>
                         <th colspan="8">Chỉnh sửa</th>
-                        <th rowspan="3">Thao tác</th>
+                        @can('cap_nhat_tong_hop_xay_dung_chuong_trinh_giao_trinh')
+                            <th rowspan="3">Thao tác</th>
+                        @endcan
+                        
                         
                     </tr>
                     <tr class="text-center">
@@ -207,6 +210,7 @@
                             href="{{ route('xuatbc.edit-ds-xd-giao-trinh',['id'=>$item->id]) }}"
                                 class="btn btn-info btn-sm">Cập nhật</a>
                         </td>
+                        @endcan
                     </tr>
                       
                   @endforeach

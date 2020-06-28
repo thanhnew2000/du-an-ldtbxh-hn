@@ -26,17 +26,17 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Tên cơ sở</label>
                                 <div class="col-lg-8">
-                                        <select name="co_so_id" class="form-control select2">
-                                            <option value="">-----Chọn cơ sở-----</option>
-                                            @foreach ($params['get_co_so'] as $item)
-                                            <option value="{{ $item->id }}" @if(isset($params['co_so_id']) &&
-                                                $params['co_so_id']==$item->id)
-                                                selected
-                                                @endif>
-                                                {{ $item->ten }}
-                                            </option>
-                                            @endforeach
-                                        </select>
+                                    <select name="co_so_id" class="form-control select2">
+                                        <option value="">-----Chọn cơ sở-----</option>
+                                        @foreach ($params['get_co_so'] as $item)
+                                        <option value="{{ $item->id }}" @if(isset($params['co_so_id']) &&
+                                            $params['co_so_id']==$item->id)
+                                            selected
+                                            @endif>
+                                            {{ $item->ten }}
+                                        </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -113,7 +113,7 @@
                                             {{config('common.dot.1')}}</option>
                                         <option @if(isset($params['dot']) && $params['dot']==config('common.dot.2'))
                                             selected @endif value="{{config('common.dot.2')}}">
-                                            {{config('common.dot.2')}}</option>  
+                                            {{config('common.dot.2')}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -185,10 +185,13 @@
                         <th>Năm</th>
                         <th>Đợt</th>
                         <th>Ngành Nghề</th>
-
+                        <th>Chức năng</th>
+                        @can('them_moi_danh_sach_doi_ngu_nha_giao')
                         <th>
-                            <a target="_blank" href="{{ route('xuatbc.them-ds-nha-giao') }}" class="btn btn-success btn-sm">Thêm mới</a>
+                            <a target="_blank" href="{{ route('xuatbc.them-ds-nha-giao') }}"
+                                class="btn btn-success btn-sm">Thêm mới</a>
                         </th>
+                        @endcan
                     </tr>
                 </thead>
                 <tbody>
@@ -206,10 +209,14 @@
                         <td>{{ $item->nam }}</td>
                         <td>{{ $item->dot }}</td>
                         <td>{{ $item->ten_nghe }}</td>
+                        @can('chi_tiet_danh_sach_doi_ngu_nha_giao')
                         <td>
-                            <a target="_blank" href="{{ route('xuatbc.chi-tiet-theo-co-so',['co_so_id'=>$item->co_so_id]) }}"
+                            <a target="_blank"
+                                href="{{ route('xuatbc.chi-tiet-theo-co-so',['co_so_id'=>$item->co_so_id]) }}"
                                 class="btn btn-info btn-sm">Chi tiết</a>
                         </td>
+                        @endcan
+
                     </tr>
                     @endforeach
 
@@ -232,17 +239,13 @@
 
     <form action="{{ route('doi-ngu-nha-giao.export') }}" id="" method="post" enctype="multipart/form-data">
         @csrf
-        <div class="modal fade " id="modalExportData" tabindex="-1" role="dialog"
-            aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal fade " id="modalExportData" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+            aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="modalLabel">Xuất dữ liệu</h5>
-                        <button
-                            type="button"
-                            class="close"
-                            data-dismiss="modal"
-                            id="closeExportModal"
+                        <button type="button" class="close" data-dismiss="modal" id="closeExportModal"
                             aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -256,7 +259,7 @@
                                 <option value="2018">2018</option>
                                 <option value="2017">2017</option>
                                 <option value="2016">2016</option>
-                              </select>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="">Chọn đợt xuất</label>
@@ -267,11 +270,7 @@
                         </div>
                         <div class="form-group">
                             <label for="">Chọn Trường</label>
-                            <select
-                                multiple
-                                name="co_so_id[]"
-                                id="co_so_id"
-                                class="form-control select2">
+                            <select multiple name="co_so_id[]" id="co_so_id" class="form-control select2">
                                 @foreach($coSo as $csdt)
                                 <option value="{{$csdt->id}}">{{$csdt->ten}}</option>
                                 @endforeach
@@ -283,12 +282,8 @@
                         <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoiXuat">
                         </p>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                        <button
-                            type="submit"
-                            class="btn btn-primary"
-                            onclick="closeModal('closeExportModal')"
-                            id="submit"
-                            >Tải</a>
+                        <button type="submit" class="btn btn-primary" onclick="closeModal('closeExportModal')"
+                            id="submit">Tải</a>
                     </div>
                 </div>
             </div>
@@ -303,7 +298,8 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Hãy chọn trường</h5>
-                        <button type="button" id="closeExportBieuMauModal" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" id="closeExportBieuMauModal" class="close" data-dismiss="modal"
+                            aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -315,13 +311,8 @@
                         </select>
                     </div>
                     <div class="modal-footer">
-                        <button
-                            type="button"
-                            class="btn btn-secondary"
-                            data-dismiss="modal">Hủy</button>
-                        <button
-                            type="submit"
-                            onclick="closeModal('closeExportBieuMauModal')"
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                        <button type="submit" onclick="closeModal('closeExportBieuMauModal')"
                             class="btn btn-primary">Tải</a>
                     </div>
                 </div>
@@ -329,8 +320,7 @@
         </div>
     </form>
 
-    <form action="{{ route('doi-ngu-nha-giao.import') }}" id="import" method="post"
-        enctype="multipart/form-data">
+    <form action="{{ route('doi-ngu-nha-giao.import') }}" id="import" method="post" enctype="multipart/form-data">
         @csrf
         <div class="modal fade " id="modalImport" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
@@ -338,11 +328,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Import file</h5>
-                        <button
-                            type="button"
-                            class="close"
-                            data-dismiss="modal"
-                            id="closeImportModal"
+                        <button type="button" class="close" data-dismiss="modal" id="closeImportModal"
                             aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -355,13 +341,13 @@
                         <div class="form-group">
                             <label for="">Chọn năm</label>
                             <select name="nam" id="nam_id" class="form-control">
-                              <option value="2020">2020</option>
-                              <option value="2019">2019</option>
-                              <option value="2018">2018</option>
-                              <option value="2017">2017</option>
-                              <option value="2016">2016</option>
+                                <option value="2020">2020</option>
+                                <option value="2019">2019</option>
+                                <option value="2018">2018</option>
+                                <option value="2017">2017</option>
+                                <option value="2016">2016</option>
                             </select>
-                       </div>
+                        </div>
 
                         <div class="form-group">
                             <label for="">Chọn đợt</label>
@@ -377,7 +363,7 @@
                         </p>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
                         <button type="submit" class="btn btn-primary" id="submitTai">Tải</a>
-                        <button type="submit" hidden class="btn btn-primary" id="submitTaiok">Tải ok</a>
+                            <button type="submit" hidden class="btn btn-primary" id="submitTaiok">Tải ok</a>
                     </div>
                 </div>
             </div>
