@@ -101,11 +101,14 @@
                     class="fa fa-upload" aria-hidden="true"></i>
                 Tải lên file Excel</a>
         </div>
-        <div class="col-lg-8">
+        <div class="col-lg-6">
             <a href="javascript:" data-toggle="modal" data-target="#moDalExportData"><i class="fa fa-file-excel"
                     aria-hidden="true"></i>
                 Xuất dữ liệu ra Excel</a>
         </div>
+        <div class="col-lg-2 text-center">
+            <a target="_blank" href="{{ route('xuatbc.them-ds-hop-tac-qte') }}" class="btn btn-success btn-sm">Thêm mới</a>             
+    </div>
 
 </section>
     <div class="m-portlet">
@@ -136,17 +139,16 @@
                         <th rowspan="2">Tổng số kinh phí đầu tư trang thiết bị , máy móc <br> ( triệu đồng)</th>
                         <th rowspan="2">Trạng thái</th>
                         <th rowspan="2">
-                            <a target="_blank" href="{{ route('xuatbc.them-ds-hop-tac-qte') }}" class="btn btn-success btn-sm">Thêm mới</a>
                         </th>
                     </tr>
                 </thead>
                 <tbody class="text-center">
                     @php
-                     $stt = 1;   
+                    $i = !isset($_GET['page']) ? 1 : ($params['page_size'] * ($_GET['page']-1) + 1);
                     @endphp
                     @foreach ($data as $item)
                     <tr>
-                        <td>{{ $stt }}</td>
+                        <td>{{ $i++ }}</td>
                         <td>{{ $item->ten }}</td>
                         <td>{{ $item->nam }}</td>
                         <td>{{ $item->dot }}</td>
@@ -160,9 +162,6 @@
                             <a class="btn btn-info" href="{{ route('xuatbc.chi-tiet-ds-hop-tac-qte',['co_so_id' => $item->co_so_id]) }}" target="_blank">Chi tiết</a>
                         </td>
                     </tr>
-                    @php
-                    $stt ++;   
-                    @endphp
                     @endforeach
                 </tbody>
             </table>
@@ -349,6 +348,17 @@
         // $('.select2').select2();
     });
 </script>
+@if (session('success'))
+<script>
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Thêm thành công !',
+        showConfirmButton: false,
+        timer: 3500
+    })
+</script>
+@endif
 {{-- thanhnv update change to service 6/26/2020 --}}
 <script>
 
