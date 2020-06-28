@@ -191,10 +191,12 @@ class GiaoDucNgheNghiepService extends AppService
     }
 
     public function exportBieuMau($id_coso){
+
         $co_so = $this->repository->getOnlyOneCsJoinChuQuanVaDangKyGiay($id_coso);
+        $co_so_loai = DB::table('co_so_dao_tao')->where('id',$id_coso)->first();
         $spreadsheet = IOFactory::load('file_excel/bm1/bm1.xlsx');
 
-        $bacDaoTao = $this->bacDaoTaoOfTruong($co_so->loai_truong);
+        $bacDaoTao = $this->bacDaoTaoOfTruong($co_so_loai->loai_truong);
 
         $worksheet = $spreadsheet->getActiveSheet();
         $worksheet->setCellValue('B5', $bacDaoTao);
@@ -268,8 +270,10 @@ class GiaoDucNgheNghiepService extends AppService
         $worksheet->getColumnDimension('B')->setAutoSize(true);
         $worksheet->getColumnDimension('M')->setAutoSize(true);
         $worksheet->getColumnDimension('C')->setAutoSize(true);
-
-        $this->formartMargeing($worksheet,$arrayCenter,$startGop,$row);
+        
+        if(count($co_so_nghe) > 0){
+            $this->formartMargeing($worksheet,$arrayCenter,$startGop,$row);
+        }
 
         $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
