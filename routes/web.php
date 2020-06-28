@@ -51,11 +51,13 @@ Route::group(['middleware' => 'auth'], function () {
           Route::get('/chi-tiet-tin-tuc', 'NewsController@chitiettintuc');
           Route::get('/quan-ly-tin-tuc', 'NewsController@quanlytintuc');
      });
-
+     // start quang feedback
      Route::group(['prefix' => 'feedback'], function () {
           Route::get('/nhan-tin-bao-loi-he-thong', 'FeedbackController@nhantinbaoloi')->name('feedback.nhan-tin-bao-loi-he-thong');
+          Route::get('/danh-sach-tin-nhan-phan-hoi', 'FeedbackController@danhSachTinNhanPhanHoi')->name('feedback.danh-sach-tin-nhan-phan-hoi');
           Route::post('/tu-van-ho-tro', 'FeedbackController@postClientSendForm')->name('tu-van.ho-tro');
      });  
+      // end quang feedback
      Route::get('danh-sach-doi-ngu-nha-giao',function(){
           return view('danhsachdoingunhagioa.danh-sach-doi-ngu-nha-giao');
      })->name('danh');

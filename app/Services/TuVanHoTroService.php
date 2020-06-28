@@ -34,6 +34,7 @@ class TuVanHoTroService extends AppService
 
     public function clientThemTuVanHoTro($data){
         $tuvan = $this->tuVanHoTro->clientThemTuVanHoTro($data);
+        $url = route('tu_van_ho_tro.chi-tiet',['id' => $tuvan->id]);
         if(isset($tuvan->id)){
             $adminUsers = [1, 2, 3, 28];
             $notifiData = [];
@@ -46,9 +47,11 @@ class TuVanHoTroService extends AppService
                     'sending_time' => Carbon::now(),
                     'sending_user_id' => -1,
                     'data_id' => $tuvan->id,
-                    'module_name' => 'tu_van_ho_tro',
+                    'url' => $url,
+                    // 'module_name' => 'tu_van_ho_tro',
                     'status' => 1,
                     'sending_user_fullname' => $tuvan->ten_nguoi_gui
+           
                 ];
             }
             $this->notificationService->pushNotification($notifiData);
@@ -64,6 +67,7 @@ class TuVanHoTroService extends AppService
             'so_dien_thoai_nguoi_gui' => Auth::user()->phone_number,
         ];
         $tuvan = $this->tuVanHoTro->clientThemTuVanHoTro($dataAuth);
+        $url = route('tu_van_ho_tro.chi-tiet',['id' => $tuvan->id]);
         if(isset($tuvan->id)){
             $adminUsers = [1, 2, 3, 28];
             $notifiData = [];
@@ -76,9 +80,10 @@ class TuVanHoTroService extends AppService
                     'sending_time' => Carbon::now(),
                     'sending_user_id' => -1,
                     'data_id' => $tuvan->id,
-                    'module_name' => 'tu_van_ho_tro',
-                    'status' => 1,
-                    'sending_user_fullname' => Auth::user()->name
+                    // 'module_name' => 'tu_van_ho_tro',
+					'status' => 1,
+					'url' => $url,
+					'sending_user_fullname' => Auth::user()->name
                 ];
             }
             $this->notificationService->pushNotification($notifiData);
@@ -109,5 +114,14 @@ class TuVanHoTroService extends AppService
             }
         }
         return false;
+    }
+
+
+    public function getAllListPhanHoi($params, $limit)
+    {
+        $queryData = [];
+        $queryData['key_words'] = isset($params['key_words']) ? $params['key_words'] : null;
+        $queryData['trang_thai'] = isset($params['trang_thai']) ? $params['trang_thai'] : null;
+        return $this->tuVanHoTro->getAllListPhanHoi($queryData, $limit);
     }
 }

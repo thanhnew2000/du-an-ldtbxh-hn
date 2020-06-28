@@ -35,7 +35,7 @@ window.SystemUtil = {
         if(keyArr.length > 0){
             console.log(keyArr);
             keyArr.map(function(notifyKey, index){
-                db.collection("notifications").doc(notifyKey).update({
+                db.collection("testnoti").doc(notifyKey).update({
                     status: 2
                 });
             })
@@ -45,7 +45,7 @@ window.SystemUtil = {
 
         let db = firebase.firestore();
 
-        db.collection("notifications")
+        db.collection("testnoti")
             .where("recceive_user_id", "==", userId)
             // .where('status', '==', 1)
             .orderBy("sending_time", "desc")

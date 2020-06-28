@@ -139,6 +139,14 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 		->select('tuyen_sinh.*', 'nganh_nghe.ten_nganh_nghe','co_so_dao_tao.ten')->get()->first();
 		return $result;
 	}
+
+	public function updateData($id,$attributes)
+	{;
+		return $this->table
+            ->where('id', $id)
+            ->update($attributes);
+	}
+
 	public function getCheckTonTaiSoLieuTuyenSinh($arrcheck)
 	{
 			$kiem_tra = $this->table->where($arrcheck)->select('tuyen_sinh.id','tuyen_sinh.trang_thai')->first();

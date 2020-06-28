@@ -17,4 +17,8 @@ class YeuCauHoTro extends Model
     public function nguoiPhanHoi(){
         return $this->belongsTo(User::class, 'phan_hoi_boi', 'id');
     }
+
+    public function listnguoiPhanHoi(){
+        return $this->belongsTo(User::class, 'phan_hoi_boi');
+    }
 }

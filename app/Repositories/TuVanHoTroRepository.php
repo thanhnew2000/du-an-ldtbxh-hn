@@ -25,28 +25,18 @@ class TuVanHoTroRepository extends BaseRepository implements TuVanHoTroRepositor
         return $this->model->create($data);
     }
 
-    public function getAll()
+    public function getAllListPhanHoi($params, $limit)
     {
-//        $queryBuilder = $this->table
-//            ->select(
-//                'id',
-//                'ten_nganh_nghe',
-//                'bac_nghe',
-//                DB::raw('(select count(dk.id)
-//                                from giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao dk
-//                                where dk.nghe_id = nganh_nghe.id) as csdt_count')
-//            )
-//            ->where('bac_nghe', $params['bac_nghe'])
-//            ->where('ma_cap_nghe', 4);
-//        if (isset($params['keyword']) && $params['keyword'] != null) {
-//            $queryBuilder->where(function ($query) use ($params) {
-//
-//                $query->orWhere('ten_nganh_nghe', 'like', "%" . $params['keyword'] . "%")
-//                    ->orwhere('id', $params['keyword']);
-//            });
-//        }
-//        //        dd($queryBuilder->get());
-//        return $queryBuilder->paginate($params['page_size']);
+        $query = $this->model;
+        if (isset($params['key_words'])) {
+            $query = $query->where('yeu_cau_ho_tro.ten_nguoi_gui',"like", '%'.$params['key_words'].'%')
+            ->orWhere('yeu_cau_ho_tro.email_nguoi_gui',"like", '%'.$params['key_words'].'%')
+            ->orWhere('yeu_cau_ho_tro.so_dien_thoai_nguoi_gui',"like", '%'.$params['key_words'].'%');       
+        }
+        if (isset($params['trang_thai']) && $params['trang_thai'] != 0) {
+			$query = $query->where('yeu_cau_ho_tro.trang_thai', $params['trang_thai']);
+		}
+        return $query->orderBy('trang_thai', 'asc')->orderBy('created_at', 'desc')->paginate($limit);
     }
 
     public function findOne($id)

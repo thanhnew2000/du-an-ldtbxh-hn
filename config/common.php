@@ -85,7 +85,7 @@ return [
         'trung_cap' => 'TRƯỜNG TRUNG CẤP',
         'so_cap' => 'TRƯỜNG SƠ CẤP',
     ],
-    'firestore_notification_collection' => 'notifications',
+    'firestore_notification_collection' => 'testnoti',
     'firestore_notification_status' => [
         'unread' => 1,
         'read' => 2

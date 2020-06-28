@@ -17,28 +17,32 @@ use Google\Cloud\Firestore\FirestoreClient;
 class NotificationService
 {
     public function pushNotification($notifyContent){
-        $firestore = $this->getFirestoreConnect();
-        $collection = $firestore->collection(config('common.firestore_notification_collection'));
+        $collection = $this->getConnectFireBase();
         foreach ($notifyContent as $cursor){
             $collection->add($cursor);
         }
-//        $query = $collection->where('sending_user_id', '=', 3);
-//                            ->where('status', '=', 2);
+    }
 
-//        $snapshot = $query->documents();
+    public function pushNotificationStoreUpdate($notifyContent){
+        $collection = $this->getConnectFireBase();
+        foreach ($notifyContent as $cursor){
+            $collection->add($cursor);
+        }
     }
 
     public function getUserNotifications($userId){
-        $firestore = $this->getFirestoreConnect();
-        $collection = $firestore->collection(config('common.firestore_notification_collection'));
-//        dd($userId);
+        $collection = $this->getConnectFireBase();
         $query = $collection->where('recceive_user_id', '=', $userId)
                         ->limit(100);
-//                    ->where('status', '=', config('common.firestore_notification_status.unread'));
-//                    ->orderBy('sending_time', 'DESC');
         return $query->documents();
     }
 
+    private function getConnectFireBase()
+    {
+        $firestore = $this->getFirestoreConnect();
+        $collection = $firestore->collection(config('common.firestore_notification_collection'));
+        return $collection;
+    }
     private function getFirestoreConnect(){
         $serviceAccount = ServiceAccount::fromJsonFile(storage_path('app/firebase-config/firebase_credentials.json'));
         $firebase = (new Factory)

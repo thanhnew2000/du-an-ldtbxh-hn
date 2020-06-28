@@ -19,6 +19,7 @@ class FeedbackController extends Controller
         return view('feedback.nhan_tin_bao_loi_he_thong');
     }
 
+
     public function postClientSendForm(Request $request){
         $request->validate(
             [
@@ -36,4 +37,24 @@ class FeedbackController extends Controller
         $this->tuVanHoTroService->AuthThemTuVanHoTro($request->except('_token'));
         return redirect()->route('feedback.nhan-tin-bao-loi-he-thong')->with('result_status', 'Gửi phản hồi thành công');
     }
+
+    
+    public function danhSachTinNhanPhanHoi(){
+        $params = request()->all();
+        if(isset(request()->page_size)){
+            $limit = request()->page_size;
+        }else{
+            $limit = 20;
+        }
+        $data = $this->tuVanHoTroService->getAllListPhanHoi($params, $limit);
+        $data->appends(request()->input())->links();
+        return view('feedback.danh_sach_tin_nhan_phan_hoi',
+        [
+            'data' => $data,
+            'params' => $params,
+            'limit' => $limit
+        ]
+    );
+    }
+
 }
