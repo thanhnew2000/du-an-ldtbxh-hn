@@ -195,7 +195,6 @@ class GiaoDucNgheNghiepService extends AppService
         $co_so = $this->repository->getOnlyOneCsJoinChuQuanVaDangKyGiay($id_coso);
         $co_so_loai = DB::table('co_so_dao_tao')->where('id',$id_coso)->first();
         $spreadsheet = IOFactory::load('file_excel/bm1/bm1.xlsx');
-
         $bacDaoTao = $this->bacDaoTaoOfTruong($co_so_loai->loai_truong);
 
         $worksheet = $spreadsheet->getActiveSheet();
@@ -218,7 +217,7 @@ class GiaoDucNgheNghiepService extends AppService
         $this->lockedCellInExcel($worksheet,$arrayLock);
 
         $loai_hinh ='';
-        switch ($co_so->ma_loai_hinh_co_so) {
+        switch ($co_so_loai->ma_loai_hinh_co_so) {
             case 4:
                 $loai_hinh = 'D';
                 break;
@@ -236,44 +235,47 @@ class GiaoDucNgheNghiepService extends AppService
         $row=5;
         $soThuTu=0;
         $loop=0;
-        foreach($co_so_nghe as $cs_n){
-            $soThuTu++;
-            $row ++;
-            $loop++;
-            if ($loop==1){
-                $startGop=$row;
-                $worksheet->setCellValue("B{$row}",'Trường: '.$co_so->ten.' - '.$co_so->id);
-                $worksheet->setCellValue('G'.$row, $co_so->quyet_dinh);
-                $worksheet->setCellValue('H'.$row, $co_so->so_ngay_thang_nam_cap_dia_diem_dao_tao);
-                $worksheet->setCellValue("C{$row}",$co_so->ten_chu_quan);
-                $worksheet->setCellValue($loai_hinh.$row,'X');
-                  
-                if($co_so->giay_chung_nhan_id == 1){
-                    $worksheet->setCellValue('I'.$row,'X');
-                }else if($co_so->giay_chung_nhan_id == 2){
-                    $worksheet->setCellValue('J'.$row,'X');
-                }else if($co_so->giay_chung_nhan_id == 3){
-                    $worksheet->setCellValue('K'.$row,'X');
+        if($co_so != null){
+            foreach($co_so_nghe as $cs_n){
+                $soThuTu++;
+                $row ++;
+                $loop++;
+                if ($loop==1){
+                    $startGop=$row;
+                    $worksheet->setCellValue("B{$row}",'Trường: '.$co_so->ten.' - '.$co_so->id);
+                    $worksheet->setCellValue('G'.$row, $co_so->quyet_dinh);
+                    $worksheet->setCellValue('H'.$row, $co_so->so_ngay_thang_nam_cap_dia_diem_dao_tao);
+                    $worksheet->setCellValue("C{$row}",$co_so->ten_chu_quan);
+                    $worksheet->setCellValue($loai_hinh.$row,'X');
+                    
+                    if($co_so->giay_chung_nhan_id == 1){
+                        $worksheet->setCellValue('I'.$row,'X');
+                    }else if($co_so->giay_chung_nhan_id == 2){
+                        $worksheet->setCellValue('J'.$row,'X');
+                    }else if($co_so->giay_chung_nhan_id == 3){
+                        $worksheet->setCellValue('K'.$row,'X');
+                    }
+                    $this->formatCenter($worksheet,$arrayCenter,$row);
                 }
-                $this->formatCenter($worksheet,$arrayCenter,$row);
+                foreach($arrayAphabe as $apha){
+                    $worksheet->getStyle($apha.$row)
+                    ->getBorders()
+                    ->getAllBorders()
+                    ->setBorderStyle(Border::BORDER_THIN);
+                }
+                $worksheet->setCellValue('M'.$row, $cs_n->ten_nganh_nghe.' - '.$cs_n->id);
+                // stt
+                $worksheet->setCellValue("L{$row}",$soThuTu);
+            };
+
+            $worksheet->getColumnDimension('B')->setAutoSize(true);
+            $worksheet->getColumnDimension('M')->setAutoSize(true);
+            $worksheet->getColumnDimension('C')->setAutoSize(true);
+            
+            if(count($co_so_nghe) > 0){
+                $this->formartMargeing($worksheet,$arrayCenter,$startGop,$row);
             }
-            foreach($arrayAphabe as $apha){
-                $worksheet->getStyle($apha.$row)
-                ->getBorders()
-                ->getAllBorders()
-                ->setBorderStyle(Border::BORDER_THIN);
-            }
-            $worksheet->setCellValue('M'.$row, $cs_n->ten_nganh_nghe.' - '.$cs_n->id);
-            // stt
-            $worksheet->setCellValue("L{$row}",$soThuTu);
-        };
-        $worksheet->getColumnDimension('B')->setAutoSize(true);
-        $worksheet->getColumnDimension('M')->setAutoSize(true);
-        $worksheet->getColumnDimension('C')->setAutoSize(true);
-        
-        if(count($co_so_nghe) > 0){
-            $this->formartMargeing($worksheet,$arrayCenter,$startGop,$row);
-        }
+     }
 
         $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');

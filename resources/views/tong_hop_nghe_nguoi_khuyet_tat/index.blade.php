@@ -423,7 +423,7 @@
                             </select>
                         </div>
                         @error('truong_id')
-                         <div class="alert alert-danger">{{$message}}</div>
+                         <div class="text-danger">{{$message}}</div>
                         @enderror
                     </div>
                     <div class="modal-footer">
