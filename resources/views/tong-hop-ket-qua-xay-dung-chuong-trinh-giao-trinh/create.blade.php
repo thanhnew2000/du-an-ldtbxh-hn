@@ -419,18 +419,5 @@
         })
 </script>
 @endif
-
-@if (session('success'))
-<script>
-    Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'Thêm thành công !',
-        showConfirmButton: false,
-        timer: 3500
-    })
-</script>
-@endif
 @endsection
-
 

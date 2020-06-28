@@ -385,17 +385,5 @@
 @endsection
 @section('script')
 <script src="{!! asset('xay_dung_chuong_trinh_giao_trinh/validate-edit.js') !!}"></script>
-@if (session('success'))
-<script>
-    Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'Cập nhật thành công !',
-        showConfirmButton: false,
-        timer: 3500
-    })
-</script>
-@endif
 @endsection
-
 

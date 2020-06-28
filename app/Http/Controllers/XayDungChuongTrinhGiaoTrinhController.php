@@ -101,7 +101,7 @@ class XayDungChuongTrinhGiaoTrinhController extends Controller
         $dateTime = Carbon::now();
         $request->request->set('thoi_gian_cap_nhat', $dateTime->format('Y-m-d H:i:s'));
         $this->XayDungChuongTrinhGiaoTrinhService->create($request);
-        return redirect()->route('xuatbc.create-ds-xd-giao-trinh')->with(['success'=> 'thêm thành công']);
+        return redirect()->route('xuatbc.ds-xd-giao-trinh')->with(['success'=> 'thêm thành công']);
     }
 
     /* Màn hình sửa tổng hợp xây dựng chương trình giáo trình.
@@ -135,7 +135,7 @@ class XayDungChuongTrinhGiaoTrinhController extends Controller
         $dateTime = Carbon::now();
         $request->request->set('thoi_gian_cap_nhat', $dateTime->format('Y-m-d H:i:s'));
         $this->XayDungChuongTrinhGiaoTrinhService->update($id,$request);
-        return redirect()->back()->with(['success'=>'Cập nhật thành công !']);
+        return redirect()->route('xuatbc.show-ds-xd-giao-trinh',['co_so_id' => $data->co_so_id])->with(['success'=>'Cập nhật thành công !']);
     }
     
     //phucnv end BM:12
