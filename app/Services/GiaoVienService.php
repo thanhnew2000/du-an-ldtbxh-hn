@@ -96,7 +96,7 @@ class GiaoVienService extends AppService
     {
         $data = $this->getData($params);
 
-        return $this->giaoVienRepository->create($data);
+        return $this->giaoVienRepository->createQuanLiGiaoVien($data);
     }
 
     public function updateGiaoVien($id, $params)
@@ -181,15 +181,15 @@ class GiaoVienService extends AppService
 
 
     // thanhnv import export 6/17/2020 branch bm9
-    
+
 
 
     public function checkErrorGiaoVien($data,$arrayApha){
         $vitri =[];
-        for($i =15; $i < count($data); $i++){ 
+        for($i =15; $i < count($data); $i++){
             $key_aphabel=0;
-                $rowNumber = $i+1; 
-                for($j=1;$j <= 35;$j++){  
+                $rowNumber = $i+1;
+                for($j=1;$j <= 35;$j++){
                         $key_aphabel++;
                         if($j != 1 && $j != 4 && $j !=5 && $j !=34 && $j !=35 && $j !=14 && $j !=15 && $j !=16 && $j !=17 && $j !=18 && $j !=19) {
                             if(is_string($data[$i][$j]) || ($data[$i][$j] < 0) || ($data[$i][$j] < 0 || $data[$i][$j] > 1 ) ){
@@ -200,8 +200,8 @@ class GiaoVienService extends AppService
             }
              return $vitri;
         }
-       
-    
+
+
 
     public function exportFillRow($worksheet, $row, $gv)
     {
@@ -233,7 +233,7 @@ class GiaoVienService extends AppService
         } else {
             $worksheet->setCellValue('M' . $row, 'x');
         }
-       
+
         $worksheet->setCellValue('N'.$row,'');
 
        //  trinh_do_chuyen_mon
@@ -398,8 +398,8 @@ class GiaoVienService extends AppService
 
         $truong = explode(' - ', $data[3][1]);
         $id_truong = array_pop($truong);
-    
-            
+
+
         $arrayApha=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ'];
         // vòng for này để check lỗi nếu có thì cho hết lỗi vào các array $error, $vitri
         $vitri=$this->checkErrorGiaoVien($data,$arrayApha);
@@ -413,89 +413,131 @@ class GiaoVienService extends AppService
         $arrayData=[];
 
         if(count($data) != 100){
-                if($vitri == null || $vitri == '') {
-                    for($i = 16; $i < count($data); $i++){ 
-                    $loai_hop_dong=null;
-                        if($data[$i][11]==1){
-                            $loai_hop_dong =1;
-                        }else if($data[$i][12]==1){
-                            $loai_hop_dong =2;
-                        }else{
-                            $loai_hop_dong =3;
-                        }
-
-
-                        $trinh_do_ngoai_ngu=null;
-                        if($data[$i][20]==1){
-                            $trinh_do_ngoai_ngu =1;
-                        }else if($data[$i][21]==1){
-                            $trinh_do_ngoai_ngu =2;
-                        }else if($data[$i][22]==1){
-                            $trinh_do_ngoai_ngu =3;
-                        }else if($data[$i][23]==1){
-                            $trinh_do_ngoai_ngu =4;
-                        }else if($data[$i][24]==1){
-                            $trinh_do_ngoai_ngu =5;
-                        }else if($data[$i][25]==1){
-                            $trinh_do_ngoai_ngu =6;
-                        }
-
-                        $trinh_do_tin_hoc = ($data[$i][26]==1) ? 1 : 2;
-
-                        $trinh_do_nghe=null;
-                        if($data[$i][28]==1){
-                            $trinh_do_nghe =1;
-                        }else if($data[$i][29]==1){
-                            $trinh_do_nghe =2;
-                        }else {
-                            $trinh_do_nghe =3;
-                        }
-
-                        $trinh_nghe_vu_su_pham=null;
-                        if($data[$i][31]==1){
-                            $trinh_nghe_vu_su_pham =1;
-                        }else if($data[$i][32]==1){
-                            $trinh_nghe_vu_su_pham =2;
-                        }else {
-                            $trinh_nghe_vu_su_pham =3;
-                        }
-                                        
-                        $gioi_tinh = ($data[$i][2]==1) ? 1 : 2;
-
-                        $arrayData=[
-                            'nghe_giang_day'=>$data[$i][5],
-                            'co_so_id'=>$id_truong,
-                            'ten'=>$data[$i][1],
-                            'gioi_tinh'=>$gioi_tinh,
-                            'mon_chung'=>$data[$i][4],
-                            'dan_toc_it_nguoi'=>$data[$i][6],
-                            'giao_su'=>$data[$i][7],
-                            'pho_giao_su'=>$data[$i][8],
-                            'nha_giao_nhan_dan'=>$data[$i][9],
-                            'nha_giao_uu_tu'=>$data[$i][10],
-                            'loai_hop_dong'=>$loai_hop_dong,
-
-                            'trinh_do_tien_sy'=>$data[$i][14],
-                            'trinh_do_thac_sy'=>$data[$i][15],
-                            'trinh_do_dai_hoc'=>$data[$i][16],
-                            'trinh_do_cao_dang'=>$data[$i][17],
-                            'trinh_do_trung_cap'=>$data[$i][18],
-                            'trinh_do_khac'=>$data[$i][19],
-
-                            'trinh_do_ngoai_ngu'=>$trinh_do_ngoai_ngu,
-                            'trinh_do_tin_hoc'=>$trinh_do_tin_hoc,
-                            'trinh_do_ky_nang_nghe'=>$trinh_do_nghe,
-                            'trinh_do_nghiep_vu_su_pham'=>$trinh_nghe_vu_su_pham,
-                            'ten_lop_dao_tao'=>$data[$i][34],
-                            'thoi_gian_dao_tao'=>$data[$i][35],
-                        ];
-                            array_push($arrayDataToInsert,$arrayData);
+            if($vitri == null || $vitri == '') {
+                for($i = 16; $i < count($data); $i++){
+                $loai_hop_dong=null;
+                    if($data[$i][11]==1){
+                        $loai_hop_dong =1;
+                    }else if($data[$i][12]==1){
+                        $loai_hop_dong =2;
+                    }else{
+                        $loai_hop_dong =3;
                     }
-                    // DB::table('giao_vien')->insert($arrayDataToInsert);
-                    $this->giaoVienRepository->createQuanLiGiaoVien($arrayDataToInsert);
-                    $message='ok';
-                    return $message; 
+
+
+                    $trinh_do_ngoai_ngu=null;
+                    if($data[$i][20]==1){
+                        $trinh_do_ngoai_ngu =1;
+                    }else if($data[$i][21]==1){
+                        $trinh_do_ngoai_ngu =2;
+                    }else if($data[$i][22]==1){
+                        $trinh_do_ngoai_ngu =3;
+                    }else if($data[$i][23]==1){
+                        $trinh_do_ngoai_ngu =4;
+                    }else if($data[$i][24]==1){
+                        $trinh_do_ngoai_ngu =5;
+                    }else if($data[$i][25]==1){
+                        $trinh_do_ngoai_ngu =6;
+                    }
+
+                    $trinh_do_tin_hoc = ($data[$i][26]==1) ? 1 : 2;
+
+                    $trinh_do_nghe=null;
+                    if($data[$i][28]==1){
+                        $trinh_do_nghe =1;
+                    }else if($data[$i][29]==1){
+                        $trinh_do_nghe =2;
+                    }else {
+                        $trinh_do_nghe =3;
+                    }
+
+                    $trinh_nghe_vu_su_pham=null;
+                    if($data[$i][31]==1){
+                        $trinh_nghe_vu_su_pham =1;
+                    }else if($data[$i][32]==1){
+                        $trinh_nghe_vu_su_pham =2;
+                    }else {
+                        $trinh_nghe_vu_su_pham =3;
+                    }
+
+                    $gioi_tinh = ($data[$i][2]==1) ? 1 : 2;
+
+                    $arrayData=[
+                        'nghe_giang_day'=>$data[$i][5],
+                        'co_so_id'=>$id_truong,
+                        'ten'=>$data[$i][1],
+                        'gioi_tinh'=>$gioi_tinh,
+                        'mon_chung'=>$data[$i][4],
+                        'dan_toc_it_nguoi'=>$data[$i][6],
+                        'giao_su'=>$data[$i][7],
+                        'pho_giao_su'=>$data[$i][8],
+                        'nha_giao_nhan_dan'=>$data[$i][9],
+                        'nha_giao_uu_tu'=>$data[$i][10],
+                        'loai_hop_dong'=>$loai_hop_dong,
+
+                        'trinh_do_tien_sy'=>$data[$i][14],
+                        'trinh_do_thac_sy'=>$data[$i][15],
+                        'trinh_do_dai_hoc'=>$data[$i][16],
+                        'trinh_do_cao_dang'=>$data[$i][17],
+                        'trinh_do_trung_cap'=>$data[$i][18],
+                        'trinh_do_khac'=>$data[$i][19],
+
+                        'trinh_do_ngoai_ngu'=>$trinh_do_ngoai_ngu,
+                        'trinh_do_tin_hoc'=>$trinh_do_tin_hoc,
+                        'trinh_do_ky_nang_nghe'=>$trinh_do_nghe,
+                        'trinh_do_nghiep_vu_su_pham'=>$trinh_nghe_vu_su_pham,
+                        'ten_lop_dao_tao'=>$data[$i][34],
+                        'thoi_gian_dao_tao'=>$data[$i][35],
+                    ];
+                        array_push($arrayDataToInsert,$arrayData);
                 }
+
+                $this->giaoVienRepository->createQuanLiGiaoVien($arrayDataToInsert);
+                $message='ok';
+                return $message;
             }
+        }
+    }
+
+    public function importError($fileRead, $duoiFile){
+        $message='';
+        $spreadsheet = $this->createSpreadSheet($fileRead,$duoiFile);
+        $data =$spreadsheet->getActiveSheet()->toArray();
+
+        $arrayApha=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ'];
+
+        $vitri=$this->checkErrorGiaoVien($data,$arrayApha);
+
+        $spreadsheet2 = \PhpOffice\PhpSpreadsheet\IOFactory::load('file_excel/quanligiaovien/bieu-mau-ds-ql-giao-vien.xlsx');
+        $worksheet = $spreadsheet2->getActiveSheet();
+        $worksheet->setCellValue('B4', $data[3][1]);
+        $worksheet->setCellValue('B5', $data[4][1]);
+        $worksheet->setCellValue('B6', $data[5][1]);
+        $worksheet->setCellValue('B7', $data[6][1]);
+
+        $stt=15;
+        for($i = 15; $i < count($data); $i++){
+            $stt++;
+            for($j=1;$j < count($arrayApha); $j++){
+            $worksheet->setCellValue($arrayApha[$j].$stt,$data[$i][$j]);
+        }
+        }
+        //  khóa
+        $spreadsheet2->getActiveSheet()->getProtection()->setSheet(true);
+        $spreadsheet2->getDefaultStyle()->getProtection()->setLocked(false);
+        $worksheet->getColumnDimension('F')->setAutoSize(true);
+
+        for($i = 0; $i < count($vitri);$i++){
+            // $worksheet->getStyle($vitri[$i])->applyFromArray($styleArray);
+            //  màu ô
+            $worksheet->getStyle($vitri[$i])->getFill()
+            ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+            ->getStartColor()->setARGB('FFFF0000');
+        }
+
+        $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet2, "Xlsx");
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="error.xlsx"');
+        $writer->save("php://output");
     }
 }

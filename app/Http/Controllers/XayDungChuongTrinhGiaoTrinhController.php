@@ -30,17 +30,17 @@ class XayDungChuongTrinhGiaoTrinhController extends Controller
         $params = $request->all();
         if(!isset($params['page_size'])) $params['page_size'] = config('common.paginate_size.default');
         $route_name = Route::current()->action['as'];
- 
+
         $data = $this->XayDungChuongTrinhGiaoTrinhService->getDanhSachXayDungChuongTrinhGiaoTrinh($params);
         $params['get_nganh_nghe'] = $this->XayDungChuongTrinhGiaoTrinhService->getNganhNghe();
         $params['get_co_so'] = $this->XayDungChuongTrinhGiaoTrinhService->getCoSoDaoTao();
-        $data->withPath("?dot=$request->dot&nam=$request->nam&co_so_id=$request->co_so_id&nghe_id=$request->nghe_id&page_size=$request->page_size");  
-        
+        $data->withPath("?dot=$request->dot&nam=$request->nam&co_so_id=$request->co_so_id&nghe_id=$request->nghe_id&page_size=$request->page_size");
+
         if($data->count() < 1){
-            return view('tong-hop-ket-qua-xay-dung-chuong-trinh-giao-trinh.index', 
+            return view('tong-hop-ket-qua-xay-dung-chuong-trinh-giao-trinh.index',
             compact('data','params','route_name'),
             ['thongbao'=>'Không tìm thấy kết quả !']);
-        }      
+        }
         return view('tong-hop-ket-qua-xay-dung-chuong-trinh-giao-trinh.index',
         compact('data','params','route_name'),
         ['thongbao'=>'']);
@@ -64,13 +64,13 @@ class XayDungChuongTrinhGiaoTrinhController extends Controller
         $data = $this->XayDungChuongTrinhGiaoTrinhService->chiTietTheoCoSo($co_so_id,$params);
         $params['get_nganh_nghe_theo_co_so'] = $this->XayDungChuongTrinhGiaoTrinhService->getNganhNgheTheoCoSo($co_so_id);
         $thongtincoso = $this->XayDungChuongTrinhGiaoTrinhService->getSingleCsdt($co_so_id);
-        $data->withPath("?nghe_id=$request->nghe_id&dot=$request->dot&nam=$request->nam&page_size=$request->page_size");  
-        
+        $data->withPath("?nghe_id=$request->nghe_id&dot=$request->dot&nam=$request->nam&page_size=$request->page_size");
+
         if($data->count() < 1){
-            return view('tong-hop-ket-qua-xay-dung-chuong-trinh-giao-trinh.show', 
+            return view('tong-hop-ket-qua-xay-dung-chuong-trinh-giao-trinh.show',
             compact('data','params','route_name','thongtincoso'),
             ['thongbao'=>'Không tìm thấy kết quả !']);
-        }      
+        }
         return view('tong-hop-ket-qua-xay-dung-chuong-trinh-giao-trinh.show',
         compact('data','params','route_name','thongtincoso'),['thongbao'=>'']);
     }
@@ -94,13 +94,13 @@ class XayDungChuongTrinhGiaoTrinhController extends Controller
     {
         $params = $request->all();
         $kq = $this->XayDungChuongTrinhGiaoTrinhService->checkTonTaiKhiThem($params);
-        if($kq){       
+        if($kq){
             return redirect()->route('xuatbc.create-ds-xd-giao-trinh')->with(['edit'=> $kq->id])->withInput();
         }
-        
+
         $dateTime = Carbon::now();
         $request->request->set('thoi_gian_cap_nhat', $dateTime->format('Y-m-d H:i:s'));
-        $this->XayDungChuongTrinhGiaoTrinhService->create($request);
+        $this->XayDungChuongTrinhGiaoTrinhService->store($request->except('_token'));
         return redirect()->route('xuatbc.ds-xd-giao-trinh')->with(['success'=> 'thêm thành công']);
     }
 
@@ -137,6 +137,6 @@ class XayDungChuongTrinhGiaoTrinhController extends Controller
         $this->XayDungChuongTrinhGiaoTrinhService->update($id,$request);
         return redirect()->route('xuatbc.show-ds-xd-giao-trinh',['co_so_id' => $data->co_so_id])->with(['success'=>'Cập nhật thành công !']);
     }
-    
+
     //phucnv end BM:12
 }

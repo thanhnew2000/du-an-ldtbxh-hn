@@ -1,9 +1,21 @@
 <?php
+
 namespace App\Repositories;
+
 use Illuminate\Support\Facades\DB;
 use App\Repositories\BaseRepository;
 use Carbon\Carbon;
-class GiaoDucNgheNghiepRepository extends BaseRepository implements GiaoDucNgheNghiepRepositoryInterface {
+use App\Models\DangKyHoatDong;
+
+class GiaoDucNgheNghiepRepository extends BaseRepository implements GiaoDucNgheNghiepRepositoryInterface
+{
+    protected $model;
+
+    public function __construct(DangKyHoatDong $model)
+    {
+        parent::__construct();
+        $this->model = $model;
+    }
 
     //lay model
     public function getTable(){
@@ -27,7 +39,7 @@ class GiaoDucNgheNghiepRepository extends BaseRepository implements GiaoDucNgheN
             'giay_chung_nhan_dang_ky_hoat_dong_giao_duc_nghe_nghiep.so_ngay_thang_nam_cap_dia_diem_dao_tao',
             'loai_hinh_co_so.loai_hinh_co_so',
             'devvn_quanhuyen.name as quan_huyen',
-            'devvn_xaphuongthitran.name as xa_phuong',    
+            'devvn_xaphuongthitran.name as xa_phuong',
         ])
         ->where('thong_tin_dang_ky.nam', $params['nam'])
         ->where('thong_tin_dang_ky.dot', $params['dot']);
@@ -53,7 +65,7 @@ class GiaoDucNgheNghiepRepository extends BaseRepository implements GiaoDucNgheN
         if (isset($params['devvn_xaphuongthitran']) && $params['devvn_xaphuongthitran'] != null) {
             $query->where('co_so_dao_tao.xaid', $params['devvn_xaphuongthitran']);
         }
-    
+
         $data = $query->groupBy('co_so_id')->paginate($limit);
         foreach ($data as $key => $value) {
             $detail = DB::table('thong_tin_dang_ky')->where('thong_tin_dang_ky.co_so_id',$value->id)
@@ -92,7 +104,7 @@ class GiaoDucNgheNghiepRepository extends BaseRepository implements GiaoDucNgheN
     }
 
     public function getXaPhuongTheoQuanHuyen($id)
-    {    
+    {
         if ($id==0){
             $data = DB::table('devvn_xaphuongthitran')
             ->select('devvn_xaphuongthitran.xaid', 'devvn_xaphuongthitran.name')->get();
@@ -127,7 +139,7 @@ class GiaoDucNgheNghiepRepository extends BaseRepository implements GiaoDucNgheN
         ->first();
         return $data;
     }
-    
+
     public function edit($id)
     {
         $result = $this->table->where('thong_tin_dang_ky.id', '=', $id)
@@ -155,10 +167,10 @@ class GiaoDucNgheNghiepRepository extends BaseRepository implements GiaoDucNgheN
             }
             return $kiem_tra;
     }
+
     public function store($getdata)
     {
-        $result  = $this->table->insert($getdata);
-        return $result;
+        return $this->model->create($getdata);
     }
 
 	// thanhnv 6/23/2020
@@ -193,7 +205,8 @@ class GiaoDucNgheNghiepRepository extends BaseRepository implements GiaoDucNgheN
 		->orderBy('loai_truong', 'asc')
 		->get();
 		return $data;
-	}
+    }
+
 	public function getSomeCsJoinChuQuanVaDangKyGiay($listCoSoId)
 	{
 		$data =  DB::table('co_so_dao_tao')->whereIn('co_so_dao_tao.id', $listCoSoId)
@@ -205,7 +218,8 @@ class GiaoDucNgheNghiepRepository extends BaseRepository implements GiaoDucNgheN
 		->orderBy('loai_truong', 'asc')
 		->get();
 		return $data;
-	}
+    }
+
 	public function getOnlyOneCsJoinChuQuanVaDangKyGiay($id_coso)
 	{
 		$data =    DB::table('co_so_dao_tao')->where('co_so_dao_tao.id', $id_coso)
@@ -218,6 +232,4 @@ class GiaoDucNgheNghiepRepository extends BaseRepository implements GiaoDucNgheN
         ->first();
 		return $data;
 	}
-
 }
- ?>
