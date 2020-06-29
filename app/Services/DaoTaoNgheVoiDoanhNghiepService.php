@@ -93,7 +93,7 @@ class DaoTaoNgheVoiDoanhNghiepService extends AppService
      {
          return  $this->repository->getXaPhuongTheoQuanHuyen($id);
      }
-     
+
      // quảng - 22/6 lấy tất cả ngành nghề theo từng cấp bậc
      public function getNganhNghe($ma_cap_nghe)
      {
@@ -118,7 +118,6 @@ class DaoTaoNgheVoiDoanhNghiepService extends AppService
         $queryData['dot'] = isset($params['dot']) ? $params['dot'] : null;
         $data = $this->repository->show($coSoId, $limit, $queryData);
         return $data;
-    // dd($data);
     }
 
     public function edit($id)
@@ -145,7 +144,7 @@ class DaoTaoNgheVoiDoanhNghiepService extends AppService
         $message = $checkResult == 'tontai' ?
             'Số liệu đã tồn tại và được phê duyệt' :
             'Số liệu đã tồn tại';
-        
+
         if (!isset($checkResult)) {
             $data = $this->repository->store($requestParams);
             $message = 'Thêm số liệu  thành công';
@@ -182,7 +181,6 @@ class DaoTaoNgheVoiDoanhNghiepService extends AppService
     }
 
     // thanh 6/22/2020
-
     public function exportFillRow($worksheet, $row, $tnien){
         $worksheet->setCellValue('B'.$row, $tnien->ten_nganh_nghe.' - '.$tnien->nghe_id);
         $worksheet->setCellValue('C'.$row, $tnien->tong_so);
@@ -208,11 +206,11 @@ class DaoTaoNgheVoiDoanhNghiepService extends AppService
         $worksheet = $spreadsheet->getActiveSheet();
 
         $worksheet->setCellValue('A1', "Trường: $co_so->ten - $id_coso");
-        
+
         $worksheet->getStyle("A1")->getFont()->setBold(true);
-    
+
         $co_so_nghe = $this->soLieuTuyenSinhRepository->getmanganhnghe($id_coso);
-        
+
         $spreadsheet->getActiveSheet()->getProtection()->setSheet(true);
         $spreadsheet->getDefaultStyle()->getProtection()->setLocked(false);
 
@@ -240,7 +238,7 @@ class DaoTaoNgheVoiDoanhNghiepService extends AppService
         $message='';
         $spreadsheet = $this->createSpreadSheet($fileRead,$duoiFile);
         $data =$spreadsheet->getActiveSheet()->toArray();
-        
+
         $truong = explode(' - ', $data[0][0]);
         $id_truong = array_pop($truong);
 
@@ -252,7 +250,7 @@ class DaoTaoNgheVoiDoanhNghiepService extends AppService
 
         if($csCheck == null){
             $message='noCorrectIdTruong';
-            return $message;  
+            return $message;
         }
 
         $id_nghe_of_cs =[];
@@ -266,24 +264,24 @@ class DaoTaoNgheVoiDoanhNghiepService extends AppService
         for($i=0;$i < count($dao_tao_tuyensinh_gan_voi_doanh_nghiep_da_co); $i++){
             $id_nghe_dtts_gan_dn_da_co[$dao_tao_tuyensinh_gan_voi_doanh_nghiep_da_co[$i]->nghe_id] = $dao_tao_tuyensinh_gan_voi_doanh_nghiep_da_co[$i]->id;
         }
-        
+
         $vitri=[];
-        for($i = 7 ; $i < count($data); $i++){ 
+        for($i = 7 ; $i < count($data); $i++){
             $key_aphabel=-1;
-               $rowNumber = $i+1; 
-               for($j=  2 ; $j <= 15 ; $j++){  
+               $rowNumber = $i+1;
+               for($j=  2 ; $j <= 15 ; $j++){
                      $key_aphabel++;
                      if($j != 15 && $j !=7 ){
                         if( is_string($data[$i][$j]) || $data[$i][$j] < 0 ){
                         array_push($vitri,$arrayApha[$key_aphabel].$rowNumber);
                         }
                      }
-                      
+
                }
            }
         if(count($vitri) > 0 ){
                 $message='errorkitu';
-                return $message;  
+                return $message;
         }
         $arrayData=[];
         $insertData=[];
@@ -293,7 +291,7 @@ class DaoTaoNgheVoiDoanhNghiepService extends AppService
 
         if($soDongNgNhap == count($co_so_nghe)){
             if($vitri == null || $vitri == ''){
-                for($i = 7; $i < count($data); $i++){ 
+                for($i = 7; $i < count($data); $i++){
 
                     $nghe = explode(' - ', $data[$i][1]);
                     $id_nghe_nhap = array_pop($nghe);
@@ -324,122 +322,120 @@ class DaoTaoNgheVoiDoanhNghiepService extends AppService
                         if(array_key_exists($id_nghe_nhap,$id_nghe_dtts_gan_dn_da_co)){
                             $updateData[$id_nghe_dtts_gan_dn_da_co[$id_nghe_nhap]]=$arrayData;
                         }else{
-                            array_push($insertData,$arrayData); 
+                            array_push($insertData,$arrayData);
                         }
                     }else if(in_array($id_nghe_nhap,$id_nghe_of_cs) == false){
                         $message='ngheKoThuocTruong';
-                        return $message; 
+                        return $message;
                     };
 
-                }    
+                }
                 //    dd($updateData,$insertData);
                 if (count($updateData) > 0) {
                 foreach($updateData as $key => $value)
                      DB::table('ket_qua_tuyen_sinh_gan_voi_doanh_nghiep')->where('id',$key)->update($value);
                     // $this->repository->updateNgheVoiDoanhNghiep($key,$value);
-                }  
+                }
                 if (count($insertData) > 0) {
                      DB::table('ket_qua_tuyen_sinh_gan_voi_doanh_nghiep')->insert($insertData);
-                //    $this->repository->createNgheVoiDoanhNghiep($insertData); 
-                }    
+                //    $this->repository->createNgheVoiDoanhNghiep($insertData);
+                }
 
                 $message='ok';
-                return $message;  
+                return $message;
             }
         }else if($soDongNgNhap != count($co_so_nghe)){
             $message='NgheUnsign';
-            return $message; 
+            return $message;
         }
-    
+
 }
 
 
-public function importError($fileRead,$duoiFile,$path){
-    $fileReadStorage= storage_path('app/public/'.$path);
-  
-    $spreadsheet = $this->createSpreadSheet($fileReadStorage,$duoiFile);
-    $data = $spreadsheet->getActiveSheet()->toArray();
+    public function importError($fileRead,$duoiFile,$path)
+    {
+        $fileReadStorage= storage_path('app/public/'.$path);
 
-    $truong = explode(' - ', $data[0][0]);
-    $id_truong = array_pop($truong);
+        $spreadsheet = $this->createSpreadSheet($fileReadStorage,$duoiFile);
+        $data = $spreadsheet->getActiveSheet()->toArray();
 
-    $arrayApha=['C','D','E','F','G','H','I','J','K','L','M','N','O','P'];
+        $truong = explode(' - ', $data[0][0]);
+        $id_truong = array_pop($truong);
 
-    $vitri=[];
-    for($i = 7 ; $i < count($data); $i++){ 
-        $key_aphabel=-1;
-           $rowNumber = $i+1; 
-           for($j=  2 ; $j <= 15 ; $j++){  
-                 $key_aphabel++;
-                 if($j != 15 && $j !=7 ){
-                    if( is_string($data[$i][$j]) || $data[$i][$j] < 0 ){
-                    array_push($vitri,$arrayApha[$key_aphabel].$rowNumber);
+        $arrayApha=['C','D','E','F','G','H','I','J','K','L','M','N','O','P'];
+
+        $vitri=[];
+        for($i = 7 ; $i < count($data); $i++){
+            $key_aphabel=-1;
+            $rowNumber = $i+1;
+            for($j=  2 ; $j <= 15 ; $j++){
+                    $key_aphabel++;
+                    if($j != 15 && $j !=7 ){
+                        if( is_string($data[$i][$j]) || $data[$i][$j] < 0 ){
+                        array_push($vitri,$arrayApha[$key_aphabel].$rowNumber);
+                        }
                     }
-                 }
-           }
-       }
-    $spreadsheet2 = IOFactory::load($fileReadStorage);
-    $worksheet = $spreadsheet2->getActiveSheet();
-    Storage::delete($path);
+            }
+        }
+        $spreadsheet2 = IOFactory::load($fileReadStorage);
+        $worksheet = $spreadsheet2->getActiveSheet();
+        Storage::delete($path);
 
-    for($i = 0; $i < count($vitri);$i++){
-        $worksheet->getStyle($vitri[$i])
-        ->getBorders()
-        ->getAllBorders()
-        ->setBorderStyle(Border::BORDER_THIN);
-        //  màu ô
-        $worksheet->getStyle($vitri[$i])->getFill()
-        ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-        ->getStartColor()->setARGB('FFFF0000');
-    }  
+        for($i = 0; $i < count($vitri);$i++){
+            $worksheet->getStyle($vitri[$i])
+            ->getBorders()
+            ->getAllBorders()
+            ->setBorderStyle(Border::BORDER_THIN);
+            //  màu ô
+            $worksheet->getStyle($vitri[$i])->getFill()
+            ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+            ->getStartColor()->setARGB('FFFF0000');
+        }
 
-    $writer = IOFactory::createWriter($spreadsheet2, "Xlsx"); 
-    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    header('Content-Disposition: attachment; filename="error.xlsx"');
-    $writer->save("php://output");
-} 
-
-public function exportData($listCoSoId,$fromDate,$toDate){
-
-    $spreadsheet = IOFactory::load('file_excel/bm14/bm14.xlsx');
-    $worksheet = $spreadsheet->getActiveSheet();
-
-    $spreadsheet->getActiveSheet()->getProtection()->setSheet(true);
-    $spreadsheet->getDefaultStyle()->getProtection()->setLocked(true);
-
-    $worksheet->getColumnDimension('B')->setAutoSize(true);
-    $worksheet->getColumnDimension('C')->setAutoSize(true);
-
-    $arrayAphabe=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P'];
-
-    $co_so =  DB::table('co_so_dao_tao')->where('id', $listCoSoId)
-    ->orderBy('loai_truong', 'asc')
-    ->first();
-
-    $row=7;  
-    $dao_tao_tuyensinh_doanhnghiep = $this->repository->getTuyenSinhDaoTaoDoanhNghiepTimeFromTo($listCoSoId,$fromDate,$toDate);
-    $sothuTu=0;
-    $worksheet->setCellValue('A1', $co_so->ten.' - '.$co_so->id);
-    foreach($dao_tao_tuyensinh_doanhnghiep as $dtts_dn){
-    $row++;
-    foreach($arrayAphabe as $apha){
-        $worksheet->getStyle($apha.$row)
-        ->getBorders()
-        ->getAllBorders()
-        ->setBorderStyle(Border::BORDER_THIN);
+        $writer = IOFactory::createWriter($spreadsheet2, "Xlsx");
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="error.xlsx"');
+        $writer->save("php://output");
     }
-    $sothuTu++;
-    // fill data
-    $worksheet->setCellValue('A'.$row,$sothuTu);
-    $this->exportFillRow($worksheet, $row , $dtts_dn);
-    }
-     $writer =IOFactory::createWriter($spreadsheet, "Xlsx");
-     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-     header('Content-Disposition: attachment; filename="file-xuat.xlsx"');
-     $writer->save("php://output");
-}
 
+    public function exportData($listCoSoId,$fromDate,$toDate){
+
+        $spreadsheet = IOFactory::load('file_excel/bm14/bm14.xlsx');
+        $worksheet = $spreadsheet->getActiveSheet();
+
+        $spreadsheet->getActiveSheet()->getProtection()->setSheet(true);
+        $spreadsheet->getDefaultStyle()->getProtection()->setLocked(true);
+
+        $worksheet->getColumnDimension('B')->setAutoSize(true);
+        $worksheet->getColumnDimension('C')->setAutoSize(true);
+
+        $arrayAphabe=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P'];
+
+        $co_so =  DB::table('co_so_dao_tao')->where('id', $listCoSoId)
+        ->orderBy('loai_truong', 'asc')
+        ->first();
+
+        $row=7;
+        $dao_tao_tuyensinh_doanhnghiep = $this->repository->getTuyenSinhDaoTaoDoanhNghiepTimeFromTo($listCoSoId,$fromDate,$toDate);
+        $sothuTu=0;
+        $worksheet->setCellValue('A1', $co_so->ten.' - '.$co_so->id);
+        foreach($dao_tao_tuyensinh_doanhnghiep as $dtts_dn){
+        $row++;
+        foreach($arrayAphabe as $apha){
+            $worksheet->getStyle($apha.$row)
+            ->getBorders()
+            ->getAllBorders()
+            ->setBorderStyle(Border::BORDER_THIN);
+        }
+        $sothuTu++;
+        // fill data
+        $worksheet->setCellValue('A'.$row,$sothuTu);
+        $this->exportFillRow($worksheet, $row , $dtts_dn);
+        }
+        $writer =IOFactory::createWriter($spreadsheet, "Xlsx");
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="file-xuat.xlsx"');
+        $writer->save("php://output");
+    }
 
 }
-
- ?>

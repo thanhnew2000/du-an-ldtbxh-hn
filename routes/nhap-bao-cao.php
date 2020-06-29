@@ -8,36 +8,36 @@
  */
 
 use Illuminate\Support\Facades\Route;
-
 Route::group([
     'prefix' => 'quan-ly-giao-vien',
-    'middleware' => ['permission:them_moi_quan_ly_giao_vien|cap_nhat_quan_ly_giao_vien']
-], function () {
+    'middleware' => ['permission:them_moi_quan_ly_giao_vien']], function () {
     Route::get('/', 'QuanLyGiaoVienController@index')->name('ql-giao-vien.index');
     Route::get('create', 'QuanLyGiaoVienController@create')->name('ql-giao-vien.create');
     Route::post('store', 'QuanLyGiaoVienController@store')->name('ql-giao-vien.store');
-    Route::get('edit/{giaoVien}', 'QuanLyGiaoVienController@edit')->name('ql-giao-vien.edit');
-    Route::post('update/{giaoVien}', 'QuanLyGiaoVienController@update')->name('ql-giao-vien.update');
-
+});
+Route::group([
+    'prefix' => 'quan-ly-giao-vien',
+    'middleware' => ['permission:cap_nhat_quan_ly_giao_vien']], function () {
+        Route::get('edit/{giaoVien}', 'QuanLyGiaoVienController@edit')->name('ql-giao-vien.edit');
+        Route::post('update/{giaoVien}', 'QuanLyGiaoVienController@update')->name('ql-giao-vien.update');
+});
+    
     // thanhnv import export doi ngu nha giao bm-9
     Route::post('import-file-ql-giao-vien', 'QuanLyGiaoVienController@importFile')
         ->name('import-quan-ly-giao-vien');
     Route::post('import-error-ql-giao-vien', 'QuanLyGiaoVienController@importError')
         ->name('import-error-quan-ly-giao-vien');
-});
+
 //CườngNC - Update Middleware - 
-Route::group(['middleware' => ['permission:publish them_moi_danh_sach_doi_ngu_quan_ly
-                            |cap_nhat_danh_sach_doi_ngu_quan_ly
-                            |xem_chi_tiet_danh_sach_doi_ngu_quan_ly']], function () {
+Route::group(['middleware' => ['permission:them_moi_danh_sach_doi_ngu_quan_ly|cap_nhat_danh_sach_doi_ngu_quan_ly|xem_chi_tiet_danh_sach_doi_ngu_quan_ly']], function () {
     Route::resource('so-lieu-can-bo-quan-ly', 'SoLieuCanBoQuanLyController');
-    // thanhnv import export
+});   // thanhnv import export
     Route::post('so-lieu-can-bo-quan-ly/import-so-lieu-quan-ly', 'ImportSoLieuCanBoQlController@importFile')
         ->name('import-so-lieu-quan-ly');
     Route::post('so-lieu-can-bo-quan-ly/import-error-so-lieu-quan-ly', 'ImportSoLieuCanBoQlController@importError')
         ->name('import-error-so-lieu-quan-ly');
-});
 
-Route::resource('so-lieu-can-bo-quan-ly', 'SoLieuCanBoQuanLyController');
+
 // thanhnv import export
 Route::post('so-lieu-can-bo-quan-ly/import-so-lieu-quan-ly', 'SoLieuCanBoQuanLyController@importFile')
     ->name('import-so-lieu-quan-ly');
@@ -139,20 +139,18 @@ Route::group(['prefix' => 'kiem-soat-tien-do-nop-bao-cao'], function () {
     Route::get('/', 'ImportReportController@tiendonopbaocao')->name('nhapbc.tien-do-nop-bao-cao');
 });
 
-Route::group(['prefix' => 'phe-duyet-bao-cao'], function () {
-    Route::get('/', 'ImportReportController@pheduyetbaocao')->name('nhapbc.phe-duyet-bao-cao');
-});
-
-// thanhnv them group so-lieu-sinh-vien-dang-theo-hoc
+// thanhnv them group
 Route::group(['prefix' => 'so-lieu-sinh-vien-dang-theo-hoc'], function () {
     Route::post('import-hs-sv-quan-li', 'ExtractController@importFilebm4')->name('import.hssv.ql');
     Route::post('import-error-hs-sv-quan-li', 'ExtractController@importErrorbm4')->name('import.error.hssv-ql');
 });
+
 // thanh import 6/21/2020
 Route::group(['prefix' => 'chi-tieu-tuyen-sinh'], function () {
     Route::post('import-dang-ky-chi-tieu-tuyen-sinh', 'ExtractController@importFilebm8')->name('import.dang-ky-chi-tieu-tuyen-sinh');
     Route::post('import-error-dang-ky-chi-tieu-tuyen-sinh', 'ExtractController@importErrorbm8')->name('import.error.dang-ky-chi-tieu-tuyen-sinh');
 });
+
 // thanhnv 6/22/2020
 Route::group(['prefix' => 'ket-qua-tot-nghiep-gan-voi-doanh-nghiep'], function () {
     Route::post('import-ket-qua-tot-nghiep-gan-voi-doanh-nghiep', 'KetQuaTotNghiepGanVoiDoanhNGhiepController@importFile')
@@ -160,6 +158,7 @@ Route::group(['prefix' => 'ket-qua-tot-nghiep-gan-voi-doanh-nghiep'], function (
     Route::post('import-error-ket-qua-tot-nghiep-gan-voi-doanh-nghiep', 'KetQuaTotNghiepGanVoiDoanhNGhiepController@importError')
         ->name('import.error-ket-qua-tot-nghiep-gan-voi-doanh-nghiep');
 });
+
 // thanhnv 6/21/2020 import export bm13
 Route::group(['prefix' => 'hop-tac-quoc-te'], function () {
     Route::post('import-hop-tac-quoc-te', 'ExtractController@importFilebm13')->name('import.hop-tac-quoc-te');
@@ -170,4 +169,12 @@ Route::group(['prefix' => 'hop-tac-quoc-te'], function () {
 Route::group(['prefix' => 'quan-ly-giao-duc-nghe-nghiep'], function () {
     Route::post('import-quan-ly-giao-duc-nghe-nghiep', 'GiaoDucNgheNghiepController@importFile')->name('import.quan-ly-giao-duc-nghe-nghiep');
     Route::post('import-error-quan-ly-giao-duc-nghe-nghiep', 'GiaoDucNgheNghiepController@importError')->name('import.error.quan-ly-giao-duc-nghe-nghiep');
+});
+
+Route::group([
+    'prefix' => 'phe-duyet-bao-cao',
+], function() {
+    Route::get('danh-sach', 'PheDuyetController@danhSach')->name('phe_duyet_bao_cao.danh_sach');
+    Route::get('get-danh-sach-trang-thai/{baoCao?}', 'PheDuyetController@getListTrangThai')->name('phe_duyet_bao_cao.get_list_trang_thai');
+    Route::post('phe-duyet/{baoCao}', 'PheDuyetController@pheDuyet')->name('phe_duyet_bao_cao.phe_duyet');
 });

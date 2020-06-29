@@ -7,7 +7,7 @@ use Carbon\Carbon;
 class DaoTaoNgheChoThanhNienReponsitory extends BaseRepository implements DaoTaoNgheChoThanhNienRrponsitoryInterface {
 
 	//lay model
-		// thanhnv 6/26/2020 model 
+		// thanhnv 6/26/2020 model
 	protected $model;
 
 	public function __construct(KetQuaDaoTaoChoThanhNien $model)
@@ -15,8 +15,8 @@ class DaoTaoNgheChoThanhNienReponsitory extends BaseRepository implements DaoTao
 		parent::__construct();
 		$this->model = $model;
     }
-	
-	
+
+
 	public function getTable(){
 		return 'ket_qua_dao_tao_cho_thanh_nien';
     }
@@ -40,7 +40,7 @@ class DaoTaoNgheChoThanhNienReponsitory extends BaseRepository implements DaoTao
             'co_so_dao_tao.ten',
             'loai_hinh_co_so.loai_hinh_co_so',
             'devvn_quanhuyen.name as quan_huyen',
-            'devvn_xaphuongthitran.name as xa_phuong',	
+            'devvn_xaphuongthitran.name as xa_phuong',
         ])
         ->where('ket_qua_dao_tao_cho_thanh_nien.nam', $params['nam'])
         ->where('ket_qua_dao_tao_cho_thanh_nien.dot', $params['dot']);
@@ -75,7 +75,7 @@ class DaoTaoNgheChoThanhNienReponsitory extends BaseRepository implements DaoTao
 	}
 
 	public function getXaPhuongTheoQuanHuyen($id)
-	{	
+	{
 		if($id==0){
 			$data = DB::table('devvn_xaphuongthitran')
 			->select('devvn_xaphuongthitran.xaid', 'devvn_xaphuongthitran.name')->get();
@@ -114,7 +114,7 @@ class DaoTaoNgheChoThanhNienReponsitory extends BaseRepository implements DaoTao
 		->first();
 		return $data;
     }
-    
+
     public function getChiTietDaoTaoNgheThanhNien($coSoId,$limit,$queryData)
 	{
 		$data = $this->table
@@ -130,10 +130,10 @@ class DaoTaoNgheChoThanhNienReponsitory extends BaseRepository implements DaoTao
 						'devvn_quanhuyen.name as ten_quan_huyen',
 						'devvn_xaphuongthitran.name as ten_xa_phuong'
 					);
-			
+
 		if($queryData['nam']!= null){
 			$data->where('ket_qua_dao_tao_cho_thanh_nien.nam', $queryData['nam']);
-		}	
+		}
 		if($queryData['dot']!=null){
 			$data->where('ket_qua_dao_tao_cho_thanh_nien.dot', $queryData['dot']);
 		}
@@ -172,11 +172,12 @@ class DaoTaoNgheChoThanhNienReponsitory extends BaseRepository implements DaoTao
 			}
 			return $kiem_tra;
 	}
+
 	public function store($getdata)
 	{
-		$result  = $this->table->insert($getdata);
-        return $result;
+		return $this->model->create($getdata);
 	}
+
 	public function getThanhNienCsNamDot($id_truong, $year,$dot)
 	{
 		$data =  DB::table('ket_qua_dao_tao_cho_thanh_nien')->where('co_so_id', '=', $id_truong)

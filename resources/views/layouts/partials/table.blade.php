@@ -39,14 +39,13 @@
                     <td>{!! $item->$key !!}</td>
                     @endforeach
 
-                    @can('cap_nhat_quan_ly_giao_vien')
+                   
                     @if (isset($route_edit) && !empty($route_edit))
                     <td>
                         <a href="{{ route($route_edit, [ $item->id ]) }}">Sửa</a>
                     </td>
                     @endif
-                    @endcan
-
+                   
 
                     @if (isset($route_show) && !empty($route_show))
 
@@ -55,10 +54,6 @@
                     </td>
 
                     @endif
-
-
-
-
                 </tr>
                 @endforeach
             </tbody>

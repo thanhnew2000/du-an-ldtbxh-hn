@@ -32,11 +32,6 @@
 								class="m-menu__link "><i
 									class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 									class="m-menu__link-text">Quản lý tài khoản</span></a></li>
-
-						<li class="m-menu__item " aria-haspopup="true"><a href="{{route('account.quyen-truy-cap')}}"
-								class="m-menu__link "><i
-									class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
-									class="m-menu__link-text">Quản lý quyền truy cập</span></a></li>
 						{{-- Start - CườngNC - Update - Tạo Phân Quyền - 18/06/2020 --}}
 						<li class="m-menu__item " aria-haspopup="true"><a href="{{route('account.phan-quyen-tk')}}"
 								class="m-menu__link "><i
@@ -49,14 +44,13 @@
 			@endcan
 
 			@canany(['them_moi_co_so_dao_tao','xem_chi_tiet_co_so_dao_tao','cap_nhat_co_so_dao_tao',
-			'them_moi_dia_diem_dao_tao' , 'cap_nhat_dia_diem_dao_tao' , 'xoa_dia_diem_dao_tao'])
+					'them_moi_dia_diem_dao_tao' , 'cap_nhat_dia_diem_dao_tao' , 'xoa_dia_diem_dao_tao'])
 			<li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a
 					href="javascript:;" class="m-menu__link m-menu__toggle"><i
 						class="m-menu__link-icon flaticon-share"></i><span class="m-menu__link-text">Quản lý cơ sở đào
 						tạo</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
 				<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 					<ul class="m-menu__subnav">
-
 						<li class="m-menu__item " aria-haspopup="true"><a href="{{route('csdt.danh-sach')}}"
 								class="m-menu__link "><i
 									class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
@@ -65,10 +59,6 @@
 								class="m-menu__link "><i
 									class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 									class="m-menu__link-text">Danh sách địa điểm đào tạo</span></a></li>
-						<li class="m-menu__item " aria-haspopup="true"><a href="{{route('csdt.thiet-lap-nghe-cs')}}"
-								class="m-menu__link "><i
-									class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
-									class="m-menu__link-text">Thiết lập nghề cho cơ sở đào tạo</span></a></li>
 					</ul>
 				</div>
 			</li>
@@ -217,7 +207,6 @@
 			sự</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
 	<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 		<ul class="m-menu__subnav">
-
 			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('ql-giao-vien.index')}}"
 					class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 						class="m-menu__link-text">Quản lý giáo viên</span></a></li>
@@ -225,9 +214,8 @@
 					class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 						class="m-menu__link-text">Danh sách đội ngũ nhà giáo</span></a></li>
 			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('so-lieu-can-bo-quan-ly.index')}}"
-					class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
-						class="m-menu__link-text">Danh sách đội ngũ quản lý</span></a></li>
-
+				class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
+					class="m-menu__link-text">Danh sách đội ngũ quản lý</span></a></li>
 		</ul>
 	</div>
 </li>
@@ -473,10 +461,7 @@
 			duyệt</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
 	<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 		<ul class="m-menu__subnav">
-			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('nhapbc.tien-do-nop-bao-cao')}}"
-					class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
-						class="m-menu__link-text">Kiểm soát tiến độ nộp báo cáo</span></a></li>
-			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('nhapbc.phe-duyet-bao-cao')}}"
+			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('phe_duyet_bao_cao.danh_sach')}}"
 					class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 						class="m-menu__link-text">Phê duyệt báo cáo</span></a></li>
 		</ul>

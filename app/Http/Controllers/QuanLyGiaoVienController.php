@@ -31,6 +31,10 @@ class QuanLyGiaoVienController extends Controller
 
         $titles = config('tables.quan_ly_giao_vien');
         //  thanhnv them coso 
+
+        $routeEdit = auth()->user()->can('cap_nhat_quan_ly_giao_vien')
+            ? 'ql-giao-vien.edit' : '';
+
         $coso = DB::table('co_so_dao_tao')->get();
         return view('ql_giao_vien.index', [
             'filterConfig' => $filterConfig,
@@ -38,7 +42,7 @@ class QuanLyGiaoVienController extends Controller
             'limit' => $limit,
             'titles' => $titles,
             'coso' => $coso,
-            'route_edit' => 'ql-giao-vien.edit',
+            'route_edit' => $routeEdit,
             // 'route_show' => 'ql-giao-vien.show',
         ]);
     }

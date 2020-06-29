@@ -128,6 +128,7 @@
                         <td>{{ $user->phone_number }}</td>
                         <td>{{ $user->ten }}</td>
                         <td>{{ $user->role_name }}</td>
+                        @can('vo_hieu_hoa_tai_khoan')
                         <td>
                             <form class="m-form">
 
@@ -144,16 +145,12 @@
 
                             </form>
                         </td>
-
-
                         <td>
                             @can('sua_tai_khoan')
                             <a class="btn btn-primary btn-sm"
                                 href="{{ route('account.edit',['id'=>$user->id]) }}">Sửa</a>
                             @endcan
                         </td>
-
-
                     </tr>
                     @endforeach
 

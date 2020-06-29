@@ -14,7 +14,7 @@ class KetQuaTotNghiepGanVoiDoanhNghiepRepository extends BaseRepository implemen
 		parent::__construct();
 		$this->model = $model;
     }
-    
+
 
     public function getTable()
     {
@@ -165,8 +165,7 @@ class KetQuaTotNghiepGanVoiDoanhNghiepRepository extends BaseRepository implemen
 
     public function PostKetQuaTotNghiepGanVoiDoanhNghiep($getdata)
     {
-        $result  = $this->table->insert([$getdata]);
-        return $result;
+        return $this->model->create($getdata);
     }
 
     public function CheckTonTai($arraycheck)
@@ -191,7 +190,7 @@ class KetQuaTotNghiepGanVoiDoanhNghiepRepository extends BaseRepository implemen
 		->select('id','nghe_id')->get();
 		return $data;
     }
-    
+
     public function getTotNghiepDaoTaoDoanhNghiepTimeFromTo($id_truong, $fromDate,$toDate)
 	{
 		$data = DB::table('ket_qua_tot_nghiep_gan_voi_doanh_nghiep')->where('ket_qua_tot_nghiep_gan_voi_doanh_nghiep.co_so_id', '=',$id_truong)
@@ -201,7 +200,7 @@ class KetQuaTotNghiepGanVoiDoanhNghiepRepository extends BaseRepository implemen
 		->get();
 		return $data;
     }
-    
+
     // thanhnv 6/26/2020 sửa model create update
 	public function createTotNghiepVoiDoanhNghiep($arrayData){
 		return $this->model->insert($arrayData);
@@ -209,5 +208,5 @@ class KetQuaTotNghiepGanVoiDoanhNghiepRepository extends BaseRepository implemen
 	public function updateTotNghiepVoiDoanhNghiep($key,$arrayData){
 		return $this->model->where('id',$key)->update($arrayData);
     }
-    
+
 }

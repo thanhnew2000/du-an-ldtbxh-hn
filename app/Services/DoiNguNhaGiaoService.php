@@ -2,10 +2,10 @@
 
 namespace App\Services;
 
+use App\Repositories\DoiNguNhaGiaoInterface;
 use App\Repositories\DoiNguNhaGiaoRepository;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use App\Repositories\CoSoDaoTaoRepositoryInterface;
-use App\Repositories\CoSoDaoTaoRepository;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
@@ -17,15 +17,15 @@ use DB;
 class DoiNguNhaGiaoService extends AppService
 {
     protected $csdtRepository;
-    protected $CoSoDaoTaoRepository;
+    protected $doiNguNhaGiaoRepo;
 
     public function __construct(
         CoSoDaoTaoRepositoryInterface $csdtRepository,
-        CoSoDaoTaoRepository $CoSoDaoTaoRepository
+        DoiNguNhaGiaoInterface $doiNguNhaGiaoRepo
     ) {
         parent::__construct();
         $this->csdtRepository = $csdtRepository;
-        $this->CoSoDaoTaoRepository = $CoSoDaoTaoRepository;
+        $this->doiNguNhaGiaoRepo = $doiNguNhaGiaoRepo;
     }
 
     public function getRepository()
@@ -332,6 +332,11 @@ class DoiNguNhaGiaoService extends AppService
     }
 
     public function getAllCoSoDaoTao(){
-        return $this->CoSoDaoTaoRepository->getAll();
+        return $this->csdtRepository->getAll();
+    }
+
+    public function store($data)
+    {
+        return $this->doiNguNhaGiaoRepo->insert($data);
     }
 }

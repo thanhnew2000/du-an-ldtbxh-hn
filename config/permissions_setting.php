@@ -37,7 +37,7 @@ return [
         '19' => 'Cập nhật danh sách đội ngũ nhà giáo',
     ],
     'doi_ngu_quan_ly' => [
-        '20' => 'Thêm mới danh sách quản lý',
+        '20' => 'Thêm mới danh sách đội ngũ quản lý',
         '21' => 'Cập nhật danh sách đội ngũ quản lý',
         '22' => 'Xem chi tiết danh sách đội ngũ quản lý',
     ],

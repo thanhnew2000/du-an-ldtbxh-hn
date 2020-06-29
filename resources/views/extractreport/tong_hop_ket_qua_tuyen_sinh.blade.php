@@ -161,7 +161,6 @@
         </div>
 </section>
 
-
     <div class="m-portlet">
         <div class="m-portlet__body table-responsive">
             <table class="table table-bordered m-table m-table--border-danger m-table--head-bg-primary table-boder-white">

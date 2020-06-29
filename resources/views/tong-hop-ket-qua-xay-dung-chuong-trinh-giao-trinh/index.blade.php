@@ -115,9 +115,11 @@
         <div class="col-lg-8">
             <a href=""><i class="la la-upload">Tải lên file excel</i></a>
         </div>
+        @can('them_moi_tong_hop_xay_dung_chuong_trinh_giao_trinh')
         <div class="col-lg-2 text-center">
             <a target="_blank" href="{{ route('xuatbc.create-ds-xd-giao-trinh') }}" class="btn btn-success btn-sm">Thêm mới</a>                      
         </div>
+        @endcan
     </div>
     <div class="m-portlet">
         <div class="table-responsive pt-5">
@@ -147,7 +149,9 @@
                         <th rowspan="3">Đợt</th>
                         <th colspan="9">Xây dựng mới</th>
                         <th colspan="9">Chỉnh sửa</th>
+                        @can('chi_tiet_tong_hop_xay_dung_chuong_trinh_giao_trinh')
                         <th rowspan="3">Thao tác</th>
+                        @endcan
                     </tr>
                     <tr class="text-center">
                         
