@@ -318,7 +318,7 @@
             </div>
 
             <div class="m-portlet__body">
-                <h5>Kết quả tốt nghiệp đào tạo nghề
+                <h5>Kết quả tốt nghiệp đào tạo nghề <br>
                     gắn với doanh nghiệp</h5>
             </div>
             <div class=" d-flex justify-content-around">

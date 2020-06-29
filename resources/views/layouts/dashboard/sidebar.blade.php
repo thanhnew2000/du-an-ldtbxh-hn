@@ -32,11 +32,6 @@
 								class="m-menu__link "><i
 									class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 									class="m-menu__link-text">Quản lý tài khoản</span></a></li>
-
-						<li class="m-menu__item " aria-haspopup="true"><a href="{{route('account.quyen-truy-cap')}}"
-								class="m-menu__link "><i
-									class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
-									class="m-menu__link-text">Quản lý quyền truy cập</span></a></li>
 						{{-- Start - CườngNC - Update - Tạo Phân Quyền - 18/06/2020 --}}
 						<li class="m-menu__item " aria-haspopup="true"><a href="{{route('account.phan-quyen-tk')}}"
 								class="m-menu__link "><i
@@ -203,9 +198,9 @@
 {{-- VinhNB --}}
 
 {{-- Quản lý nhân sự --}}
-@canany('them_moi_quan_ly_giao_vien','cap_nhat_quan_ly_giao_vien',
+@canany(['them_moi_quan_ly_giao_vien','cap_nhat_quan_ly_giao_vien',
 'them_moi_danh_sach_doi_ngu_nha_giao','cap_nhat_danh_sach_doi_ngu_nha_giao','chi_tiet_danh_sach_doi_ngu_nha_giao',
-'them_moi_danh_sach_doi_ngu_quan_ly','cap_nhat_danh_sach_doi_ngu_quan_ly','xem_chi_tiet_danh_sach_doi_ngu_quan_ly')
+'them_moi_danh_sach_doi_ngu_quan_ly','cap_nhat_danh_sach_doi_ngu_quan_ly','xem_chi_tiet_danh_sach_doi_ngu_quan_ly'])
 <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;"
 		class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-avatar"></i><span
 			class="m-menu__link-text">Quản lý nhân
