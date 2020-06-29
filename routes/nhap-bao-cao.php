@@ -8,23 +8,26 @@
  */
 
 use Illuminate\Support\Facades\Route;
-
 Route::group([
     'prefix' => 'quan-ly-giao-vien',
-    'middleware' => ['permission:them_moi_quan_ly_giao_vien|cap_nhat_quan_ly_giao_vien']
-], function () {
+    'middleware' => ['permission:them_moi_quan_ly_giao_vien']], function () {
     Route::get('/', 'QuanLyGiaoVienController@index')->name('ql-giao-vien.index');
     Route::get('create', 'QuanLyGiaoVienController@create')->name('ql-giao-vien.create');
     Route::post('store', 'QuanLyGiaoVienController@store')->name('ql-giao-vien.store');
-    Route::get('edit/{giaoVien}', 'QuanLyGiaoVienController@edit')->name('ql-giao-vien.edit');
-    Route::post('update/{giaoVien}', 'QuanLyGiaoVienController@update')->name('ql-giao-vien.update');
-
+});
+Route::group([
+    'prefix' => 'quan-ly-giao-vien',
+    'middleware' => ['permission:cap_nhat_quan_ly_giao_vien']], function () {
+        Route::get('edit/{giaoVien}', 'QuanLyGiaoVienController@edit')->name('ql-giao-vien.edit');
+        Route::post('update/{giaoVien}', 'QuanLyGiaoVienController@update')->name('ql-giao-vien.update');
+});
+    
     // thanhnv import export doi ngu nha giao bm-9
     Route::post('import-file-ql-giao-vien', 'QuanLyGiaoVienController@importFile')
         ->name('import-quan-ly-giao-vien');
     Route::post('import-error-ql-giao-vien', 'QuanLyGiaoVienController@importError')
         ->name('import-error-quan-ly-giao-vien');
-});
+
 //CườngNC - Update Middleware - 
 Route::group(['middleware' => ['permission:them_moi_danh_sach_doi_ngu_quan_ly|cap_nhat_danh_sach_doi_ngu_quan_ly|xem_chi_tiet_danh_sach_doi_ngu_quan_ly']], function () {
     Route::resource('so-lieu-can-bo-quan-ly', 'SoLieuCanBoQuanLyController');
