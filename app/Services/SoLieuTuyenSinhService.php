@@ -349,7 +349,8 @@ class SoLieuTuyenSinhService extends AppService
         $data =$spreadsheet->getActiveSheet()->toArray();
         
         $truong = explode(' - ', $data[7][2]);
-        $id_truong = array_pop($truong);
+        $id_truong = trim(array_pop($truong));
+
         $arrayApha=['H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK'];
 
         $csCheck = DB::table('co_so_dao_tao')->find($id_truong);
@@ -475,7 +476,8 @@ class SoLieuTuyenSinhService extends AppService
         $data = $spreadsheet->getActiveSheet()->toArray();
             
         $truong = explode(' - ', $data[7][2]);
-        $id_truong = array_pop($truong);
+        $id_truong = trim(array_pop($truong));
+
     
         $arrayApha=['H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK'];
  

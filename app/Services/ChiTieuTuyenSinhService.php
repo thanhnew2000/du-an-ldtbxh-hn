@@ -253,8 +253,7 @@ class ChiTieuTuyenSinhService extends AppService
         $data =$spreadsheet->getActiveSheet()->toArray();
         
         $truong = explode(' - ', $data[7][2]);
-        $id_truong = array_pop($truong);
-            
+        $id_truong = trim(array_pop($truong));
         
         $arrayAphabe=['I','J'];
 

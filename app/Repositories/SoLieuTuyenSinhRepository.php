@@ -240,7 +240,7 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 
 	// thanhnv 6/26/2020 sửa model create update
 	public function createTuyenSinh($arrayData){
-		return $this->model->create($arrayData);
+		return $this->model->insert($arrayData);
 	}
 	public function updateTuyenSinh($key,$arrayData){
 		return $this->model->where('id',$key)->update($arrayData);

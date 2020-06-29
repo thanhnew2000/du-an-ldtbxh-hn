@@ -407,7 +407,8 @@ class LienKetDaoTaoService extends AppService
         $spreadsheet = $this->createSpreadSheet($fileRead, $duoiFile);
         $data = $spreadsheet->getActiveSheet()->toArray();
         $truong = explode(' - ', $data[8][1]);
-        $id_truong = array_pop($truong);
+        $id_truong = trim(array_pop($truong));
+
 
         $csCaodang =  $this->repository->getLkDaoTaoCsCaoDang($id_truong);
         $csTrungCap =  $this->repository->getLkDaoTaoCsTrungCap($id_truong);
@@ -534,7 +535,8 @@ class LienKetDaoTaoService extends AppService
         $data = $spreadsheet->getActiveSheet()->toArray();
 
         $truong = explode(' - ', $data[8][1]);
-        $id_truong = array_pop($truong);
+        $id_truong = trim(array_pop($truong));
+
 
         $csCaodang =  $this->repository->getLkDaoTaoCsCaoDang($id_truong);
         $csTrungCap =  $this->repository->getLkDaoTaoCsTrungCap($id_truong);
