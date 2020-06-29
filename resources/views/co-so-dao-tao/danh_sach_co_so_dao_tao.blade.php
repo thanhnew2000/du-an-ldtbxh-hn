@@ -122,20 +122,24 @@
                         <td>{{$csdt->dia_chi}}</td>
                         <td>
                             <div class="d-flex">
-                                @can('xem_chi_tiet_co_so_dao_tao')
+                                
                                 <div>
+                                    @can('xem_chi_tiet_co_so_dao_tao')
                                     <a href="{{route('csdt.chi-tiet', ['id'=> $csdt->id])}}"
                                         class="btn btn-info btn-sm mr-3">Chi
                                         tiết</a>
+                                    @endcan
                                 </div>
-                                @endcan
-                                @can('cap_nhat_co_so_dao_tao')
+                               
+                               
                                 <div>
+                                    @can('cap_nhat_co_so_dao_tao')
                                     <a href="{{route('csdt.cap-nhat', ['id'=> $csdt->id])}}"
                                         class="btn btn-primary btn-sm">Cập
                                         nhật</a>
+                                    @endcan
                                 </div>
-                                @endcan
+                                
                             </div>
                         </td>
                     </tr>

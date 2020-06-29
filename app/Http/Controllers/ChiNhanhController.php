@@ -37,6 +37,7 @@ class ChiNhanhController extends Controller
 
     public function themchinhanh(Request $request)
     {
+        $params = [];
         if(isset($request->co_so_id)){
             $params['co_so_id'] = $request->co_so_id;
         }

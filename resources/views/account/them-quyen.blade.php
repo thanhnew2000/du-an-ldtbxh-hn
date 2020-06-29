@@ -37,10 +37,7 @@
                 <div class="m-portlet__body">
                     <h4>Quản lý tài khoản</h4>
                     <label class="m-checkbox m-checkbox--air m-checkbox--state-brand mt-4">
-                        <input
-                            type="checkbox"
-                            onclick="checkbox([{!! implode(',', array_keys(config('permissions_setting.quan_ly_tai_khoan'))) !!}], this)"
-                            id="ql_tk_check_all">Chọn/Hủy tất cả
+                        <input type="checkbox">Chọn/Hủy tất cả
                         <span></span>
                     </label>
                 </div>
@@ -51,12 +48,7 @@
                     @foreach (config('permissions_setting.quan_ly_tai_khoan') as $key=> $item)
                     <div class="p-2 bd-highlight">
                         <label class="m-checkbox m-checkbox--air m-checkbox--state-brand">
-                            <input
-                                type="checkbox"
-                                class="chkboxname"
-                                value="{{ $key }}"
-                                id="cb_permission_{{ $key }}"
-                                name="permissions[]">{{$item}}
+                            <input type="checkbox"  value="{{ $key }}" name="permissions[]">{{$item}}
                             <span></span>
                         </label>
                     </div>
@@ -66,7 +58,7 @@
             <div class="m-portlet__body">
                 <h4>Quản lý cơ sở đào tạo</h4>
                 <label class="m-checkbox m-checkbox--air m-checkbox--state-brand mt-4">
-                    <input type="checkbox" id="checkboxAll1">Chọn/Hủy tất cả
+                    <input type="checkbox">Chọn/Hủy tất cả
                     <span></span>
                 </label>
             </div>
@@ -103,7 +95,7 @@
 
                 <h4>Quản lý ngành nghề</h4>
                 <label class="m-checkbox m-checkbox--air m-checkbox--state-brand mt-4">
-                    <input type="checkbox" id="checkboxAll">Chọn/Hủy tất cả
+                    <input type="checkbox" >Chọn/Hủy tất cả
                     <span></span>
                 </label>
             </div>
@@ -122,7 +114,7 @@
             <div class="m-portlet__body">
                 <h4>Quản lý nhân sự</h4>
                 <label class="m-checkbox m-checkbox--air m-checkbox--state-brand mt-4">
-                    <input type="checkbox" id="checkboxAll">Chọn/Hủy tất cả
+                    <input type="checkbox" >Chọn/Hủy tất cả
                     <span></span>
                 </label>
             </div>
@@ -171,7 +163,7 @@
             <div class="m-portlet__body">
                 <h4>Quản lý sinh viên đang theo học</h4>
                 <label class="m-checkbox m-checkbox--air m-checkbox--state-brand mt-4">
-                    <input type="checkbox" id="checkboxAll">Chọn/Hủy tất cả
+                    <input type="checkbox">Chọn/Hủy tất cả
                     <span></span>
                 </label>
             </div>
@@ -192,7 +184,7 @@
             <div class="m-portlet__body">
                 <h4>Quản lý chính sách</h4>
                 <label class="m-checkbox m-checkbox--air m-checkbox--state-brand mt-4">
-                    <input type="checkbox" id="checkboxAll">Chọn/Hủy tất cả
+                    <input type="checkbox">Chọn/Hủy tất cả
                     <span></span>
                 </label>
             </div>
@@ -213,7 +205,7 @@
             <div class="m-portlet__body">
                 <h4>Quản lý kết quả tuyển sinh</h4>
                 <label class="m-checkbox m-checkbox--air m-checkbox--state-brand mt-4">
-                    <input type="checkbox" id="checkboxAll">Chọn/Hủy tất cả
+                    <input type="checkbox">Chọn/Hủy tất cả
                     <span></span>
                 </label>
             </div>
@@ -234,7 +226,7 @@
             <div class="m-portlet__body">
                 <h4>Quản lý kết quả tốt nghiệp</h4>
                 <label class="m-checkbox m-checkbox--air m-checkbox--state-brand mt-4">
-                    <input type="checkbox" id="checkboxAll">Chọn/Hủy tất cả
+                    <input type="checkbox">Chọn/Hủy tất cả
                     <span></span>
                 </label>
             </div>
@@ -254,7 +246,7 @@
 
             <div class="m-portlet__body">
                 <label class="m-checkbox m-checkbox--air m-checkbox--state-brand mt-4">
-                    <input type="checkbox" id="checkboxAll">Chọn/Hủy tất cả
+                    <input type="checkbox">Chọn/Hủy tất cả
                     <span></span>
                 </label>
             </div>
@@ -275,7 +267,7 @@
             <div class="m-portlet__body">
                 <h4>Quản lý xây dựng chương trình giáo trình</h4>
                 <label class="m-checkbox m-checkbox--air m-checkbox--state-brand mt-4">
-                    <input type="checkbox" id="checkboxAll">Chọn/Hủy tất cả
+                    <input type="checkbox">Chọn/Hủy tất cả
                     <span></span>
                 </label>
             </div>
@@ -296,7 +288,7 @@
             <div class="m-portlet__body">
                 <h4>Quản lý đào tạo nghề</h4>
                 <label class="m-checkbox m-checkbox--air m-checkbox--state-brand mt-4">
-                    <input type="checkbox" id="checkboxAll">Chọn/Hủy tất cả
+                    <input type="checkbox">Chọn/Hủy tất cả
                     <span></span>
                 </label>
             </div>
@@ -362,7 +354,7 @@
             <div class="m-portlet__body">
                 <h4>Quản lý liên kết</h4>
                 <label class="m-checkbox m-checkbox--air m-checkbox--state-brand mt-4">
-                    <input type="checkbox" id="checkboxAll">Chọn/Hủy tất cả
+                    <input type="checkbox">Chọn/Hủy tất cả
                     <span></span>
                 </label>
             </div>
@@ -411,7 +403,7 @@
             <div class="m-portlet__body">
                 <h4>Quản lý giáo dục nghề nghiệp</h4>
                 <label class="m-checkbox m-checkbox--air m-checkbox--state-brand mt-4">
-                    <input type="checkbox" id="checkboxAll">Chọn/Hủy tất cả
+                    <input type="checkbox">Chọn/Hủy tất cả
                     <span></span>
                 </label>
             </div>
@@ -432,7 +424,7 @@
             <div class="m-portlet__body">
                 <h4>Quản lý tổng hợp, hợp tác quốc tế</h4>
                 <label class="m-checkbox m-checkbox--air m-checkbox--state-brand mt-4">
-                    <input type="checkbox" id="checkboxAll">Chọn/Hủy tất cả
+                    <input type="checkbox">Chọn/Hủy tất cả
                     <span></span>
                 </label>
             </div>
@@ -457,32 +449,4 @@
     </div>
     </form>
 </div>
-@endsection
-@section('script')
-    <script src="jquery.min.js"></script>
-    {{-- <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script> --}}
-
-    <script type="text/javascript">
-    //    $("#checkboxAll").change(function(){
-    //        $(".chkboxname").prop("checked", $(this).prop("checked"))
-    //    })
-    //    $(".chkboxname").change(function(){
-    //        if($(this).prop("checked")==false){
-    //            $("#checkboxAll").prop("checked", false)
-    //        }
-    //        if($(".chkboxname:checked").length == $(".chkboxname").length){
-    //            $("#checkboxAll").prop("checked", true)
-    //        }
-    //    })
-        function checkbox(listId, element) {
-            const isCheck = $(element).prop("checked");
-            listId.forEach(element => {
-                if (isCheck) {
-                    $("#cb_permission_" + element).attr('checked', isCheck);
-                } else {
-                    $("#cb_permission_" + element).removeAttr('checked').trigger('change');
-                }
-            })
-        }
-    </script>
 @endsection

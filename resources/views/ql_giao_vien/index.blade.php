@@ -17,12 +17,12 @@
                     class="fa fa-upload" aria-hidden="true"></i>
                 Tải lên file Excel</a>
         </div>
+        @can('them_moi_quan_ly_giao_vien')
         <div class="col-lg-8 " style="text-align: right">
-            @can('them_moi_quan_ly_giao_vien')
             <a href="{{ route('ql-giao-vien.create') }}"><button type="button" class="btn btn-secondary">Thêm
                     mới</button></a>
-            @endcan
         </div>
+        @endcan
     </div>
 
     @include('layouts.partials.table', [

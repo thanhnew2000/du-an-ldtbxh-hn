@@ -47,7 +47,6 @@
                     @endif
                     @endcan
 
-
                     @if (isset($route_show) && !empty($route_show))
 
                     <td>
@@ -55,10 +54,6 @@
                     </td>
 
                     @endif
-
-
-
-
                 </tr>
                 @endforeach
             </tbody>

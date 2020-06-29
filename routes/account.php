@@ -5,9 +5,11 @@ use Illuminate\Support\Facades\Route;
 
 
 //2020-06-19 - CuongNC - UpdateMiddleware
-Route::group(['middleware' => ['permission:them_tai_khoan|sua_tai_khoan']], function () {
+Route::group(['middleware' => ['permission:them_tai_khoan|sua_tai_khoan|vo_hieu_hoa_tai_khoan']], function () {
     Route::get('/quan-ly-tai-khoan', 'AccountController@index')->name('account.list');
     Route::post('/edit-status', 'AccountController@editstatus')->name('account.editstatus');
+    Route::get('/tao-tai-khoan', 'UserController@getdangkytaikhoan')->name("account.tao-tk");
+    Route::post('/tao-tai-khoan', 'UserController@dangkytaikhoan');
     Route::get('/create', 'AccountController@create')->name('account.create');
     Route::post('/store', 'AccountController@store')->name('account.store');
     Route::get('/edit/{id}', 'AccountController@edit')->name('account.edit');
@@ -28,8 +30,7 @@ Route::get('/cap-nhat-thong-tin-ca-nhan', 'AccountController@capnhatthongtincanh
 Route::get('/doi-mat-khau', 'AccountController@thaydoimatkhau');
 
 // 2020-05-30 - thienth - chuyển tạo tk sang nhóm account
-Route::get('/tao-tai-khoan', 'UserController@getdangkytaikhoan')->name("account.tao-tk");
-Route::post('/tao-tai-khoan', 'UserController@dangkytaikhoan');
+
 
 
 // 2020-05-31 - phucnv - làm thêm chắc năng search và chắc ten
