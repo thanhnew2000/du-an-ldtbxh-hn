@@ -19,6 +19,10 @@
     th {
         text-align: center;
     }
+
+    .error {
+        color: red;
+    }
 </style>
 <link href="{!! asset('/css/main.css') !!}" rel="stylesheet" type="text/css" />
 @endsection
@@ -27,7 +31,7 @@
 <div class="m-content container-fluid">
     <form
         action="{{route('xuatbc.post-sua-ket-qua-tot-nghiep-voi-doanh-nghiep', ['id' => $data->id, 'co_so_id' => $data->co_so_id])}}"
-        method="post">
+        method="post" id="validate-form-update" novalidate>
         @csrf
         <div class="m-portlet">
             <div class="m-portlet__head">
@@ -49,7 +53,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Tên cơ sở đào tạo</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control " name="ten_co_so" id="ten_co_so" disabled>
+                                    <select class="form-control  " name="ten_co_so" id="ten_co_so" disabled>
                                         <option value="">{{$data->ten}}</option>
                                     </select>
                                 </div>
@@ -59,7 +63,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Năm</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control " name="nam" id="nam" disabled>
+                                    <select class="form-control  " name="nam" id="nam" disabled>
                                         <option value="">{{$data->nam}}</option>
 
                                     </select>
@@ -82,7 +86,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Đợt</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control " name="dot" id="dot" disabled>
+                                    <select class="form-control  " name="dot" id="dot" disabled>
                                         <option value="">{{$data->dot}}</option>
 
                                     </select>
@@ -122,32 +126,81 @@
                                 <tbody>
                                     <tr>
                                         <td>Số HSSV nhập học đầu khóa</td>
-                                        <td><input type="number" min="0" step="1" name="nhap_hoc_dau_tot_nghiep_CD"
-                                                class="form-control" value="{{$data->nhap_hoc_dau_tot_nghiep_CD}}"></td>
+                                        <td><input type="number" min="0" name="nhap_hoc_dau_tot_nghiep_CD"
+                                                class="form-control name-field"
+                                                value="{{$data->nhap_hoc_dau_tot_nghiep_CD}}">@error('nhap_hoc_dau_tot_nghiep_CD')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror</td>
 
-                                        <td><input type="number" min="0" step="1" name="nhap_hoc_dau_tot_nghiep_TC"
-                                                class="form-control" value="{{$data->nhap_hoc_dau_tot_nghiep_TC}}"></td>
+                                        <td><input type="number" min="0" name="nhap_hoc_dau_tot_nghiep_TC"
+                                                class="form-control name-field"
+                                                value="{{$data->nhap_hoc_dau_tot_nghiep_TC}}">@error('nhap_hoc_dau_tot_nghiep_TC')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror</td>
 
-                                        <td><input type="number" min="0" step="1" name="nhap_hoc_dau_tot_nghiep_SC"
-                                                class="form-control" value="{{$data->nhap_hoc_dau_tot_nghiep_SC}}"></td>
+                                        <td><input type="number" min="0" name="nhap_hoc_dau_tot_nghiep_SC"
+                                                class="form-control name-field"
+                                                value="{{$data->nhap_hoc_dau_tot_nghiep_SC}}">@error('nhap_hoc_dau_tot_nghiep_SC')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror</td>
 
-                                        <td><input type="number" min="0" step="1"
-                                                name="duoi_3_thang_tot_nghiep_nhap_hoc_dau" class="form-control"
-                                                value="{{$data->duoi_3_thang_tot_nghiep_nhap_hoc_dau}}"></td>
+                                        <td><input type="number" min="0" name="duoi_3_thang_tot_nghiep_nhap_hoc_dau"
+                                                class="form-control name-field"
+                                                value="{{$data->duoi_3_thang_tot_nghiep_nhap_hoc_dau}}">@error('duoi_3_thang_tot_nghiep_nhap_hoc_dau')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror</td>
                                     </tr>
+                                    <td>
+                                    <td><label id="nhap_hoc_dau_tot_nghiep_CD-error" class="error"
+                                            for="nhap_hoc_dau_tot_nghiep_CD"></label></td>
+                                    <td><label id="nhap_hoc_dau_tot_nghiep_TC-error" class="error"
+                                            for="nhap_hoc_dau_tot_nghiep_TC"></label></td>
+                                    <td><label id="nhap_hoc_dau_tot_nghiep_SC-error" class="error"
+                                            for="nhap_hoc_dau_tot_nghiep_SC"></label></td>
+                                    <td><label id="duoi_3_thang_tot_nghiep_nhap_hoc_dau-error" class="error"
+                                            for="duoi_3_thang_tot_nghiep_nhap_hoc_dau"></label></td>
+                                    </td>
                                     <tr>
                                         <td>Số HSSV tốt nghiệp</td>
-                                        <td><input type="number" min="0" step="1" name="tot_nghiep_CD"
-                                                class="form-control" value="{{$data->tot_nghiep_CD}}"></td>
+                                        <td><input type="number" min="0" name="tot_nghiep_CD"
+                                                class="form-control name-field" value="{{$data->tot_nghiep_CD}}">
+                                            @error('tot_nghiep_CD')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </td>
 
-                                        <td><input type="number" min="0" step="1" name="tot_nghiep_TC"
-                                                class="form-control" value="{{$data->tot_nghiep_TC}}"></td>
+                                        <td><input type="number" min="0" name="tot_nghiep_TC"
+                                                class="form-control name-field" value="{{$data->tot_nghiep_TC}}">
+                                            @error('tot_nghiep_TC')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </td>
 
-                                        <td><input type="number" min="0" step="1" name="tot_nghiep_SC"
-                                                class="form-control" value="{{$data->tot_nghiep_SC}}"></td>
+                                        <td><input type="number" min="0" name="tot_nghiep_SC"
+                                                class="form-control name-field" value="{{$data->tot_nghiep_SC}}">
+                                            @error('tot_nghiep_SC')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </td>
 
-                                        <td><input type="number" min="0" step="1" name="duoi_3_thang_tot_nghiep"
-                                                class="form-control" value="{{$data->duoi_3_thang_tot_nghiep}}"></td>
+                                        <td><input type="number" min="0" name="duoi_3_thang_tot_nghiep"
+                                                class="form-control name-field"
+                                                value="{{$data->duoi_3_thang_tot_nghiep}}">
+                                            @error('duoi_3_thang_tot_nghiep')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><label id="tot_nghiep_CD-error" class="error" for="tot_nghiep_CD"></label>
+                                        </td>
+                                        <td><label id="tot_nghiep_TC-error" class="error" for="tot_nghiep_TC"></label>
+                                        </td>
+                                        <td><label id="tot_nghiep_SC-error" class="error" for="tot_nghiep_SC"></label>
+                                        </td>
+                                        <td><label id="duoi_3_thang_tot_nghiep-error" class="error"
+                                                for="duoi_3_thang_tot_nghiep"></label></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -181,14 +234,24 @@
                                     </tr>
                                     <tr>
                                         <td>Số HSSV được doanh nghiệp tuyển dụng sau tốt nghiệp</td>
-                                        <td><input type="number" min="0" step="1" name="so_HSSV_duoc_tuyen_dung"
-                                                class="form-control" value="{{$data->so_HSSV_duoc_tuyen_dung}}"></td>
+                                        <td><input type="number" min="0" name="so_HSSV_duoc_tuyen_dung"
+                                                class="form-control name-field"
+                                                value="{{$data->so_HSSV_duoc_tuyen_dung}}">
+                                            @error('so_HSSV_duoc_tuyen_dung')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </td>
 
                                     </tr>
                                     <tr>
                                         <td>Mức lương doanh nghiệp trả cho HSSV</td>
-                                        <td><input type="number" min="0" step="1" name="muc_luong_doanh_nghiep_tra"
-                                                class="form-control" value="{{$data->muc_luong_doanh_nghiep_tra}}"></td>
+                                        <td><input type="number" min="0" name="muc_luong_doanh_nghiep_tra"
+                                                class="form-control name-field"
+                                                value="{{$data->muc_luong_doanh_nghiep_tra}}">
+                                            @error('muc_luong_doanh_nghiep_tra')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -213,8 +276,12 @@
                                 <tbody>
                                     <tr>
                                         <td>Tổng số</td>
-                                        <td><input type="number" min="0" step="1" name="tong_HSSV_tot_nghiep"
-                                            value="{{$data->tong_HSSV_tot_nghiep}}"  class="form-control"></td>
+                                        <td><input type="number" min="0" name="tong_HSSV_tot_nghiep"
+                                                class="form-control name-field" value="{{$data->tong_HSSV_tot_nghiep}}">
+                                            @error('tong_HSSV_tot_nghiep')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -225,23 +292,16 @@
         </div>
         <!-- End kết quả giải quyết việc làm  -->
 
-
-        @if ($errors->any())
-        <ul class="col-md-10 mx-auto">
-            @foreach ($errors->all() as $error)
-            <li class="thongbao " style="color: red;">
-                {{ $error }}
-            </li>
-            @endforeach
-        </ul>
-        @endif
         <div class="row mt-4" style="float: right">
             <div class="col-md-12">
                 <a style="color: white;"
                     href="{{route('xuatbc.chi-tiet-ket-qua-tot-nghiep-voi-doanh-nghiep', ['co_so_id' => $data->co_so_id])}}"><button
                         type="button" class="btn btn-danger mr-5">Hủy</button></a>
-                <button type="submit" class="btn btn-primary">Chỉnh sửa</button>
+                @if ($data->trang_thai >= 3)
 
+                @else
+                <button type="submit" class="btn btn-primary">Chỉnh sửa</button>
+                @endif
             </div>
         </div>
     </form>
@@ -260,4 +320,5 @@ $(document).ready(function(){
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="{!! asset('tuyensinh/js/tuyensinh.js') !!}"></script>
 <script src="{!! asset('chinh_sach_sinh_vien/validate-number.js') !!}"></script>
+<script src="{!! asset('lien_ket_dao_tao/validate-update-lkdt.js') !!}"></script>
 @endsection

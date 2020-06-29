@@ -1,14 +1,29 @@
 <?php
+
 namespace App\Repositories;
+
 use Illuminate\Support\Facades\DB;
 use App\Repositories\BaseRepository;
+use App\Models\DaoTaoNguoiKhuyetTat;
 use Carbon\Carbon;
+
 class DaoTaoNgheChoNguoiKhuyetTatRepository extends BaseRepository implements DaoTaoNgheChoNguoiKhuyetTatRepositoryInterface {
+
+	// thanhnv 6/26/2020 model
+	protected $model;
+
+	public function __construct(DaoTaoNguoiKhuyetTat $model)
+	{
+		parent::__construct();
+		$this->model = $model;
+    }
+
 
 	//lay model
 	public function getTable(){
 		return 'ket_qua_dao_tao_nguoi_khuyet_tat';
-    }
+	}
+
     public function index($params, $limit)
     {
         $query = $this->table
@@ -29,34 +44,34 @@ class DaoTaoNgheChoNguoiKhuyetTatRepository extends BaseRepository implements Da
             'co_so_dao_tao.ten',
             'loai_hinh_co_so.loai_hinh_co_so',
             'devvn_quanhuyen.name as quan_huyen',
-            'devvn_xaphuongthitran.name as xa_phuong',	
+            'devvn_xaphuongthitran.name as xa_phuong',
         ])
         ->where('ket_qua_dao_tao_nguoi_khuyet_tat.nam', $params['nam'])
         ->where('ket_qua_dao_tao_nguoi_khuyet_tat.dot', $params['dot']);
 
-    if (isset($params['loai_hinh']) && $params['loai_hinh'] != 0) {
-        $query->where('loai_hinh_co_so.id', $params['loai_hinh']);
-    }
+		if (isset($params['loai_hinh']) && $params['loai_hinh'] != 0) {
+			$query->where('loai_hinh_co_so.id', $params['loai_hinh']);
+		}
 
-    if (isset($params['co_so_id']) && $params['co_so_id'] != null) {
-        $query->where('ket_qua_dao_tao_nguoi_khuyet_tat.co_so_id', $params['co_so_id']);
-    }
-    if (isset($params['devvn_quanhuyen']) && $params['devvn_quanhuyen'] != null) {
-        $query->where('co_so_dao_tao.maqh', $params['devvn_quanhuyen']);
-    }
-    if (isset($params['devvn_xaphuongthitran']) && $params['devvn_xaphuongthitran'] != null) {
-        $query->where('co_so_dao_tao.xaid', $params['devvn_xaphuongthitran']);
-    }
-    if (isset($params['nghe_cap_2']) && $params['nghe_cap_2'] != null) {
-        $query->where('ket_qua_dao_tao_nguoi_khuyet_tat.nghe_id', 'like', $params['nghe_cap_2'].'%');
-	}
-	if (isset($params['nghe_cap_3']) && $params['nghe_cap_3'] != null) {
-        $query->where('ket_qua_dao_tao_nguoi_khuyet_tat.nghe_id', 'like', $params['nghe_cap_3'].'%');
-	}
-	if (isset($params['nghe_cap_4']) && $params['nghe_cap_4'] != null) {
-        $query->whereIn('ket_qua_dao_tao_nguoi_khuyet_tat.nghe_id', $params['nghe_cap_4']);
-    }
-    return $query->groupBy('co_so_id')->paginate($limit);
+		if (isset($params['co_so_id']) && $params['co_so_id'] != null) {
+			$query->where('ket_qua_dao_tao_nguoi_khuyet_tat.co_so_id', $params['co_so_id']);
+		}
+		if (isset($params['devvn_quanhuyen']) && $params['devvn_quanhuyen'] != null) {
+			$query->where('co_so_dao_tao.maqh', $params['devvn_quanhuyen']);
+		}
+		if (isset($params['devvn_xaphuongthitran']) && $params['devvn_xaphuongthitran'] != null) {
+			$query->where('co_so_dao_tao.xaid', $params['devvn_xaphuongthitran']);
+		}
+		if (isset($params['nghe_cap_2']) && $params['nghe_cap_2'] != null) {
+			$query->where('ket_qua_dao_tao_nguoi_khuyet_tat.nghe_id', 'like', $params['nghe_cap_2'].'%');
+		}
+		if (isset($params['nghe_cap_3']) && $params['nghe_cap_3'] != null) {
+			$query->where('ket_qua_dao_tao_nguoi_khuyet_tat.nghe_id', 'like', $params['nghe_cap_3'].'%');
+		}
+		if (isset($params['nghe_cap_4']) && $params['nghe_cap_4'] != null) {
+			$query->whereIn('ket_qua_dao_tao_nguoi_khuyet_tat.nghe_id', $params['nghe_cap_4']);
+		}
+		return $query->groupBy('co_so_id')->paginate($limit);
     }
 
     public function getTenCoSoDaoTao()
@@ -70,7 +85,7 @@ class DaoTaoNgheChoNguoiKhuyetTatRepository extends BaseRepository implements Da
 	}
 
 	public function getXaPhuongTheoQuanHuyen($id)
-	{	
+	{
 		if($id==0){
 			$data = DB::table('devvn_xaphuongthitran')
 			->select('devvn_xaphuongthitran.xaid', 'devvn_xaphuongthitran.name')->get();
@@ -105,7 +120,7 @@ class DaoTaoNgheChoNguoiKhuyetTatRepository extends BaseRepository implements Da
 		->first();
 		return $data;
     }
-    
+
     public function getChiTietDaoTaoNgheChoNguoiKhuyetTat($coSoId,$limit,$queryData)
 	{
 		$data = $this->table
@@ -117,12 +132,12 @@ class DaoTaoNgheChoNguoiKhuyetTatRepository extends BaseRepository implements Da
             ->join('devvn_xaphuongthitran', 'co_so_dao_tao.xaid', '=', 'devvn_xaphuongthitran.xaid')
 			->select(
 						'ket_qua_dao_tao_nguoi_khuyet_tat.*',
-						'nganh_nghe.ten_nganh_nghe',
+						'nganh_nghe.ten_nganh_nghe'
 					);
-			
+
 		if($queryData['nam']!= null){
 			$data->where('ket_qua_dao_tao_nguoi_khuyet_tat.nam', $queryData['nam']);
-		}	
+		}
 		if($queryData['dot']!=null){
 			$data->where('ket_qua_dao_tao_nguoi_khuyet_tat.dot', $queryData['dot']);
 		}
@@ -158,10 +173,10 @@ class DaoTaoNgheChoNguoiKhuyetTatRepository extends BaseRepository implements Da
 			}
 			return $kiem_tra;
 	}
+
 	public function store($getdata)
 	{
-		$result  = $this->table->insert($getdata);
-        return $result;
+		return $this->model->create($getdata);
 	}
 
 	public function getKhuyetTatCsNamDotNoJoin($id_truong,$year,$dot){
@@ -181,5 +196,12 @@ class DaoTaoNgheChoNguoiKhuyetTatRepository extends BaseRepository implements Da
 		return $data;
 	}
 
+	// thanhnv 6/26/2020 sửa model create update
+	public function createDtNguoiKhuyetTat($arrayData){
+		return $this->model->insert($arrayData);
+	}
+	public function updateDtNguoiKhuyetTat($key,$arrayData){
+		return $this->model->where('id',$key)->update($arrayData);
+	}
 }
  ?>

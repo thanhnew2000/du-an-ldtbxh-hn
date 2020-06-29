@@ -416,7 +416,7 @@
 </div>
 @endsection
 @section('script')
-<script src="{!! asset('js/hop-tac-quoc-te/validate-update-htqt.js') !!}"></script>
+<script src="{!! asset('hop-tac-quoc-te/validate-update-htqt.js') !!}"></script>
 @if (session('success'))
 <script>
     Swal.fire({

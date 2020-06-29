@@ -74,6 +74,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Năm</label>
                                 <div class="col-lg-8">
+
                                     <select class="form-control select2" name="nam" id="nam">
                                         <option value="">Chọn</option>
                                         @foreach (config('common.nam.list') as $item)
@@ -82,7 +83,6 @@
                                             {{$item}}
                                         </option>
                                         @endforeach
-
                                     </select>
                                 </div>
                             </div>
@@ -93,6 +93,7 @@
                                 <div class="col-lg-8">
                                     <select class="form-control select2" name="dot" id="dot">
                                         <option value="" selected disabled>Chọn</option>
+
                                         <option @if (isset($params['dot']))
                                             {{( $params['dot'] ==  1 ) ? 'selected' : ''}} @endif value="1">Đợt 1
                                         </option>
@@ -100,7 +101,6 @@
                                             {{( $params['dot'] ==  2 ) ? 'selected' : ''}} @endif value="2">Đợt 2
                                         </option>
                                     </select>
-
                                 </div>
                             </div>
                         </div>
@@ -154,7 +154,7 @@
             </a>
         </div>
         <div class="col-lg-2">
-            <a href="javascript:" data-toggle="modal" id="upImport-file" data-target="#exampleModalImport"><i
+            <a href="javascript:" data-toggle="modal" id="upImport-file" data-target="#moDalImport"><i
                     class="fa fa-upload" aria-hidden="true"></i>
                 Tải lên file Excel</a>
         </div>
@@ -164,18 +164,22 @@
                 Xuất dữ liệu ra Excel</a>
         </div>
         <div class="col-lg-6 " style="text-align: right">
+            @can('them_moi_tong_hop_thuc_hien_chinh_sach_cho_sv')
             <a href="{{route('xuatbc.them-chinh-sach-sinh-vien')}}"><button type="button" class="btn btn-secondary">Thêm
                     mới</button></a>
+            @endcan
         </div>
     </div>
-    <div class="m-portlet">
-        <div class="m-portlet__body">
+    <div class="m-portlet pr-5">
+
+        <div class="m-portlet__body table-responsive">
 
             @if (session('thongbao'))
             <div class="alert alert-success" role="alert">
                 <strong>{{session('thongbao')}}</strong>
             </div>
             @endif
+
             <div class="col-12 form-group m-form__group d-flex justify-content-end">
                 <label class="col-lg-2 col-form-label">Kích thước:</label>
                 <div class="col-lg-2">
@@ -206,8 +210,9 @@
                         <th rowspan="2">Tổng kinh phí </th>
                         <th rowspan="2">Ghi chú </th>
                         <th rowspan="2">Trạng thái</th>
+                        @can('cap_nhat_tong_hop_thuc_hien_chinh_sach_cho_sv')
                         <th rowspan="2">Thao tác</th>
-
+                        @endcan
                     </tr>
                     <tr class="pt-3 row2">
                         <th>Cao đẳng</th>
@@ -237,12 +242,14 @@
                         <td>{{number_format($item->kinh_phi,'0',',','.')}} </td>
                         <td>{{$item->ghi_chu}}</td>
                         <td>{{$item->ten_trang_thai}}</td>
+                        @can('cap_nhat_tong_hop_thuc_hien_chinh_sach_cho_sv')
                         <td>
                             @if ($item->trang_thai<3) <a
                                 href="{{route('xuatbc.sua-chinh-sach-sinh-vien', ['id' => $item->id])}}">
                                 Cập nhật</a>
                                 @endif
                         </td>
+                        @endcan
                     </tr>
 
                     @endforeach
@@ -262,7 +269,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Hãy chọn trường</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button"  id="closeFileBieuMau" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -275,23 +282,23 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                        <button type="submit" onclick="clickDownloadTemplate()" class="btn btn-primary">Tải</a>
+                        <button type="submit" onclick="closeModal('closeFileBieuMau')" class="btn btn-primary">Tải</a>
                     </div>
                 </div>
             </div>
         </div>
     </form>
 
-    <form action="{{route('import-error-chinh-sach-sinh-vien')}}" id="my_form_kqts_import" method="post"
+    <form action="{{route('import-error-chinh-sach-sinh-vien')}}" id="form_import_file" method="post"
         enctype="multipart/form-data">
         @csrf
-        <div class="modal fade " id="exampleModalImport" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        <div class="modal fade " id="moDalImport" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Import file</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" id="closeImportFile" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -305,10 +312,6 @@
                                 @foreach (config('common.nam.list') as $nam)
                                 <option value="{{$nam}}">{{$nam}}</option>
                                 @endforeach
-                                {{-- <option value="2019">2019</option>
-                              <option value="2018">2018</option>
-                              <option value="2017">2017</option>
-                              <option value="2016">2016</option> --}}
                             </select>
                         </div>
 
@@ -325,7 +328,7 @@
                         <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoi">
                         </p>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                        <button type="button" class="btn btn-primary" id="submitTai">Tải</a>
+                        <button type="button"    class="btn btn-primary" id="submitTai">Tải</a>
                             <button type="submit" hidden class="btn btn-primary" id="submitTaiok">Tải ok</a>
                     </div>
                 </div>
@@ -341,7 +344,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Xuất dữ liệu</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" id='closeXuatDuLieu' class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -375,7 +378,7 @@
                         <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoiXuat">
                         </p>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                        <button type="submit" class="btn btn-primary" id="submitXuatData">Tải</a>
+                        <button type="submit" onclick="closeModal('closeXuatDuLieu')" class="btn btn-primary" id="submitXuatData">Tải</a>
                     </div>
                 </div>
             </div>
@@ -385,103 +388,14 @@
 
 @endsection
 @section('script')
-
-{{-- thanhnv script import export --}}
+{{-- thanhnv update change to service 6/25/2020 --}}
 <script>
-    $("#file_import_id").change(function() {
-    var fileExtension = ['xlsx','xls'];
-    if($("#file_import_id")[0].files.length === 0){
-        $('#echoLoi').text('Hãy nhập file excel');
-    }else if($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
-        $message = "Hãy nhập file excel : "+fileExtension.join(', ');
-        $('#echoLoi').text($message);
-        return false;
-    }else{
-        $('#echoLoi').text('');
-}
-});
-
-
-$("#submitTai").click(function(event){
-var fileExtension = ['xlsx', 'xls'];
-   if($("#file_import_id")[0].files.length === 0){
-         console.log('không có file');    
-   }else if($.inArray($('#file_import_id').val().split('.').pop().toLowerCase(), fileExtension) == -1) {
-         console.log('chưa file không đúng định dạng');
-   }else{
-    $('#exampleModalImport').modal('hide');
-    $('.loading').css('display','block');
-    var formData = new FormData();
-    var fileExcel = document.querySelector('#file_import_id');
-    formData.append("file", fileExcel.files[0]);
-    formData.append("dot", $('#dot_id').val());
-    formData.append("nam", $('#nam_id').val());
-
-    axios.post("{{route('import-chinh-sach-sinh-vien')}}", formData,{
-        headers: {
-                'Content-Type': 'multipart/form-data',
-            }
-        }).then(function (response) {
-            console.log(response)
-            if(response.data == 'ok'){
-                $('.loading').css('display','none');
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        title: 'Cập nhập thành công',
-                        showConfirmButton: false,
-                        timer: 1700
-                    })
-                window.location.reload();
-                console.log('Đã insert vào database');
-            }else if(response.data == 'problem'){
-                $('.loading').css('display','none');
-                console.log('Có vấn đề về thông tin muốn nhập');
-                Swal.fire({
-                    title: 'Có vấn đề về thông tin muốn nhập !',
-                    // text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    confirmButtonColor: '#3085d6',
-                    confirmButtonText: 'Xác nhận'
-                    }).then((result) => {
-                    if (result.value) {  
-                        window.location.reload();
-                    }else{
-                        window.location.reload();
-                    }
-                    })
-            }else{
-                $('.loading').css('display','none');
-                $('#submitTaiok').trigger('click');
-                $('#my_form_kqts_import')[0].reset();
-            }
-
-        }).catch(function (error) {
-          console.log(error);
-          $('.loading').css('display','none');
-          Swal.fire({
-                    title: 'Lỗi về file muốn nhập !',
-                    // text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    confirmButtonColor: '#3085d6',
-                    confirmButtonText: 'Xác nhận'
-                    }).then((result) => {
-                    if (result.value) {  
-                        window.location.reload();
-                    }else{
-                        window.location.reload();
-                    }
-                    })
-        });
-    }   
-});
-
-function clickDownloadTemplate(){
-        $('#exampleModal').modal('hide');
-}
+    var routeImport = "{{route('import-chinh-sach-sinh-vien')}}";
 </script>
+<script src="{!! asset('excel-js/js-form.js') !!}"></script>
+{{-- end --}}
 
-<script src="{{ asset('js/chinh_sach_sinh_vien/chinh-sach-sinh-vien.js') }}"></script>
+<script src="{{ asset('chinh_sach_sinh_vien/chinh_sach_sinh_vien.js') }}"></script>
 <script type="text/javascript">
     $(document).ready(function() {
     $('.select2').select2();
@@ -498,5 +412,15 @@ $("#page-size").change(function() {
 });
 </script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
-
+@if (session('thongbao_edit'))
+<script>
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Cập nhật thành công !',
+        showConfirmButton: false,
+        timer: 3500
+    })
+</script>
+@endif
 @endsection

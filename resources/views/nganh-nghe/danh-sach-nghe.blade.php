@@ -71,9 +71,12 @@
                     <th>Mã Nghề</th>
                     <th>Tên nghề</th>
                     <th>Số trường được cấp</th>
+                    <th>Chức năng</th>
+                    @can('them_moi_nganh_nghe')
                     <th>
                         <a href="" class="btn btn-success btn-sm">Thêm mới</a>
                     </th>
+                    @endcan
                 </thead>
                 <tbody>
                     @foreach($data as $cursor)
@@ -82,10 +85,21 @@
                         <td>{{$cursor->ten_nganh_nghe}}</td>
                         <td>{{$cursor->csdt_count}}</td>
                         <td>
+
+                            @can('xem_chi_tiet_nganh_nghe')
                             <a href="{{route('nghe.chi-tiet-nghe', ['ma_nghe' => $cursor->id])}}"
                                 class="btn btn-info btn-sm">Chi tiết</a>
-                            <a href="{{ route('nghe.cap-nhat', ['id'=> $cursor->id]) }}" class="btn btn-primary btn-sm">Cập nhật</a>
+                            @endcan
+
+                            @can('cap_nhat_nganh_nghe')
+                            <a href="{{ route('nghe.cap-nhat', ['id'=> $cursor->id]) }}"
+                                class="btn btn-primary btn-sm">Cập nhật</a>
+                            @endcan
+                            
+                            @can('xoa_nganh_nghe')
                             <a href="" class="btn btn-danger btn-sm">Xóa</a>
+                            @endcan
+
                         </td>
                     </tr>
                     @endforeach
@@ -109,7 +123,6 @@
             var reloadUrl = `${currentUrl}?bac_nghe=${bac_nghe}&keyword=${keyword}&page_size=${page_size}`;
             window.location.href = reloadUrl;
         });
-
     });
 </script>
 @endsection

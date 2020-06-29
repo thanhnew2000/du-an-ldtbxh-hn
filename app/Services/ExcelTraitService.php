@@ -45,6 +45,25 @@ trait ExcelTraitService
            }
         return $vitri;
     }
+
+    public function danhDauloaiHinhCoSo($cs_loaihinh){
+        $keyApha = 'B';
+        switch ($cs_loaihinh) {
+            case 4:
+                $keyApha = 'D';
+                break;
+            case 9:
+                $keyApha = 'F';
+                break;
+            case 14:
+                $keyApha = 'G';
+                break;
+            case 15:
+                $keyApha = 'E';
+                break;
+        }
+        return $keyApha;
+    }
     
     public function bacDaoTaoOfTruong($loaitruong){
         $loai_truong ='';
@@ -61,6 +80,21 @@ trait ExcelTraitService
         } 
       return $loai_truong;
     }
+    
+    public function errorRebBackGroud($vitri,$worksheet){
+        for($i = 0; $i < count($vitri);$i++){
+            $worksheet->getStyle($vitri[$i])
+            ->getBorders()
+            ->getAllBorders()
+            ->setBorderStyle(Border::BORDER_THIN);
+            //  màu ô
+            $worksheet->getStyle($vitri[$i])->getFill()
+            ->setFillType(Fill::FILL_SOLID)
+            ->getStartColor()->setARGB('FFFF0000');
+        }  
+    }
+
+    
 
 }
 ?>

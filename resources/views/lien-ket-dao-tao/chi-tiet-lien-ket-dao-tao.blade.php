@@ -110,6 +110,11 @@
                     </select>
                 </div>
             </div>
+            @if (session('thongbao'))
+            <div class="alert alert-success" role="alert">
+                <strong>{{session('thongbao')}}</strong>
+            </div>
+            @endif
             <table class="table table-bordered m-table  m-table--head-bg-primary">
                 <thead>
                     <tr>
@@ -117,7 +122,7 @@
                         <th scope="col 1">Năm</th>
                         <th scope="col 1">Đợt</th>
                         <th scope="col 1">Mã nghề</th>
-                        <th scope="col 1">Tên nghề nghề</th>
+                        <th scope="col 1">Tên nghề</th>
                         <th scope="col 1">Chỉ tiêu được giao</th>
                         <th scope="col 1">Thực tuyển</th>
                         <th scope="col 1">Số học sinh tốt nghiệp</th>
@@ -144,12 +149,14 @@
                         <td>{{$item->don_vi_lien_ket}}</td>
                         <td>{{$item->ghi_chu}}</td>
                         <td>{{$item->ten_trang_thai}}</td>
+                        @can('cap_nhat_tong_hop_lien_ket_lien_thong_trinh_do')
                         <td>
                             @if ($item->trang_thai<3) <a
                                 href="{{route('xuatbc.sua-lien-ket-dao-tao', ['id' => $item->id, 'bac_nghe' => $bac_nghe])}}">
                                 Cập nhật</a>
                                 @endif
                         </td>
+                        @endcan
                     </tr>
                     @endforeach
 

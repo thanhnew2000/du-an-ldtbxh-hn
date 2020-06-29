@@ -694,7 +694,7 @@
                 <a href="{{ route('xuatbc.ds-nha-giao') }}" class="btn btn-danger">Hủy</a>
          
             </div>
-            <div class="col-lg-1 ">
+            <div class="">
                 <button type="submit" class="btn btn-primary">Thêm mới</button>
             </div>
         </div>
@@ -705,7 +705,7 @@
 
 @endsection
 @section('script')
-<script src="{!! asset('js/doi-ngu-nha-giao/validate-create-doi-ngu-nha-giao.js') !!}"></script>
+<script src="{!! asset('doi-ngu-nha-giao/validate-create-doi-ngu-nha-giao.js') !!}"></script>
 @if (session('edit'))
 <script>
     Swal.fire({
@@ -722,18 +722,6 @@
                 window.location.href = '{{ route('xuatbc.sua-ds-nha-giao',['id'=> session('edit')]) }}';
             }
         })
-</script>
-@endif
-
-@if (session('success'))
-<script>
-    Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'Thêm thành công !',
-        showConfirmButton: false,
-        timer: 3500
-    })
 </script>
 @endif
 @endsection

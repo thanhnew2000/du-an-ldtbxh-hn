@@ -219,11 +219,12 @@
                         aria-hidden="true"></i>
                     Xuất dữ liệu ra Excel</a>
             </div>
-    
+        @can('them_moi_ket_qua_hoc_sinh_tot_nghiep_dao_tao_nghe_voi_doanh_nghiep')
         <div class="col-lg-6 " style="text-align: right">
-        <a href="{{ route('xuatbc.dao-tao-nghe-doanh-nghiep.create') }}"><button type="button" class="btn btn-info .bg-info">Thêm
-                    mới</button></a>
-        </div>
+            <a href="{{ route('xuatbc.dao-tao-nghe-doanh-nghiep.create') }}"><button type="button" class="btn btn-info .bg-info">Thêm
+                        mới</button></a>
+            </div>
+        @endcan
     </div>
     <div class="m-portlet">
         <div class="m-portlet__body">
@@ -263,7 +264,9 @@
                         <td>{{$item->quan_huyen}}</td>
                         <td>{{$item->xa_phuong}}</td>
                         <td>{{$item->so_HSSV_duoc_cam_ket}}</td>
-                    <td><a href="{{route('xuatbc.dao-tao-nghe-doanh-nghiep.show',['id'=>1])}}" class=".text-info">Chi tiết</a></td>
+                        @can('chi_tiet_ket_qua_hoc_sinh_tot_nghiep_dao_tao_nghe_voi_doanh_nghiep')
+                            <td><a href="{{route('xuatbc.dao-tao-nghe-doanh-nghiep.show',['id'=>1])}}" class=".text-info">Chi tiết</a></td>
+                        @endcan
                     </tr> 
                     @endforeach
                    
@@ -304,7 +307,7 @@
         </div>
     </form>
 
-    <form action="{{route('import.error-dao-tao-nghe-gan-voi-doanh-nghiep')}}" id="my_form_kqts_import" method="post"
+    <form action="{{route('import.error-dao-tao-nghe-gan-voi-doanh-nghiep')}}" id="form_import_file" method="post"
         enctype="multipart/form-data">
         @csrf
         <div class="modal fade " id="moDalImport" tabindex="-1" role="dialog" aria-labelledby="moDalLabel"
@@ -345,7 +348,7 @@
                         <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoi">
                         </p>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                        <button type="button" class="btn btn-primary" id="submitTai"  onclick="closeModal('closeImportFile')">Tải</a>
+                        <button type="button" class="btn btn-primary" id="submitTai" >Tải</a>
                             <button type="submit" hidden class="btn btn-primary" id="submitTaiok">Tải ok</a>
                     </div>
                 </div>
@@ -383,8 +386,14 @@
                                 <option value="2">2</option>
                             </select> --}}
                             <div class='input-group date datepicker' name="datepicker" >
-                                <p>From: <input type="text" class="form-control" name="dateFrom" id="datepickerFrom"></p>
-                                <p>To: <input type="text" class="form-control" name="dateTo" id="datepickerTo"></p>
+                             <p>From: <input type="text" class="form-control" name="dateFrom" id="datepickerFrom"> </p>
+                                @error('dateFrom')
+                                <div class="alert alert-danger">{{$message}}</div>
+                                @enderror
+                             <p>To: <input type="text" class="form-control" name="dateTo" id="datepickerTo"></p>
+                                @error('dateTo')
+                                    <div class="alert alert-danger">{{$message}}</div>
+                                 @enderror
                                    {{-- <span class="input-group-addon">
                                          <span class="glyphicon glyphicon-calendar">
                                          </span>
@@ -406,7 +415,7 @@
                         <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoiXuat">
                         </p>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                        <button type="submit" class="btn btn-primary" id="submitXuatData" onclick="closeModal('closeXuatDuLieu')">Tải</a>
+                        <button type="submit" class="btn btn-primary" id="submitXuatData" onclick="closeModalXuat('closeXuatDuLieu')" >Tải</a>
                     </div>
                 </div>
             </div>
@@ -417,102 +426,14 @@
 @endsection
 @section('script')
 <script src="{{ asset('js/so_lieu_tuyen_sinh/tong_hop_so_lieu.js') }}"></script>
+{{-- thanhnv update change to service 6/25/2020 --}}
 <script>
-    $(document).ready(function() {
-        $('#co_so_id').select2();
-    });
-
-// thanhnv 6/22/2020
-    function closeModal(id) {
-        $('#' + id).trigger('click');
-    }
-
-
-    $("#file_import_id").change(function() {
-        var fileExtension = ['xlsx','xls'];
-        if($("#file_import_id")[0].files.length === 0){
-            $('#echoLoi').text('Hãy nhập file excel');
-        }else if($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
-            $message = "Hãy nhập file excel : "+fileExtension.join(', ');
-            $('#echoLoi').text($message);
-            return false;
-        }else{
-            $('#echoLoi').text('');
-         }
-    });
-
-
-        $("#submitTai").click(function(event){
-        var fileExtension = ['xlsx', 'xls'];
-        if($("#file_import_id")[0].files.length === 0){
-                console.log('không có file');
-        }else if($.inArray($('#file_import_id').val().split('.').pop().toLowerCase(), fileExtension) == -1) {
-                console.log('chưa file không đúng định dạng');
-        }else{
-            $('#moDalImport').modal('hide');
-            $('.loading').css('display','block');
-            var formData = new FormData();
-            var fileExcel = document.querySelector('#file_import_id');
-            formData.append("file", fileExcel.files[0]);
-            formData.append("dot", $('#dot_id').val());
-            formData.append("nam", $('#nam_id').val());
-
-            axios.post("{{route('import-dao-tao-nghe-gan-voi-doanh-nghiep')}}", formData,{
-                headers: {
-                        'Content-Type': 'multipart/form-data',
-                    }
-                }).then(function (response) {
-                    console.log(response)
-                            if(response.data == 'ok'){
-                                $('.loading').css('display','none');
-                                    Swal.fire({
-                                        position: 'center',
-                                        icon: 'success',
-                                        title: 'Cập nhập thành công',
-                                        showConfirmButton: false,
-                                        timer: 1700
-                                    })
-                                window.location.reload();
-                                console.log('Đã insert vào database');
-                            }else if(response.data == 'exportError'){
-                                $('.loading').css('display','none');
-                                $('#submitTaiok').trigger('click');
-                                $('#my_form_kqts_import')[0].reset();
-                            }else{
-                                $('.loading').css('display','none');
-                                Swal.fire({
-                                    title: response.data.messageError,
-                                    icon: 'warning',
-                                    confirmButtonColor: '#3085d6',
-                                    confirmButtonText: 'Xác nhận'
-                                    }).then((result) => {
-                                    if (result.value) {
-                                        window.location.reload();
-                                    }else{
-                                        window.location.reload();
-                                    }
-                                    })
-                            }
-                    }).catch(function (error) {
-                    console.log(error);
-                    $('.loading').css('display','none');
-                    Swal.fire({
-                                title: 'Lỗi về file muốn nhập !',
-                                // text: "You won't be able to revert this!",
-                                icon: 'warning',
-                                confirmButtonColor: '#3085d6',
-                                confirmButtonText: 'Xác nhận'
-                                }).then((result) => {
-                                if (result.value) {
-                                    window.location.reload();
-                                }else{
-                                    window.location.reload();
-                                }
-                                })
-                    });
-                }
-        });
+    var routeImport = "{{route('import-dao-tao-nghe-gan-voi-doanh-nghiep')}}";
 </script>
+<script src="{!! asset('excel-js/js-xuat-time.js') !!}"></script>
+<script src="{!! asset('excel-js/js-form.js') !!}"></script>
+{{-- end --}}
+
 <script type="text/javascript">
     var url_tuyen_sinh_theo_loai_hinh = "{{route('csTuyenSinhTheoLoaiHinh')}}"
     var url_xa_phuong_theo_quan_huyen = "{{route('getXaPhuongTheoQuanHuyen')}}"

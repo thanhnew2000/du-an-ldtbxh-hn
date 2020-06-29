@@ -21,21 +21,43 @@ class validateUpdateLienKetDaoTao extends FormRequest
      *
      * @return array
      */
+
     public function rules()
     {
-        return [
-            'chi_tieu' => 'min:0|integer',
-            'thuc_tuyen' => 'min:0|integer',
-            'so_HSSV_tot_nghiep' => 'min:0|integer',
+        $data = $this->all();
+        unset($data['_token']);
+        unset($data['don_vi_lien_ket']);
+        unset($data['ghi_chu']);
 
-        ];
+        $getDataCheck = [];
+        foreach ($data as $item => $value) {
+            if ($value == null) {
+                $getDataCheck[$item] = 'min:0|';
+            } else {
+                $getDataCheck[$item] = 'min:0|integer|';
+            }
+        }
+        return $getDataCheck;
     }
 
     public function messages()
     {
         return [
-            'integer' => 'Vui lòng nhập số nguyên',
-            'min' => 'Số liệu nhỏ nhất là 0'
+            'min' => ':attribute không được nhỏ hơn 0',
+            'integer' => ':attribute nguyên',
         ];
+    }
+
+    public function attributes()
+    {
+        $data = $this->all();
+        unset($data['_token']);
+        unset($data['don_vi_lien_ket']);
+        unset($data['ghi_chu']);
+        $attributes = [];
+        foreach ($data as $item => $value) {
+            $attributes[$item] = "Nhập số";
+        }
+        return $attributes;
     }
 }

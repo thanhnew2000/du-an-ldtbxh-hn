@@ -424,7 +424,7 @@
 </form>
 @endsection
 @section('script')
-<script src="{!! asset('js/hop-tac-quoc-te/validate-create-htqt.js') !!}"></script>
+<script src="{!! asset('hop-tac-quoc-te/validate-create-htqt.js') !!}"></script>
 @if (session('success'))
 <script>
     Swal.fire({

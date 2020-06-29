@@ -1,5 +1,5 @@
 * {
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
 }
 
 span.select2-selection__arrow::before {
@@ -21,7 +21,7 @@ i.la {
 }
 
 .btn {
-    font-family: 'Roboto', sans-serif !important;
+    font-family: "Roboto", sans-serif !important;
 }
 
 table {
@@ -37,23 +37,20 @@ table th {
     cursor: pointer;
 }
 
-
-
 /* thanhnv loading KHI import file */
 .loading {
     position: fixed;
     top: 50px;
-    z-index: 1000;
+    z-index: 9999999999999999999;
     margin-top: -50px;
 }
 
 .loading-background-back-all {
     width: 1505px;
-    background: black;
+    background: #0000008a;
     height: 1500px;
     position: absolute;
     z-index: 100;
-    opacity: 0.9;
 }
 
 .loading-position {
@@ -169,13 +166,14 @@ table td {
     border: none !important;
 }
 
-#chon-nghe-trung-cap+.select2-container {
+#chon-nghe-trung-cap + .select2-container,
+#chon-nghe-cao-dang + .select2-container {
     width: 100% !important;
 }
 
 /* update more */
 * {
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
 }
 
 .anh-giay-phep {
@@ -186,4 +184,7 @@ table td {
 
 .anh-giay-phep img {
     width: 100%;
+}
+.note-editable {
+    margin-top: 15px !important;
 }

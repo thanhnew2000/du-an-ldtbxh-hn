@@ -4,11 +4,20 @@ namespace App\Repositories;
 
 use App\Repositories\BaseRepository;
 use App\Repositories\ChiTieuTuyenSinhRepositoryInterface;
+use App\Models\ChiTieuTuyenSinh;
 use Illuminate\Support\Facades\DB;
-
 
 class ChiTieuTuyenSinhRepository extends BaseRepository implements ChiTieuTuyenSinhRepositoryInterface
 {
+    // thanhnv 6/26/2020 create model
+    protected $model;
+
+	public function __construct(ChiTieuTuyenSinh $model)
+	{
+		parent::__construct();
+		$this->model = $model;
+    }
+
     public function getTable()
     {
         return 'dang_ki_chi_tieu_tuyen_sinh';
@@ -18,7 +27,7 @@ class ChiTieuTuyenSinhRepository extends BaseRepository implements ChiTieuTuyenS
      * @author: phucnv
      * @created_at 2020-06-17
      */
-    public function getDanhSachChiTieuTuyenSinh($params){  
+    public function getDanhSachChiTieuTuyenSinh($params){
         $queryBuilder = $this->table
         ->leftjoin('co_so_dao_tao', 'dang_ki_chi_tieu_tuyen_sinh.co_so_id', '=', 'co_so_dao_tao.id')
         ->leftjoin('loai_hinh_co_so', 'co_so_dao_tao.ma_loai_hinh_co_so', '=', 'loai_hinh_co_so.id')
@@ -110,5 +119,38 @@ class ChiTieuTuyenSinhRepository extends BaseRepository implements ChiTieuTuyenS
         ->first();
 
         return $kq;
+    }
+
+    // thanhnv 6/21/2020
+    public function getDangKiChiTieuTuyenSinhCsNamDot($id_truong, $year,$dot)
+	{
+		$data =  DB::table('dang_ki_chi_tieu_tuyen_sinh')->where('co_so_id', '=', $id_truong)
+		->where('nam','=',$year)
+		->where('dot','=',$dot)
+		->select('id','nghe_id')->get();
+		return $data;
+	}
+
+    public function getDangKiChiTieuTuyenSinhTimeFromTo($id_truong, $fromDate,$toDate)
+	{
+		$data = DB::table('dang_ki_chi_tieu_tuyen_sinh')->where('dang_ki_chi_tieu_tuyen_sinh.co_so_id', '=',$id_truong)
+		->where('thoi_gian_cap_nhat','>=',$fromDate)
+		->where('thoi_gian_cap_nhat','<=',$toDate)
+		->join('nganh_nghe','nganh_nghe.id','=','dang_ki_chi_tieu_tuyen_sinh.nghe_id')
+		->get();
+		return $data;
+    }
+
+       	// thanhnv 6/26/2020 sửa model create update
+	public function createChiTieuTuyenSinh($arrayData){
+		return $this->model->insert($arrayData);
+	}
+	public function updateChiTieuTuyenSinh($key,$arrayData){
+		return $this->model->where('id',$key)->update($arrayData);
+    }
+
+    public function store($data)
+    {
+        return $this->model->create($data);
     }
 }
