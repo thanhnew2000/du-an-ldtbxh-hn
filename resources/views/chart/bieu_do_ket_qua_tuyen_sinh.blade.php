@@ -3,7 +3,7 @@
 @section('content')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
-<h1>Biểu đồ kết quả tuyển sinh</h1>
+
 <div class="m-content container-fluid">
   <div class="m-portlet">
     <div class="m-portlet__head">
@@ -13,7 +13,7 @@
                     <i class="m-menu__link-icon flaticon-network"></i>
                 </span>
                 <h3 class="m-portlet__head-text">
-                    Biểu đồ 
+                    Biểu đồ kết quả tuyển sinh
                 </h3>
             </div>
         </div>
@@ -30,29 +30,52 @@
                         <div class="form-group m-form__group row ">
                             <label class="col-lg-2 col-form-label">Năm:</label>
                             <div class="col-lg-8">
-                                <select name="status" id="status" class="form-control ">
-                                    <option value="" selected>2018</option>
-                                    <option value="1"  selected>2019</option>
-                                    <option value="2"  selected >2020</option>
+                                <select name="nam" class="form-control select2">
+                                    <option value="">-----Chọn năm-----</option>
+                                    @foreach(config('common.nam.list') as $nam)
+                                    <option @if(isset($params['nam']) && $params['nam']==$nam) selected @endif
+                                        value="{{$nam}}">{{$nam}}</option>
+                                    @endforeach
+
                                 </select>
                             </div>
                         </div>
+                        <div class="form-group m-form__group row ">
+                            <label class="col-lg-2 col-form-label">Đợt:</label>
+                            <div class="col-lg-8">
+                                <select name="dot" class="form-control select2">
+                                    <option value="">-----Chọn đợt-----</option>
+                                    <option @if(isset($params['dot']) && $params['dot']==config('common.dot.1'))
+                                        selected @endif value="{{config('common.dot.1')}}">
+                                        {{config('common.dot.1')}}</option>
+                                    <option @if(isset($params['dot']) && $params['dot']==config('common.dot.2'))
+                                        selected @endif value="{{config('common.dot.2')}}">
+                                        {{config('common.dot.2')}}</option>
+
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6 p-2">
+                        <div class="form-group m-form__group row ">
+                            <label class="col-lg-2 col-form-label">Cơ sở:</label>
+                            <div class="col-lg-8">
+                              <select name="co_so_id" class="form-control select2">
+                                  <option value="">-----Cơ sở đào tạo-----</option>
+                                  @foreach($coSo as $item)
+                                  <option @if(isset($params['co_so_id']) && $params['co_so_id']==$item->id) selected @endif
+                                      value="{{$item->id}}">{{$item->ten}}</option>
+                                  @endforeach
+
+                              </select>
+                            </div>
+                        </div>
+
+                        
+                      
                     </div>
                     
-                    <div class="col-md-6 p-2">
-                        <div class="form-group m-form__group row">
-                            <label class="col-lg-2 col-form-label">Quyền hạn:</label>
-                            <div class="col-lg-8">
-                                <select name="role" id="role" class="form-control ">
-                                    <option value="" selected>All</option>
-                                    <option value="1" >Actor1</option>
-                                    <option value="2" >Actor2</option>
-                                    <option value="3" >Actor3</option>
-                                    <option value="4">Actor4</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
 
                 </div>
 
@@ -66,38 +89,54 @@
     </form>
 </div>
     <div class="m-portlet">
-        <div class="col-md-6">
-        <canvas id="horizontalBarChart" width="400" height="400"></canvas>
+        <div class="col-md-6" style="margin: auto">
+        <canvas id="barChart" width="400" height="400"></canvas>
     </div>
     </div>
 </div>
+@endsection
+@section('script')
 <script>
-  axios
-  .get("{{ route('lay-du-lieu-kq-ts')}}")
-  .then(function(res){
-    console.log(res.data)
-    // 
-    new Chart(document.getElementById("horizontalBarChart"), {
-      type: 'pie',
+    var ctx = document.getElementById('barChart');
+    var barChart= new Chart(ctx, {
+      type: 'bar',
       data: {
-        labels: ["Thiết kế web", "Ứng dụng phần mềm", "Thiết kế đồ họa", "Lập trình mobie", "Du lịch","Quản trị doanh nghiệp", "Digital Marketing"],
+        labels: ["Hệ Cao Đẳng", "Hệ Trung Cấp", "Hệ Sơ Cấp", "Hệ Khác"],
         datasets: [
           {
-            label: "Population (millions)",
-            backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#FFF68F","#97FFFF"],
-            data: [12,121,22,34,3,21,22]
+            label: "Hệ cao đẳng ",
+            backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9"],
+            data: [
+                {{ $data['so_luong_sv_Cao_dang']}},
+                {{ $data['so_luong_sv_Trung_cap']}},
+                {{ $data['so_luong_sv_So_cap']}},
+                {{ $data['so_luong_sv_he_khac']}}
+            ],
+            borderWidth:1
           }
         ]
       },
       options: {
-        legend: { display: false },
+        legend: { display: true },
         title: {
           display: true,
-          
-        }
+          text:'Biểu đồ kết quả tuyển sinh',
+          fontSize: 16,
+        },
+        scales: {
+                
+                ticks: {
+                    beginAtZero: true
+                }
+            
+        },
+        
       }
     });
-  });
-
+  
+$(document).ready(function(){
+        $('.select2').select2();
+    })
 </script>
+
 @endsection

@@ -617,8 +617,9 @@
     </div>
 
     <div class="row">
+      
+        {{-- Hieupt - chart - 29/6/2020 --}}
         <div class="col-lg-6">
-
             <div class="m-portlet m-portlet--tab">
                 <div class="m-portlet__head">
                     <div class="m-portlet__head-caption">
@@ -629,7 +630,7 @@
                             <h3 class="m-portlet__head-text">
                                 <font style="vertical-align: inherit;">
                                     <font style="vertical-align: inherit;">
-                                        Biểu đồ thống kê tỷ lệ các thành phần sinh viên
+                                        Biểu đồ thống kê kết quả tuyển sinh hiện tại
                                     </font>
                                 </font>
                             </h3>
@@ -637,96 +638,37 @@
                     </div>
                 </div>
                 <div class="m-portlet__body">
-                    <div attr="{{$data}}" id="m_flotcharts_8" style="height: 300px; padding: 0px; position: relative;">
-                        <canvas class="flot-base" width="662" height="375"
-                            style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 529.9px; height: 300px;"></canvas><canvas
-                            class="flot-overlay" width="662" height="375"
-                            style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 529.9px; height: 300px;"></canvas>
-                        <div class="legend">
-                            <div
-                                style="position: absolute; width: 56.8px; height: 88px; top: 5px; right: 5px; background-color: rgb(255, 255, 255); opacity: 0.85;">
-                            </div>
-                            <table style="position:absolute;top:5px;right:5px;;font-size:smaller;color:#545454">
-                                <tbody>
-                                    <tr>
-                                        <td class="legendColorBox">
-                                            <div style="border:1px solid #ccc;padding:1px">
-                                                <div
-                                                    style="width:4px;height:0;border:5px solid rgb(237,194,64);overflow:hidden">
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="legendLabel">
-                                            <font style="vertical-align: inherit;">
-                                                <font style="vertical-align: inherit;">Sê-ri1</font>
-                                            </font>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="legendColorBox">
-                                            <div style="border:1px solid #ccc;padding:1px">
-                                                <div
-                                                    style="width:4px;height:0;border:5px solid rgb(175,216,248);overflow:hidden">
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="legendLabel">
-                                            <font style="vertical-align: inherit;">
-                                                <font style="vertical-align: inherit;">Sê-ri 2</font>
-                                            </font>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="legendColorBox">
-                                            <div style="border:1px solid #ccc;padding:1px">
-                                                <div
-                                                    style="width:4px;height:0;border:5px solid rgb(203,75,75);overflow:hidden">
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="legendLabel">
-                                            <font style="vertical-align: inherit;">
-                                                <font style="vertical-align: inherit;">Sê-ri 3</font>
-                                            </font>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="legendColorBox">
-                                            <div style="border:1px solid #ccc;padding:1px">
-                                                <div
-                                                    style="width:4px;height:0;border:5px solid rgb(77,167,77);overflow:hidden">
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="legendLabel">
-                                            <font style="vertical-align: inherit;">
-                                                <font style="vertical-align: inherit;">Sê-ri4</font>
-                                            </font>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="legendColorBox">
-                                            <div style="border:1px solid #ccc;padding:1px">
-                                                <div
-                                                    style="width:4px;height:0;border:5px solid rgb(148,64,237);overflow:hidden">
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="legendLabel">
-                                            <font style="vertical-align: inherit;">
-                                                <font style="vertical-align: inherit;">Sê-ri5</font>
-                                            </font>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                    <canvas id="barChart" width="400" height="400"></canvas>
                 </div>
             </div>
 
         </div>
 
+        <div class="col-lg-6">
+            <div class="m-portlet m-portlet--tab">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+                            <span class="m-portlet__head-icon m--hide">
+                                <i class="la la-gear"></i>
+                            </span>
+                            <h3 class="m-portlet__head-text">
+                                <font style="vertical-align: inherit;">
+                                    <font style="vertical-align: inherit;">
+                                        Biểu đồ thống kê sinh viên đang theo học
+                                    </font>
+                                </font>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-portlet__body">
+                    <canvas id="pieChart" width="400" height="400"></canvas>
+                </div>
+            </div>
+
+        </div>
+        {{-- endhieu --}}
     </div>
 </div>
 @endsection
@@ -737,4 +679,122 @@
 </script>
 <script src="{!! asset('assets/vendors/custom/flot/flot.bundle.js') !!}" type="text/javascript"></script>
 <script src="{!! asset('assets/demo/custom/components/charts/flotcharts.js') !!}" type="text/javascript"></script>
+
+
+{{-- hieupt --}}
+<script>
+    var ctx = document.getElementById('barChart');
+    var barChart= new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ["Hệ Cao Đẳng", "Hệ Trung Cấp", "Hệ Sơ Cấp", "Hệ Khác"],
+        datasets: [
+          {
+            label: "Hệ cao đẳng ",
+            backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9"],
+            data: [
+                {{ $dataCTTS['so_luong_sv_Cao_dang']}},
+                {{ $dataCTTS['so_luong_sv_Trung_cap']}},
+                {{ $dataCTTS['so_luong_sv_So_cap']}},
+                {{ $dataCTTS['so_luong_sv_he_khac']}}
+            ],
+            borderWidth:1
+          }
+        ]
+      },
+      options: {
+        legend: { display: true },
+        title: {
+          display: true,
+          text:'Biểu đồ kết quả tuyển sinh',
+          fontSize: 16,
+        },
+        scales: {
+                
+                ticks: {
+                    beginAtZero: true
+                }
+            
+        },
+        
+      }
+    });
+  
+
+</script>
+
+<script>
+    var ctx = document.getElementById('pieChart');
+    var pieChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ["Hệ Cao Đẳng", "Hệ Trung Cấp", "Hệ Sơ Cấp", "Hệ Khác"],
+            datasets: [{
+                label: 'Biểu đổ sinh viên đang theo học',
+                data: [
+                {{ $dataSVdanghoc['so_luong_sv_Cao_dang']}},
+                {{ $dataSVdanghoc['so_luong_sv_Trung_cap']}},
+                {{ $dataSVdanghoc['so_luong_sv_So_cap']}},
+                {{ $dataSVdanghoc['so_luong_sv_he_khac']}}
+                ],
+                backgroundColor: [
+                    'rgba(255, 99, 132)',
+                    'rgba(54, 162, 235)',
+                    'rgba(255, 206, 86)',
+                    'rgba(75, 192, 192)'
+                   
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)'
+                 
+                ],
+                borderWidth: 1
+            },
+            {
+                data: [
+                {{ $dataSVdanghoc['so_luong_sv_Cao_dang']}},
+                {{ $dataSVdanghoc['so_luong_sv_Trung_cap']}},
+                {{ $dataSVdanghoc['so_luong_sv_So_cap']}},
+                {{ $dataSVdanghoc['so_luong_sv_he_khac']}}
+                ],
+                backgroundColor: [
+                    'transparent',
+                    
+                   
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)'
+                 
+                ],
+                borderWidth: 1,
+                type:'line'
+            }
+            ]
+        },
+        options: {
+            legend: { display: true},
+            title:{
+                display:true,
+                text:'Biểu đồ sinh viên đang theo học',
+                fontSize: 16,
+            },
+            scales: {
+                
+                    ticks: {
+                        beginAtZero: true
+                    }
+                
+            }
+        }
+    });
+   
+    </script>
+
+{{-- endhieupt --}}
 @endsection
