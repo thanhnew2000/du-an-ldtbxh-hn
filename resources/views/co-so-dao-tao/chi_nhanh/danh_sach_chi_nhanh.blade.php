@@ -113,6 +113,7 @@
                         <th>Hotline</th>
                         <th>Loại chi nhánh</th>
                         <th>Mã chứng nhận</th>
+                        @can('them_moi_dia_diem_dao_tao')
                         <th>
                             @if (isset($chiNhanhDefault))
                             <form action="{{ route('chi-nhanh.tao-moi') }}" method="get">

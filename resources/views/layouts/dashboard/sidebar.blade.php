@@ -49,14 +49,13 @@
 			@endcan
 
 			@canany(['them_moi_co_so_dao_tao','xem_chi_tiet_co_so_dao_tao','cap_nhat_co_so_dao_tao',
-			'them_moi_dia_diem_dao_tao' , 'cap_nhat_dia_diem_dao_tao' , 'xoa_dia_diem_dao_tao'])
+					'them_moi_dia_diem_dao_tao' , 'cap_nhat_dia_diem_dao_tao' , 'xoa_dia_diem_dao_tao'])
 			<li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a
 					href="javascript:;" class="m-menu__link m-menu__toggle"><i
 						class="m-menu__link-icon flaticon-share"></i><span class="m-menu__link-text">Quản lý cơ sở đào
 						tạo</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
 				<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 					<ul class="m-menu__subnav">
-
 						<li class="m-menu__item " aria-haspopup="true"><a href="{{route('csdt.danh-sach')}}"
 								class="m-menu__link "><i
 									class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
@@ -65,10 +64,6 @@
 								class="m-menu__link "><i
 									class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 									class="m-menu__link-text">Danh sách địa điểm đào tạo</span></a></li>
-						<li class="m-menu__item " aria-haspopup="true"><a href="{{route('csdt.thiet-lap-nghe-cs')}}"
-								class="m-menu__link "><i
-									class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
-									class="m-menu__link-text">Thiết lập nghề cho cơ sở đào tạo</span></a></li>
 					</ul>
 				</div>
 			</li>
@@ -208,16 +203,15 @@
 {{-- VinhNB --}}
 
 {{-- Quản lý nhân sự --}}
-@canany(['them_moi_quan_ly_giao_vien','cap_nhat_quan_ly_giao_vien',
+@canany('them_moi_quan_ly_giao_vien','cap_nhat_quan_ly_giao_vien',
 'them_moi_danh_sach_doi_ngu_nha_giao','cap_nhat_danh_sach_doi_ngu_nha_giao','chi_tiet_danh_sach_doi_ngu_nha_giao',
-'them_moi_danh_sach_doi_ngu_quan_ly','cap_nhat_danh_sach_doi_ngu_quan_ly','xem_chi_tiet_danh_sach_doi_ngu_quan_ly'])
+'them_moi_danh_sach_doi_ngu_quan_ly','cap_nhat_danh_sach_doi_ngu_quan_ly','xem_chi_tiet_danh_sach_doi_ngu_quan_ly')
 <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;"
 		class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-avatar"></i><span
 			class="m-menu__link-text">Quản lý nhân
 			sự</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
 	<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 		<ul class="m-menu__subnav">
-
 			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('ql-giao-vien.index')}}"
 					class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 						class="m-menu__link-text">Quản lý giáo viên</span></a></li>
@@ -225,9 +219,8 @@
 					class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 						class="m-menu__link-text">Danh sách đội ngũ nhà giáo</span></a></li>
 			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('so-lieu-can-bo-quan-ly.index')}}"
-					class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
-						class="m-menu__link-text">Danh sách đội ngũ quản lý</span></a></li>
-
+				class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
+					class="m-menu__link-text">Danh sách đội ngũ quản lý</span></a></li>
 		</ul>
 	</div>
 </li>

@@ -162,20 +162,16 @@ Route::group([
 
 //phucnv BM:12
 Route::group(['prefix' => 'ket-qua-xay-dung-giao-trinh',
-            'middleware' => ['them_moi_tong_hop_xay_dung_chuong_trinh_giao_trinh|
-            chi_tiet_tong_hop_xay_dung_chuong_trinh_giao_trinh|
-            cap_nhat_tong_hop_xay_dung_chuong_trinh_giao_trinh']], function () {
+            'middleware' => ['permission:them_moi_tong_hop_xay_dung_chuong_trinh_giao_trinh|chi_tiet_tong_hop_xay_dung_chuong_trinh_giao_trinh
+            |cap_nhat_tong_hop_xay_dung_chuong_trinh_giao_trinh']], function () {
     Route::get('/tong-hop', 'XayDungChuongTrinhGiaoTrinhController@index')
         ->name('xuatbc.ds-xd-giao-trinh');
-
     Route::get('/show/{co_so_id}', 'XayDungChuongTrinhGiaoTrinhController@show')
         ->name('xuatbc.show-ds-xd-giao-trinh');
-
     Route::get('/create', 'XayDungChuongTrinhGiaoTrinhController@create')
         ->name('xuatbc.create-ds-xd-giao-trinh');
     Route::post('/store', 'XayDungChuongTrinhGiaoTrinhController@store')
         ->name('xuatbc.store-ds-xd-giao-trinh');
-
     Route::get('/{id}/edit', 'XayDungChuongTrinhGiaoTrinhController@edit')
         ->name('xuatbc.edit-ds-xd-giao-trinh');
     Route::post('/update/{id}', 'XayDungChuongTrinhGiaoTrinhController@update')
@@ -364,7 +360,7 @@ Route::group(['prefix' => 'so-lieu-can-bo-quan-ly'], function () {
 
 //Xuân Kết quả tốt nghiệp gắn với doanh nghiệp BM:15
 Route::group(['prefix' => 'ket-qua-tot-nghiep-gan-voi-doanh-nghiep',
-            'middleware' => ['permission: them_moi_ket_qua_hoc_sinh_tot_nghiep_dao_tao_nghe_voi_doanh_nghiep|
+            'middleware' => ['permission:them_moi_ket_qua_hoc_sinh_tot_nghiep_dao_tao_nghe_voi_doanh_nghiep|
             chi_tiet_ket_qua_hoc_sinh_tot_nghiep_dao_tao_nghe_voi_doanh_nghiep|
             cap_nhat_ket_qua_hoc_sinh_tot_nghiep_dao_tao_nghe_voi_doanh_nghiep']], function () {
     Route::get('/', 'KetQuaTotNghiepGanVoiDoanhNGhiepController@index')
@@ -384,7 +380,6 @@ Route::group(['prefix' => 'ket-qua-tot-nghiep-gan-voi-doanh-nghiep',
 
     Route::post('checktontai', 'KetQuaTotNghiepGanVoiDoanhNGhiepController@getCheckTonTai')
         ->name('xuatbc.check-ton-tai');
-
 
     // thanhnv 6/22/2020 tot nghiep va doanh nghiep 
     Route::post('export-bieu-mau-ket-qua-tot-nghiep-gan-voi-doanh-nghiep', 'KetQuaTotNghiepGanVoiDoanhNGhiepController@exportBieuMau')

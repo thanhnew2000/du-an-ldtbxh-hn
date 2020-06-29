@@ -229,10 +229,12 @@
                     aria-hidden="true"></i>
                 Xuất dữ liệu ra Excel</a>
         </div>
+        @can('them_moi_ket_qua_hoc_sinh_tot_nghiep_dao_tao_nghe_voi_doanh_nghiep')
         <div class="col-lg-6 " style="text-align: right">
             <a href="{{route('xuatbc.them-ket-qua-tot-nghiep-voi-doanh-nghiep')}}"><button type="button"
                     class="btn btn-info .bg-info">Thêm mới</button></a>
         </div>
+        @endcan
     </div>
     <div class="m-portlet">
         <div class="m-portlet__body">
@@ -281,8 +283,10 @@
                         <td>{{$item->tong_tot_nghiep}}</td>
                         <td>{{$item->tong_tuyen_dung}}</td>
                         <td>{{number_format($item->tong_muc_luong,'0',',','.')}}</td>
+                        @can('chi_tiet_ket_qua_hoc_sinh_tot_nghiep_dao_tao_nghe_voi_doanh_nghiep')
                         <td><a href="{{route('xuatbc.chi-tiet-ket-qua-tot-nghiep-voi-doanh-nghiep', ['co_so_id' => $item->co_so_id])}}"
-                                class=".text-info">Chi tiết</a></td>
+                            class=".text-info">Chi tiết</a></td>
+                        @endcan
                     </tr>
                     @endforeach
 
