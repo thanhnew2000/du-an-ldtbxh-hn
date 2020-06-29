@@ -13,10 +13,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(
     [
         'prefix' => 'doi-ngu-nha-giao',
-        'middleware' => ['permission:them_moi_danh_sach_doi_ngu_nha_giao
-                        |cap_nhat_danh_sach_doi_ngu_nha_giao|
-                        chi_tiet_danh_sach_doi_ngu_nha_giao']
-    ],
+        'middleware' => ['permission:them_moi_danh_sach_doi_ngu_nha_giao']],
     function () {
         Route::get('/tong-hop', 'ExtractController@danhsachnhagiao')
             ->name('xuatbc.ds-nha-giao');
