@@ -318,16 +318,16 @@
             </div>
 
             <div class="m-portlet__body">
-                <h5>Kết quả tốt nghiệp đào tạo nghề <br> gắn với doanh nghiệp</h5>
+                <h5>Kết quả tốt nghiệp đào tạo nghề
+                    gắn với doanh nghiệp</h5>
             </div>
             <div class=" d-flex justify-content-around">
-                @foreach (config('permissions_setting.ket_qua_tot_nghiep_dao_tao_nghe_voi_doanh_nghiep') as $key=>
-                $item)
+                @foreach (config('permissions_setting.ket_qua_tot_nghiep_dao_tao_nghe_voi_doanh_nghiep') as $key=> $item)
                 <div class="p-2 bd-highlight">
                     <label class="m-checkbox m-checkbox--air m-checkbox--state-brand">
                         <input type="checkbox" @foreach ($dataRole as $item1) {{$item1==$key ?  'checked': ''}}
                         @endforeach value="{{$key}}" name="permissions[]">{{$item}}
-                        <span class=" d-flex justify-content-around"></span>
+                        <span></span>
                     </label>
                 </div>
                 @endforeach
@@ -338,8 +338,7 @@
                 <h5>Kết quả tuyển sinh, đào tạo nghề <br> gắn với doanh nghiệp</h5>
             </div>
             <div class=" d-flex justify-content-around">
-                @foreach (config('permissions_setting.ket_qua_tot_nghiep_dao_tao_nghe_voi_doanh_nghiep') as $key=>
-                $item)
+                @foreach (config('permissions_setting.ket_qua_tot_nghiep_dao_tao_nghe_voi_doanh_nghiep') as $key=>$item)
                 <div class="p-2 bd-highlight">
                     <label class="m-checkbox m-checkbox--air m-checkbox--state-brand">
                         <input type="checkbox" @foreach ($dataRole as $item1) {{$item1==$key ?  'checked': ''}}
