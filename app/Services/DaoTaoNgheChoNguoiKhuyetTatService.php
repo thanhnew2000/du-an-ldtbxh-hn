@@ -329,7 +329,8 @@ class DaoTaoNgheChoNguoiKhuyetTatService extends AppService
         $data =$spreadsheet->getActiveSheet()->toArray();
         
         $truong = explode(' - ', $data[5][1]);
-        $id_truong = array_pop($truong);
+        $id_truong = trim(array_pop($truong));
+
         
         $arrayApha=['C','D','E','F','G','H','I','J','K','L'];
         $csCheck = DB::table('co_so_dao_tao')->find($id_truong);
@@ -429,7 +430,8 @@ class DaoTaoNgheChoNguoiKhuyetTatService extends AppService
         $data = $spreadsheet->getActiveSheet()->toArray();
 
         $truong = explode(' - ', $data[5][1]);
-        $id_truong = array_pop($truong);
+        $id_truong = trim(array_pop($truong));
+
         $co_so = DB::table('co_so_dao_tao')->where('id',$id_truong)->first();
         $arrayApha=['C','D','E','F','G','H','I','J','K','L'];
 

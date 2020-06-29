@@ -242,7 +242,8 @@ class DaoTaoNgheVoiDoanhNghiepService extends AppService
         $data =$spreadsheet->getActiveSheet()->toArray();
         
         $truong = explode(' - ', $data[0][0]);
-        $id_truong = array_pop($truong);
+           $id_truong = trim(array_pop($truong));
+
 
         $arrayApha=['C','D','E','F','G','H','I','J','K','L','M','N','O','P'];
 
@@ -361,7 +362,8 @@ public function importError($fileRead,$duoiFile,$path){
     $data = $spreadsheet->getActiveSheet()->toArray();
 
     $truong = explode(' - ', $data[0][0]);
-    $id_truong = array_pop($truong);
+    $id_truong = trim(array_pop($truong));
+
 
     $arrayApha=['C','D','E','F','G','H','I','J','K','L','M','N','O','P'];
 

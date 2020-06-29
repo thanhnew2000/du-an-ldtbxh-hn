@@ -393,8 +393,7 @@ class GiaoVienService extends AppService
         $data =$spreadsheet->getActiveSheet()->toArray();
 
         $truong = explode(' - ', $data[3][1]);
-        $id_truong = array_pop($truong);
-    
+         $id_truong = trim(array_pop($truong));
             
         $arrayApha=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ'];
         // vòng for này để check lỗi nếu có thì cho hết lỗi vào các array $error, $vitri

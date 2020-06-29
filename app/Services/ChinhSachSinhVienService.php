@@ -197,7 +197,7 @@ class ChinhSachSinhVienService extends AppService
         $data =$spreadsheet->getActiveSheet()->toArray();
 
         $truong = explode(' - ', $data[8][1]);
-        $id_truong = array_pop($truong);
+        $id_truong = trim(array_pop($truong));
 
         $checkChinhSachDaCo =  DB::table('tong_hop_chinh_sach_voi_hssv')->where('co_so_id', '=', $id_truong)
         ->where('nam','=',$year)

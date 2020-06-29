@@ -197,7 +197,8 @@ class HopTacQuocTeService extends AppService
         $data =$spreadsheet->getActiveSheet()->toArray();
         
         $truong = explode(' - ', $data[5][1]);
-        $id_truong = array_pop($truong);
+        $id_truong = trim(array_pop($truong));
+
         
         $arrayAphabe=['C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q'];
         $csCheck = DB::table('co_so_dao_tao')->find($id_truong);

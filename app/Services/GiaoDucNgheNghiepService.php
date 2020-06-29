@@ -394,7 +394,8 @@ class GiaoDucNgheNghiepService extends AppService
         $data = $spreadsheet->getActiveSheet()->toArray();
 
         $truong = explode(' - ', $data[5][1]);
-        $id_truong = array_pop($truong);
+        $id_truong = trim(array_pop($truong));
+
 
         $arrayApha=['N','O','P'];
         $csCheck = DB::table('co_so_dao_tao')->find($id_truong);
