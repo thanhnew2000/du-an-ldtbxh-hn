@@ -189,8 +189,7 @@ class LienKetDaoTaoRepository extends BaseRepository implements LienKetDaoTaoRep
 
     public function postthemlienketdaotao($getdata)
     {
-        $result  = $this->table->insert([$getdata]);
-        return $result;
+        return $this->model->create($getdata);
     }
 
     public function getCheckTonTaiLienKetDaoTao($arraycheck)

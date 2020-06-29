@@ -461,10 +461,7 @@
 			duyệt</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
 	<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 		<ul class="m-menu__subnav">
-			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('nhapbc.tien-do-nop-bao-cao')}}"
-					class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
-						class="m-menu__link-text">Kiểm soát tiến độ nộp báo cáo</span></a></li>
-			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('nhapbc.phe-duyet-bao-cao')}}"
+			<li class="m-menu__item " aria-haspopup="true"><a href="{{route('phe_duyet_bao_cao.danh_sach')}}"
 					class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 						class="m-menu__link-text">Phê duyệt báo cáo</span></a></li>
 		</ul>

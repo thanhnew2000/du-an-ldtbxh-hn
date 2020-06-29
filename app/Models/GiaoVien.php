@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\CoSoDaoTao;
 
 class GiaoVien extends Model
 {
@@ -48,5 +49,24 @@ class GiaoVien extends Model
         }
 
         return $danhHieu;
+    }
+
+    public function coSoDaoTao()
+    {
+        return $this->belongsTo(CoSoDaoTao::class, 'co_so_id');
+    }
+
+    protected static function booted()
+    {
+        static::created(function ($baoCao) {
+            app(PheDuyetBaoCao::class)->create([
+                'trang_thai' => 1,
+                'ban_ghi_duoc_phe_duyet_id' => $baoCao->id,
+                'loai_ban_ghi' => GiaoVien::class,
+                'dot_id' => 1,
+                'thoi_gian_phe_duyet_1' => null,
+                'thoi_gian_phe_duyet_2' => null,
+            ]);
+        });
     }
 }
