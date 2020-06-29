@@ -50,7 +50,6 @@ Route::group(['prefix' => 'doi-ngu-quan-ly'], function () {
         '/tong-hop',
         'ExtractController@danhsachquanly'
     )
-
         ->name('xuatbc.ds-quan-ly');
 });
 

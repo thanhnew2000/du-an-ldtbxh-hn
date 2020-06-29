@@ -29,9 +29,9 @@ Route::group([
         ->name('import-error-quan-ly-giao-vien');
 
 //CườngNC - Update Middleware - 
-Route::group(['middleware' => ['permission:them_moi_danh_sach_doi_ngu_quan_ly|cap_nhat_danh_sach_doi_ngu_quan_ly|xem_chi_tiet_danh_sach_doi_ngu_quan_ly']], function () {
+
     Route::resource('so-lieu-can-bo-quan-ly', 'SoLieuCanBoQuanLyController');
-});   // thanhnv import export
+       // thanhnv import export
     Route::post('so-lieu-can-bo-quan-ly/import-so-lieu-quan-ly', 'ImportSoLieuCanBoQlController@importFile')
         ->name('import-so-lieu-quan-ly');
     Route::post('so-lieu-can-bo-quan-ly/import-error-so-lieu-quan-ly', 'ImportSoLieuCanBoQlController@importError')
