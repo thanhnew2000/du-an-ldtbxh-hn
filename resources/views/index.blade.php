@@ -655,7 +655,7 @@
                             <h3 class="m-portlet__head-text">
                                 <font style="vertical-align: inherit;">
                                     <font style="vertical-align: inherit;">
-                                        Biểu đồ thống kê sinh viên đang theo học
+                                        Biểu đồ thống kê sinh viên đang theo học hiện tại
                                     </font>
                                 </font>
                             </h3>
@@ -730,7 +730,7 @@
         data: {
             labels: ["Hệ Cao Đẳng", "Hệ Trung Cấp", "Hệ Sơ Cấp", "Hệ Khác"],
             datasets: [{
-                label: 'Biểu đổ sinh viên đang theo học',
+                label: 'Lượng sinh viên đang theo học hệ Cao Đẳng',
                 data: [
                 {{ $dataSVdanghoc['so_luong_sv_Cao_dang']}},
                 {{ $dataSVdanghoc['so_luong_sv_Trung_cap']}},
@@ -753,28 +753,6 @@
                 ],
                 borderWidth: 1
             },
-            {
-                data: [
-                {{ $dataSVdanghoc['so_luong_sv_Cao_dang']}},
-                {{ $dataSVdanghoc['so_luong_sv_Trung_cap']}},
-                {{ $dataSVdanghoc['so_luong_sv_So_cap']}},
-                {{ $dataSVdanghoc['so_luong_sv_he_khac']}}
-                ],
-                backgroundColor: [
-                    'transparent',
-                    
-                   
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)'
-                 
-                ],
-                borderWidth: 1,
-                type:'line'
-            }
             ]
         },
         options: {
