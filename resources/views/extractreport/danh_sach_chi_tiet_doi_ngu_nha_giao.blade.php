@@ -9,6 +9,9 @@
         border-bottom-width:1px;
         border-bottom: 1px solid #bcb1b1 !important;
     }
+    pre{
+        font-size: 100%;
+    }
 </style>
 @endsection
 @section('content')
@@ -112,7 +115,7 @@
                         <th rowspan="2" class="border"><pre class="text-white">Đợt</pre></th>
                         <th rowspan="2" class="border"><pre class="text-white">Mã nghề</pre></th>
                         <th rowspan="2" class="border"><pre class="text-white">Tên nghề</pre></th>
-                        <th rowspan="2" class="border"><pre class="text-white">Tổng sô</pre></th>
+                        <th rowspan="2" class="border"><pre class="text-white">Tổng số</pre></th>
                         <th colspan="7" class="border">Trong đó</th>
                         <th colspan="2" class="border">Chia theo cư hữu</th>
                         <th colspan="6" class="border">Chia theo trình độ chuyên môn</th>
@@ -162,12 +165,11 @@
                 </thead>
                 <tbody>
                     @php
-                    $stt =1;
+                    $i = !isset($_GET['page']) ? 1 : ($params['page_size'] * ($_GET['page']-1) + 1);
                     @endphp
                     @foreach ($data as $item)
                     <tr>
-                        {{-- <td>{{$i++}}</td> --}}
-                        <td>{{ $stt }}</td>
+                        <td>{{ $i++ }}</td>
                         <td>{{$item->nam}}</td>
                         <td>{{$item->dot}}</td>
                         <td>{{$item->nghe_id}}</td>
@@ -218,9 +220,6 @@
                            
                         </td>
                     </tr>
-                    @php
-                    $stt++;
-                    @endphp
                     @endforeach
 
                 </tbody>
@@ -256,4 +255,15 @@
         $('.select2').select2();
     });
 </script>
+@if (session('success'))
+<script>
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Cập nhật thành công !',
+        showConfirmButton: false,
+        timer: 3500
+    })
+</script>
+@endif
 @endsection

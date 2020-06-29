@@ -2,8 +2,19 @@
 namespace App\Repositories;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\BaseRepository;
+use App\Models\DaoTaoNguoiKhuyetTat;
 use Carbon\Carbon;
 class DaoTaoNgheChoNguoiKhuyetTatRepository extends BaseRepository implements DaoTaoNgheChoNguoiKhuyetTatRepositoryInterface {
+
+	// thanhnv 6/26/2020 model 
+	protected $model;
+
+	public function __construct(DaoTaoNguoiKhuyetTat $model)
+	{
+		parent::__construct();
+		$this->model = $model;
+    }
+	
 
 	//lay model
 	public function getTable(){
@@ -117,7 +128,7 @@ class DaoTaoNgheChoNguoiKhuyetTatRepository extends BaseRepository implements Da
             ->join('devvn_xaphuongthitran', 'co_so_dao_tao.xaid', '=', 'devvn_xaphuongthitran.xaid')
 			->select(
 						'ket_qua_dao_tao_nguoi_khuyet_tat.*',
-						'nganh_nghe.ten_nganh_nghe',
+						'nganh_nghe.ten_nganh_nghe'
 					);
 			
 		if($queryData['nam']!= null){
@@ -181,5 +192,12 @@ class DaoTaoNgheChoNguoiKhuyetTatRepository extends BaseRepository implements Da
 		return $data;
 	}
 
+	// thanhnv 6/26/2020 sửa model create update
+	public function createDtNguoiKhuyetTat($arrayData){
+		return $this->model->insert($arrayData);
+	}
+	public function updateDtNguoiKhuyetTat($key,$arrayData){
+		return $this->model->where('id',$key)->update($arrayData);
+	}
 }
  ?>

@@ -19,16 +19,45 @@ class StoreUpdateNotificationService extends AppService
         $this->notificationService = $notificationService;
     }
 
-    public function StoreUpdateBM($content){
-       $url = route('chitietsolieutuyensinh',['co_so_id'=>$content['co_so_id']]);
-       $url= $url.'?nam='.$content['nam'] .'&dot='. $content['dot'];
-            $adminUsers = [1, 2, 3, 28];
-            $notifiData = [];
+    public function addContentUpExecl($nam,$dot,$co_so_id,$countInsert,$countUpdate,$bm,$route)
+    {
+        $content=[
+            'tieu_de' => 'Cập nhật dữ liệu '.$bm.' bằng execl ',
+            'noi_dung' => 'Execl thêm mới '.$countInsert.' bản ghi Cập nhật '.$countUpdate.' bản ghi',
+            'module_name' => 'xuatbc.chi-tiet-dang-ky-chi-tieu-tuyen-sinh',
+            'nam' => $nam,
+            'dot' => $dot,
+            'co_so_id' => $co_so_id,
+            'sending_user_fullname' => Auth::user()->name,
+            'route'=>$route,
+            'bm' => $bm
+        ];
+       $this->StoreUpdateBM($content);
+    }
+
+    public function addContentUp($nam,$dot,$co_so_id,$tieude,$noidung)
+    {
+        $content=[
+            'tieu_de' => $tieude,
+            'noi_dung' => $noidung,
+            'module_name' => 'xuatbc.chi-tiet-dang-ky-chi-tieu-tuyen-sinh',
+            'nam' => $nam,
+            'dot' => $dot,
+            'co_so_id' => $co_so_id,
+            'sending_user_fullname' => Auth::user()->name
+        ];
+        $this->StoreUpdateBM($content);
+    }
+
+    public function StoreUpdateBM($content){ 
+        $url= $content['route'].'?nam='.$content['nam'].'&dot='.$content['dot'];
+            $adminUsers = [1, 2, 3, 29];
+            $notifiData = [];        
             foreach ($adminUsers as $user){
                 $notifiData[] = [
                     'data_id' =>1,
                     'message_title' => $content['tieu_de'],
-                    'message_content' => $content['conntent'],
+                    'message_content' => $content['noi_dung'],
                     'read_time' => null,
                     'recceive_user_id' => $user,
                     'sending_time' => Carbon::now(),
@@ -41,7 +70,9 @@ class StoreUpdateNotificationService extends AppService
                     'dot' => $content['dot'],
                     'co_so_id' => $content['co_so_id']
                 ];                  
-        }
+            }
+            // dd($notifiData);
+      
             $this->notificationService->pushNotification($notifiData);
     }
 

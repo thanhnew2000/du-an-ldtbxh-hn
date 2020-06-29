@@ -78,8 +78,8 @@ class SinhVienTotNghiepController extends Controller
     }
     public function edit($id)
     {  
-        $data_tuyen_sinh_id = $this->SinhVienTotNghiepService->getSuaSoLieuTotNghiep($id);
-        return view('tot_nghiep.sua_tong_hop_ket_qua_tot_nghiep',['data_tuyen_sinh_id'=>$data_tuyen_sinh_id]);
+        $data_tot_nghiep_id = $this->SinhVienTotNghiepService->getSuaSoLieuTotNghiep($id);
+        return view('tot_nghiep.sua_tong_hop_ket_qua_tot_nghiep',['data_tot_nghiep_id'=>$data_tot_nghiep_id]);
     }
 
     public function update($id,UpdateRequest $request)

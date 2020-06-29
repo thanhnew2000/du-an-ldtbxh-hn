@@ -3,6 +3,7 @@
 @section('style')
 @endsection
 @section('content')
+
 <div class="m-content container-fluid">
     <div class="m-portlet">
         <div class="m-portlet__head">
@@ -100,11 +101,14 @@
                     class="fa fa-upload" aria-hidden="true"></i>
                 Tải lên file Excel</a>
         </div>
-        <div class="col-lg-8">
+        <div class="col-lg-6">
             <a href="javascript:" data-toggle="modal" data-target="#moDalExportData"><i class="fa fa-file-excel"
                     aria-hidden="true"></i>
                 Xuất dữ liệu ra Excel</a>
         </div>
+        <div class="col-lg-2 text-center">
+            <a target="_blank" href="{{ route('xuatbc.them-ds-hop-tac-qte') }}" class="btn btn-success btn-sm">Thêm mới</a>             
+    </div>
 
 </section>
     <div class="m-portlet">
@@ -135,17 +139,16 @@
                         <th rowspan="2">Tổng số kinh phí đầu tư trang thiết bị , máy móc <br> ( triệu đồng)</th>
                         <th rowspan="2">Trạng thái</th>
                         <th rowspan="2">
-                            <a target="_blank" href="{{ route('xuatbc.them-ds-hop-tac-qte') }}" class="btn btn-success btn-sm">Thêm mới</a>
                         </th>
                     </tr>
                 </thead>
                 <tbody class="text-center">
                     @php
-                     $stt = 1;   
+                    $i = !isset($_GET['page']) ? 1 : ($params['page_size'] * ($_GET['page']-1) + 1);
                     @endphp
                     @foreach ($data as $item)
                     <tr>
-                        <td>{{ $stt }}</td>
+                        <td>{{ $i++ }}</td>
                         <td>{{ $item->ten }}</td>
                         <td>{{ $item->nam }}</td>
                         <td>{{ $item->dot }}</td>
@@ -159,9 +162,6 @@
                             <a class="btn btn-info" href="{{ route('xuatbc.chi-tiet-ds-hop-tac-qte',['co_so_id' => $item->co_so_id]) }}" target="_blank">Chi tiết</a>
                         </td>
                     </tr>
-                    @php
-                    $stt ++;   
-                    @endphp
                     @endforeach
                 </tbody>
             </table>
@@ -212,7 +212,7 @@
     </div>
 </form>
 
-<form action="{{route('import.error.hop-tac-quoc-te')}}" id="my_form_kqts_import" method="post"
+<form action="{{route('import.error.hop-tac-quoc-te')}}" id="form_import_file" method="post"
     enctype="multipart/form-data">
     @csrf
     <div class="modal fade " id="moDalImport" tabindex="-1" role="dialog" aria-labelledby="moDalLabel"
@@ -253,7 +253,7 @@
                     <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoi">
                     </p>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                    <button type="button" class="btn btn-primary" id="submitTai"  onclick="closeModal('closeImportFile')">Tải</a>
+                    <button type="button" class="btn btn-primary" id="submitTai"  >Tải</a>
                         <button type="submit" hidden  class="btn btn-primary" id="submitTaiok">Tải ok</a>
                 </div>
             </div>
@@ -291,8 +291,14 @@
                             <option value="2">2</option>
                         </select> --}}
                         <div class='input-group date datepicker' name="datepicker" >
-                            <p>From: <input type="text" class="form-control" name="dateFrom" id="datepickerFrom"></p>
-                            <p>To: <input type="text" class="form-control" name="dateTo" id="datepickerTo"></p>
+                            <p>From: <input type="text" class="form-control" name="dateFrom" id="datepickerFrom"> </p>
+                            @error('dateFrom')
+                            <div class="text-danger">{{$message}}</div>
+                            @enderror
+                        <p>To: <input type="text" class="form-control" name="dateTo" id="datepickerTo"></p>
+                            @error('dateTo')
+                                <div class="text-danger">{{$message}}</div>
+                             @enderror
                                {{-- <span class="input-group-addon">
                                      <span class="glyphicon glyphicon-calendar">
                                      </span>
@@ -308,13 +314,15 @@
                             <option value="all">Tất cả</option>
                         </select>
                     </div>
-
+                    @error('truong_id')
+                          <div class="text-danger">{{$message}}</div>
+                    @enderror
                 </div>
                 <div class="modal-footer">
                     <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoiXuat">
                     </p>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                    <button type="submit" class="btn btn-primary" id="submitXuatData" onclick="closeModal('closeXuatDuLieu')">Tải</a>
+                    <button type="submit" class="btn btn-primary" id="submitXuatData">Tải</a>
                 </div>
             </div>
         </div>
@@ -337,107 +345,34 @@
                 `${currentUrl}?co_so_id=${co_so_id}&dot=${dot}&nam=${nam}&page_size=${page_size}`;
             window.location.href = reloadUrl;
         });
-        $('.select2').select2();
+        // $('.select2').select2();
     });
 </script>
+@if (session('success'))
+<script>
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Thêm thành công !',
+        showConfirmButton: false,
+        timer: 3500
+    })
+</script>
+@endif
+{{-- thanhnv update change to service 6/26/2020 --}}
+<script>
 
-{{-- thanhv --}}
-    <script>
-         $(function() {
-            $( "#datepickerFrom" ).datepicker();
-            $( "#datepickerTo" ).datepicker();
-         });
+    $(document).ready(function(){
+        $( function() {
+        $( "#datepickerFrom" ).datepicker();
+        $( "#datepickerTo" ).datepicker();
+      } );
+    });
 
-            $('span.select2').css('width', '100%');
+    var routeImport = "{{route('import.hop-tac-quoc-te')}}";
+</script>
+<script src="{!! asset('excel-js/js-xuat-time.js') !!}"></script>
+<script src="{!! asset('excel-js/js-form.js') !!}"></script>
+{{-- end --}}
 
-         function closeModal(id) {
-            $('#' + id).trigger('click');
-        }
-    
-    
-        $("#file_import_id").change(function() {
-            var fileExtension = ['xlsx','xls'];
-            if($("#file_import_id")[0].files.length === 0){
-                $('#echoLoi').text('Hãy nhập file excel');
-            }else if($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
-                $message = "Hãy nhập file excel : "+fileExtension.join(', ');
-                $('#echoLoi').text($message);
-                return false;
-            }else{
-                $('#echoLoi').text('');
-             }
-        });
-    
-    
-            $("#submitTai").click(function(event){
-            var fileExtension = ['xlsx', 'xls'];
-            if($("#file_import_id")[0].files.length === 0){
-                    console.log('không có file');
-            }else if($.inArray($('#file_import_id').val().split('.').pop().toLowerCase(), fileExtension) == -1) {
-                    console.log('chưa file không đúng định dạng');
-            }else{
-                $('#moDalImport').modal('hide');
-                $('.loading').css('display','block');
-                var formData = new FormData();
-                var fileExcel = document.querySelector('#file_import_id');
-                formData.append("file", fileExcel.files[0]);
-                formData.append("dot", $('#dot_id').val());
-                formData.append("nam", $('#nam_id').val());
-    
-                axios.post("{{route('import.hop-tac-quoc-te')}}", formData,{
-                    headers: {
-                            'Content-Type': 'multipart/form-data',
-                        }
-                    }).then(function (response) {
-                        console.log(response)
-                                if(response.data == 'ok'){
-                                    $('.loading').css('display','none');
-                                        Swal.fire({
-                                            position: 'center',
-                                            icon: 'success',
-                                            title: 'Cập nhập thành công',
-                                            showConfirmButton: false,
-                                            timer: 1700
-                                        })
-                                    window.location.reload();
-                                    console.log('Đã insert vào database');
-                                }else if(response.data == 'exportError'){
-                                    $('.loading').css('display','none');
-                                    $('#submitTaiok').trigger('click');
-                                    $('#my_form_kqts_import')[0].reset();
-                                }else{
-                                    $('.loading').css('display','none');
-                                    Swal.fire({
-                                        title: response.data.messageError,
-                                        icon: 'warning',
-                                        confirmButtonColor: '#3085d6',
-                                        confirmButtonText: 'Xác nhận'
-                                        }).then((result) => {
-                                        if (result.value) {
-                                            window.location.reload();
-                                        }else{
-                                            window.location.reload();
-                                        }
-                                        })
-                                }
-                        }).catch(function (error) {
-                        console.log(error);
-                        $('.loading').css('display','none');
-                        Swal.fire({
-                                    title: 'Lỗi về file muốn nhập !',
-                                    // text: "You won't be able to revert this!",
-                                    icon: 'warning',
-                                    confirmButtonColor: '#3085d6',
-                                    confirmButtonText: 'Xác nhận'
-                                    }).then((result) => {
-                                    if (result.value) {
-                                        window.location.reload();
-                                    }else{
-                                        window.location.reload();
-                                    }
-                                    })
-                        });
-                    }
-            });
-    </script>
 @endsection

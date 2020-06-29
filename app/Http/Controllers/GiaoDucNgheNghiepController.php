@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Services\GiaoDucNgheNghiepService;
 use App\Http\Requests\GiaoDucNgheNghiep\UpdateRequest;
 use App\Http\Requests\GiaoDucNgheNghiep\StoreRequest;
+use App\Http\Requests\Excel\ExportDuLieu;
+use Storage;
 
 class GiaoDucNgheNghiepController extends Controller
 {
@@ -23,23 +25,23 @@ class GiaoDucNgheNghiepController extends Controller
     public function index()
     {
         $params = request()->all();
-        if (isset(request()->page_size)){
+        if (isset(request()->page_size)) {
             $limit = request()->page_size;
-        }else{
+        } else {
             $limit = 20;
         }
-        $data = $this->GiaoDucNgheNghiepService->index($params,$limit);
+        $data = $this->GiaoDucNgheNghiepService->index($params, $limit);
         $coso = $this->GiaoDucNgheNghiepService->getTenCoSoDaoTao();
         $quanhuyen = $this->GiaoDucNgheNghiepService->getTenQuanHuyen();
         $nghe_cap_2 = $this->GiaoDucNgheNghiepService->getNganhNghe(2);
-        if (isset(request()->devvn_quanhuyen)){
+        if (isset(request()->devvn_quanhuyen)) {
             $xaphuongtheoquanhuyen = $this->GiaoDucNgheNghiepService->getXaPhuongTheoQuanHuyen(request()->devvn_quanhuyen);
-        }else{
-            $xaphuongtheoquanhuyen=[];
+        } else {
+            $xaphuongtheoquanhuyen = [];
         }
-        
-            $nghe_cap_3=$this->GiaoDucNgheNghiepService->getNganhNghe(3);
-            $nghe_cap_4=$this->GiaoDucNgheNghiepService->getNganhNghe(4);
+
+        $nghe_cap_3 = $this->GiaoDucNgheNghiepService->getNganhNghe(3);
+        $nghe_cap_4 = $this->GiaoDucNgheNghiepService->getNganhNghe(4);
 
 
         $loaiHinh = $this->GiaoDucNgheNghiepService->getListLoaiHinh();
@@ -48,14 +50,14 @@ class GiaoDucNgheNghiepController extends Controller
             'data' => $data,
             'loaiHinh' => $loaiHinh,
             'limit' => $limit,
-            'coso'=> $coso,
+            'coso' => $coso,
             'quanhuyen' => $quanhuyen,
             'params' => $params,
             'xaphuongtheoquanhuyen' => $xaphuongtheoquanhuyen,
             'nghe_cap_2' => $nghe_cap_2,
             'nghe_cap_3' => $nghe_cap_3,
             'nghe_cap_4' => $nghe_cap_4
-        ]);      
+        ]);
     }
     /**
      * Show the form for creating a new resource.
@@ -76,17 +78,17 @@ class GiaoDucNgheNghiepController extends Controller
      */
     public function getCheckTonTaiGiaoDucNgheNghiep(Request $request)
     {
-        $datacheck=  $request->datacheck;
+        $datacheck =  $request->datacheck;
         $getdata = $this->GiaoDucNgheNghiepService->getSoLieu($datacheck);
-        if ($getdata == 'tontai'){
+        if ($getdata == 'tontai') {
             return response()->json([
                 'result' => 1,
             ]);
-        }else if ($getdata == null){
+        } else if ($getdata == null) {
             return response()->json([
                 'result' => 2,
             ]);
-        }else{
+        } else {
             return response()->json([
                 'result' => route('xuatbc.quan-ly-giao-duc-nghe-nghiep.edit', ['id' => $getdata->id]),
             ]);
@@ -108,16 +110,16 @@ class GiaoDucNgheNghiepController extends Controller
                 'value' => $requestParams["co_so_id"],
             ],
             [
-                'id'=>'nghe_id',
-                'value'=>$requestParams["nghe_id"]
+                'id' => 'nghe_id',
+                'value' => $requestParams["nghe_id"]
             ],
             [
-                'id'=>'nam',
-                'value'=>$requestParams["nam"]
+                'id' => 'nam',
+                'value' => $requestParams["nam"]
             ],
             [
-                'id'=>'dot',
-                'value'=>$requestParams["dot"]
+                'id' => 'dot',
+                'value' => $requestParams["dot"]
             ],
         ];
 
@@ -141,7 +143,7 @@ class GiaoDucNgheNghiepController extends Controller
     public function edit($id)
     {
         $data = $this->GiaoDucNgheNghiepService->edit($id);
-        return view('giao_duc_nghe_nghiep.edit',['data'=>$data]);
+        return view('giao_duc_nghe_nghiep.edit', ['data' => $data]);
     }
 
     /**
@@ -153,9 +155,9 @@ class GiaoDucNgheNghiepController extends Controller
      */
     public function update(UpdateRequest $request, $id)
     {
-        
-        $this->GiaoDucNgheNghiepService->update($id,$request);
-        return redirect()->route('xuatbc.quan-ly-giao-duc-nghe-nghiep')->with('thongbao','Sửa số liệu thành công');
+
+        $this->GiaoDucNgheNghiepService->update($id, $request);
+        return redirect()->route('xuatbc.quan-ly-giao-duc-nghe-nghiep')->with('thongbao', 'Sửa số liệu thành công');
     }
 
     /**
@@ -167,5 +169,71 @@ class GiaoDucNgheNghiepController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    // thanhnv 6/24/2020
+
+    public function exportBieuMau(Request $request)
+    {
+        $id_co_so = $request->id_cs;
+        $this->GiaoDucNgheNghiepService->exportBieuMau($id_co_so);
+    }
+
+    public function exportData(ExportDuLieu $request)
+    {
+        $listCoSoId = $request->truong_id;
+        $dateFrom = $request->dateFrom;
+        $dateTo = $request->dateTo;
+
+        $changeFrom = strtotime($dateFrom);
+        $fromDate = date("Y-m-d", $changeFrom);
+
+        $changeTo = strtotime($dateTo);
+        $toDate = date("Y-m-d", $changeTo);
+        $this->GiaoDucNgheNghiepService->exportData($listCoSoId, $fromDate, $toDate);
+    }
+
+    public function importFile(Request $request)
+    {
+        $dot = $request->dot;
+        $year = $request->nam;
+        $nameFile = $request->file->getClientOriginalName();
+        $nameFileArr = explode('.', $nameFile);
+        $duoiFile = end($nameFileArr);
+
+        $fileRead = $_FILES['file']['tmp_name'];
+        $kq =  $this->GiaoDucNgheNghiepService->importFile($fileRead, $duoiFile, $year, $dot);
+
+        if ($kq == 'errorkitu') {
+            return response()->json('exportError', 200);
+        } else if ($kq == 'ok') {
+            return response()->json('ok', 200);
+        } else if ($kq == 'NgheUnsign') {
+            return response()->json(['messageError' => ' Số lượng nghề không phù hợp với nghề đã đăng kí'], 200);
+        } else if ($kq == 'noCorrectIdTruong') {
+            return response()->json(['messageError' => ' Trường không đúng hãy nhập lại'], 200);
+        } else if ($kq == 'ngheKoThuocTruong') {
+            return response()->json(['messageError' => 'Có nghề không thuộc trong trường'], 200);
+        } else {
+            return response()->json(['messageError' => $kq], 200);
+        }
+    }
+
+    public function importError(Request $request)
+    {
+        $dot = $request->dot;
+        $year = $request->nam;
+
+        $nameFile = $request->file_import->getClientOriginalName();
+        $nameFileArr = explode('.', $nameFile);
+        $duoiFile = end($nameFileArr);
+
+        $fileRead = $_FILES['file_import']['tmp_name'];
+        $pathLoad = Storage::putFile(
+            'uploads/excels',
+            $request->file('file_import')
+        );
+        // $path = str_replace('/', '\\', $pathLoad);  
+        $this->GiaoDucNgheNghiepService->importError($fileRead, $duoiFile, $pathLoad);
     }
 }
