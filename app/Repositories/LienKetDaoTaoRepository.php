@@ -170,7 +170,7 @@ class LienKetDaoTaoRepository extends BaseRepository implements LienKetDaoTaoRep
             ->paginate($limit);
     }
 
-    public function sualienketdaotao($id)
+    public function sualienketdaotao($id, $bac_nghe)
     {
         $query = $this->table
             ->join('co_so_dao_tao', 'lien_ket_qua_tuyen_sinh.co_so_id', '=', 'co_so_dao_tao.id')
@@ -183,8 +183,11 @@ class LienKetDaoTaoRepository extends BaseRepository implements LienKetDaoTaoRep
                 'nganh_nghe.bac_nghe',
                 'nganh_nghe.ten_nganh_nghe'
             ])
-            ->where('lien_ket_qua_tuyen_sinh.id', $id)->first();
-        return $query;
+            ->where('lien_ket_qua_tuyen_sinh.id', $id);
+        if ($bac_nghe == 6 || $bac_nghe == 5) {
+            $query->where('bac_nghe', $bac_nghe);
+        }
+        return  $query->first();
     }
 
     public function postthemlienketdaotao($getdata)

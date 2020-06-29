@@ -126,7 +126,7 @@
                                 <label class="col-lg-2 col-form-label">Chính sách</label>
                                 <div class="col-lg-8">
                                     <select class="form-control select2" name="chinhsach" id="chinhsach">
-                                        <option value="" selected>Chọn</option>
+                                        <option value="" selected disabled>Chọn</option>
                                         @foreach ($chinhsach as $item)
                                         <option @if (isset($params['chinhsach']))
                                             {{( $params['chinhsach'] ==  $item->id ) ? 'selected' : ''}} @endif
@@ -265,7 +265,8 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Hãy chọn trường</h5>
-                        <button type="button"  id="closeFileBieuMau" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" id="closeFileBieuMau" class="close" data-dismiss="modal"
+                            aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -294,7 +295,8 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Import file</h5>
-                        <button type="button" id="closeImportFile" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" id="closeImportFile" class="close" data-dismiss="modal"
+                            aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -324,7 +326,7 @@
                         <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoi">
                         </p>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                        <button type="button"    class="btn btn-primary" id="submitTai">Tải</a>
+                        <button type="button" class="btn btn-primary" id="submitTai">Tải</a>
                             <button type="submit" hidden class="btn btn-primary" id="submitTaiok">Tải ok</a>
                     </div>
                 </div>
@@ -340,7 +342,8 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Xuất dữ liệu</h5>
-                        <button type="button" id='closeXuatDuLieu' class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" id='closeXuatDuLieu' class="close" data-dismiss="modal"
+                            aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -374,7 +377,8 @@
                         <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoiXuat">
                         </p>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                        <button type="submit" onclick="closeModal('closeXuatDuLieu')" class="btn btn-primary" id="submitXuatData">Tải</a>
+                        <button type="submit" onclick="closeModal('closeXuatDuLieu')" class="btn btn-primary"
+                            id="submitXuatData">Tải</a>
                     </div>
                 </div>
             </div>
