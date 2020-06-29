@@ -10,7 +10,8 @@
   table input {
     border: 1px solid #000 !important;
   }
-  .alert-danger{
+
+  .alert-danger {
     margin-top: 10px;
   }
 </style>
@@ -217,7 +218,6 @@
                         name="so_luong_sv_dan_toc_khac" class="form-control m-input"> @error('so_luong_sv_dan_toc_khac')
                       <div class="alert alert-danger">{{ $message }}</div>
                       @enderror</td>
-
                   </tr>
                   <tr>
                     <td>Tống số hộ khẩu Hà Nội</td>
@@ -260,7 +260,6 @@
                       <div class="alert alert-danger">{{ $message }}</div>
                       @enderror</td>
                   </tr>
-
                 </tbody>
               </table>
             </div>
@@ -304,7 +303,6 @@
                         name="so_Tot_nghiep_THCS" class="form-control m-input"> @error('so_Tot_nghiep_THCS')
                       <div class="alert alert-danger">{{ $message }}</div>
                       @enderror</td>
-
                   </tr>
                   <tr>
                     <td>Số tốt nghiệp THPT</td>
