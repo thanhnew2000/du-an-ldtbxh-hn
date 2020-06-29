@@ -17,6 +17,8 @@ use App\Repositories\SoLieuCanBoQuanLyRepository;
 use App\Repositories\SoLieuCanBoQuanLyRepositoryInterface;
 use App\Repositories\DoiNguNhaGiaoInterface;
 use App\Repositories\DoiNguNhaGiaoRepository;
+use App\Repositories\DotRepositoryInterface;
+use App\Repositories\DotRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -34,6 +36,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(NganhNgheRepositoryInterface::class, NganhNgheRepository::class);
         $this->app->bind(SoLieuCanBoQuanLyRepositoryInterface::class, SoLieuCanBoQuanLyRepository::class);
         $this->app->bind(DoiNguNhaGiaoInterface::class, DoiNguNhaGiaoRepository::class);
+        $this->app->bind(DotRepositoryInterface::class, DotRepository::class);
     }
 
     /**
