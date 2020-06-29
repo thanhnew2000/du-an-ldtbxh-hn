@@ -91,7 +91,9 @@
                         <th rowspan="2">Tổng số kinh phí đầu tư trang thiết bị , máy móc</th>
                         <th rowspan="2">Trạng thái</th>
                         <th rowspan="2">
+                            @can('them_moi_tong_hop_hop_tac_quoc_te')
                             <a href="" class="btn btn-success btn-sm">Thêm mới</a>
+                            @endcan
                         </th>
                     </tr>
                 </thead>
@@ -107,8 +109,13 @@
                         <td>2</td>
                         <td>2</td>
                         <td>
+                            @can('cap_nhat_tong_hop_hop_tac_quoc_te')
                             <a href="" class="btn btn-info btn-sm">Sửa</a>
+                            @endcan
+                            @can('chi_tiet_tong_hop_hop_tac_quoc_te')
                             <a href="" class="btn btn-primary btn-sm">Chi tiết</a>
+                            @endcan
+                            
                             </td>
                         </tr>
                 </tbody>

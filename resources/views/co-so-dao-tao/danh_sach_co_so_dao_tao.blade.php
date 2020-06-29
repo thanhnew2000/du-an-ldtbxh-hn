@@ -101,8 +101,12 @@
                     <th>Logo</th>
                     <th>Quyết định</th>
                     <th>Địa chỉ</th>
-                    <th><a href="{{route('csdt.tao-moi')}}" class="btn btn-success btn-sm mr-3">Thêm mới</a>
-                    </th>
+                   @can('them_moi_co_so_dao_tao')
+                   <th><a href="{{route('csdt.tao-moi')}}" class="btn btn-success btn-sm mr-3">Thêm mới</a>
+                   </th>
+                   @endcan
+                    
+                    
                 </thead>
                 <tbody>
                     @php($i=1)
@@ -118,16 +122,24 @@
                         <td>{{$csdt->dia_chi}}</td>
                         <td>
                             <div class="d-flex">
+                                
                                 <div>
+                                    @can('xem_chi_tiet_co_so_dao_tao')
                                     <a href="{{route('csdt.chi-tiet', ['id'=> $csdt->id])}}"
                                         class="btn btn-info btn-sm mr-3">Chi
                                         tiết</a>
+                                    @endcan
                                 </div>
+                               
+                               
                                 <div>
+                                    @can('cap_nhat_co_so_dao_tao')
                                     <a href="{{route('csdt.cap-nhat', ['id'=> $csdt->id])}}"
                                         class="btn btn-primary btn-sm">Cập
                                         nhật</a>
+                                    @endcan
                                 </div>
+                                
                             </div>
                         </td>
                     </tr>

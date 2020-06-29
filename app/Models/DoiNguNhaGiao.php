@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\CoSoDaoTao;
+use App\Models\PheDuyetBaoCao;
 
 class DoiNguNhaGiao extends Model
 {
     protected $table = 'so_lieu_doi_ngu_nha_giao';
     protected $fillable = [
+        'co_so_id',
         'tong_so_can_bo',
         'so_luong_nu',
         'dan_toc_it_nguoi',
@@ -56,5 +58,19 @@ class DoiNguNhaGiao extends Model
     {
         return $query->where('so_lieu_doi_ngu_nha_giao.nam', $nam)
             ->where('so_lieu_doi_ngu_nha_giao.dot', $dot);
+    }
+
+    protected static function booted()
+    {
+        static::created(function ($baoCao) {
+            app(PheDuyetBaoCao::class)->create([
+                'trang_thai' => 1,
+                'ban_ghi_duoc_phe_duyet_id' => $baoCao->id,
+                'loai_ban_ghi' => DoiNguNhaGiao::class,
+                'dot_id' => 1,
+                'thoi_gian_phe_duyet_1' => null,
+                'thoi_gian_phe_duyet_2' => null,
+            ]);
+        });
     }
 }

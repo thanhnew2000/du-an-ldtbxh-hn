@@ -161,11 +161,11 @@
                 </thead>
                 <tbody>
                     @php
-                    $stt = 1;
+                    $i = !isset($_GET['page']) ? 1 : ($params['page_size'] * ($_GET['page']-1) + 1);
                     @endphp
                   @foreach ($data as $item)
                     <tr>
-                        <td>{{ $stt }}</td>
+                        <td>{{ $i++ }}</td>
                         <td>{{ $item->ma_nghe }}</td>
                         <td>{{ $item->ten_nghe }}</td>
                         <td>{{ $item->ten }}</td>
@@ -177,15 +177,15 @@
                         <td>{{ $item->tong }}</td>
                         <td>{{ $item->so_dang_ki_CD }}</td>
                         <td>{{ $item->so_dang_ki_TC }}</td>
+                        @can('cap_nhat_tong_hop_dang_ky_chi_tieu_tuyen_sinh')
                         <td>
                             <a target="_blank"
                             href="{{ route('xuatbc.sua-dang-ky-chi-tieu-tuyen-sinh',['id'=>$item->id]) }}"
                                 class="btn btn-info btn-sm">Sửa</a>
                         </td>
+                        @endcan
                     </tr>
-                    @php
-                    $stt++;
-                    @endphp
+
                       
                   @endforeach
                 </tbody>
@@ -224,4 +224,15 @@
 
     });
 </script>
+@if (session('success'))
+<script>
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Cập nhật thành công !',
+        showConfirmButton: false,
+        timer: 3500
+    })
+</script>
+@endif
 @endsection

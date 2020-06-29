@@ -232,10 +232,12 @@
                     aria-hidden="true"></i>
                 Xuất dữ liệu ra Excel</a>
         </div>
+        @can('them_moi_tong_hop_lien_ket_lien_thong_trinh_do')
         <div class="col-lg-6 " style="text-align: right">
             <a href="{{route('xuatbc.them-lien-ket-dao-tao')}}"><button type="button" class="btn btn-info .bg-info">Thêm
                     mới</button></a>
         </div>
+        @endcan
     </section>
 
     <div class="m-portlet">

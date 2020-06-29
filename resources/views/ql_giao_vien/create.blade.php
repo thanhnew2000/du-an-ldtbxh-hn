@@ -529,7 +529,6 @@
 <script>
     $(".select2").select2();
 
-    console.log('aaa', "{{ route('nghe.search') }}")
     $('#nganh_nghe').select2({
         ajax: {
             url: "{{ route('nghe.search') }}",

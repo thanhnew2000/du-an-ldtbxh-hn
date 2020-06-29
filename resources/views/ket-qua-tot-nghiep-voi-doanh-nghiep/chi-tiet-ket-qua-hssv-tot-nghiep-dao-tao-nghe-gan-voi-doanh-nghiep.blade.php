@@ -126,7 +126,9 @@
                         <th colspan="9">Kết quả HSSV tốt nghiệp gắn với doanh nghiệp</th>
                         <th colspan="3">Kết quả giải quyết việc làm</th>
                         <th rowspan="2">Trạng thái</th>
+                        @can('cap_nhat_ket_qua_hoc_sinh_tot_nghiep_dao_tao_nghe_voi_doanh_nghiep')
                         <th rowspan="2">Thao tác</th>
+                        @endcan
                     </tr>
                     <tr class="pt-3 row2">
                         <th>Tổng số HSSV tốt nghiệp</th>
@@ -171,12 +173,14 @@
                         <td>{{$item->so_HSSV_duoc_tuyen_dung}}</td>
                         <td>{{$item->muc_luong_doanh_nghiep_tra}}</td>
                         <td>{{$item->ten_trang_thai}}</td>
+                        @can('cap_nhat_ket_qua_hoc_sinh_tot_nghiep_dao_tao_nghe_voi_doanh_nghiep')
                         <td>
                             @if ($item->trang_thai<3) <a
                                 href="{{route('xuatbc.sua-ket-qua-tot-nghiep-voi-doanh-nghiep', ['id' => $item->id])}}">
                                 Cập nhật</a>
                                 @endif
                         </td>
+                        @endcan
                     </tr>
                     @endforeach
 
