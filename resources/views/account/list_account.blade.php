@@ -105,9 +105,9 @@
                     function displayAvatar($avatarImg)
                     {
                     if($avatarImg != null) {
-                    return asset('storage/'.$avatarImg);
+                        return asset('storage/'.$avatarImg);
                     }
-                    return asset('images/avatardefault.jpg');
+                        return asset('images/avatardefault.jpg');
                     }
                     @endphp
 
@@ -145,6 +145,7 @@
 
                             </form>
                         </td>
+                        @endcan
                         <td>
                             @can('sua_tai_khoan')
                             <a class="btn btn-primary btn-sm"
