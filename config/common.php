@@ -93,4 +93,5 @@ return [
             'phe_duyet_lan_2' => 4,
         ],
     ],
+    'default_member_role' => 30
 ];
