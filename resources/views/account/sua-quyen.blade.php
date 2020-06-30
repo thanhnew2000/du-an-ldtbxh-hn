@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+@section('title', 'Sửa quyền truy cập')
 @section('content')
 <style>
     .mx-n2{
