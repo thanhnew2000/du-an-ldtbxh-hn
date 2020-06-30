@@ -25,6 +25,7 @@ class UpdateChinhSachSinhVienValidate extends FormRequest
     {
         $data = $this->all();
         unset($data['_token']);
+        unset($data['ghi_chu']);
 
         $getDataCheck = [];
         foreach ($data as $item => $value) {
