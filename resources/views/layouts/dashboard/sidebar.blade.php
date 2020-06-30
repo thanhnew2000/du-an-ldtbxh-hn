@@ -549,11 +549,18 @@
 			<li class="m-menu__item  m-menu__item--parent" aria-haspopup="true"><span class="m-menu__link"><span
 						class="m-menu__link-text">Charts</span></span></li>
 			<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a
-					href="{{url('feedback/nhan-tin-bao-loi-he-thong')}}" class="m-menu__link m-menu__toggle"><i
+					href="{{route('feedback.nhan-tin-bao-loi-he-thong')}}" class="m-menu__link m-menu__toggle"><i
 						class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 						class="m-menu__link-text">Nhắn tin báo lỗi hệ thống</span><i
 						class="m-menu__ver-arrow la la-angle-right"></i></a>
 			</li>
+
+			<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a
+				href="{{route('feedback.danh-sach-tin-nhan-phan-hoi')}}" class="m-menu__link m-menu__toggle"><i
+					class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
+					class="m-menu__link-text">Danh sách tin nhắn phản hồi </span><i
+					class="m-menu__ver-arrow la la-angle-right"></i></a>
+		</li>
 
 
 		</ul>

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Illuminate\Http\Request;
 use App\Services\AppService;
+use App\Services\StoreUpdateNotificationService;
 use App\Repositories\SoLieuTuyenSinhRepository;
 use App\Repositories\LoaiHinhCoSoRepositoryInterface;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -14,6 +15,7 @@ use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
 use Carbon\Carbon;
+use Auth;
 use Storage;
 
 
@@ -21,13 +23,16 @@ class SoLieuTuyenSinhService extends AppService
 {
     protected $loaiHinhCoSoRepository;
     protected $soLieuTuyenSinhRepository;
+    protected $StoreUpdateNotificationService;
     use ExcelTraitService;
 
     public function __construct(
-        LoaiHinhCoSoRepositoryInterface $loaiHinhCoSoRepository
+        LoaiHinhCoSoRepositoryInterface $loaiHinhCoSoRepository,
+        StoreUpdateNotificationService $StoreUpdateNotificationService
     ) {
         parent::__construct();
         $this->loaiHinhCoSoRepository = $loaiHinhCoSoRepository;
+        $this->StoreUpdateNotificationService = $StoreUpdateNotificationService;
         // $this->soLieuTuyenSinhRepository = $soLieuTuyenSinhRepository;
     }
 
@@ -44,6 +49,7 @@ class SoLieuTuyenSinhService extends AppService
 
     public function getSoLuongTuyenSinh($params = [], $limit)
     {
+       
         $queryData = [];
         $queryData['dot'] = isset($params['dot']) ? $params['dot'] : (Carbon::now()->month < 6 ? 1 : 2);
         $queryData['nam'] = isset($params['nam']) ? $params['nam'] : Carbon::now()->year;
@@ -64,7 +70,6 @@ class SoLieuTuyenSinhService extends AppService
         $queryData['dot'] = isset($params['dot']) ? $params['dot'] : null;
         $data = $this->repository->getChiTietSoLuongTuyenSinh($coSoId, $limit, $queryData);
         return $data;
-    // dd($data);
     }
     public function getTenCoSoDaoTao()
     {
@@ -82,12 +87,39 @@ class SoLieuTuyenSinhService extends AppService
         unset($getdata['_token']);
         $dateTime = Carbon::now();
         $getdata['thoi_gian_cap_nhat'] = $dateTime->format('Y-m-d H:i:s');
-        return $data = $this->repository->postthemsolieutuyensinh($getdata);
+        
+        $data = $this->repository->postthemsolieutuyensinh($getdata);
+        if($data){
+            $thongTinCoSo = $this->repository->getThongTinCoSo($getdata['co_so_id']);
+            $tieude = 'Thêm mới ( '.$thongTinCoSo->ten.' )';
+            $noidung = 'Thêm mới số liệu tuyển sinh';
+            $route = route('chitietsolieutuyensinh',['co_so_id' => $getdata['co_so_id']]);
+            $this->StoreUpdateNotificationService->addContentUp($getdata['nam'],$getdata['dot'],$getdata['co_so_id'],$tieude,$noidung,$route);
+
+        }
+        return $data;
     }
 
     public function getsuasolieutuyensinh($id)
     {
-        return $this->repository->getsuasolieutuyensinh($id);
+        return  $this->repository->getsuasolieutuyensinh($id);
+    }
+
+    public function updateData($id, $request)
+    {
+        $attributes = $request->all();
+        unset($attributes['_token']);
+		$resurt = $this->repository->updateData($id, $attributes);
+        $dataFindId = $this->repository->findById($id);
+        $getdata = (array)$dataFindId;
+        $thongTinCoSo = $this->repository->getThongTinCoSo($getdata['co_so_id']);
+        if($resurt){         
+            $tieude = 'Cập nhật ( '.$thongTinCoSo->ten.' )';
+			$noidung = 'Cập nhật số liệu tuyển sinh';
+			$route = route('chitietsolieutuyensinh',['co_so_id' => $getdata['co_so_id']]);
+			$this->StoreUpdateNotificationService->addContentUp($getdata['nam'],$getdata['dot'],$getdata['co_so_id'],$tieude,$noidung,$route);
+        }
+        return $resurt;
     }
 
     public function getCheckTonTaiSoLieuTuyenSinh($data, $requestParams)
@@ -100,7 +132,7 @@ class SoLieuTuyenSinhService extends AppService
             'Số liệu tuyển sinh đã tồn tại';
         
         if (!isset($checkResult)) {
-            $data = $this->repository->postthemsolieutuyensinh($requestParams);
+            $data = $this->postthemsolieutuyensinh($requestParams);
             $message = 'Thêm số liệu tuyển sinh thành công';
             $route = route('chitietsolieutuyensinh', [
                 'co_so_id' => $requestParams['co_so_id'],
@@ -457,7 +489,12 @@ class SoLieuTuyenSinhService extends AppService
                 if (count($insertData) > 0) {
                     $this->repository->createTuyenSinh($insertData);
                     // DB::table('tuyen_sinh')->insert($insertData);
-                }    
+                }  
+                $thongTinCoSo = $this->repository->getThongTinCoSo($id_truong);
+                $bm = 'Tuyển sinh';
+                $tencoso = $thongTinCoSo->ten;
+                $route = route('chitietsolieutuyensinh',['co_so_id' => $id_truong]);
+                $this->StoreUpdateNotificationService->addContentUpExecl($year,$dot,$id_truong,count($insertData),count($updateData),$bm,$route,$tencoso);
 
                 $message='ok';
                 return $message;  

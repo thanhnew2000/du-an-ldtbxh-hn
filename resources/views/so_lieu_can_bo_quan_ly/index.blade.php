@@ -23,7 +23,7 @@
                     aria-hidden="true"></i>
                 Xuất dữ liệu ra Excel</a>
         </div>
-        @can('update')
+        @can('them_moi_danh_sach_doi_ngu_quan_ly')
         <div class="col-lg-6" style="text-align: right">
             <a href="{{ route('so-lieu-can-bo-quan-ly.create') }}"><button type="button" class="btn btn-secondary">Thêm mới</button></a>
             </div>

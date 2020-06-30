@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Services\ChinhSachSinhVienService;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\ChinhSachSinhVienValidate;
+use App\Http\Requests\UpdateChinhSachSinhVienValidate;
 use Storage;
 
 class ChinhSachSinhVienController extends Controller
@@ -104,43 +105,47 @@ class ChinhSachSinhVienController extends Controller
     }
     // thanhnv update 6/25/2020
 
-    public function exportBieuMau(Request $request){
+    public function exportBieuMau(Request $request)
+    {
         $id_co_so = $request->id_cs;
         $this->ChinhSachSinhVienService->exportBieuMau($id_co_so);
     }
-    public function exportData(Request $request){
+    public function exportData(Request $request)
+    {
         $listCoSoId = $request->truong_id;
         $nam_muon_xuat = $request->nam_muon_xuat;
         $dot_muon_xuat = $request->dot_muon_xuat;
 
-        $this->ChinhSachSinhVienService->exportData($listCoSoId ,$nam_muon_xuat,$dot_muon_xuat);
+        $this->ChinhSachSinhVienService->exportData($listCoSoId, $nam_muon_xuat, $dot_muon_xuat);
     }
-    public function importFile(Request $request){
-        $dot=$request->dot;
-        $year=$request->nam;
-        $nameFile=$request->file->getClientOriginalName();
-        $nameFileArr=explode('.',$nameFile);
-        $duoiFile=end($nameFileArr);
-        
+    public function importFile(Request $request)
+    {
+        $dot = $request->dot;
+        $year = $request->nam;
+        $nameFile = $request->file->getClientOriginalName();
+        $nameFileArr = explode('.', $nameFile);
+        $duoiFile = end($nameFileArr);
+
         $fileRead = $_FILES['file']['tmp_name'];
         $kq =  $this->ChinhSachSinhVienService->importFile($fileRead, $duoiFile, $year, $dot);
-        if($kq=='errorkitu'){
-                return response()->json('exportError',200);   
-        }else if($kq=='ok'){
-                return response()->json('ok',200); 
-        }else if($kq=='nhapKhongDungDong'){
-                return response()->json(['messageError' => 'Chỉ nhập các ô chính sách trong bảng' ],200);   
-        }else{
-            return response()->json(['messageError' => $kq ],200);   
+        if ($kq == 'errorkitu') {
+            return response()->json('exportError', 200);
+        } else if ($kq == 'ok') {
+            return response()->json('ok', 200);
+        } else if ($kq == 'nhapKhongDungDong') {
+            return response()->json(['messageError' => 'Chỉ nhập các ô chính sách trong bảng'], 200);
+        } else {
+            return response()->json(['messageError' => $kq], 200);
         }
     }
 
-    public function importError(Request $request){
-        $dot=$request->dot;
-        $year=$request->nam;
-        $nameFile=$request->file_import->getClientOriginalName();
-        $nameFileArr=explode('.',$nameFile);
-        $duoiFile=end($nameFileArr);
+    public function importError(Request $request)
+    {
+        $dot = $request->dot;
+        $year = $request->nam;
+        $nameFile = $request->file_import->getClientOriginalName();
+        $nameFileArr = explode('.', $nameFile);
+        $duoiFile = end($nameFileArr);
 
         $fileRead = $_FILES['file_import']['tmp_name'];
         $pathLoad = Storage::putFile(
@@ -148,6 +153,6 @@ class ChinhSachSinhVienController extends Controller
             $request->file('file_import')
         );
         // $path = str_replace('/', '\\', $pathLoad);  
-        $this->ChinhSachSinhVienService->importError($fileRead, $duoiFile,$pathLoad);
+        $this->ChinhSachSinhVienService->importError($fileRead, $duoiFile, $pathLoad);
     }
 }
