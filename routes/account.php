@@ -5,9 +5,8 @@ use Illuminate\Support\Facades\Route;
 
 
 //2020-06-19 - CuongNC - UpdateMiddleware
-
+Route::get('/quan-ly-tai-khoan', 'AccountController@index')->name('account.list');
 Route::group(['middleware' => ['permission:them_tai_khoan']], function () {
-    Route::get('/quan-ly-tai-khoan', 'AccountController@index')->name('account.list');
     Route::post('/edit-status', 'AccountController@editstatus')->name('account.editstatus');
     Route::get('/tao-tai-khoan', 'UserController@getdangkytaikhoan')->name("account.tao-tk");
     Route::post('/tao-tai-khoan', 'UserController@dangkytaikhoan');

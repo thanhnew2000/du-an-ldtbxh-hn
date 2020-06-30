@@ -9,198 +9,198 @@
 
 use Illuminate\Support\Facades\Route;
 
+//CườngNC- UpdateMiddleware
+
 //phucnv - Tổng hợp đội ngũ nhà giáo
+Route::get('/tong-hop', 'ExtractController@danhsachnhagiao')->name('xuatbc.ds-nha-giao');
 Route::group(
-    [
-        'prefix' => 'doi-ngu-nha-giao',
-        'middleware' => ['permission:them_moi_danh_sach_doi_ngu_nha_giao
-                        |cap_nhat_danh_sach_doi_ngu_nha_giao|
-                        chi_tiet_danh_sach_doi_ngu_nha_giao']
-    ],
+    ['prefix' => 'doi-ngu-nha-giao', 'middleware' => ['permission:them_moi_danh_sach_doi_ngu_nha_giao']],
     function () {
-        Route::get('/tong-hop', 'ExtractController@danhsachnhagiao')
-            ->name('xuatbc.ds-nha-giao');
-
-        Route::get('/them-ds-nha-giao', 'ExtractController@themDanhSachDoiNguNhaGiao')
-            ->name('xuatbc.them-ds-nha-giao');
+        Route::get('/them-ds-nha-giao', 'ExtractController@themDanhSachDoiNguNhaGiao')->name('xuatbc.them-ds-nha-giao');
         Route::post('/them-ds-nha-giao', 'ExtractController@saveDanhSachDoiNguNhaGiao');
-
-        Route::get(
-            '/sua-ds-nha-giao/{id}',
-            'ExtractController@suaDanhSachDoiNguNhaGiao'
-        )
-            ->name('xuatbc.sua-ds-nha-giao');
-        Route::post(
-            '/sua-ds-nha-giao/{id}',
-            'ExtractController@updateDanhSachDoiNguNhaGiao'
-        );
-
-        Route::get('/nganhnghe/{co_so_id}', 'ExtractController@layNganhNgheTheoCoSo')->name('xuatbc.lay-nganh-nghe-theo-co-so');
-
-        Route::get('/chitiet/{co_so_id}', 'ExtractController@chiTietTheoCoSo')->name("xuatbc.chi-tiet-theo-co-so");
-        Route::post('export', 'ExtractController@export')->name('doi-ngu-nha-giao.export');
-        Route::post('export-bieu-mau', 'ExtractController@exportBieuMau')
-            ->name('doi-ngu-nha-giao.export-bieu-mau');
-        Route::post('import', 'ExtractController@import')
-            ->name('doi-ngu-nha-giao.import');
     }
 );
-//end phucnv - Tổng hợp đội ngũ nhà giáo
 
+Route::group(
+    ['prefix' => 'doi-ngu-nha-giao', 'middleware' => ['permission:them_moi_danh_sach_doi_ngu_nha_giao']],
+    function () {
+        Route::get('/sua-ds-nha-giao/{id}', 'ExtractController@suaDanhSachDoiNguNhaGiao')->name('xuatbc.sua-ds-nha-giao');
+        Route::post('/sua-ds-nha-giao/{id}', 'ExtractController@updateDanhSachDoiNguNhaGiao');
+    }
+);
+Route::group(
+    ['prefix' => 'doi-ngu-nha-giao', 'middleware' => ['permission:chi_tiet_danh_sach_doi_ngu_nha_giao']],
+    function () {
+        Route::get('/chitiet/{co_so_id}', 'ExtractController@chiTietTheoCoSo')->name("xuatbc.chi-tiet-theo-co-so");
+    }
+);
+Route::get('/nganhnghe/{co_so_id}', 'ExtractController@layNganhNgheTheoCoSo')->name('xuatbc.lay-nganh-nghe-theo-co-so');
+Route::post('export', 'ExtractController@export')->name('doi-ngu-nha-giao.export');
+Route::post('export-bieu-mau', 'ExtractController@exportBieuMau')
+    ->name('doi-ngu-nha-giao.export-bieu-mau');
+Route::post('import', 'ExtractController@import')
+    ->name('doi-ngu-nha-giao.import');
+
+//end phucnv - Tổng hợp đội ngũ nhà giáo
 
 Route::group(['prefix' => 'doi-ngu-quan-ly'], function () {
     Route::get(
         '/tong-hop',
         'ExtractController@danhsachquanly'
     )
-
         ->name('xuatbc.ds-quan-ly');
 });
 
 // cuong nc - tổng hợp sinh viên đang theo học
+Route::get('/', 'ExtractController@tonghopsvdanghoc')->name('xuatbc.ds-sv-dang-hoc');
 
 Route::group([
     'prefix' => 'so-lieu-sinh-vien-dang-theo-hoc',
-    'middleware' => ['permission:xem_so_luong_sinh_vien_dang_theo_hoc
-    |sua_so_luong_sinh_vien_dang_theo_hoc
-    |them_so_luong_sinh_vien_dang_theo_hoc']
+    'middleware' => ['permission:them_so_luong_sinh_vien_dang_theo_hoc']
 ], function () {
-    Route::get('/', 'ExtractController@tonghopsvdanghoc')
-        ->name('xuatbc.ds-sv-dang-hoc');
-
-    Route::get('/them-so-lieu-sinh-vien', 'ExtractController@add')
-        ->name('xuatbc.them-so-sv');
-    Route::post('/them-so-lieu-sinh-vien', 'ExtractController@saveAdd')
-        ->name('xuatbc.them-so-sv');
-    Route::get('/cap-nhat-so-lieu-sinh-vien/{id}', 'ExtractController@edit')
-        ->name('xuatbc.sua-so-sv');
-    Route::post(
-        '/cap-nhat-so-lieu-sinh-vien/{id}',
-        'ExtractController@saveEdit'
-    )->name('xuatbc.sua-so-lieu-sv');
-
-    Route::get('/chi-tiet-so-lieu-sinh-vien/{co_so_id}', 'ExtractController@tongHopChiTietSvDangTheoHoc')
-        ->name('xuatbc.chi-tiet-so-lieu');
-
-
-    // thanhnv tai bieu mau
-    Route::post('/tai-bieu-mau-hs-dang-ql', 'ExtractController@exportBieuMaubm4')
-        ->name('export.bieumau.hsdql');
-
-    Route::post('/xuat-du-lieu-hs-dang-ql', 'ExtractController@exportDatabm4')
-        ->name('export.data.hsql');
+    Route::get('/them-so-lieu-sinh-vien', 'ExtractController@add')->name('xuatbc.them-so-sv');
+    Route::post('/them-so-lieu-sinh-vien', 'ExtractController@saveAdd')->name('xuatbc.them-so-sv');
 });
+
+Route::group([
+    'prefix' => 'so-lieu-sinh-vien-dang-theo-hoc',
+    'middleware' => ['permission:sua_so_luong_sinh_vien_dang_theo_hoc']
+], function () {
+    Route::get('/cap-nhat-so-lieu-sinh-vien/{id}', 'ExtractController@edit')->name('xuatbc.sua-so-sv');
+    Route::post('/cap-nhat-so-lieu-sinh-vien/{id}', 'ExtractController@saveEdit')->name('xuatbc.sua-so-lieu-sv');
+});
+
+Route::group(['prefix' => 'so-lieu-sinh-vien-dang-theo-hoc', 'middleware' => ['permission:xem_so_luong_sinh_vien_dang_theo_hoc']], function () {
+    Route::get('/chi-tiet-so-lieu-sinh-vien/{co_so_id}', 'ExtractController@tongHopChiTietSvDangTheoHoc')->name('xuatbc.chi-tiet-so-lieu');
+});
+// thanhnv tai bieu mau
+Route::post('/tai-bieu-mau-hs-dang-ql', 'ExtractController@exportBieuMaubm4')
+    ->name('export.bieumau.hsdql');
+
+Route::post('/xuat-du-lieu-hs-dang-ql', 'ExtractController@exportDatabm4')
+    ->name('export.data.hsql');
+
 // end cuong nc - tổng hợp sinh viên đang theo học
 
 //Xuân - Chính sách sinh viên
-Route::group([
-    'prefix' => 'chinh-sach-sinh-vien',
-    'middleware' => ['permission:them_moi_tong_hop_thuc_hien_chinh_sach_cho_sv|
-    cap_nhat_tong_hop_thuc_hien_chinh_sach_cho_sv']
-], function () {
-    Route::get(
-        '/tong-hop',
-        'ExtractController@tonghopchinhsachsv'
-    )
-        ->name('xuatbc.ds-chinh-sach-sv');
-    Route::get('/tong-hop-chinh-sach-sinh-vien', 'ChinhSachSinhVienController@tonghopchinhsachsinhvien')
-        ->name('xuatbc.tong-hop-chinh-sach-sinh-vien');
+Route::group(['prefix' => 'chinh-sach-sinh-vien'], function () {
+    Route::get('/tong-hop', 'ExtractController@tonghopchinhsachsv')->name('xuatbc.ds-chinh-sach-sv');
+});
 
-
+Route::group(['prefix' => 'chinh-sach-sinh-vien', 'middleware' => ['permission:them_moi_tong_hop_thuc_hien_chinh_sach_cho_sv']], function () {
     Route::get('/them-chinh-sach-sinh-vien', 'ChinhSachSinhVienController@themchinhsachsinhvien')
         ->name('xuatbc.them-chinh-sach-sinh-vien');
     Route::post('/them-chinh-sach-sinh-vien', 'ChinhSachSinhVienController@postthemchinhsachsinhvien')
         ->name('xuatbc.post-them-chinh-sach-sinh-vien');
-    Route::post('/check-ton-tai-chinh-sach-sinh-vien', 'ChinhSachSinhVienController@checktontaichinhsachsinhvien')
-        ->name('xuatbc.check-ton-tai-chinh-sach-sinh-vien');
-    Route::post('/get-chinh-sach', 'ChinhSachSinhVienController@getchinhsach')
-        ->name('get-chinh-sach');
-
-    Route::get('/sua-chinh-sach-sinh-vien/{id}', 'ChinhSachSinhVienController@suachinhsachsinhvien')
-        ->name('xuatbc.sua-chinh-sach-sinh-vien');
-    Route::post('/sua-chinh-sach-sinh-vien/{id}', 'ChinhSachSinhVienController@postsuachinhsachsinhvien')
-        ->name('xuatbc.post-sua-chinh-sach-sinh-vien');
-
-
-    // thanhnv import export
-    Route::post('export-bieu-mau-chinh-sach-sv', 'ChinhSachSinhVienController@exportBieuMau')
-        ->name('layformbieumau.cs.sinhvien');
-    Route::post('export-data-chinh-sach-sv', 'ChinhSachSinhVienController@exportData')
-        ->name('exportdata.bieumau.cs.sinhvien');
 });
+
+Route::group(['prefix' => 'chinh-sach-sinh-vien', 'middleware' => ['permission:cap_nhat_tong_hop_thuc_hien_chinh_sach_cho_sv']], function () {
+    Route::get('/sua-chinh-sach-sinh-vien/{id}', 'ChinhSachSinhVienController@suachinhsachsinhvien')->name('xuatbc.sua-chinh-sach-sinh-vien');
+    Route::post('/sua-chinh-sach-sinh-vien/{id}', 'ChinhSachSinhVienController@postsuachinhsachsinhvien')->name('xuatbc.post-sua-chinh-sach-sinh-vien');
+});
+
+Route::group(['prefix' => 'chinh-sach-sinh-vien'], function () {
+    Route::post('/check-ton-tai-chinh-sach-sinh-vien', 'ChinhSachSinhVienController@checktontaichinhsachsinhvien')->name('xuatbc.check-ton-tai-chinh-sach-sinh-vien');
+    Route::post('/get-chinh-sach', 'ChinhSachSinhVienController@getchinhsach')->name('get-chinh-sach');
+    Route::get('/tong-hop-chinh-sach-sinh-vien', 'ChinhSachSinhVienController@tonghopchinhsachsinhvien')->name('xuatbc.tong-hop-chinh-sach-sinh-vien');
+});
+
+
+
+// thanhnv import export
+Route::post('export-bieu-mau-chinh-sach-sv', 'ChinhSachSinhVienController@exportBieuMau')
+    ->name('layformbieumau.cs.sinhvien');
+Route::post('export-data-chinh-sach-sv', 'ChinhSachSinhVienController@exportData')
+    ->name('exportdata.bieumau.cs.sinhvien');
+
 //END Xuân - Chính sách sinh viên
 
-Route::group([
-    'prefix' => 'ket-qua-tuyen-sinh',
-    'middleware' => ['permission:them_moi_tong_hop_ket_qua_tuyen_sinh|
-            xem_chi_tiet_tong_hop_ket_qua_tuyen_sinh|
-            sua_chi_tiet_tong_hop_ket_qua_tuyen_sinh']
-], function () {
-    Route::get('/tong-hop', 'ExtractController@tonghopkqtuyensinh')
-        ->name('xuatbc.ds-ket-qua-ts');
-
+//Start - CườngNC - Updatemiddleware - Kể quả tuyển sinh
+Route::group(['prefix' => 'ket-qua-tuyen-sinh'], function () {
+    Route::get('/tong-hop', 'ExtractController@tonghopkqtuyensinh')->name('xuatbc.ds-ket-qua-ts');
     Route::get('/tong-hop-so-lieu-tuyen-sinh', 'SoLieuTuyenSinhController@index')->name('solieutuyensinh');
-    Route::post('/co-so-tuyen-sinh-theo-loai-hinh', 'SoLieuTuyenSinhController@getCoSoTuyenSinhTheoLoaiHinh')->name('csTuyenSinhTheoLoaiHinh');
-    Route::post('/xa-phuong-theo-quan-huyen', 'SoLieuTuyenSinhController@getXaPhuongTheoQuanHuyen')->name('getXaPhuongTheoQuanHuyen');
-    Route::get('/chi-tiet-so-lieu-tuyen-sinh/{co_so_id}', 'SoLieuTuyenSinhController@chitietsolieutuyensinh')->name('chitietsolieutuyensinh');
-    Route::get('/sua-so-lieu-tuyen-sinh/{id}', 'SoLieuTuyenSinhController@edit')->middleware('checkStatusUpdateSoLieuTuyenSinh')->name('suasolieutuyensinh');
-    Route::post('/sua-so-lieu-tuyen-sinh/{id}/edit', 'SoLieuTuyenSinhController@update')->name('postsuasolieutuyensinh');
+});
+
+Route::group([
+    'prefix' => 'ket-qua-tuyen-sinh', 'middleware' => ['permission:them_moi_tong_hop_ket_qua_tuyen_sinh']
+], function () {
     Route::get('/them-so-lieu-tuyen-sinh', 'SoLieuTuyenSinhController@create')->name('themsolieutuyensinh');
     Route::post('/them-so-lieu-tuyen-sinh', 'SoLieuTuyenSinhController@store')->name('postthemsolieutuyensinh');
-    Route::post('/get-ma-nganh-nghe', 'SoLieuTuyenSinhController@getmanganhnghe')->name('get_ma_nganh_nghe');
-    Route::post('/check-them-so-lieu-tuyen-sinh', 'SoLieuTuyenSinhController@getCheckTonTaiSoLieuTuyenSinh')->name('so_lieu_tuyen_sinh.check_so_lieu');
-    Route::post('/get-nghe-theo-cap-bac', 'SoLieuTuyenSinhController@getNgheTheoCapBac')->name('getNgheTheoCapBac');
-    // Route::post('/get-nghe-cap-4-theo-cap-3','SoLieuTuyenSinhController@getNgheCap4TheoCap3')->name('getNgheCap4TheoCap3');
-
-
-    // thanhnv update tuyensinh 6/25/2020
-    Route::post('form-nhap-sv', 'SoLieuTuyenSinhController@exportBieuMau')->name('layformbieumausinhvien');
-    Route::post('export-data-sv', 'SoLieuTuyenSinhController@exportData')->name('exportdatatuyensinh');
 });
+
+Route::group([
+    'prefix' => 'ket-qua-tuyen-sinh', 'middleware' => ['permission:sua_chi_tiet_tong_hop_ket_qua_tuyen_sinh']
+], function () {
+    Route::get('/sua-so-lieu-tuyen-sinh/{id}', 'SoLieuTuyenSinhController@edit')->middleware('checkStatusUpdateSoLieuTuyenSinh')->name('suasolieutuyensinh');
+    Route::post('/sua-so-lieu-tuyen-sinh/{id}/edit', 'SoLieuTuyenSinhController@update')->name('postsuasolieutuyensinh');
+});
+
+Route::group(['middleware' => ['permission:xem_chi_tiet_tong_hop_ket_qua_tuyen_sinh']], function () {
+    Route::get('/chi-tiet-so-lieu-tuyen-sinh/{co_so_id}', 'SoLieuTuyenSinhController@chitietsolieutuyensinh')->name('chitietsolieutuyensinh');
+});
+
+Route::post('/co-so-tuyen-sinh-theo-loai-hinh', 'SoLieuTuyenSinhController@getCoSoTuyenSinhTheoLoaiHinh')->name('csTuyenSinhTheoLoaiHinh');
+Route::post('/xa-phuong-theo-quan-huyen', 'SoLieuTuyenSinhController@getXaPhuongTheoQuanHuyen')->name('getXaPhuongTheoQuanHuyen');
+Route::post('/get-ma-nganh-nghe', 'SoLieuTuyenSinhController@getmanganhnghe')->name('get_ma_nganh_nghe');
+Route::post('/check-them-so-lieu-tuyen-sinh', 'SoLieuTuyenSinhController@getCheckTonTaiSoLieuTuyenSinh')->name('so_lieu_tuyen_sinh.check_so_lieu');
+Route::post('/get-nghe-theo-cap-bac', 'SoLieuTuyenSinhController@getNgheTheoCapBac')->name('getNgheTheoCapBac');
+// Route::post('/get-nghe-cap-4-theo-cap-3','SoLieuTuyenSinhController@getNgheCap4TheoCap3')->name('getNgheCap4TheoCap3');
+
+// thanhnv update tuyensinh 6/25/2020
+Route::post('form-nhap-sv', 'SoLieuTuyenSinhController@exportBieuMau')->name('layformbieumausinhvien');
+Route::post('export-data-sv', 'SoLieuTuyenSinhController@exportData')->name('exportdatatuyensinh');
+//End - CườngNC - Updatemiddleware - Kể quả tuyển sinh
+
+
 
 //phucnv BM:12
-Route::group([
-    'prefix' => 'ket-qua-xay-dung-giao-trinh',
-    'middleware' => ['permission:them_moi_tong_hop_xay_dung_chuong_trinh_giao_trinh|chi_tiet_tong_hop_xay_dung_chuong_trinh_giao_trinh
-            |cap_nhat_tong_hop_xay_dung_chuong_trinh_giao_trinh']
-], function () {
-    Route::get('/tong-hop', 'XayDungChuongTrinhGiaoTrinhController@index')
-        ->name('xuatbc.ds-xd-giao-trinh');
-    Route::get('/show/{co_so_id}', 'XayDungChuongTrinhGiaoTrinhController@show')
-        ->name('xuatbc.show-ds-xd-giao-trinh');
-    Route::get('/create', 'XayDungChuongTrinhGiaoTrinhController@create')
-        ->name('xuatbc.create-ds-xd-giao-trinh');
-    Route::post('/store', 'XayDungChuongTrinhGiaoTrinhController@store')
-        ->name('xuatbc.store-ds-xd-giao-trinh');
-    Route::get('/{id}/edit', 'XayDungChuongTrinhGiaoTrinhController@edit')
-        ->name('xuatbc.edit-ds-xd-giao-trinh');
-    Route::post('/update/{id}', 'XayDungChuongTrinhGiaoTrinhController@update')
-        ->name('xuatbc.update-ds-xd-giao-trinh');
+//Start - CườngNC - UpdateMiddleware - 30/06/2020 - Kết quả xây dựng giáo trình
+Route::group(['prefix' => 'ket-qua-xay-dung-giao-trinh'], function () {
+    Route::get('/tong-hop', 'XayDungChuongTrinhGiaoTrinhController@index')->name('xuatbc.ds-xd-giao-trinh');
+});
+
+Route::group(['prefix' => 'ket-qua-xay-dung-giao-trinh', 'middleware' => ['permission:them_moi_tong_hop_xay_dung_chuong_trinh_giao_trinh']], function () {
+    Route::get('/create', 'XayDungChuongTrinhGiaoTrinhController@create')->name('xuatbc.create-ds-xd-giao-trinh');
+    Route::post('/store', 'XayDungChuongTrinhGiaoTrinhController@store')->name('xuatbc.store-ds-xd-giao-trinh');
+});
+
+Route::group(['prefix' => 'ket-qua-xay-dung-giao-trinh', 'middleware' => ['permission:cap_nhat_tong_hop_xay_dung_chuong_trinh_giao_trinh']], function () {
+    Route::get('/{id}/edit', 'XayDungChuongTrinhGiaoTrinhController@edit')->name('xuatbc.edit-ds-xd-giao-trinh');
+    Route::post('/update/{id}', 'XayDungChuongTrinhGiaoTrinhController@update')->name('xuatbc.update-ds-xd-giao-trinh');
+});
+
+Route::group(['prefix' => 'ket-qua-xay-dung-giao-trinh', 'middleware' => ['permission:chi_tiet_tong_hop_xay_dung_chuong_trinh_giao_trinh']], function () {
+    Route::get('/show/{co_so_id}', 'XayDungChuongTrinhGiaoTrinhController@show')->name('xuatbc.show-ds-xd-giao-trinh');
 });
 //end phuc BM:12
+//End - CườngNC - UpdateMiddleware - 30/06/2020 - Kết quả xây dựng giáo trình
 
 
+//Strat- CườngNC - Update Middleware - Tổng hợp kết quả tốt nghiệp
 Route::group(['prefix' => 'ket-qua-tot-nghiep'], function () {
-    Route::get('/', 'SinhVienTotNghiepController@index')
-        ->name('xuatbc.ds-tot-nghiep');
-    Route::get('/chi-tiet-tong-hop-ket-qua-tot-nghiep/{id}', 'SinhVienTotNghiepController@show')
-        ->name('xuatbc.chi-tiet-tong-hop');
-    Route::get('/sua-tong-hop-ket-qua-tot-nghiep/{id}', 'SinhVienTotNghiepController@edit')
-        ->name('xuatbc.sua-tong-hop');
-    Route::post('/sua-tong-hop-ket-qua-tot-nghiep/{id}', 'SinhVienTotNghiepController@update')
-        ->name('xuatbc.post_sua-tong-hop');
-    Route::get('/them-tong-hop-ket-qua-tot-nghiep', 'SinhVienTotNghiepController@create')
-        ->name('xuatbc.them-tong-hop');
-    Route::post('/them-tong-hop-ket-qua-tot-nghiep', 'SinhVienTotNghiepController@store')
-        ->name('xuatbc.post-them-tong-hop');
-    Route::post('/check-them-so-lieu-tot-nghiep', 'SinhVienTotNghiepController@getCheckTonTaiSoLieuTotNghiep')->name('xuatbc.check_so_lieu_tot_nghiep');
-
-    // thanhnv import export
-    Route::post('/export-bieu-mau-kqtn', 'SinhVienTotNghiepController@exportBieuMau')
-        ->name('layformbieumautotnghiep');
-    Route::post('export-data-kq-tot-nghiep', 'SinhVienTotNghiepController@exportData')
-        ->name('exportdatatotnghiep');
+    Route::get('/', 'SinhVienTotNghiepController@index')->name('xuatbc.ds-tot-nghiep');
 });
+
+Route::group(['prefix' => 'ket-qua-tot-nghiep', 'middleware' => ['permission:them_moi_tong_hop_ket_qua_tot_nghiep']], function () {
+    Route::get('/them-tong-hop-ket-qua-tot-nghiep', 'SinhVienTotNghiepController@create')->name('xuatbc.them-tong-hop');
+    Route::post('/them-tong-hop-ket-qua-tot-nghiep', 'SinhVienTotNghiepController@store')->name('xuatbc.post-them-tong-hop');
+});
+
+Route::group(['prefix' => 'ket-qua-tot-nghiep', 'middleware' => ['permission:cap_nhat_chi_tiet_tong_hop_ket_qua_tot_nghiep']], function () {
+    Route::get('/sua-tong-hop-ket-qua-tot-nghiep/{id}', 'SinhVienTotNghiepController@edit')->name('xuatbc.sua-tong-hop');
+    Route::post('/sua-tong-hop-ket-qua-tot-nghiep/{id}', 'SinhVienTotNghiepController@update')->name('xuatbc.post_sua-tong-hop');
+});
+
+Route::group(['prefix' => 'ket-qua-tot-nghiep', 'middleware' => ['permission:xem_chi_tiet_tong_hop_ket_qua_tot_nghiep']], function () {
+    Route::get('/chi-tiet-tong-hop-ket-qua-tot-nghiep/{id}', 'SinhVienTotNghiepController@show')->name('xuatbc.chi-tiet-tong-hop');
+});
+Route::post('/check-them-so-lieu-tot-nghiep', 'SinhVienTotNghiepController@getCheckTonTaiSoLieuTotNghiep')->name('xuatbc.check_so_lieu_tot_nghiep');
+// thanhnv import export
+Route::post('/export-bieu-mau-kqtn', 'SinhVienTotNghiepController@exportBieuMau')
+    ->name('layformbieumautotnghiep');
+Route::post('export-data-kq-tot-nghiep', 'SinhVienTotNghiepController@exportData')
+    ->name('exportdatatotnghiep');
+//End - CườngNC - Update Middleware - Tổng hợp kết quả tốt nghiệp
 
 
 Route::group([
@@ -348,31 +348,30 @@ Route::group([
 
 
 //phucnv BM:8 
-Route::group([
-    'prefix' => 'chi-tieu-tuyen-sinh',
-    'middleware' => ['permission:them_moi_tong_hop_dang_ky_chi_tieu_tuyen_sinh|
-            chi_tiet_tong_hop_dang_ky_chi_tieu_tuyen_sinh|
-            cap_nhat_tong_hop_dang_ky_chi_tieu_tuyen_sinh']
-], function () {
-    Route::get('/tong-hop', 'ExtractController@tonghoptuyensinh')
-        ->name('xuatbc.ds-chi-tieu-ts');
-
-    Route::get('/them', 'ExtractController@themChiTieuTuyenSinh')
-        ->name('xuatbc.them-dang-ky-chi-tieu-tuyen-sinh');
-    Route::post('/them', 'ExtractController@saveChiTieuTuyenSinh');
-
-    Route::get('/sua/{id}', 'ExtractController@suaChiTieuTuyenSinh')
-        ->name('xuatbc.sua-dang-ky-chi-tieu-tuyen-sinh');
-    Route::post('/sua/{id}', 'ExtractController@updateChiTieuTuyenSinh');
-
-    Route::get('/chi-tiet/{co_so_id}', 'ExtractController@chitietChiTieuTuyenSinh')
-        ->name('xuatbc.chi-tiet-dang-ky-chi-tieu-tuyen-sinh');
-
-    // thanhnv export bm8
-    Route::post('export-form-dang-ky-chi-tieu-tuyen-sinh', 'ExtractController@exportFormBm8')->name('layformbieumau-dang-ky-chi-tieu-tuyen-sinh');
-    Route::post('export-data-dang-ky-chi-tieu-tuyen-sinh', 'ExtractController@exportDataBm8')->name('exportdata-dang-ky-chi-tieu-tuyen-sinh');
+//Start - CườngNc - UpdateMiddleware - 30/06/2020 - Chỉ tiêu tuyển sinh
+Route::group(['prefix' => 'chi-tieu-tuyen-sinh'], function () {
+    Route::get('/tong-hop', 'ExtractController@tonghoptuyensinh')->name('xuatbc.ds-chi-tieu-ts');
 });
+
+Route::group(['prefix' => 'chi-tieu-tuyen-sinh', 'middleware' => ['permission:them_moi_tong_hop_dang_ky_chi_tieu_tuyen_sinh']], function () {
+    Route::get('/them', 'ExtractController@themChiTieuTuyenSinh')->name('xuatbc.them-dang-ky-chi-tieu-tuyen-sinh');
+    Route::post('/them', 'ExtractController@saveChiTieuTuyenSinh');
+});
+
+Route::group(['prefix' => 'chi-tieu-tuyen-sinh', 'middleware' => ['permission:cap_nhat_tong_hop_dang_ky_chi_tieu_tuyen_sinh']], function () {
+    Route::get('/sua/{id}', 'ExtractController@suaChiTieuTuyenSinh')->name('xuatbc.sua-dang-ky-chi-tieu-tuyen-sinh');
+    Route::post('/sua/{id}', 'ExtractController@updateChiTieuTuyenSinh');
+});
+
+Route::group(['prefix' => 'chi-tieu-tuyen-sinh', 'middleware' => ['permission:chi_tiet_tong_hop_dang_ky_chi_tieu_tuyen_sinh']], function () {
+    Route::get('/chi-tiet/{co_so_id}', 'ExtractController@chitietChiTieuTuyenSinh')->name('xuatbc.chi-tiet-dang-ky-chi-tieu-tuyen-sinh');
+});
+// thanhnv export bm8
+Route::post('export-form-dang-ky-chi-tieu-tuyen-sinh', 'ExtractController@exportFormBm8')->name('layformbieumau-dang-ky-chi-tieu-tuyen-sinh');
+Route::post('export-data-dang-ky-chi-tieu-tuyen-sinh', 'ExtractController@exportDataBm8')->name('exportdata-dang-ky-chi-tieu-tuyen-sinh');
+
 //phucnv end BM:8
+//Start - CườngNc - UpdateMiddleware - 30/06/2020 - Chỉ tiêu tuyển sinh
 
 // thanhvn import export can bo quan ly
 Route::group(['prefix' => 'so-lieu-can-bo-quan-ly'], function () {
