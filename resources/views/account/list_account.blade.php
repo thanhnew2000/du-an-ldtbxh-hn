@@ -93,11 +93,11 @@
                     <th>Cơ sở đào tạo</th>
                     <th>Tên quyền</th>
                     <th>Trạng thái</th>
-                    @can('them_tai_khoan')
                     <th>
+                        @can('them_tai_khoan')
                         <a href="{{ route('account.tao-tk') }}" class="btn btn-success btn-sm">Thêm mới</a>
+                        @endcan
                     </th>
-                    @endcan
                 </thead>
                 <tbody>
                     @php
