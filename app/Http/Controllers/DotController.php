@@ -13,10 +13,20 @@ class DotController extends Controller
     {
        $this->DotService = $DotService;
     }
-
     public function index(){
-        $data = $this->DotService->getAll();
-        return view('dot.index',compact('data'));
+        $params = request()->all();
+        if(isset(request()->page_size)){
+            $limit = request()->page_size;
+        }else{
+            $limit = 20;
+        }
+        $data = $this->DotService->index($limit);
+        return view('dot.index',
+        [
+        'data' => $data,
+        'limit' => $limit,
+        'params' => $params
+        ]);
     }
     public function addForm(){
         return view('dot.add');

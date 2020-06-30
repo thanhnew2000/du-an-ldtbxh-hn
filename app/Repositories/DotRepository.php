@@ -23,6 +23,11 @@ class DotRepository extends BaseRepository implements DotRepositoryInterface
         return 'dot';
     }
 
+    public function index($limit){
+        $data = $this->model->paginate($limit);
+        return $data;
+    }
+
     public function getAll(){
         $data = $this->model->all();
         return $data;
