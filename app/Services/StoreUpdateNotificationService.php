@@ -13,10 +13,12 @@ class StoreUpdateNotificationService extends AppService
 {
     protected $tuVanHoTro;
     protected $notificationService;
-    public function __construct(NotificationService $notificationService
+    public function __construct(NotificationService $notificationService,
+    TuVanHoTroRepositoryInterface $tuVanHoTro
     )
     {
         $this->notificationService = $notificationService;
+        $this->tuVanHoTro = $tuVanHoTro;
     }
 
     public function addContentUpExecl($nam,$dot,$co_so_id,$countInsert,$countUpdate,$bm,$route,$tencoso)
@@ -52,7 +54,7 @@ class StoreUpdateNotificationService extends AppService
 
     public function StoreUpdateBM($content){ 
             $url= $content['route'].'?nam='.$content['nam'].'&dot='.$content['dot'];
-            $adminUsers = [1, 2, 3, 29,36];
+            $adminUsers =$this->tuVanHoTro->adminUsers();
             $notifiData = [];        
             foreach ($adminUsers as $user){
                 $notifiData[] = [
@@ -60,7 +62,7 @@ class StoreUpdateNotificationService extends AppService
                     'message_title' => $content['tieu_de'],
                     'message_content' => $content['noi_dung'],
                     'read_time' => null,
-                    'recceive_user_id' => $user,
+                    'recceive_user_id' => $user->model_id,
                     'sending_time' => Carbon::now(),
                     'sending_user_id' => -1,
                     'url' => $url,

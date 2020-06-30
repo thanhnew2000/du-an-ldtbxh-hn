@@ -157,10 +157,11 @@
                 Xuất dữ liệu ra Excel</a>
         </div>
         <div class="col-lg-2 text-center">
-            <a target="_blank" href="{{ route('xuatbc.them-dang-ky-chi-tieu-tuyen-sinh') }}" class="btn btn-success btn-sm">Thêm mới</a>
+            @can('them_moi_tong_hop_dang_ky_chi_tieu_tuyen_sinh')
+                <a target="_blank" href="{{ route('xuatbc.them-dang-ky-chi-tieu-tuyen-sinh') }}" class="btn btn-success btn-sm">Thêm mới</a>
+            @endcan
         </div>
 </section>
-
 
     <div class="m-portlet">
         <div class="m-portlet__body table-responsive">
@@ -212,10 +213,14 @@
                         <td>{{ $item->tong }}</td>
                         <td>{{ $item->so_dang_ki_CD }}</td>
                         <td>{{ $item->so_dang_ki_TC }}</td>
+                      
                         <td>
+                            @can('chi_tiet_tong_hop_dang_ky_chi_tieu_tuyen_sinh')
                             <a target="_blank"
-                            href="{{ route('xuatbc.chi-tiet-dang-ky-chi-tieu-tuyen-sinh',['co_so_id'=>$item->co_so_id]) }}"
-                                class="btn btn-info btn-sm">Chi tiết</a>
+                                href="{{ route('xuatbc.chi-tiet-dang-ky-chi-tieu-tuyen-sinh',['co_so_id'=>$item->co_so_id]) }}"
+                                class="btn btn-info btn-sm">Chi tiết
+                            </a>
+                            @endcan
                         </td>
                     </tr>
 

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Services\AppService;
 use App\Repositories\ChiTieuTuyenSinhRepository;
 use App\Repositories\SoLieuTuyenSinhInterface;
+use App\Repositories\ChiTieuTuyenSinhRepositoryInterface;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Illuminate\Support\Facades\DB;
@@ -19,13 +20,16 @@ use Storage;
 class ChiTieuTuyenSinhService extends AppService
 {
     protected $SoLieuTuyenSinhInterface;
+    protected $chiTieuTuyenSinhRepository;
     use ExcelTraitService;
 
     public function __construct(
-        SoLieuTuyenSinhInterface $soLieuTuyenSinhRepository
+        SoLieuTuyenSinhInterface $soLieuTuyenSinhRepository,
+        ChiTieuTuyenSinhRepositoryInterface $chiTieuTuyenSinhRepository
     ) {
         parent::__construct();
         $this->soLieuTuyenSinhRepository = $soLieuTuyenSinhRepository;
+        $this->chiTieuTuyenSinhRepository = $chiTieuTuyenSinhRepository;
     }
 
     public function getRepository()
@@ -63,16 +67,16 @@ class ChiTieuTuyenSinhService extends AppService
         $worksheet = $spreadsheet->getActiveSheet();
         $worksheet->setCellValue('C7', $bacDaoTao);
         $worksheet->setCellValue('C8', "Trường: $co_so->ten - $id_coso");
-        
+
         $worksheet->getStyle("C7")->getFont()->setBold(true);
         $worksheet->getStyle("C8")->getFont()->setBold(true);
         // tô nâu nền trường
         $worksheet->getStyle("A7:J7")->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('C7C7C7');
         $worksheet->getStyle("A8:J8")->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('C7C7C7');
-        $worksheet->getColumnDimension('B')->setAutoSize(true); 
+        $worksheet->getColumnDimension('B')->setAutoSize(true);
 
         $co_so_nghe = $this->soLieuTuyenSinhRepository->getmanganhnghe($id_coso);
-   
+
         $spreadsheet->getActiveSheet()->getProtection()->setSheet(true);
         $spreadsheet->getDefaultStyle()->getProtection()->setLocked(false);
 
@@ -131,17 +135,17 @@ class ChiTieuTuyenSinhService extends AppService
         }
 
 
-        $row=6;  
+        $row=6;
         $bacDaoTao = 'TRƯỜNG CAO ĐẲNG';
         $bacDaoTaoId = 0;
-       
+
         foreach($listCoSoDaoTao as $co_s){
         $row++;
 
             $keyDanhdau =  $this->danhDauloaiHinhCoSo($co_s->ma_loai_hinh_co_so);
 
             $dang_ki_chi_tieu = $this->repository->getDangKiChiTieuTuyenSinhTimeFromTo($co_s->id,$fromDate,$toDate);
-            
+
             if ($co_s->loai_truong !== $bacDaoTaoId) {
                 $soThuTu=0;
                 $bacDaoTaoId = $co_s->loai_truong;
@@ -197,9 +201,9 @@ class ChiTieuTuyenSinhService extends AppService
                 $worksheet->setCellValue('H'.$row, $dkct->tong);
                 $worksheet->setCellValue('I'.$row, $dkct->so_dang_ki_CD);
                 $worksheet->setCellValue('J'.$row, $dkct->so_dang_ki_TC);
-        
+
                 }
-                
+
          }
          $writer =IOFactory::createWriter($spreadsheet, "Xlsx");
          header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
@@ -208,10 +212,10 @@ class ChiTieuTuyenSinhService extends AppService
     }
 
 
-    
+
     public function importError($fileRead,$duoiFile,$path){
         $fileReadStorage= storage_path('app/public/'.$path);
-      
+
         $spreadsheet = $this->createSpreadSheet($fileReadStorage,$duoiFile);
         $data = $spreadsheet->getActiveSheet()->toArray();
 
@@ -238,20 +242,20 @@ class ChiTieuTuyenSinhService extends AppService
             $worksheet->getStyle($vitri[$i])->getFill()
             ->setFillType(Fill::FILL_SOLID)
             ->getStartColor()->setARGB('FFFF0000');
-        }  
+        }
 
-        $writer = IOFactory::createWriter($spreadsheet2, "Xlsx"); 
+        $writer = IOFactory::createWriter($spreadsheet2, "Xlsx");
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment; filename="error.xlsx"');
         $writer->save("php://output");
-    } 
+    }
 
 
     public function importFile($fileRead, $duoiFile, $year, $dot){
         $message='';
         $spreadsheet = $this->createSpreadSheet($fileRead,$duoiFile);
         $data =$spreadsheet->getActiveSheet()->toArray();
-        
+
         $truong = explode(' - ', $data[7][2]);
         $id_truong = trim(array_pop($truong));
         
@@ -263,7 +267,7 @@ class ChiTieuTuyenSinhService extends AppService
 
         if($csCheck == null){
             $message='noCorrectIdTruong';
-            return $message;  
+            return $message;
         }
 
         $id_nghe_of_cs =[];
@@ -277,12 +281,12 @@ class ChiTieuTuyenSinhService extends AppService
         for($i=0;$i < count($dang_ki_chi_tieu_da_co); $i++){
             $id_nghe_dkct_da_co[$dang_ki_chi_tieu_da_co[$i]->nghe_id] = $dang_ki_chi_tieu_da_co[$i]->id;
         }
-        
+
         $vitri =   $this->checkError($data,$arrayAphabe, 8, 8, 9 );
 
         if(count($vitri) > 0 ){
                   $message='errorkitu';
-                  return $message;  
+                  return $message;
          }
 
          $arrayData=[];
@@ -292,11 +296,11 @@ class ChiTieuTuyenSinhService extends AppService
 
          if($soDongNgNhap == count($co_so_nghe)){
              if($vitri == null || $vitri == ''){
-                 for($i = 8; $i < count($data); $i++){ 
+                 for($i = 8; $i < count($data); $i++){
                     $nghe = explode(' - ', $data[$i][1]);
                     $id_nghe_nhap = array_pop($nghe);
                        if(in_array($id_nghe_nhap,$id_nghe_of_cs)){
-                 
+
                          $arrayData=[
                              'nam'=>$year,
                              'dot'=>$dot,
@@ -310,33 +314,37 @@ class ChiTieuTuyenSinhService extends AppService
                            if(array_key_exists($id_nghe_nhap,$id_nghe_dkct_da_co)){
                              $updateData[$id_nghe_dkct_da_co[$id_nghe_nhap]]=$arrayData;
                            }else{
-                             array_push($insertData,$arrayData); 
+                             array_push($insertData,$arrayData);
                            }
                     }else if(in_array($id_nghe_nhap,$id_nghe_of_cs) == false){
                         $message='ngheKoThuocTruong';
-                        return $message; 
+                        return $message;
                     };
- 
-                 }   
+
+                 }
                  if (count($updateData) > 0) {
                  foreach($updateData as $key => $value)
                      $this->repository->updateChiTieuTuyenSinh($key,$value);
                     //  DB::table('dang_ki_chi_tieu_tuyen_sinh')->where('id',$key)->update($value);
-                 }  
- 
+                 }
+
                  if (count($insertData) > 0) {
                     $this->repository->createChiTieuTuyenSinh($insertData);
                     //  DB::table('dang_ki_chi_tieu_tuyen_sinh')->insert($insertData);
-                 }    
- 
+                 }
+
                   $message='ok';
-                  return $message;  
+                  return $message;
              }
          }else if($soDongNgNhap != count($co_so_nghe)){
              $message='NgheUnsign';
-             return $message; 
+             return $message;
          }
-        
+
     }
 
+    public function store($data)
+    {
+        return $this->chiTieuTuyenSinhRepository->store($data);
+    }
 }

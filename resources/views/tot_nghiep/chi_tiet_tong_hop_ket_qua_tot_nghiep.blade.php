@@ -135,8 +135,9 @@
 
                         <th colspan="9">Số người có việc làm ngay sau khi tốt nghiệp</th>
                         <th colspan="8">Mức lương trung bình (Triệu đồng / tháng)</th>
-
+                        @can('cap_nhat_chi_tiet_tong_hop_ket_qua_tot_nghiep')
                         <th rowspan="2">Thao tác</th>
+                        @endcan
                     </tr>
                     <tr class="pt-3 row2">
                         {{-- start trong đó --}}
@@ -324,12 +325,14 @@
                         <td>{{number_format($item->MucLuong_TB_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoNgheKhac)}}
                         </td>
 
-
+                        @can('cap_nhat_chi_tiet_tong_hop_ket_qua_tot_nghiep')
                         <td>
                             @if ($item->trang_thai<3) <a href="{{route('xuatbc.sua-tong-hop',['id'=>$item->id])}}">
                                 Sửa</a>
                                 @endif
                         </td>
+                        @endcan
+                        
                     </tr>
                     @endforeach
 

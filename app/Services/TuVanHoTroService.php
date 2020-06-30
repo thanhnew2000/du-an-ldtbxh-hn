@@ -36,14 +36,14 @@ class TuVanHoTroService extends AppService
         $tuvan = $this->tuVanHoTro->clientThemTuVanHoTro($data);
         $url = route('tu_van_ho_tro.chi-tiet',['id' => $tuvan->id]);
         if(isset($tuvan->id)){
-            $adminUsers = [1, 2, 3, 29, 36];
+            $adminUsers =$this->tuVanHoTro->adminUsers();
             $notifiData = [];
             foreach ($adminUsers as $user){
                 $notifiData[] = [
                     'message_title' => $tuvan->tieu_de,
                     'message_content' => $tuvan->noi_dung,
                     'read_time' => null,
-                    'recceive_user_id' => $user,
+                    'recceive_user_id' => $user->model_id,
                     'sending_time' => Carbon::now(),
                     'sending_user_id' => -1,
                     'data_id' => $tuvan->id,
@@ -69,14 +69,14 @@ class TuVanHoTroService extends AppService
         $tuvan = $this->tuVanHoTro->clientThemTuVanHoTro($dataAuth);
         $url = route('tu_van_ho_tro.chi-tiet',['id' => $tuvan->id]);
         if(isset($tuvan->id)){
-            $adminUsers = [1, 2, 3, 29, 36];
+            $adminUsers =$this->tuVanHoTro->adminUsers();
             $notifiData = [];
             foreach ($adminUsers as $user){
                 $notifiData[] = [
                     'message_title' => $tuvan->tieu_de,
                     'message_content' => $tuvan->noi_dung,
                     'read_time' => null,
-                    'recceive_user_id' => $user,
+                    'recceive_user_id' => $user->model_id,
                     'sending_time' => Carbon::now(),
                     'sending_user_id' => -1,
                     'data_id' => $tuvan->id,

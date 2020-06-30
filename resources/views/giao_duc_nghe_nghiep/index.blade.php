@@ -221,11 +221,12 @@
                     aria-hidden="true"></i>
                 Xuất dữ liệu ra Excel</a>
         </div>
-
+        @can('them_moi_tong_hop_giao_duc_nghe_nghiep')
         <div class="col-lg-6 " style="text-align: right">
             <a href="{{route('xuatbc.quan-ly-giao-duc-nghe-nghiep.create')}}"><button type="button" class="btn btn-info .bg-info">Thêm
                     mới</button></a>
         </div>
+        @endcan
     </div>
     <div class="m-portlet">
         @if (session('thongbao'))
@@ -260,7 +261,9 @@
                         <th scope="col 1" colspan="4" class="text-center">Giấy chứng nhận đăng ký hoạt động GDNN</th>
                         <th scope="col 1" colspan="8" class="text-center">Tên ngành, nghề/ quy mô được cấp trong GCN
                         </th>
-                        <th scope="col 1" rowspan="2">Thao tác</th>
+                        @can('cap_nhat_tong_hop_giao_duc_nghe_nghiep')
+                            <th scope="col 1" rowspan="2">Thao tác</th>
+                        @endcan
                     </tr>
 
 
@@ -319,12 +322,14 @@
                             <td>{{$value->ma_cap_2}}</td>
                             <td>{{$value->quy_mo_tuyen_sinh_TC}}</td>
                             <td>{{$value->quy_mo_tuyen_sinh_SC}}</td>
+                            @can('cap_nhat_tong_hop_giao_duc_nghe_nghiep')
                             <td>
                                 @if ($value->trang_thai<3) <a href="{{route('xuatbc.quan-ly-giao-duc-nghe-nghiep.edit',[
                                         'id' => $value->id,
                                     ])}}">Sửa</a>
                                     @endif
                             </td>
+                            @endcan
                     </tr>
                     @endforeach
                     @endforeach

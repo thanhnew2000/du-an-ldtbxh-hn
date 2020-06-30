@@ -327,3 +327,6 @@ input+.error, select+.error, textarea+.error{
 .note-editable {
     margin-top: 15px !important;
 }
+td.vertical-middle, th.vertical-middle{
+    vertical-align: middle!important;
+}

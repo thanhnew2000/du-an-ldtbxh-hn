@@ -40,7 +40,8 @@
                                 <label class="col-lg-2 col-form-label">Từ khóa:</label>
                                 <div class="col-lg-8">
                                     <input type="text" class="form-control m-input" @if(isset($keyword))
-                                        value="{{$keyword}}" @endif placeholder="Tìm kiếm Name, Email, Phone , Cơ sở ..." name="keyword">
+                                        value="{{$keyword}}" @endif
+                                        placeholder="Tìm kiếm Name, Email, Phone , Cơ sở ..." name="keyword">
                                 </div>
                             </div>
                         </div>
@@ -50,10 +51,9 @@
                                 <div class="col-lg-8">
                                     <select name="role" id="role" class="form-control ">
                                         <option value="" selected>All</option>
-                                        <option value="1" @if($role==1) selected @endif>Actor1</option>
-                                        <option value="2" @if($role==2) selected @endif>Actor2</option>
-                                        <option value="3" @if($role==3) selected @endif>Actor3</option>
-                                        <option value="4" @if($role==4) selected @endif>Actor4</option>
+                                        @foreach($roleList as $cursor)
+                                        <option value="{{$cursor->id}}" @if($cursor->id == $role) selected @endif>{{$cursor->name}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -91,9 +91,12 @@
                     <th>Email</th>
                     <th>Số điện thoại</th>
                     <th>Cơ sở đào tạo</th>
+                    <th>Tên quyền</th>
                     <th>Trạng thái</th>
                     <th>
+                        @can('them_tai_khoan')
                         <a href="{{ route('account.tao-tk') }}" class="btn btn-success btn-sm">Thêm mới</a>
+                        @endcan
                     </th>
                 </thead>
                 <tbody>
@@ -102,9 +105,9 @@
                     function displayAvatar($avatarImg)
                     {
                     if($avatarImg != null) {
-                    return asset('storage/'.$avatarImg);
+                        return asset('storage/'.$avatarImg);
                     }
-                    return asset('images/avatardefault.jpg');
+                        return asset('images/avatardefault.jpg');
                     }
                     @endphp
 
@@ -112,25 +115,28 @@
 
 
                     <tr>
-                        <th scope="row">{{ $i }}</th>
+                        <th scope="row" class="vertical-middle">{{ $i }}</th>
                         @php
                         $i++;
                         @endphp
                         <td>{{ $user->name }}</td>
-                        <td><img width="60" class="td_show-avatar" src="{!! displayAvatar($user->avatar) !!}" alt="avatar">
+                        <td><img width="60" class="td_show-avatar" src="{!! displayAvatar($user->avatar) !!}"
+                                alt="avatar">
                         </td>
                         <td>{{ $user->email }}</td>
 
                         <td>{{ $user->phone_number }}</td>
                         <td>{{ $user->ten }}</td>
-
+                        <td>{{ $user->role_name }}</td>
+                        @can('vo_hieu_hoa_tai_khoan')
                         <td>
                             <form class="m-form">
 
                                 <span class="m-switch m-switch--outline m-switch--icon m-switch--success">
                                     <label>
-                                        <input type="checkbox" onclick="editstatus({{ $user->id }})"
-                                            name="" @if ($user->status == 1)
+                                        <input type="checkbox" onclick="editstatus(this)" user-id="{{ $user->id }}"
+                                            name="" @if ($user->status ==
+                                        1)
                                         checked
                                         @endif>
                                         <span></span>
@@ -139,10 +145,13 @@
 
                             </form>
                         </td>
-
-
-                        <td><a class="btn btn-primary btn-sm"
-                                href="{{ route('account.edit',['id'=>$user->id]) }}">Sửa</a></td>
+                        @endcan
+                        <td>
+                            @can('sua_tai_khoan')
+                            <a class="btn btn-primary btn-sm"
+                                href="{{ route('account.edit',['id'=>$user->id]) }}">Sửa</a>
+                            @endcan
+                        </td>
                     </tr>
                     @endforeach
 
@@ -150,11 +159,11 @@
             </table>
             <div>
 
-                @if ($thongbao)
+                @if (count($users) == 0)
                 <div class="thongbao border" style="color: red; text-align: center;">
 
                     <h4 class="m-portlet__head-text ">
-                        {{$thongbao}}
+                        Không tìm thấy kết quả
                     </h4>
                 </div>
                 @endif
@@ -203,15 +212,16 @@
     //     $('#showavatar').attr('src', reader.result);
     // }
 
-    function editstatus($id) {
+    function editstatus(element) {
         console.log('Đang thay đổi status');
         // console.log($id);
 
+        let userId = $(element).attr('user-id')
         axios.post('/account/edit-status', {
-                id: $id
+                id: userId
             })
             .then(function (response) {
-                // console.log('Thay đổi status THÀNH CÔNG');
+                console.log('Thay đổi status THÀNH CÔNG');
             })
             .catch(function (error) {
                 // console.log(error);

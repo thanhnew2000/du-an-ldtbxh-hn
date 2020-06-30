@@ -104,6 +104,8 @@ class RouteServiceProvider extends ServiceProvider
     // 2020-05-30 - thienth - chia thêm route co-so-dao-tao
     protected function mapCoSoDaoTaoRoutes()
     {
+        // $permissions = implode(',', config('permissions_setting.quan_ly_co_so_dao_tao'));
+        // , "permission:{$permissions}"
         Route::middleware('web', 'auth')
             ->prefix('co-so-dao-tao')
             ->namespace($this->namespace)

@@ -140,7 +140,10 @@
                         <th rowspan="3">Mã Nghề</th>
                         <th colspan="8">Xây dựng mới</th>
                         <th colspan="8">Chỉnh sửa</th>
-                        <th rowspan="3">Thao tác</th>
+                        @can('cap_nhat_tong_hop_xay_dung_chuong_trinh_giao_trinh')
+                            <th rowspan="3">Thao tác</th>
+                        @endcan
+                        
                         
                     </tr>
                     <tr class="text-center">
@@ -202,11 +205,14 @@
                         <td>{{ $item->sua_giao_trinh_TC }}</td>
                         <td>{{ $item->sua_giao_trinh_SC }}</td>
                         <td>{{ ($item->kinh_phi_thuc_hien_chinh_sua/1000000) }}</td>
-                        <td>
+                        @can('cap_nhat_tong_hop_xay_dung_chuong_trinh_giao_trinh')
+                        <td>    
                             <a target="_blank"
                             href="{{ route('xuatbc.edit-ds-xd-giao-trinh',['id'=>$item->id]) }}"
                                 class="btn btn-info btn-sm">Cập nhật</a>
                         </td>
+                        @endcan
+                        
                     </tr>
                       
                   @endforeach

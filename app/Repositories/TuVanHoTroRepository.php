@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 use App\Models\YeuCauHoTro;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\DB;
 class TuVanHoTroRepository extends BaseRepository implements TuVanHoTroRepositoryInterface
 {
     public function __construct(
@@ -52,5 +52,10 @@ class TuVanHoTroRepository extends BaseRepository implements TuVanHoTroRepositor
         $model->noi_dung_phan_hoi = $data['noi_dung_phan_hoi'];
         $model->trang_thai = config('common.trang_thai_ho_tro.da_phan_hoi');
         return $model->save();
+    }
+
+    public function adminUsers()
+    {
+        return DB::table('model_has_roles')->whereIn('role_id', [1, 31])->get();
     }
 }

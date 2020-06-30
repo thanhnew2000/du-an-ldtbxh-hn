@@ -253,9 +253,12 @@
                         <th rowspan="2">Tốt nghiệp</th>
                         <th rowspan="2">Kinh phí thực hiện</th>
                         <th rowspan="2">Trạng thái</th>
+                        @can('them_moi_tong_hop_nghe_cho_thanh_nien')
                         <th rowspan="2">       
-                        <a href="{{route('nhapbc.dao-tao-thanh-nien.create')}}" class="btn btn-success btn-sm">Thêm mới</a>
+                            <a href="{{route('nhapbc.dao-tao-thanh-nien.create')}}" class="btn btn-success btn-sm">Thêm mới</a>
                         </th> 
+                        @endcan
+                        
                     </tr>
                     
                 </thead>
@@ -274,11 +277,14 @@
                        <td>{{$item->tong_tot_nghiep}}</td>
                        <td>{{number_format($item->tong_kinh_phi)}}</td>
                        <td>{{$item->trang_thai}}</td>
-                       <td>
-                           <a href="{{route('nhapbc.dao-tao-thanh-nien.show',[
-                           'id' => $item->id,
-                       ])}}">Chi tiết</a>
-                       </td>
+                       @can('chi_tiet_tong_hop_nghe_cho_thanh_nien')
+                        <td>
+                            <a href="{{route('nhapbc.dao-tao-thanh-nien.show',[
+                            'id' => $item->id,
+                            ])}}">Chi tiết</a>
+                        </td>
+                       @endcan
+                       
                    </tr>
                    @endforeach
                 </tbody>

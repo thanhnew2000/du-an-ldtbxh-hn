@@ -96,5 +96,14 @@ return [
     'trang_thai_ho_tro' => [
         'chua_phan_hoi' => 1,
         'da_phan_hoi' => 2
-    ]
+    ],
+    'phe_duyet' => [
+        'trang_thai' => [
+            'cho_phe_duyet' => 1,
+            'tu_choi' => 2,
+            'phe_duyet_lan_1' => 3,
+            'phe_duyet_lan_2' => 4,
+        ],
+    ],
+    'default_member_role' => 30
 ];

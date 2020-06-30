@@ -2,10 +2,10 @@
 
 namespace App\Services;
 
+use App\Repositories\DoiNguNhaGiaoInterface;
 use App\Repositories\DoiNguNhaGiaoRepository;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use App\Repositories\CoSoDaoTaoRepositoryInterface;
-use App\Repositories\CoSoDaoTaoRepository;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
@@ -17,15 +17,15 @@ use DB;
 class DoiNguNhaGiaoService extends AppService
 {
     protected $csdtRepository;
-    protected $CoSoDaoTaoRepository;
+    protected $doiNguNhaGiaoRepo;
 
     public function __construct(
         CoSoDaoTaoRepositoryInterface $csdtRepository,
-        CoSoDaoTaoRepository $CoSoDaoTaoRepository
+        DoiNguNhaGiaoInterface $doiNguNhaGiaoRepo
     ) {
         parent::__construct();
         $this->csdtRepository = $csdtRepository;
-        $this->CoSoDaoTaoRepository = $CoSoDaoTaoRepository;
+        $this->doiNguNhaGiaoRepo = $doiNguNhaGiaoRepo;
     }
 
     public function getRepository()
@@ -33,15 +33,18 @@ class DoiNguNhaGiaoService extends AppService
         return DoiNguNhaGiaoRepository::class;
     }
 
-    public function getDanhSachDoiNguNhaGiao($params){
+    public function getDanhSachDoiNguNhaGiao($params)
+    {
         return $this->repository->getDanhSachDoiNguNhaGiao($params);
     }
 
-    public function getNganhNgheTheoCoSo($co_so_id){
+    public function getNganhNgheTheoCoSo($co_so_id)
+    {
         return $this->repository->getNganhNgheTheoCoSo($co_so_id);
     }
 
-    public function chiTietTheoCoSo($co_so_id, $params){
+    public function chiTietTheoCoSo($co_so_id, $params)
+    {
         return $this->repository->chiTietTheoCoSo($co_so_id, $params);
     }
 
@@ -58,7 +61,7 @@ class DoiNguNhaGiaoService extends AppService
     public function exportFillRow($worksheet, $row, $doiNguNhaGiao, $loaiHinhCol)
     {
         // Với data fake, nganhNghe có thể bị null
-        $worksheet->setCellValue('B'.$row, $doiNguNhaGiao->nganhNghe->ten_nganh_nghe);
+        $worksheet->setCellValue('B' . $row, $doiNguNhaGiao->nganhNghe->ten_nganh_nghe);
 
         $worksheet->setCellValue($loaiHinhCol . $row, 'x');
         $worksheet->setCellValue('G' . $row, $doiNguNhaGiao->tong_so_can_bo);
@@ -177,10 +180,10 @@ class DoiNguNhaGiaoService extends AppService
                 ->setLocked(Protection::PROTECTION_PROTECTED);
 
             $loaiHinhCol = $this->getLoaiHinhCol($coSo->ma_loai_hinh_co_so);
-            foreach($coSo->nganhNghe as $nghe) {
+            foreach ($coSo->nganhNghe as $nghe) {
                 $row++;
                 $worksheet->setCellValue($loaiHinhCol . $row, 'x');
-                $worksheet->setCellValue('B'.$row, $nghe->ten_nganh_nghe);
+                $worksheet->setCellValue('B' . $row, $nghe->ten_nganh_nghe);
 
                 if ($fillData) {
                     $soLieuNhaGiao = $coSo->soLieuDoiNguNhaGiao->where('nghe_id', $nghe->id);
@@ -191,7 +194,7 @@ class DoiNguNhaGiaoService extends AppService
             };
         }
 
-        $worksheet->getStyle('A10:F'.$row)->getProtection()->setLocked(Protection::PROTECTION_PROTECTED);
+        $worksheet->getStyle('A10:F' . $row)->getProtection()->setLocked(Protection::PROTECTION_PROTECTED);
         $worksheet->getStyle('A10:AK' . $row)
             ->getBorders()
             ->getAllBorders()
@@ -313,7 +316,6 @@ class DoiNguNhaGiaoService extends AppService
                 $data['dot'] = $dot;
                 $insertData[] = $data;
             }
-
         }
 
         if (count($updateData) > 0) {
@@ -330,6 +332,11 @@ class DoiNguNhaGiaoService extends AppService
     }
 
     public function getAllCoSoDaoTao(){
-        return $this->CoSoDaoTaoRepository->getAll();
+        return $this->csdtRepository->getAll();
+    }
+
+    public function store($data)
+    {
+        return $this->doiNguNhaGiaoRepo->insert($data);
     }
 }
