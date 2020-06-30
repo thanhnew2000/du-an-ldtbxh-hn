@@ -99,7 +99,7 @@ class SoLieuTuyenSinhController extends Controller
 
     public function update($id, UpdateRequest $request)
     {
-        $data = $this->SoLieuTuyenSinhService->update($id, $request);
+        $data = $this->SoLieuTuyenSinhService->updateData($id, $request);
         $datatuyensinh = $this->SoLieuTuyenSinhService->findById($id);
         return redirect()->route('chitietsolieutuyensinh', ['co_so_id' => $datatuyensinh->co_so_id])->with('thongbao', 'Sửa số liệu tuyển sinh thành công');
     }

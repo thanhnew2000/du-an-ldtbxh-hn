@@ -165,7 +165,7 @@ class DaoTaoNgheThanhNienController extends Controller
      */
     public function update(UpdateRequest $request, $id)
     {
-        $this->DaoTaoNgheChoThanhNienService->update($id,$request);
+        $this->DaoTaoNgheChoThanhNienService->updateData($id,$request);
         $get_id = $this->DaoTaoNgheChoThanhNienService->findById($id);
         return redirect()->route('nhapbc.dao-tao-thanh-nien.show', ['id' => $get_id->co_so_id])->with('thongbao','Sửa số liệu đào tạo nghề cho thanh niên thành công');
     }

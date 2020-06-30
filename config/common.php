@@ -85,6 +85,18 @@ return [
         'trung_cap' => 'TRƯỜNG TRUNG CẤP',
         'so_cap' => 'TRƯỜNG SƠ CẤP',
     ],
+    'firestore_notification_collection' => 'testnoti',
+    'firestore_notification_status' => [
+        'unread' => 1,
+        'read' => 2
+    ],
+    'notify_module' => [
+        'tu_van_ho_tro' => 'tu-van-ho-tro'
+    ],
+    'trang_thai_ho_tro' => [
+        'chua_phan_hoi' => 1,
+        'da_phan_hoi' => 2
+    ],
     'phe_duyet' => [
         'trang_thai' => [
             'cho_phe_duyet' => 1,

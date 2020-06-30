@@ -79,7 +79,7 @@
 		<!--end::Page Vendors -->
 
 		<!--begin::Page Scripts -->
-		<script src="{!! asset('assets/app/js/dashboard.js') !!}" type="text/javascript"></script>
+{{--		<script src="{!! asset('assets/app/js/dashboard.js') !!}" type="text/javascript"></script>--}}
 
 		<!--end::Page Scripts -->
 		<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.min.js"></script>
@@ -87,5 +87,14 @@
 
 		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+		<!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+		<script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-app.js"></script>
+
+		<!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+		<script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-analytics.js"></script>
+
+		<!-- Add Firebase products that you want to use -->
+		<script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-auth.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-firestore.js"></script>
 		
 		<script src="{!! asset('js/utils.js') !!}" type="text/javascript"></script>

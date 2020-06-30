@@ -149,6 +149,13 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 		return $result;
 	}
 
+	public function updateData($id,$attributes)
+	{
+		return $this->table
+            ->where('id', $id)
+            ->update($attributes);
+	}
+
 	public function getCheckTonTaiSoLieuTuyenSinh($arrcheck)
 	{
 		$kiem_tra = $this->table->where($arrcheck)->select('tuyen_sinh.id','tuyen_sinh.trang_thai')->first();
@@ -243,7 +250,7 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 
 	// thanhnv 6/26/2020 sửa model create update
 	public function createTuyenSinh($arrayData){
-		return $this->model->create($arrayData);
+		return $this->model->insert($arrayData);
 	}
 	public function updateTuyenSinh($key,$arrayData){
 		return $this->model->where('id',$key)->update($arrayData);
