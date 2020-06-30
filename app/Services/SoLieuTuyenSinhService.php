@@ -90,12 +90,13 @@ class SoLieuTuyenSinhService extends AppService
         
         $data = $this->repository->postthemsolieutuyensinh($getdata);
         if($data){
-            $tieude = 'Thêm mới';
+            $thongTinCoSo = $this->repository->getThongTinCoSo($getdata['co_so_id']);
+            $tieude = 'Thêm mới ( '.$thongTinCoSo->ten.' )';
             $noidung = 'Thêm mới số liệu tuyển sinh';
-            $test = $this->StoreUpdateNotificationService->addContentUp($getdata['nam'],$getdata['dot'],$getdata['co_so_id'],$tieude,$noidung);
+            $route = route('chitietsolieutuyensinh',['co_so_id' => $getdata['co_so_id']]);
+            $this->StoreUpdateNotificationService->addContentUp($getdata['nam'],$getdata['dot'],$getdata['co_so_id'],$tieude,$noidung,$route);
 
         }
-       return $test;
         return $data;
     }
 
@@ -107,14 +108,16 @@ class SoLieuTuyenSinhService extends AppService
     public function updateData($id, $request)
     {
         $attributes = $request->all();
-        $findata = $this->repository->findById($id);
-        $getdata=(array)$findata;
         unset($attributes['_token']);
-        $resurt = $this->repository->updateData($id, $attributes);
-        if($resurt){
-            $tieude = 'Cập nhật';
-            $noidung = 'Cập nhật số liệu tuyển sinh';
-            $this->StoreUpdateNotificationService->addContentUp($getdata['nam'],$getdata['dot'],$getdata['co_so_id'],$tieude,$noidung);
+		$resurt = $this->repository->updateData($id, $attributes);
+        $dataFindId = $this->repository->findById($id);
+        $getdata = (array)$dataFindId;
+        $thongTinCoSo = $this->repository->getThongTinCoSo($getdata['co_so_id']);
+        if($resurt){         
+            $tieude = 'Cập nhật ( '.$thongTinCoSo->ten.' )';
+			$noidung = 'Cập nhật số liệu tuyển sinh';
+			$route = route('chitietsolieutuyensinh',['co_so_id' => $getdata['co_so_id']]);
+			$this->StoreUpdateNotificationService->addContentUp($getdata['nam'],$getdata['dot'],$getdata['co_so_id'],$tieude,$noidung,$route);
         }
         return $resurt;
     }
@@ -487,9 +490,11 @@ class SoLieuTuyenSinhService extends AppService
                     $this->repository->createTuyenSinh($insertData);
                     // DB::table('tuyen_sinh')->insert($insertData);
                 }  
+                $thongTinCoSo = $this->repository->getThongTinCoSo($id_truong);
                 $bm = 'Tuyển sinh';
+                $tencoso = $thongTinCoSo->ten;
                 $route = route('chitietsolieutuyensinh',['co_so_id' => $id_truong]);
-                $this->StoreUpdateNotificationService->addContentUpExecl($year,$dot,$id_truong,count($insertData),count($updateData),$bm,$route);
+                $this->StoreUpdateNotificationService->addContentUpExecl($year,$dot,$id_truong,count($insertData),count($updateData),$bm,$route,$tencoso);
 
                 $message='ok';
                 return $message;  

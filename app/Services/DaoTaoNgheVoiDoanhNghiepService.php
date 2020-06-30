@@ -16,21 +16,25 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
 use Carbon\Carbon;
 use Storage;
+use App\Services\StoreUpdateNotificationService;
 
 class DaoTaoNgheVoiDoanhNghiepService extends AppService
 {
     protected $LoaiHinhCoSoRepositoryInterface;
     protected $DaoTaoNgheChoThanhNienReponsitory;
+    protected $StoreUpdateNotificationService;
     use ExcelTraitService;
 
     public function __construct(
         LoaiHinhCoSoRepositoryInterface $loaiHinhCoSoRepository,
-        SoLieuTuyenSinhInterface $soLieuTuyenSinhRepository
+        SoLieuTuyenSinhInterface $soLieuTuyenSinhRepository,
+        StoreUpdateNotificationService $StoreUpdateNotificationService
 
     ) {
         parent::__construct();
         $this->loaiHinhCoSoRepository = $loaiHinhCoSoRepository;
         $this->soLieuTuyenSinhRepository = $soLieuTuyenSinhRepository;
+        $this->StoreUpdateNotificationService = $StoreUpdateNotificationService;
     }
 
     public function getRepository()
@@ -129,12 +133,37 @@ class DaoTaoNgheVoiDoanhNghiepService extends AppService
     {
         $attributes = $request->all();
         unset($attributes['_token'],$attributes['files']);
-        return $this->repository->update($id, $attributes);
+        $resurt = $this->repository->update($id, $attributes);
+        $dataFindId = $this->repository->findById($id);
+        $getdata = (array)$dataFindId;
+        $thongTinCoSo = $this->repository->getThongTinCoSo($getdata['co_so_id']);
+        if($resurt){         
+            $tieude = 'Cập nhật ( '.$thongTinCoSo->ten.' )';
+			$noidung = 'Cập nhật số liệu đạo tạo nghề với doanh nghiệp';
+			$route = route('xuatbc.dao-tao-nghe-doanh-nghiep.show',['id' => $getdata['co_so_id']]);
+			$this->StoreUpdateNotificationService->addContentUp($getdata['nam'],$getdata['dot'],$getdata['co_so_id'],$tieude,$noidung,$route);
+        }
+        return $resurt;
     }
 
     public function getNganhNgheThuocCoSo($id)
     {
         return $this->repository->getNganhNgheThuocCoSo($id);
+    }
+
+    public function store($getdata)
+    {
+        unset($getdata['_token']);      
+        $data = $this->repository->store($getdata);
+        if($data){
+            $thongTinCoSo = $this->repository->getThongTinCoSo($getdata['co_so_id']);
+            $tieude = 'Thêm mới ( '.$thongTinCoSo->ten.' )';
+            $noidung = 'Thêm mới số liệu đào tạo nghề với doanh nghiệp';
+            $route = route('xuatbc.dao-tao-nghe-doanh-nghiep.show',['id' => $getdata['co_so_id']]);
+            $this->StoreUpdateNotificationService->addContentUp($getdata['nam'],$getdata['dot'],$getdata['co_so_id'],$tieude,$noidung,$route);
+
+        }
+        return $data;
     }
 
     public function getCheckTonTaiDaoTaoGanVoiDoanhNghiep($data, $requestParams)
@@ -147,7 +176,7 @@ class DaoTaoNgheVoiDoanhNghiepService extends AppService
             'Số liệu đã tồn tại';
         
         if (!isset($checkResult)) {
-            $data = $this->repository->store($requestParams);
+            $data = $this->store($requestParams);
             $message = 'Thêm số liệu  thành công';
             $route = route('xuatbc.dao-tao-nghe-doanh-nghiep.show', [
                 'id' => $requestParams['co_so_id'],
@@ -160,6 +189,7 @@ class DaoTaoNgheVoiDoanhNghiepService extends AppService
         ];
     }
 
+    
     public function getSoLieu($data)
     {
         $dataCheckNew = $this->constructConditionParams($data);
@@ -344,6 +374,11 @@ class DaoTaoNgheVoiDoanhNghiepService extends AppService
                 //    $this->repository->createNgheVoiDoanhNghiep($insertData); 
                 }    
 
+                $thongTinCoSo = $this->repository->getThongTinCoSo($id_truong);
+                $bm = 'Đào tạo nghề với doanh nghiệp';
+                $tencoso = $thongTinCoSo->ten;
+                $route = route('xuatbc.dao-tao-nghe-doanh-nghiep.show',['id' => $id_truong]);
+                $this->StoreUpdateNotificationService->addContentUpExecl($year,$dot,$id_truong,count($insertData),count($updateData),$bm,$route,$tencoso);
                 $message='ok';
                 return $message;  
             }

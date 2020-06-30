@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\DB;
 use App\Repositories\BaseRepository;
 use Carbon\Carbon;
 use App\Models\TuyenSinh;
-
 class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSinhInterface {
 	// thanhnv 6/26/2020 them
 	protected $model;
@@ -136,7 +135,7 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 
 	public function postthemsolieutuyensinh($getdata)
 	{
-		$result  = $this->table->insert($getdata);
+		$result  = $this->table->insertGetId($getdata);
         return $result;
 	}
 

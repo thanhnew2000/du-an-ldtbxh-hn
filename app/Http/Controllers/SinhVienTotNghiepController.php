@@ -84,7 +84,7 @@ class SinhVienTotNghiepController extends Controller
 
     public function update($id,UpdateRequest $request)
     {
-        $data = $this->SinhVienTotNghiepService->update($id,$request);
+        $data = $this->SinhVienTotNghiepService->updateData($id,$request);
         $data_tot_nghiep =$this->SinhVienTotNghiepService->findById($id);
         return redirect()->route('xuatbc.chi-tiet-tong-hop', ['id' => $data_tot_nghiep->co_so_id])->with('thongbao','Sửa số liệu tuyển sinh thành công');
     }

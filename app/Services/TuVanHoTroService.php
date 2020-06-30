@@ -36,7 +36,7 @@ class TuVanHoTroService extends AppService
         $tuvan = $this->tuVanHoTro->clientThemTuVanHoTro($data);
         $url = route('tu_van_ho_tro.chi-tiet',['id' => $tuvan->id]);
         if(isset($tuvan->id)){
-            $adminUsers = [1, 2, 3, 28];
+            $adminUsers = [1, 2, 3, 29, 36];
             $notifiData = [];
             foreach ($adminUsers as $user){
                 $notifiData[] = [
@@ -69,7 +69,7 @@ class TuVanHoTroService extends AppService
         $tuvan = $this->tuVanHoTro->clientThemTuVanHoTro($dataAuth);
         $url = route('tu_van_ho_tro.chi-tiet',['id' => $tuvan->id]);
         if(isset($tuvan->id)){
-            $adminUsers = [1, 2, 3, 28];
+            $adminUsers = [1, 2, 3, 29, 36];
             $notifiData = [];
             foreach ($adminUsers as $user){
                 $notifiData[] = [

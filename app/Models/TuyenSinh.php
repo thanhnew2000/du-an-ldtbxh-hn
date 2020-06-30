@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+use App\CoSoDaoTao;
 use Illuminate\Database\Eloquent\Model;
 
 class TuyenSinh extends Model
@@ -52,4 +52,8 @@ class TuyenSinh extends Model
 
    
     ];
+    public function CoSoDaoTao()
+    {
+        return $this->belongsTo(CoSoDaoTao::class,'co_so_id');
+    }
 }

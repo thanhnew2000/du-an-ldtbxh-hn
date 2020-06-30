@@ -19,11 +19,11 @@ class StoreUpdateNotificationService extends AppService
         $this->notificationService = $notificationService;
     }
 
-    public function addContentUpExecl($nam,$dot,$co_so_id,$countInsert,$countUpdate,$bm,$route)
+    public function addContentUpExecl($nam,$dot,$co_so_id,$countInsert,$countUpdate,$bm,$route,$tencoso)
     {
         $content=[
-            'tieu_de' => 'Cập nhật dữ liệu '.$bm.' bằng execl ',
-            'noi_dung' => 'Execl thêm mới '.$countInsert.' bản ghi Cập nhật '.$countUpdate.' bản ghi',
+            'tieu_de' => 'Cập nhật '.$bm.' bằng excel ( '.$tencoso.' )',
+            'noi_dung' => 'Excel thêm mới '.$countInsert.' bản ghi Cập nhật '.$countUpdate.' bản ghi',
             'module_name' => 'xuatbc.chi-tiet-dang-ky-chi-tieu-tuyen-sinh',
             'nam' => $nam,
             'dot' => $dot,
@@ -35,7 +35,7 @@ class StoreUpdateNotificationService extends AppService
        $this->StoreUpdateBM($content);
     }
 
-    public function addContentUp($nam,$dot,$co_so_id,$tieude,$noidung)
+    public function addContentUp($nam,$dot,$co_so_id,$tieude,$noidung,$route)
     {
         $content=[
             'tieu_de' => $tieude,
@@ -43,6 +43,7 @@ class StoreUpdateNotificationService extends AppService
             'module_name' => 'xuatbc.chi-tiet-dang-ky-chi-tieu-tuyen-sinh',
             'nam' => $nam,
             'dot' => $dot,
+            'route'=>$route,
             'co_so_id' => $co_so_id,
             'sending_user_fullname' => Auth::user()->name
         ];
@@ -50,8 +51,8 @@ class StoreUpdateNotificationService extends AppService
     }
 
     public function StoreUpdateBM($content){ 
-        $url= $content['route'].'?nam='.$content['nam'].'&dot='.$content['dot'];
-            $adminUsers = [1, 2, 3, 29];
+            $url= $content['route'].'?nam='.$content['nam'].'&dot='.$content['dot'];
+            $adminUsers = [1, 2, 3, 29,36];
             $notifiData = [];        
             foreach ($adminUsers as $user){
                 $notifiData[] = [
