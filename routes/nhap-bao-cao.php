@@ -189,6 +189,15 @@ Route::group(['prefix' => 'quan-ly-giao-duc-nghe-nghiep'], function () {
     Route::post('import-error-quan-ly-giao-duc-nghe-nghiep', 'GiaoDucNgheNghiepController@importError')->name('import.error.quan-ly-giao-duc-nghe-nghiep');
 });
 
+// thanhnv crud đợt 6/28/2020
+Route::group(['prefix' => 'dot'], function () {
+    Route::get('/', 'DotController@index')->name('view-index-dot');
+    Route::get('nhap-them-dot', 'DotController@addForm')->name('nhapdot.create.new');
+    Route::get('edit/{id}', 'DotController@editForm')->name('nhapdot.edit-dot');
+    Route::post('add-submit-dot', 'DotController@addSubmit')->name('nhapdot.createSubmit.new');
+    Route::post('edit-submit-dot/{id}', 'DotController@update')->name('nhapdot.editSubmit.new');
+    Route::get('delete/{id}', 'DotController@delete')->name('remove.dot');
+});
 Route::group([
     'prefix' => 'phe-duyet-bao-cao',
 ], function() {

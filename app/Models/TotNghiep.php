@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+use App\CoSoDaoTao;
 use Illuminate\Database\Eloquent\Model;
 
 class TotNghiep extends Model
@@ -71,4 +71,8 @@ class TotNghiep extends Model
         'MucLuong_TB_NgheKhac',
         'MucLuong_TB_HoKhauHN_TrinhDoTC_ThuocDT_TN_THCS_TrinhDoNgheKhac',
     ];
+    public function CoSoDaoTao()
+    {
+        return $this->belongsTo(CoSoDaoTao::class,'co_so_id');
+    }
 }

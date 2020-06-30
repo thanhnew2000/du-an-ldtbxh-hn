@@ -50,11 +50,14 @@ Route::group(['middleware' => 'auth'], function () {
           Route::get('/chi-tiet-tin-tuc', 'NewsController@chitiettintuc');
           Route::get('/quan-ly-tin-tuc', 'NewsController@quanlytintuc');
      });
-
+     // start quang feedback
      Route::group(['prefix' => 'feedback'], function () {
-          Route::get('/nhan-tin-bao-loi-he-thong', 'FeedbackController@nhantinbaoloi');
-     });
-     Route::get('danh-sach-doi-ngu-nha-giao', function () {
+          Route::get('/nhan-tin-bao-loi-he-thong', 'FeedbackController@nhantinbaoloi')->name('feedback.nhan-tin-bao-loi-he-thong');
+          Route::get('/danh-sach-tin-nhan-phan-hoi', 'FeedbackController@danhSachTinNhanPhanHoi')->name('feedback.danh-sach-tin-nhan-phan-hoi');
+          Route::post('/tu-van-ho-tro', 'FeedbackController@postClientSendForm')->name('tu-van.ho-tro');
+     });  
+      // end quang feedback
+     Route::get('danh-sach-doi-ngu-nha-giao',function(){
           return view('danhsachdoingunhagioa.danh-sach-doi-ngu-nha-giao');
      })->name('danh');
      Route::get('them-moi-danh-sach-doi-ngu-nha-giao', function () {
@@ -78,3 +81,5 @@ Route::group(['middleware' => 'auth'], function () {
           return view('ket-qua-hop-tac-quoc-te.views_ket_qua_hop_tac_quoc_te');
      })->name('views_kq_qt');
 });
+Route::get('/tu-van-ho-tro', 'TuVanHoTroController@clientSendForm')->name('tu-van.gui-ho-tro');
+Route::post('/tu-van-ho-tro/gui-yeu-cau', 'TuVanHoTroController@postClientSendForm')->name('tu-van.submit-ho-tro');
