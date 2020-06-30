@@ -51,10 +51,9 @@
                                 <div class="col-lg-8">
                                     <select name="role" id="role" class="form-control ">
                                         <option value="" selected>All</option>
-                                        <option value="1" @if($role==1) selected @endif>Actor1</option>
-                                        <option value="2" @if($role==2) selected @endif>Actor2</option>
-                                        <option value="3" @if($role==3) selected @endif>Actor3</option>
-                                        <option value="4" @if($role==4) selected @endif>Actor4</option>
+                                        @foreach($roleList as $cursor)
+                                        <option value="{{$cursor->id}}" @if($cursor->id == $role) selected @endif>{{$cursor->name}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -106,9 +105,9 @@
                     function displayAvatar($avatarImg)
                     {
                     if($avatarImg != null) {
-                    return asset('storage/'.$avatarImg);
+                        return asset('storage/'.$avatarImg);
                     }
-                    return asset('images/avatardefault.jpg');
+                        return asset('images/avatardefault.jpg');
                     }
                     @endphp
 
@@ -116,7 +115,7 @@
 
 
                     <tr>
-                        <th scope="row">{{ $i }}</th>
+                        <th scope="row" class="vertical-middle">{{ $i }}</th>
                         @php
                         $i++;
                         @endphp
@@ -147,15 +146,12 @@
                             </form>
                         </td>
                         @endcan
-                       
                         <td>
                             @can('sua_tai_khoan')
                             <a class="btn btn-primary btn-sm"
                                 href="{{ route('account.edit',['id'=>$user->id]) }}">Sửa</a>
                             @endcan
-                            </td>
-                        
-
+                        </td>
                     </tr>
                     @endforeach
 
@@ -163,11 +159,11 @@
             </table>
             <div>
 
-                @if ($thongbao)
+                @if (count($users) == 0)
                 <div class="thongbao border" style="color: red; text-align: center;">
 
                     <h4 class="m-portlet__head-text ">
-                        {{$thongbao}}
+                        Không tìm thấy kết quả
                     </h4>
                 </div>
                 @endif
