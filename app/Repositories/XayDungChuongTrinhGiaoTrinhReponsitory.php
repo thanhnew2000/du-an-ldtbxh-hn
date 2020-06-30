@@ -4,9 +4,18 @@ namespace App\Repositories;
 use App\Repositories\BaseRepository;
 use App\Repositories\XayDungChuongTrinhGiaoTrinhReponsitoryInterface;
 use Illuminate\Support\Facades\DB;
+use App\Models\KetQuaXayDungChuongTrinh;
 
 class XayDungChuongTrinhGiaoTrinhReponsitory extends BaseRepository implements XayDungChuongTrinhGiaoTrinhReponsitoryInterface
 {
+    protected $model;
+
+    public function __construct(KetQuaXayDungChuongTrinh $model)
+    {
+        parent::__construct();
+        $this->model = $model;
+    }
+
     public function getTable()
     {
         return 'ket_qua_xay_dung_chuong_trinh_giao_trinh';
@@ -87,7 +96,7 @@ class XayDungChuongTrinhGiaoTrinhReponsitory extends BaseRepository implements X
         )
         ->where('ket_qua_xay_dung_chuong_trinh_giao_trinh.co_so_id', $co_so_id);
 
-       
+
         if(isset($params['nam']) && $params['nam'] != null){
             $queryBuilder->where('ket_qua_xay_dung_chuong_trinh_giao_trinh.nam', $params['nam']);
         }
@@ -100,6 +109,11 @@ class XayDungChuongTrinhGiaoTrinhReponsitory extends BaseRepository implements X
 
         return $queryBuilder->orderByDesc('ket_qua_xay_dung_chuong_trinh_giao_trinh.nam')
         ->orderByDesc('ket_qua_xay_dung_chuong_trinh_giao_trinh.dot')->paginate($params['page_size']);
-        
+
+    }
+
+    public function store($data)
+    {
+        return $this->model->create($data);
     }
 }

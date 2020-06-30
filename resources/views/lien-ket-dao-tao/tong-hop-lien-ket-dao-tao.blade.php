@@ -236,10 +236,12 @@
                     aria-hidden="true"></i>
                 Xuất dữ liệu ra Excel</a>
         </div>
+        @can('them_moi_tong_hop_lien_ket_lien_thong_trinh_do')
         <div class="col-lg-6 " style="text-align: right">
             <a href="{{route('xuatbc.them-lien-ket-dao-tao')}}"><button type="button" class="btn btn-info .bg-info">Thêm
                     mới</button></a>
         </div>
+        @endcan
     </section>
 
     <div class="m-portlet">
@@ -288,15 +290,19 @@
                         <td>{{$item->tong_chi_tieu}}</td>
                         <td>{{$item->tong_thuc_tuyen}}</td>
                         <td>{{$item->tong_so_HSSV_tot_nghiep}}</td>
-                        @if ($bac_nghe == 0)
-                        <td><a href="{{route('xuatbc.chi-tiet-lien-ket-dao-tao', ['co_so_id' => $item->co_so_id, 'bac_nghe' => 0])}}"
-                                class=".text-info">Chi tiết</a></td>
-                        @else
-                        <td><a href="{{route('xuatbc.chi-tiet-lien-ket-dao-tao', ['co_so_id' => $item->co_so_id, 'bac_nghe' => $item->bac_nghe])}}"
-                                class=".text-info">Chi tiết</a></td>
-                        @endif
-
-
+                        
+                            @if ($bac_nghe == 0)
+                            @can('chi_tiet_tong_hop_lien_ket_lien_thong_trinh_do')
+                            <td><a href="{{route('xuatbc.chi-tiet-lien-ket-dao-tao', ['co_so_id' => $item->co_so_id, 'bac_nghe' => 0])}}"
+                                    class=".text-info">Chi tiết</a></td>
+                            @endcan
+                            @else
+                            <td><a href="{{route('xuatbc.chi-tiet-lien-ket-dao-tao', ['co_so_id' => $item->co_so_id, 'bac_nghe' => $item->bac_nghe])}}"
+                                    class=".text-info">Chi tiết</a></td>
+                            
+                            @endif
+                           
+                            
                     </tr>
                     @endforeach
 

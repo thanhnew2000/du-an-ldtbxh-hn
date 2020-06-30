@@ -54,6 +54,17 @@
 									name="name">
 							</div>
 						</div>
+						<div class="form-group m-form__group row">
+							<label for="" class="col-2 col-form-label">Phân quyền</label>
+							<div class="col-10">
+								<select class="form-control m-input" name="role" id="">
+									<option value="{{ old('role') }}" >Chọn </option>
+                                    	@foreach ($user as $item)
+											<option class="form-control " value="{{$item->id}}">{{$item->name}}</option>
+                                       	@endforeach
+								</select>
+							</div>
+						</div>
 						@if (session('thongbao'))
 						<div class="thongbao" style="color: green; text-align: center;">
 							{{session('thongbao')}}

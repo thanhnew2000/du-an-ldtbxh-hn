@@ -161,7 +161,6 @@
         </div>
 </section>
 
-
     <div class="m-portlet">
         <div class="m-portlet__body table-responsive">
             <table class="table table-bordered m-table m-table--border-danger m-table--head-bg-primary table-boder-white">
@@ -212,11 +211,14 @@
                         <td>{{ $item->tong }}</td>
                         <td>{{ $item->so_dang_ki_CD }}</td>
                         <td>{{ $item->so_dang_ki_TC }}</td>
+                        @can('chi_tiet_tong_hop_dang_ky_chi_tieu_tuyen_sinh')
                         <td>
                             <a target="_blank"
-                            href="{{ route('xuatbc.chi-tiet-dang-ky-chi-tieu-tuyen-sinh',['co_so_id'=>$item->co_so_id]) }}"
-                                class="btn btn-info btn-sm">Chi tiết</a>
+                                href="{{ route('xuatbc.chi-tiet-dang-ky-chi-tieu-tuyen-sinh',['co_so_id'=>$item->co_so_id]) }}"
+                                class="btn btn-info btn-sm">Chi tiết
+                            </a>
                         </td>
+                        @endcan
                     </tr>
 
                       

@@ -65,5 +65,8 @@ class Kernel extends HttpKernel
         'CheckLogout' => \App\Http\Middleware\CheckLogout::class,
         'CheckLogin' => \App\Http\Middleware\CheckLogin::class,
         'checkStatusUpdateSoLieuTuyenSinh' => \App\Http\Middleware\checkStatusUpdateSoLieuTuyenSinh::class,
+        'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
+        'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
+        'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
     ];
 }

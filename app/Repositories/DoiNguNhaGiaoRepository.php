@@ -82,7 +82,7 @@ class DoiNguNhaGiaoRepository extends BaseRepository implements DoiNguNhaGiaoInt
         if(isset($params['dot']) && $params['dot'] != null){
             $queryBuilder->where('so_lieu_doi_ngu_nha_giao.dot', $params['dot']);
         }
-        
+
         return $queryBuilder->orderByDesc('so_lieu_doi_ngu_nha_giao.nam')
         ->orderByDesc('so_lieu_doi_ngu_nha_giao.dot')->paginate($params['page_size']);
     }
@@ -157,8 +157,6 @@ class DoiNguNhaGiaoRepository extends BaseRepository implements DoiNguNhaGiaoInt
 
     public function insert($data)
     {
-        return $this->model->insert($data);
+        return $this->model->create($data);
     }
-
-
 }
