@@ -11,6 +11,9 @@
     .row-eq-height .col-xl-6 px-2{
         margin-bottom: 15px;
     }
+    .p-2.bd-highlight{
+        padding-left: 30px!important;
+    }
 </style>
 <div class="m-content container-fluid">
     <div class="m-portlet">
@@ -55,11 +58,7 @@
                     <div class="m-portlet__body">
 
                         <h4>Quản lý tài khoản</h4>
-                        <button class="btn btn-info ">Chọn tất cả</button>
-                        <button class="btn btn-danger ">Hủy tất cả</button>
-                    </div>
-                    <div class="m-portlet__body">
-                        <h5>Quản lý tài khoản</h5>
+                        <button type="button" class="btn btn-info btn-sm tick-untick-all-option">Chọn/bỏ chọn tất cả</button>
                     </div>
                     <div class="">
                         @foreach (config('permissions_setting.quan_ly_tai_khoan') as $key=> $item)
@@ -80,11 +79,7 @@
                 <div class="m-portlet">
                     <div class="m-portlet__body">
                         <h4>Quản lý cơ sở đào tạo</h4>
-                        <button class="btn btn-info ">Chọn tất cả</button>
-                        <button class="btn btn-danger ">Hủy tất cả</button>
-                    </div>
-                    <div class="m-portlet__body">
-                        <h5>Danh sách cơ sở đào tạo</h5>
+                        <button type="button" class="btn btn-info btn-sm tick-untick-all-option">Chọn/bỏ chọn tất cả</button>
                     </div>
                     <div class="">
                         @foreach (config('permissions_setting.quan_ly_co_so_dao_tao') as $key=> $item)
@@ -103,7 +98,8 @@
             <div class="col-xl-6 px-2">
                 <div class="m-portlet">
                     <div class="m-portlet__body">
-                        <h5>Danh sách địa điểm đào tạo</h5>
+                        <h4>Danh sách địa điểm đào tạo</h4>
+                        <button type="button" class="btn btn-info btn-sm tick-untick-all-option">Chọn/bỏ chọn tất cả</button>
                     </div>
                     <div class="">
                         @foreach (config('permissions_setting.quan_ly_dia_diem_dao_tao') as $key=> $item)
@@ -121,10 +117,8 @@
             <div class="col-xl-6 px-2">
                 <div class="m-portlet">
                     <div class="m-portlet__body">
-
                         <h4>Quản lý ngành nghề</h4>
-                        <button class="btn btn-info ">Chọn tất cả</button>
-                        <button class="btn btn-danger ">Hủy tất cả</button>
+                        <button type="button" class="btn btn-info btn-sm tick-untick-all-option">Chọn/bỏ chọn tất cả</button>
                     </div>
                     <div class="">
                         @foreach (config('permissions_setting.quan_ly_nganh_nghe') as $key=> $item)
@@ -143,11 +137,7 @@
                 <div class="m-portlet">
                     <div class="m-portlet__body">
                         <h4>Quản lý nhân sự</h4>
-                        <button class="btn btn-info ">Chọn tất cả</button>
-                        <button class="btn btn-danger ">Hủy tất cả</button>
-                    </div>
-                    <div class="m-portlet__body">
-                        <h5>Quản lý giáo viên</h5>
+                        <button type="button" class="btn btn-info btn-sm tick-untick-all-option">Chọn/bỏ chọn tất cả</button>
                     </div>
                     <div class="">
                         @foreach (config('permissions_setting.quan_ly_giao_vien') as $key=> $item)
@@ -165,7 +155,8 @@
             <div class="col-xl-6 px-2">
                 <div class="m-portlet">
                     <div class="m-portlet__body">
-                        <h5>Danh sách đội ngũ nhà giáo</h5>
+                        <h4>Danh sách đội ngũ nhà giáo</h4>
+                        <button type="button" class="btn btn-info btn-sm tick-untick-all-option">Chọn/bỏ chọn tất cả</button>
                     </div>
                     <div class="">
                         @foreach (config('permissions_setting.quan_ly_doi_ngu_nha_giao') as $key=> $item)
@@ -184,7 +175,8 @@
             <div class="col-xl-6 px-2">
                 <div class="m-portlet">
                     <div class="m-portlet__body">
-                        <h5>Danh sách đội ngũ quản lý</h5>
+                        <h4>Danh sách đội ngũ quản lý</h4>
+                        <button type="button" class="btn btn-info btn-sm tick-untick-all-option">Chọn/bỏ chọn tất cả</button>
                     </div>
                     <div class="">
                         @foreach (config('permissions_setting.doi_ngu_quan_ly') as $key=> $item)
@@ -203,11 +195,7 @@
                 <div class="m-portlet">
                     <div class="m-portlet__body">
                         <h4>Quản lý sinh viên đang theo học</h4>
-                        <button class="btn btn-info ">Chọn tất cả</button>
-                        <button class="btn btn-danger ">Hủy tất cả</button>
-                    </div>
-                    <div class="m-portlet__body">
-                        <h5>Tổng hợp sinh viên đang theo học</h5>
+                        <button type="button" class="btn btn-info btn-sm tick-untick-all-option">Chọn/bỏ chọn tất cả</button>
                     </div>
                     <div class="">
                         @foreach (config('permissions_setting.quan_ly_sv_dang_theo_hoc') as $key=> $item)
@@ -227,11 +215,7 @@
                 <div class="m-portlet">
                     <div class="m-portlet__body">
                         <h4>Quản lý chính sách</h4>
-                        <button class="btn btn-info ">Chọn tất cả</button>
-                        <button class="btn btn-danger ">Hủy tất cả</button>
-                    </div>
-                    <div class="m-portlet__body">
-                        <h5>Tổng hợp chính sách cho sinh viên</h5>
+                        <button type="button" class="btn btn-info btn-sm tick-untick-all-option">Chọn/bỏ chọn tất cả</button>
                     </div>
                     <div class="">
                         @foreach (config('permissions_setting.quan_ly_tong_hop_chinh_sach') as $key=> $item)
@@ -250,11 +234,7 @@
                 <div class="m-portlet">
                     <div class="m-portlet__body">
                         <h4>Quản lý kết quả tuyển sinh</h4>
-                        <button class="btn btn-info ">Chọn tất cả</button>
-                        <button class="btn btn-danger" value="" name="">Hủy tất cả</button>
-                    </div>
-                    <div class="m-portlet__body">
-                        <h5>Tổng hợp kết quả tuyển sinh</h5>
+                        <button type="button" class="btn btn-info btn-sm tick-untick-all-option">Chọn/bỏ chọn tất cả</button>
                     </div>
                     <div class="">
                         @foreach (config('permissions_setting.quan_ly_tuyen_sinh') as $key=> $item)
@@ -274,11 +254,7 @@
                 <div class="m-portlet">
                     <div class="m-portlet__body">
                         <h4>Quản lý kết quả tốt nghiệp</h4>
-                        <button class="btn btn-info ">Chọn tất cả</button>
-                        <button class="btn btn-danger ">Hủy tất cả</button>
-                    </div>
-                    <div class="m-portlet__body">
-                        <h5>Tổng hợp kết quả tốt nghiệp</h5>
+                        <button type="button" class="btn btn-info btn-sm tick-untick-all-option">Chọn/bỏ chọn tất cả</button>
                     </div>
                     <div class="">
                         @foreach (config('permissions_setting.quan_ly_tot_nghiep') as $key=> $item)
@@ -298,11 +274,7 @@
                 <div class="m-portlet">
                     <div class="m-portlet__body">
                         <h4>Quản lý đăng kí chỉ tiêu</h4>
-                        <button class="btn btn-info ">Chọn tất cả</button>
-                        <button class="btn btn-danger ">Hủy tất cả</button>
-                    </div>
-                    <div class="m-portlet__body">
-                        <h5>Tổng hợp đăng ký chỉ tiêu tuyển sinh</h5>
+                        <button type="button" class="btn btn-info btn-sm tick-untick-all-option">Chọn/bỏ chọn tất cả</button>
                     </div>
                     <div class="">
                         @foreach (config('permissions_setting.quan_ly_dang_ky_chi_tieu') as $key=> $item)
@@ -321,11 +293,7 @@
                 <div class="m-portlet">
                     <div class="m-portlet__body">
                         <h4>Quản lý xây dựng chương trình giáo trình</h4>
-                        <button class="btn btn-info ">Chọn tất cả</button>
-                        <button class="btn btn-danger ">Hủy tất cả</button>
-                    </div>
-                    <div class="m-portlet__body">
-                        <h5>Tổng hợp xây dựng chương trình giáo trình</h5>
+                        <button type="button" class="btn btn-info btn-sm tick-untick-all-option">Chọn/bỏ chọn tất cả</button>
                     </div>
                     <div class="">
                         @foreach (config('permissions_setting.quan_ly_xay_dung_chuong_trinh_giao_trinh') as $key=> $item)
@@ -345,11 +313,7 @@
                 <div class="m-portlet">
                     <div class="m-portlet__body">
                         <h4>Quản lý đào tạo nghề</h4>
-                        <button class="btn btn-info ">Chọn tất cả</button>
-                        <button class="btn btn-danger ">Hủy tất cả</button>
-                    </div>
-                    <div class="m-portlet__body">
-                        <h5>Đào tạo nghề cho người khuyết tật</h5>
+                        <button type="button" class="btn btn-info btn-sm tick-untick-all-option">Chọn/bỏ chọn tất cả</button>
                     </div>
                     <div class="">
                         @foreach (config('permissions_setting.quan_ly_dao_tao_nghe_cho_nguoi_khuyet_tat') as $key=> $item)
@@ -368,6 +332,7 @@
                 <div class="m-portlet">
                     <div class="m-portlet__body">
                         <h5>Đào tạo nghề cho thanh niên</h5>
+                        <button type="button" class="btn btn-info btn-sm tick-untick-all-option">Chọn/bỏ chọn tất cả</button>
                     </div>
                     <div class="">
                         @foreach (config('permissions_setting.quan_ly_dao_tao_nghe_cho_thanh_nien') as $key=> $item)
@@ -386,8 +351,9 @@
             <div class="col-xl-6 px-2">
                 <div class="m-portlet">
                     <div class="m-portlet__body">
-                        <h5>Kết quả tốt nghiệp đào tạo nghề <br>
-                            gắn với doanh nghiệp</h5>
+                        <h4>Kết quả tốt nghiệp đào tạo nghề <br>
+                            gắn với doanh nghiệp</h4>
+                        <button type="button" class="btn btn-info btn-sm tick-untick-all-option">Chọn/bỏ chọn tất cả</button>
                     </div>
                     <div class="">
                         @foreach (config('permissions_setting.ket_qua_tot_nghiep_dao_tao_nghe_voi_doanh_nghiep') as $key=>
@@ -406,7 +372,8 @@
             <div class="col-xl-6 px-2">
                 <div class="m-portlet">
                     <div class="m-portlet__body">
-                        <h5>Kết quả tuyển sinh, đào tạo nghề <br> gắn với doanh nghiệp</h5>
+                        <h4>Kết quả tuyển sinh, đào tạo nghề <br> gắn với doanh nghiệp</h4>
+                        <button type="button" class="btn btn-info btn-sm tick-untick-all-option">Chọn/bỏ chọn tất cả</button>
                     </div>
                     <div class="">
                         @foreach (config('permissions_setting.ket_qua_tot_nghiep_dao_tao_nghe_voi_doanh_nghiep') as $key=>$item)
@@ -425,11 +392,7 @@
                 <div class="m-portlet">
                     <div class="m-portlet__body">
                         <h4>Quản lý liên kết</h4>
-                        <button class="btn btn-info ">Chọn tất cả</button>
-                        <button class="btn btn-danger ">Hủy tất cả</button>
-                    </div>
-                    <div class="m-portlet__body">
-                        <h5>Tổng hợp liên kết liên thông trình độ</h5>
+                        <button type="button" class="btn btn-info btn-sm tick-untick-all-option">Chọn/bỏ chọn tất cả</button>
                     </div>
                     <div class="">
                         @foreach (config('permissions_setting.tong_hop_lien_ket_lien_thong') as $key=> $item)
@@ -448,7 +411,8 @@
             <div class="col-xl-6 px-2">
                 <div class="m-portlet">
                     <div class="m-portlet__body">
-                        <h5>Liên kết liên thông trình độ Cao Đẳng lên Đại Học</h5>
+                        <h4>Liên kết liên thông trình độ Cao Đẳng lên Đại Học</h4>
+                        <button type="button" class="btn btn-info btn-sm tick-untick-all-option">Chọn/bỏ chọn tất cả</button>
                     </div>
                     <div class="">
                         @foreach (config('permissions_setting.lien_ket_lien_thong_cao_dang_len_dai_hoc') as $key=> $item)
@@ -467,7 +431,8 @@
             <div class="col-xl-6 px-2">
                 <div class="m-portlet">
                     <div class="m-portlet__body">
-                        <h5>Liên kết liên thông trình độ Trung Cấp lên Đại Học</h5>
+                        <h4>Liên kết liên thông trình độ Trung Cấp lên Đại Học</h4>
+                        <button type="button" class="btn btn-info btn-sm tick-untick-all-option">Chọn/bỏ chọn tất cả</button>
                     </div>
                     <div class="">
                         @foreach (config('permissions_setting.lien_ket_lien_thong_trung_cap_len_dai_hoc') as $key=> $item)
@@ -486,11 +451,7 @@
                 <div class="m-portlet">
                     <div class="m-portlet__body">
                         <h4>Quản lý giáo dục nghề nghiệp</h4>
-                        <button class="btn btn-info ">Chọn tất cả</button>
-                        <button class="btn btn-danger ">Hủy tất cả</button>
-                    </div>
-                    <div class="m-portlet__body">
-                        <h5>Tổng hợp giáo dục nghề nghiệp</h5>
+                        <button type="button" class="btn btn-info btn-sm tick-untick-all-option">Chọn/bỏ chọn tất cả</button>
                     </div>
                     <div class="">
                         @foreach (config('permissions_setting.tong_hop_giao_duc_nghe_nghiep') as $key=> $item)
@@ -510,11 +471,7 @@
                 <div class="m-portlet">
                     <div class="m-portlet__body">
                         <h4>Quản lý tổng hợp, hợp tác quốc tế</h4>
-                        <button class="btn btn-info ">Chọn tất cả</button>
-                        <button class="btn btn-danger ">Hủy tất cả</button>
-                    </div>
-                    <div class="m-portlet__body">
-                        <h5>Tổng hợp, hợp tác quốc tế</h5>
+                        <button type="button" class="btn btn-info btn-sm tick-untick-all-option">Chọn/bỏ chọn tất cả</button>
                     </div>
                     <div class="">
                         @foreach (config('permissions_setting.tong_hop_hop_tac_quoc_te') as $key=> $item)
@@ -537,3 +494,25 @@
         </div>
     </form>
     @endsection
+@section('script')
+        <script>
+            $(document).ready(function(){
+                $('.tick-untick-all-option').on('click', function(){
+
+                    let listCheckbox = $(this).parent().parent().find("input[type='checkbox']");
+                    debugger;
+                    let countChecked = 0;
+
+                    listCheckbox.each(function(index, element){
+                        if($(element).is(":checked") == false){
+                            countChecked++;
+                        }
+                    });
+                    let checkStatus = countChecked > 0 ? true : false;
+                    listCheckbox.each(function(index, element){
+                        $(element).prop('checked', checkStatus);
+                    });
+                });
+            });
+        </script>
+@endsection
