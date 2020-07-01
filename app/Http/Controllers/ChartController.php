@@ -4,9 +4,16 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Services\ChartKetQuaTuyenSinhService;
 
 class ChartController extends Controller
 {
+
+    protected $ChartKetQuaTuyenSinhService;
+    public function __construct(ChartKetQuaTuyenSinhService $ChartKetQuaTuyenSinhService)
+    {
+        $this->ChartKetQuaTuyenSinhService = $ChartKetQuaTuyenSinhService;
+    }
     public function bdbaocaongansach()
     {
         $coSo = DB::table('co_so_dao_tao')->get();
@@ -16,35 +23,37 @@ class ChartController extends Controller
     public function bdkqtuyensinh(Request $request)
     {
         $params = $request->all();
-        $query = DB::table('tuyen_sinh');
-        if (isset($params['dot']) && $params['dot'] != 0) {
-            $query->where('tuyen_sinh.dot', $params['dot']);
-            }
-            if (isset($params['nam']) && $params['nam'] != 0) {
-                $query->where('tuyen_sinh.nam', $params['nam']);
-            }
-            if (isset($params['co_so_id']) && $params['co_so_id'] != 0) {
-                $query->where('tuyen_sinh.co_so_id', $params['co_so_id']);
-            }
-            $data = (array)$query->first();
-            // dd($data);
+        // $query = DB::table('tuyen_sinh');
+        // if (isset($params['dot']) && $params['dot'] != 0) {
+        //     $query->where('tuyen_sinh.dot', $params['dot']);
+        //     }
+        //     if (isset($params['nam']) && $params['nam'] != 0) {
+        //         $query->where('tuyen_sinh.nam', $params['nam']);
+        //     }
+        //     if (isset($params['co_so_id']) && $params['co_so_id'] != 0) {
+        //         $query->where('tuyen_sinh.co_so_id', $params['co_so_id']);
+        //     }
+        //     $data = (array)$query->first();
+        //     // dd($data);
 
-            if($data == []){
-                $data = [
-                    'so_luong_sv_Cao_dang'=> 0,
-                    'so_luong_sv_Trung_cap'=> 0,
-                    'so_luong_sv_So_cap'=> 0,
-                    'so_luong_sv_he_khac'=> 0
-                ];
-            }
-            else{
+        //     if($data == []){
+        //         $data = [
+        //             'so_luong_sv_Cao_dang'=> 0,
+        //             'so_luong_sv_Trung_cap'=> 0,
+        //             'so_luong_sv_So_cap'=> 0,
+        //             'so_luong_sv_he_khac'=> 0
+        //         ];
+        //     }
+        //     else{
          
-                $data['so_luong_sv_Cao_dang'] = isset($data['so_luong_sv_Cao_dang'])  ?  $data['so_luong_sv_Cao_dang'] : 0 ;
-                $data['so_luong_sv_Trung_cap'] = isset($data['so_luong_sv_Trung_cap'])  ?  $data['so_luong_sv_Trung_cap'] : 0 ;
-                $data['so_luong_sv_So_cap'] = isset($data['so_luong_sv_So_cap'])  ?  $data['so_luong_sv_So_cap'] : 0 ;
-                $data['so_luong_sv_he_khac'] = isset($data['so_luong_sv_he_khac'])  ?  $data['so_luong_sv_he_khac'] : 0 ;
-            }
+        //         $data['so_luong_sv_Cao_dang'] = isset($data['so_luong_sv_Cao_dang'])  ?  $data['so_luong_sv_Cao_dang'] : 0 ;
+        //         $data['so_luong_sv_Trung_cap'] = isset($data['so_luong_sv_Trung_cap'])  ?  $data['so_luong_sv_Trung_cap'] : 0 ;
+        //         $data['so_luong_sv_So_cap'] = isset($data['so_luong_sv_So_cap'])  ?  $data['so_luong_sv_So_cap'] : 0 ;
+        //         $data['so_luong_sv_he_khac'] = isset($data['so_luong_sv_he_khac'])  ?  $data['so_luong_sv_he_khac'] : 0 ;
+        //     }
 
+
+$data = $this->ChartKetQuaTuyenSinhService->getKetQuaTuyenSinhChart($params);
         $coSo = DB::table('co_so_dao_tao')->get();
         return view('chart.bieu_do_ket_qua_tuyen_sinh',compact('coSo','data','params'));
     }
@@ -90,7 +99,7 @@ class ChartController extends Controller
     
 
 
-    //phuc
+    
     public function bdsoluongtotnghiep(Request $request)
     {
         $params = $request->all();
@@ -129,7 +138,7 @@ class ChartController extends Controller
         $coSo = DB::table('co_so_dao_tao')->get();
         return view('chart.bieu_do_so_luong_tot_nghiep',compact('coSo','data','params'));
     }
-    //endphuc
+   
 
 
 
