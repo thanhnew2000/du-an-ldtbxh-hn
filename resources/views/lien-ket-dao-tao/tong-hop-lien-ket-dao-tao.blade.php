@@ -454,7 +454,7 @@
 
 @endsection
 @section('script')
-<script src="{{ asset('js/so_lieu_tuyen_sinh/tong_hop_so_lieu.js') }}"></script>
+<script src="{{ asset('js/lien_ket_dao_tao/tong_hop_so_lieu.js') }}"></script>
 <script>
     $(document).ready(function(){
         
