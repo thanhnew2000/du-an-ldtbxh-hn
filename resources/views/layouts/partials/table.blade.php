@@ -21,9 +21,12 @@
                 (isset($route_edit) && !empty($route_edit)) ||
                 (isset($route_show) && !empty($route_show))
                 )
-                @can('cap_nhat_quan_ly_giao_vien')
-                <th scope="col" colspan="2">Thao tác</th>
-                @endcan
+
+                <th scope="col" colspan="2">
+                    @can('cap_nhat_quan_ly_giao_vien')
+                    Thao tác
+                    @endcan
+                </th>
 
                 @endif
             </thead>
@@ -40,20 +43,17 @@
                     @endforeach
 
                    
-                    @if (isset($route_edit) && !empty($route_edit))
+
                     <td>
+                        @if (isset($route_edit) && !empty($route_edit))
                         <a href="{{ route($route_edit, [ $item->id ]) }}">Sửa</a>
+                        @endif
                     </td>
-                    @endif
-                   
-
-                    @if (isset($route_show) && !empty($route_show))
-
                     <td>
+                        @if (isset($route_show) && !empty($route_show))
                         <a href="{{ route($route_show, [ $item->id ]) }}">Chi tiết</a>
+                        @endif
                     </td>
-
-                    @endif
                 </tr>
                 @endforeach
             </tbody>
