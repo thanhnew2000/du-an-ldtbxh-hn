@@ -13,17 +13,20 @@ use PhpOffice\PhpSpreadsheet\Style\Protection;
 use Carbon\Carbon;
 use Storage;
 use App\Services\StoreUpdateNotificationService;
+use App\Repositories\CoSoDaoTaoRepositoryInterface;
+
 class ChinhSachSinhVienService extends AppService
 {
     use ExcelTraitService;
     protected $StoreUpdateNotificationService;
-
+    protected $CoSoDaoTaoRepository;
     public function __construct(
-        StoreUpdateNotificationService $StoreUpdateNotificationService
+        StoreUpdateNotificationService $StoreUpdateNotificationService,
+        CoSoDaoTaoRepositoryInterface $coSoDaoTao
     ) {
         parent::__construct();
         $this->StoreUpdateNotificationService = $StoreUpdateNotificationService;
-
+        $this ->CoSoDaoTaoRepository = $coSoDaoTao;
     }
 
     public function getRepository()
@@ -50,7 +53,7 @@ class ChinhSachSinhVienService extends AppService
         $resurt = $this->repository->update($id, $attributes);
         $dataFindId = $this->repository->findById($id);
         $getdata = (array)$dataFindId;
-        $thongTinCoSo = $this->repository->getThongTinCoSo($getdata['co_so_id']);
+        $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($getdata['co_so_id']);
         if($resurt){         
             $tieude = 'Cập nhật ( '.$thongTinCoSo->ten.' )';
 			$noidung = 'Cập nhật số liệu chính sách sinh viên';
@@ -65,7 +68,7 @@ class ChinhSachSinhVienService extends AppService
         unset($getdata['_token']);
         $data = $this->repository->postthemChinhSachSinhVien($getdata);
         if($data){
-            $thongTinCoSo = $this->repository->getThongTinCoSo($getdata['co_so_id']);
+            $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($getdata['co_so_id']);
             $tieude = 'Thêm mới ( '.$thongTinCoSo->ten.' )';
             $noidung = 'Thêm mới số liệu chính sách sinh viên';
             $route = route('xuatbc.tong-hop-chinh-sach-sinh-vien');
@@ -295,7 +298,7 @@ class ChinhSachSinhVienService extends AppService
                     $this->repository->createChinhSachSv($arrayToInsert);
                     // DB::table('tong_hop_chinh_sach_voi_hssv')->insert($arrayToInsert);
                 }
-                $thongTinCoSo = $this->repository->getThongTinCoSo($id_truong);
+                $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($id_truong);
                 $bm = 'Chính sách sinh viên';
                 $tencoso = $thongTinCoSo->ten;
                 $route = route('xuatbc.tong-hop-chinh-sach-sinh-vien');

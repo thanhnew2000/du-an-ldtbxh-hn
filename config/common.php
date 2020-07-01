@@ -88,7 +88,8 @@ return [
     'firestore_notification_collection' => 'testnoti',
     'firestore_notification_status' => [
         'unread' => 1,
-        'read' => 2
+        'read' => 2,
+        'read_detail'=>3
     ],
     'notify_module' => [
         'tu_van_ho_tro' => 'tu-van-ho-tro'

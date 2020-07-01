@@ -87,23 +87,7 @@ class DoiNguNhaGiaoRepository extends BaseRepository implements DoiNguNhaGiaoInt
         ->orderByDesc('so_lieu_doi_ngu_nha_giao.dot')->paginate($params['page_size']);
     }
 
-    public function getThongTinCoSo($coSoId)
-	{
-		$data = DB::table('co_so_dao_tao')
-		->where('co_so_dao_tao.id', '=', $coSoId)
-		->join('loai_hinh_co_so', 'co_so_dao_tao.ma_loai_hinh_co_so', '=', 'loai_hinh_co_so.id')
-		->join('devvn_quanhuyen', 'co_so_dao_tao.maqh', '=', 'devvn_quanhuyen.maqh')
-		->join('devvn_xaphuongthitran', 'co_so_dao_tao.xaid', '=', 'devvn_xaphuongthitran.xaid')
-		->select(
-					'co_so_dao_tao.ten',
-					'co_so_dao_tao.dia_chi',
-					'loai_hinh_co_so.loai_hinh_co_so',
-					'devvn_quanhuyen.name as ten_quan_huyen',
-					'devvn_xaphuongthitran.name as ten_xa_phuong'
-				)
-		->first();
-		return $data;
-    }
+
 
     /* Danh sách ngành nghề theo ID cơ sở.
      * @author: phucnv

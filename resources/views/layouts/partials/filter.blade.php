@@ -25,12 +25,20 @@
                 @endif
                     <div class="form-group col-md-6 col-12 d-flex justify-content-around align-items-center">
                         <span for="" class="fillter-name col-4">{{ $item['label'] }}</span>
-                        <select class="form-control col-8 {{ $item['select2'] === true ? 'select2' : '' }}" name="{{ $key }}" id="{{ $key }}">
-                            <option value="0" selected>{{ $item['default'] }}</option>
-                            @foreach($item['options'] as $optionKey => $optionValue)
-                                <option value="{{ $optionKey }}">{{ $optionValue }}</option>
-                            @endforeach
-                        </select>
+                        @if(isset($item['select2']))
+                            <select class="form-control col-8 {{ $item['select2'] === true ? 'select2' : '' }}" name="{{ $key }}" id="{{ $key }}">
+                                <option value="0" selected>{{ $item['default'] }}</option>
+                                @foreach($item['options'] as $optionKey => $optionValue)
+                                    <option value="{{ $optionKey }}">{{ $optionValue }}</option>
+                                @endforeach
+                            </select>
+                        @else
+                            <input
+                                class="form-control"
+                                name="{{ $key }}"
+                                id="{{ $key }}"
+                                />
+                        @endif
                     </div>
                 @if ($count % 2 === 0 || $count === count($config['partials']))
                     </div>

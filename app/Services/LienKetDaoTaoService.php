@@ -16,21 +16,24 @@ use Carbon\Carbon;
 use GuzzleHttp\Psr7\Request;
 use Storage;
 use App\Services\StoreUpdateNotificationService;
-
+use App\Repositories\CoSoDaoTaoRepositoryInterface;
 
 class LienKetDaoTaoService extends AppService
 {
     protected $SoLieuTuyenSinhInterface;
     protected $StoreUpdateNotificationService;
+    protected $CoSoDaoTaoRepository;
     use ExcelTraitService;
 
     public function __construct(
         SoLieuTuyenSinhInterface $soLieuTuyenSinhRepository,
-        StoreUpdateNotificationService $StoreUpdateNotificationService
+        StoreUpdateNotificationService $StoreUpdateNotificationService,
+        CoSoDaoTaoRepositoryInterface $coSoDaoTao
     ) {
         parent::__construct();
         $this->soLieuTuyenSinhRepository = $soLieuTuyenSinhRepository;
         $this->StoreUpdateNotificationService = $StoreUpdateNotificationService;
+        $this ->CoSoDaoTaoRepository = $coSoDaoTao;
 
     }
     public function getRepository()
@@ -115,7 +118,7 @@ class LienKetDaoTaoService extends AppService
         $resurt = $this->repository->update($id, $attributes);
         $dataFindId = $this->repository->findById($id);
         $getdata = (array)$dataFindId;
-        $thongTinCoSo = $this->repository->getThongTinCoSo($getdata['co_so_id']);
+        $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($getdata['co_so_id']);
         if($resurt){         
             $tieude = 'Cập nhật ( '.$thongTinCoSo->ten.' )';
             if ($bac_nghe == 6) {
@@ -141,7 +144,7 @@ class LienKetDaoTaoService extends AppService
         unset($getdata['_token']);
         $data = $this->repository->postthemlienketdaotao($getdata);
         if($data){
-            $thongTinCoSo = $this->repository->getThongTinCoSo($getdata['co_so_id']);
+            $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($getdata['co_so_id']);
             $tieude = 'Thêm mới ( '.$thongTinCoSo->ten.' )';
             if ($id == 6) {
                 $noidung = 'Thêm mới số liệu liên kết đào tạo cao đẳng';

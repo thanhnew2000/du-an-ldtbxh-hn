@@ -12,19 +12,24 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
 use Storage;
 use App\Services\StoreUpdateNotificationService;
+use App\Repositories\CoSoDaoTaoRepositoryInterface;
+
 class HopTacQuocTeService extends AppService
 {
     protected $SoLieuTuyenSinhInterface;
     protected $StoreUpdateNotificationService;
+    protected $CoSoDaoTaoRepository;
     use ExcelTraitService;
 
     public function __construct(
         SoLieuTuyenSinhInterface $soLieuTuyenSinhRepository,
-        StoreUpdateNotificationService $StoreUpdateNotificationService
+        StoreUpdateNotificationService $StoreUpdateNotificationService,
+        CoSoDaoTaoRepositoryInterface $coSoDaoTao
     ) {
         parent::__construct();
         $this->soLieuTuyenSinhRepository = $soLieuTuyenSinhRepository;
         $this->StoreUpdateNotificationService = $StoreUpdateNotificationService;
+        $this ->CoSoDaoTaoRepository = $coSoDaoTao;
     }
 
     public function getRepository()
@@ -275,7 +280,7 @@ class HopTacQuocTeService extends AppService
 
                     //  DB::table('ket_qua_hop_tac_quoc_te')->insert($insertData);
                  }
-                $thongTinCoSo = $this->repository->getThongTinCoSo($id_truong);
+                $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($id_truong);
                 $bm = 'Hợp tác quốc tế';
                 $tencoso = $thongTinCoSo->ten;
                 $route = route('xuatbc.chi-tiet-ds-hop-tac-qte',['co_so_id' => $id_truong]);
@@ -328,7 +333,7 @@ class HopTacQuocTeService extends AppService
         $returnData = $this->repository->createHopTacQuocTe($data);
 
         if($returnData){
-            $thongTinCoSo = $this->repository->getThongTinCoSo($data['co_so_id']);
+            $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($getdata['co_so_id']);
             $tieude = 'Thêm mới ( '.$thongTinCoSo->ten.' )';
             $noidung = 'Thêm mới số liệu hợp tác quốc tế';
             $route = route('xuatbc.chi-tiet-ds-hop-tac-qte',['co_so_id' => $data['co_so_id']]);
@@ -345,7 +350,7 @@ class HopTacQuocTeService extends AppService
         $resurt = $this->repository->update($id, $attributes);
         $dataFindId = $this->repository->findById($id);
         $getdata = (array)$dataFindId;
-        $thongTinCoSo = $this->repository->getThongTinCoSo($getdata['co_so_id']);
+        $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($getdata['co_so_id']);
         if($resurt){         
             $tieude = 'Cập nhật ( '.$thongTinCoSo->ten.' )';
 			$noidung = 'Cập nhật số liệu hợp tác quốc tế';

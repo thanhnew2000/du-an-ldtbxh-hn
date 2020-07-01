@@ -234,9 +234,11 @@
                     aria-hidden="true"></i>
                 Xuất dữ liệu ra Excel</a>
         </div>
+        @can('them_moi_lien_ket_dao_tao_trinh_do_trung_cap_len_dai_hoc')
         <div class="col-lg-6 " style="text-align: right">
             <a href="{{route('xuatbc.them-lien-ket-dao-tao-trung-cap')}}"><button type="button"
                     class="btn btn-info .bg-info">Thêm mới</button></a>
+        @endcan
         </div>
     </section>
 
@@ -286,15 +288,12 @@
                         <td>{{$item->tong_chi_tieu}}</td>
                         <td>{{$item->tong_thuc_tuyen}}</td>
                         <td>{{$item->tong_so_HSSV_tot_nghiep}}</td>
-                        @if ($bac_nghe == 0)
-                        <td><a href="{{route('xuatbc.chi-tiet-lien-ket-dao-tao', ['co_so_id' => $item->co_so_id, 'bac_nghe' => 0])}}"
-                                class=".text-info">Chi tiết</a></td>
-                        @else
-                        <td><a href="{{route('xuatbc.chi-tiet-lien-ket-dao-tao', ['co_so_id' => $item->co_so_id, 'bac_nghe' => $item->bac_nghe])}}"
-                                class=".text-info">Chi tiết</a></td>
-                        @endif
-
-
+                        <td>
+                            @can('chi_tiet_lien_ket_dao_tao_trinh_do_trung_cap_len_dai_hoc')
+                            <a href="{{route('xuatbc.chi-tiet-lien-ket-dao-tao', ['co_so_id' => $item->co_so_id, 'bac_nghe' => 5])}}"
+                            class=".text-info">Chi tiết</a>
+                            @endcan
+                        </td>
                     </tr>
                     @endforeach
 

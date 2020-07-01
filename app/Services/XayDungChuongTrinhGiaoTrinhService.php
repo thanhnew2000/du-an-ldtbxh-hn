@@ -8,22 +8,27 @@ use App\Repositories\NganhNgheRepository;
 use App\Repositories\CoSoDaoTaoRepository;
 use App\Repositories\ChiTieuTuyenSinhRepository;
 use App\Services\StoreUpdateNotificationService;
+use App\Repositories\CoSoDaoTaoRepositoryInterface;
+
 class XayDungChuongTrinhGiaoTrinhService extends AppService
 {
 
     protected $nganhngheRepository;
     protected $csdtRepository;
     protected $StoreUpdateNotificationService;
+    protected $CoSoDaoTaoRepository;
 
     public function __construct(
         NganhNgheRepository $nganhngheRepository,
         CoSoDaoTaoRepository $csdtRepository,
-        StoreUpdateNotificationService $StoreUpdateNotificationService
+        StoreUpdateNotificationService $StoreUpdateNotificationService,
+        CoSoDaoTaoRepositoryInterface $coSoDaoTao
     ) {
         parent::__construct();
         $this->nganhngheRepository = $nganhngheRepository;
         $this->csdtRepository = $csdtRepository;
         $this->StoreUpdateNotificationService = $StoreUpdateNotificationService;
+        $this ->CoSoDaoTaoRepository = $coSoDaoTao;
     }
 
     public function getRepository()
@@ -80,7 +85,7 @@ class XayDungChuongTrinhGiaoTrinhService extends AppService
     {
         $returnData = $this->repository->store($data);
         if($returnData){
-            $thongTinCoSo = $this->repository->getThongTinCoSo($data['co_so_id']);
+            $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($getdata['co_so_id']);
             $tieude = 'Thêm mới ( '.$thongTinCoSo->ten.' )';
             $noidung = 'Thêm mới số liệu xây dựng giáo trình';
             $route = route('xuatbc.show-ds-xd-giao-trinh',['co_so_id' => $data['co_so_id']]);
@@ -98,7 +103,7 @@ class XayDungChuongTrinhGiaoTrinhService extends AppService
         $resurt = $this->repository->update($id, $attributes);
         $dataFindId = $this->repository->findById($id);
         $getdata = (array)$dataFindId;
-        $thongTinCoSo = $this->repository->getThongTinCoSo($getdata['co_so_id']);
+        $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($getdata['co_so_id']);
         if($resurt){         
             $tieude = 'Cập nhật ( '.$thongTinCoSo->ten.' )';
 			$noidung = 'Cập nhật số liệu xây dựng giáo trình';

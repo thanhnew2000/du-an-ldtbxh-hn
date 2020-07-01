@@ -33,14 +33,28 @@ window.SystemUtil = {
         });
 
         if(keyArr.length > 0){
-            console.log(keyArr);
+           
             keyArr.map(function(notifyKey, index){
+                 console.log(notifyKey);
                 db.collection("testnoti").doc(notifyKey).update({
                     status: 2
                 });
             })
         }
     },
+
+    changStatusField: function(element){
+        let id = $(element).attr('data-notify-id');
+        let url = $(element).attr('url');
+        let db = firebase.firestore();
+        console.log(id);
+        db.collection("testnoti").doc(id).update({
+            status: 3
+        });
+        window.location.href = url
+
+    },
+
     getFirebaseNotify: function(userId) {
 
         let db = firebase.firestore();

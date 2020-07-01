@@ -332,7 +332,7 @@ class DoiNguNhaGiaoService extends AppService
             $this->repository->insert($insertData);
         }
 
-        $thongTinCoSo = $this->repository->getThongTinCoSo($id_truong);
+        $thongTinCoSo = $this->csdtRepository->getThongTinCoSo($id_truong);
         $bm = 'Đội ngũ nhà giáo';
         $tencoso = $thongTinCoSo->ten;
         $route = route('xuatbc.chi-tiet-theo-co-so',['co_so_id' => $getdata['co_so_id']]);
@@ -353,7 +353,7 @@ class DoiNguNhaGiaoService extends AppService
         $resurt = $this->repository->update($id, $attributes);
         $dataFindId = $this->repository->findById($id);
         $getdata = (array)$dataFindId;
-        $thongTinCoSo = $this->repository->getThongTinCoSo($getdata['co_so_id']);
+        $thongTinCoSo = $this->csdtRepository->getThongTinCoSo($getdata['co_so_id']);
         if($resurt){         
             $tieude = 'Cập nhật ( '.$thongTinCoSo->ten.' )';
 			$noidung = 'Cập nhật số liệu đội ngũ quản lý nhà giáo';
@@ -367,7 +367,7 @@ class DoiNguNhaGiaoService extends AppService
     {
         $returnData = $this->doiNguNhaGiaoRepo->insert($getdata);
         if($returnData){
-            $thongTinCoSo = $this->doiNguNhaGiaoRepo->getThongTinCoSo($getdata['co_so_id']);
+            $thongTinCoSo = $this->csdtRepository->getThongTinCoSo($getdata['co_so_id']);
             $tieude = 'Thêm mới ( '.$thongTinCoSo->ten.' )';
             $noidung = 'Thêm mới số liệu đội ngũ quản lý nhà giáo';
             $route = route('xuatbc.chi-tiet-theo-co-so',['co_so_id' => $getdata['co_so_id']]);
