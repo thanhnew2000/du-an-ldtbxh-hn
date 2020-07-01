@@ -79,7 +79,9 @@
                     <th>STT</th>
                     <th>Tên quyền</th>
                     <th>
+                        @can('them_quyen')
                         <a href="{{ route('account.them-quyen') }}" class="btn btn-success btn-sm">Thêm mới</a>
+                        @endcan
                     </th>
                 </thead>
                 @php($i=1)
@@ -88,8 +90,12 @@
                     <tr>
                         <td>{{$i++}}</td>
                         <td>{{ $role->name }}</td>
-                        <td><a class="btn btn-primary btn-sm"
-                                href="{{ route('account.sua-quyen',['id'=>$role->id]) }}">Sửa</a>
+                        <td>
+                            @can('sua_quyen')
+                                <a class="btn btn-primary btn-sm" 
+                                href="{{ route('account.sua-quyen',['id'=>$role->id]) }}">Sửa
+                                </a>
+                            @endcan
                         </td>
                     </tr>
                 </tbody>

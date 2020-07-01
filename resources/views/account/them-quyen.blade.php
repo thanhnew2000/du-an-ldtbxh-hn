@@ -54,6 +54,20 @@
                     </div>
                     @endforeach
                 </div>
+
+                <div class="m-portlet__body">
+                    <h5>Quản lý tài khoản</h5>
+                </div>
+                <div class=" d-flex justify-content-around">
+                    @foreach (config('permissions_setting.quan_ly_quyen') as $key=> $item)
+                    <div class="p-2 bd-highlight">
+                        <label class="m-checkbox m-checkbox--air m-checkbox--state-brand">
+                            <input type="checkbox"  value="{{ $key }}" name="permissions[]">{{$item}}
+                            <span></span>
+                        </label>
+                    </div>
+                    @endforeach
+                </div>
             
             <div class="m-portlet__body">
                 <h4>Quản lý cơ sở đào tạo</h4>
@@ -435,6 +449,27 @@
             </div>
             <div class=" d-flex justify-content-around">
                 @foreach (config('permissions_setting.tong_hop_hop_tac_quoc_te') as $key=> $item)
+                <div class="p-2 bd-highlight">
+                    <label class="m-checkbox m-checkbox--air m-checkbox--state-brand">
+                        <input type="checkbox" class='chkboxname' value="{{$key}}" name="permissions[]">{{$item}}
+                        <span></span>
+                    </label>
+                </div>
+                @endforeach
+            </div>
+
+            <div class="m-portlet__body">
+                <h4>Quản lý phê duyệt</h4>
+                <label class="m-checkbox m-checkbox--air m-checkbox--state-brand mt-4">
+                    <input type="checkbox">Chọn/Hủy tất cả
+                    <span></span>
+                </label>
+            </div>
+            <div class="m-portlet__body">
+                <h5>Phê duyệt báo cáo</h5>
+            </div>
+            <div class=" d-flex justify-content-around">
+                @foreach (config('permissions_setting.quan_ly_phe_duyet') as $key=> $item)
                 <div class="p-2 bd-highlight">
                     <label class="m-checkbox m-checkbox--air m-checkbox--state-brand">
                         <input type="checkbox" class='chkboxname' value="{{$key}}" name="permissions[]">{{$item}}

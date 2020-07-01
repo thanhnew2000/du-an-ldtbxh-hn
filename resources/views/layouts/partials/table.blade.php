@@ -21,9 +21,8 @@
                 (isset($route_edit) && !empty($route_edit)) ||
                 (isset($route_show) && !empty($route_show))
                 )
-                @can('cap_nhat_quan_ly_giao_vien')
+            
                 <th scope="col" colspan="2">Thao tác</th>
-                @endcan
 
                 @endif
             </thead>
