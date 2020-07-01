@@ -18,6 +18,8 @@ class QuanLyGiaoVienController extends Controller
         GiaoVienService $giaoVienService
     ) {
         $this->giaoVienService = $giaoVienService;
+       
+
     }
 
     public function index()
