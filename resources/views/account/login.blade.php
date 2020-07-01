@@ -223,8 +223,16 @@ License: You must have a valid license purchased only from themeforest(the above
 							</div> -->
 					</div>
 				</div>
+				<div class="m-stack__item m-stack__item--center">
+					<div class="m-login__account">
+								<span class="m-login__account-msg">
+									Thiết kế bởi
+								</span>
+						<a href="http://caodang.fpt.edu.vn/" id="m_login_signup" class="m-link m-link--focus m-login__account-link">Cao đẳng FPT Polytechnic</a>
+					</div>
+				</div>
 			</div>
-			<div class="m-grid__item m-grid__item--fluid m-grid m-grid--center m-grid--hor m-grid__item--order-tablet-and-mobile-1	m-login__content m-grid-item--center"
+			<div class="m-grid__item m-grid__item--fluid m-grid m-grid--center m-grid--hor m-grid__item--order-tablet-and-mobile-1	m-login__content m-grid-item--center d-none d-xl-block"
 				style="background-image: url({!! asset('images/login-img.png') !!});background-size: 100% 100%;">
 				{{-- background-image: url({!! asset('storage/images/login-img.png') !!});background-size: cover; --}}
 				{{-- <div class="m-grid__item">
@@ -235,6 +243,10 @@ License: You must have a valid license purchased only from themeforest(the above
 				</div> --}}
 			</div>
 		</div>
+	</div>
+	<div class="yeu-cau-ho-tro">
+		<a class="" href="{{route('tu-van.gui-ho-tro')}}">Hỗ trợ, tư vấn!</a>
+		{{--<a href="">Hỗ trợ, tư vấn!</a>--}}
 	</div>
 
 	<!-- end:: Page -->

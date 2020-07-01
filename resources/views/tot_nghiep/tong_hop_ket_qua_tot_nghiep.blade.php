@@ -393,11 +393,11 @@
                             <div class='input-group date datepicker' name="datepicker" >
                                 <p>From: <input type="text" class="form-control" name="dateFrom" id="datepickerFrom"></p>
                                 @error('dateFrom')
-                                      <div class="alert alert-danger">{{$message}}</div>
+                                      <div class="text-danger">{{$message}}</div>
                                 @enderror
                                 <p>To: <input type="text" class="form-control" name="dateTo" id="datepickerTo"></p>
                                 @error('dateTo')
-                                  <div class="alert alert-danger">{{$message}}</div>
+                                  <div class="text-danger">{{$message}}</div>
                                 @enderror
                                    {{-- <span class="input-group-addon">
                                          <span class="glyphicon glyphicon-calendar">
@@ -415,7 +415,7 @@
                             </select>
                         </div>
                         @error('truong_id')
-                          <div class="alert alert-danger">{{$message}}</div>
+                          <div class="text-danger">{{$message}}</div>
                           @enderror
 
                     </div>

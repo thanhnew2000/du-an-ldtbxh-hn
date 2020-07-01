@@ -7,8 +7,6 @@ use App\Services\SinhVienTotNghiepService;
 use App\Http\Requests\TotNghiep\UpdateRequest;
 use App\Http\Requests\TotNghiep\StoreRequest;
 
-use App\Http\Requests\TotNghiep\StoreUpdateRequest;
-
 use App\Http\Requests\Excel\ExportDuLieu;
 use Storage;
 
@@ -80,13 +78,13 @@ class SinhVienTotNghiepController extends Controller
     }
     public function edit($id)
     {  
-        $data_tuyen_sinh_id = $this->SinhVienTotNghiepService->getSuaSoLieuTotNghiep($id);
-        return view('tot_nghiep.sua_tong_hop_ket_qua_tot_nghiep',['data_tuyen_sinh_id'=>$data_tuyen_sinh_id]);
+        $data_tot_nghiep_id = $this->SinhVienTotNghiepService->getSuaSoLieuTotNghiep($id);
+        return view('tot_nghiep.sua_tong_hop_ket_qua_tot_nghiep',['data_tot_nghiep_id'=>$data_tot_nghiep_id]);
     }
 
     public function update($id,UpdateRequest $request)
     {
-        $data = $this->SinhVienTotNghiepService->update($id,$request);
+        $data = $this->SinhVienTotNghiepService->updateData($id,$request);
         $data_tot_nghiep =$this->SinhVienTotNghiepService->findById($id);
         return redirect()->route('xuatbc.chi-tiet-tong-hop', ['id' => $data_tot_nghiep->co_so_id])->with('thongbao','Sửa số liệu tuyển sinh thành công');
     }

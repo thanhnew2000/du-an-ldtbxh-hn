@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\TuVanHoTroService;
 use Illuminate\Http\Request;
 
 class TuVanHoTroController extends Controller
@@ -12,17 +13,16 @@ class TuVanHoTroController extends Controller
         $this->tuVanHoTroService = $tuVanHoTroService;
     }
 
-    public function danhsach(Request $request)
-    {
+    public function danhsach(Request $request){
+
+
     }
 
-    public function clientSendForm()
-    {
+    public function clientSendForm(){
         return view('ho_tro.client_ho_tro_form');
     }
 
-    public function postClientSendForm(Request $request)
-    {
+    public function postClientSendForm(Request $request){
         $request->validate(
             [
                 "ten_nguoi_gui" => "required|max:255",
@@ -54,18 +54,16 @@ class TuVanHoTroController extends Controller
         return view('ho_tro.cam_on_phan_hoi');
     }
 
-    public function chitiet($id)
-    {
+    public function chitiet($id){
         $model = $this->tuVanHoTroService->findOne($id);
-        if ($model) {
+        if($model){
             return view('ho_tro.chi-tiet', compact('model'));
         }
 
-        return view('errors.403');
+        return view('errors.404');
     }
 
-    public function traloiyeucau($id, Request $request)
-    {
+    public function traloiyeucau($id, Request $request){
         $request->validate(
             [
                 'tieu_de_phan_hoi' => "required|max:255",
@@ -78,8 +76,8 @@ class TuVanHoTroController extends Controller
             ]
         );
         $model = $this->tuVanHoTroService->findOne($id);
-        if (!$model) {
-            return view('errors.403');
+        if(!$model){
+            return view('errors.404');
         }
 
         $result = $this->tuVanHoTroService->traLoiYeuCau($id, $request->except("_token"));

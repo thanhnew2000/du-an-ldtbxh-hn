@@ -1,10 +1,9 @@
 <?php
 
 namespace App\Models;
-
+use App\CoSoDaoTao;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\PheDuyetBaoCao;
-use App\CoSoDaoTao;
 
 class TuyenSinh extends Model
 {

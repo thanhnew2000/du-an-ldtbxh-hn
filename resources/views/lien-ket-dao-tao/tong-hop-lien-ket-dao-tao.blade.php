@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', "Liên kết đào tạo")
+@section('title', "Tổng hợp liên kết đào tạo")
 @section('style')
 <link href="{!! asset('tong_hop_nghe_nguoi_khuyet_tat/css/tong_hop_nghe_nguoi_khuyet_tat.css') !!}" rel="stylesheet"
     type="text/css" />
@@ -18,11 +18,7 @@
                         <i class="m-menu__link-icon flaticon-web"></i>
                     </span>
                     <h3 class="m-portlet__head-text">
-                        @if (isset($title))
-                        {{$title}}
-                        @else
                         Tổng hợp liên kết đào tạo
-                        @endif
                     </h3>
                 </div>
             </div>
@@ -113,7 +109,7 @@
                                 <label for="" class="col-lg-2 col-form-label">Đợt</label>
                                 <div class="col-lg-8">
                                     <select class="form-control select2" name="dot" id="dot">
-                                        <option value="">Chọn</option>
+                                        <option value="" selected disabled>Chọn</option>
                                         <option @if (isset($params['dot']))
                                             {{( $params['dot'] ==  1 ) ? 'selected' : ''}} @endif value="1">Đợt 1
                                         </option>
@@ -290,19 +286,12 @@
                         <td>{{$item->tong_chi_tieu}}</td>
                         <td>{{$item->tong_thuc_tuyen}}</td>
                         <td>{{$item->tong_so_HSSV_tot_nghiep}}</td>
-                        
-                            @if ($bac_nghe == 0)
-                            @can('chi_tiet_tong_hop_lien_ket_lien_thong_trinh_do')
-                            <td><a href="{{route('xuatbc.chi-tiet-lien-ket-dao-tao', ['co_so_id' => $item->co_so_id, 'bac_nghe' => 0])}}"
-                                    class=".text-info">Chi tiết</a></td>
-                            @endcan
-                            @else
-                            <td><a href="{{route('xuatbc.chi-tiet-lien-ket-dao-tao', ['co_so_id' => $item->co_so_id, 'bac_nghe' => $item->bac_nghe])}}"
-                                    class=".text-info">Chi tiết</a></td>
-                            
-                            @endif
-                           
-                            
+
+                        <td><a href="{{route('xuatbc.chi-tiet-lien-ket-dao-tao', ['co_so_id' => $item->co_so_id, 'bac_nghe' => 0])}}"
+                                class=".text-info">Chi tiết</a></td>
+
+
+
                     </tr>
                     @endforeach
 
@@ -422,14 +411,15 @@
                                 <option value="2">2</option>
                             </select> --}}
                             <div class='input-group date datepicker' name="datepicker">
-                            <p>From: <input type="text" class="form-control" name="dateFrom" id="datepickerFrom"> </p>
+                                <p>From: <input type="text" class="form-control" name="dateFrom" id="datepickerFrom">
+                                </p>
                                 @error('dateFrom')
+                                <div class="text-danger">{{$message}}</div>
+                                @enderror
+                                <p>To: <input type="text" class="form-control" name="dateTo" id="datepickerTo"></p>
+                                @error('dateTo')
                                 <div class="alert alert-danger">{{$message}}</div>
                                 @enderror
-                            <p>To: <input type="text" class="form-control" name="dateTo" id="datepickerTo"></p>
-                                @error('dateTo')
-                                    <div class="alert alert-danger">{{$message}}</div>
-                                 @enderror
                                 {{-- <span class="input-group-addon">
                                          <span class="glyphicon glyphicon-calendar">
                                          </span>

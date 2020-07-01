@@ -19,7 +19,8 @@
 
 @section('content')
 <div class="m-content container-fluid">
-  <form action="{{route('xuatbc.post-them-lien-ket-dao-tao')}}" id="validate-form-add" novalidate method="post">
+  <form action="{{route('xuatbc.post-them-lien-ket-dao-tao', ['id' => 0])}}" id="validate-form-add" novalidate
+    method="post">
     @csrf
     <div class="m-portlet">
       <div class="m-portlet__head">
@@ -195,7 +196,7 @@
 @endsection
 @section('script')
 <script>
-  var routeCheck = "{{ route('xuatbc.check-ton-tai-lien-ket-dao-tao') }}";
+  var routeCheck = "{{ route('xuatbc.check-ton-tai-lien-ket-dao-tao', ['id' => 0]) }}";
  var routeGetMaNganhNghe = "{{ route('get_ma_nganh_nghe') }}";
 
 $(document).ready(function(){

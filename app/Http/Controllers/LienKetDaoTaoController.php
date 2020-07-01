@@ -83,25 +83,40 @@ class LienKetDaoTaoController extends Controller
         $title = "";
         if ($id == 5) {
             $title = "Liên kết đào tạo trình độ Trung Cấp lên Đại Học";
+
+            return view('lien-ket-dao-tao.tong-hop-lien-ket-dao-tao-trung-cap', compact(
+                'data',
+                'quanhuyen',
+                'xaphuongtheoquanhuyen',
+                'params',
+                'limit',
+                'nghe_cap_2',
+                'nghe_cap_3',
+                'nghe_cap_4',
+                'loai_hinh',
+                'coso',
+                'bac_nghe',
+                'title'
+            ));
         }
         if ($id == 6) {
             $title = "Liên kết đào tạo trình độ Cao Đẳng lên Đại Học";
-        }
 
-        return view('lien-ket-dao-tao.tong-hop-lien-ket-dao-tao', compact(
-            'data',
-            'quanhuyen',
-            'xaphuongtheoquanhuyen',
-            'params',
-            'limit',
-            'nghe_cap_2',
-            'nghe_cap_3',
-            'nghe_cap_4',
-            'loai_hinh',
-            'coso',
-            'bac_nghe',
-            'title'
-        ));
+            return view('lien-ket-dao-tao.tong-hop-lien-ket-dao-tao-cao-dang', compact(
+                'data',
+                'quanhuyen',
+                'xaphuongtheoquanhuyen',
+                'params',
+                'limit',
+                'nghe_cap_2',
+                'nghe_cap_3',
+                'nghe_cap_4',
+                'loai_hinh',
+                'coso',
+                'bac_nghe',
+                'title'
+            ));
+        }
     }
     public function getmanganhnghe(Request $request)
     {
@@ -125,19 +140,24 @@ class LienKetDaoTaoController extends Controller
         } else {
             $limit = 20;
         }
-
         $params = request()->all();
         $data = $this->LienKetDaoTaoService->chitietlienketdaotao($co_so_id, $params, $limit, $bac_nghe);
         $data->appends(request()->input())->links();
-
         $co_so = $this->LienKetDaoTaoService->findCoSoDaoTao($co_so_id);
 
-        return view('lien-ket-dao-tao.chi-tiet-lien-ket-dao-tao', compact('data', 'params', 'limit', 'co_so', 'bac_nghe'));
+        if ($bac_nghe == 6) {
+            return view('lien-ket-dao-tao.chi-tiet-lien-ket-dao-tao-cao-dang', compact('data', 'params', 'limit', 'co_so', 'bac_nghe'));
+        }
+        if ($bac_nghe == 5) {
+            return view('lien-ket-dao-tao.chi-tiet-lien-ket-dao-tao-trung-cap', compact('data', 'params', 'limit', 'co_so', 'bac_nghe'));
+        } else {
+            return view('lien-ket-dao-tao.chi-tiet-lien-ket-dao-tao', compact('data', 'params', 'limit', 'co_so', 'bac_nghe'));
+        }
     }
 
     public function sualienketdaotao($id, $bac_nghe)
     {
-        $data = $this->LienKetDaoTaoService->sualienketdaotao($id);
+        $data = $this->LienKetDaoTaoService->sualienketdaotao($id, $bac_nghe);
 
         return view('lien-ket-dao-tao.chinh-sua-lien-ket-dao-tao', compact('data', 'bac_nghe'));
     }
@@ -146,6 +166,7 @@ class LienKetDaoTaoController extends Controller
     {
 
         $data = $this->LienKetDaoTaoService->update($id, $request);
+
         return redirect()->route('xuatbc.chi-tiet-lien-ket-dao-tao', ['co_so_id' => $co_so_id, 'bac_nghe' => $bac_nghe])->with('thongbao_update', 'Cập nhật số liệu thành công');
     }
 
@@ -155,7 +176,18 @@ class LienKetDaoTaoController extends Controller
         return view('lien-ket-dao-tao.them-moi-lien-ket-dao-tao', compact('data'));
     }
 
-    public function postthemlienketdaotao(validateCreateLienKetDaoTao $request)
+    public function themlienketdaotaoCD()
+    {
+        $data = $this->LienKetDaoTaoService->getCoSo();
+        return view('lien-ket-dao-tao.them-moi-lien-ket-dao-tao-cao-dang', compact('data'));
+    }
+    public function themlienketdaotaoTC()
+    {
+        $data = $this->LienKetDaoTaoService->getCoSo();
+        return view('lien-ket-dao-tao.them-moi-lien-ket-dao-tao-trung-cap', compact('data'));
+    }
+
+    public function postthemlienketdaotao(validateCreateLienKetDaoTao $request, $id)
     {
         $requestParams = $request->all();
 
@@ -178,15 +210,17 @@ class LienKetDaoTaoController extends Controller
             ],
         ];
 
-        $result = $this->LienKetDaoTaoService->getCheckTonTaiLienKetDaoTao($data, $requestParams);
+        $result = $this->LienKetDaoTaoService->getCheckTonTaiLienKetDaoTao($data, $requestParams, $id);
 
         return redirect($result['route'])->with('thongbao', $result['message']);
     }
 
-    public function getCheckTonTaiLienKetDaoTao(Request $request)
+    public function getCheckTonTaiLienKetDaoTaoTrinhDo(Request $request, $id)
     {
         $datacheck =  $request->datacheck;
+
         $getdata = $this->LienKetDaoTaoService->getSoLieu($datacheck);
+
         if ($getdata == 'tontai') {
             return response()->json([
                 'result' => 1,
@@ -197,7 +231,7 @@ class LienKetDaoTaoController extends Controller
             ]);
         } else {
             return response()->json([
-                'result' => route('xuatbc.sua-lien-ket-dao-tao', ['id' => $getdata->id, 'bac_nghe' => 0]),
+                'result' => route('xuatbc.sua-lien-ket-dao-tao', ['id' => $getdata->id, 'bac_nghe' => $id]),
             ]);
         }
     }
