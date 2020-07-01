@@ -12,10 +12,19 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
 use Carbon\Carbon;
 use Storage;
-
+use App\Services\StoreUpdateNotificationService;
 class ChinhSachSinhVienService extends AppService
 {
     use ExcelTraitService;
+    protected $StoreUpdateNotificationService;
+
+    public function __construct(
+        StoreUpdateNotificationService $StoreUpdateNotificationService
+    ) {
+        parent::__construct();
+        $this->StoreUpdateNotificationService = $StoreUpdateNotificationService;
+
+    }
 
     public function getRepository()
     {
@@ -33,10 +42,38 @@ class ChinhSachSinhVienService extends AppService
         $queryData['chinhsach'] = isset($params['chinhsach']) ? $params['chinhsach'] : 1;
         return $this->repository->getChinhSachSinhVien($queryData, $limit);
     }
-    public function postthemChinhSachSinhVien($getDaTa)
+
+    public function updateData($id, $request)
     {
-        unset($getDaTa['_token']);
-        return $this->repository->postthemChinhSachSinhVien($getDaTa);
+        dd($request);
+        $attributes = $request->all();
+        unset($attributes['_token']);
+        $resurt = $this->repository->update($id, $attributes);
+        $dataFindId = $this->repository->findById($id);
+        $getdata = (array)$dataFindId;
+        $thongTinCoSo = $this->repository->getThongTinCoSo($getdata['co_so_id']);
+        if($resurt){         
+            $tieude = 'Cập nhật ( '.$thongTinCoSo->ten.' )';
+			$noidung = 'Cập nhật số liệu chính sách sinh viên';
+			$route = route('xuatbc.tong-hop-chinh-sach-sinh-vien');
+			$this->StoreUpdateNotificationService->addContentUp($getdata['nam'],$getdata['dot'],$getdata['co_so_id'],$tieude,$noidung,$route);
+        }
+        return $resurt;
+    }
+
+    public function postthemChinhSachSinhVien($getdata)
+    {
+        unset($getdata['_token']);
+        $data = $this->repository->postthemChinhSachSinhVien($getdata);
+        if($data){
+            $thongTinCoSo = $this->repository->getThongTinCoSo($getdata['co_so_id']);
+            $tieude = 'Thêm mới ( '.$thongTinCoSo->ten.' )';
+            $noidung = 'Thêm mới số liệu chính sách sinh viên';
+            $route = route('xuatbc.tong-hop-chinh-sach-sinh-vien');
+            $this->StoreUpdateNotificationService->addContentUp($getdata['nam'],$getdata['dot'],$getdata['co_so_id'],$tieude,$noidung,$route);
+
+        }
+        return $data;
     }
     public function checktontaiChinhSachSinhVien($data, $requestParams)
     {
@@ -50,7 +87,7 @@ class ChinhSachSinhVienService extends AppService
         }
         if (!isset($kqkiemtra)) {
 
-            $data = $this->repository->postthemChinhSachSinhVien($requestParams);
+            $data = $this->postthemChinhSachSinhVien($requestParams);
             $route = route('xuatbc.tong-hop-chinh-sach-sinh-vien');
             $mess = 'Thêm số liệu tuyển sinh thành công';
         }
@@ -259,7 +296,11 @@ class ChinhSachSinhVienService extends AppService
                     $this->repository->createChinhSachSv($arrayToInsert);
                     // DB::table('tong_hop_chinh_sach_voi_hssv')->insert($arrayToInsert);
                 }
-
+                $thongTinCoSo = $this->repository->getThongTinCoSo($id_truong);
+                $bm = 'Chính sách sinh viên';
+                $tencoso = $thongTinCoSo->ten;
+                $route = route('xuatbc.tong-hop-chinh-sach-sinh-vien');
+                $this->StoreUpdateNotificationService->addContentUpExecl($year,$dot,$id_truong,count($insertData),count($updateData),$bm,$route,$tencoso);
                 $message = 'ok';
                 return $message;
             }

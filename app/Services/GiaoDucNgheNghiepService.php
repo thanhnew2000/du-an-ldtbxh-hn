@@ -119,6 +119,23 @@ class GiaoDucNgheNghiepService extends AppService
         return $this->repository->edit($id);
     }
 
+    public function updateData($id, $request)
+    {
+        $attributes = $request->all();
+        unset($attributes['_token']);
+        $resurt = $this->repository->update($id, $attributes);
+        $dataFindId = $this->repository->findById($id);
+        $getdata = (array)$dataFindId;
+        $thongTinCoSo = $this->repository->getThongTinCoSo($getdata['co_so_id']);
+        if($resurt){         
+            $tieude = 'Cập nhật ( '.$thongTinCoSo->ten.' )';
+			$noidung = 'Cập nhật số liệu giáo dục nghề nghiệp';
+			$route = route('xuatbc.quan-ly-giao-duc-nghe-nghiep');
+			$this->StoreUpdateNotificationService->addContentUp($getdata['nam'],$getdata['dot'],$getdata['co_so_id'],$tieude,$noidung,$route);
+        }
+        return $resurt;
+    }
+
     public function getNganhNgheThuocCoSo($id)
     {
         return $this->repository->getNganhNgheThuocCoSo($id);
@@ -128,15 +145,14 @@ class GiaoDucNgheNghiepService extends AppService
     {
         unset($getdata['_token']);      
         $data = $this->repository->store($getdata);
-        // if($data){
-        //     $thongTinCoSo = $this->repository->getThongTinCoSo($getdata['co_so_id']);
-        //     $tieude = 'Thêm mới ( '.$thongTinCoSo->ten.' )';
-        //     $noidung = 'Thêm mới số liệu giáo dục nghề nghiệp';
-        //     $route = route('xuatbc.quan-ly-giao-duc-nghe-nghiep');
-        //     $route = $route.'&co_so_id='.$getdata['co_so_id'];
-        //     $this->StoreUpdateNotificationService->addContentUp($getdata['nam'],$getdata['dot'],$getdata['co_so_id'],$tieude,$noidung,$route);
+        if($data){
+            $thongTinCoSo = $this->repository->getThongTinCoSo($getdata['co_so_id']);
+            $tieude = 'Thêm mới ( '.$thongTinCoSo->ten.' )';
+            $noidung = 'Thêm mới số liệu giáo dục nghề nghiệp';
+            $route = route('xuatbc.quan-ly-giao-duc-nghe-nghiep');
+            $this->StoreUpdateNotificationService->addContentUp($getdata['nam'],$getdata['dot'],$getdata['co_so_id'],$tieude,$noidung,$route);
 
-        // }
+        }
         return $data;
     }
 
@@ -481,11 +497,11 @@ class GiaoDucNgheNghiepService extends AppService
                  if (count($insertData) > 0) {
                      DB::table('thong_tin_dang_ky')->insert($insertData);
                  }   
-                //  $thongTinCoSo = $this->repository->getThongTinCoSo($id_truong);
-                // $bm = 'Đào tạo giáo dục nghề nghiệp';
-                // $tencoso = $thongTinCoSo->ten;
-                // $route = route('xuatbc.dao-tao-nghe-doanh-nghiep.show',['id' => $id_truong]);
-                // $this->StoreUpdateNotificationService->addContentUpExecl($year,$dot,$id_truong,count($insertData),count($updateData),$bm,$route,$tencoso);
+                 $thongTinCoSo = $this->repository->getThongTinCoSo($id_truong);
+                $bm = 'Đào tạo giáo dục nghề nghiệp';
+                $tencoso = $thongTinCoSo->ten;
+                $route = route('xuatbc.quan-ly-giao-duc-nghe-nghiep');
+                $this->StoreUpdateNotificationService->addContentUpExecl($year,$dot,$id_truong,count($insertData),count($updateData),$bm,$route,$tencoso);
                   $message='ok';
                   return $message;  
              }

@@ -170,7 +170,7 @@ class GiaoDucNgheNghiepRepository extends BaseRepository implements GiaoDucNgheN
 
     public function store($getdata)
     {
-        return $this->model->create($getdata);
+        return $this->model->insert($getdata);
     }
 
 	// thanhnv 6/23/2020

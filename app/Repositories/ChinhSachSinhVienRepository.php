@@ -61,6 +61,24 @@ class ChinhSachSinhVienRepository extends BaseRepository implements ChinhSachSin
         return $query->orderBy('tong_hop_chinh_sach_voi_hssv.id', 'asc')->paginate($limit);
     }
 
+    public function getThongTinCoSo($coSoId)
+    {
+        $data = DB::table('co_so_dao_tao')
+        ->where('co_so_dao_tao.id', '=', $coSoId)
+        ->join('loai_hinh_co_so', 'co_so_dao_tao.ma_loai_hinh_co_so', '=', 'loai_hinh_co_so.id')
+        ->join('devvn_quanhuyen', 'co_so_dao_tao.maqh', '=', 'devvn_quanhuyen.maqh')
+        ->join('devvn_xaphuongthitran', 'co_so_dao_tao.xaid', '=', 'devvn_xaphuongthitran.xaid')
+        ->select(
+                'co_so_dao_tao.ten',
+                'co_so_dao_tao.dia_chi',
+                'loai_hinh_co_so.loai_hinh_co_so',
+                'devvn_quanhuyen.name as ten_quan_huyen',
+                'devvn_xaphuongthitran.name as ten_xa_phuong'
+                )
+        ->first();
+        return $data;
+    }
+
     public function checktontaiChinhSachSinhVien($arraycheck)
     {
         $check = $this->table->where($arraycheck)->select('tong_hop_chinh_sach_voi_hssv.id', 'tong_hop_chinh_sach_voi_hssv.trang_thai')
@@ -76,7 +94,7 @@ class ChinhSachSinhVienRepository extends BaseRepository implements ChinhSachSin
 
     public function postthemChinhSachSinhVien($data)
     {
-        return $this->model->create($data);
+        return $this->model->insert($data);
     }
     public function getsuaChinhSachSinhVien($id)
     {
