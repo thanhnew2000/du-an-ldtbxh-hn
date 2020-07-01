@@ -65,21 +65,21 @@ class AccountController extends Controller
         }
         $user = $this->AccountService->getAccountAndRole($id);
         $data = $this->AccountService->getAllRoles();
+        $co_so = $this->AccountService->getAllCoSoDaoTao();
        
         return view('account.edit_account', [
             'data' => $data,
-            'user' => $user
+            'user' => $user,
+            'co_so' => $co_so
         ]);
     }
 
     public function updateID(UpdateAccountId $request)
     {
-        $id = $request->id;
-        $name = $request->name;
-        $phone = $request->phone;
-        $user = User::find($id);
-        $user->name = $name;
-        $user->phone_number = $phone;
+        $user = User::find($request->id);
+        $user->name = $request->name;
+        $user->phone_number = $request->phone;
+        $user->co_so_dao_tao_id = $request->co_so_dao_tao_id;
         $user->roles()->sync(['role_id' => $request->role]);
         $user->save();
         return redirect()->back()->with('thongbao', 'Cập nhật thành công !');

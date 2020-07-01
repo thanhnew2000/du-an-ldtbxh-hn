@@ -90,6 +90,22 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="form-group m-form__group row">
+                            @if ($user->co_so_dao_tao_id)
+                            <label class="col-4 col-form-label">Cơ sở: </label>
+                            <div class="col-6">
+                                <select class="form-control m-input" name="co_so_dao_tao_id">
+                                    @foreach ($co_so as $item)
+                                    <option 
+                                        {{ ($item->id == $user->co_so_dao_tao_id) ?   'selected' : '' }}
+                                        value="{{ $item->id }}">
+                                        {{ $item->ten }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            @endif
+                        </div>
 
                     </div>
                     <div class="m-portlet__foot m-portlet__foot--fit">

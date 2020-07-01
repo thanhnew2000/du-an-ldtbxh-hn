@@ -37,7 +37,6 @@ class UserController extends Controller
         $user->code = $code;
         $user->time_code= Carbon::now();
         $user->save();
-        dd('ok');
         DB::table('model_has_roles')->insert(['role_id'=>$request->role,
                                               'model_type'=> 'App\User' ,
                                               'model_id'=>$user->id]);
