@@ -310,8 +310,8 @@
 
                                     </div>
 
-                                    <div class="d-flex">
-                                        <div class="form-group mb-4">
+                                    <div class="row">
+                                        <div class="form-group mb-4 col-lg-5">
                                             <label>Ngày ban hành <span class="text-danger">(*)</span></label>
                                             <div class="input-group date datepicker">
                                                 <input type="text" name="ngay_ban_hanh" id="ngay_ban_hanh"
@@ -323,7 +323,7 @@
                                             </div>
                                             <p class="text-danger" id="Err_ngay_ban_hanh"></p>
                                         </div>
-                                        <div class="form-group mb-4">
+                                        <div class="form-group mb-4 col-lg-5">
                                             <label>Ngày hiệu lực <span class="text-danger">(*)</span></label>
                                             <div class="input-group date datepicker">
                                                 <input type="text" name="ngay_hieu_luc" id="ngay_hieu_luc"
@@ -335,7 +335,9 @@
                                             </div>
                                             <p class="text-danger" id="Err_ngay_hieu_luc"></p>
                                         </div>
-                                        <div class="form-group mb-4">
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group mb-4 col-lg-10">
                                             <label>Ngày hết hạn <span class="text-danger">(*)</span></label>
                                             <div class="input-group date datepicker">
                                                 <input type="text" name="ngay_het_han" id="ngay_het_han"
@@ -401,6 +403,8 @@
             down: "fa fa-arrow-down"
         }
     });
+
+    $('.datepicker').css('width', '100%');
 
     $("#devvn_quanhuyen").change(function() {
         axios.post('/xuat-bao-cao/ket-qua-tuyen-sinh/xa-phuong-theo-quan-huyen', {
@@ -471,6 +475,7 @@
         
         $('#Err_ten').addClass('d-none');
         $('#Err_ngay_ban_hanh').addClass('d-none');
+        $('#Err_van_ban_url').addClass('d-none');
         $('#Err_ngay_hieu_luc').addClass('d-none');
         $('#Err_ngay_het_han').addClass('d-none');
         $('#Err_loai_quyet_dinh').addClass('d-none');

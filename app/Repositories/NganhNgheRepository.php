@@ -28,9 +28,10 @@ class NganhNgheRepository extends BaseRepository implements NganhNgheRepositoryI
                 'id',
                 'ten_nganh_nghe',
                 'bac_nghe',
-                DB::raw('(select count(dk.id)
-                                from giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao dk
-                                where dk.nghe_id = nganh_nghe.id) as csdt_count')
+                DB::raw('(SELECT DISTINCT COUNT(DISTINCT csdt.ten) as so_truong
+                FROM
+                    giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao gcn
+                    INNER JOIN co_so_dao_tao csdt ON gcn.co_so_id = csdt.id) as csdt_count')
             )
             ->where('bac_nghe', $params['bac_nghe'])
             ->where('ma_cap_nghe', 4);

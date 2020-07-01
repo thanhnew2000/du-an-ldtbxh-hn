@@ -51,6 +51,7 @@ class NganhNgheController extends Controller
         $data->appends(request()->input())->links();
 
         $route_name = Route::current()->action['as'];
+        dd($data);
         return view('nganh-nghe.danh-sach-nghe', compact('data', 'params', 'route_name'));
     }
 
@@ -65,14 +66,14 @@ class NganhNgheController extends Controller
         $params = $request->all();
         if (!isset($params['page_size'])) $params['page_size'] = config('common.paginate_size.default');
         $params['ma_nghe'] = $manghe;
-
+        dd($params);
         $data = $this->chungNhanDangKyService->getCoSoDaoTaoTheoNghe($params);
-        $data->appends(request()->input())->links();
-        $dsQuanHuyen = $this->quanHuyenService->getAll();
-        $dsLoaiHinhCoSo = $this->loaiHinhCoSoService->getAll();
-
+        // $data->appends(request()->input())->links();
+        // $dsQuanHuyen = $this->quanHuyenService->getAll();
+        // $dsLoaiHinhCoSo = $this->loaiHinhCoSoService->getAll();
+        // compact('data', 'dsQuanHuyen', 'dsLoaiHinhCoSo', 'params', 'route_name')
         $route_name = Route::current()->action['as'];
-        return view('nganh-nghe.chi-tiet-nghe', compact('data', 'dsQuanHuyen', 'dsLoaiHinhCoSo', 'params', 'route_name'));
+        return view('nganh-nghe.chi-tiet-nghe', compact('params', 'route_name', 'data'));
     }
 
     public function thietlapchitieutuyensinh()

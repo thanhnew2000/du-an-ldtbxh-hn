@@ -192,10 +192,9 @@ class CoSoDaoTaoController extends Controller
 
     public function addQuyetDinh(Request $request)
     {
-        // dd($request->all());
         $request->validate(
             [
-                'ten' => 'required',
+                'ten' => 'required|unique:quyet_dinh_thanh_lap_csdt',
                 'van_ban_url' => 'required',
                 'ngay_ban_hanh' => 'required|date_format:d-m-Y',
                 'ngay_hieu_luc' => 'required|date_format:d-m-Y|after_or_equal:ngay_ban_hanh',
@@ -204,6 +203,7 @@ class CoSoDaoTaoController extends Controller
             ],
             [
                 'ten.required' => 'Tên quyết định không được để trống',
+                'ten.unique' => 'Quyết định đã tồn tại',
                 'van_ban_url.required' => 'Đường dẫn văn bản không được để trống',
                 
                 'ngay_ban_hanh.date_format' => 'Ngày không đúng định dạng',
