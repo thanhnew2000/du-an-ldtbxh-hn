@@ -81,8 +81,8 @@
                             <div class="col-6">
                                 <select class="form-control m-input" name="role">
                                     @foreach ($data as $role)
-                                    <option {{-- {{ ($role->id == $role->id) ?   'selected' : '' }} --}}
-                                        {{-- {{( $item->nam == '2020' ) ? 'selected' : ''}} --}}
+                                    <option 
+                                        {{ ($role->id == $user->role_id) ?   'selected' : '' }}
                                         value="{{ $role->id }}">
                                         {{ $role->name }}
                                     </option>
