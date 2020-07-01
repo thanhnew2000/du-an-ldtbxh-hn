@@ -19,6 +19,11 @@ class SoLieuCanBoQuanLyController extends Controller
         SoLieuCanBoQuanLyService $soLieuCanBoQuanLyService
     ) {
         $this->soLieuCBQLService = $soLieuCanBoQuanLyService;
+
+        // $this->middleware('danh_sach_doi_ngu_quan_ly', ['only' => ['index']]);
+        // $this->middleware('them_moi_danh_sach_doi_ngu_quan_ly', ['only' => ['create','store']]);
+        // $this->middleware('cap_nhat_danh_sach_doi_ngu_quan_ly', ['only' => ['edit','update']]);
+        // $this->middleware('xem_chi_tiet_danh_sach_doi_ngu_quan_ly', ['only' => ['index']]);
     }
 
     /**
@@ -38,14 +43,20 @@ class SoLieuCanBoQuanLyController extends Controller
         // thanh
         $co_so = DB::table('co_so_dao_tao')->get();
 
+        $routeShow = auth()->user()->can('xem_chi_tiet_danh_sach_doi_ngu_quan_ly')
+            ? 'so-lieu-can-bo-quan-ly.show' : '';
+
+        $routeEdit = auth()->user()->can('cap_nhat_danh_sach_doi_ngu_quan_ly')
+            ? 'so-lieu-can-bo-quan-ly.edit' : '';
+
         $titles = config('tables.so_lieu_can_bo_quan_ly');
         return view('so_lieu_can_bo_quan_ly.index', [
             'filterConfig' => $filterConfig,
             'data' => $data,
             'limit' => $limit,
             'titles' => $titles,
-            'route_edit' => 'so-lieu-can-bo-quan-ly.edit',
-            'route_show' => 'so-lieu-can-bo-quan-ly.show',
+            'route_edit' => $routeEdit,
+            'route_show' => $routeShow,
             'coso' => $co_so,
         ]);
     }

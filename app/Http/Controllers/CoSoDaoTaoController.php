@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Validation\Rule;
 
 class CoSoDaoTaoController extends Controller
 {
@@ -62,6 +63,7 @@ class CoSoDaoTaoController extends Controller
                 'ma_don_vi' => 'required|unique:co_so_dao_tao',
                 'upload_logo' => 'required|mimes:jpeg,png',
                 'dien_thoai' => 'required|numeric |digits_between:10,12',
+                'website' => 'required|url',
                 'dia_chi' => 'required|unique:co_so_dao_tao',
                 'ten_quoc_te' => 'required',
                 'co_quan_chu_quan_id' => 'required',
@@ -72,13 +74,15 @@ class CoSoDaoTaoController extends Controller
             ],
             [
                 'ten.required' => 'Tên cơ sở đào tạo không được để trống',
-                'ten.required' => 'Tên cơ sở đã tồn tại',
+                'ten.required' => 'Tên cơ sở đào tạo đã tồn tại',
                 'ma_don_vi.required' => 'Mã đơn vị không được để trống',
                 'upload_logo.required' => 'Logo không được để trống',
                 'upload_logo.mimes' => 'Logo không đúng định dạng file ảnh',
                 'dien_thoai.required' => 'Điện thoại không được để trống',
                 'dien_thoai.digits_between' => 'Số điện thoại sai định dạng',
-                'dien_thoai.numeric ' => 'Số điện thoại sai định dạng',                
+                'dien_thoai.numeric ' => 'Số điện thoại sai định dạng',
+                'website.url' => 'Website không đúng định dạng',
+                'website.required' => 'Website không được để trống',
                 'dia_chi.required' => 'địa chỉ không được để trống',
                 'dia_chi.mimes' => 'Địa chỉ đã tồn tại trong hệ thống',
                 'ten_quoc_te.required' => 'Vui lòng điền tên quốc tế của cơ sở',
@@ -115,12 +119,12 @@ class CoSoDaoTaoController extends Controller
     {
         $request->validate(
             [
-                'ten' => 'required',
+                'ten' => ['required', Rule::unique('co_so_dao_tao')->ignore($id)],
                 'ma_don_vi' => 'required',
                 'upload_logo' => 'mimes:jpeg,png',
-                'dien_thoai' => 'required|numeric |digits_between:10,12',
+                'dien_thoai' => 'required|numeric|digits_between:10,12',
                 'dia_chi' => 'required',
-                'website' => 'regex:/^[a-z0-9A-Z]+.[a-z]+$/',
+                'website' => 'required|url',
                 'ten_quoc_te' => 'required',
                 'co_quan_chu_quan_id' => 'required',
                 'ma_loai_hinh_co_so' => 'required',
@@ -129,7 +133,8 @@ class CoSoDaoTaoController extends Controller
                 'xaid' => 'required'
             ],
             [
-                'ten.required' => 'Tên trường không được để trống',
+                'ten.required' => 'Tên cơ sở đào tạo không được để trống',
+                'ten.unique' => 'Tên cơ sở đào tạo đã tồn tại',
                 'ma_don_vi.required' => 'Mã đơn vị không được để trống',
                 'ma_don_vi.unique' => 'Mã đơn vị đã tồn tại',
                 'upload_logo.mimes' => 'File ảnh không đúng định dạng',
@@ -137,7 +142,8 @@ class CoSoDaoTaoController extends Controller
                 'dien_thoai.digits_between' => 'Số điện thoại sai định dạng',
                 'dien_thoai.numeric ' => 'Số điện thoại sai định dạng',  
                 'dia_chi.required' => 'Địa chỉ không được để trống',
-                'website.regex' => 'Website không đúng định dạng',
+                'website.url' => 'Website không đúng định dạng',
+                'website.required' => 'Website không được để trống',
                 'ten_quoc_te.required' => 'Tên quốc tế không được để trống',
                 'co_quan_chu_quan_id.required' => 'Vui lòng chọn cơ quan chủ quản',
                 'ma_loai_hinh_co_so.required' => 'Vui lòng chọn loại hình cơ sở',

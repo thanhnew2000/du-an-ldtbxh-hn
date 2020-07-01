@@ -7,6 +7,7 @@ use App\Services\AppService;
 // use App\Services\TraitsExcelService;
 use App\Repositories\DaoTaoNgheChoThanhNienReponsitory;
 use App\Repositories\LoaiHinhCoSoRepositoryInterface;
+use App\Services\StoreUpdateNotificationService;
 use App\Repositories\SoLieuTuyenSinhInterface;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -22,15 +23,18 @@ class DaoTaoNgheChoThanhNienService extends AppService
     protected $LoaiHinhCoSoRepositoryInterface;
     protected $DaoTaoNgheChoThanhNienReponsitory;
     protected $SoLieuTuyenSinhInterface;
+    protected $StoreUpdateNotificationService;
     use ExcelTraitService;
 
     public function __construct(
         LoaiHinhCoSoRepositoryInterface $loaiHinhCoSoRepository,
-        SoLieuTuyenSinhInterface $soLieuTuyenSinhRepository
+        SoLieuTuyenSinhInterface $soLieuTuyenSinhRepository,
+        StoreUpdateNotificationService $StoreUpdateNotificationService
     ) {
         parent::__construct();
         $this->loaiHinhCoSoRepository = $loaiHinhCoSoRepository;
         $this->soLieuTuyenSinhRepository = $soLieuTuyenSinhRepository;
+        $this->StoreUpdateNotificationService = $StoreUpdateNotificationService;
     }
 
     //Lay Repository Product
@@ -116,6 +120,20 @@ class DaoTaoNgheChoThanhNienService extends AppService
     {
         return $this->repository->getNganhNgheThuocCoSo($id);
     }
+    public function store($getdata)
+    {
+        unset($getdata['_token']);      
+        $data = $this->repository->store($getdata);
+        if($data){
+            $thongTinCoSo = $this->repository->getThongTinCoSo($getdata['co_so_id']);
+            $tieude = 'Thêm mới ( '.$thongTinCoSo->ten.' )';
+            $noidung = 'Thêm mới số liệu đào tạo nghề cho thanh niên';
+            $route = route('nhapbc.dao-tao-thanh-nien.show',['id' => $getdata['co_so_id']]);
+            $this->StoreUpdateNotificationService->addContentUp($getdata['nam'],$getdata['dot'],$getdata['co_so_id'],$tieude,$noidung,$route);
+
+        }
+        return $data;
+    }
 
     public function getCheckDaoTaoThanhNien($data, $requestParams)
     {
@@ -127,7 +145,7 @@ class DaoTaoNgheChoThanhNienService extends AppService
             'Số liệu tuyển sinh đã tồn tại';
         
         if (!isset($checkResult)) {
-            $data = $this->repository->store($requestParams);
+            $data = $this->store($requestParams);
             $message = 'Thêm số liệu tuyển sinh thành công';
             $route = route('nhapbc.dao-tao-thanh-nien.show', [
                 'id' => $requestParams['co_so_id'],
@@ -138,6 +156,22 @@ class DaoTaoNgheChoThanhNienService extends AppService
             'route' => $route,
             'message' => $message,
         ];
+    }
+    public function updateData($id, $request)
+    {
+        $attributes = $request->all();
+        unset($attributes['_token']);
+		$resurt = $this->repository->update($id, $attributes);
+        $dataFindId = $this->repository->findById($id);
+        $getdata = (array)$dataFindId;
+        $thongTinCoSo = $this->repository->getThongTinCoSo($getdata['co_so_id']);
+        if($resurt){         
+            $tieude = 'Cập nhật ( '.$thongTinCoSo->ten.' )';
+			$noidung = 'Cập nhật số liệu đạo tạo nghề cho thanh niên';
+			$route = route('nhapbc.dao-tao-thanh-nien.show',['id' => $getdata['co_so_id']]);
+			$this->StoreUpdateNotificationService->addContentUp($getdata['nam'],$getdata['dot'],$getdata['co_so_id'],$tieude,$noidung,$route);
+        }
+        return $resurt;
     }
 
     public function getSoLieu($data)
@@ -359,7 +393,7 @@ class DaoTaoNgheChoThanhNienService extends AppService
         $data =$spreadsheet->getActiveSheet()->toArray();
         
         $truong = explode(' - ', $data[7][1]);
-        $id_truong = array_pop($truong);
+        $id_truong = trim(array_pop($truong));
         
         $arrayApha=['C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE'];
         $csCheck = DB::table('co_so_dao_tao')->find($id_truong);
@@ -468,9 +502,13 @@ class DaoTaoNgheChoThanhNienService extends AppService
                     $this->repository->createNgheThanhNien($insertData);
                     //  DB::table('ket_qua_dao_tao_cho_thanh_nien')->insert($insertData);
                  }    
- 
-                  $message='ok';
-                  return $message;  
+                $thongTinCoSo = $this->repository->getThongTinCoSo($id_truong);
+                $bm = 'Đào tạo nghề cho thanh niên';
+                $tencoso = $thongTinCoSo->ten;
+                $route = route('nhapbc.dao-tao-thanh-nien.show',['id' => $id_truong]);
+                $this->StoreUpdateNotificationService->addContentUpExecl($year,$dot,$id_truong,count($insertData),count($updateData),$bm,$route,$tencoso);
+                $message='ok';
+                return $message;  
              }
          }else if($soDongNgNhap != count($co_so_nghe)){
              $message='NgheUnsign';
@@ -486,7 +524,8 @@ class DaoTaoNgheChoThanhNienService extends AppService
         $data = $spreadsheet->getActiveSheet()->toArray();
 
         $truong = explode(' - ', $data[7][1]);
-        $id_truong = array_pop($truong);
+           $id_truong = trim(array_pop($truong));
+
         $co_so = DB::table('co_so_dao_tao')->where('id',$id_truong)->first();
         $arrayApha=['C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE'];
 

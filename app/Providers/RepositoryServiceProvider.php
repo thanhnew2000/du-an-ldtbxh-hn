@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\TuVanHoTroRepository;
+use App\Repositories\TuVanHoTroRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\LoaiHinhCoSoRepository;
 use App\Repositories\LoaiHinhCoSoRepositoryInterface;
@@ -19,6 +21,10 @@ use App\Repositories\DoiNguNhaGiaoInterface;
 use App\Repositories\DoiNguNhaGiaoRepository;
 use App\Repositories\DotRepositoryInterface;
 use App\Repositories\DotRepository;
+use App\Repositories\PheDuyetBaoCaoRepository;
+use App\Repositories\PheDuyetBaoCaoRepositoryInterface;
+use App\Repositories\ChiTieuTuyenSinhRepository;
+use App\Repositories\ChiTieuTuyenSinhRepositoryInterface;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -36,7 +42,10 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(NganhNgheRepositoryInterface::class, NganhNgheRepository::class);
         $this->app->bind(SoLieuCanBoQuanLyRepositoryInterface::class, SoLieuCanBoQuanLyRepository::class);
         $this->app->bind(DoiNguNhaGiaoInterface::class, DoiNguNhaGiaoRepository::class);
+        $this->app->bind(TuVanHoTroRepositoryInterface::class, TuVanHoTroRepository::class);
         $this->app->bind(DotRepositoryInterface::class, DotRepository::class);
+        $this->app->bind(PheDuyetBaoCaoRepositoryInterface::class, PheDuyetBaoCaoRepository::class);
+        $this->app->bind(ChiTieuTuyenSinhRepositoryInterface::class, ChiTieuTuyenSinhRepository::class);
     }
 
     /**

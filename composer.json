@@ -11,10 +11,15 @@
         "php": "^7.2.5",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
+        "google/cloud-firestore": "^1.13",
         "guzzlehttp/guzzle": "^6.3",
+        "kreait/firebase-php": "^4.33",
+        "kreait/laravel-firebase": "*",
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
-        "phpoffice/phpspreadsheet": "^1.12"
+        "laravelcollective/html": "^6.1",
+        "phpoffice/phpspreadsheet": "^1.12",
+        "spatie/laravel-permission": "^3.13"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

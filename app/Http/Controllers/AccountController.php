@@ -16,187 +16,117 @@ use App\Http\Requests\RegisterAccount;
 use App\Http\Requests\UpdateAccount;
 use App\Http\Requests\UpdateAccountId;
 use Illuminate\Support\Facades\Route;
+use Spatie\Permission\Models\Role;
+
 class AccountController extends Controller
 {
-    
-    public function index(Request $request){
+
+    public function index(Request $request)
+    {
         $keyword = $request->has('keyword') ? $request->keyword : null;
         $keyword = trim($keyword);
         $status = $request->has('status') ? $request->status : null;
         $role = $request->has('role') ? $request->role : null;
         $params = $request->all();
-        if(!isset($params['page_size'])) $params['page_size'] = config('common.paginate_size.default');
+        // 2020-06-29 - ThienTH - lấy danh sách roles
+        $roleList = Role::all();
+
+        if (!isset($params['page_size'])) $params['page_size'] = config('common.paginate_size.default');
         $route_name = Route::current()->action['as'];
-    
-        if($keyword == null && $status == null && $role == null){
 
-            $users = DB::table('users')
+
+        $userQuery = DB::table('users')
             ->leftjoin('co_so_dao_tao', 'users.co_so_dao_tao_id', '=', 'co_so_dao_tao.id')
-            ->select('users.*', DB::raw('co_so_dao_tao.ten as ten'))
-            ->paginate($params['page_size']);
-  
-        }else{
+            ->join('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
+            ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
+            ->select(   'users.*',
+                                DB::raw('co_so_dao_tao.ten as ten'),
 
-            if($status === null && $role === null){
-                $users = DB::table('users')
-               ->leftjoin('co_so_dao_tao', 'users.co_so_dao_tao_id', '=', 'co_so_dao_tao.id')
-               ->select('users.*', DB::raw('co_so_dao_tao.ten as ten'))
-                ->where([
-                    ['name', 'like', '%'.$keyword.'%']
-                ])
-                ->orWhere([
-                    ['phone_number', 'like', '%'.$keyword.'%']
-                ])
-                ->orWhere([
-                    ['ten', 'like', '%'.$keyword.'%']
-                ])
-                ->orWhere([
-                    ['email', 'like', '%'.$keyword.'%']
-                ])
-                ->paginate($params['page_size']);
-           } else if($status !== null && $role === null){
-               $users = DB::table('users')
-               ->leftjoin('co_so_dao_tao', 'users.co_so_dao_tao_id', '=', 'co_so_dao_tao.id')
-               ->select('users.*', DB::raw('co_so_dao_tao.ten as ten'))
-                ->where([
-                    ['status', '=', $status],
-                    ['name', 'like', '%'.$keyword.'%']
-                ])
-                ->orWhere([
-                    ['status', '=', $status],
-                    ['phone_number', 'like', '%'.$keyword.'%']
-                ])
-                ->orWhere([
-                    ['status', '=', $status],
-                    ['ten', 'like', '%'.$keyword.'%']
-                ])
-                ->orWhere([
-                    ['status', '=', $status],
-                    ['email', 'like', '%'.$keyword.'%']
-                ])
-                ->paginate($params['page_size']);
+                                DB::raw('model_has_roles.role_id as user_role'),
+                                DB::raw('roles.name as role_name'));
 
-
-           } else if($status === null && $role !== null){
-               $users = DB::table('users')
-               ->leftjoin('co_so_dao_tao', 'users.co_so_dao_tao_id', '=', 'co_so_dao_tao.id')
-               ->select('users.*', DB::raw('co_so_dao_tao.ten as ten'))
-                ->where([
-                   
-                    ['name', 'like', '%'.$keyword.'%']
-                ])
-                ->orWhere([
-                    
-                    ['phone_number', 'like', '%'.$keyword.'%']
-                ])
-                ->orWhere([
-                    
-                    ['ten', 'like', '%'.$keyword.'%']
-                ])
-                ->orWhere([
-
-                    ['email', 'like', '%'.$keyword.'%']
-                ])
-                ->paginate($params['page_size']);
-     
-       
-           }else{
-            $users = DB::table('users')
-            ->leftjoin('co_so_dao_tao', 'users.co_so_dao_tao_id', '=', 'co_so_dao_tao.id')
-            ->select('users.*', DB::raw('co_so_dao_tao.ten as ten'))
-             ->where([
-                 ['status', '=', $status],
-                 //them role
-                 ['name', 'like', '%'.$keyword.'%']
-             ])
-             ->orWhere([
-                 ['status', '=', $status],
-                 //them role
-                 ['phone_number', 'like', '%'.$keyword.'%']
-             ])
-             ->orWhere([
-                ['status', '=', $status],
-                //them role
-                ['ten', 'like', '%'.$keyword.'%']
-            ])
-            ->orWhere([
-                ['status', '=', $status],
-                //them role
-                ['email', 'like', '%'.$keyword.'%']
-            ])
-             ->paginate($params['page_size']);
-       
-           }
-           
-        }
-        $users->withPath("?status=$status&role=$role&keyword=$keyword&page_size=$request->page_size");                  
-        $soluong = $users->count();
-        if($soluong < 1){
-            return view('account.list_account',compact('users','keyword','status','role','params','route_name'),['thongbao'=>'Không tìm thấy kết quả !']);
+        if(!empty($keyword)){
+            $userQuery->where(function ($query) use ($keyword) {
+                $query->where('users.name', 'like', '%' . $keyword . '%')
+                    ->orWhere('users.phone_number', 'like', '%' . $keyword . '%')
+                    ->orWhere('users.email', 'like', '%' . $keyword . '%');
+            });
         }
 
- 
-                return view('account.list_account',compact('users','keyword','status','role','params','route_name'),['thongbao'=>'']);
+        if(!empty($status)){
+            $userQuery->where('users.status', '=', $status);
+        }
+        if(!empty($role)){
+            $userQuery->where('model_has_roles.role_id', '=', $role);
+        }
+
+        $users = $userQuery->paginate($params['page_size']);
+        $users->appends(request()->input())->links();
+
+        return view('account.list_account', compact('users', 'keyword',
+                                                                'status', 'role', 'params',
+                                                                'route_name', 'roleList'));
     }
 
-    public function create(){
+    public function create()
+    {
         return view('account.create_account');
     }
 
-    public function store(RegisterAccount $request){
-
+    public function store(RegisterAccount $request)
+    {
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         $user = User::find($id);
-        return view('account.edit_account',compact('user'));
+        $data = DB::table('roles')->get();
+        return view('account.edit_account', [
+            'data' => $data,
+            'user' => $user
+        ]);
     }
 
-    public function updateID(UpdateAccountId $request){
+    public function updateID(UpdateAccountId $request)
+    {
         $id = $request->id;
         $name = $request->name;
         $phone = $request->phone;
         $user = User::find($id);
-
         $user->name = $name;
         $user->phone_number = $phone;
-
+        $user->roles()->sync(['role_id' => $request->role]);
         $user->save();
-        return redirect()->back()->with('thongbao','Cập nhật thành công !');
-
+        return redirect()->back()->with('thongbao', 'Cập nhật thành công !');
     }
 
-    public function editstatus(Request $request){   
+    public function editstatus(Request $request)
+    {
         $id = $request->id;
         $user = User::find($id);
 
-        if($user->status == 1){
+        if ($user->status == 1) {
             $user->status = 2;
-        }else{
+        } else {
             $user->status = 1;
         }
 
-        $user->save();  
+        $user->save();
     }
 
 
-    public function checkEmailUpdate(Request $request){
-
-
+    public function checkEmailUpdate(Request $request)
+    {
     }
 
 
 
-    public function checkName(Request $request){
+    public function checkName(Request $request)
+    {
 
         $name = $request->name;
-
         $pattern = '/^[\pL\s\-]+$/u';
         $kq = preg_match($pattern, $name);
         echo $kq == 1 ? "true" : "false";
-
-    
     }
-
-
 }

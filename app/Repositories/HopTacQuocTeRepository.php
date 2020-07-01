@@ -26,9 +26,8 @@ class HopTacQuocTeRepository extends BaseRepository implements HopTacQuocTeRepos
      * @author: phucnv
      * @created_at 2020-06-15
      */
-    public function getDanhSachKetQuaHopTacQuocTe($params){
-
-       
+    public function getDanhSachKetQuaHopTacQuocTe($params)
+    {
         $queryBuilder = $this->table
         ->leftjoin('co_so_dao_tao', 'ket_qua_hop_tac_quoc_te.co_so_id', '=', 'co_so_dao_tao.id')
         ->leftjoin('trang_thai', 'ket_qua_hop_tac_quoc_te.trang_thai', '=', 'trang_thai.id')
@@ -44,9 +43,8 @@ class HopTacQuocTeRepository extends BaseRepository implements HopTacQuocTeRepos
         if(isset($params['dot']) && $params['dot'] != null){
             $queryBuilder->where('ket_qua_hop_tac_quoc_te.dot', $params['dot']);
         }
-//  dd($queryBuilder);
+
         return $queryBuilder->orderBy('nam', 'desc')->orderBy('dot', 'desc')->paginate($params['page_size']);
-      
     }
 
     /* Kiểm tra sự tồn tại của bản ghi đã có 4 trường co_so_id, nam, dot.
@@ -66,7 +64,7 @@ class HopTacQuocTeRepository extends BaseRepository implements HopTacQuocTeRepos
 
     /* Danh sách chi tiết hợp tác quốc tế theo cơ sở đào tạo.
      * @author: phucnv
-     * @created_at 2020-06-15 
+     * @created_at 2020-06-15
      */
     public function chiTietTheoCoSo($co_so_id, $params){
         $queryBuilder = $this->table
@@ -81,7 +79,7 @@ class HopTacQuocTeRepository extends BaseRepository implements HopTacQuocTeRepos
         if(isset($params['dot']) && $params['dot'] != null){
             $queryBuilder->where('ket_qua_hop_tac_quoc_te.dot', $params['dot']);
         }
-        
+
         return $queryBuilder->orderByDesc('nam')->orderByDesc('dot')->paginate($params['page_size']);
     }
 
@@ -102,13 +100,14 @@ class HopTacQuocTeRepository extends BaseRepository implements HopTacQuocTeRepos
 		->get();
 		return $data;
     }
-    
+
     // thanhnv 6/26/2020 sửa model create update
 	public function createHopTacQuocTe($arrayData){
-		return $this->model->insert($arrayData);
-	}
+		return $this->model->create($arrayData);
+    }
+
 	public function updateHopTacQuocTe($key,$arrayData){
 		return $this->model->where('id',$key)->update($arrayData);
 	}
-  
+
 }

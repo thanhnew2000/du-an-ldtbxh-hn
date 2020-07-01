@@ -240,7 +240,8 @@ class KetQuaTotNghiepGanVoiDoanhNGhiepService extends AppService
         $data =$spreadsheet->getActiveSheet()->toArray();
         
         $truong = explode(' - ', $data[0][0]);
-        $id_truong = array_pop($truong);
+        $id_truong = trim(array_pop($truong));
+
 
         $arrayApha=['C','D','E','F','G','H','I','J','K','L','M','N'];
 
@@ -353,7 +354,8 @@ class KetQuaTotNghiepGanVoiDoanhNGhiepService extends AppService
         $data = $spreadsheet->getActiveSheet()->toArray();
 
         $truong = explode(' - ', $data[0][0]);
-        $id_truong = array_pop($truong);
+        $id_truong = trim(array_pop($truong));
+
 
         $arrayApha=['C','D','E','F','G','H','I','J','K','L','M','N'];
 

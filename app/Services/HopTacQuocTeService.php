@@ -34,7 +34,7 @@ class HopTacQuocTeService extends AppService
         return $this->repository->getDanhSachKetQuaHopTacQuocTe($params);
     }
 
-    
+
     public function checkTonTaiKhiThem($params){
         return $this->repository->checkTonTaiKhiThem($params);
     }
@@ -51,7 +51,7 @@ class HopTacQuocTeService extends AppService
         $worksheet->setCellValue("C{$row}", "=SUM(D{$row}:F{$row})");
         $worksheet->setCellValue("G{$row}", "=SUM(H{$row}:I{$row})");
         $worksheet->setCellValue("L{$row}", "=SUM(M{$row}:N{$row})");
-       
+
     }
 
     public function exportFillRow($worksheet, $row, $tnien){
@@ -82,7 +82,7 @@ class HopTacQuocTeService extends AppService
         $worksheet = $spreadsheet->getActiveSheet();
         $worksheet->setCellValue('B5', $bacDaoTao);
         $worksheet->setCellValue('B6', "Trường: $co_so->ten - $id_coso");
-        
+
         $worksheet->getStyle("B5")->getFont()->setBold(true);
         $worksheet->getStyle("B6")->getFont()->setBold(true);
         // tô nâu nền trường
@@ -91,12 +91,12 @@ class HopTacQuocTeService extends AppService
 
         $spreadsheet->getActiveSheet()->getProtection()->setSheet(true);
         $spreadsheet->getDefaultStyle()->getProtection()->setLocked(false);
-        
+
         $arrayLock =['A','B','C','G','L'];
         $this->lockedCellInExcel($worksheet,$arrayLock);
         $this->sumRowInExcel($worksheet,6);
 
-        // khóa thêm vài dòng ở sau 
+        // khóa thêm vài dòng ở sau
         // for($i=7 ;$i < 20 ; $i++){
         //     $arrayAphabe=['C'.$i,'D'.$i,'E'.$i,'F'.$i,'G'.$i,'H'.$i,'I'.$i,'J'.$i,'K'.$i,'L'.$i,'M'.$i,'N'.$i,'O'.$i,'P'.$i,'Q'.$i];
         //     $this->lockedCellInExcel($worksheet,$arrayAphabe);
@@ -131,14 +131,14 @@ class HopTacQuocTeService extends AppService
             ->get();
         }
 
-        $row=4;  
+        $row=4;
         $bacDaoTao = 'TRƯỜNG CAO ĐẲNG';
         $bacDaoTaoId = 0;
         foreach($listCoSoDaoTao as $co_s){
         $row++;
-        
+
             $hop_tac_quoc_te_theo_cs = $this->repository->getHopTacQuocTeTimeFromTo($co_s->id,$fromDate,$toDate);
-            
+
             if ($co_s->loai_truong !== $bacDaoTaoId) {
                 $bacDaoTaoId = $co_s->loai_truong;
 
@@ -183,7 +183,7 @@ class HopTacQuocTeService extends AppService
                 // fill data
                 $this->exportFillRow($worksheet, $row , $htqt);
                 }
-                
+
          }
          $writer =IOFactory::createWriter($spreadsheet, "Xlsx");
          header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
@@ -195,16 +195,17 @@ class HopTacQuocTeService extends AppService
         $message='';
         $spreadsheet = $this->createSpreadSheet($fileRead,$duoiFile);
         $data =$spreadsheet->getActiveSheet()->toArray();
-        
+
         $truong = explode(' - ', $data[5][1]);
-        $id_truong = array_pop($truong);
+        $id_truong = trim(array_pop($truong));
+
         
         $arrayAphabe=['C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q'];
         $csCheck = DB::table('co_so_dao_tao')->find($id_truong);
 
         if($csCheck == null){
             $message='noCorrectIdTruong';
-            return $message;  
+            return $message;
         }
 
         $hop_tac_quoc_te_da_co = $this->repository->getHopTacQuocTeCsNamDot($id_truong,$year,$dot);
@@ -212,7 +213,7 @@ class HopTacQuocTeService extends AppService
 
         if(count($vitri) > 0 ){
                   $message='errorkitu';
-                  return $message;  
+                  return $message;
          }
 
          $arrayData=[];
@@ -222,7 +223,7 @@ class HopTacQuocTeService extends AppService
         // count thì tính từ 1 lên cho = 6
          if(count($data) == 6){
              if($vitri == null || $vitri == ''){
-                //  for($i = 8; $i < count($data); $i++){   
+                //  for($i = 8; $i < count($data); $i++){
                          $arrayData=[
                              'nam'=>$year,
                              'dot'=>$dot,
@@ -239,16 +240,16 @@ class HopTacQuocTeService extends AppService
                              'so_hs_co_viec_lam_sau_khi_tot_nghiep'=>$data[5][9],
                              'so_luong_chuong_trinh_xay_dung_phat_trien'=>$data[5][10],
                              'tong_hop_tac_quoc_te_trong_dao_tao_boi_duong'=>$data[5][11],
- 
+
                              'so_gv_duoc_dao_tao_boi_duong'=>$data[5][12],
                              'so_can_bo_quan_ly_duoc_dao_tao_boi_duong'=>$data[5][13],
                              'so_phong_hoc_duoc_dau_tu'=>$data[5][14],
                              'so_nha_xuong_duoc_dau_tu'=>$data[5][15],
                              'tong_kinh_phi'=>$data[5][16],
- 
+
                          ];
 
-                      
+
 
                             if($hop_tac_quoc_te_da_co != null){
                                 if($id_truong  == $hop_tac_quoc_te_da_co->co_so_id){
@@ -256,36 +257,36 @@ class HopTacQuocTeService extends AppService
                                 }
                             }
                             else{
-                                 array_push($insertData,$arrayData); 
+                                 array_push($insertData,$arrayData);
                            }
-                //  }   
+                //  }
                  if (count($updateData) > 0) {
                  foreach($updateData as $key => $value)
                     //  DB::table('ket_qua_hop_tac_quoc_te')->where('id',$key)->update($value);
                     $this->repository->updateHopTacQuocTe($key,$value);
 
-                 }  
- 
+                 }
+
                  if (count($insertData) > 0) {
                     $this->repository->createHopTacQuocTe($insertData);
 
                     //  DB::table('ket_qua_hop_tac_quoc_te')->insert($insertData);
-                 }    
- 
+                 }
+
                   $message='ok';
-                  return $message;  
+                  return $message;
              }
          }else if(count($data) != 6){
              $message='chiDuocNhap1CoSo';
-             return $message; 
+             return $message;
          }
-        
+
     }
 
 
     public function importError($fileRead,$duoiFile,$path){
         $fileReadStorage= storage_path('app/public/'.$path);
-      
+
         $spreadsheet = $this->createSpreadSheet($fileReadStorage,$duoiFile);
         $data = $spreadsheet->getActiveSheet()->toArray();
 
@@ -305,16 +306,16 @@ class HopTacQuocTeService extends AppService
             $worksheet->getStyle($vitri[$i])->getFill()
             ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
             ->getStartColor()->setARGB('FFFF0000');
-        }  
+        }
 
-        $writer = IOFactory::createWriter($spreadsheet2, "Xlsx"); 
+        $writer = IOFactory::createWriter($spreadsheet2, "Xlsx");
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment; filename="error.xlsx"');
         $writer->save("php://output");
-    } 
+    }
 
-
-
-
-
+    public function store(array $data = [])
+    {
+        return $this->repository->createHopTacQuocTe($data);
+    }
 }

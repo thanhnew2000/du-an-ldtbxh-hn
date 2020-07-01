@@ -5,7 +5,7 @@
             <div class="col-lg-2">
                 <select class="form-control" id="page_size">
                     @foreach(config('common.paginate_size.list') as $size)
-                        <option value="{{$size}}">{{$size}}</option>
+                    <option value="{{$size}}">{{$size}}</option>
                     @endforeach
                 </select>
             </div>
@@ -18,34 +18,43 @@
                 <th id="{{ $key }}">{!! $title !!}&nbsp;&nbsp;<i class="fas fa-angle-down pointer"></i></th>
                 @endforeach
                 @if (
-                    (isset($route_edit) && !empty($route_edit)) ||
-                    (isset($route_show) && !empty($route_show))
+                (isset($route_edit) && !empty($route_edit)) ||
+                (isset($route_show) && !empty($route_show))
                 )
-                <th scope="col" colspan="2">Thao tác</th>
+
+                <th scope="col" colspan="2">
+                    @can('cap_nhat_quan_ly_giao_vien')
+                    Thao tác
+                    @endcan
+                </th>
+
                 @endif
             </thead>
 
             <tbody>
                 @php
-                    $i = !request()->has('page') ? 1 : ($limit * (request()->get('page') - 1) + 1)
+                $i = !request()->has('page') ? 1 : ($limit * (request()->get('page') - 1) + 1)
                 @endphp
                 @foreach ($data as $item)
-                    <tr>
-                        <td>{{ $i++ }}</td>
-                        @foreach ($titles as $key => $title)
-                            <td>{!! $item->$key !!}</td>
-                        @endforeach
+                <tr>
+                    <td>{{ $i++ }}</td>
+                    @foreach ($titles as $key => $title)
+                    <td>{!! $item->$key !!}</td>
+                    @endforeach
+
+                   
+
+                    <td>
                         @if (isset($route_edit) && !empty($route_edit))
-                        <td>
-                            <a href="{{ route($route_edit, [ $item->id ]) }}">Sửa</a>
-                        </td>
+                        <a href="{{ route($route_edit, [ $item->id ]) }}">Sửa</a>
                         @endif
+                    </td>
+                    <td>
                         @if (isset($route_show) && !empty($route_show))
-                        <td>
-                            <a href="{{ route($route_show, [ $item->id ]) }}">Chi tiết</a>
-                        </td>
+                        <a href="{{ route($route_show, [ $item->id ]) }}">Chi tiết</a>
                         @endif
-                    </tr>
+                    </td>
+                </tr>
                 @endforeach
             </tbody>
         </table>

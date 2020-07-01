@@ -43,7 +43,6 @@ class GiaoVienRepository extends BaseRepository implements GiaoVienRepositoryInt
         $queryBuilder = $this->model
             ->join('trinh_do_gv', 'trinh_do_gv.id', '=', 'giao_vien.trinh_do_id')
             ->join('co_so_dao_tao', 'co_so_dao_tao.id', '=', 'giao_vien.co_so_id')
-            // ->join('nganh_nghe', 'nganh_nghe.id', '=', 'giao_vien.nghe_id')
             ->select([
                 'giao_vien.id',
                 'giao_vien.ten',
@@ -65,7 +64,7 @@ class GiaoVienRepository extends BaseRepository implements GiaoVienRepositoryInt
             ]);
 
         if (isset($params['giao_vien_id']) && !empty($params['giao_vien_id'])) {
-            $queryBuilder->where('giao_vien.id', $params['giao_vien_id']);
+            $queryBuilder->where('giao_vien.ten', 'LIKE', "%{$params['giao_vien_id']}%");
         }
 
         if (isset($params['trinh_do_id']) && !empty($params['trinh_do_id'])) {
@@ -89,17 +88,15 @@ class GiaoVienRepository extends BaseRepository implements GiaoVienRepositoryInt
 
         return $queryBuilder->paginate($limit);
     }
-    
-    public function giaoVienTheoTruong($id_truong){
-        $data=  DB::table('giao_vien')->where('giao_vien.co_so_id','=',$id_truong)
-        ->get();
-        return $data;
-      }
 
+    public function giaoVienTheoTruong($id_truong)
+    {
+        return $this->model->where('co_so_id', $id_truong)->get();
+    }
 
     // thanhnv 6/26/2020 sửa model create update
 	public function createQuanLiGiaoVien($arrayData){
-		return $this->model->insert($arrayData);
+		return $this->model->create($arrayData);
 	}
 
 }

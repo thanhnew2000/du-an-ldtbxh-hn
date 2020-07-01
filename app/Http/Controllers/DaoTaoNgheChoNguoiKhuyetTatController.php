@@ -172,7 +172,7 @@ class DaoTaoNgheChoNguoiKhuyetTatController extends Controller
      */
     public function update(UpdateRequest $request, $id)
     {
-        $this->DaoTaoNgheChoNguoiKhuyetTatService->update($id,$request);
+        $this->DaoTaoNgheChoNguoiKhuyetTatService->updateData($id,$request);
         $get_id = $this->DaoTaoNgheChoNguoiKhuyetTatService->findById($id);
         return redirect()->route('nhapbc.dao-tao-khuyet-tat.show', ['id' => $get_id->co_so_id])->with('thongbao','Sửa số liệu đào tạo nghề cho người khuyết tật');
     }

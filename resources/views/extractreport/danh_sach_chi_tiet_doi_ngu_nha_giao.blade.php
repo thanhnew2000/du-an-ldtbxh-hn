@@ -2,11 +2,15 @@
 @section('title', "Chi tiết số liệu đội ngũ đào tạo")
 @section('style')
 <style>
-    .m-table.m-table--border-danger, .m-table.m-table--border-danger th, .m-table.m-table--border-danger td{
-        border-color: #bcb1b1 ;
-    } 
-    table thead th[colspan="4"],th[colspan="5"]{
-        border-bottom-width:1px;
+    .m-table.m-table--border-danger,
+    .m-table.m-table--border-danger th,
+    .m-table.m-table--border-danger td {
+        border-color: #bcb1b1;
+    }
+
+    table thead th[colspan="4"],
+    th[colspan="5"] {
+        border-bottom-width: 1px;
         border-bottom: 1px solid #bcb1b1 !important;
     }
     pre{
@@ -30,14 +34,14 @@
             </div>
         </div>
         <div class="m-portlet__body">
-       
+
             <h3>Cơ sở đào tạo: {{$thongtincoso[0]->ten}}</h3>
             <p>Loại hình cơ sở: {{$thongtincoso[0]->loai_hinh_co_so}}</p>
             <p>Địa chỉ: {{$thongtincoso[0]->dia_chi}}</p>
             <p>Phường/Xã: {{$thongtincoso[0]->tenxaphuong}}</p>
             <p>Quận/Huyện: {{$thongtincoso[0]->tenquanhuyen}}</p>
-      
-          
+
+
 
         </div>
     </div>
@@ -76,7 +80,7 @@
                                             {{config('common.dot.1')}}</option>
                                         <option @if(isset($params['dot']) && $params['dot']==config('common.dot.2'))
                                             selected @endif value="{{config('common.dot.2')}}">
-                                            {{config('common.dot.2')}}</option>  
+                                            {{config('common.dot.2')}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -98,16 +102,17 @@
                 <div class="col-lg-2">
                     <select class="form-control" id="page-size">
                         @foreach(config('common.paginate_size.list') as $size)
-                        <option @if($params['page_size'] == $size) selected @endif value="{{$size}}">{{$size}}</option>
+                        <option @if($params['page_size']==$size) selected @endif value="{{$size}}">{{$size}}</option>
                         @endforeach
 
                     </select>
                 </div>
             </div>
             <div class="row justify-content-center">
-            <h3>Cơ sở đào tạo: {{$thongtincoso[0]->ten}}</h3>
+                <h3>Cơ sở đào tạo: {{$thongtincoso[0]->ten}}</h3>
             </div>
-            <table class=" text-center table table-bordered m-table m-table--border-danger m-table--head-bg-primary table-responsive border table-striped">
+            <table
+                class=" text-center table table-bordered m-table m-table--border-danger m-table--head-bg-primary table-responsive border table-striped">
                 <thead>
                     <tr>
                         <th rowspan="2" class="border"><pre class="text-white">STT</pre></th>
@@ -123,43 +128,110 @@
                         <th colspan="2" class="border">Chia theo trình độ tin học</th>
                         <th colspan="3" class="border">Chia theo trình độ kỹ năng nghề</th>
                         <th colspan="3" class="border">Chia theo trình độ nghiệp vụ sư phạm</th>
-                        <th rowspan="2" class="border"><pre class="text-white">Số nhà giáo <br>tham gia <br>đào tạo,<br>bồi dưỡng <br>trong năm</pre></th>
-                        <th rowspan="2" class="border"><pre class="text-white">Thao tác</pre></th>
+                        <th rowspan="2" class="border">
+                            <pre
+                                class="text-white">Số nhà giáo <br>tham gia <br>đào tạo,<br>bồi dưỡng <br>trong năm</pre>
+                        </th>
+                        @can('cap_nhat_danh_sach_doi_ngu_nha_giao')
+                        <th rowspan="2" class="border">
+                            <pre class="text-white">Tác vụ</pre>
+                        </th>
+                        @endcan
                     </tr>
-       
+
                     <tr class="pt-3 row2">
-                        <th class="border"><pre class="text-white">Nữ</pre></th>
-                        <th class="border"><pre class="text-white">Dân tộc ít người</pre></th>
-                        <th class="border"><pre class="text-white">Giáo sư</pre></th>
-                        <th class="border"><pre class="text-white">Phó giáo sư</pre></th>
-                        <th class="border"><pre class="text-white">Nhà giáo nhân dân,<br>nghệ sĩ nhân dân,<br>nghệ nhân nhân dân,<br>thầy thuốc nhân dân</pre></th>
-                        <th class="border"><pre class="text-white">Nhà giáo ưu tú,<br>nghệ sĩ ưu tú,<br>nghệ nhân ưu tú,<br>thầy thuốc ưu tú</pre></th>
-                        <th class="border"><pre class="text-white">Nhà giáo giảng dạy<br>môn học chung</pre></th>
-                        <th class="border"><pre class="text-white">Biên chế</pre></th>
-                        <th class="border"><pre class="text-white">Hợp đồng<br>(từ 1 năm trở lên)</pre></th>
-                        <th class="border"><pre class="text-white">Tiến sỹ</pre></th>
-                        <th class="border"><pre class="text-white">Thạc sỹ</pre></th>
-                        <th class="border"><pre class="text-white">Đại học</pre></th>
-                        <th class="border"><pre class="text-white">Cao đẳng</pre></th>
-                        <th class="border"><pre class="text-white">Trung cấp</pre></th>
-                        <th class="border"><pre class="text-white">Trình độ khác</pre></th>
-                        <th class="border"><pre class="text-white">Bậc 1</pre></th>
-                        <th class="border"><pre class="text-white">Bậc 2</pre></th>
-                        <th class="border"><pre class="text-white">Bậc 3</pre></th>
-                        <th class="border"><pre class="text-white">Bậc 4</pre></th>
-                        <th class="border"><pre class="text-white">Bậc 5</pre></th>
-                        <th class="border"><pre class="text-white">Bậc 6</pre></th>
-                        <th class="border"><pre class="text-white">Cơ bản</pre></th>
-                        <th class="border"><pre class="text-white">Nâng cao</pre></th>
+                        <th class="border">
+                            <pre class="text-white">Nữ</pre>
+                        </th>
+                        <th class="border">
+                            <pre class="text-white">Dân tộc ít người</pre>
+                        </th>
+                        <th class="border">
+                            <pre class="text-white">Giáo sư</pre>
+                        </th>
+                        <th class="border">
+                            <pre class="text-white">Phó giáo sư</pre>
+                        </th>
+                        <th class="border">
+                            <pre
+                                class="text-white">Nhà giáo nhân dân,<br>nghệ sĩ nhân dân,<br>nghệ nhân nhân dân,<br>thầy thuốc nhân dân</pre>
+                        </th>
+                        <th class="border">
+                            <pre
+                                class="text-white">Nhà giáo ưu tú,<br>nghệ sĩ ưu tú,<br>nghệ nhân ưu tú,<br>thầy thuốc ưu tú</pre>
+                        </th>
+                        <th class="border">
+                            <pre class="text-white">Nhà giáo giảng dạy<br>môn học chung</pre>
+                        </th>
+                        <th class="border">
+                            <pre class="text-white">Biên chế</pre>
+                        </th>
+                        <th class="border">
+                            <pre class="text-white">Hợp đồng<br>(từ 1 năm trở lên)</pre>
+                        </th>
+                        <th class="border">
+                            <pre class="text-white">Tiến sỹ</pre>
+                        </th>
+                        <th class="border">
+                            <pre class="text-white">Thạc sỹ</pre>
+                        </th>
+                        <th class="border">
+                            <pre class="text-white">Đại học</pre>
+                        </th>
+                        <th class="border">
+                            <pre class="text-white">Cao đẳng</pre>
+                        </th>
+                        <th class="border">
+                            <pre class="text-white">Trung cấp</pre>
+                        </th>
+                        <th class="border">
+                            <pre class="text-white">Trình độ khác</pre>
+                        </th>
+                        <th class="border">
+                            <pre class="text-white">Bậc 1</pre>
+                        </th>
+                        <th class="border">
+                            <pre class="text-white">Bậc 2</pre>
+                        </th>
+                        <th class="border">
+                            <pre class="text-white">Bậc 3</pre>
+                        </th>
+                        <th class="border">
+                            <pre class="text-white">Bậc 4</pre>
+                        </th>
+                        <th class="border">
+                            <pre class="text-white">Bậc 5</pre>
+                        </th>
+                        <th class="border">
+                            <pre class="text-white">Bậc 6</pre>
+                        </th>
+                        <th class="border">
+                            <pre class="text-white">Cơ bản</pre>
+                        </th>
+                        <th class="border">
+                            <pre class="text-white">Nâng cao</pre>
+                        </th>
 
-                        <th class="border"><pre class="text-white">Chính chỉ KNN quốc gia bậc 1 <br> (tương đương)</pre></th>
-                        <th class="border"><pre class="text-white">Chính chỉ KNN quốc gia bậc 2 <br> (tương đương)</pre></th>
-                        <th class="border"><pre class="text-white">Chính chỉ KNN quốc gia bậc 3 <br> (tương đương)</pre></th>
+                        <th class="border">
+                            <pre class="text-white">Chính chỉ KNN quốc gia bậc 1 <br> (tương đương)</pre>
+                        </th>
+                        <th class="border">
+                            <pre class="text-white">Chính chỉ KNN quốc gia bậc 2 <br> (tương đương)</pre>
+                        </th>
+                        <th class="border">
+                            <pre class="text-white">Chính chỉ KNN quốc gia bậc 3 <br> (tương đương)</pre>
+                        </th>
 
-                        
-                        <th class="border"><pre class="text-white">Chính chỉ sư phạm <br> dạy trình độ CĐ</pre></th> 
-                        <th class="border"><pre class="text-white">Chính chỉ sư phạm <br> dạy trình độ TC</pre></th>
-                        <th class="border"><pre class="text-white">Chính chỉ sư phạm <br> dạy trình độ SC</pre></th>
+
+                        <th class="border">
+                            <pre class="text-white">Chính chỉ sư phạm <br> dạy trình độ CĐ</pre>
+                        </th>
+                        <th class="border">
+                            <pre class="text-white">Chính chỉ sư phạm <br> dạy trình độ TC</pre>
+                        </th>
+                        <th class="border">
+                            <pre class="text-white">Chính chỉ sư phạm <br> dạy trình độ SC</pre>
+                        </th>
 
                     </tr>
                 </thead>
@@ -214,11 +286,13 @@
 
                         <td>{{$item->so_nha_giao_tham_gia_dao_tao}}</td>
 
+                        @can('cap_nhat_danh_sach_doi_ngu_nha_giao')
                         <td>
-                            <a class="btn btn-sm btn-primary" target="_blank" href="{{route('xuatbc.sua-ds-nha-giao',['id'=>$item->id])}}">
+                            <a class="btn btn-sm btn-primary" target="_blank"
+                                href="{{route('xuatbc.sua-ds-nha-giao',['id'=>$item->id])}}">
                                 Sửa</a>
-                           
                         </td>
+                        @endcan
                     </tr>
                     @endforeach
 

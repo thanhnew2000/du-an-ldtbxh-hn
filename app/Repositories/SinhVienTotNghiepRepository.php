@@ -1,24 +1,27 @@
 <?php
+
 namespace App\Repositories;
+
 use Illuminate\Support\Facades\DB;
 use App\Repositories\BaseRepository;
 use App\Models\TotNghiep;
+use App\Models\KetQuaTotNghiep;
 use Carbon\Carbon;
-class SinhVienTotNghiepRepository extends BaseRepository implements SinhVienTotNghiepInterface {
 
-	//lay model
-	// thanhnv 6/26/2020 them
+class SinhVienTotNghiepRepository extends BaseRepository implements SinhVienTotNghiepInterface
+{
 	protected $model;
-	public function __construct(TotNghiep $model)
+
+	public function __construct(KetQuaTotNghiep $model)
 	{
 		parent::__construct();
 		$this->model = $model;
-    }
-	
+	}
+
 	public function getTable(){
 		return 'sv_tot_nghiep';
     }
-    
+
     public function index($params, $limit = 10)
 	{
 		$query = $this->table
@@ -59,15 +62,16 @@ class SinhVienTotNghiepRepository extends BaseRepository implements SinhVienTotN
 			$query->where('sv_tot_nghiep.nghe_id', 'like', $params['nganh_nghe'].'%');
 		}
 
-		// dd($query->groupBy('co_so_id')->toSql());
 		return $query->groupBy('co_so_id')->paginate($limit);
-    }
+	}
+
     public function getTenCoSoDaoTao()
 	{
 		$tencoso = DB::table('co_so_dao_tao')->select('id','ten')->get();
 		return $tencoso;
     }
-    public function getmanganhnghe($id)
+
+	public function getmanganhnghe($id)
 	{
 		$manganhnghe = DB::table('co_so_dao_tao')->where('co_so_dao_tao.id', '=', $id)
 		->join('giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao', 'co_so_dao_tao.id', '=', 'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.co_so_id')
@@ -81,7 +85,7 @@ class SinhVienTotNghiepRepository extends BaseRepository implements SinhVienTotN
 	}
 
 	public function getXaPhuongTheoQuanHuyen($id)
-	{	
+	{
 		if($id==0){
 			$data = DB::table('devvn_xaphuongthitran')
 			->select('devvn_xaphuongthitran.xaid', 'devvn_xaphuongthitran.name')->get();
@@ -129,10 +133,10 @@ class SinhVienTotNghiepRepository extends BaseRepository implements SinhVienTotN
 						'sv_tot_nghiep.*',
 						'nganh_nghe.ten_nganh_nghe'
 					);
-			
+
 		if($queryData['nam']!= null){
 			$data->where('sv_tot_nghiep.nam', $queryData['nam']);
-		}	
+		}
 		if($queryData['dot']!=null){
 			$data->where('sv_tot_nghiep.dot', $queryData['dot']);
 		}
@@ -164,8 +168,7 @@ class SinhVienTotNghiepRepository extends BaseRepository implements SinhVienTotN
 
 	public function postThemSoLieuTotNghiep($getdata)
 	{
-		$result  = $this->table->insert($getdata);
-        return $result;
+		return $this->model->create($getdata);
 	}
 
 	// thanhnv update change to service 6/25/2020
@@ -189,10 +192,9 @@ class SinhVienTotNghiepRepository extends BaseRepository implements SinhVienTotN
 
 	// thanhnv 6/26/2020 sửa model create update
 	public function createTotNghiep($arrayData){
-		return $this->model->create($arrayData);
+		return $this->model->insert($arrayData);
 	}
 	public function updateTotNghiep($key,$arrayData){
 		return $this->model->where('id',$key)->update($arrayData);
 	}
 }
- ?>

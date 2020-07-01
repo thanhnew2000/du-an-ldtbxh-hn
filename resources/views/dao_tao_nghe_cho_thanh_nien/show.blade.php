@@ -215,13 +215,14 @@
                         <td>{{number_format($item->ngan_sach_TW)}}</td>
                         <td>{{number_format($item->ngan_sach_TP)}}</td>
                         <td>{{number_format($item->ngan_sach_khac)}}</td>
-
-                        <td >
-                            @if ($item->trang_thai<3)  <a href="{{route('nhapbc.dao-tao-thanh-nien.edit',[
-                                'id' => $item->id,
-                            ])}}">Sửa</a>
-                            @endif
-                        </td>
+                        @can('cap_nhat_tong_hop_nghe_cho_thanh_nien')
+                            <td >
+                                @if ($item->trang_thai<3)  <a href="{{route('nhapbc.dao-tao-thanh-nien.edit',[
+                                    'id' => $item->id,
+                                ])}}">Sửa</a>
+                                @endif
+                            </td>
+                        @endcan
                     </tr> 
                     @endforeach
                    

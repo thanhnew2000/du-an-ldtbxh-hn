@@ -74,6 +74,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Năm</label>
                                 <div class="col-lg-8">
+
                                     <select class="form-control select2" name="nam" id="nam">
                                         <option value="">Chọn</option>
                                         @foreach (config('common.nam.list') as $item)
@@ -82,7 +83,6 @@
                                             {{$item}}
                                         </option>
                                         @endforeach
-
                                     </select>
                                 </div>
                             </div>
@@ -93,6 +93,7 @@
                                 <div class="col-lg-8">
                                     <select class="form-control select2" name="dot" id="dot">
                                         <option value="" selected disabled>Chọn</option>
+
                                         <option @if (isset($params['dot']))
                                             {{( $params['dot'] ==  1 ) ? 'selected' : ''}} @endif value="1">Đợt 1
                                         </option>
@@ -100,7 +101,6 @@
                                             {{( $params['dot'] ==  2 ) ? 'selected' : ''}} @endif value="2">Đợt 2
                                         </option>
                                     </select>
-
                                 </div>
                             </div>
                         </div>
@@ -126,7 +126,7 @@
                                 <label class="col-lg-2 col-form-label">Chính sách</label>
                                 <div class="col-lg-8">
                                     <select class="form-control select2" name="chinhsach" id="chinhsach">
-                                        <option value="" selected>Chọn</option>
+                                        <option value="" selected disabled>Chọn</option>
                                         @foreach ($chinhsach as $item)
                                         <option @if (isset($params['chinhsach']))
                                             {{( $params['chinhsach'] ==  $item->id ) ? 'selected' : ''}} @endif
@@ -164,9 +164,10 @@
                 Xuất dữ liệu ra Excel</a>
         </div>
         <div class="col-lg-6 " style="text-align: right">
-            <a href="{{route('xuatbc.them-chinh-sach-sinh-vien')}}"><button type="button"
-                    class="btn btn-info .bg-info">Thêm
+            @can('them_moi_tong_hop_thuc_hien_chinh_sach_cho_sv')
+            <a href="{{route('xuatbc.them-chinh-sach-sinh-vien')}}"><button type="button" class="btn btn-secondary">Thêm
                     mới</button></a>
+            @endcan
         </div>
     </div>
     <div class="m-portlet pr-5">
@@ -209,8 +210,9 @@
                         <th rowspan="2">Tổng kinh phí </th>
                         <th rowspan="2">Ghi chú </th>
                         <th rowspan="2">Trạng thái</th>
+                        @can('cap_nhat_tong_hop_thuc_hien_chinh_sach_cho_sv')
                         <th rowspan="2">Thao tác</th>
-
+                        @endcan
                     </tr>
                     <tr class="pt-3 row2">
                         <th>Cao đẳng</th>
@@ -240,12 +242,14 @@
                         <td>{{number_format($item->kinh_phi,'0',',','.')}} </td>
                         <td>{{$item->ghi_chu}}</td>
                         <td>{{$item->ten_trang_thai}}</td>
+                        @can('cap_nhat_tong_hop_thuc_hien_chinh_sach_cho_sv')
                         <td>
                             @if ($item->trang_thai<3) <a
                                 href="{{route('xuatbc.sua-chinh-sach-sinh-vien', ['id' => $item->id])}}">
                                 Cập nhật</a>
                                 @endif
                         </td>
+                        @endcan
                     </tr>
 
                     @endforeach
@@ -265,7 +269,8 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Hãy chọn trường</h5>
-                        <button type="button"  id="closeFileBieuMau" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" id="closeFileBieuMau" class="close" data-dismiss="modal"
+                            aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -294,7 +299,8 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Import file</h5>
-                        <button type="button" id="closeImportFile" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" id="closeImportFile" class="close" data-dismiss="modal"
+                            aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -324,7 +330,7 @@
                         <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoi">
                         </p>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                        <button type="button"    class="btn btn-primary" id="submitTai">Tải</a>
+                        <button type="button" class="btn btn-primary" id="submitTai">Tải</a>
                             <button type="submit" hidden class="btn btn-primary" id="submitTaiok">Tải ok</a>
                     </div>
                 </div>
@@ -340,7 +346,8 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Xuất dữ liệu</h5>
-                        <button type="button" id='closeXuatDuLieu' class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" id='closeXuatDuLieu' class="close" data-dismiss="modal"
+                            aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -374,7 +381,8 @@
                         <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoiXuat">
                         </p>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                        <button type="submit" onclick="closeModal('closeXuatDuLieu')" class="btn btn-primary" id="submitXuatData">Tải</a>
+                        <button type="submit" onclick="closeModal('closeXuatDuLieu')" class="btn btn-primary"
+                            id="submitXuatData">Tải</a>
                     </div>
                 </div>
             </div>

@@ -16,7 +16,7 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
 use Carbon\Carbon;
 use Storage;
-
+use App\Services\StoreUpdateNotificationService;
 class GiaoDucNgheNghiepService extends AppService
 {
     use ExcelTraitService;
@@ -25,12 +25,15 @@ class GiaoDucNgheNghiepService extends AppService
 
     public function __construct(
         LoaiHinhCoSoRepositoryInterface $loaiHinhCoSoRepository,
-        SoLieuTuyenSinhInterface $soLieuTuyenSinhRepository
+        SoLieuTuyenSinhInterface $soLieuTuyenSinhRepository,
+        StoreUpdateNotificationService $StoreUpdateNotificationService
+
 
     ) {
         parent::__construct();
         $this->loaiHinhCoSoRepository = $loaiHinhCoSoRepository;
         $this->soLieuTuyenSinhRepository = $soLieuTuyenSinhRepository;
+        $this->StoreUpdateNotificationService = $StoreUpdateNotificationService;
 
     }
 
@@ -121,6 +124,22 @@ class GiaoDucNgheNghiepService extends AppService
         return $this->repository->getNganhNgheThuocCoSo($id);
     }
 
+    public function store($getdata)
+    {
+        unset($getdata['_token']);      
+        $data = $this->repository->store($getdata);
+        // if($data){
+        //     $thongTinCoSo = $this->repository->getThongTinCoSo($getdata['co_so_id']);
+        //     $tieude = 'Thêm mới ( '.$thongTinCoSo->ten.' )';
+        //     $noidung = 'Thêm mới số liệu giáo dục nghề nghiệp';
+        //     $route = route('xuatbc.quan-ly-giao-duc-nghe-nghiep');
+        //     $route = $route.'&co_so_id='.$getdata['co_so_id'];
+        //     $this->StoreUpdateNotificationService->addContentUp($getdata['nam'],$getdata['dot'],$getdata['co_so_id'],$tieude,$noidung,$route);
+
+        // }
+        return $data;
+    }
+
     public function getCheckTonTaiGiaoDucNgheNghiep($data, $requestParams)
     {
         $checkResult = $this->getSoLieu($data);
@@ -131,11 +150,9 @@ class GiaoDucNgheNghiepService extends AppService
             'Số liệu đã tồn tại';
         
         if (!isset($checkResult)) {
-            $data = $this->repository->store($requestParams);
+            $data = $this->store($requestParams);
             $message = 'Thêm số liệu thành công';
-            $route = route('xuatbc.quan-ly-giao-duc-nghe-nghiep', [
-                'id' => $requestParams['co_so_id'],
-            ]);
+            $route = route('xuatbc.quan-ly-giao-duc-nghe-nghiep');
         }
 
         return [
@@ -394,7 +411,8 @@ class GiaoDucNgheNghiepService extends AppService
         $data = $spreadsheet->getActiveSheet()->toArray();
 
         $truong = explode(' - ', $data[5][1]);
-        $id_truong = array_pop($truong);
+        $id_truong = trim(array_pop($truong));
+
 
         $arrayApha=['N','O','P'];
         $csCheck = DB::table('co_so_dao_tao')->find($id_truong);
@@ -463,7 +481,11 @@ class GiaoDucNgheNghiepService extends AppService
                  if (count($insertData) > 0) {
                      DB::table('thong_tin_dang_ky')->insert($insertData);
                  }   
-
+                //  $thongTinCoSo = $this->repository->getThongTinCoSo($id_truong);
+                // $bm = 'Đào tạo giáo dục nghề nghiệp';
+                // $tencoso = $thongTinCoSo->ten;
+                // $route = route('xuatbc.dao-tao-nghe-doanh-nghiep.show',['id' => $id_truong]);
+                // $this->StoreUpdateNotificationService->addContentUpExecl($year,$dot,$id_truong,count($insertData),count($updateData),$bm,$route,$tencoso);
                   $message='ok';
                   return $message;  
              }

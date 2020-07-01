@@ -21,7 +21,7 @@ abstract  class AppService
     public function getRepository()
     {
         return $this->repository->getRepository();
-        
+
     }
 
     public function setRepository()
@@ -63,7 +63,6 @@ abstract  class AppService
                 unset($attributes[$col]);
             }
         }
-        // dd($attributes);
         unset($attributes['_token']);
         return $this->repository->update($id, $attributes);
     }
