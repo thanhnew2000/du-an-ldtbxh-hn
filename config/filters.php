@@ -6,9 +6,9 @@ return [
         'partials' => [
             'giao_vien_id' => [
                 'label' => 'Tên giáo viên',
-                'select2' => true,
-                'options' => [],
-                'default' => 'Chọn giáo viên',
+//                'select2' => true,
+//                'options' => [],
+//                'default' => 'Chọn giáo viên',
             ],
             'trinh_do_id' => [
                 'label' => 'Trình độ',
