@@ -1,5 +1,5 @@
 @extends('layouts.admin');
-
+@section('title', 'Thông tin cơ sở đào tạo')
 @section('style')
 <link href="{!! asset('vendors/_customize/csdt.list.css') !!}" rel="stylesheet" type="text/css" />
 @endsection
