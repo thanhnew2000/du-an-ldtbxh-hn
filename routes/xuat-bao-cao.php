@@ -266,57 +266,127 @@ Route::group(['prefix' => 'dao-tao-voi-doanh-nghiep'], function () {
 
 // Xuân liên kết đào tạo
 Route::group([
-    'prefix' => 'lien-ket-dao-tao',
-    'middleware' => ['permission: them_moi_tong_hop_lien_ket_lien_thong_trinh_do|chi_tiet_tong_hop_lien_ket_lien_thong_trinh_do|
-            cap_nhat_tong_hop_lien_ket_lien_thong_trinh_do|them_moi_lien_ket_dao_tao_trinh_do_cao_dang_len_dai_hoc|chi_tiet_lien_ket_dao_tao_trinh_do_cao_dang_len_dai_hoc|
-            cap_nhat_lien_ket_dao_tao_trinh_do_cao_dang_len_dai_hoc|them_moi_lien_ket_dao_tao_trinh_do_trung_cap_len_dai_hoc|chi_tiet_lien_ket_dao_tao_trinh_do_trung_cap_len_dai_hoc|
-            cap_nhat_lien_ket_dao_tao_trinh_do_trung_cap_len_dai_hoc']
+    'prefix' => 'lien-ket-dao-tao'
 ], function () {
-    Route::get('/tong-hop-lien-ket-dao-tao', 'LienKetDaoTaoController@tonghoplienketdaotao')
-        ->name('xuatbc.tong-hop-lien-ket-dao-tao');
-    Route::get('/tong-hop-lien-ket-dao-tao-trinh-do-cao-dang-len-dai-hoc-bac-nghe-{id}', 'LienKetDaoTaoController@tonghoplienketdaotaotheotrinhdo')
-        ->name('xuatbc.tong-hop-lien-ket-dao-tao-cao-dang');
-    Route::get('/tong-hop-lien-ket-dao-tao-trinh-do-trung-cap-len-dai-hoc-bac-nghe-{id}', 'LienKetDaoTaoController@tonghoplienketdaotaotheotrinhdo')
-        ->name('xuatbc.tong-hop-lien-ket-dao-tao-trung-cap');
-
-    Route::get('/them-lien-ket-dao-tao', 'LienKetDaoTaoController@themlienketdaotao')
-        ->name('xuatbc.them-lien-ket-dao-tao');
-    Route::post('/them-lien-ket-dao-tao-bac-nghe-{id}', 'LienKetDaoTaoController@postthemlienketdaotao')
-        ->name('xuatbc.post-them-lien-ket-dao-tao');
+    // thanhvn export 6/19/2020
+    Route::post('export-form-nhap-lien-ket-dao-tao', 'LienKetDaoTaoController@exportForm')->name('layformbieumau-lien-ket-dao-tao');
+    Route::post('export-data-lien-ket-dao-tao', 'LienKetDaoTaoController@exportData')->name('exportdata-lien-ket-dao-tao');
     Route::post('/check-ton-tai-lien-ket-dao-tao-bac-nghe-{id}', 'LienKetDaoTaoController@getCheckTonTaiLienKetDaoTaoTrinhDo')
         ->name('xuatbc.check-ton-tai-lien-ket-dao-tao');
+    Route::post('/check-ton-tai-lien-ket-dao-tao-cao-dang-bac-nghe-{id}', 'LienKetDaoTaoController@getCheckTonTaiLienKetDaoTaoTrinhDo')
+        ->name('xuatbc.check-ton-tai-lien-ket-dao-tao-cao-dang');
+    Route::post('/check-ton-tai-lien-ket-dao-tao-trung-cap-bac-nghe-{id}', 'LienKetDaoTaoController@getCheckTonTaiLienKetDaoTaoTrinhDo')
+        ->name('xuatbc.check-ton-tai-lien-ket-dao-tao-trung-cap');
+    Route::post('/tong-hop-lien-ket-dao-tao-get-ma-nganh-nghe', 'LienKetDaoTaoController@getmanganhnghe')
+        ->name('xuatbc.tong-hop-lien-ket-dao-tao-get-ma-nganh-nghe');
+    Route::post('/tong-hop-lien-ket-dao-tao-get-nghe-theo-cap-bac', 'LienKetDaoTaoController@getNgheTheoCapBac')
+        ->name('xuatbc.tong-hop-lien-ket-dao-tao-get-nghe-theo-cap-bac');
+});
+
+Route::group([
+    'prefix' => 'lien-ket-dao-tao', 'middleware' => ['permission:them_moi_tong_hop_lien_ket_lien_thong_trinh_do']
+], function () {
+
+    Route::get('/them-lien-ket-dao-tao', 'LienKetDaoTaoController@themlienketdaotao')
+    ->name('xuatbc.them-lien-ket-dao-tao');
+    Route::post('/them-lien-ket-dao-tao-bac-nghe-{id}', 'LienKetDaoTaoController@postthemlienketdaotao')
+    ->name('xuatbc.post-them-lien-ket-dao-tao');
+});
+
+Route::group([
+    'prefix' => 'lien-ket-dao-tao', 'middleware' => ['permission: them_moi_lien_ket_dao_tao_trinh_do_cao_dang_len_dai_hoc']
+], function () {
 
     Route::get('/them-lien-ket-dao-tao-cao-dang', 'LienKetDaoTaoController@themlienketdaotaoCD')
         ->name('xuatbc.them-lien-ket-dao-tao-cao-dang');
     Route::post('/them-lien-ket-dao-tao-cao-dang-bac-nghe-{id}', 'LienKetDaoTaoController@postthemlienketdaotao')
         ->name('xuatbc.post-them-lien-ket-dao-tao-cao-dang');
-    Route::post('/check-ton-tai-lien-ket-dao-tao-cao-dang-bac-nghe-{id}', 'LienKetDaoTaoController@getCheckTonTaiLienKetDaoTaoTrinhDo')
-        ->name('xuatbc.check-ton-tai-lien-ket-dao-tao-cao-dang');
+});
 
+Route::group([
+    'prefix' => 'lien-ket-dao-tao', 'middleware' => ['permission:them_moi_lien_ket_dao_tao_trinh_do_trung_cap_len_dai_hoc']
+], function () {
     Route::get('/them-lien-ket-dao-tao-trung-cap', 'LienKetDaoTaoController@themlienketdaotaoTC')
-        ->name('xuatbc.them-lien-ket-dao-tao-trung-cap');
+    ->name('xuatbc.them-lien-ket-dao-tao-trung-cap');
     Route::post('/them-lien-ket-dao-tao-trung-cap-bac-nghe-{id}', 'LienKetDaoTaoController@postthemlienketdaotao')
-        ->name('xuatbc.post-them-lien-ket-dao-tao-trung-cap');
-    Route::post('/check-ton-tai-lien-ket-dao-tao-trung-cap-bac-nghe-{id}', 'LienKetDaoTaoController@getCheckTonTaiLienKetDaoTaoTrinhDo')
-        ->name('xuatbc.check-ton-tai-lien-ket-dao-tao-trung-cap');
+    ->name('xuatbc.post-them-lien-ket-dao-tao-trung-cap');
+});
 
+Route::group([
+    'prefix' => 'lien-ket-dao-tao', 'middleware' => ['permission:danh_sach_tong_hop_lien_ket_lien_thong_trinh_do']
+], function () {
+    Route::get('/tong-hop-lien-ket-dao-tao', 'LienKetDaoTaoController@tonghoplienketdaotao')->name('xuatbc.tong-hop-lien-ket-dao-tao');
+});
+
+Route::group([
+    'prefix' => 'lien-ket-dao-tao', 'middleware' => ['permission:danh_sach_lien_ket_dao_tao_trinh_do_cao_dang_len_dai_hoc']
+], function () {
+    Route::get('/tong-hop-lien-ket-dao-tao-trinh-do-cao-dang-len-dai-hoc-bac-nghe-{id}', 'LienKetDaoTaoController@tonghoplienketdaotaotheotrinhdo')
+        ->name('xuatbc.tong-hop-lien-ket-dao-tao-cao-dang');
+});
+
+Route::group([
+    'prefix' => 'lien-ket-dao-tao', 'middleware' => ['permission:danh_sach_lien_ket_dao_tao_trinh_do_trung_cap_len_dai_hoc']
+], function () {
+    Route::get('/tong-hop-lien-ket-dao-tao-trinh-do-trung-cap-len-dai-hoc-bac-nghe-{id}', 'LienKetDaoTaoController@tonghoplienketdaotaotheotrinhdo')
+        ->name('xuatbc.tong-hop-lien-ket-dao-tao-trung-cap');
+});
+    
+Route::group([
+    'prefix' => 'lien-ket-dao-tao', 'middleware' => ['permission:chi_tiet_tong_hop_lien_ket_lien_thong_trinh_do']
+], function () {
     Route::get('/chi-tiet-lien-ket-dao-tao-co-so-{co_so_id}/bac-nghe-{bac_nghe}', 'LienKetDaoTaoController@chitietlienketdaotao')
         ->name('xuatbc.chi-tiet-lien-ket-dao-tao');
+});
 
+Route::group([
+    'prefix' => 'lien-ket-dao-tao', 'middleware' => ['permission:chi_tiet_lien_ket_dao_tao_trinh_do_trung_cap_len_dai_hoc']
+], function () {
+    Route::get('/chi-tiet-lien-ket-dao-tao-co-so-{co_so_id}/bac-nghe-{bac_nghe}', 'LienKetDaoTaoController@chitietlienketdaotao')
+        ->name('xuatbc.chi-tiet-lien-ket-dao-tao');
+});
+
+Route::group([
+    'prefix' => 'lien-ket-dao-tao', 'middleware' => ['permission:chi_tiet_lien_ket_dao_tao_trinh_do_cao_dang_len_dai_hoc']
+], function () {
+    Route::get('/chi-tiet-lien-ket-dao-tao-co-so-{co_so_id}/bac-nghe-{bac_nghe}', 'LienKetDaoTaoController@chitietlienketdaotao')
+        ->name('xuatbc.chi-tiet-lien-ket-dao-tao');
+});
+    
+Route::group([
+    'prefix' => 'lien-ket-dao-tao', 'middleware' => ['permission:cap_nhat_tong_hop_lien_ket_lien_thong_trinh_do']
+], function () {
     Route::get('/sua-lien-ket-dao-tao-{id}/bac-nghe-{bac_nghe}', 'LienKetDaoTaoController@sualienketdaotao')
         ->name('xuatbc.sua-lien-ket-dao-tao');
     Route::post('/sua-lien-ket-dao-tao-{id}/bac-nghe-{bac_nghe}-co-so-{co_so_id}', 'LienKetDaoTaoController@postsualienketdaotao')
         ->name('xuatbc.post-sua-lien-ket-dao-tao');
+});
 
-    Route::post('/tong-hop-lien-ket-dao-tao-get-ma-nganh-nghe', 'LienKetDaoTaoController@getmanganhnghe')
-        ->name('xuatbc.tong-hop-lien-ket-dao-tao-get-ma-nganh-nghe');
-    Route::post('/tong-hop-lien-ket-dao-tao-get-nghe-theo-cap-bac', 'LienKetDaoTaoController@getNgheTheoCapBac')
-        ->name('xuatbc.tong-hop-lien-ket-dao-tao-get-nghe-theo-cap-bac');
+Route::group([
+    'prefix' => 'lien-ket-dao-tao', 'middleware' => ['permission:cap_nhat_tong_hop_lien_ket_lien_thong_trinh_do']
+], function () {
+    Route::get('/sua-lien-ket-dao-tao-{id}/bac-nghe-{bac_nghe}', 'LienKetDaoTaoController@sualienketdaotao')
+        ->name('xuatbc.sua-lien-ket-dao-tao');
+    Route::post('/sua-lien-ket-dao-tao-{id}/bac-nghe-{bac_nghe}-co-so-{co_so_id}', 'LienKetDaoTaoController@postsualienketdaotao')
+        ->name('xuatbc.post-sua-lien-ket-dao-tao');
+});
 
-    // thanhvn export 6/19/2020
+Route::group([
+    'prefix' => 'lien-ket-dao-tao', 'middleware' => ['permission:cap_nhat_lien_ket_dao_tao_trinh_do_cao_dang_len_dai_hoc']
+], function () {
+    Route::get('/sua-lien-ket-dao-tao-{id}/bac-nghe-{bac_nghe}', 'LienKetDaoTaoController@sualienketdaotao')
+        ->name('xuatbc.sua-lien-ket-dao-tao');
+    Route::post('/sua-lien-ket-dao-tao-{id}/bac-nghe-{bac_nghe}-co-so-{co_so_id}', 'LienKetDaoTaoController@postsualienketdaotao')
+        ->name('xuatbc.post-sua-lien-ket-dao-tao');
+});
 
-    Route::post('export-form-nhap-lien-ket-dao-tao', 'LienKetDaoTaoController@exportForm')->name('layformbieumau-lien-ket-dao-tao');
-    Route::post('export-data-lien-ket-dao-tao', 'LienKetDaoTaoController@exportData')->name('exportdata-lien-ket-dao-tao');
+Route::group([
+    'prefix' => 'lien-ket-dao-tao', 'middleware' => ['permission:cap_nhat_lien_ket_dao_tao_trinh_do_trung_cap_len_dai_hoc']
+], function () {
+    Route::get('/sua-lien-ket-dao-tao-{id}/bac-nghe-{bac_nghe}', 'LienKetDaoTaoController@sualienketdaotao')
+        ->name('xuatbc.sua-lien-ket-dao-tao');
+    Route::post('/sua-lien-ket-dao-tao-{id}/bac-nghe-{bac_nghe}-co-so-{co_so_id}', 'LienKetDaoTaoController@postsualienketdaotao')
+        ->name('xuatbc.post-sua-lien-ket-dao-tao');
 });
 // End Xuân
 

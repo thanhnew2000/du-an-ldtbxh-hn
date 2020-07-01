@@ -286,12 +286,14 @@
                         <td>{{$item->tong_chi_tieu}}</td>
                         <td>{{$item->tong_thuc_tuyen}}</td>
                         <td>{{$item->tong_so_HSSV_tot_nghiep}}</td>
-
-                        <td><a href="{{route('xuatbc.chi-tiet-lien-ket-dao-tao', ['co_so_id' => $item->co_so_id, 'bac_nghe' => 0])}}"
-                                class=".text-info">Chi tiết</a></td>
-
-
-
+                       
+                        <td>
+                            @can('chi_tiet_tong_hop_lien_ket_lien_thong_trinh_do')
+                            <a href="{{route('xuatbc.chi-tiet-lien-ket-dao-tao', ['co_so_id' => $item->co_so_id, 'bac_nghe' => 0])}}"
+                            class=".text-info">Chi tiết</a>
+                            @endcan
+                        </td>
+                        
                     </tr>
                     @endforeach
 

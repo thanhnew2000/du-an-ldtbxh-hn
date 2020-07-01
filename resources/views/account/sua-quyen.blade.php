@@ -64,8 +64,8 @@
                         @foreach (config('permissions_setting.quan_ly_tai_khoan') as $key=> $item)
                         <div class="p-2 bd-highlight">
                             <label class="m-checkbox m-checkbox--air m-checkbox--state-brand">
-                                <input type="checkbox" @foreach ($dataRole as $item1)
-                                    {{$item1==$key ?  'checked': ''}} @endforeach value="{{$key}}"
+                                <input type="checkbox" @foreach ($dataRole as $item1)  
+                                {{$item1==$key ?  'checked': ''}} @endforeach value="{{$key}}"
                                     name="permissions[]">
                                 {{$item}}
                                 <span></span>
@@ -73,15 +73,20 @@
                         </div>
                         @endforeach
                     </div>
+                </div>
+            </div>
+            <div class="col-xl-6 px-2">
+                <div class="m-portlet">
                     <div class="m-portlet__body">
-                        <h5>Quản lý quyền</h5>
+                        <h4>Quản lý quyền</h4>
+                        <button type="button" class="btn btn-info btn-sm tick-untick-all-option">Chọn/bỏ chọn tất cả</button>
                     </div>
                     <div class="">
                         @foreach (config('permissions_setting.quan_ly_quyen') as $key=> $item)
                         <div class="p-2 bd-highlight">
                             <label class="m-checkbox m-checkbox--air m-checkbox--state-brand">
-                                <input type="checkbox" @foreach ($dataRole as $item1)
-                                    {{$item1==$key ?  'checked': ''}} @endforeach value="{{$key}}"
+                                <input type="checkbox" @foreach ($dataRole as $item1)  
+                                {{$item1==$key ?  'checked': ''}} @endforeach value="{{$key}}"
                                     name="permissions[]">
                                 {{$item}}
                                 <span></span>
@@ -454,7 +459,7 @@
                         <div class="p-2 bd-highlight">
                             <label class="m-checkbox m-checkbox--air m-checkbox--state-brand">
                                 <input type="checkbox" @foreach ($dataRole as $item1) {{$item1==$key ?  'checked': ''}}
-                                    @endforeach value="{{$key}}" name="permissions[]">{{$item}}
+                                @endforeach value="{{$key}}" name="permissions[]">{{$item}}
                                 <span></span>
                             </label>
                         </div>
@@ -479,7 +484,6 @@
                         </div>
                         @endforeach
                     </div>
-            
                 </div>
             </div>
             <div class="col-xl-6 px-2">
@@ -499,18 +503,13 @@
                         </div>
                         @endforeach
                     </div>
-            
                 </div>
             </div>
             <div class="col-xl-6 px-2">
                 <div class="m-portlet">
                     <div class="m-portlet__body">
                         <h4>Quản lý phê duyệt</h4>
-                        <button class="btn btn-info ">Chọn tất cả</button>
-                        <button class="btn btn-danger ">Hủy tất cả</button>
-                    </div>
-                    <div class="m-portlet__body">
-                        <h5>Phê duyệt báo cáo</h5>
+                        <button type="button" class="btn btn-info btn-sm tick-untick-all-option">Chọn/bỏ chọn tất cả</button>
                     </div>
                     <div class="">
                         @foreach (config('permissions_setting.quan_ly_phe_duyet') as $key=> $item)
@@ -523,7 +522,6 @@
                         </div>
                         @endforeach
                     </div>
-            
                 </div>
             </div>
         </div>

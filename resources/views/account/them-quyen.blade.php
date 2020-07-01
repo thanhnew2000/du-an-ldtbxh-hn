@@ -75,6 +75,26 @@
                     <div class="col-xl-6 px-2">
                         <div class="m-portlet">
                             <div class="m-portlet__body">
+                                <h4>Quản lý quyền</h4>
+                                <button type="button" class="btn btn-info btn-sm tick-untick-all-option">Chọn/bỏ chọn tất cả</button>
+                            </div>
+                            <div class="">
+                                @foreach (config('permissions_setting.quan_ly_quyen') as $key=> $item)
+                                    <div class="p-2 bd-highlight">
+                                        <label class="m-checkbox m-checkbox--air m-checkbox--state-brand">
+                                            <input type="checkbox"
+                                                   name="permissions[]">
+                                            {{$item}}
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 px-2">
+                        <div class="m-portlet">
+                            <div class="m-portlet__body">
                                 <h4>Quản lý cơ sở đào tạo</h4>
                                 <button type="button" class="btn btn-info btn-sm tick-untick-all-option">Chọn/bỏ chọn tất cả</button>
                             </div>
@@ -463,38 +483,31 @@
 
                         </div>
                     </div>
+                    <div class="col-xl-6 px-2">
+                        <div class="m-portlet">
+                            <div class="m-portlet__body">
+                                <h4>Quản lý phê duyệt</h4>
+                                <button type="button" class="btn btn-info btn-sm tick-untick-all-option">Chọn/bỏ chọn tất cả</button>
+                            </div>
+                            <div class="">
+                                @foreach (config('permissions_setting.quan_ly_phe_duyet') as $key=> $item)
+                                    <div class="p-2 bd-highlight">
+                                        <label class="m-checkbox m-checkbox--air m-checkbox--state-brand">
+                                            <input type="checkbox"  value="{{$key}}" name="permissions[]">{{$item}}
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                @endforeach
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
 
                 <div class="m-portlet__foot d-flex justify-content-end">
                     <button type="submit" class="btn btn-success">Lưu thông tin</button>
                     <button type="submit" class="btn btn-danger mx-2">Hủy bỏ</button>
                 </div>
-            </div>
-
-            <div class="m-portlet__body">
-                <h4>Quản lý phê duyệt</h4>
-                <label class="m-checkbox m-checkbox--air m-checkbox--state-brand mt-4">
-                    <input type="checkbox">Chọn/Hủy tất cả
-                    <span></span>
-                </label>
-            </div>
-            <div class="m-portlet__body">
-                <h5>Phê duyệt báo cáo</h5>
-            </div>
-            <div class=" d-flex justify-content-around">
-                @foreach (config('permissions_setting.quan_ly_phe_duyet') as $key=> $item)
-                <div class="p-2 bd-highlight">
-                    <label class="m-checkbox m-checkbox--air m-checkbox--state-brand">
-                        <input type="checkbox" class='chkboxname' value="{{$key}}" name="permissions[]">{{$item}}
-                        <span></span>
-                    </label>
-                </div>
-                @endforeach
-            </div>
-
-            <div class="m-portlet__foot d-flex justify-content-end">
-                <button type="submit" class="btn btn-success">Lưu thông tin</button>
-                <button type="submit" class="btn btn-danger mx-2">Hủy bỏ</button>
             </div>
     </div>
     </form>

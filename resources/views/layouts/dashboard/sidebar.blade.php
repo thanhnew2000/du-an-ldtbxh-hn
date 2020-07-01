@@ -36,7 +36,7 @@
 						</li>
 				@endcan
 						{{-- Start - CườngNC - Update - Tạo Phân Quyền - 18/06/2020 --}}
-				@canany(['danh_sach_tai_khoan','them_tai_khoan','sua_tai_khoan','vo_hieu_hoa_tai_khoan'])
+				@canany(['danh_sach_quyen','them_quyen','sua_quyen'])
 						<li class="m-menu__item " aria-haspopup="true"><a href="{{route('account.phan-quyen-tk')}}"
 								class="m-menu__link "><i
 									class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
