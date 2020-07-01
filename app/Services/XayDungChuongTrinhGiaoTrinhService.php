@@ -7,20 +7,23 @@ use App\Repositories\XayDungChuongTrinhGiaoTrinhReponsitory;
 use App\Repositories\NganhNgheRepository;
 use App\Repositories\CoSoDaoTaoRepository;
 use App\Repositories\ChiTieuTuyenSinhRepository;
-
+use App\Services\StoreUpdateNotificationService;
 class XayDungChuongTrinhGiaoTrinhService extends AppService
 {
 
     protected $nganhngheRepository;
     protected $csdtRepository;
+    protected $StoreUpdateNotificationService;
 
     public function __construct(
         NganhNgheRepository $nganhngheRepository,
-        CoSoDaoTaoRepository $csdtRepository
+        CoSoDaoTaoRepository $csdtRepository,
+        StoreUpdateNotificationService $StoreUpdateNotificationService
     ) {
         parent::__construct();
         $this->nganhngheRepository = $nganhngheRepository;
         $this->csdtRepository = $csdtRepository;
+        $this->StoreUpdateNotificationService = $StoreUpdateNotificationService;
     }
 
     public function getRepository()
@@ -75,7 +78,34 @@ class XayDungChuongTrinhGiaoTrinhService extends AppService
 
     public function store(array $data = [])
     {
-        return $this->repository->store($data);
+        $returnData = $this->repository->store($data);
+        if($returnData){
+            $thongTinCoSo = $this->repository->getThongTinCoSo($data['co_so_id']);
+            $tieude = 'Thêm mới ( '.$thongTinCoSo->ten.' )';
+            $noidung = 'Thêm mới số liệu xây dựng giáo trình';
+            $route = route('xuatbc.show-ds-xd-giao-trinh',['co_so_id' => $data['co_so_id']]);
+            $this->StoreUpdateNotificationService->addContentUp($data['nam'],$data['dot'],$data['co_so_id'],$tieude,$noidung,$route);
+
+        }
+        return $returnData;
+    }
+
+
+    public function updateData($id, $request)
+    {
+        $attributes = $request->all();
+        unset($attributes['_token']);
+        $resurt = $this->repository->update($id, $attributes);
+        $dataFindId = $this->repository->findById($id);
+        $getdata = (array)$dataFindId;
+        $thongTinCoSo = $this->repository->getThongTinCoSo($getdata['co_so_id']);
+        if($resurt){         
+            $tieude = 'Cập nhật ( '.$thongTinCoSo->ten.' )';
+			$noidung = 'Cập nhật số liệu xây dựng giáo trình';
+            $route = route('xuatbc.show-ds-xd-giao-trinh',['co_so_id' => $getdata['co_so_id']]);
+			$this->StoreUpdateNotificationService->addContentUp($getdata['nam'],$getdata['dot'],$getdata['co_so_id'],$tieude,$noidung,$route);
+        }
+        return $resurt;
     }
 
 }

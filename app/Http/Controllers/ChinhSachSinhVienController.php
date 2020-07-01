@@ -100,7 +100,6 @@ class ChinhSachSinhVienController extends Controller
 
     public function postsuachinhsachsinhvien($id, UpdateChinhSachSinhVienValidate $request)
     {
-        dd(1);
         $data = $this->ChinhSachSinhVienService->updateData($id, $request);
         return redirect()->route('xuatbc.tong-hop-chinh-sach-sinh-vien')->with('thongbao_edit', 'Cập nhật số liệu chính sách sinh viên thành công');
     }

@@ -45,7 +45,6 @@ class ChinhSachSinhVienService extends AppService
 
     public function updateData($id, $request)
     {
-        dd($request);
         $attributes = $request->all();
         unset($attributes['_token']);
         $resurt = $this->repository->update($id, $attributes);
@@ -300,7 +299,7 @@ class ChinhSachSinhVienService extends AppService
                 $bm = 'Chính sách sinh viên';
                 $tencoso = $thongTinCoSo->ten;
                 $route = route('xuatbc.tong-hop-chinh-sach-sinh-vien');
-                $this->StoreUpdateNotificationService->addContentUpExecl($year,$dot,$id_truong,count($insertData),count($updateData),$bm,$route,$tencoso);
+                $this->StoreUpdateNotificationService->addContentUpExecl($year,$dot,$id_truong,count($arrayToInsert),count($updateData),$bm,$route,$tencoso);
                 $message = 'ok';
                 return $message;
             }

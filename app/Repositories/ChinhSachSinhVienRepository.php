@@ -94,7 +94,7 @@ class ChinhSachSinhVienRepository extends BaseRepository implements ChinhSachSin
 
     public function postthemChinhSachSinhVien($data)
     {
-        return $this->model->insert($data);
+        return $this->model->create($data);
     }
     public function getsuaChinhSachSinhVien($id)
     {
