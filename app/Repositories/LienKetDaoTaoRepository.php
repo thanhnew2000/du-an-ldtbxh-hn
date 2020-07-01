@@ -259,6 +259,7 @@ class LienKetDaoTaoRepository extends BaseRepository implements LienKetDaoTaoRep
             ->where('thoi_gian_cap_nhat', '>=', $fromDate)
             ->where('thoi_gian_cap_nhat', '<=', $toDate)
             ->join('nganh_nghe', 'lien_ket_qua_tuyen_sinh.nghe_id', '=', 'nganh_nghe.id')
+	    	->orderBy('nganh_nghe.id','desc')
             ->where('nganh_nghe.bac_nghe', '=', 6)->get();
         return $data;
     }
@@ -269,6 +270,7 @@ class LienKetDaoTaoRepository extends BaseRepository implements LienKetDaoTaoRep
             ->where('thoi_gian_cap_nhat', '>=', $fromDate)
             ->where('thoi_gian_cap_nhat', '<=', $toDate)
             ->join('nganh_nghe', 'lien_ket_qua_tuyen_sinh.nghe_id', '=', 'nganh_nghe.id')
+	    	->orderBy('nganh_nghe.id','desc')
             ->where('nganh_nghe.bac_nghe', '=', 5)->get();
         return $data;
     }

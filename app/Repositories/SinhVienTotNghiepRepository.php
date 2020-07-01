@@ -177,6 +177,7 @@ class SinhVienTotNghiepRepository extends BaseRepository implements SinhVienTotN
 		->where('thoi_gian_cap_nhat','>=',$fromDate)
 		->where('thoi_gian_cap_nhat','<=',$toDate)
 		->join('nganh_nghe','nganh_nghe.id','=','sv_tot_nghiep.nghe_id')
+		->orderBy('nganh_nghe.id','desc')
 		->get();
 		return $data;
 	}

@@ -811,9 +811,15 @@ class ExtractController extends Controller
     }
     public function exportDatabm4(Request $request){
         $listCoSoId = $request->truong_id;
-        $nam_muon_xuat = $request->nam_muon_xuat;
-        $dot_muon_xuat = $request->dot_muon_xuat;
-        $this->QlsvService->exportData($listCoSoId ,$nam_muon_xuat,$dot_muon_xuat);
+        $dateFrom = $request->dateFrom;
+        $dateTo = $request->dateTo;
+
+        $changeFrom = strtotime($dateFrom);
+        $fromDate = date("Y-m-d", $changeFrom);
+
+        $changeTo = strtotime($dateTo);
+        $toDate = date("Y-m-d", $changeTo);
+        $this->QlsvService->exportData($listCoSoId, $fromDate, $toDate);
     }
     public function importFilebm4(Request $request){
         $dot=$request->dot;

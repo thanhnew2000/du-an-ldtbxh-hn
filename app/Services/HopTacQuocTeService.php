@@ -104,7 +104,7 @@ class HopTacQuocTeService extends AppService
 
         $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="file-form-nhap.xlsx"');
+        header('Content-Disposition: attachment; filename="File-nhap-hop-tac-quoc-te.xlsx"');
         $writer->save("php://output");
 
     }
@@ -170,9 +170,10 @@ class HopTacQuocTeService extends AppService
             ->getFill()
             ->setFillType(Fill::FILL_SOLID)
             ->getStartColor()->setARGB('C7C7C7');
-
+            $soThuTu=0;
             foreach($hop_tac_quoc_te_theo_cs as $htqt){
                 $row++;
+                $soThuTu++;
                 // border cac o
                 foreach($arrayAphabe as $apha){
                     $worksheet->getStyle($apha.$row)
@@ -180,15 +181,20 @@ class HopTacQuocTeService extends AppService
                     ->getAllBorders()
                     ->setBorderStyle(Border::BORDER_THIN);
                 }
+                $worksheet->setCellValue('A'.$row,$soThuTu);
                 // fill data
                 $this->exportFillRow($worksheet, $row , $htqt);
                 }
 
          }
-         $writer =IOFactory::createWriter($spreadsheet, "Xlsx");
-         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-         header('Content-Disposition: attachment; filename="file-xuat.xlsx"');
-         $writer->save("php://output");
+        $ngayBatDau = date("d-m-Y", strtotime($fromDate));
+        $ngayDen = date("d-m-Y", strtotime($toDate));
+
+        $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
+        $file_xuat_name="[{$ngayBatDau} - {$ngayDen}] File-xuat-hop-tac-quoc-te.xlsx";
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename='.$file_xuat_name);
+        $writer->save("php://output");
     }
 
     public function importFile($fileRead, $duoiFile, $year, $dot){
@@ -310,7 +316,7 @@ class HopTacQuocTeService extends AppService
 
         $writer = IOFactory::createWriter($spreadsheet2, "Xlsx");
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="error.xlsx"');
+        header('Content-Disposition: attachment; filename="Error-file-nhap-hop-tac-quoc-te.xlsx"');
         $writer->save("php://output");
     }
 

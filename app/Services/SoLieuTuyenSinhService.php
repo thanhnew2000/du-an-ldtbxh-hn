@@ -49,7 +49,6 @@ class SoLieuTuyenSinhService extends AppService
 
     public function getSoLuongTuyenSinh($params = [], $limit)
     {
-       
         $queryData = [];
         $queryData['dot'] = isset($params['dot']) ? $params['dot'] : (Carbon::now()->month < 6 ? 1 : 2);
         $queryData['nam'] = isset($params['nam']) ? $params['nam'] : Carbon::now()->year;
@@ -293,7 +292,7 @@ class SoLieuTuyenSinhService extends AppService
 
         $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="file-form-nhap.xlsx"');
+        header('Content-Disposition: attachment; filename="File-nhap-so-lieu-tuyen-sinh.xlsx"');
         $writer->save("php://output");
     }
 
@@ -366,12 +365,15 @@ class SoLieuTuyenSinhService extends AppService
                     $this->exportFillRow($worksheet, $row , $ts);
                     }
              }
-    
+
+        $ngayBatDau = date("d-m-Y", strtotime($fromDate));
+        $ngayDen = date("d-m-Y", strtotime($toDate));
+
         $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
+        $file_xuat_name="[{$ngayBatDau} - {$ngayDen}] File-xuat-so-lieu-tuyen-sinh.xlsx";
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-         header('Content-Disposition: attachment; filename="file-xuat.xlsx"');
-         $writer->save("php://output");
-    
+        header('Content-Disposition: attachment; filename='.$file_xuat_name);
+        $writer->save("php://output");
     }
 
 
@@ -528,10 +530,9 @@ class SoLieuTuyenSinhService extends AppService
     
         $writer = IOFactory::createWriter($spreadsheet2, "Xlsx"); 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="error.xlsx"');
+        header('Content-Disposition: attachment; filename="Error-file-nhap-so-lieu-tuyen-sinh.xlsx"');
         $writer->save("php://output");
     } 
     
 }
-
  ?>

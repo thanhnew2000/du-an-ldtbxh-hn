@@ -259,7 +259,7 @@ class DaoTaoNgheVoiDoanhNghiepService extends AppService
 
         $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="file-form-nhap.xlsx"');
+        header('Content-Disposition: attachment; filename="File-nhap-dao-tao-tuyen-sinh-doanh-nghiep.xlsx"');
         $writer->save("php://output");
     }
 
@@ -430,7 +430,7 @@ class DaoTaoNgheVoiDoanhNghiepService extends AppService
 
         $writer = IOFactory::createWriter($spreadsheet2, "Xlsx");
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="error.xlsx"');
+        header('Content-Disposition: attachment; filename="Error-file-nhap-dao-tao-tuyen-sinh-doanh-nghiep.xlsx"');
         $writer->save("php://output");
     }
 
@@ -468,9 +468,14 @@ class DaoTaoNgheVoiDoanhNghiepService extends AppService
         $worksheet->setCellValue('A'.$row,$sothuTu);
         $this->exportFillRow($worksheet, $row , $dtts_dn);
         }
-        $writer =IOFactory::createWriter($spreadsheet, "Xlsx");
+        
+        $ngayBatDau = date("d-m-Y", strtotime($fromDate));
+        $ngayDen = date("d-m-Y", strtotime($toDate));
+
+        $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
+        $file_xuat_name="[{$ngayBatDau} - {$ngayDen}] File-xuat-dao-tao-tuyen-sinh-doanh-nghiep.xlsx";
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="file-xuat.xlsx"');
+        header('Content-Disposition: attachment; filename='.$file_xuat_name);
         $writer->save("php://output");
     }
 
