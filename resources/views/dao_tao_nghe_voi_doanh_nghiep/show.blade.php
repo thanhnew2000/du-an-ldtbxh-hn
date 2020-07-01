@@ -171,7 +171,7 @@
                         <td>{{$item->doanh_nghiep_dat_hang_dao_tao}}</td>
                         <td>{{$item->doanh_nghiep_tiep_nhan_HSSV_thuc_tap}}</td>
                         <td><i class="fas fa-eye" data-toggle="modal" data-target="#myModal{{$item->id}}"></i></td>
-                        @can('cap_nhat_ket_qua_hoc_sinh_tot_nghiep_dao_tao_nghe_voi_doanh_nghiep')
+                        @can('cap_nhat_ket_qua_tuyen_sinh_dao_tao_nghe_gan_voi_doanh_nghiep')
                         <td>
                             @if ($item->trang_thai<3)  
                             <a href="{{route('xuatbc.dao-tao-nghe-doanh-nghiep.edit',['id'=>$item->id])}}">Sửa</a>

@@ -166,6 +166,10 @@ table td {
     border: none !important;
 }
 
+
+
+.select2.select2-container.select2-container--default.select2-container--focus,
+.select2.select2-container.select2-container--default,
 #chon-nghe-trung-cap + .select2-container,
 #chon-nghe-cao-dang + .select2-container {
     width: 100% !important;

@@ -8,11 +8,18 @@
  */
 
 use Illuminate\Support\Facades\Route;
-Route::get('/', 'CoSoDaoTaoController@danhsachCSDT')->name('csdt.danh-sach');
-Route::get('danh-sach-dia-diem-dao-tao/{id?}', 'ChiNhanhController@danhsachchinhanh')->name('csdt.chi-nhanh');
 Route::post('/them-co-quan-chu-quan', 'CoSoDaoTaoController@addCoQuanChuQuan')->name('co-quan-chu-quan.them');
 Route::post('/them-quyet-dinh-thanh-lap-co-so', 'CoSoDaoTaoController@addQuyetDinh')->name('quyet-dinh.add');
 Route::get('/danh-sach-nganh-nghe-cua-co-so-dao-tao/{csdtid?}', 'NganhNgheController@thietlapnghechocosodaotao')->name('csdt.thiet-lap-nghe-cs');
+
+Route::group(['middleware' => ['permission:danh_sach_co_so_dao_tao']], function () {
+    Route::get('/', 'CoSoDaoTaoController@danhsachCSDT')->name('csdt.danh-sach');
+});
+
+Route::group(['middleware' => ['permission:danh_dia_diem_dao_tao']], function () {
+    Route::get('danh-sach-dia-diem-dao-tao/{id?}', 'ChiNhanhController@danhsachchinhanh')->name('csdt.chi-nhanh');
+});
+
 
 Route::group(['middleware' => ['permission:them_moi_co_so_dao_tao']], function () {
     Route::get('tao-moi-co-so', 'CoSoDaoTaoController@themCSDT')->name('csdt.tao-moi');
