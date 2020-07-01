@@ -66,6 +66,11 @@ class RouteServiceProvider extends ServiceProvider
 
 
         //
+        $this->mapHoTroRoutes();
+
+        // 17/06/2020 Tuanbt - chia thêm Route Giấy phép
+        $this->mapGiayPhepRoutes();
+
     }
 
     /**
@@ -146,6 +151,14 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                 ->group(base_path('routes/chart.php'));
         }
+    // 2020-05-30 - thienth - chia thêm route nhap-bao-cao
+    protected function mapHoTroRoutes()
+    {
+        Route::middleware('web', 'auth')
+            ->prefix('tu-van-ho-tro')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/ho-tro.php'));
+    }
 
     /**
      * Define the "api" routes for the application.

@@ -1,5 +1,5 @@
 @extends('layouts.admin');
-
+@section('title', 'Danh sách địa điểm đào tạo')
 @section('content')
 <div class="m-content container-fluid">
     <div class="m-portlet">

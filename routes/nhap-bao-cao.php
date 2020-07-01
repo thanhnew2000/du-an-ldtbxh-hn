@@ -8,10 +8,13 @@
  */
 
 use Illuminate\Support\Facades\Route;
+Route::group(['middleware' => ['permission:danh_sach_quan_ly_giao_vien']], function () {
+        Route::get('/quan-ly-giao-vien', 'QuanLyGiaoVienController@index')->name('ql-giao-vien.index');
+});
+
 Route::group([
     'prefix' => 'quan-ly-giao-vien',
     'middleware' => ['permission:them_moi_quan_ly_giao_vien']], function () {
-    Route::get('/', 'QuanLyGiaoVienController@index')->name('ql-giao-vien.index');
     Route::get('create', 'QuanLyGiaoVienController@create')->name('ql-giao-vien.create');
     Route::post('store', 'QuanLyGiaoVienController@store')->name('ql-giao-vien.store');
 });
@@ -29,9 +32,12 @@ Route::group([
         ->name('import-error-quan-ly-giao-vien');
 
 //CườngNC - Update Middleware - 
-Route::group(['middleware' => ['permission:them_moi_danh_sach_doi_ngu_quan_ly|cap_nhat_danh_sach_doi_ngu_quan_ly|xem_chi_tiet_danh_sach_doi_ngu_quan_ly']], function () {
-    Route::resource('so-lieu-can-bo-quan-ly', 'SoLieuCanBoQuanLyController');
-});   // thanhnv import export
+Route::group(['middleware' => ['permission:danh_sach_doi_ngu_quan_ly|them_moi_danh_sach_doi_ngu_quan_ly|cap_nhat_danh_sach_doi_ngu_quan_ly|
+xem_chi_tiet_danh_sach_doi_ngu_quan_ly']], function () {
+        Route::resource('so-lieu-can-bo-quan-ly', 'SoLieuCanBoQuanLyController');
+});
+   
+       // thanhnv import export
     Route::post('so-lieu-can-bo-quan-ly/import-so-lieu-quan-ly', 'ImportSoLieuCanBoQlController@importFile')
         ->name('import-so-lieu-quan-ly');
     Route::post('so-lieu-can-bo-quan-ly/import-error-so-lieu-quan-ly', 'ImportSoLieuCanBoQlController@importError')
@@ -79,36 +85,54 @@ Route::group(['prefix' => 'ket-qua-tot-nghiep'], function () {
 
 });
 // quảng đạo tạo nghề cho người khuyết tât
-Route::group(['prefix' => 'dao-tao-nghe-cho-nguoi-khuyet-tat'], function () {
+Route::group(['prefix' => 'dao-tao-nghe-cho-nguoi-khuyet-tat','middleware' => ['permission:danh_sach_tong_hop_dao_tao_nghe_cho_nguoi_khuyet_tat']], function () {
     Route::get('/', 'DaoTaoNgheChoNguoiKhuyetTatController@index')->name('nhapbc.dao-tao-khuyet-tat');
+});
+
+Route::group(['prefix' => 'dao-tao-nghe-cho-nguoi-khuyet-tat','middleware' => ['permission:them_moi_tong_hop_dao_tao_nghe_cho_nguoi_khuyet_tat']], function () {
     Route::get('/create', 'DaoTaoNgheChoNguoiKhuyetTatController@create')->name('nhapbc.dao-tao-khuyet-tat.create');
     Route::post('/store', 'DaoTaoNgheChoNguoiKhuyetTatController@store')->name('nhapbc.dao-tao-khuyet-tat.store');
-    Route::get('/show/{id}', 'DaoTaoNgheChoNguoiKhuyetTatController@show')->name('nhapbc.dao-tao-khuyet-tat.show');
+});
+
+Route::group(['prefix' => 'dao-tao-nghe-cho-nguoi-khuyet-tat','middleware' => ['permission:cap_nhat_tong_hop_dao_tao_nghe_cho_nguoi_khuyet_tat']], function () {
     Route::get('/edit/{id}', 'DaoTaoNgheChoNguoiKhuyetTatController@edit')->name('nhapbc.dao-tao-khuyet-tat.edit');
     Route::post('/update/{id}', 'DaoTaoNgheChoNguoiKhuyetTatController@update')->name('nhapbc.dao-tao-khuyet-tat.update');
-    Route::post('/check-them-dao-tao-cho-nguoi-khuyet-tat', 'DaoTaoNgheChoNguoiKhuyetTatController@getCheckTonTaiDaoTaoChoNguoiKhuyetTat')->name('nhapbc.dao-tao-khuyet-tat.check_so_lieu');
+});
 
+Route::group(['prefix' => 'dao-tao-nghe-cho-nguoi-khuyet-tat','middleware' => ['permission:chi_tiet_tong_hop_dao_tao_nghe_cho_nguoi_khuyet_tat']], function () {
+    Route::get('/show/{id}', 'DaoTaoNgheChoNguoiKhuyetTatController@show')->name('nhapbc.dao-tao-khuyet-tat.show');
+});
+
+
+    Route::post('/check-them-dao-tao-cho-nguoi-khuyet-tat', 'DaoTaoNgheChoNguoiKhuyetTatController@getCheckTonTaiDaoTaoChoNguoiKhuyetTat')->name('nhapbc.dao-tao-khuyet-tat.check_so_lieu');
     //thanhnv import
     Route::post('import-kq-dao-tao-nguoi-khuyet-tat', 'DaoTaoNgheChoNguoiKhuyetTatController@importFile')->name('importketqua.dao-tao-nguoi-khuyet-tat');
     Route::post('import-error-kq-dao-tao-nguoi-khuyet-tat', 'DaoTaoNgheChoNguoiKhuyetTatController@importError')->name('import.error.kq-dao-tao-nguoi-khuyet-tat');
+// quảng đào tạo nghề cho thanh niên
+
+//Start - CườngNC - UpdateMiddleware - 30/062020 - Đào tạo thanh niên
+Route::group(['prefix' => 'dao-tao-nghe-cho-thanh-nien','middleware' => ['permission:danh_sach_tong_hop_nghe_cho_thanh_nien']], function () {
+    Route::get('/', 'DaoTaoNgheThanhNienController@index')->name('nhapbc.dao-tao-thanh-nien.index');
 });
 
-// quảng đào tạo nghề cho thanh niên
-Route::group(['prefix' => 'dao-tao-nghe-cho-thanh-nien',
-                'middleware' => ['permission:them_moi_tong_hop_nghe_cho_thanh_nien|chi_tiet_tong_hop_nghe_cho_thanh_nien|
-              cap_nhat_tong_hop_nghe_cho_thanh_nien']], function () {
-    Route::get('/', 'DaoTaoNgheThanhNienController@index')->name('nhapbc.dao-tao-thanh-nien.index');
-    Route::get('/edit/{id}', 'DaoTaoNgheThanhNienController@edit')->name('nhapbc.dao-tao-thanh-nien.edit');
-    Route::post('/update/{id}', 'DaoTaoNgheThanhNienController@update')->name('nhapbc.dao-tao-thanh-nien.update');
+Route::group(['prefix' => 'dao-tao-nghe-cho-thanh-nien','middleware' => ['permission:them_moi_tong_hop_nghe_cho_thanh_nien']], function () {
     Route::get('/create', 'DaoTaoNgheThanhNienController@create')->name('nhapbc.dao-tao-thanh-nien.create');
     Route::post('/store', 'DaoTaoNgheThanhNienController@store')->name('nhapbc.dao-tao-thanh-nien.store');
-    Route::get('/show/{id}', 'DaoTaoNgheThanhNienController@show')->name('nhapbc.dao-tao-thanh-nien.show');
-    Route::post('/check-them-dao-tao-thanh-nien', 'DaoTaoNgheThanhNienController@getCheckDaoTaoThanhNien')->name('nhapbc.dao-tao-thanh-nien.check_so_lieu');
+});
 
+Route::group(['prefix' => 'dao-tao-nghe-cho-thanh-nien','middleware' => ['permission:cap_nhat_tong_hop_nghe_cho_thanh_nien']], function () {
+    Route::get('/edit/{id}', 'DaoTaoNgheThanhNienController@edit')->name('nhapbc.dao-tao-thanh-nien.edit');
+    Route::post('/update/{id}', 'DaoTaoNgheThanhNienController@update')->name('nhapbc.dao-tao-thanh-nien.update');
+});
+   
+Route::group(['prefix' => 'dao-tao-nghe-cho-thanh-nien','middleware' => ['permission:chi_tiet_tong_hop_nghe_cho_thanh_nien']], function () {
+    Route::get('/show/{id}', 'DaoTaoNgheThanhNienController@show')->name('nhapbc.dao-tao-thanh-nien.show');
+});     
+    Route::post('/check-them-dao-tao-thanh-nien', 'DaoTaoNgheThanhNienController@getCheckDaoTaoThanhNien')->name('nhapbc.dao-tao-thanh-nien.check_so_lieu');
     //thanhnv import
     Route::post('import-kq-dao-tao-thanh-nien', 'DaoTaoNgheThanhNienController@importFile')->name('importketqua.dao-tao-thanh-nien');
     Route::post('import-error-kq-dao-tao-thanh-nien', 'DaoTaoNgheThanhNienController@importError')->name('import.error.kq-dao-tao-thanh-nien');
-});
+//End - CườngNC - UpdateMiddleware - 30/062020 - Đào tạo thanh niên
 
 Route::group(['prefix' => 'dao-tao-nghe-doanh-nghiep'], function () {
     Route::get('/', 'DaoTaoNgheVoiDoanhNghiepController@index')->name('nhapbc.dao-tao-nghe-doanh-nghiep');
@@ -171,10 +195,27 @@ Route::group(['prefix' => 'quan-ly-giao-duc-nghe-nghiep'], function () {
     Route::post('import-error-quan-ly-giao-duc-nghe-nghiep', 'GiaoDucNgheNghiepController@importError')->name('import.error.quan-ly-giao-duc-nghe-nghiep');
 });
 
+// thanhnv crud đợt 6/28/2020
+Route::group(['prefix' => 'dot'], function () {
+    Route::get('/', 'DotController@index')->name('view-index-dot');
+    Route::get('nhap-them-dot', 'DotController@addForm')->name('nhapdot.create.new');
+    Route::get('edit/{id}', 'DotController@editForm')->name('nhapdot.edit-dot');
+    Route::post('add-submit-dot', 'DotController@addSubmit')->name('nhapdot.createSubmit.new');
+    Route::post('edit-submit-dot/{id}', 'DotController@update')->name('nhapdot.editSubmit.new');
+    Route::get('delete/{id}', 'DotController@delete')->name('remove.dot');
+});
+Route::group([
+    'prefix' => 'phe-duyet-bao-cao',
+    'middleware' => ['permission:danh_sach_phe_duyet']
+], function() {
+    Route::get('danh-sach', 'PheDuyetController@danhSach')->name('phe_duyet_bao_cao.danh_sach');
+});
+
 Route::group([
     'prefix' => 'phe-duyet-bao-cao',
 ], function() {
-    Route::get('danh-sach', 'PheDuyetController@danhSach')->name('phe_duyet_bao_cao.danh_sach');
     Route::get('get-danh-sach-trang-thai/{baoCao?}', 'PheDuyetController@getListTrangThai')->name('phe_duyet_bao_cao.get_list_trang_thai');
     Route::post('phe-duyet/{baoCao}', 'PheDuyetController@pheDuyet')->name('phe_duyet_bao_cao.phe_duyet');
 });
+    
+

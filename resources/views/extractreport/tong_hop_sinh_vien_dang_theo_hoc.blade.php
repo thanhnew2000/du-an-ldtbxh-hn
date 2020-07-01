@@ -188,9 +188,10 @@
                     <td>{{$qlsv->so_luong_so_cap}}</td>
                     <td>{{$qlsv->so_luong_He_khac}}</td>
                     <td>
+                        @can('xem_so_luong_sinh_vien_dang_theo_hoc')
                         <a href="{{ route('xuatbc.chi-tiet-so-lieu', ['co_so_id'=>$qlsv->cs_id]) }}"
                             class="btn btn-info btn-sm">Chi tiết</a>
-
+                        @endcan
                     </td>
                 </tr>
                 @empty

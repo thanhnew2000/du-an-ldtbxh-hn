@@ -257,12 +257,13 @@
                         <th scope="col">Kết quả tuyển sinh</th>
                         <th scope="col">Kế hoạch tuyển sinh</th>
                         <th scope="col">Trạng thái</th>
-                        @can('xem_chi_tiet_tong_hop_ket_qua_tuyen_sinh')
-                        <th scope="col">Chức năng</th>
-                        @endcan
                         <!-- <th scope="col">Chỉnh sửa</th> -->
-                        <th scope="col"> <a href="{{route('themsolieutuyensinh')}}" class="btn btn-success btn-sm">Thêm
-                                mới</a></th>
+                        <th scope="col"> 
+                            @can('them_moi_tong_hop_ket_qua_tuyen_sinh')
+                            <a href="{{route('themsolieutuyensinh')}}" class="btn btn-success btn-sm">Thêm
+                                mới</a>
+                            @endcan
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -283,13 +284,13 @@
                         <td>{{$item->tong_so_tuyen_sinh_cac_trinh_do}}</td>
                         <td>{{$item->tong_so_tuyen_sinh}}</td>
                         <td>{{$item->trang_thai}}</td>
-                        @can('xem_chi_tiet_tong_hop_ket_qua_tuyen_sinh')
+                       
                         <td>
-                            <a href="{{route('chitietsolieutuyensinh',[
-                            'co_so_id' => $item->id,
-                        ])}}">Chi tiết</a>
+                            @can('xem_chi_tiet_tong_hop_ket_qua_tuyen_sinh')
+                                <a href="{{route('chitietsolieutuyensinh',['co_so_id' => $item->id,])}}">Chi tiết</a>
+                            @endcan
                         </td>
-                        @endcan
+                        
                     </tr>
                     @endforeach
 
@@ -411,11 +412,11 @@
                             <div class='input-group date datepicker' name="datepicker" >
                                 <p>From: <input type="text" class="form-control" name="dateFrom" id="datepickerFrom"></p>
                                 @error('dateFrom')
-                                      <div class="alert alert-danger">{{$message}}</div>
+                                      <div class="text-danger">{{$message}}</div>
                                 @enderror
                                 <p>To: <input type="text" class="form-control" name="dateTo" id="datepickerTo"></p>
                                 @error('dateTo')
-                                  <div class="alert alert-danger">{{$message}}</div>
+                                  <div class="text-danger">{{$message}}</div>
                                 @enderror
                                    {{-- <span class="input-group-addon">
                                          <span class="glyphicon glyphicon-calendar">
@@ -433,7 +434,7 @@
                             </select>
                         </div>
                         @error('truong_id')
-                          <div class="alert alert-danger">{{$message}}</div>
+                          <div class="text-danger">{{$message}}</div>
                           @enderror
 
                     </div>

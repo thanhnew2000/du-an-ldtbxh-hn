@@ -108,16 +108,23 @@
                                 <td>{{ $baoCao->thoi_gian_phe_duyet_2 ?? '' }}</td>
                                 <td>{{ $baoCao->dot_id }}</td>
                                 <td>
+                                    @can('chi_tiet_danh_sach_phe_duyet')
                                     <a
-                                        href="{{ $baoCao->chi_tiet_bao_cao }}"
-                                        class="btn btn-primary">
-                                        Chi Tiết
+                                    href="{{ $baoCao->chi_tiet_bao_cao }}"
+                                    class="btn btn-primary">
+                                    Chi Tiết
                                     </a>
+                                    @endcan
+
+                                    @can('thay_doi_trang_thai_danh_sach_phe_duyet')
                                     <a
-                                        href="javascript:"
-                                        data-toggle="modal"
-                                        data-target="#phe_duyet_{{ $baoCao->id }}"
-                                        class="btn btn-success">Thay đổi trạng thái</a>
+                                    href="javascript:"
+                                    data-toggle="modal"
+                                    data-target="#phe_duyet_{{ $baoCao->id }}"
+                                    class="btn btn-success">Thay đổi trạng thái
+                                </a> 
+                                    @endcan
+                                    
                                     <form
                                         action="{{ route('phe_duyet_bao_cao.phe_duyet', $baoCao->id) }}"
                                         id="form_phe_duyet_{{ $baoCao->id }}"

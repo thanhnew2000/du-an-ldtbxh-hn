@@ -16,7 +16,7 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
 use Carbon\Carbon;
 use Storage;
-
+use App\Services\StoreUpdateNotificationService;
 class GiaoDucNgheNghiepService extends AppService
 {
     use ExcelTraitService;
@@ -25,12 +25,15 @@ class GiaoDucNgheNghiepService extends AppService
 
     public function __construct(
         LoaiHinhCoSoRepositoryInterface $loaiHinhCoSoRepository,
-        SoLieuTuyenSinhInterface $soLieuTuyenSinhRepository
+        SoLieuTuyenSinhInterface $soLieuTuyenSinhRepository,
+        StoreUpdateNotificationService $StoreUpdateNotificationService
+
 
     ) {
         parent::__construct();
         $this->loaiHinhCoSoRepository = $loaiHinhCoSoRepository;
         $this->soLieuTuyenSinhRepository = $soLieuTuyenSinhRepository;
+        $this->StoreUpdateNotificationService = $StoreUpdateNotificationService;
 
     }
 
@@ -121,6 +124,22 @@ class GiaoDucNgheNghiepService extends AppService
         return $this->repository->getNganhNgheThuocCoSo($id);
     }
 
+    public function store($getdata)
+    {
+        unset($getdata['_token']);      
+        $data = $this->repository->store($getdata);
+        // if($data){
+        //     $thongTinCoSo = $this->repository->getThongTinCoSo($getdata['co_so_id']);
+        //     $tieude = 'Thêm mới ( '.$thongTinCoSo->ten.' )';
+        //     $noidung = 'Thêm mới số liệu giáo dục nghề nghiệp';
+        //     $route = route('xuatbc.quan-ly-giao-duc-nghe-nghiep');
+        //     $route = $route.'&co_so_id='.$getdata['co_so_id'];
+        //     $this->StoreUpdateNotificationService->addContentUp($getdata['nam'],$getdata['dot'],$getdata['co_so_id'],$tieude,$noidung,$route);
+
+        // }
+        return $data;
+    }
+
     public function getCheckTonTaiGiaoDucNgheNghiep($data, $requestParams)
     {
         $checkResult = $this->getSoLieu($data);
@@ -131,11 +150,9 @@ class GiaoDucNgheNghiepService extends AppService
             'Số liệu đã tồn tại';
         
         if (!isset($checkResult)) {
-            $data = $this->repository->store($requestParams);
+            $data = $this->store($requestParams);
             $message = 'Thêm số liệu thành công';
-            $route = route('xuatbc.quan-ly-giao-duc-nghe-nghiep', [
-                'id' => $requestParams['co_so_id'],
-            ]);
+            $route = route('xuatbc.quan-ly-giao-duc-nghe-nghiep');
         }
 
         return [
@@ -195,7 +212,6 @@ class GiaoDucNgheNghiepService extends AppService
         $co_so = $this->repository->getOnlyOneCsJoinChuQuanVaDangKyGiay($id_coso);
         $co_so_loai = DB::table('co_so_dao_tao')->where('id',$id_coso)->first();
         $spreadsheet = IOFactory::load('file_excel/bm1/bm1.xlsx');
-
         $bacDaoTao = $this->bacDaoTaoOfTruong($co_so_loai->loai_truong);
 
         $worksheet = $spreadsheet->getActiveSheet();
@@ -218,7 +234,7 @@ class GiaoDucNgheNghiepService extends AppService
         $this->lockedCellInExcel($worksheet,$arrayLock);
 
         $loai_hinh ='';
-        switch ($co_so->ma_loai_hinh_co_so) {
+        switch ($co_so_loai->ma_loai_hinh_co_so) {
             case 4:
                 $loai_hinh = 'D';
                 break;
@@ -236,44 +252,47 @@ class GiaoDucNgheNghiepService extends AppService
         $row=5;
         $soThuTu=0;
         $loop=0;
-        foreach($co_so_nghe as $cs_n){
-            $soThuTu++;
-            $row ++;
-            $loop++;
-            if ($loop==1){
-                $startGop=$row;
-                $worksheet->setCellValue("B{$row}",'Trường: '.$co_so->ten.' - '.$co_so->id);
-                $worksheet->setCellValue('G'.$row, $co_so->quyet_dinh);
-                $worksheet->setCellValue('H'.$row, $co_so->so_ngay_thang_nam_cap_dia_diem_dao_tao);
-                $worksheet->setCellValue("C{$row}",$co_so->ten_chu_quan);
-                $worksheet->setCellValue($loai_hinh.$row,'X');
-                  
-                if($co_so->giay_chung_nhan_id == 1){
-                    $worksheet->setCellValue('I'.$row,'X');
-                }else if($co_so->giay_chung_nhan_id == 2){
-                    $worksheet->setCellValue('J'.$row,'X');
-                }else if($co_so->giay_chung_nhan_id == 3){
-                    $worksheet->setCellValue('K'.$row,'X');
+        if($co_so != null){
+            foreach($co_so_nghe as $cs_n){
+                $soThuTu++;
+                $row ++;
+                $loop++;
+                if ($loop==1){
+                    $startGop=$row;
+                    $worksheet->setCellValue("B{$row}",'Trường: '.$co_so->ten.' - '.$co_so->id);
+                    $worksheet->setCellValue('G'.$row, $co_so->quyet_dinh);
+                    $worksheet->setCellValue('H'.$row, $co_so->so_ngay_thang_nam_cap_dia_diem_dao_tao);
+                    $worksheet->setCellValue("C{$row}",$co_so->ten_chu_quan);
+                    $worksheet->setCellValue($loai_hinh.$row,'X');
+                    
+                    if($co_so->giay_chung_nhan_id == 1){
+                        $worksheet->setCellValue('I'.$row,'X');
+                    }else if($co_so->giay_chung_nhan_id == 2){
+                        $worksheet->setCellValue('J'.$row,'X');
+                    }else if($co_so->giay_chung_nhan_id == 3){
+                        $worksheet->setCellValue('K'.$row,'X');
+                    }
+                    $this->formatCenter($worksheet,$arrayCenter,$row);
                 }
-                $this->formatCenter($worksheet,$arrayCenter,$row);
+                foreach($arrayAphabe as $apha){
+                    $worksheet->getStyle($apha.$row)
+                    ->getBorders()
+                    ->getAllBorders()
+                    ->setBorderStyle(Border::BORDER_THIN);
+                }
+                $worksheet->setCellValue('M'.$row, $cs_n->ten_nganh_nghe.' - '.$cs_n->id);
+                // stt
+                $worksheet->setCellValue("L{$row}",$soThuTu);
+            };
+
+            $worksheet->getColumnDimension('B')->setAutoSize(true);
+            $worksheet->getColumnDimension('M')->setAutoSize(true);
+            $worksheet->getColumnDimension('C')->setAutoSize(true);
+            
+            if(count($co_so_nghe) > 0){
+                $this->formartMargeing($worksheet,$arrayCenter,$startGop,$row);
             }
-            foreach($arrayAphabe as $apha){
-                $worksheet->getStyle($apha.$row)
-                ->getBorders()
-                ->getAllBorders()
-                ->setBorderStyle(Border::BORDER_THIN);
-            }
-            $worksheet->setCellValue('M'.$row, $cs_n->ten_nganh_nghe.' - '.$cs_n->id);
-            // stt
-            $worksheet->setCellValue("L{$row}",$soThuTu);
-        };
-        $worksheet->getColumnDimension('B')->setAutoSize(true);
-        $worksheet->getColumnDimension('M')->setAutoSize(true);
-        $worksheet->getColumnDimension('C')->setAutoSize(true);
-        
-        if(count($co_so_nghe) > 0){
-            $this->formartMargeing($worksheet,$arrayCenter,$startGop,$row);
-        }
+     }
 
         $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
@@ -392,7 +411,8 @@ class GiaoDucNgheNghiepService extends AppService
         $data = $spreadsheet->getActiveSheet()->toArray();
 
         $truong = explode(' - ', $data[5][1]);
-        $id_truong = array_pop($truong);
+        $id_truong = trim(array_pop($truong));
+
 
         $arrayApha=['N','O','P'];
         $csCheck = DB::table('co_so_dao_tao')->find($id_truong);
@@ -461,7 +481,11 @@ class GiaoDucNgheNghiepService extends AppService
                  if (count($insertData) > 0) {
                      DB::table('thong_tin_dang_ky')->insert($insertData);
                  }   
-
+                //  $thongTinCoSo = $this->repository->getThongTinCoSo($id_truong);
+                // $bm = 'Đào tạo giáo dục nghề nghiệp';
+                // $tencoso = $thongTinCoSo->ten;
+                // $route = route('xuatbc.dao-tao-nghe-doanh-nghiep.show',['id' => $id_truong]);
+                // $this->StoreUpdateNotificationService->addContentUpExecl($year,$dot,$id_truong,count($insertData),count($updateData),$bm,$route,$tencoso);
                   $message='ok';
                   return $message;  
              }

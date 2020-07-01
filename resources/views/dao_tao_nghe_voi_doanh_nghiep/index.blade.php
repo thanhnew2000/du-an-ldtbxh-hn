@@ -219,7 +219,7 @@
                         aria-hidden="true"></i>
                     Xuất dữ liệu ra Excel</a>
             </div>
-        @can('them_moi_ket_qua_hoc_sinh_tot_nghiep_dao_tao_nghe_voi_doanh_nghiep')
+        @can('them_moi_ket_qua_tuyen_sinh_dao_tao_nghe_gan_voi_doanh_nghiep')
         <div class="col-lg-6 " style="text-align: right">
             <a href="{{ route('xuatbc.dao-tao-nghe-doanh-nghiep.create') }}"><button type="button" class="btn btn-info .bg-info">Thêm
                         mới</button></a>
@@ -264,7 +264,7 @@
                         <td>{{$item->quan_huyen}}</td>
                         <td>{{$item->xa_phuong}}</td>
                         <td>{{$item->so_HSSV_duoc_cam_ket}}</td>
-                        @can('chi_tiet_ket_qua_hoc_sinh_tot_nghiep_dao_tao_nghe_voi_doanh_nghiep')
+                        @can('chi_tiet_ket_qua_tuyen_sinh_dao_tao_nghe_gan_voi_doanh_nghiep')
                             <td><a href="{{route('xuatbc.dao-tao-nghe-doanh-nghiep.show',['id'=>1])}}" class=".text-info">Chi tiết</a></td>
                         @endcan
                     </tr> 
@@ -388,11 +388,11 @@
                             <div class='input-group date datepicker' name="datepicker" >
                              <p>From: <input type="text" class="form-control" name="dateFrom" id="datepickerFrom"> </p>
                                 @error('dateFrom')
-                                <div class="alert alert-danger">{{$message}}</div>
+                                <div class="text-danger">{{$message}}</div>
                                 @enderror
                              <p>To: <input type="text" class="form-control" name="dateTo" id="datepickerTo"></p>
                                 @error('dateTo')
-                                    <div class="alert alert-danger">{{$message}}</div>
+                                    <div class="text-danger">{{$message}}</div>
                                  @enderror
                                    {{-- <span class="input-group-addon">
                                          <span class="glyphicon glyphicon-calendar">

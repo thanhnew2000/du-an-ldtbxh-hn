@@ -97,27 +97,46 @@ class LienKetDaoTaoService extends AppService
     {
         return $this->repository->findCoSoDaoTao($co_so_id);
     }
-    public function sualienketdaotao($id)
+    public function sualienketdaotao($id, $bac_nghe)
     {
-        $data = $this->repository->sualienketdaotao($id);
+        $data = $this->repository->sualienketdaotao($id, $bac_nghe);
         return $data;
     }
 
-    public function getCheckTonTaiLienKetDaoTao($data, $requestParams)
+    public function getCheckTonTaiLienKetDaoTao($data, $requestParams, $id)
     {
         $checkResult = $this->getSoLieu($data);
+
         unset($requestParams['_token']);
-        $route = route('xuatbc.them-lien-ket-dao-tao');
+        if ($id == 6) {
+            $route = route('xuatbc.them-lien-ket-dao-tao-cao-dang');
+        }
+        if ($id == 5) {
+            $route = route('xuatbc.them-lien-ket-dao-tao-trung-cap');
+        } else {
+            $route = route('xuatbc.them-lien-ket-dao-tao');
+        }
+
         if ($checkResult == 'tontai') {
             $message = 'Liên kết đào tạo đã tồn tại';
         }
+
         if (!isset($checkResult)) {
             $data = $this->repository->postthemlienketdaotao($requestParams);
+            if ($id == 6) {
+                $route = route('xuatbc.tong-hop-lien-ket-dao-tao-cao-dang', ['id' => $id]);
+            }
+            if ($id == 5) {
+                $route = route('xuatbc.tong-hop-lien-ket-dao-tao-trung-cap', ['id' => $id]);
+            } else {
+                $route = route('xuatbc.tong-hop-lien-ket-dao-tao');
+            }
             $message = 'Thêm liên kết đào tạo thành công';
-            $route = route('xuatbc.tong-hop-lien-ket-dao-tao');
         }
-        return ['route' => $route, 'message' => $message,];
+
+        return ['route' => $route, 'message' => $message];
     }
+
     public function getSoLieu($data)
     {
         $dataCheckNew = $this->constructConditionParams($data);
@@ -407,7 +426,8 @@ class LienKetDaoTaoService extends AppService
         $spreadsheet = $this->createSpreadSheet($fileRead, $duoiFile);
         $data = $spreadsheet->getActiveSheet()->toArray();
         $truong = explode(' - ', $data[8][1]);
-        $id_truong = array_pop($truong);
+        $id_truong = trim(array_pop($truong));
+
 
         $csCaodang =  $this->repository->getLkDaoTaoCsCaoDang($id_truong);
         $csTrungCap =  $this->repository->getLkDaoTaoCsTrungCap($id_truong);
@@ -534,7 +554,8 @@ class LienKetDaoTaoService extends AppService
         $data = $spreadsheet->getActiveSheet()->toArray();
 
         $truong = explode(' - ', $data[8][1]);
-        $id_truong = array_pop($truong);
+        $id_truong = trim(array_pop($truong));
+
 
         $csCaodang =  $this->repository->getLkDaoTaoCsCaoDang($id_truong);
         $csTrungCap =  $this->repository->getLkDaoTaoCsTrungCap($id_truong);
