@@ -25,10 +25,6 @@ class validateUpdateKetQuaTotNghiepGanVoiDoanhNghiep extends FormRequest
     {
         $data = \Arr::except($this->all(), [
             '_token',
-            'co_so_id',
-            'nghe_id',
-            'nam',
-            'dot',
             'ten_doanh_nghiep'
         ]);
         $getDataCheck = [];
