@@ -23,9 +23,14 @@ class validateUpdateKetQuaTotNghiepGanVoiDoanhNghiep extends FormRequest
      */
     public function rules()
     {
-        $data = $this->all();
-        unset($data['_token']);
-        unset($data['ten_doanh_nghiep']);
+        $data = \Arr::except($this->all(), [
+            '_token',
+            'co_so_id',
+            'nghe_id',
+            'nam',
+            'dot',
+            'ten_doanh_nghiep'
+        ]);
         $getDataCheck = [];
         foreach ($data as $item => $value) {
             if ($value == null) {
@@ -47,8 +52,10 @@ class validateUpdateKetQuaTotNghiepGanVoiDoanhNghiep extends FormRequest
 
     public function attributes()
     {
-        $data = $this->all();
-        unset($data['_token']);
+        $data = \Arr::except($this->all(), [
+            '_token',
+            'ten_doanh_nghiep'
+        ]);
         $attributes = [];
         foreach ($data as $item => $value) {
             $attributes[$item] = "Nhập số";
