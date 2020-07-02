@@ -30,10 +30,10 @@ class AccountController extends Controller
         $params = $request->all();
         // 2020-06-29 - ThienTH - lấy danh sách roles
         $roleList = Role::all();
+        // dd($roleList);
 
         if (!isset($params['page_size'])) $params['page_size'] = config('common.paginate_size.default');
         $route_name = Route::current()->action['as'];
-
 
         $userQuery = DB::table('users')
             ->leftjoin('co_so_dao_tao', 'users.co_so_dao_tao_id', '=', 'co_so_dao_tao.id')
@@ -56,6 +56,7 @@ class AccountController extends Controller
         if(!empty($status)){
             $userQuery->where('users.status', '=', $status);
         }
+        
         if(!empty($role)){
             $userQuery->where('model_has_roles.role_id', '=', $role);
         }
@@ -81,6 +82,7 @@ class AccountController extends Controller
     {
         $user = User::find($id);
         $data = DB::table('roles')->get();
+        // dd($data);
         return view('account.edit_account', [
             'data' => $data,
             'user' => $user

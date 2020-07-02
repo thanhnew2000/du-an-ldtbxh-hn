@@ -23,34 +23,18 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6 p-2">
-                            <div class="form-group m-form__group row ">
-                                <label class="col-lg-2 col-form-label">Trạng thái:</label>
-                                <div class="col-lg-8">
-                                    <select name="status" id="status" class="form-control ">
-
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 p-2">
                             <div class="form-group m-form__group row">
-                                <label class="col-lg-2 col-form-label">Từ khóa:</label>
-                                <div class="col-lg-8">
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 p-2">
-                            <div class="form-group m-form__group row">
-                                <label class="col-lg-2 col-form-label">Quyền hạn:</label>
+                                <label class="col-lg-2 col-form-label">Quyền hạn: </label>
                                 <div class="col-lg-8">
                                     <select name="role" id="role" class="form-control ">
-
+                                        <option value="" selected>All</option>
+                                        @foreach ($roleList as $items)
+                                            <option value="{{ $items->id }}" @if($items->id == $role) selected @endif >{{ $items->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
                 </div>
@@ -112,4 +96,19 @@
     </div>
 
 </div>
+@endsection
+@section('script')
+<script>
+    $(document).ready(function () {
+        $('#page-size').change(function () {
+         
+            var role = $('[name="role"]').val();
+            var reloadUrl =
+                `${status}&role`;
+            window.location.href = reloadUrl;
+        });
+
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 @endsection

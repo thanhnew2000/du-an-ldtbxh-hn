@@ -12,7 +12,7 @@ class PhanQuyenRepository extends AppRepository
 
     protected $fieldSearchable = [
         'name',
-        'permissions'
+        'permissions',
     ];
 
 

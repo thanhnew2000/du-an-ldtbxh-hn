@@ -122,7 +122,7 @@
                                     data-toggle="modal"
                                     data-target="#phe_duyet_{{ $baoCao->id }}"
                                     class="btn btn-success">Thay đổi trạng thái
-                                </a> 
+                                    </a> 
                                     @endcan
                                     
                                     <form

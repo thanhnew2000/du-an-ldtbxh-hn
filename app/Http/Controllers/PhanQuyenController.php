@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PhanQuyen\StorePhanQuyen;
 use App\Http\Requests\PhanQuyen\UpdatePhanQuyen;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\PhanQuyenRepository;
 use App\Http\Controllers\Controller;
@@ -20,10 +21,22 @@ class PhanQuyenController extends Controller
         $this->PhanQuyenRepository = $roleRepo;
     }
 
-    public function getQuyen()
+    public function getQuyen(Request $request)
     {
         $data = $this->PhanQuyenRepository->all();
-        return view('account.phan_quyen_tai_khoan', compact('data'));
+        $role = $request->has('role') ? $request->role : null;
+        $modelRole = DB::table('users')
+        ->join('model_has_roles', 'users.id', '=', 'model_has_role.model_id')
+        ->select('users.*','model_has_roles.role_id');
+        // dd($modelRole);
+        $roleList = Role::all();
+        // dd($roleList);
+
+        if(!empty($role)){
+            $modelRole->where('model_has_roles.role_id', '=', $role);
+        }
+
+        return view('account.phan_quyen_tai_khoan', compact('data','role','modelRole','roleList'));
     }
 
     public function themQuyen()
