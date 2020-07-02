@@ -161,7 +161,7 @@ class ChinhSachSinhVienService extends AppService
         }
         $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="file-form-nhap.xlsx"');
+        header('Content-Disposition: attachment; filename="File-nhap-chinh-sach-sinh-vien.xlsx"');
         $writer->save("php://output");
     }
 
@@ -226,8 +226,9 @@ class ChinhSachSinhVienService extends AppService
         }
         $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="file-xuat.xlsx"');
-        $writer->save("php://output");
+         header('Content-Disposition: attachment; filename="File-xuat-chinh-sach-sinh-vien.xlsx"');
+         $writer->save("php://output");
+
     }
 
     public function importFile($fileRead, $duoiFile, $year, $dot)
@@ -335,7 +336,7 @@ class ChinhSachSinhVienService extends AppService
 
         $writer = IOFactory::createWriter($spreadsheet2, "Xlsx");
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="error.xlsx"');
+        header('Content-Disposition: attachment; filename="Error-file-nhap-chinh-sach-sinh-vien.xlsx"');
         $writer->save("php://output");
     }
 }

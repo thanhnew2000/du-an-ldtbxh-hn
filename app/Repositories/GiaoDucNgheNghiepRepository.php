@@ -171,8 +171,9 @@ class GiaoDucNgheNghiepRepository extends BaseRepository implements GiaoDucNgheN
 	{
 		$data =  DB::table('thong_tin_dang_ky')->where('co_so_id', '=', $id_truong)
 		->where('nam','=',$year)
-		->where('dot','=',$dot)
-		->select('id','nghe_id')->get();
+        ->where('dot','=',$dot)
+		->orderBy('nghe_id','desc')
+        ->select('id','nghe_id')->get();
 		return $data;
 	}
 

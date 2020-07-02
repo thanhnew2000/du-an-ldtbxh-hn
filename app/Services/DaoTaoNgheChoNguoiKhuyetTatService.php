@@ -275,13 +275,13 @@ class DaoTaoNgheChoNguoiKhuyetTatService extends AppService
 
         $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="file-form-nhap.xlsx"');
+        header('Content-Disposition: attachment; filename="File-nhap-dao-tao-nghe-khuyet-tat.xlsx"');
         $writer->save("php://output");
 
 
     }
 
-    public function exportData($listCoSoId,$year,$dot){
+    public function exportData($listCoSoId,$fromDate,$toDate){
 
         $spreadsheet = IOFactory::load('file_excel/bm11/bm11.xlsx');
         $worksheet = $spreadsheet->getActiveSheet();
@@ -309,7 +309,7 @@ class DaoTaoNgheChoNguoiKhuyetTatService extends AppService
         foreach($listCoSoDaoTao as $co_s){
         $row++;
         
-            $dao_tao_cho_nguoi_khuyet_tat = $this->repository->getKhuyetTatCsNamDot($co_s->id,$year,$dot);
+            $dao_tao_cho_nguoi_khuyet_tat = $this->repository->getKhuyetTatFromTo($co_s->id,$fromDate,$toDate);
             
             if ($co_s->loai_truong !== $bacDaoTaoId) {
                 $bacDaoTaoId = $co_s->loai_truong;
@@ -340,8 +340,10 @@ class DaoTaoNgheChoNguoiKhuyetTatService extends AppService
             ->setFillType(Fill::FILL_SOLID)
             ->getStartColor()->setARGB('C7C7C7');
 
+            $soThuTu=0;
             foreach($dao_tao_cho_nguoi_khuyet_tat as $dt_nkhuyettat){
                 $row++;
+                $soThuTu++;
                 // border cac o
                 foreach($arrayAphabe as $apha){
                     $worksheet->getStyle($apha.$row)
@@ -349,14 +351,20 @@ class DaoTaoNgheChoNguoiKhuyetTatService extends AppService
                     ->getAllBorders()
                     ->setBorderStyle(Border::BORDER_THIN);
                 }
+                $worksheet->setCellValue('A'.$row, $soThuTu);
                 // fill data
                 $this->exportFillRow($worksheet, $row , $dt_nkhuyettat);
                 }
                 
          }
-         $writer =IOFactory::createWriter($spreadsheet, "Xlsx");
+
+         $ngayBatDau = date("d-m-Y", strtotime($fromDate));
+         $ngayDen = date("d-m-Y", strtotime($toDate));
+ 
+         $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
+         $file_xuat_name="[{$ngayBatDau} - {$ngayDen}] File-xuat-dao-tao-nghe-khuyet-tat.xlsx";
          header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-         header('Content-Disposition: attachment; filename="file-xuat.xlsx"');
+         header('Content-Disposition: attachment; filename='.$file_xuat_name);
          $writer->save("php://output");
     }
 
@@ -531,13 +539,9 @@ class DaoTaoNgheChoNguoiKhuyetTatService extends AppService
 
         $writer = IOFactory::createWriter($spreadsheet2, "Xlsx"); 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="error.xlsx"');
+        header('Content-Disposition: attachment; filename="Error-file-nhap-dao-tao-nghe-khuyet-tat.xlsx"');
         $writer->save("php://output");
     } 
-
-
-
-
 
 }
 
