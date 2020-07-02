@@ -2,13 +2,14 @@ $( function() {
     $( "#datepickerFrom" ).datepicker();
     $( "#datepickerTo" ).datepicker();
   } );
-  
+  function closeModal(){
+      $('#closeFileBieuMau').trigger('click');
+  }
 $('.select2').select2();
 $('span.select2').css('width', '100%');
-
-function closeModal(id) {
-    $('#' + id).trigger('click');
-}
+// function closeModal(id) {
+//     $('#' + id).trigger('click');
+// }
 
 $("#file_import_id").change(function() {
    var fileExtension = ['xlsx','xls'];
@@ -70,11 +71,11 @@ $("#file_import_id").change(function() {
                                confirmButtonColor: '#3085d6',
                                confirmButtonText: 'Xác nhận'
                                }).then((result) => {
-                            //    if (result.value) {
-                            //        window.location.reload();
-                            //    }else{
-                            //        window.location.reload();
-                            //    }
+                               if (result.value) {
+                                   window.location.reload();
+                               }else{
+                                   window.location.reload();
+                               }
                                })
                        }
                }).catch(function (error) {
@@ -87,11 +88,11 @@ $("#file_import_id").change(function() {
                            confirmButtonColor: '#3085d6',
                            confirmButtonText: 'Xác nhận'
                            }).then((result) => {
-                        //    if (result.value) {
-                        //        window.location.reload();
-                        //    }else{
-                        //        window.location.reload();
-                        //    }
+                           if (result.value) {
+                               window.location.reload();
+                           }else{
+                               window.location.reload();
+                           }
                            })
                });
            }

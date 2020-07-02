@@ -171,11 +171,12 @@ class DaoTaoNgheChoNguoiKhuyetTatRepository extends BaseRepository implements Da
 		return $data;
 	}
 
-	public function getKhuyetTatCsNamDot($id_truong,$year,$dot){
-		$data =  DB::table('ket_qua_dao_tao_nguoi_khuyet_tat')->where('ket_qua_dao_tao_nguoi_khuyet_tat.co_so_id', '=', $id_truong)
-		->where('ket_qua_dao_tao_nguoi_khuyet_tat.nam','=',$year)
-		->where('ket_qua_dao_tao_nguoi_khuyet_tat.dot','=',$dot)
+	public function getKhuyetTatFromTo($id_truong, $fromDate,$toDate){
+		$data =  DB::table('ket_qua_dao_tao_nguoi_khuyet_tat')->where('ket_qua_dao_tao_nguoi_khuyet_tat.co_so_id', '=',$id_truong)
+		->where('thoi_gian_cap_nhat','>=',$fromDate)
+		->where('thoi_gian_cap_nhat','<=',$toDate)
 		->join('nganh_nghe','nganh_nghe.id','=','ket_qua_dao_tao_nguoi_khuyet_tat.nghe_id')
+		->orderBy('nganh_nghe.id','desc')
 		->get();
 		return $data;
 	}

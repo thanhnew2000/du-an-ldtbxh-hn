@@ -190,6 +190,7 @@ class DaoTaoNgheVoiDoanhNghiepRepository extends BaseRepository implements DaoTa
 		->where('thoi_gian_cap_nhat','>=',$fromDate)
 		->where('thoi_gian_cap_nhat','<=',$toDate)
 		->join('nganh_nghe','nganh_nghe.id','=','ket_qua_tuyen_sinh_gan_voi_doanh_nghiep.nghe_id')
+		->orderBy('nganh_nghe.id','desc')
 		->get();
 		return $data;
 	}

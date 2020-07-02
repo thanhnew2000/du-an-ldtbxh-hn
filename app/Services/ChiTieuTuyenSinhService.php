@@ -113,7 +113,7 @@ class ChiTieuTuyenSinhService extends AppService
 
         $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="file-form-nhap.xlsx"');
+        header('Content-Disposition: attachment; filename="File-nhap-chi-tieu-tuyen-sinh.xlsx"');
         $writer->save("php://output");
 
 
@@ -149,13 +149,13 @@ class ChiTieuTuyenSinhService extends AppService
 
         foreach($listCoSoDaoTao as $co_s){
         $row++;
-
+        $soThuTu=0;
             $keyDanhdau =  $this->danhDauloaiHinhCoSo($co_s->ma_loai_hinh_co_so);
 
             $dang_ki_chi_tieu = $this->repository->getDangKiChiTieuTuyenSinhTimeFromTo($co_s->id,$fromDate,$toDate);
 
             if ($co_s->loai_truong !== $bacDaoTaoId) {
-                $soThuTu=0;
+              
                 $bacDaoTaoId = $co_s->loai_truong;
 
                 $bacDaoTao = $this->bacDaoTaoOfTruong($co_s->loai_truong);
@@ -174,8 +174,6 @@ class ChiTieuTuyenSinhService extends AppService
                     ->setLocked(Protection::PROTECTION_PROTECTED);
             $row++;
           }
-            $soThuTu++;
-            $worksheet->setCellValue('A'.$row, $soThuTu);
             $worksheet->setCellValue("C{$row}",'Trường: '.$co_s->ten.' - '.$co_s->id);
             $worksheet->getStyle("C{$row}")->getFont()->setBold(true);
             // tô nâu nền trường
@@ -193,6 +191,7 @@ class ChiTieuTuyenSinhService extends AppService
 
 
             foreach($dang_ki_chi_tieu as $dkct){
+                 $soThuTu++;
                 $row++;
                 // border cac o
                 foreach($arrayAphabe as $apha){
@@ -201,6 +200,8 @@ class ChiTieuTuyenSinhService extends AppService
                     ->getAllBorders()
                     ->setBorderStyle(Border::BORDER_THIN);
                 }
+                $worksheet->setCellValue('A'.$row, $soThuTu);
+
                 $worksheet->setCellValue('C'.$row, $dkct->ten_nganh_nghe);
                 $worksheet->setCellValue('B'.$row, $dkct->nghe_id);
 
@@ -213,10 +214,15 @@ class ChiTieuTuyenSinhService extends AppService
                 }
 
          }
-         $writer =IOFactory::createWriter($spreadsheet, "Xlsx");
-         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-         header('Content-Disposition: attachment; filename="file-xuat.xlsx"');
-         $writer->save("php://output");
+         
+        $ngayBatDau = date("d-m-Y", strtotime($fromDate));
+        $ngayDen = date("d-m-Y", strtotime($toDate));
+
+        $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
+        $file_xuat_name="[{$ngayBatDau} - {$ngayDen}] File-xuat-chi-tieu-tuyen-sinh.xlsx";
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename='.$file_xuat_name);
+        $writer->save("php://output");
     }
 
 
@@ -254,7 +260,7 @@ class ChiTieuTuyenSinhService extends AppService
 
         $writer = IOFactory::createWriter($spreadsheet2, "Xlsx");
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="error.xlsx"');
+        header('Content-Disposition: attachment; filename="Error-file-nhap-chi-tieu-tuyen-sinh.xlsx"');
         $writer->save("php://output");
     }
 
