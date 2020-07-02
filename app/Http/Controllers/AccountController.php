@@ -17,9 +17,18 @@ use App\Http\Requests\UpdateAccount;
 use App\Http\Requests\UpdateAccountId;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Models\Role;
+use App\Services\AccountService;
 
 class AccountController extends Controller
 {
+
+    protected $AccountService;
+
+    public function __construct(
+        AccountService $AccountService)
+    {
+        $this->AccountService = $AccountService;
+    }
 
     public function index(Request $request)
     {
@@ -34,33 +43,7 @@ class AccountController extends Controller
         if (!isset($params['page_size'])) $params['page_size'] = config('common.paginate_size.default');
         $route_name = Route::current()->action['as'];
 
-
-        $userQuery = DB::table('users')
-            ->leftjoin('co_so_dao_tao', 'users.co_so_dao_tao_id', '=', 'co_so_dao_tao.id')
-            ->join('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
-            ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
-            ->select(   'users.*',
-                                DB::raw('co_so_dao_tao.ten as ten'),
-
-                                DB::raw('model_has_roles.role_id as user_role'),
-                                DB::raw('roles.name as role_name'));
-
-        if(!empty($keyword)){
-            $userQuery->where(function ($query) use ($keyword) {
-                $query->where('users.name', 'like', '%' . $keyword . '%')
-                    ->orWhere('users.phone_number', 'like', '%' . $keyword . '%')
-                    ->orWhere('users.email', 'like', '%' . $keyword . '%');
-            });
-        }
-
-        if(!empty($status)){
-            $userQuery->where('users.status', '=', $status);
-        }
-        if(!empty($role)){
-            $userQuery->where('model_has_roles.role_id', '=', $role);
-        }
-
-        $users = $userQuery->paginate($params['page_size']);
+        $users = $this->AccountService->getAllAccounts($keyword,$status,$role,$params);
         $users->appends(request()->input())->links();
 
         return view('account.list_account', compact('users', 'keyword',
@@ -73,28 +56,30 @@ class AccountController extends Controller
         return view('account.create_account');
     }
 
-    public function store(RegisterAccount $request)
-    {
-    }
 
     public function edit($id)
     {
-        $user = User::find($id);
-        $data = DB::table('roles')->get();
+        $check_account = $this->AccountService->findById($id);
+        if (!$check_account) {
+            return redirect()->route('account.list');
+        }
+        $user = $this->AccountService->getAccountAndRole($id);
+        $data = $this->AccountService->getAllRoles();
+        $co_so = $this->AccountService->getAllCoSoDaoTao();
+       
         return view('account.edit_account', [
             'data' => $data,
-            'user' => $user
+            'user' => $user,
+            'co_so' => $co_so
         ]);
     }
 
     public function updateID(UpdateAccountId $request)
     {
-        $id = $request->id;
-        $name = $request->name;
-        $phone = $request->phone;
-        $user = User::find($id);
-        $user->name = $name;
-        $user->phone_number = $phone;
+        $user = User::find($request->id);
+        $user->name = $request->name;
+        $user->phone_number = $request->phone;
+        $user->co_so_dao_tao_id = $request->co_so_dao_tao_id;
         $user->roles()->sync(['role_id' => $request->role]);
         $user->save();
         return redirect()->back()->with('thongbao', 'Cập nhật thành công !');
@@ -113,12 +98,6 @@ class AccountController extends Controller
 
         $user->save();
     }
-
-
-    public function checkEmailUpdate(Request $request)
-    {
-    }
-
 
 
     public function checkName(Request $request)

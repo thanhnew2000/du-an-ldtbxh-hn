@@ -366,7 +366,7 @@
                         <div class="col-md-12 mb-3">
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-6 col-form-label">Số học sinh có việc làm sau khi tốt nghiệp chương
-                                    trình hơp tác quốc tế</label>
+                                    trình hợp tác quốc tế</label>
                                 <div class="col-lg-6">
                                     <input type="number" min="0" class="form-control m-input name-field" placeholder="Nhập vào số"
                                     name="so_hs_co_viec_lam_sau_khi_tot_nghiep" @if (old('so_hs_co_viec_lam_sau_khi_tot_nghiep'))
@@ -386,7 +386,7 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-6 col-form-label">Số lượng chương trình, giáo trình được xây dựng,
                                     phát
-                                    triển thao hình thức hợp tác quốc tế</label>
+                                    triển theo hình thức hợp tác quốc tế</label>
                                 <div class="col-lg-6">
                                     <input type="number" min="0" class="form-control m-input name-field" placeholder="Nhập vào số"
                                     name="so_luong_chuong_trinh_xay_dung_phat_trien" @if (old('so_luong_chuong_trinh_xay_dung_phat_trien'))

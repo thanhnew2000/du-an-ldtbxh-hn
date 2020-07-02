@@ -1,5 +1,5 @@
 @extends('layouts.admin');
-
+@section('title', 'Cập nhật thông tin cơ sở đào tạo')
 @section('style')
 <link href="{!! asset('vendors/_customize/csdt.list.css') !!}" rel="stylesheet" type="text/css" />
 @endsection
@@ -61,9 +61,8 @@
                                         class="text-danger">(*)</span></label>
                                 <div class="d-flex">
                                     <select class="form-control" name="co_quan_chu_quan_id" id="co_quan_chu_quan_id">
-                                        <option value="{{ $item->co_quan_chu_quan_id}}">{{ $item->cq_ten }}</option>
                                         @foreach ($parent as $cq)
-                                        <option value="{{ $cq->id }}">{{ $cq->ten }}</option>
+                                        <option @if($cq->id == $item->co_quan_chu_quan_id) selected @endif value="{{ $cq->id }}">{{ $cq->ten }}</option>
                                         @endforeach
                                     </select>
                                     <button class="col-2 btn btn-outline-metal" type="button" class="btn btn-danger"

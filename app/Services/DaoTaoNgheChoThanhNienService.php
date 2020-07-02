@@ -17,6 +17,7 @@ use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
 use Carbon\Carbon;
+use App\Repositories\CoSoDaoTaoRepositoryInterface;
 
 class DaoTaoNgheChoThanhNienService extends AppService
 {
@@ -24,17 +25,20 @@ class DaoTaoNgheChoThanhNienService extends AppService
     protected $DaoTaoNgheChoThanhNienReponsitory;
     protected $SoLieuTuyenSinhInterface;
     protected $StoreUpdateNotificationService;
+    protected $CoSoDaoTaoRepository;
     use ExcelTraitService;
 
     public function __construct(
         LoaiHinhCoSoRepositoryInterface $loaiHinhCoSoRepository,
         SoLieuTuyenSinhInterface $soLieuTuyenSinhRepository,
-        StoreUpdateNotificationService $StoreUpdateNotificationService
+        StoreUpdateNotificationService $StoreUpdateNotificationService,
+        CoSoDaoTaoRepositoryInterface $coSoDaoTao
     ) {
         parent::__construct();
         $this->loaiHinhCoSoRepository = $loaiHinhCoSoRepository;
         $this->soLieuTuyenSinhRepository = $soLieuTuyenSinhRepository;
         $this->StoreUpdateNotificationService = $StoreUpdateNotificationService;
+        $this ->CoSoDaoTaoRepository = $coSoDaoTao;
     }
 
     //Lay Repository Product
@@ -97,7 +101,7 @@ class DaoTaoNgheChoThanhNienService extends AppService
 
      public function getThongTinCoSo($coSoId)
      {
-         return  $this->repository->getThongTinCoSo($coSoId);
+         return $this->CoSoDaoTaoRepository->getThongTinCoSo($coSoId);
      }
 
      public function getChiTietDaoTaoNgheThanhNien($coSoId, $limit, $params)
@@ -125,7 +129,7 @@ class DaoTaoNgheChoThanhNienService extends AppService
         unset($getdata['_token']);      
         $data = $this->repository->store($getdata);
         if($data){
-            $thongTinCoSo = $this->repository->getThongTinCoSo($getdata['co_so_id']);
+            $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($getdata['co_so_id']);
             $tieude = 'Thêm mới ( '.$thongTinCoSo->ten.' )';
             $noidung = 'Thêm mới số liệu đào tạo nghề cho thanh niên';
             $route = route('nhapbc.dao-tao-thanh-nien.show',['id' => $getdata['co_so_id']]);
@@ -164,7 +168,7 @@ class DaoTaoNgheChoThanhNienService extends AppService
 		$resurt = $this->repository->update($id, $attributes);
         $dataFindId = $this->repository->findById($id);
         $getdata = (array)$dataFindId;
-        $thongTinCoSo = $this->repository->getThongTinCoSo($getdata['co_so_id']);
+        $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($getdata['co_so_id']);
         if($resurt){         
             $tieude = 'Cập nhật ( '.$thongTinCoSo->ten.' )';
 			$noidung = 'Cập nhật số liệu đạo tạo nghề cho thanh niên';
@@ -286,7 +290,7 @@ class DaoTaoNgheChoThanhNienService extends AppService
 
         $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="file-form-nhap.xlsx"');
+        header('Content-Disposition: attachment; filename="File-nhap-dao-tao-nghe-thanh-nien.xlsx"');
         $writer->save("php://output");
 
 
@@ -349,9 +353,10 @@ class DaoTaoNgheChoThanhNienService extends AppService
             ->getFill()
             ->setFillType(Fill::FILL_SOLID)
             ->getStartColor()->setARGB('C7C7C7');
-
+            $soThuTu=0;
             foreach($dao_tao_cho_thanh_nien as $dtthanhnien){
                 $row++;
+                $soThuTu++;
                 // border cac o
                 foreach($arrayAphabe as $apha){
                     $worksheet->getStyle($apha.$row)
@@ -359,15 +364,20 @@ class DaoTaoNgheChoThanhNienService extends AppService
                     ->getAllBorders()
                     ->setBorderStyle(Border::BORDER_THIN);
                 }
-
+                $worksheet->setCellValue('A'.$row,$soThuTu);
                 // fill data
                 $this->exportFillRow($worksheet, $row , $dtthanhnien);
                 }
                 
          }
-         $writer =IOFactory::createWriter($spreadsheet, "Xlsx");
+
+         $ngayBatDau = date("d-m-Y", strtotime($fromDate));
+         $ngayDen = date("d-m-Y", strtotime($toDate));
+ 
+         $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
+         $file_xuat_name="[{$ngayBatDau} - {$ngayDen}] File-xuat-dao-tao-nghe-thanh-nien.xlsx";
          header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-         header('Content-Disposition: attachment; filename="file-xuat.xlsx"');
+         header('Content-Disposition: attachment; filename='.$file_xuat_name);
          $writer->save("php://output");
     }
 
@@ -502,7 +512,7 @@ class DaoTaoNgheChoThanhNienService extends AppService
                     $this->repository->createNgheThanhNien($insertData);
                     //  DB::table('ket_qua_dao_tao_cho_thanh_nien')->insert($insertData);
                  }    
-                $thongTinCoSo = $this->repository->getThongTinCoSo($id_truong);
+                $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($id_truong);
                 $bm = 'Đào tạo nghề cho thanh niên';
                 $tencoso = $thongTinCoSo->ten;
                 $route = route('nhapbc.dao-tao-thanh-nien.show',['id' => $id_truong]);
@@ -584,7 +594,7 @@ class DaoTaoNgheChoThanhNienService extends AppService
 
         $writer = IOFactory::createWriter($spreadsheet2, "Xlsx"); 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="error.xlsx"');
+        header('Content-Disposition: attachment; filename="Error-file-nhap-dao-tao-nghe-thanh-nien.xlsx"');
         $writer->save("php://output");
     } 
 

@@ -196,7 +196,8 @@ class KetQuaTotNghiepGanVoiDoanhNghiepRepository extends BaseRepository implemen
 		$data = DB::table('ket_qua_tot_nghiep_gan_voi_doanh_nghiep')->where('ket_qua_tot_nghiep_gan_voi_doanh_nghiep.co_so_id', '=',$id_truong)
 		->where('thoi_gian_cap_nhat','>=',$fromDate)
 		->where('thoi_gian_cap_nhat','<=',$toDate)
-		->join('nganh_nghe','nganh_nghe.id','=','ket_qua_tot_nghiep_gan_voi_doanh_nghiep.nghe_id')
+        ->join('nganh_nghe','nganh_nghe.id','=','ket_qua_tot_nghiep_gan_voi_doanh_nghiep.nghe_id')
+		->orderBy('nganh_nghe.id','desc')
 		->get();
 		return $data;
     }

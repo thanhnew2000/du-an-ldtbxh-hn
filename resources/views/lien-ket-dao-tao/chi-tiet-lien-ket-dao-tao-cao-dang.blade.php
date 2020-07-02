@@ -150,10 +150,12 @@
                         <td>{{$item->ghi_chu}}</td>
                         <td>{{$item->ten_trang_thai}}</td>
                         <td>
-                            @if ($item->trang_thai<3) <a
+                            @can('cap_nhat_lien_ket_dao_tao_trinh_do_cao_dang_len_dai_hoc')
+                                @if ($item->trang_thai<3) <a
                                 href="{{route('xuatbc.sua-lien-ket-dao-tao', ['id' => $item->id, 'bac_nghe' => $bac_nghe])}}">
                                 Cập nhật</a>
                                 @endif
+                            @endcan
                         </td>
                     </tr>
                     @endforeach

@@ -19,6 +19,11 @@ class SoLieuCanBoQuanLyController extends Controller
         SoLieuCanBoQuanLyService $soLieuCanBoQuanLyService
     ) {
         $this->soLieuCBQLService = $soLieuCanBoQuanLyService;
+
+        // $this->middleware('danh_sach_doi_ngu_quan_ly', ['only' => ['index']]);
+        // $this->middleware('them_moi_danh_sach_doi_ngu_quan_ly', ['only' => ['create','store']]);
+        // $this->middleware('cap_nhat_danh_sach_doi_ngu_quan_ly', ['only' => ['edit','update']]);
+        // $this->middleware('xem_chi_tiet_danh_sach_doi_ngu_quan_ly', ['only' => ['index']]);
     }
 
     /**
@@ -178,10 +183,15 @@ class SoLieuCanBoQuanLyController extends Controller
     
     public function exportData(Request $request){
         $listCoSoId = $request->truong_id;
-        $nam_muon_xuat = $request->nam_muon_xuat;
-        $dot_muon_xuat = $request->dot_muon_xuat;
+        $dateFrom = $request->dateFrom;
+        $dateTo = $request->dateTo;
 
-        $this->soLieuCBQLService->exportData($listCoSoId ,$nam_muon_xuat,$dot_muon_xuat);
+        $changeFrom = strtotime($dateFrom);
+        $fromDate = date("Y-m-d", $changeFrom);
+
+        $changeTo = strtotime($dateTo);
+        $toDate = date("Y-m-d", $changeTo);
+        $this->soLieuCBQLService->exportData($listCoSoId, $fromDate, $toDate);
     }
 
     public function importFile(Request $request){

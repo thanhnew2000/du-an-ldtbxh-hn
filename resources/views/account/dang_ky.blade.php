@@ -37,55 +37,107 @@
 							<label for="example-text-input" class="col-2 col-form-label">Email</label>
 							<div class="col-10">
 								<input class="form-control m-input" type="text" placeholder="Nhập email"
-									id="example-text-input" name="email">
+									id="example-text-input" name="email" value="{{ old('email') }}">
+								@error('email')
+								<li class="thongbao " style="color: red;">
+									{{ $message }}
+								</li>
+								@enderror
 							</div>
 						</div>
 						<div class="form-group m-form__group row">
 							<label for="example-text-input" class="col-2 col-form-label">Số điện thoại</label>
 							<div class="col-10">
 								<input class="form-control m-input" type="text" placeholder="Nhập số điện thoại"
-									name="phone">
+									name="phone" value="{{ old('phone') }}">
+								@error('phone')
+								<li class="thongbao " style="color: red;">
+									{{ $message }}
+								</li>
+								@enderror
 							</div>
 						</div>
 						<div class="form-group m-form__group row">
 							<label for="example-text-input" class="col-2 col-form-label">Họ và tên</label>
 							<div class="col-10">
 								<input class="form-control m-input" type="text" placeholder="Vui lòng nhập họ tên"
-									name="name">
+									name="name" value="{{ old('name') }}">
+								@error('name')
+								<li class="thongbao " style="color: red;">
+									{{ $message }}
+								</li>
+								@enderror
 							</div>
 						</div>
 						<div class="form-group m-form__group row">
 							<label for="" class="col-2 col-form-label">Phân quyền</label>
 							<div class="col-10">
 								<select class="form-control m-input" name="role" id="">
-									<option value="{{ old('role') }}" >Chọn </option>
+										<option value="" >-----Chọn quyền-----</option>
                                     	@foreach ($user as $item)
-											<option class="form-control " value="{{$item->id}}">{{$item->name}}</option>
+											<option {{ old('role') == $item->id ? 'selected' : '' }}
+											class="form-control" value="{{$item->id}}">{{$item->name}}</option>
                                        	@endforeach
 								</select>
+								@error('role')
+								<li class="thongbao " style="color: red;">
+									{{ $message }}
+								</li>
+								@enderror
 							</div>
 						</div>
+
+
+						<div class="form-group m-form__group row">
+							<div class="col-4">
+							</div>
+							<div class="col-6">
+								<table>
+									<tr>
+										<td><input type="radio" checked name="can_bo"
+											id="target_show_1"> <label for="">Cán bộ</label><br></td>
+										<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+										<td><input type="radio"
+											id="target_show_2"> <label for="">Cở sở</label><br></td>
+									</tr>
+								</table>
+							</div>
+							
+						</div>
+						<div class="form-group m-form__group row">
+							<div class="col-2"></div>
+							<div class="col-10 ">
+								<div class="show_co_so"  style="display: none">
+									<select name="co_so_dao_tao_id" class="form-control" id="co_so_dao_tao_id">
+										<option value="">-----Chọn cơ sở-----</option>
+										@foreach ($co_so as $item)
+										<option 
+										{{ old('co_so_dao_tao_id') == $item->id ? 'selected' : '' }}
+										value="{{ $item->id }}">
+											{{ $item->ten }}
+										</option>
+										@endforeach
+									</select>
+									@error('co_so_dao_tao_id')
+									<li class="thongbao " style="color: red;">
+										{{ $message }}
+									</li>
+									@enderror
+
+								</div>
+							</div>
+						</div>
+
 						@if (session('thongbao'))
 						<div class="thongbao" style="color: green; text-align: center;">
 							{{session('thongbao')}}
 						</div>
 						@endif
-						@if ($errors->any())
-						<ul class="col-md-5 mx-auto">
-							@foreach ($errors->all() as $error)
-							<li class="thongbao " style="color: red;">
-								{{ $error }}
-							</li>
-							@endforeach
-						</ul>
-						@endif
 					</div>
 					<div class="m-portlet__foot m-portlet__foot--fit">
 						<div class="m-form__actions">
 							<div class="row">
-								<div class="col-2">
-								</div>
-								<div class="col-10">
+								<div class="col-12 text-center">
 									<button type="submit" class="btn btn-success">Đăng ký tài khoản</button>
 									<!-- <button type="reset" class="btn btn-secondary">Hủy</button> -->
 								</div>
@@ -145,6 +197,12 @@
                     required: true,
                     minlength: 6,
                     maxlength: 30
+				},
+				role: {
+					required: true
+				},
+				co_so_dao_tao_id: {
+					required: true
                 }
             },
             messages: {
@@ -164,11 +222,40 @@
                     required: "Vui lòng nhập họ tên",
                     minlength: "Họ tên ít nhất 6 ký tự",
                     maxlength: "Họ tên không được vượt quá 40 ký tự"
+				},
+				role: {
+                    required: "Vui lòng chọn quyền"
+				},
+				co_so_dao_tao_id: {
+                    required: "Vui lòng chọn cơ sở đào tạo"
                 }
+				
                 
             }
-        });
+		});
+		
+		$('#target_show_1').on('click', function(){
+			if($(this).is(':checked')){
+				$('.show_co_so').css("display", "none");
+				$('.co_so_dao_tao_id').attr("name", "change_co_so_id");
+				document.getElementById("target_show_2").checked = false;
+			}
+		});
+		$('#target_show_2').on('click', function(){
+			if($(this).is(':checked')){
+				$('.show_co_so').css("display", "block");
+				$('.co_so_dao_tao_id').attr("name", "co_so_dao_tao_id");
+				document.getElementById("target_show_1").checked = false;
+			}
+		});
+		$('.select2').select2();
     });
 </script>
-
+@error('co_so_dao_tao_id')
+<script>
+	document.getElementById("target_show_1").checked = false;
+	document.getElementById("target_show_2").checked = true;
+	$('.show_co_so').css("display", "block");
+</script>
+@enderror
 @endsection
