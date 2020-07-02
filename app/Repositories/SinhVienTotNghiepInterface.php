@@ -12,7 +12,6 @@ interface SinhVienTotNghiepInterface
 	public function getXaPhuongTheoQuanHuyen($id);
 	public function getNganhNghe($ma_cap_nghe);
 	public function getNgheTheoCapBac($id, $cap_nghe);
-	public function getThongTinCoSo($coSoId);
 	public function getChiTietTongHopTotNghiep($coSoId,$limit,$queryData);
 	public function getSuaSoLieuTotNghiep($id);
 	public function getCheckTonTaiSoLieuTotNghiep($arrcheck);

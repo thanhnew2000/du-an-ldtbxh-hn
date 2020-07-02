@@ -84,7 +84,7 @@ class KetQuaTotNghiepGanVoiDoanhNGhiepController extends Controller
     public function update($id, validateUpdateKetQuaTotNghiepGanVoiDoanhNghiep $request, $co_so_id)
     {
 
-        $data = $this->KetQuaTotNghiepGanVoiDoanhNGhiepService->update($id, $request);
+        $data = $this->KetQuaTotNghiepGanVoiDoanhNGhiepService->updateData($id, $request);
         return redirect()->route('xuatbc.chi-tiet-ket-qua-tot-nghiep-voi-doanh-nghiep', ['co_so_id' => $co_so_id])->with('thongbao_edit', 'Cập nhật số liệu thành công');
     }
 

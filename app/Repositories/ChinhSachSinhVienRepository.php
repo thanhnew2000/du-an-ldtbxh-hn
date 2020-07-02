@@ -61,6 +61,7 @@ class ChinhSachSinhVienRepository extends BaseRepository implements ChinhSachSin
         return $query->orderBy('tong_hop_chinh_sach_voi_hssv.id', 'asc')->paginate($limit);
     }
 
+
     public function checktontaiChinhSachSinhVien($arraycheck)
     {
         $check = $this->table->where($arraycheck)->select('tong_hop_chinh_sach_voi_hssv.id', 'tong_hop_chinh_sach_voi_hssv.trang_thai')

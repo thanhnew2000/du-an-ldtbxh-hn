@@ -131,6 +131,8 @@ class LienKetDaoTaoRepository extends BaseRepository implements LienKetDaoTaoRep
         return $data;
     }
 
+
+
     public function getLoaiHinhCoSo()
     {
         $loai_hinh = DB::table('loai_hinh_co_so')->get();

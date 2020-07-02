@@ -17,6 +17,7 @@ use PhpOffice\PhpSpreadsheet\Style\Protection;
 use Carbon\Carbon;
 use Auth;
 use Storage;
+use App\Repositories\CoSoDaoTaoRepositoryInterface;
 
 
 class SoLieuTuyenSinhService extends AppService
@@ -24,15 +25,18 @@ class SoLieuTuyenSinhService extends AppService
     protected $loaiHinhCoSoRepository;
     protected $soLieuTuyenSinhRepository;
     protected $StoreUpdateNotificationService;
+    protected $CoSoDaoTaoRepository;
     use ExcelTraitService;
 
     public function __construct(
         LoaiHinhCoSoRepositoryInterface $loaiHinhCoSoRepository,
-        StoreUpdateNotificationService $StoreUpdateNotificationService
+        StoreUpdateNotificationService $StoreUpdateNotificationService,
+        CoSoDaoTaoRepositoryInterface $coSoDaoTao
     ) {
         parent::__construct();
         $this->loaiHinhCoSoRepository = $loaiHinhCoSoRepository;
         $this->StoreUpdateNotificationService = $StoreUpdateNotificationService;
+        $this ->CoSoDaoTaoRepository = $coSoDaoTao;
         // $this->soLieuTuyenSinhRepository = $soLieuTuyenSinhRepository;
     }
 
@@ -90,7 +94,7 @@ class SoLieuTuyenSinhService extends AppService
         
         $data = $this->repository->postthemsolieutuyensinh($getdata);
         if($data){
-            $thongTinCoSo = $this->repository->getThongTinCoSo($getdata['co_so_id']);
+            $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($getdata['co_so_id']);
             $tieude = 'Thêm mới ( '.$thongTinCoSo->ten.' )';
             $noidung = 'Thêm mới số liệu tuyển sinh';
             $route = route('chitietsolieutuyensinh',['co_so_id' => $getdata['co_so_id']]);
@@ -112,7 +116,7 @@ class SoLieuTuyenSinhService extends AppService
 		$resurt = $this->repository->updateData($id, $attributes);
         $dataFindId = $this->repository->findById($id);
         $getdata = (array)$dataFindId;
-        $thongTinCoSo = $this->repository->getThongTinCoSo($getdata['co_so_id']);
+        $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($getdata['co_so_id']);
         if($resurt){         
             $tieude = 'Cập nhật ( '.$thongTinCoSo->ten.' )';
 			$noidung = 'Cập nhật số liệu tuyển sinh';
@@ -194,7 +198,7 @@ class SoLieuTuyenSinhService extends AppService
 
     public function getThongTinCoSo($coSoId)
     {
-        return  $this->repository->getThongTinCoSo($coSoId);
+        return  $this->CoSoDaoTaoRepository->getThongTinCoSo($coSoId);
     }
     public function getNgheTheoCapBac($id, $cap_nghe)
     {
@@ -490,7 +494,7 @@ class SoLieuTuyenSinhService extends AppService
                     $this->repository->createTuyenSinh($insertData);
                     // DB::table('tuyen_sinh')->insert($insertData);
                 }  
-                $thongTinCoSo = $this->repository->getThongTinCoSo($id_truong);
+                $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($id_truong);
                 $bm = 'Tuyển sinh';
                 $tencoso = $thongTinCoSo->ten;
                 $route = route('chitietsolieutuyensinh',['co_so_id' => $id_truong]);
