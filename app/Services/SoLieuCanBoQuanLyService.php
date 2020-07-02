@@ -98,6 +98,46 @@ class SoLieuCanBoQuanLyService extends AppService
     }
 
     // thanhnv update change to service 6/24/2020
+    public function danhDauloaiHinhCoSoSlQl($cs_loaihinh){
+        $keyApha = 'B';
+        switch ($cs_loaihinh) {
+            case 4:
+                $keyApha = 'B';
+                break;
+            case 9:
+                $keyApha = 'D';
+                break;
+            case 14:
+                $keyApha = 'E';
+                break;
+            case 15:
+                $keyApha = 'C';
+                break;
+        }
+        return $keyApha;
+    }
+
+    public function exportFillRow($worksheet, $row , $so_lieu_quan_ly_cua_co_so){
+            $worksheet->setCellValue('F'.$row, $so_lieu_quan_ly_cua_co_so->tong_so_quan_ly);
+            $worksheet->setCellValue('G'.$row, $so_lieu_quan_ly_cua_co_so->so_cb_quan_ly_nu);
+            $worksheet->setCellValue('H'.$row, $so_lieu_quan_ly_cua_co_so->so_dan_toc);
+            $worksheet->setCellValue('I'.$row, $so_lieu_quan_ly_cua_co_so->so_cb_giang_day);
+            $worksheet->setCellValue('J'.$row, $so_lieu_quan_ly_cua_co_so->so_cb_da_boi_duong);
+            $worksheet->setCellValue('K'.$row, $so_lieu_quan_ly_cua_co_so->so_danh_hieu);
+            $worksheet->setCellValue('L'.$row, $so_lieu_quan_ly_cua_co_so->so_hieu_truong);
+            $worksheet->setCellValue('M'.$row, $so_lieu_quan_ly_cua_co_so->so_hieu_pho);
+            $worksheet->setCellValue('N'.$row, $so_lieu_quan_ly_cua_co_so->so_truong_khoa);
+            $worksheet->setCellValue('O'.$row, $so_lieu_quan_ly_cua_co_so->so_pho_phong);
+            $worksheet->setCellValue('P'.$row, $so_lieu_quan_ly_cua_co_so->so_to_truong);
+            $worksheet->setCellValue('Q'.$row, $so_lieu_quan_ly_cua_co_so->so_trinh_do_tien_sy);
+            $worksheet->setCellValue('R'.$row, $so_lieu_quan_ly_cua_co_so->so_trinh_do_thac_sy);
+            $worksheet->setCellValue('S'.$row, $so_lieu_quan_ly_cua_co_so->so_trinh_do_dai_hoc);
+            $worksheet->setCellValue('T'.$row, $so_lieu_quan_ly_cua_co_so->so_trinh_do_cao_dang);
+            $worksheet->setCellValue('U'.$row, $so_lieu_quan_ly_cua_co_so->so_trinh_do_trung_cap);
+            $worksheet->setCellValue('V'.$row, $so_lieu_quan_ly_cua_co_so->so_trinh_do_khac);
+    }
+
+
     public function exportBieuMau($id_coso){
         $co_so = DB::table('co_so_dao_tao')->where('id', $id_coso)->first();
         $spreadsheet = IOFactory::load('file_excel/quanlycanbo/bieu-mau-quan-ly-can-bo.xlsx');
@@ -130,77 +170,109 @@ class SoLieuCanBoQuanLyService extends AppService
 
         $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="file-form-nhap.xlsx"');
+        header('Content-Disposition: attachment; filename="File-nhap-so-lieu-can-bo-quan-ly.xlsx"');
         $writer->save("php://output");
     }
 
-    public function exportData($id_truong,$nam_muon_xuat,$dot_muon_xuat){
+
+
+    public function exportData($listCoSoId,$fromDate,$toDate){
         $spreadsheet = IOFactory::load('file_excel/quanlycanbo/bieu-mau-quan-ly-can-bo.xlsx');
         $worksheet = $spreadsheet->getActiveSheet();
-    
-        $co_so = DB::table('co_so_dao_tao')->where('id', $id_truong)->first();
+        $arrayApha=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V'];
 
-        $worksheet->setCellValue('A9', "Trường: $co_so->ten - $id_truong ");        
-
-        $loai_truong = $this->bacDaoTaoOfTruong($co_so->loai_truong);
-        $worksheet->setCellValue('A8', $loai_truong);
-        $worksheet->getStyle("A8")->getFont()->setBold(true);
-        $worksheet->getStyle("A8:V8")->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('C7C7C7');
-
-        $worksheet->getColumnDimension('A')->setAutoSize(true);
-
-        if ($co_so->ma_loai_hinh_co_so == 4) {
-            $worksheet->setCellValue('B9', 'x');
-        }else if($co_so->ma_loai_hinh_co_so == 15){
-            $worksheet->setCellValue('C9', 'x');
-        }else if($co_so->ma_loai_hinh_co_so == 9){
-        $worksheet->setCellValue('D9', 'x');
-        }else if($co_so->ma_loai_hinh_co_so == 14){
-        $worksheet->setCellValue('E9', 'x');
+        if(in_array('all',$listCoSoId)){
+            $listCoSoDaoTao =  DB::table('co_so_dao_tao')
+            ->orderBy('loai_truong', 'asc')
+            ->get();
+        }else{
+            $listCoSoDaoTao =  DB::table('co_so_dao_tao')->whereIn('id', $listCoSoId)
+            ->orderBy('loai_truong', 'asc')
+            ->get();
         }
 
-        // // TẠO KHÓA
+        
         $spreadsheet->getActiveSheet()->getProtection()->setSheet(true);
         $spreadsheet->getDefaultStyle()->getProtection()->setLocked(true);
+        $worksheet->getColumnDimension('C')->setAutoSize(true);
 
-        $so_lieu_quan_ly_cua_co_so = DB::table('so_lieu_can_bo_quan_ly')
-        ->where('co_so_dao_tao_id', $id_truong)
-        ->where('nam', $nam_muon_xuat)
-        ->where('dot', $dot_muon_xuat)
-        ->first();
+        $row=7;  
+        $bacDaoTao = 'TRƯỜNG CAO ĐẲNG';
+        $bacDaoTaoId = 0;
+        foreach($listCoSoDaoTao as $co_s){
+            $row++;
+                $so_lieu_can_bo_time = $this->soLieuCBQLRepository->getSlCanBoQuanLyFromTo($co_s->id,$fromDate,$toDate);
+                if ($co_s->loai_truong !== $bacDaoTaoId) {
+                    $bacDaoTaoId = $co_s->loai_truong;
+                    $bacDaoTao = $this->bacDaoTaoOfTruong($co_s->loai_truong);
+                    $worksheet->setCellValue('A' . $row, $bacDaoTao);
+    
+                    $worksheet->getStyle("A{$row}")->getFont()->setBold(true);
+                    $lockRange = "A{$row}:V{$row}";
+                    $worksheet->getStyle($lockRange)
+                        ->getFill()
+                        ->setFillType(Fill::FILL_SOLID)
+                        ->getStartColor()->setARGB('C7C7C7');
+    
+                    $worksheet->getStyle($lockRange)
+                        ->getProtection()
+                        ->setLocked(Protection::PROTECTION_PROTECTED);
+                $row++;
+              }
+              $worksheet->setCellValue("A{$row}",'Trường: '.$co_s->ten.' - '.$co_s->id);
+              $worksheet->getStyle("A{$row}")->getFont()->setBold(true);
+              // tô nâu nền trường
+              $worksheet->getStyle("A{$row}:V{$row}")
+              ->getFill()
+              ->setFillType(Fill::FILL_SOLID)
+              ->getStartColor()->setARGB('C7C7C7');
+              $soThuTu=0;
+              foreach($so_lieu_can_bo_time as $sl_can_bo){
+                  $row++;
+                  $soThuTu++;
+                  // border cac o
+                  foreach($arrayApha as $apha){
+                      $worksheet->getStyle($apha.$row)
+                      ->getBorders()
+                      ->getAllBorders()
+                      ->setBorderStyle(Border::BORDER_THIN);
+                  }
+                  $worksheet->setCellValue("A{$row}",$soThuTu);
 
-        if($so_lieu_quan_ly_cua_co_so != null){
-            $worksheet->setCellValue('F9', $so_lieu_quan_ly_cua_co_so->tong_so_quan_ly);
-            $worksheet->setCellValue('G9', $so_lieu_quan_ly_cua_co_so->so_cb_quan_ly_nu);
-            $worksheet->setCellValue('H9', $so_lieu_quan_ly_cua_co_so->so_dan_toc);
-            $worksheet->setCellValue('I9', $so_lieu_quan_ly_cua_co_so->so_cb_giang_day);
-            $worksheet->setCellValue('J9', $so_lieu_quan_ly_cua_co_so->so_cb_da_boi_duong);
-            $worksheet->setCellValue('K9', $so_lieu_quan_ly_cua_co_so->so_danh_hieu);
-            $worksheet->setCellValue('L9', $so_lieu_quan_ly_cua_co_so->so_hieu_truong);
-            $worksheet->setCellValue('M9', $so_lieu_quan_ly_cua_co_so->so_hieu_pho);
-            $worksheet->setCellValue('N9', $so_lieu_quan_ly_cua_co_so->so_truong_khoa);
-            $worksheet->setCellValue('O9', $so_lieu_quan_ly_cua_co_so->so_pho_phong);
-            $worksheet->setCellValue('P9', $so_lieu_quan_ly_cua_co_so->so_to_truong);
-            $worksheet->setCellValue('Q9', $so_lieu_quan_ly_cua_co_so->so_trinh_do_tien_sy);
-            $worksheet->setCellValue('R9', $so_lieu_quan_ly_cua_co_so->so_trinh_do_thac_sy);
-            $worksheet->setCellValue('S9', $so_lieu_quan_ly_cua_co_so->so_trinh_do_dai_hoc);
-            $worksheet->setCellValue('T9', $so_lieu_quan_ly_cua_co_so->so_trinh_do_cao_dang);
-            $worksheet->setCellValue('U9', $so_lieu_quan_ly_cua_co_so->so_trinh_do_trung_cap);
-            $worksheet->setCellValue('V9', $so_lieu_quan_ly_cua_co_so->so_trinh_do_khac);
-        }
-       
-        $arrayApha=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V'];
-        foreach($arrayApha as $apha){
-            $worksheet->getStyle($apha.'9')
-            ->getBorders()
-            ->getAllBorders()
-            ->setBorderStyle(Border::BORDER_THIN);
-        }
-          
+                  $keyDanhDau = $this->danhDauloaiHinhCoSoSlQl($co_s->ma_loai_hinh_co_so);
+                  $worksheet->setCellValue($keyDanhDau.$row, 'x');
+                  // fill data
+                  $this->exportFillRow($worksheet, $row , $sl_can_bo);
+                  }
+           }
+
+        // if($so_lieu_quan_ly_cua_co_so != null){
+        //     $worksheet->setCellValue('F9', $so_lieu_quan_ly_cua_co_so->tong_so_quan_ly);
+        //     $worksheet->setCellValue('G9', $so_lieu_quan_ly_cua_co_so->so_cb_quan_ly_nu);
+        //     $worksheet->setCellValue('H9', $so_lieu_quan_ly_cua_co_so->so_dan_toc);
+        //     $worksheet->setCellValue('I9', $so_lieu_quan_ly_cua_co_so->so_cb_giang_day);
+        //     $worksheet->setCellValue('J9', $so_lieu_quan_ly_cua_co_so->so_cb_da_boi_duong);
+        //     $worksheet->setCellValue('K9', $so_lieu_quan_ly_cua_co_so->so_danh_hieu);
+        //     $worksheet->setCellValue('L9', $so_lieu_quan_ly_cua_co_so->so_hieu_truong);
+        //     $worksheet->setCellValue('M9', $so_lieu_quan_ly_cua_co_so->so_hieu_pho);
+        //     $worksheet->setCellValue('N9', $so_lieu_quan_ly_cua_co_so->so_truong_khoa);
+        //     $worksheet->setCellValue('O9', $so_lieu_quan_ly_cua_co_so->so_pho_phong);
+        //     $worksheet->setCellValue('P9', $so_lieu_quan_ly_cua_co_so->so_to_truong);
+        //     $worksheet->setCellValue('Q9', $so_lieu_quan_ly_cua_co_so->so_trinh_do_tien_sy);
+        //     $worksheet->setCellValue('R9', $so_lieu_quan_ly_cua_co_so->so_trinh_do_thac_sy);
+        //     $worksheet->setCellValue('S9', $so_lieu_quan_ly_cua_co_so->so_trinh_do_dai_hoc);
+        //     $worksheet->setCellValue('T9', $so_lieu_quan_ly_cua_co_so->so_trinh_do_cao_dang);
+        //     $worksheet->setCellValue('U9', $so_lieu_quan_ly_cua_co_so->so_trinh_do_trung_cap);
+        //     $worksheet->setCellValue('V9', $so_lieu_quan_ly_cua_co_so->so_trinh_do_khac);
+        // }
+        $ngayBatDau = date("d-m-Y", strtotime($fromDate));
+        $ngayDen = date("d-m-Y", strtotime($toDate));
+
         $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
+        $file_xuat_name="[{$ngayBatDau} - {$ngayDen}] File-xuat-so-lieu-can-bo-quan-ly.xlsx";
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-         header('Content-Disposition: attachment; filename="file-xuat.xlsx"');
-         $writer->save("php://output");
+        header('Content-Disposition: attachment; filename='.$file_xuat_name);
+        $writer->save("php://output");
 
     }
 
@@ -310,7 +382,7 @@ public function importError($fileRead,$duoiFile,$path){
 
     $writer = IOFactory::createWriter($spreadsheet2, "Xlsx"); 
     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    header('Content-Disposition: attachment; filename="error.xlsx"');
+    header('Content-Disposition: attachment; filename="Error-file-nhap-so-lieu-can-bo-quan-ly.xlsx"');
     $writer->save("php://output");
 } 
 

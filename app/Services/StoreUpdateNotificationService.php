@@ -53,7 +53,7 @@ class StoreUpdateNotificationService extends AppService
     }
 
     public function StoreUpdateBM($content){ 
-            $url= $content['route'].'?nam='.$content['nam'].'&dot='.$content['dot'];
+            $url= $content['route'].'?nam='.$content['nam'].'&dot='.$content['dot'].'&co_so_id='.$content['co_so_id'];
             $adminUsers =$this->tuVanHoTro->adminUsers();
             $notifiData = [];        
             foreach ($adminUsers as $user){

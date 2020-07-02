@@ -108,6 +108,6 @@ class HopTacQuocTeRepository extends BaseRepository implements HopTacQuocTeRepos
 
 	public function updateHopTacQuocTe($key,$arrayData){
 		return $this->model->where('id',$key)->update($arrayData);
-	}
-
+    }
+    
 }

@@ -326,7 +326,7 @@ class GiaoVienService extends AppService
 
         $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="file-form-nhap.xlsx"');
+        header('Content-Disposition: attachment; filename="File-nhap-quan-li-giao-vien.xlsx"');
         $writer->save("php://output");
     }
 
@@ -386,7 +386,7 @@ class GiaoVienService extends AppService
         }
         $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="file-xuat.xlsx"');
+        header('Content-Disposition: attachment; filename="File-xuat-quan-li-giao-vien.xlsx"');
         $writer->save("php://output");
     }
 
@@ -536,7 +536,7 @@ class GiaoVienService extends AppService
 
         $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet2, "Xlsx");
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="error.xlsx"');
+        header('Content-Disposition: attachment; filename="Error-file-nhap-quan-li-giao-vien.xlsx"');
         $writer->save("php://output");
     }
 }

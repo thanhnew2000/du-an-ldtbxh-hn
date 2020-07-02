@@ -176,4 +176,9 @@ class CoSoDaoTaoRepository extends BaseRepository implements CoSoDaoTaoRepositor
     {
         return DB::table('co_so_dao_tao')->where('id', $id)->first();
     }
+
+    public function getThongTinCoSo($co_so_id)
+    {
+       return $this->model->find($co_so_id);
+    }
 }

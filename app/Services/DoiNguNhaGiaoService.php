@@ -13,19 +13,23 @@ use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use Carbon\Carbon;
 use DB;
+use App\Services\StoreUpdateNotificationService;
 
 class DoiNguNhaGiaoService extends AppService
 {
     protected $csdtRepository;
     protected $doiNguNhaGiaoRepo;
+    protected $StoreUpdateNotificationService;
 
     public function __construct(
         CoSoDaoTaoRepositoryInterface $csdtRepository,
-        DoiNguNhaGiaoInterface $doiNguNhaGiaoRepo
+        DoiNguNhaGiaoInterface $doiNguNhaGiaoRepo,
+        StoreUpdateNotificationService $StoreUpdateNotificationService
     ) {
         parent::__construct();
         $this->csdtRepository = $csdtRepository;
         $this->doiNguNhaGiaoRepo = $doiNguNhaGiaoRepo;
+        $this->StoreUpdateNotificationService = $StoreUpdateNotificationService;
     }
 
     public function getRepository()
@@ -328,6 +332,13 @@ class DoiNguNhaGiaoService extends AppService
             $this->repository->insert($insertData);
         }
 
+        $thongTinCoSo = $this->csdtRepository->getThongTinCoSo($id_truong);
+        $bm = 'Đội ngũ nhà giáo';
+        $tencoso = $thongTinCoSo->ten;
+        $route = route('xuatbc.chi-tiet-theo-co-so',['co_so_id' => $getdata['co_so_id']]);
+        $this->StoreUpdateNotificationService->addContentUpExecl($year,$dot,$id_truong,count($insertData),count($updateData),$bm,$route,$tencoso);
+
+
         return true;
     }
 
@@ -335,8 +346,34 @@ class DoiNguNhaGiaoService extends AppService
         return $this->csdtRepository->getAll();
     }
 
-    public function store($data)
+    public function updateData($id, $request)
     {
-        return $this->doiNguNhaGiaoRepo->insert($data);
+        $attributes = $request->all();
+        unset($attributes['_token']);
+        $resurt = $this->repository->update($id, $attributes);
+        $dataFindId = $this->repository->findById($id);
+        $getdata = (array)$dataFindId;
+        $thongTinCoSo = $this->csdtRepository->getThongTinCoSo($getdata['co_so_id']);
+        if($resurt){         
+            $tieude = 'Cập nhật ( '.$thongTinCoSo->ten.' )';
+			$noidung = 'Cập nhật số liệu đội ngũ quản lý nhà giáo';
+			$route = route('xuatbc.chi-tiet-theo-co-so',['co_so_id' => $getdata['co_so_id']]);
+			$this->StoreUpdateNotificationService->addContentUp($getdata['nam'],$getdata['dot'],$getdata['co_so_id'],$tieude,$noidung,$route);
+        }
+        return $resurt;
+    }
+
+    public function store($getdata)
+    {
+        $returnData = $this->doiNguNhaGiaoRepo->insert($getdata);
+        if($returnData){
+            $thongTinCoSo = $this->csdtRepository->getThongTinCoSo($getdata['co_so_id']);
+            $tieude = 'Thêm mới ( '.$thongTinCoSo->ten.' )';
+            $noidung = 'Thêm mới số liệu đội ngũ quản lý nhà giáo';
+            $route = route('xuatbc.chi-tiet-theo-co-so',['co_so_id' => $getdata['co_so_id']]);
+            $this->StoreUpdateNotificationService->addContentUp($getdata['nam'],$getdata['dot'],$getdata['co_so_id'],$tieude,$noidung,$route);
+
+        }
+        return $returnData;
     }
 }

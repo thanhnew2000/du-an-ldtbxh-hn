@@ -97,23 +97,7 @@ class DaoTaoNgheChoThanhNienReponsitory extends BaseRepository implements DaoTao
 		$data = DB::table('nganh_nghe')->where('id', 'like', $id.'%')->where('ma_cap_nghe', $cap_nghe)->orderBy('ten_nganh_nghe')->get();
 		return $data;
 	}
-	public function getThongTinCoSo($coSoId)
-	{
-		$data = DB::table('co_so_dao_tao')
-		->where('co_so_dao_tao.id', '=', $coSoId)
-		->join('loai_hinh_co_so', 'co_so_dao_tao.ma_loai_hinh_co_so', '=', 'loai_hinh_co_so.id')
-		->join('devvn_quanhuyen', 'co_so_dao_tao.maqh', '=', 'devvn_quanhuyen.maqh')
-		->join('devvn_xaphuongthitran', 'co_so_dao_tao.xaid', '=', 'devvn_xaphuongthitran.xaid')
-		->select(
-					'co_so_dao_tao.ten',
-					'co_so_dao_tao.dia_chi',
-					'loai_hinh_co_so.loai_hinh_co_so',
-					'devvn_quanhuyen.name as ten_quan_huyen',
-					'devvn_xaphuongthitran.name as ten_xa_phuong'
-				)
-		->first();
-		return $data;
-    }
+
 
     public function getChiTietDaoTaoNgheThanhNien($coSoId,$limit,$queryData)
 	{
@@ -192,10 +176,10 @@ class DaoTaoNgheChoThanhNienReponsitory extends BaseRepository implements DaoTao
 		->where('thoi_gian_cap_nhat','>=',$fromDate)
 		->where('thoi_gian_cap_nhat','<=',$toDate)
 		->join('nganh_nghe','nganh_nghe.id','=','ket_qua_dao_tao_cho_thanh_nien.nghe_id')
+		->orderBy('nganh_nghe.id','desc')
 		->get();
 		return $data;
 	}
-
 	// thanhnv 6/26/2020 sửa model create update
 	public function createNgheThanhNien($arrayData){
 		return $this->model->insert($arrayData);

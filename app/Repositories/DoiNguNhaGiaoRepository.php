@@ -87,6 +87,8 @@ class DoiNguNhaGiaoRepository extends BaseRepository implements DoiNguNhaGiaoInt
         ->orderByDesc('so_lieu_doi_ngu_nha_giao.dot')->paginate($params['page_size']);
     }
 
+
+
     /* Danh sách ngành nghề theo ID cơ sở.
      * @author: phucnv
      * @created_at 2020-06-_ _

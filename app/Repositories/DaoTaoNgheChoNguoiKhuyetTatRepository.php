@@ -103,23 +103,7 @@ class DaoTaoNgheChoNguoiKhuyetTatRepository extends BaseRepository implements Da
 		return $data;
 	}
 
-	public function getThongTinCoSo($coSoId)
-	{
-		$data = DB::table('co_so_dao_tao')
-		->where('co_so_dao_tao.id', '=', $coSoId)
-		->join('loai_hinh_co_so', 'co_so_dao_tao.ma_loai_hinh_co_so', '=', 'loai_hinh_co_so.id')
-		->join('devvn_quanhuyen', 'co_so_dao_tao.maqh', '=', 'devvn_quanhuyen.maqh')
-		->join('devvn_xaphuongthitran', 'co_so_dao_tao.xaid', '=', 'devvn_xaphuongthitran.xaid')
-		->select(
-					'co_so_dao_tao.ten',
-					'co_so_dao_tao.dia_chi',
-					'loai_hinh_co_so.loai_hinh_co_so',
-					'devvn_quanhuyen.name as ten_quan_huyen',
-					'devvn_xaphuongthitran.name as ten_xa_phuong'
-				)
-		->first();
-		return $data;
-    }
+
 
     public function getChiTietDaoTaoNgheChoNguoiKhuyetTat($coSoId,$limit,$queryData)
 	{
@@ -187,11 +171,12 @@ class DaoTaoNgheChoNguoiKhuyetTatRepository extends BaseRepository implements Da
 		return $data;
 	}
 
-	public function getKhuyetTatCsNamDot($id_truong,$year,$dot){
-		$data =  DB::table('ket_qua_dao_tao_nguoi_khuyet_tat')->where('ket_qua_dao_tao_nguoi_khuyet_tat.co_so_id', '=', $id_truong)
-		->where('ket_qua_dao_tao_nguoi_khuyet_tat.nam','=',$year)
-		->where('ket_qua_dao_tao_nguoi_khuyet_tat.dot','=',$dot)
+	public function getKhuyetTatFromTo($id_truong, $fromDate,$toDate){
+		$data =  DB::table('ket_qua_dao_tao_nguoi_khuyet_tat')->where('ket_qua_dao_tao_nguoi_khuyet_tat.co_so_id', '=',$id_truong)
+		->where('thoi_gian_cap_nhat','>=',$fromDate)
+		->where('thoi_gian_cap_nhat','<=',$toDate)
 		->join('nganh_nghe','nganh_nghe.id','=','ket_qua_dao_tao_nguoi_khuyet_tat.nghe_id')
+		->orderBy('nganh_nghe.id','desc')
 		->get();
 		return $data;
 	}
