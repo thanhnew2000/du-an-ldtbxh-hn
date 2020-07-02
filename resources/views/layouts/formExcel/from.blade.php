@@ -19,7 +19,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                    <button type="submit"  onclick="closeModal('closeFileBieuMau')" class="btn btn-primary">Tải</a>
+                    <button type="submit"  onclick="closeModal()" class="btn btn-primary">Tải</a>
                 </div>
             </div>
         </div>
