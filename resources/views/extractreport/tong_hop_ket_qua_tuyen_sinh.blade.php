@@ -223,7 +223,6 @@
                             @endcan
                         </td>
                     </tr>
-
                       
                   @endforeach
                 </tbody>

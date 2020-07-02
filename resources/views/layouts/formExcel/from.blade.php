@@ -77,7 +77,7 @@
     </div>
 </form>
 
-    <form action="{{route($routeExportData)}}" id="" method="post" enctype="multipart/form-data">
+    <form action="{{route($routeExportData)}}" id="from_xuat_data" method="post" enctype="multipart/form-data">
         @csrf
         <div class="modal fade " id="moDalExportData" tabindex="-1" role="dialog"
             aria-labelledby="moDalLabel" aria-hidden="true">
