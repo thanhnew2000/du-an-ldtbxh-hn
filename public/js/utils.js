@@ -44,6 +44,14 @@ window.SystemUtil = {
     },
 
     changStatusField: function(element){
+                // let db = firebase.firestore();
+        // var jobskill_query = db.collection('testnoti').where('status','==',2);
+        // console.log(jobskill_query);
+        // jobskill_query.get().then(function(querySnapshot) {
+        // querySnapshot.forEach(function(doc) {
+        //     doc.ref.delete();
+        // });
+        // });
         let id = $(element).attr('data-notify-id');
         let url = $(element).attr('url');
         let db = firebase.firestore();
