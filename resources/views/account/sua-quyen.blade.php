@@ -57,7 +57,6 @@
             <div class="col-xl-6 px-2">
                 <div class="m-portlet">
                     <div class="m-portlet__body">
-
                         <h4>Quản lý tài khoản</h4>
                         <button type="button" class="btn btn-info btn-sm tick-untick-all-option">Chọn/bỏ chọn tất cả</button>
                     </div>
@@ -65,8 +64,29 @@
                         @foreach (config('permissions_setting.quan_ly_tai_khoan') as $key=> $item)
                         <div class="p-2 bd-highlight">
                             <label class="m-checkbox m-checkbox--air m-checkbox--state-brand">
-                                <input type="checkbox" @foreach ($dataRole as $item1)
-                                    {{$item1==$key ?  'checked': ''}} @endforeach value="{{$key}}"
+                                <input type="checkbox" @foreach ($dataRole as $item1)  
+                                {{$item1==$key ?  'checked': ''}} @endforeach value="{{$key}}"
+                                    name="permissions[]">
+                                {{$item}}
+                                <span></span>
+                            </label>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 px-2">
+                <div class="m-portlet">
+                    <div class="m-portlet__body">
+                        <h4>Quản lý quyền</h4>
+                        <button type="button" class="btn btn-info btn-sm tick-untick-all-option">Chọn/bỏ chọn tất cả</button>
+                    </div>
+                    <div class="">
+                        @foreach (config('permissions_setting.quan_ly_quyen') as $key=> $item)
+                        <div class="p-2 bd-highlight">
+                            <label class="m-checkbox m-checkbox--air m-checkbox--state-brand">
+                                <input type="checkbox" @foreach ($dataRole as $item1)  
+                                {{$item1==$key ?  'checked': ''}} @endforeach value="{{$key}}"
                                     name="permissions[]">
                                 {{$item}}
                                 <span></span>
@@ -357,13 +377,12 @@
                         <button type="button" class="btn btn-info btn-sm tick-untick-all-option">Chọn/bỏ chọn tất cả</button>
                     </div>
                     <div class="">
-                        @foreach (config('permissions_setting.ket_qua_tot_nghiep_dao_tao_nghe_voi_doanh_nghiep') as $key=>
-                        $item)
+                        @foreach (config('permissions_setting.ket_qua_tot_nghiep_dao_tao_nghe_voi_doanh_nghiep') as $key=> $item)
                         <div class="p-2 bd-highlight">
                             <label class="m-checkbox m-checkbox--air m-checkbox--state-brand">
                                 <input type="checkbox" @foreach ($dataRole as $item1) {{$item1==$key ?  'checked': ''}}
                                     @endforeach value="{{$key}}" name="permissions[]">{{$item}}
-                                <span></span>
+                                <span class=" d-flex justify-start-around"></span>
                             </label>
                         </div>
                         @endforeach
@@ -377,12 +396,12 @@
                         <button type="button" class="btn btn-info btn-sm tick-untick-all-option">Chọn/bỏ chọn tất cả</button>
                     </div>
                     <div class="">
-                        @foreach (config('permissions_setting.ket_qua_tot_nghiep_dao_tao_nghe_voi_doanh_nghiep') as $key=>$item)
+                        @foreach (config('permissions_setting.ket_qua_tuyen_sinh_dao_tao_nghe_voi_doanh_nghiep') as $key=> $item)
                         <div class="p-2 bd-highlight">
                             <label class="m-checkbox m-checkbox--air m-checkbox--state-brand">
                                 <input type="checkbox" @foreach ($dataRole as $item1) {{$item1==$key ?  'checked': ''}}
                                     @endforeach value="{{$key}}" name="permissions[]">{{$item}}
-                                <span class=""></span>
+                                <span class=" d-flex justify-start-around"></span>
                             </label>
                         </div>
                         @endforeach
@@ -440,7 +459,7 @@
                         <div class="p-2 bd-highlight">
                             <label class="m-checkbox m-checkbox--air m-checkbox--state-brand">
                                 <input type="checkbox" @foreach ($dataRole as $item1) {{$item1==$key ?  'checked': ''}}
-                                    @endforeach value="{{$key}}" name="permissions[]">{{$item}}
+                                @endforeach value="{{$key}}" name="permissions[]">{{$item}}
                                 <span></span>
                             </label>
                         </div>
@@ -465,7 +484,6 @@
                         </div>
                         @endforeach
                     </div>
-            
                 </div>
             </div>
             <div class="col-xl-6 px-2">
@@ -485,7 +503,25 @@
                         </div>
                         @endforeach
                     </div>
-            
+                </div>
+            </div>
+            <div class="col-xl-6 px-2">
+                <div class="m-portlet">
+                    <div class="m-portlet__body">
+                        <h4>Quản lý phê duyệt</h4>
+                        <button type="button" class="btn btn-info btn-sm tick-untick-all-option">Chọn/bỏ chọn tất cả</button>
+                    </div>
+                    <div class="">
+                        @foreach (config('permissions_setting.quan_ly_phe_duyet') as $key=> $item)
+                        <div class="p-2 bd-highlight">
+                            <label class="m-checkbox m-checkbox--air m-checkbox--state-brand">
+                                <input type="checkbox" @foreach ($dataRole as $item1) {{$item1==$key ?  'checked': ''}}
+                                    @endforeach value="{{$key}}" name="permissions[]">{{$item}}
+                                <span></span>
+                            </label>
+                        </div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
