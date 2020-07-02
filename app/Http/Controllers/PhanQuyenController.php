@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Requests\PhanQuyen\StorePhanQuyen;
 use App\Http\Requests\PhanQuyen\UpdatePhanQuyen;
 use Spatie\Permission\Models\Permission;
@@ -23,20 +24,11 @@ class PhanQuyenController extends Controller
 
     public function getQuyen(Request $request)
     {
-        $data = $this->PhanQuyenRepository->all();
+        $params = $request->all();
+        $data = $this->PhanQuyenRepository->getQuyen($params);
         $role = $request->has('role') ? $request->role : null;
-        $modelRole = DB::table('users')
-        ->join('model_has_roles', 'users.id', '=', 'model_has_role.model_id')
-        ->select('users.*','model_has_roles.role_id');
-        // dd($modelRole);
         $roleList = Role::all();
-        // dd($roleList);
-
-        if(!empty($role)){
-            $modelRole->where('model_has_roles.role_id', '=', $role);
-        }
-
-        return view('account.phan_quyen_tai_khoan', compact('data','role','modelRole','roleList'));
+        return view('account.phan_quyen_tai_khoan', compact('data','role','roleList'));
     }
 
     public function themQuyen()

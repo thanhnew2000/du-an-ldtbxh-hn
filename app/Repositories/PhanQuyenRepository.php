@@ -28,4 +28,14 @@ class PhanQuyenRepository extends AppRepository
     {
         return Role::class;
     }
+
+
+    public function getQuyen($params)
+    {
+       $query = $this->model::query();
+        if(isset($params['role']) && $params['role'] != null){
+            $query->where('id','=',$params['role']);
+        }
+        return $query->get();
+    }
 }

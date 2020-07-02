@@ -79,7 +79,6 @@
                         @foreach(config('common.paginate_size.list') as $size)
                         <option @if($params['page_size']==$size) selected @endif value="{{$size}}">{{$size}}</option>
                         @endforeach
-
                     </select>
                 </div>
             </div>

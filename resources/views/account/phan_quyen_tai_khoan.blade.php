@@ -28,8 +28,8 @@
                                 <div class="col-lg-8">
                                     <select name="role" id="role" class="form-control ">
                                         <option value="" selected>All</option>
-                                        @foreach ($roleList as $items)
-                                            <option value="{{ $items->id }}" @if($items->id == $role) selected @endif >{{ $items->name }}</option>
+                                        @foreach($roleList as $item)
+                                        <option value="{{$item->id}}" @if($item->id == $role) selected @endif>{{$item->name}}</option>                                       
                                         @endforeach
                                     </select>
                                 </div>
@@ -47,17 +47,7 @@
         </form>
     </div>
     <div class="m-portlet">
-        <div class="m-portlet__body">
-            <div class="col-12 form-group m-form__group d-flex justify-content-end">
-                <label class="col-lg-2 col-form-label">Kích thước:</label>
-                <div class="col-lg-2">
-                    <select class="form-control" id="page-size">
-
-
-                    </select>
-                </div>
-            </div>
-
+        <div class="m-portlet__body">   
             <table class="table m-table m-table--head-bg-brand">
                 <thead>
                     <th>STT</th>
@@ -77,7 +67,7 @@
                         <td>
                             @can('sua_quyen')
                                 <a class="btn btn-primary btn-sm" 
-                                href="{{ route('account.sua-quyen',['id'=>$role->id]) }}">Sửa
+                                    href="{{ route('account.sua-quyen',['id'=>$role->id]) }}">Sửa
                                 </a>
                             @endcan
                         </td>
@@ -96,19 +86,4 @@
     </div>
 
 </div>
-@endsection
-@section('script')
-<script>
-    $(document).ready(function () {
-        $('#page-size').change(function () {
-         
-            var role = $('[name="role"]').val();
-            var reloadUrl =
-                `${status}&role`;
-            window.location.href = reloadUrl;
-        });
-
-    });
-</script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 @endsection

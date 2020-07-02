@@ -40,10 +40,9 @@ class AccountController extends Controller
             ->join('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
             ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
             ->select(   'users.*',
-                                DB::raw('co_so_dao_tao.ten as ten'),
-
-                                DB::raw('model_has_roles.role_id as user_role'),
-                                DB::raw('roles.name as role_name'));
+                        DB::raw('co_so_dao_tao.ten as ten'),
+                        DB::raw('model_has_roles.role_id as user_role'),
+                        DB::raw('roles.name as role_name'));
 
         if(!empty($keyword)){
             $userQuery->where(function ($query) use ($keyword) {
