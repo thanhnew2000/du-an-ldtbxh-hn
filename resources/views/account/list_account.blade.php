@@ -94,7 +94,7 @@
                     <th>Trạng thái</th>
                     <th>
                         @can('them_tai_khoan')
-                        <a href="{{ route('account.tao-tk') }}" class="btn btn-success btn-sm">Thêm mới</a>
+                        <a target="_blank" href="{{ route('account.tao-tk') }}" class="btn btn-success btn-sm">Thêm mới</a>
                         @endcan
                     </th>
                 </thead>
@@ -147,7 +147,7 @@
                         @endcan
                         <td>
                             @can('sua_tai_khoan')
-                            <a class="btn btn-primary btn-sm"
+                            <a target="_blank" class="btn btn-primary btn-sm"
                                 href="{{ route('account.edit',['id'=>$user->id]) }}">Sửa</a>
                             @endcan
                         </td>
