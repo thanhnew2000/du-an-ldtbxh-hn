@@ -17,24 +17,28 @@ use PhpOffice\PhpSpreadsheet\Style\Protection;
 use Carbon\Carbon;
 use Storage;
 use App\Services\StoreUpdateNotificationService;
+use App\Repositories\CoSoDaoTaoRepositoryInterface;
 
 class DaoTaoNgheVoiDoanhNghiepService extends AppService
 {
     protected $LoaiHinhCoSoRepositoryInterface;
     protected $DaoTaoNgheChoThanhNienReponsitory;
     protected $StoreUpdateNotificationService;
+    protected $CoSoDaoTaoRepository;
     use ExcelTraitService;
 
     public function __construct(
         LoaiHinhCoSoRepositoryInterface $loaiHinhCoSoRepository,
         SoLieuTuyenSinhInterface $soLieuTuyenSinhRepository,
-        StoreUpdateNotificationService $StoreUpdateNotificationService
+        StoreUpdateNotificationService $StoreUpdateNotificationService,
+        CoSoDaoTaoRepositoryInterface $coSoDaoTao
 
     ) {
         parent::__construct();
         $this->loaiHinhCoSoRepository = $loaiHinhCoSoRepository;
         $this->soLieuTuyenSinhRepository = $soLieuTuyenSinhRepository;
         $this->StoreUpdateNotificationService = $StoreUpdateNotificationService;
+        $this ->CoSoDaoTaoRepository = $coSoDaoTao;
     }
 
     public function getRepository()
@@ -112,7 +116,7 @@ class DaoTaoNgheVoiDoanhNghiepService extends AppService
 
      public function getThongTinCoSo($coSoId)
      {
-         return  $this->repository->getThongTinCoSo($coSoId);
+        return $this->CoSoDaoTaoRepository->getThongTinCoSo($coSoId);
      }
 
      public function show($coSoId, $limit, $params)
@@ -135,7 +139,7 @@ class DaoTaoNgheVoiDoanhNghiepService extends AppService
         $resurt = $this->repository->update($id, $attributes);
         $dataFindId = $this->repository->findById($id);
         $getdata = (array)$dataFindId;
-        $thongTinCoSo = $this->repository->getThongTinCoSo($getdata['co_so_id']);
+        $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($getdata['co_so_id']);
         if($resurt){         
             $tieude = 'Cập nhật ( '.$thongTinCoSo->ten.' )';
 			$noidung = 'Cập nhật số liệu đạo tạo nghề với doanh nghiệp';
@@ -155,7 +159,7 @@ class DaoTaoNgheVoiDoanhNghiepService extends AppService
         unset($getdata['_token']);      
         $data = $this->repository->store($getdata);
         if($data){
-            $thongTinCoSo = $this->repository->getThongTinCoSo($getdata['co_so_id']);
+            $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($getdata['co_so_id']);
             $tieude = 'Thêm mới ( '.$thongTinCoSo->ten.' )';
             $noidung = 'Thêm mới số liệu đào tạo nghề với doanh nghiệp';
             $route = route('xuatbc.dao-tao-nghe-doanh-nghiep.show',['id' => $getdata['co_so_id']]);
@@ -372,7 +376,8 @@ class DaoTaoNgheVoiDoanhNghiepService extends AppService
                 //    $this->repository->createNgheVoiDoanhNghiep($insertData);
                 }
 
-                $thongTinCoSo = $this->repository->getThongTinCoSo($id_truong);
+                
+                $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($id_truong);
                 $bm = 'Đào tạo nghề với doanh nghiệp';
                 $tencoso = $thongTinCoSo->ten;
                 $route = route('xuatbc.dao-tao-nghe-doanh-nghiep.show',['id' => $id_truong]);

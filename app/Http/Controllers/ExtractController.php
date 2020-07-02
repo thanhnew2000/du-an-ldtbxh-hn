@@ -211,7 +211,7 @@ class ExtractController extends Controller
 
         $dateTime = Carbon::now();
         $request->request->set('updated_at', $dateTime->format('Y-m-d H:i:s'));
-        $this->DoiNguNhaGiaoService->update($id, $request);
+        $this->DoiNguNhaGiaoService->updateData($id, $request);
 
         return redirect()->route('xuatbc.chi-tiet-theo-co-so',['co_so_id' => $data->co_so_id])->with(['success'=>'Cập nhật thành công !']);
     }
@@ -474,7 +474,7 @@ class ExtractController extends Controller
 
         $dateTime = Carbon::now();
         $request->request->set('thoi_gian_cap_nhat', $dateTime->format('Y-m-d H:i:s'));
-        $this->HopTacQuocTeService->update($id,$request);
+        $this->HopTacQuocTeService->updateData($id,$request);
         return redirect()->route('xuatbc.chi-tiet-ds-hop-tac-qte',['co_so_id' => $data->co_so_id])->with(['success'=> 'thêm thành công']);
     }
 
@@ -608,7 +608,7 @@ class ExtractController extends Controller
 
         $dateTime = Carbon::now();
         $request->request->set('thoi_gian_cap_nhat', $dateTime->format('Y-m-d H:i:s'));
-        $this->ChiTieuTuyenSinhService->update($id,$request);
+        $this->ChiTieuTuyenSinhService->updateData($id,$request);
         return redirect()->route('xuatbc.chi-tiet-dang-ky-chi-tieu-tuyen-sinh',['co_so_id' => $data->co_so_id])->with(['success'=>'Cập nhật thành công !']);
     }
 

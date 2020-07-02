@@ -153,4 +153,6 @@ class ChiTieuTuyenSinhRepository extends BaseRepository implements ChiTieuTuyenS
     {
         return $this->model->create($data);
     }
+
+
 }

@@ -134,7 +134,7 @@ class XayDungChuongTrinhGiaoTrinhController extends Controller
 
         $dateTime = Carbon::now();
         $request->request->set('thoi_gian_cap_nhat', $dateTime->format('Y-m-d H:i:s'));
-        $this->XayDungChuongTrinhGiaoTrinhService->update($id,$request);
+        $this->XayDungChuongTrinhGiaoTrinhService->updateData($id,$request);
         return redirect()->route('xuatbc.show-ds-xd-giao-trinh',['co_so_id' => $data->co_so_id])->with(['success'=>'Cập nhật thành công !']);
     }
 

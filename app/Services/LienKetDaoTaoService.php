@@ -15,18 +15,26 @@ use PhpOffice\PhpSpreadsheet\Style\Style;
 use Carbon\Carbon;
 use GuzzleHttp\Psr7\Request;
 use Storage;
-
+use App\Services\StoreUpdateNotificationService;
+use App\Repositories\CoSoDaoTaoRepositoryInterface;
 
 class LienKetDaoTaoService extends AppService
 {
     protected $SoLieuTuyenSinhInterface;
+    protected $StoreUpdateNotificationService;
+    protected $CoSoDaoTaoRepository;
     use ExcelTraitService;
 
     public function __construct(
-        SoLieuTuyenSinhInterface $soLieuTuyenSinhRepository
+        SoLieuTuyenSinhInterface $soLieuTuyenSinhRepository,
+        StoreUpdateNotificationService $StoreUpdateNotificationService,
+        CoSoDaoTaoRepositoryInterface $coSoDaoTao
     ) {
         parent::__construct();
         $this->soLieuTuyenSinhRepository = $soLieuTuyenSinhRepository;
+        $this->StoreUpdateNotificationService = $StoreUpdateNotificationService;
+        $this ->CoSoDaoTaoRepository = $coSoDaoTao;
+
     }
     public function getRepository()
     {
@@ -103,6 +111,61 @@ class LienKetDaoTaoService extends AppService
         return $data;
     }
 
+    public function updateData($id, $request,$bac_nghe)
+    {
+        $attributes = $request->all();
+        unset($attributes['_token']);
+        $resurt = $this->repository->update($id, $attributes);
+        $dataFindId = $this->repository->findById($id);
+        $getdata = (array)$dataFindId;
+        $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($getdata['co_so_id']);
+        if($resurt){         
+            $tieude = 'Cập nhật ( '.$thongTinCoSo->ten.' )';
+            if ($bac_nghe == 6) {
+                $noidung = 'Cập nhật số liệu liên kết đào tạo cao đẳng';
+                $route = route('xuatbc.chi-tiet-lien-ket-dao-tao', ['co_so_id' => $getdata['co_so_id'],'bac_nghe'=>$id]);
+            }
+            if ($bac_nghe == 5) {
+                $noidung = 'Cập nhật số liệu liên kết đào tạo trung cấp';
+                $route = route('xuatbc.chi-tiet-lien-ket-dao-tao', ['co_so_id' => $getdata['co_so_id'],'bac_nghe'=>$id]);
+
+            } 
+            if ($bac_nghe == 0) {
+                $noidung = 'Cập nhật số liệu liên kết đào tạo ';
+                $route = route('xuatbc.chi-tiet-lien-ket-dao-tao', ['co_so_id' => $getdata['co_so_id'],'bac_nghe'=>$id]);
+            }
+			$this->StoreUpdateNotificationService->addContentUp($getdata['nam'],$getdata['dot'],$getdata['co_so_id'],$tieude,$noidung,$route);
+        }
+        return $resurt;
+    }
+
+    public function postthemlienketdaotao($getdata,$id)
+    {
+        unset($getdata['_token']);
+        $data = $this->repository->postthemlienketdaotao($getdata);
+        if($data){
+            $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($getdata['co_so_id']);
+            $tieude = 'Thêm mới ( '.$thongTinCoSo->ten.' )';
+            if ($id == 6) {
+                $noidung = 'Thêm mới số liệu liên kết đào tạo cao đẳng';
+                $route = route('xuatbc.chi-tiet-lien-ket-dao-tao', ['co_so_id' => $getdata['co_so_id'],'bac_nghe'=>$id]);
+            }
+            if ($id == 5) {
+                $noidung = 'Thêm mới số liệu liên kết đào tạo trung cấp';
+                $route = route('xuatbc.chi-tiet-lien-ket-dao-tao', ['co_so_id' => $getdata['co_so_id'],'bac_nghe'=>$id]);
+
+            } 
+            if ($id == 0) {
+                $noidung = 'Thêm mới số liệu liên kết đào tạo ';
+                $route = route('xuatbc.chi-tiet-lien-ket-dao-tao', ['co_so_id' => $getdata['co_so_id'],'bac_nghe'=>$id]);
+            }
+           
+            $this->StoreUpdateNotificationService->addContentUp($getdata['nam'],$getdata['dot'],$getdata['co_so_id'],$tieude,$noidung,$route);
+
+        }
+        return $data;
+    }
+
     public function getCheckTonTaiLienKetDaoTao($data, $requestParams, $id)
     {
         $checkResult = $this->getSoLieu($data);
@@ -122,7 +185,7 @@ class LienKetDaoTaoService extends AppService
         }
 
         if (!isset($checkResult)) {
-            $data = $this->repository->postthemlienketdaotao($requestParams);
+            $data = $this->postthemlienketdaotao($requestParams,$id);
             if ($id == 6) {
                 $route = route('xuatbc.tong-hop-lien-ket-dao-tao-cao-dang', ['id' => $id]);
             }

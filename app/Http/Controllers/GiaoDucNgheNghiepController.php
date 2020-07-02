@@ -156,7 +156,7 @@ class GiaoDucNgheNghiepController extends Controller
     public function update(UpdateRequest $request, $id)
     {
 
-        $this->GiaoDucNgheNghiepService->update($id, $request);
+        $this->GiaoDucNgheNghiepService->updateData($id, $request);
         return redirect()->route('xuatbc.quan-ly-giao-duc-nghe-nghiep')->with('thongbao', 'Sửa số liệu thành công');
     }
 
