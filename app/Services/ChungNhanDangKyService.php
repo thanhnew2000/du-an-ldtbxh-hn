@@ -39,4 +39,7 @@ class ChungNhanDangKyService extends AppService
     {
         return $this->repository->xoaNgheTrongGiayPhep($params);
     }
+    public function getTongSoTuyenSinhTheoNghe($params){
+        return $this->repository->getTongSoTuyenSinhTheoNghe($params);
+    }
 }
