@@ -116,4 +116,5 @@ class XayDungChuongTrinhGiaoTrinhReponsitory extends BaseRepository implements X
     {
         return $this->model->create($data);
     }
+
 }

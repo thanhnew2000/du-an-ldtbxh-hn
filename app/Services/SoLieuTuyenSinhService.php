@@ -17,6 +17,7 @@ use PhpOffice\PhpSpreadsheet\Style\Protection;
 use Carbon\Carbon;
 use Auth;
 use Storage;
+use App\Repositories\CoSoDaoTaoRepositoryInterface;
 
 
 class SoLieuTuyenSinhService extends AppService
@@ -24,15 +25,18 @@ class SoLieuTuyenSinhService extends AppService
     protected $loaiHinhCoSoRepository;
     protected $soLieuTuyenSinhRepository;
     protected $StoreUpdateNotificationService;
+    protected $CoSoDaoTaoRepository;
     use ExcelTraitService;
 
     public function __construct(
         LoaiHinhCoSoRepositoryInterface $loaiHinhCoSoRepository,
-        StoreUpdateNotificationService $StoreUpdateNotificationService
+        StoreUpdateNotificationService $StoreUpdateNotificationService,
+        CoSoDaoTaoRepositoryInterface $coSoDaoTao
     ) {
         parent::__construct();
         $this->loaiHinhCoSoRepository = $loaiHinhCoSoRepository;
         $this->StoreUpdateNotificationService = $StoreUpdateNotificationService;
+        $this ->CoSoDaoTaoRepository = $coSoDaoTao;
         // $this->soLieuTuyenSinhRepository = $soLieuTuyenSinhRepository;
     }
 
@@ -49,7 +53,6 @@ class SoLieuTuyenSinhService extends AppService
 
     public function getSoLuongTuyenSinh($params = [], $limit)
     {
-       
         $queryData = [];
         $queryData['dot'] = isset($params['dot']) ? $params['dot'] : (Carbon::now()->month < 6 ? 1 : 2);
         $queryData['nam'] = isset($params['nam']) ? $params['nam'] : Carbon::now()->year;
@@ -90,7 +93,7 @@ class SoLieuTuyenSinhService extends AppService
         
         $data = $this->repository->postthemsolieutuyensinh($getdata);
         if($data){
-            $thongTinCoSo = $this->repository->getThongTinCoSo($getdata['co_so_id']);
+            $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($getdata['co_so_id']);
             $tieude = 'Thêm mới ( '.$thongTinCoSo->ten.' )';
             $noidung = 'Thêm mới số liệu tuyển sinh';
             $route = route('chitietsolieutuyensinh',['co_so_id' => $getdata['co_so_id']]);
@@ -112,7 +115,7 @@ class SoLieuTuyenSinhService extends AppService
 		$resurt = $this->repository->updateData($id, $attributes);
         $dataFindId = $this->repository->findById($id);
         $getdata = (array)$dataFindId;
-        $thongTinCoSo = $this->repository->getThongTinCoSo($getdata['co_so_id']);
+        $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($getdata['co_so_id']);
         if($resurt){         
             $tieude = 'Cập nhật ( '.$thongTinCoSo->ten.' )';
 			$noidung = 'Cập nhật số liệu tuyển sinh';
@@ -194,7 +197,7 @@ class SoLieuTuyenSinhService extends AppService
 
     public function getThongTinCoSo($coSoId)
     {
-        return  $this->repository->getThongTinCoSo($coSoId);
+        return  $this->CoSoDaoTaoRepository->getThongTinCoSo($coSoId);
     }
     public function getNgheTheoCapBac($id, $cap_nghe)
     {
@@ -293,7 +296,7 @@ class SoLieuTuyenSinhService extends AppService
 
         $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="file-form-nhap.xlsx"');
+        header('Content-Disposition: attachment; filename="File-nhap-so-lieu-tuyen-sinh.xlsx"');
         $writer->save("php://output");
     }
 
@@ -366,12 +369,15 @@ class SoLieuTuyenSinhService extends AppService
                     $this->exportFillRow($worksheet, $row , $ts);
                     }
              }
-    
+
+        $ngayBatDau = date("d-m-Y", strtotime($fromDate));
+        $ngayDen = date("d-m-Y", strtotime($toDate));
+
         $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
+        $file_xuat_name="[{$ngayBatDau} - {$ngayDen}] File-xuat-so-lieu-tuyen-sinh.xlsx";
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-         header('Content-Disposition: attachment; filename="file-xuat.xlsx"');
-         $writer->save("php://output");
-    
+        header('Content-Disposition: attachment; filename='.$file_xuat_name);
+        $writer->save("php://output");
     }
 
 
@@ -490,7 +496,7 @@ class SoLieuTuyenSinhService extends AppService
                     $this->repository->createTuyenSinh($insertData);
                     // DB::table('tuyen_sinh')->insert($insertData);
                 }  
-                $thongTinCoSo = $this->repository->getThongTinCoSo($id_truong);
+                $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($id_truong);
                 $bm = 'Tuyển sinh';
                 $tencoso = $thongTinCoSo->ten;
                 $route = route('chitietsolieutuyensinh',['co_so_id' => $id_truong]);
@@ -528,10 +534,9 @@ class SoLieuTuyenSinhService extends AppService
     
         $writer = IOFactory::createWriter($spreadsheet2, "Xlsx"); 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="error.xlsx"');
+        header('Content-Disposition: attachment; filename="Error-file-nhap-so-lieu-tuyen-sinh.xlsx"');
         $writer->save("php://output");
     } 
     
 }
-
  ?>

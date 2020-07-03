@@ -11,17 +11,25 @@ use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
 use Storage;
+use App\Services\StoreUpdateNotificationService;
+use App\Repositories\CoSoDaoTaoRepositoryInterface;
 
 class HopTacQuocTeService extends AppService
 {
     protected $SoLieuTuyenSinhInterface;
+    protected $StoreUpdateNotificationService;
+    protected $CoSoDaoTaoRepository;
     use ExcelTraitService;
 
     public function __construct(
-        SoLieuTuyenSinhInterface $soLieuTuyenSinhRepository
+        SoLieuTuyenSinhInterface $soLieuTuyenSinhRepository,
+        StoreUpdateNotificationService $StoreUpdateNotificationService,
+        CoSoDaoTaoRepositoryInterface $coSoDaoTao
     ) {
         parent::__construct();
         $this->soLieuTuyenSinhRepository = $soLieuTuyenSinhRepository;
+        $this->StoreUpdateNotificationService = $StoreUpdateNotificationService;
+        $this ->CoSoDaoTaoRepository = $coSoDaoTao;
     }
 
     public function getRepository()
@@ -104,7 +112,7 @@ class HopTacQuocTeService extends AppService
 
         $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="file-form-nhap.xlsx"');
+        header('Content-Disposition: attachment; filename="File-nhap-hop-tac-quoc-te.xlsx"');
         $writer->save("php://output");
 
     }
@@ -170,9 +178,10 @@ class HopTacQuocTeService extends AppService
             ->getFill()
             ->setFillType(Fill::FILL_SOLID)
             ->getStartColor()->setARGB('C7C7C7');
-
+            $soThuTu=0;
             foreach($hop_tac_quoc_te_theo_cs as $htqt){
                 $row++;
+                $soThuTu++;
                 // border cac o
                 foreach($arrayAphabe as $apha){
                     $worksheet->getStyle($apha.$row)
@@ -180,15 +189,20 @@ class HopTacQuocTeService extends AppService
                     ->getAllBorders()
                     ->setBorderStyle(Border::BORDER_THIN);
                 }
+                $worksheet->setCellValue('A'.$row,$soThuTu);
                 // fill data
                 $this->exportFillRow($worksheet, $row , $htqt);
                 }
 
          }
-         $writer =IOFactory::createWriter($spreadsheet, "Xlsx");
-         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-         header('Content-Disposition: attachment; filename="file-xuat.xlsx"');
-         $writer->save("php://output");
+        $ngayBatDau = date("d-m-Y", strtotime($fromDate));
+        $ngayDen = date("d-m-Y", strtotime($toDate));
+
+        $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
+        $file_xuat_name="[{$ngayBatDau} - {$ngayDen}] File-xuat-hop-tac-quoc-te.xlsx";
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename='.$file_xuat_name);
+        $writer->save("php://output");
     }
 
     public function importFile($fileRead, $duoiFile, $year, $dot){
@@ -272,6 +286,12 @@ class HopTacQuocTeService extends AppService
 
                     //  DB::table('ket_qua_hop_tac_quoc_te')->insert($insertData);
                  }
+                $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($id_truong);
+                $bm = 'Hợp tác quốc tế';
+                $tencoso = $thongTinCoSo->ten;
+                $route = route('xuatbc.chi-tiet-ds-hop-tac-qte',['co_so_id' => $id_truong]);
+                $this->StoreUpdateNotificationService->addContentUpExecl($year,$dot,$id_truong,count($insertData),count($updateData),$bm,$route,$tencoso);
+
 
                   $message='ok';
                   return $message;
@@ -310,12 +330,40 @@ class HopTacQuocTeService extends AppService
 
         $writer = IOFactory::createWriter($spreadsheet2, "Xlsx");
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="error.xlsx"');
+        header('Content-Disposition: attachment; filename="Error-file-nhap-hop-tac-quoc-te.xlsx"');
         $writer->save("php://output");
     }
 
     public function store(array $data = [])
     {
-        return $this->repository->createHopTacQuocTe($data);
+        $returnData = $this->repository->createHopTacQuocTe($data);
+
+        if($returnData){
+            $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($getdata['co_so_id']);
+            $tieude = 'Thêm mới ( '.$thongTinCoSo->ten.' )';
+            $noidung = 'Thêm mới số liệu hợp tác quốc tế';
+            $route = route('xuatbc.chi-tiet-ds-hop-tac-qte',['co_so_id' => $data['co_so_id']]);
+            $this->StoreUpdateNotificationService->addContentUp($data['nam'],$data['dot'],$data['co_so_id'],$tieude,$noidung,$route);
+
+        }
+        return $returnData;
     }
+
+    public function updateData($id, $request)
+    {
+        $attributes = $request->all();
+        unset($attributes['_token']);
+        $resurt = $this->repository->update($id, $attributes);
+        $dataFindId = $this->repository->findById($id);
+        $getdata = (array)$dataFindId;
+        $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($getdata['co_so_id']);
+        if($resurt){         
+            $tieude = 'Cập nhật ( '.$thongTinCoSo->ten.' )';
+			$noidung = 'Cập nhật số liệu hợp tác quốc tế';
+            $route = route('xuatbc.chi-tiet-ds-hop-tac-qte',['co_so_id' => $getdata['co_so_id']]);
+			$this->StoreUpdateNotificationService->addContentUp($getdata['nam'],$getdata['dot'],$getdata['co_so_id'],$tieude,$noidung,$route);
+        }
+        return $resurt;
+    }
+
 }

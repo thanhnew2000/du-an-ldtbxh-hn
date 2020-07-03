@@ -211,7 +211,7 @@ class ExtractController extends Controller
 
         $dateTime = Carbon::now();
         $request->request->set('updated_at', $dateTime->format('Y-m-d H:i:s'));
-        $this->DoiNguNhaGiaoService->update($id, $request);
+        $this->DoiNguNhaGiaoService->updateData($id, $request);
 
         return redirect()->route('xuatbc.chi-tiet-theo-co-so',['co_so_id' => $data->co_so_id])->with(['success'=>'Cập nhật thành công !']);
     }
@@ -474,7 +474,7 @@ class ExtractController extends Controller
 
         $dateTime = Carbon::now();
         $request->request->set('thoi_gian_cap_nhat', $dateTime->format('Y-m-d H:i:s'));
-        $this->HopTacQuocTeService->update($id,$request);
+        $this->HopTacQuocTeService->updateData($id,$request);
         return redirect()->route('xuatbc.chi-tiet-ds-hop-tac-qte',['co_so_id' => $data->co_so_id])->with(['success'=> 'thêm thành công']);
     }
 
@@ -608,7 +608,7 @@ class ExtractController extends Controller
 
         $dateTime = Carbon::now();
         $request->request->set('thoi_gian_cap_nhat', $dateTime->format('Y-m-d H:i:s'));
-        $this->ChiTieuTuyenSinhService->update($id,$request);
+        $this->ChiTieuTuyenSinhService->updateData($id,$request);
         return redirect()->route('xuatbc.chi-tiet-dang-ky-chi-tieu-tuyen-sinh',['co_so_id' => $data->co_so_id])->with(['success'=>'Cập nhật thành công !']);
     }
 
@@ -811,9 +811,15 @@ class ExtractController extends Controller
     }
     public function exportDatabm4(Request $request){
         $listCoSoId = $request->truong_id;
-        $nam_muon_xuat = $request->nam_muon_xuat;
-        $dot_muon_xuat = $request->dot_muon_xuat;
-        $this->QlsvService->exportData($listCoSoId ,$nam_muon_xuat,$dot_muon_xuat);
+        $dateFrom = $request->dateFrom;
+        $dateTo = $request->dateTo;
+
+        $changeFrom = strtotime($dateFrom);
+        $fromDate = date("Y-m-d", $changeFrom);
+
+        $changeTo = strtotime($dateTo);
+        $toDate = date("Y-m-d", $changeTo);
+        $this->QlsvService->exportData($listCoSoId, $fromDate, $toDate);
     }
     public function importFilebm4(Request $request){
         $dot=$request->dot;

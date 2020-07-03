@@ -136,7 +136,8 @@ class ChiTieuTuyenSinhRepository extends BaseRepository implements ChiTieuTuyenS
 		$data = DB::table('dang_ki_chi_tieu_tuyen_sinh')->where('dang_ki_chi_tieu_tuyen_sinh.co_so_id', '=',$id_truong)
 		->where('thoi_gian_cap_nhat','>=',$fromDate)
 		->where('thoi_gian_cap_nhat','<=',$toDate)
-		->join('nganh_nghe','nganh_nghe.id','=','dang_ki_chi_tieu_tuyen_sinh.nghe_id')
+        ->join('nganh_nghe','nganh_nghe.id','=','dang_ki_chi_tieu_tuyen_sinh.nghe_id')
+		->orderBy('nganh_nghe.id','desc')
 		->get();
 		return $data;
     }
@@ -153,4 +154,6 @@ class ChiTieuTuyenSinhRepository extends BaseRepository implements ChiTieuTuyenS
     {
         return $this->model->create($data);
     }
+
+
 }

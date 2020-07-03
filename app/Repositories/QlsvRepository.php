@@ -198,5 +198,17 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
 	}
 	public function updateQlSinhVienDangTheoHoc($key,$arrayData){
 		return $this->model->where('id',$key)->update($arrayData);
+    }
+    
+        // thanhnv 6/30/2020 change to xuat theo time
+
+    public function getSvDangTheoHocFromTo($id_truong, $fromDate,$toDate){
+		$data =  DB::table('sv_dang_quan_ly')->where('sv_dang_quan_ly.co_so_id', '=',$id_truong)
+		->where('thoi_gian_cap_nhat','>=',$fromDate)
+		->where('thoi_gian_cap_nhat','<=',$toDate)
+        ->join('nganh_nghe','nganh_nghe.id','=','sv_dang_quan_ly.nghe_id')
+		->orderBy('nganh_nghe.id','desc')
+		->get();
+		return $data;
 	}
 }

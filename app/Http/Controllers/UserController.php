@@ -19,15 +19,18 @@ class UserController extends Controller
 {
     public function getdangkytaikhoan(){
         $user = DB::table('roles')->get();
-        // dd($user);
-        return view('account.dang_ky', compact('user'));
+        $co_so = DB::table('co_so_dao_tao')->get();
+        return view('account.dang_ky', compact('user','co_so'));
     }
 
     public function dangkytaikhoan(RegisterAccount $request){
+        $params = $request->all();
+        unset($params['can_bo']);
         $user = new User;
         $user->name = $request->name;
         $user->email = $request->email;
         $user->phone_number = $request->phone;
+        $user->co_so_dao_tao_id = $request->co_so_dao_tao_id;
         $user->avatar = "uploads/avatars/user.png";
         $code = bcrypt(md5(time().$request->email));
         $user->password=bcrypt(md5(time().$request->email));

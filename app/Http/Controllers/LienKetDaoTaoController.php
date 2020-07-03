@@ -165,7 +165,7 @@ class LienKetDaoTaoController extends Controller
     public function postsualienketdaotao($id, validateUpdateLienKetDaoTao $request, $bac_nghe, $co_so_id)
     {
 
-        $data = $this->LienKetDaoTaoService->update($id, $request);
+        $data = $this->LienKetDaoTaoService->updateData($id, $request,$bac_nghe);
 
         return redirect()->route('xuatbc.chi-tiet-lien-ket-dao-tao', ['co_so_id' => $co_so_id, 'bac_nghe' => $bac_nghe])->with('thongbao_update', 'Cập nhật số liệu thành công');
     }
