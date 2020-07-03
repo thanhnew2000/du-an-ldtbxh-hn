@@ -144,7 +144,7 @@
     <section class="action-nav d-flex align-items-center justify-content-between mt-4 mb-4">
 
         <div class="col-lg-2">
-            <a href="javascript:" data-toggle="modal" data-target="#moDal">
+            <a href="javascript:" data-toggle="modal" data-target="#exportBieuMauModal">
                 <i class="fa fa-download" aria-hidden="true"></i>
                 Tải xuống biểu mẫu
             </a>
@@ -152,7 +152,7 @@
         <div class="col-lg-2">
             <a href="javascript:" data-toggle="modal" id="upImport-file" data-target="#moDalImport"><i
                     class="fa fa-upload" aria-hidden="true"></i>
-                Tải lên file Excell</a>
+                Tải lên file Excel</a>
         </div>
         <div class="col-lg-6">
             <a href="javascript:" data-toggle="modal" data-target="#moDalExportData"><i class="fa fa-file-excel"
@@ -230,7 +230,6 @@
                         </td>
                     </tr>
 
-
                     @endforeach
                 </tbody>
             </table>
@@ -249,9 +248,7 @@
         </div>
     </div>
 
-
-
-    <form action="{{route('layformbieumau-dang-ky-chi-tieu-tuyen-sinh')}}" method="post">
+    <<<<<<< HEAD <form action="{{route('layformbieumau-dang-ky-chi-tieu-tuyen-sinh')}}" method="post">
         @csrf
         <div class="modal fade" id="moDal" tabindex="-1" role="dialog" aria-labelledby="moDalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -277,74 +274,74 @@
                 </div>
             </div>
         </div>
-    </form>
+        </form>
 
-    <form action="{{route('import.error.dang-ky-chi-tieu-tuyen-sinh')}}" id="form_import_file" method="post"
-        enctype="multipart/form-data">
-        @csrf
-        <div class="modal fade " id="moDalImport" tabindex="-1" role="dialog" aria-labelledby="moDalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="moDalLabel">Import file</h5>
-                        <button type="button" id="closeImportFile" class="close" data-dismiss="modal"
-                            aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <input type="file" id="file_import_id" name="file_import">
+        <form action="{{route('import.error.dang-ky-chi-tieu-tuyen-sinh')}}" id="form_import_file" method="post"
+            enctype="multipart/form-data">
+            @csrf
+            <div class="modal fade " id="moDalImport" tabindex="-1" role="dialog" aria-labelledby="moDalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="moDalLabel">Import file</h5>
+                            <button type="button" id="closeImportFile" class="close" data-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
-                        <div class="form-group">
-                            <label for="">Chọn năm</label>
-                            <select name="nam" id="nam_id" class="form-control">
-                                <option value="2020">2020</option>
-                                <option value="2019">2019</option>
-                                <option value="2018">2018</option>
-                                <option value="2017">2017</option>
-                                <option value="2016">2016</option>
-                            </select>
-                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <input type="file" id="file_import_id" name="file_import">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Chọn năm</label>
+                                <select name="nam" id="nam_id" class="form-control">
+                                    <option value="2020">2020</option>
+                                    <option value="2019">2019</option>
+                                    <option value="2018">2018</option>
+                                    <option value="2017">2017</option>
+                                    <option value="2016">2016</option>
+                                </select>
+                            </div>
 
-                        <div class="form-group">
-                            <label for="">Chọn đợt</label>
-                            <select name="dot" id="dot_id" class="form-control">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                            </select>
-                        </div>
+                            <div class="form-group">
+                                <label for="">Chọn đợt</label>
+                                <select name="dot" id="dot_id" class="form-control">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                </select>
+                            </div>
 
-                    </div>
-                    <div class="modal-footer">
-                        <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoi">
-                        </p>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                        <button type="button" class="btn btn-primary" id="submitTai">Tải</a>
-                            <button type="submit" hidden class="btn btn-primary" id="submitTaiok">Tải ok</a>
+                        </div>
+                        <div class="modal-footer">
+                            <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoi">
+                            </p>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                            <button type="button" class="btn btn-primary" id="submitTai">Tải</a>
+                                <button type="submit" hidden class="btn btn-primary" id="submitTaiok">Tải ok</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
+        </form>
 
-    <form action="{{route('exportdata-dang-ky-chi-tieu-tuyen-sinh')}}" id="" method="post"
-        enctype="multipart/form-data">
-        @csrf
-        <div class="modal fade " id="moDalExportData" tabindex="-1" role="dialog" aria-labelledby="moDalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="moDalLabel">Xuất dữ liệu</h5>
-                        <button type="button" id='closeXuatDuLieu' class="close" data-dismiss="modal"
-                            aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        {{-- <div class="form-group">
+        <form action="{{route('exportdata-dang-ky-chi-tieu-tuyen-sinh')}}" id="" method="post"
+            enctype="multipart/form-data">
+            @csrf
+            <div class="modal fade " id="moDalExportData" tabindex="-1" role="dialog" aria-labelledby="moDalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="moDalLabel">Xuất dữ liệu</h5>
+                            <button type="button" id='closeXuatDuLieu' class="close" data-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            {{-- <div class="form-group">
                             <label for="">Chọn năm xuất</label>
                             <select name="nam_muon_xuat" id="nam_id_xuat" class="form-control">
                                 <option value="2020">2020</option>
@@ -354,58 +351,67 @@
                                 <option value="2016">2016</option>
                               </select>
                         </div> --}}
-                        <div class="form-group">
-                            <label for="">Chọn ngày xuất</label>
-                            {{-- <select name="dot_muon_xuat" id="dot_id_xuat" class="form-control">
+                            <div class="form-group">
+                                <label for="">Chọn ngày xuất</label>
+                                {{-- <select name="dot_muon_xuat" id="dot_id_xuat" class="form-control">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                             </select> --}}
-                            <div class='input-group date datepicker' name="datepicker">
-                                <p>From: <input type="text" class="form-control" name="dateFrom" id="datepickerFrom">
-                                </p>
-                                @error('dateFrom')
-                                <div class="text-danger">{{$message}}</div>
-                                @enderror
-                                <p>To: <input type="text" class="form-control" name="dateTo" id="datepickerTo"></p>
-                                @error('dateTo')
-                                <div class="text-danger">{{$message}}</div>
-                                @enderror
-                                {{-- <span class="input-group-addon">
+                                <div class='input-group date datepicker' name="datepicker">
+                                    <p>From: <input type="text" class="form-control" name="dateFrom"
+                                            id="datepickerFrom">
+                                    </p>
+                                    @error('dateFrom')
+                                    <div class="text-danger">{{$message}}</div>
+                                    @enderror
+                                    <p>To: <input type="text" class="form-control" name="dateTo" id="datepickerTo"></p>
+                                    @error('dateTo')
+                                    <div class="text-danger">{{$message}}</div>
+                                    @enderror
+                                    {{-- <span class="input-group-addon">
                                          <span class="glyphicon glyphicon-calendar">
                                          </span>
                                   </span> --}}
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="">Chọn Trường</label>
-                            <select multiple name="truong_id[]" id="truong_id_xuat" class="form-control select2">
-                                @foreach($coso as $csdt)
-                                <option value="{{$csdt->id}}">{{$csdt->ten}}</option>
-                                @endforeach
-                                <option value="all">Tất cả</option>
-                            </select>
-                        </div>
+                            <div class="form-group">
+                                <label for="">Chọn Trường</label>
+                                <select multiple name="truong_id[]" id="truong_id_xuat" class="form-control select2">
+                                    @foreach($coso as $csdt)
+                                    <option value="{{$csdt->id}}">{{$csdt->ten}}</option>
+                                    @endforeach
+                                    <option value="all">Tất cả</option>
+                                </select>
+                            </div>
 
-                        @error('truong_id')
-                        <div class="text-danger">{{$message}}</div>
-                        @enderror
+                            @error('truong_id')
+                            <div class="text-danger">{{$message}}</div>
+                            @enderror
 
-                    </div>
-                    <div class="modal-footer">
-                        <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoiXuat">
-                        </p>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                        <button type="submit" class="btn btn-primary" id="submitXuatData">Tải</a>
+                        </div>
+                        <div class="modal-footer">
+                            <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoiXuat">
+                            </p>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                            <button type="submit" class="btn btn-primary" id="submitXuatData">Tải</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
+        </form>
+        =======
+        @include('layouts.formExcel.from', [
+        'routeLayFormBieuMau' => 'layformbieumau-dang-ky-chi-tieu-tuyen-sinh',
+        'routeImportError' => 'import.error.dang-ky-chi-tieu-tuyen-sinh',
+        'routeExportData' => 'exportdata-dang-ky-chi-tieu-tuyen-sinh'
+        ])
 
-    @endsection
-    @section('script')
-    <script>
-        var currentUrl = '{{route($route_name)}}';
+        >>>>>>> e51394d48df676103187aa9b3dbe3319388a2ebe
+
+        @endsection
+        @section('script')
+        <script>
+            var currentUrl = '{{route($route_name)}}';
     $(document).ready(function () {
         $('#page-size').change(function () {
             var loaihinhcoso = $('[name="loaihinhcoso"]').val();
@@ -426,23 +432,23 @@
         });
 
     });
-    </script>
-    @if (session('success'))
-    <script>
-        Swal.fire({
+        </script>
+        @if (session('success'))
+        <script>
+            Swal.fire({
         position: 'center',
         icon: 'success',
         title: 'Thêm mới thành công !',
         showConfirmButton: false,
         timer: 3500
     })
-    </script>
-    @endif
-    {{-- thanhnv update change to service 6/26/2020 --}}
-    <script>
-        var routeImport = "{{route('import.dang-ky-chi-tieu-tuyen-sinh')}}" ;
-    </script>
-    <script src="{!! asset('excel-js/js-xuat-time.js') !!}"></script>
-    <script src="{!! asset('excel-js/js-form.js') !!}"></script>
-    {{-- end --}}
-    @endsection
+        </script>
+        @endif
+        {{-- thanhnv update change to service 6/26/2020 --}}
+        <script>
+            var routeImport = "{{route('import.dang-ky-chi-tieu-tuyen-sinh')}}" ;
+        </script>
+        <script src="{!! asset('excel-js/js-xuat-time.js') !!}"></script>
+        <script src="{!! asset('excel-js/js-form.js') !!}"></script>
+        {{-- end --}}
+        @endsection

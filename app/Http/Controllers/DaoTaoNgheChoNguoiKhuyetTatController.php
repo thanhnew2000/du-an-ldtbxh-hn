@@ -9,7 +9,7 @@ use App\Services\DaoTaoNgheChoNguoiKhuyetTatService;
 use App\Http\Requests\DaoTaoNgheChoNguoiKhuyetTat\StoreRequest;
 
 use App\Http\Requests\DaoTaoNgheChoNguoiKhuyetTat\UpdateRequest;
-use App\Http\Requests\Excel\ExcelNamDot;
+use App\Http\Requests\Excel\ExportDuLieu;
 
 
 class DaoTaoNgheChoNguoiKhuyetTatController extends Controller
@@ -192,17 +192,17 @@ class DaoTaoNgheChoNguoiKhuyetTatController extends Controller
         $id_co_so = $request->id_cs;
         $this->DaoTaoNgheChoNguoiKhuyetTatService->exportBieuMau($id_co_so);
     }
-    public function exportData(ExcelNamDot $request){
+    public function exportData(ExportDuLieu $request){
         $listCoSoId = $request->truong_id;
-        $year = $request->nam_muon_xuat;
-        $dot = $request->dot_muon_xuat;
+        $dateFrom = $request->dateFrom;
+        $dateTo = $request->dateTo;
 
-        // $changeFrom = strtotime($dateFrom); 
-        // $fromDate = date("Y-m-d", $changeFrom);
+        $changeFrom = strtotime($dateFrom);
+        $fromDate = date("Y-m-d", $changeFrom);
 
-        // $changeTo = strtotime($dateTo); 
-        // $toDate = date("Y-m-d", $changeTo);
-        $this->DaoTaoNgheChoNguoiKhuyetTatService->exportData($listCoSoId ,$year,$dot);
+        $changeTo = strtotime($dateTo);
+        $toDate = date("Y-m-d", $changeTo);
+        $this->DaoTaoNgheChoNguoiKhuyetTatService->exportData($listCoSoId, $fromDate, $toDate);
     }
 
     public function importFile(Request $request){

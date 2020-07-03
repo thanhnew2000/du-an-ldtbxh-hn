@@ -176,10 +176,10 @@ class DaoTaoNgheChoThanhNienReponsitory extends BaseRepository implements DaoTao
 		->where('thoi_gian_cap_nhat','>=',$fromDate)
 		->where('thoi_gian_cap_nhat','<=',$toDate)
 		->join('nganh_nghe','nganh_nghe.id','=','ket_qua_dao_tao_cho_thanh_nien.nghe_id')
+		->orderBy('nganh_nghe.id','desc')
 		->get();
 		return $data;
 	}
-
 	// thanhnv 6/26/2020 sửa model create update
 	public function createNgheThanhNien($arrayData){
 		return $this->model->insert($arrayData);

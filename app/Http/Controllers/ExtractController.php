@@ -627,7 +627,7 @@ class ExtractController extends Controller
         $params['get_nganh_nghe_theo_co_so'] = $this->ChiTieuTuyenSinhService->getNganhNgheTheoCoSo($co_so_id);
         $thongtincoso = $this->CoSoDaoTaoService->getSingleCsdt($co_so_id);
 
-        $data->withPath("?nghe_id=$request->nghe_id&dot=$request->dot&nam=$request->nam&page_size=$request->page_size");
+        $data->appends(request()->input())->links();
 
         if ($data->count() < 1) {
             return view(
@@ -811,9 +811,15 @@ class ExtractController extends Controller
     }
     public function exportDatabm4(Request $request){
         $listCoSoId = $request->truong_id;
-        $nam_muon_xuat = $request->nam_muon_xuat;
-        $dot_muon_xuat = $request->dot_muon_xuat;
-        $this->QlsvService->exportData($listCoSoId ,$nam_muon_xuat,$dot_muon_xuat);
+        $dateFrom = $request->dateFrom;
+        $dateTo = $request->dateTo;
+
+        $changeFrom = strtotime($dateFrom);
+        $fromDate = date("Y-m-d", $changeFrom);
+
+        $changeTo = strtotime($dateTo);
+        $toDate = date("Y-m-d", $changeTo);
+        $this->QlsvService->exportData($listCoSoId, $fromDate, $toDate);
     }
     public function importFilebm4(Request $request){
         $dot=$request->dot;

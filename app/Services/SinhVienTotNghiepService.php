@@ -308,7 +308,7 @@ class SinhVienTotNghiepService extends AppService
 
         $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="file-form-nhap.xlsx"');
+        header('Content-Disposition: attachment; filename="File-nhap-sinh-vien-tot-nghiep.xlsx"');
         $writer->save("php://output");
     }
 
@@ -363,9 +363,10 @@ class SinhVienTotNghiepService extends AppService
                 ->getFill()
                 ->setFillType(Fill::FILL_SOLID)
                 ->getStartColor()->setARGB('C7C7C7');
-    
+                $soThuTu=0;
                 foreach($tot_nghiep_time as $tn){
                     $row++;
+                     $soThuTu++;
                     // border cac o
                     foreach($arrayAphabe as $apha){
                         $worksheet->getStyle($apha.$row)
@@ -375,16 +376,22 @@ class SinhVienTotNghiepService extends AppService
                     }
                     $keyDanhDau = $this->danhDauloaiHinhCoSo($co_s->ma_loai_hinh_co_so);
                     $worksheet->setCellValue($keyDanhDau.$row, 'x');
+
+                     $worksheet->setCellValue('A'.$row,$soThuTu);
                     // fill data
                     $this->exportFillRow($worksheet, $row , $tn);
                     }
                     
              }
     
+        $ngayBatDau = date("d-m-Y", strtotime($fromDate));
+        $ngayDen = date("d-m-Y", strtotime($toDate));
+
         $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
+        $file_xuat_name="[{$ngayBatDau} - {$ngayDen}] File-xuat-sinh-vien-tot-nghiep.xlsx";
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-         header('Content-Disposition: attachment; filename="file-xuat.xlsx"');
-         $writer->save("php://output");
+        header('Content-Disposition: attachment; filename='.$file_xuat_name);
+        $writer->save("php://output");
     
     }
 
@@ -557,7 +564,7 @@ class SinhVienTotNghiepService extends AppService
     
         $writer = IOFactory::createWriter($spreadsheet2, "Xlsx"); 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="error.xlsx"');
+        header('Content-Disposition: attachment; filename="Error-file-nhap-sinh-vien-tot-nghiep.xlsx"');
         $writer->save("php://output");
     } 
 

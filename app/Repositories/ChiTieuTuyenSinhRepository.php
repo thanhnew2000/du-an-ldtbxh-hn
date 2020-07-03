@@ -84,7 +84,7 @@ class ChiTieuTuyenSinhRepository extends BaseRepository implements ChiTieuTuyenS
             $queryBuilder->where('dang_ki_chi_tieu_tuyen_sinh.dot', $params['dot']);
         }
         if(isset($params['nghe_id']) && $params['nghe_id'] != null){
-            $queryBuilder->where('dang_ki_chi_tieu_tuyen_sinh.nghe_id', $params['nghe_id']);
+            $queryBuilder->whereIn('dang_ki_chi_tieu_tuyen_sinh.nghe_id', $params['nghe_id']);
         }
 
         return $queryBuilder->orderByDesc('dang_ki_chi_tieu_tuyen_sinh.nam')
@@ -136,7 +136,8 @@ class ChiTieuTuyenSinhRepository extends BaseRepository implements ChiTieuTuyenS
 		$data = DB::table('dang_ki_chi_tieu_tuyen_sinh')->where('dang_ki_chi_tieu_tuyen_sinh.co_so_id', '=',$id_truong)
 		->where('thoi_gian_cap_nhat','>=',$fromDate)
 		->where('thoi_gian_cap_nhat','<=',$toDate)
-		->join('nganh_nghe','nganh_nghe.id','=','dang_ki_chi_tieu_tuyen_sinh.nghe_id')
+        ->join('nganh_nghe','nganh_nghe.id','=','dang_ki_chi_tieu_tuyen_sinh.nghe_id')
+		->orderBy('nganh_nghe.id','desc')
 		->get();
 		return $data;
     }
