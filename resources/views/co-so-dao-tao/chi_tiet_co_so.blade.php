@@ -62,6 +62,10 @@
                     <h5>Website</h5>
                     <h5 class="co-so-info">{{ $item->website}}</h5>
                 </li>
+
+                <li>
+                    <h5>Xã/phường, Quận/Huyện</h5>
+                    <h5 class="co-so-info">{{ $item->tenxaphuong}}, {{ $item->tenquanhuyen }}</h5>
                 </li>
 
                 <li>
