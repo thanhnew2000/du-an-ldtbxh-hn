@@ -454,7 +454,7 @@
                   </tr>
                   <tr>
                     <td>Tổng số kế hoạch tuyển sinh</td>
-                    <td><input value="{{$datatuyensinhid->tong_so_tuyen_sinh}}" name="tong_so_tuyen_sinh" type="number" min="0" min="0"
+                    <td><input value="{{$datatuyensinhid->tong_so_tuyen_sinh}}" name="tong_so_tuyen_sinh" type="number" min="0"
                         class="form-control m-input"> @error('tong_so_tuyen_sinh')
                       <div class="alert alert-danger">{{ $message }}</div>
                       @enderror</td>
