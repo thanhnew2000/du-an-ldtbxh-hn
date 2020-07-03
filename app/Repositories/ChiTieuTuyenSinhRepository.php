@@ -84,7 +84,7 @@ class ChiTieuTuyenSinhRepository extends BaseRepository implements ChiTieuTuyenS
             $queryBuilder->where('dang_ki_chi_tieu_tuyen_sinh.dot', $params['dot']);
         }
         if(isset($params['nghe_id']) && $params['nghe_id'] != null){
-            $queryBuilder->where('dang_ki_chi_tieu_tuyen_sinh.nghe_id', $params['nghe_id']);
+            $queryBuilder->whereIn('dang_ki_chi_tieu_tuyen_sinh.nghe_id', $params['nghe_id']);
         }
 
         return $queryBuilder->orderByDesc('dang_ki_chi_tieu_tuyen_sinh.nam')
