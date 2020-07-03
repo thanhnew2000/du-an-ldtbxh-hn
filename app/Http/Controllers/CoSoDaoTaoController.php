@@ -65,6 +65,7 @@ class CoSoDaoTaoController extends Controller
                 'dien_thoai' => 'required|numeric |digits_between:10,12',
                 'website' => 'required|url',
                 'dia_chi' => 'required|unique:co_so_dao_tao',
+                // 'ten_quoc_te' => 'required',
                 'co_quan_chu_quan_id' => 'required',
                 'ma_loai_hinh_co_so' => 'required',
                 'quyet_dinh_id' => 'required',
@@ -84,6 +85,7 @@ class CoSoDaoTaoController extends Controller
                 'website.required' => 'Website không được để trống',
                 'dia_chi.required' => 'địa chỉ không được để trống',
                 'dia_chi.mimes' => 'Địa chỉ đã tồn tại trong hệ thống',
+                // 'ten_quoc_te.required' => 'Vui lòng điền tên quốc tế của cơ sở',
                 'co_quan_chu_quan_id.required' => 'Vui lòng chọn cơ quan chủ quản',
                 'ma_loai_hinh_co_so.required' => 'Vui lòng chọn loại hình cơ sở',
                 'quyet_dinh_id.required' => 'Vui lòng chọn quyết định của cơ sở',
@@ -92,11 +94,11 @@ class CoSoDaoTaoController extends Controller
             ]
         );
 
-
         if ($request->hasFile('upload_logo')) {
             $filePath = $request->file('upload_logo')->store('uploads/logoCsdt');
             $request->request->set('logo', $filePath);
         }
+
         $this->CoSoDaoTaoService->create($request, ['upload_logo']);
         return redirect()->route('csdt.danh-sach')->withInput()->with('mess', 'Thêm cơ sở thành công');
     }
@@ -123,6 +125,7 @@ class CoSoDaoTaoController extends Controller
                 'dien_thoai' => 'required|numeric|digits_between:10,12',
                 'dia_chi' => 'required',
                 'website' => 'required|url',
+                // 'ten_quoc_te' => 'required',
                 'co_quan_chu_quan_id' => 'required',
                 'ma_loai_hinh_co_so' => 'required',
                 'quyet_dinh_id' => 'required',
@@ -141,6 +144,7 @@ class CoSoDaoTaoController extends Controller
                 'dia_chi.required' => 'Địa chỉ không được để trống',
                 'website.url' => 'Website không đúng định dạng',
                 'website.required' => 'Website không được để trống',
+                // 'ten_quoc_te.required' => 'Tên quốc tế không được để trống',
                 'co_quan_chu_quan_id.required' => 'Vui lòng chọn cơ quan chủ quản',
                 'ma_loai_hinh_co_so.required' => 'Vui lòng chọn loại hình cơ sở',
                 'quyet_dinh_id.required' => 'Vui lòng chọn quyết định',

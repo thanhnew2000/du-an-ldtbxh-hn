@@ -23,7 +23,6 @@ class NganhNgheRepository extends BaseRepository implements NganhNgheRepositoryI
 
     public function getNganhNghe($params)
     {
-        // dd($params);
         $queryBuilder = $this->table
         ->select(
             'id',
@@ -46,7 +45,6 @@ class NganhNgheRepository extends BaseRepository implements NganhNgheRepositoryI
                     ->orwhere('id', $params['keyword']);
             });
         }
-        // dd($queryBuilder->toSql());
         return $queryBuilder->paginate($params['page_size']);
     }
 
@@ -166,7 +164,6 @@ class NganhNgheRepository extends BaseRepository implements NganhNgheRepositoryI
         ->select('nganh_nghe.*')
         ->get();
         return $nganhnghe;
-        
     }
     
 }

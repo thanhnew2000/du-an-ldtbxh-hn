@@ -68,7 +68,6 @@ class ChungNhanDangKyNgheRepository extends BaseRepository implements ChungNhanD
             ->join('nganh_nghe', 'nganh_nghe.id', '=', 'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.nghe_id')
             ->join('giay_phep', 'giay_phep.id', '=', 'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.giay_phep_id')
             ->where('giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.co_so_id', $params['co_so_id']);
-        // dd($queryBuilder->toSql());
         return $queryBuilder->paginate($params['page_size']);
     }
 
@@ -97,7 +96,6 @@ class ChungNhanDangKyNgheRepository extends BaseRepository implements ChungNhanD
     }
     public function getTongSoTuyenSinhTheoNghe($params)
     {
-        // dd($params);
         $queryBuilder = $this->table->select(
             'co_so_dao_tao.ten',
             DB::raw('SUM(tuyen_sinh.tong_so_tuyen_sinh) as tong_so_tuyen_sinh')
