@@ -129,14 +129,14 @@
                         </div>
                         <div class="col-right col-lg-5">
                             <div class="form-group col-lg-12">
-                                <label class="form-name" for="">Tên quốc tế <span class="text-danger">(*)</span></label>
+                                <label class="form-name" for="">Tên quốc tế</label>
                                 <input type="text" class="form-control"
                                     value="{{ old('ten_quoc_te',$item->ten_quoc_te) }}" name="ten_quoc_te">
-                                <p id="helpId" class="form-text text-danger">
+                                {{-- <p id="helpId" class="form-text text-danger">
                                     @error('ten_quoc_te')
                                     {{ $message }}
                                     @enderror
-                                </p>
+                                </p> --}}
                             </div>
                             <div class="form-group col-lg-12">
                                 <label class="form-name" for="">Điện thoại <span class="text-danger">(*)</span></label>

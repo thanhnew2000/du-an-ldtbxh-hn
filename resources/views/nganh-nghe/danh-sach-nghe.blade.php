@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+@section('title', 'Danh sách ngành nghề')
 @section('content')
 <div class="m-content container-fluid">
     <div class="m-portlet">

@@ -51,7 +51,6 @@ class NganhNgheController extends Controller
         $data->appends(request()->input())->links();
 
         $route_name = Route::current()->action['as'];
-        dd($data);
         return view('nganh-nghe.danh-sach-nghe', compact('data', 'params', 'route_name'));
     }
 
@@ -66,8 +65,9 @@ class NganhNgheController extends Controller
         $params = $request->all();
         if (!isset($params['page_size'])) $params['page_size'] = config('common.paginate_size.default');
         $params['ma_nghe'] = $manghe;
-        dd($params);
-        $data = $this->chungNhanDangKyService->getCoSoDaoTaoTheoNghe($params);
+        $params['nam'] = 2020;
+        $data = $this->chungNhanDangKyService->getTongSoTuyenSinhTheoNghe($params);
+        // dd($data);
         // $data->appends(request()->input())->links();
         // $dsQuanHuyen = $this->quanHuyenService->getAll();
         // $dsLoaiHinhCoSo = $this->loaiHinhCoSoService->getAll();
