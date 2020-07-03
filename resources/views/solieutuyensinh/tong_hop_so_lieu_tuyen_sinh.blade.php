@@ -221,10 +221,17 @@
                     class="fa fa-upload" aria-hidden="true"></i>
                 Tải lên file Excel</a>
         </div>
-        <div class="col-lg-8">
+        <div class="col-lg-2">
             <a href="javascript:" data-toggle="modal" data-target="#moDalExportData"><i class="fa fa-file-excel"
                     aria-hidden="true"></i>
                 Xuất dữ liệu ra Excel</a>
+        </div>
+
+        <div class="col-lg-6 " style="text-align: right">
+            @can('them_moi_tong_hop_ket_qua_tuyen_sinh')
+            <a href="{{route('themsolieutuyensinh')}}"><button type="button" class="btn btn-info .bg-info">Thêm
+                    mới</button></a>
+            @endcan
         </div>
     </div>
     <div class="m-portlet">
@@ -258,12 +265,7 @@
                         <th scope="col">Kế hoạch tuyển sinh</th>
                         <th scope="col">Trạng thái</th>
                         <!-- <th scope="col">Chỉnh sửa</th> -->
-                        <th scope="col"> 
-                            @can('them_moi_tong_hop_ket_qua_tuyen_sinh')
-                            <a href="{{route('themsolieutuyensinh')}}" class="btn btn-success btn-sm">Thêm
-                                mới</a>
-                            @endcan
-                        </th>
+                        <th scope="col"> Thao tác</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -284,13 +286,13 @@
                         <td>{{$item->tong_so_tuyen_sinh_cac_trinh_do}}</td>
                         <td>{{$item->tong_so_tuyen_sinh}}</td>
                         <td>{{$item->trang_thai}}</td>
-                       
+
                         <td>
                             @can('xem_chi_tiet_tong_hop_ket_qua_tuyen_sinh')
-                                <a href="{{route('chitietsolieutuyensinh',['co_so_id' => $item->id,])}}">Chi tiết</a>
+                            <a href="{{route('chitietsolieutuyensinh',['co_so_id' => $item->id,])}}">Chi tiết</a>
                             @endcan
                         </td>
-                        
+
                     </tr>
                     @endforeach
 
@@ -309,7 +311,8 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Hãy chọn trường</h5>
-                        <button type="button" id="closeFileBieuMau" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" id="closeFileBieuMau" class="close" data-dismiss="modal"
+                            aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -322,7 +325,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                        <button type="submit"  onclick="closeModal('closeFileBieuMau')" class="btn btn-primary">Tải</a>
+                        <button type="submit" onclick="closeModal('closeFileBieuMau')" class="btn btn-primary">Tải</a>
                     </div>
                 </div>
             </div>
@@ -332,63 +335,63 @@
     <form action="{{route('import.error.ket-qua-ts')}}" id="form_import_file" method="post"
         enctype="multipart/form-data">
         @csrf
-    <div class="modal fade " id="moDalImport" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Import file</h5>
-                    <button type="button"
-                     {{-- id="closeImportFile" --}}
-                     class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <input type="file" id="file_import_id" name="file_import">
+        <div class="modal fade " id="moDalImport" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Import file</h5>
+                        <button type="button" {{-- id="closeImportFile" --}} class="close" data-dismiss="modal"
+                            aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <div class="form-group">
-                        <label for="">Chọn năm</label>
-                        <select name="nam" id="nam_id" class="form-control">
-                          <option value="2020">2020</option>
-                          <option value="2019">2019</option>
-                          <option value="2018">2018</option>
-                          <option value="2017">2017</option>
-                          <option value="2016">2016</option>
-                        </select> 
-                   </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="file" id="file_import_id" name="file_import">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Chọn năm</label>
+                            <select name="nam" id="nam_id" class="form-control">
+                                <option value="2020">2020</option>
+                                <option value="2019">2019</option>
+                                <option value="2018">2018</option>
+                                <option value="2017">2017</option>
+                                <option value="2016">2016</option>
+                            </select>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="">Chọn đợt</label>
-                        <select name="dot" id="dot_id" class="form-control">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                        </select>
+                        <div class="form-group">
+                            <label for="">Chọn đợt</label>
+                            <select name="dot" id="dot_id" class="form-control">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </div>
+
                     </div>
-
-                </div>
-                <div class="modal-footer">
-                    <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoi">
-                    </p>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                    <button type="button" class="btn btn-primary" id="submitTai">Tải</a>
-                        <button type="submit" hidden class="btn btn-primary" id="submitTaiok">Tải ok</a>
+                    <div class="modal-footer">
+                        <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoi">
+                        </p>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                        <button type="button" class="btn btn-primary" id="submitTai">Tải</a>
+                            <button type="submit" hidden class="btn btn-primary" id="submitTaiok">Tải ok</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</form>
+    </form>
 
     <form action="{{route('exportdatatuyensinh')}}" id="" method="post" enctype="multipart/form-data">
         @csrf
-        <div class="modal fade " id="moDalExportData" tabindex="-1" role="dialog"
-            aria-labelledby="moDalLabel" aria-hidden="true">
+        <div class="modal fade " id="moDalExportData" tabindex="-1" role="dialog" aria-labelledby="moDalLabel"
+            aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="moDalLabel">Xuất dữ liệu</h5>
-                        <button type="button" id='closeXuatDuLieu' class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" id='closeXuatDuLieu' class="close" data-dismiss="modal"
+                            aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -409,16 +412,17 @@
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                             </select> --}}
-                            <div class='input-group date datepicker' name="datepicker" >
-                                <p>From: <input type="text" class="form-control" name="dateFrom" id="datepickerFrom"></p>
+                            <div class='input-group date datepicker' name="datepicker">
+                                <p>From: <input type="text" class="form-control" name="dateFrom" id="datepickerFrom">
+                                </p>
                                 @error('dateFrom')
-                                      <div class="text-danger">{{$message}}</div>
+                                <div class="text-danger">{{$message}}</div>
                                 @enderror
                                 <p>To: <input type="text" class="form-control" name="dateTo" id="datepickerTo"></p>
                                 @error('dateTo')
-                                  <div class="text-danger">{{$message}}</div>
+                                <div class="text-danger">{{$message}}</div>
                                 @enderror
-                                   {{-- <span class="input-group-addon">
+                                {{-- <span class="input-group-addon">
                                          <span class="glyphicon glyphicon-calendar">
                                          </span>
                                   </span> --}}
@@ -434,15 +438,16 @@
                             </select>
                         </div>
                         @error('truong_id')
-                          <div class="text-danger">{{$message}}</div>
-                          @enderror
+                        <div class="text-danger">{{$message}}</div>
+                        @enderror
 
                     </div>
                     <div class="modal-footer">
                         <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoiXuat">
                         </p>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                        <button type="submit" class="btn btn-primary" id="submitXuatData" onclick="closeModalXuat('closeXuatDuLieu')">Tải</a>
+                        <button type="submit" class="btn btn-primary" id="submitXuatData"
+                            onclick="closeModalXuat('closeXuatDuLieu')">Tải</a>
                     </div>
                 </div>
             </div>

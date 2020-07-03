@@ -3,11 +3,14 @@
 @section('style')
 {{-- <link href="{!! asset('tuyensinh/css/chitiettuyensinh.css') !!}" rel="stylesheet" type="text/css" /> --}}
 <style>
-    .m-table.m-table--border-danger, .m-table.m-table--border-danger th, .m-table.m-table--border-danger td{
-        border-color: #BCB1B1 ;
+    .m-table.m-table--border-danger,
+    .m-table.m-table--border-danger th,
+    .m-table.m-table--border-danger td {
+        border-color: #BCB1B1;
     }
-    table thead th[colspan="4"]{
-        border-bottom-width:1px;
+
+    table thead th[colspan="4"] {
+        border-bottom-width: 1px;
         border-bottom: 1px solid #BCB1B1 !important;
     }
 </style>
@@ -22,7 +25,7 @@
                         <i class="m-menu__link-icon flaticon-web"></i>
                     </span>
                     <h3 class="m-portlet__head-text">
-                        Tổng  hợp<small>số lượng đăng ký chỉ tiêu tuyển sinh</small>
+                        Tổng hợp<small>số lượng đăng ký chỉ tiêu tuyển sinh</small>
                     </h3>
                 </div>
             </div>
@@ -139,7 +142,7 @@
     </div>
 
     <section class="action-nav d-flex align-items-center justify-content-between mt-4 mb-4">
-    
+
         <div class="col-lg-2">
             <a href="javascript:" data-toggle="modal" data-target="#moDal">
                 <i class="fa fa-download" aria-hidden="true"></i>
@@ -158,22 +161,25 @@
         </div>
         <div class="col-lg-2 text-center">
             @can('them_moi_tong_hop_dang_ky_chi_tieu_tuyen_sinh')
-                <a target="_blank" href="{{ route('xuatbc.them-dang-ky-chi-tieu-tuyen-sinh') }}" class="btn btn-success btn-sm">Thêm mới</a>
+            <a target="_blank" href="{{ route('xuatbc.them-dang-ky-chi-tieu-tuyen-sinh') }}"
+                class="btn btn-success btn-sm">Thêm mới</a>
             @endcan
         </div>
-</section>
+    </section>
 
     <div class="m-portlet">
         <div class="m-portlet__body table-responsive">
-            <table class="table table-bordered m-table m-table--border-danger m-table--head-bg-primary table-boder-white">
+            <table
+                class="table table-bordered m-table m-table--border-danger m-table--head-bg-primary table-boder-white">
                 <div class="col-12 form-group m-form__group d-flex justify-content-end">
                     <label class="col-lg-2 col-form-label">Kích thước:</label>
                     <div class="col-lg-2">
                         <select class="form-control" id="page-size">
                             @foreach(config('common.paginate_size.list') as $size)
-                            <option @if($params['page_size']==$size) selected @endif value="{{$size}}">{{$size}}</option>
+                            <option @if($params['page_size']==$size) selected @endif value="{{$size}}">{{$size}}
+                            </option>
                             @endforeach
-    
+
                         </select>
                     </div>
                 </div>
@@ -199,7 +205,7 @@
                     @php
                     $i = !isset($_GET['page']) ? 1 : ($params['page_size'] * ($_GET['page']-1) + 1);
                     @endphp
-                  @foreach ($data as $item)
+                    @foreach ($data as $item)
                     <tr>
                         <td>{{ $i++ }}</td>
                         <td>{{ $item->ten }}</td>
@@ -213,7 +219,7 @@
                         <td>{{ $item->tong }}</td>
                         <td>{{ $item->so_dang_ki_CD }}</td>
                         <td>{{ $item->so_dang_ki_TC }}</td>
-                      
+
                         <td>
                             @can('chi_tiet_tong_hop_dang_ky_chi_tieu_tuyen_sinh')
                             <a target="_blank"
@@ -224,8 +230,8 @@
                         </td>
                     </tr>
 
-                      
-                  @endforeach
+
+                    @endforeach
                 </tbody>
             </table>
             <div>
@@ -247,13 +253,13 @@
 
     <form action="{{route('layformbieumau-dang-ky-chi-tieu-tuyen-sinh')}}" method="post">
         @csrf
-        <div class="modal fade" id="moDal" tabindex="-1" role="dialog" aria-labelledby="moDalLabel"
-            aria-hidden="true">
+        <div class="modal fade" id="moDal" tabindex="-1" role="dialog" aria-labelledby="moDalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="moDalLabel">Hãy chọn trường</h5>
-                        <button type="button" id="closeFileBieuMau" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" id="closeFileBieuMau" class="close" data-dismiss="modal"
+                            aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -282,7 +288,8 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="moDalLabel">Import file</h5>
-                        <button type="button" id="closeImportFile" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" id="closeImportFile" class="close" data-dismiss="modal"
+                            aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -293,13 +300,13 @@
                         <div class="form-group">
                             <label for="">Chọn năm</label>
                             <select name="nam" id="nam_id" class="form-control">
-                              <option value="2020">2020</option>
-                              <option value="2019">2019</option>
-                              <option value="2018">2018</option>
-                              <option value="2017">2017</option>
-                              <option value="2016">2016</option>
+                                <option value="2020">2020</option>
+                                <option value="2019">2019</option>
+                                <option value="2018">2018</option>
+                                <option value="2017">2017</option>
+                                <option value="2016">2016</option>
                             </select>
-                       </div>
+                        </div>
 
                         <div class="form-group">
                             <label for="">Chọn đợt</label>
@@ -315,22 +322,24 @@
                         </p>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
                         <button type="button" class="btn btn-primary" id="submitTai">Tải</a>
-                            <button type="submit" hidden  class="btn btn-primary" id="submitTaiok">Tải ok</a>
+                            <button type="submit" hidden class="btn btn-primary" id="submitTaiok">Tải ok</a>
                     </div>
                 </div>
             </div>
         </div>
     </form>
 
-    <form action="{{route('exportdata-dang-ky-chi-tieu-tuyen-sinh')}}" id="" method="post" enctype="multipart/form-data">
+    <form action="{{route('exportdata-dang-ky-chi-tieu-tuyen-sinh')}}" id="" method="post"
+        enctype="multipart/form-data">
         @csrf
-        <div class="modal fade " id="moDalExportData" tabindex="-1" role="dialog"
-            aria-labelledby="moDalLabel" aria-hidden="true">
+        <div class="modal fade " id="moDalExportData" tabindex="-1" role="dialog" aria-labelledby="moDalLabel"
+            aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="moDalLabel">Xuất dữ liệu</h5>
-                        <button type="button" id='closeXuatDuLieu' class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" id='closeXuatDuLieu' class="close" data-dismiss="modal"
+                            aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -351,16 +360,17 @@
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                             </select> --}}
-                            <div class='input-group date datepicker' name="datepicker" >
-                            <p>From: <input type="text" class="form-control" name="dateFrom" id="datepickerFrom"> </p>
+                            <div class='input-group date datepicker' name="datepicker">
+                                <p>From: <input type="text" class="form-control" name="dateFrom" id="datepickerFrom">
+                                </p>
                                 @error('dateFrom')
-                                     <div class="text-danger">{{$message}}</div>
+                                <div class="text-danger">{{$message}}</div>
                                 @enderror
-                            <p>To: <input type="text" class="form-control" name="dateTo" id="datepickerTo"></p>
+                                <p>To: <input type="text" class="form-control" name="dateTo" id="datepickerTo"></p>
                                 @error('dateTo')
-                                    <div class="text-danger">{{$message}}</div>
-                                 @enderror
-                                   {{-- <span class="input-group-addon">
+                                <div class="text-danger">{{$message}}</div>
+                                @enderror
+                                {{-- <span class="input-group-addon">
                                          <span class="glyphicon glyphicon-calendar">
                                          </span>
                                   </span> --}}
@@ -377,8 +387,8 @@
                         </div>
 
                         @error('truong_id')
-                             <div class="text-danger">{{$message}}</div>
-                       @enderror
+                        <div class="text-danger">{{$message}}</div>
+                        @enderror
 
                     </div>
                     <div class="modal-footer">
@@ -392,10 +402,10 @@
         </div>
     </form>
 
-@endsection
-@section('script')
-<script>
-    var currentUrl = '{{route($route_name)}}';
+    @endsection
+    @section('script')
+    <script>
+        var currentUrl = '{{route($route_name)}}';
     $(document).ready(function () {
         $('#page-size').change(function () {
             var loaihinhcoso = $('[name="loaihinhcoso"]').val();
@@ -416,23 +426,23 @@
         });
 
     });
-</script>
-@if (session('success'))
-<script>
-    Swal.fire({
+    </script>
+    @if (session('success'))
+    <script>
+        Swal.fire({
         position: 'center',
         icon: 'success',
         title: 'Thêm mới thành công !',
         showConfirmButton: false,
         timer: 3500
     })
-</script>
-@endif
-{{-- thanhnv update change to service 6/26/2020 --}}
-<script>
-    var routeImport = "{{route('import.dang-ky-chi-tieu-tuyen-sinh')}}" ;
-</script>
-<script src="{!! asset('excel-js/js-xuat-time.js') !!}"></script>
-<script src="{!! asset('excel-js/js-form.js') !!}"></script>
-{{-- end --}}
-@endsection
+    </script>
+    @endif
+    {{-- thanhnv update change to service 6/26/2020 --}}
+    <script>
+        var routeImport = "{{route('import.dang-ky-chi-tieu-tuyen-sinh')}}" ;
+    </script>
+    <script src="{!! asset('excel-js/js-xuat-time.js') !!}"></script>
+    <script src="{!! asset('excel-js/js-form.js') !!}"></script>
+    {{-- end --}}
+    @endsection

@@ -223,10 +223,17 @@
                     class="fa fa-upload" aria-hidden="true"></i>
                 Tải lên file Excel</a>
         </div>
-        <div class="col-lg-8">
+        <div class="col-lg-2">
             <a href="javascript:" data-toggle="modal" data-target="#moDalExportData"><i class="fa fa-file-excel"
                     aria-hidden="true"></i>
                 Xuất dữ liệu ra Excel</a>
+        </div>
+        <div class="col-lg-6 " style="text-align: right">
+            @can('them_moi_tong_hop_dao_tao_nghe_cho_nguoi_khuyet_tat')
+            <a href="{{route('nhapbc.dao-tao-khuyet-tat.create')}}"><button type="button"
+                    class="btn btn-info .bg-info">Thêm
+                    mới</button></a>
+            @endcan
         </div>
 
     </section>
@@ -257,12 +264,11 @@
                         <th colspan="1">Tuyển sinh</th>
                         <th colspan="1">Tốt nghiệp</th>
                         <th colspan="1">Kinh phí thực hiện</th>
-                        @can('them_moi_tong_hop_dao_tao_nghe_cho_nguoi_khuyet_tat')
+
                         <th rowspan="2">
-                            <a href="{{route('nhapbc.dao-tao-khuyet-tat.create')}}" class="btn btn-success btn-sm">Thêm
-                                mới</a>
+                            Thao tác
                         </th>
-                        @endcan 
+
                     </tr>
 
                 </thead>
@@ -287,7 +293,7 @@
                             ])}}">Chi tiết</a>
                         </td>
                         @endcan
-                        
+
                     </tr>
                     @endforeach
 
@@ -428,7 +434,7 @@
                             </select>
                         </div>
                         @error('truong_id')
-                         <div class="text-danger">{{$message}}</div>
+                        <div class="text-danger">{{$message}}</div>
                         @enderror
                     </div>
                     <div class="modal-footer">
