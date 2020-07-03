@@ -9,8 +9,8 @@
 
 namespace App\Services;
 
-use DB;
 use App\Repositories\NganhNgheRepository;
+use Illuminate\Support\Facades\DB;
 
 class NganhNgheService extends AppService
 {

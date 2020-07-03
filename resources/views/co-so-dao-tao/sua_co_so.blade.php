@@ -62,7 +62,7 @@
                                 <div class="d-flex">
                                     <select class="form-control" name="co_quan_chu_quan_id" id="co_quan_chu_quan_id">
                                         @foreach ($parent as $cq)
-                                        <option @if($cq->id == $item->co_quan_chu_quan_id) selected @endif value="{{ $cq->id }}">{{ $cq->ten }}</option>
+                                        <option @if($item->co_quan_chu_quan_id == $cq->id) selected @endif value="{{ $cq->id }}">{{ $cq->ten }}</option>
                                         @endforeach
                                     </select>
                                     <button class="col-2 btn btn-outline-metal" type="button" class="btn btn-danger"
@@ -95,9 +95,8 @@
                                 <label class="form-name" for="">Quyết định <span class="text-danger">(*)</span></label>
                                 <div class="d-flex">
                                     <select class="form-control" name="quyet_dinh_id" id="quyet_dinh_id">
-                                        <option selected value="{{ $item->quyet_dinh_id }}">{{ $item->qd_ten }}</option>
                                         @foreach ($qd as $quyetdinh)
-                                        <option value="{{ $quyetdinh->id }}">{{ $quyetdinh->ten }}</option>
+                                        <option @if($item->quyet_dinh_id == $quyetdinh->id) selected @endif value="{{ $quyetdinh->id }}">{{ $quyetdinh->ten }}</option>
                                         @endforeach
                                     </select>
                                     <button class="col-2 btn btn-outline-metal" type="button" class="btn btn-danger"
@@ -130,14 +129,14 @@
                         </div>
                         <div class="col-right col-lg-5">
                             <div class="form-group col-lg-12">
-                                <label class="form-name" for="">Tên quốc tế <span class="text-danger">(*)</span></label>
+                                <label class="form-name" for="">Tên quốc tế</label>
                                 <input type="text" class="form-control"
                                     value="{{ old('ten_quoc_te',$item->ten_quoc_te) }}" name="ten_quoc_te">
-                                <p id="helpId" class="form-text text-danger">
+                                {{-- <p id="helpId" class="form-text text-danger">
                                     @error('ten_quoc_te')
                                     {{ $message }}
                                     @enderror
-                                </p>
+                                </p> --}}
                             </div>
                             <div class="form-group col-lg-12">
                                 <label class="form-name" for="">Điện thoại <span class="text-danger">(*)</span></label>
@@ -168,10 +167,8 @@
                                         <label for="" class="form-name">Quận/Huyện <span
                                                 class="text-danger">(*)</span></label>
                                         <select class="form-control col-12" name="maqh" id="devvn_quanhuyen">
-                                            <option value="{{ $item->maqh }}" selected>{{ $item->tenquanhuyen }}
-                                            </option>
                                             @foreach ($quanhuyen as $qh)
-                                            <option value="{{ $qh->maqh }}">{{ $qh->name }}</option>
+                                            <option @if($item->maqh == $qh->maqh) selected @endif value="{{ $qh->maqh }}">{{ $qh->name }}</option>
                                             @endforeach
                                         </select>
                                         <p id="helpId" class="form-text text-danger">
@@ -280,54 +277,65 @@
                             </div>
                             <div class="modal-body">
                                 <h5 class="text-success" id="messageqd"></h5>
-                                <form method="POST" action="">
+                                <form method="post" action="">
                                     {{ csrf_field() }}
-                                    <input type="hidden" id="token" value="{{ csrf_token() }}">
+                                    <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
                                     <div class="form-group">
                                         <label for="recipient-name" class="form-control-label">Tên
-                                            quyết định:</label>
+                                            quyết định: <span class="text-danger">(*)</span></label></label>
                                         <input type="text" class="form-control" id="ten_quyet_dinh">
-                                        <span class="text-danger" id="Err-ten_quyet_dinh"></span>
+                                        <p class="text-danger" id="Err_ten"></p>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="recipient-name" class="form-control-label">Đường
-                                            dẫn văn bản:</label>
+                                            dẫn văn bản: <span class="text-danger">(*)</span></label></label>
                                         <input type="text" class="form-control" id="url_van_ban">
-                                        <span class="text-danger" id="Err-url_van_ban"></span>
+                                        <p class="text-danger" id="Err_van_ban_url"></p>
 
                                     </div>
 
-                                    <div class="d-flex">
-                                        <div class="form-group m-form__group col-4">
-                                            <label for="example-date-input" class="col-form-label">Ngày ban hành
-                                            </label>
-                                            <div class="">
-                                                <input class="form-control m-input" type="date" value="2011-08-19"
-                                                    id="ngay_ban_hanh">
+                                    <div class="row">
+                                        <div class="form-group mb-4 col-lg-5">
+                                            <label>Ngày ban hành <span class="text-danger">(*)</span></label>
+                                            <div class="input-group date datepicker">
+                                                <input type="text" name="ngay_ban_hanh" id="ngay_ban_hanh"
+                                                    placeholder="Ngày-tháng-năm" class="form-control">
+                                                <div
+                                                    class="input-group-addon form-control col-2 d-flex justify-content-center align-items-center">
+                                                    <span><i class="flaticon-calendar-2"></i></span>
+                                                </div>
                                             </div>
-                                            <span class="text-danger" id="Err-ngay_ban_hanh"></span>
+                                            <p class="text-danger" id="Err_ngay_ban_hanh"></p>
                                         </div>
-                                        <div class="form-group m-form__group col-4">
-                                            <label for="example-date-input" class="col-form-label">Ngày hiệu lực
-                                            </label>
-                                            <div class="">
-                                                <input class="form-control m-input" type="date" value="2011-08-19"
-                                                    id="ngay_hieu_luc">
-                                                <span class="text-danger" id="Err-ngay_hieu_luc"></span>
+                                        <div class="form-group mb-4 col-lg-5">
+                                            <label>Ngày hiệu lực <span class="text-danger">(*)</span></label>
+                                            <div class="input-group date datepicker">
+                                                <input type="text" name="ngay_hieu_luc" id="ngay_hieu_luc"
+                                                    placeholder="Ngày-tháng-năm" class="form-control">
+                                                <div
+                                                    class="input-group-addon form-control col-2 d-flex justify-content-center align-items-center">
+                                                    <span><i class="flaticon-calendar-2"></i></span>
+                                                </div>
                                             </div>
-                                        </div>
-
-                                        <div class="form-group m-form__group col-4">
-                                            <label for="example-date-input" class="col-form-label">Ngày hết hạn
-                                            </label>
-                                            <div class="">
-                                                <input class="form-control m-input" type="date" value="2020-01-01"
-                                                    id="ngay_het_han" placeholder="dd-mm-yyyy">
-                                            </div>
-                                            <span class="text-danger" id="Err-ngay_het_han"></span>
+                                            <p class="text-danger" id="Err_ngay_hieu_luc"></p>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="form-group mb-4 col-lg-10">
+                                            <label>Ngày hết hạn <span class="text-danger">(*)</span></label>
+                                            <div class="input-group date datepicker">
+                                                <input type="text" name="ngay_het_han" id="ngay_het_han"
+                                                    placeholder="Ngày-tháng-năm" class="form-control">
+                                                <div
+                                                    class="input-group-addon form-control col-2 d-flex justify-content-center align-items-center">
+                                                    <span><i class="flaticon-calendar-2"></i></span>
+                                                </div>
+                                            </div>
+                                            <p class="text-danger" id="Err_ngay_het_han"></p>
+                                        </div>
+                                    </div>
+                                    
 
                                     <div class="form-group col-lg-12">
                                         <label class="form-name" for="">Loại quyết định <span
@@ -337,8 +345,9 @@
                                             <option value="2">Đổi tên</option>
                                             <option value="3">Giải thể</option>
                                         </select>
-                                        <span class="text-danger" id="Err-loai_quyet_dinh"></span>
+                                        <p class="text-danger" id="Err_loai_quyet_dinh"></p>
                                     </div>
+
                                 </form>
                             </div>
                             <div class="modal-footer">
@@ -365,7 +374,21 @@
         $('#devvn_xaphuongthitran').select2();
         $('#co_quan_chu_quan_id').select2();
         $('#quyet_dinh_id').select2();
+
+        $('.form-control').attr('autocomplete', 'off');
     });
+
+    $('.datepicker').datepicker({
+        format: 'dd-mm-yyyy',
+        icons: {
+            time: "fa fa-clock-o",
+            date: "fa fa-calendar",
+            up: "fa fa-arrow-up",
+            down: "fa fa-arrow-down"
+        }
+    });
+
+    $('.datepicker').css('width', '100%');
 
     $("#devvn_quanhuyen").change(function () {
         axios.post('/xuat-bao-cao/ket-qua-tuyen-sinh/xa-phuong-theo-quan-huyen', {
@@ -382,10 +405,20 @@
                 console.log(error);
             });
     });
-    $("#btn-them-co-quan").click(function (event) {
+
+    $("#btn-them-co-quan").click(function(event) {
         event.preventDefault();
         $('#Err-ten').addClass('d-none');
         $('#Err-ma').addClass('d-none');
+
+        $(document).ajaxStart(function(){
+        $(".loading").css("display", "block");
+        });
+
+        $(document).ajaxComplete(function(){
+            $(".loading").css("display", "none");
+        });
+
         $.ajax({
             type: "POST",
             dataType: "json",
@@ -395,18 +428,21 @@
                 ma: $('#ma-co-quan-chu-quan').val(),
                 _token: '{{csrf_token()}}'
             },
-            success: function (response) {
+            success: function(response) {
                 var htmldata = '<option selected disabled>---Chọn cơ quan---</option>'
                 response.data.forEach(element => {
                     htmldata += `<option value="${element.id}">${element.ten}</option>`
                 });
                 $('#co_quan_chu_quan_id').html(htmldata);
-                $('#message').html(response.message)
+                Swal.fire({
+                title: response.message,
+                icon: 'success'
+                });
             },
-            error: function (data) {
+            error: function(data) {
                 var errors = data.responseJSON;
                 if ($.isEmptyObject(errors) == false) {
-                    $.each(errors.errors, function (key, value) {
+                    $.each(errors.errors, function(key, value) {
                         console.log(value);
                         var ErrorID = '#Err-' + key;
                         $(ErrorID).removeClass('d-none');
@@ -417,41 +453,60 @@
         });
     });
 
-    $("#btn-them-quyet-dinh-ajax").click(function (event) {
+    $("#btn-them-quyet-dinh-ajax").click(function(event) {
         event.preventDefault();
-        var dataPost = {
+        
+        $('#Err_ten').addClass('d-none');
+        $('#Err_ngay_ban_hanh').addClass('d-none');
+        $('#Err_van_ban_url').addClass('d-none');
+        $('#Err_ngay_hieu_luc').addClass('d-none');
+        $('#Err_ngay_het_han').addClass('d-none');
+        $('#Err_loai_quyet_dinh').addClass('d-none');
+
+
+        $(document).ajaxStart(function(){
+        $(".loading").css("display", "block");
+        });
+
+        $(document).ajaxComplete(function(){
+            $(".loading").css("display", "none");
+        });
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "{{route('quyet-dinh.add')}}",
+            data: {
             ten: $('#ten_quyet_dinh').val(),
             van_ban_url: $('#url_van_ban').val(),
             ngay_ban_hanh: $('#ngay_ban_hanh').val(),
             ngay_hieu_luc: $('#ngay_hieu_luc').val(),
             ngay_het_han: $('#ngay_het_han').val(),
             loai_quyet_dinh: $('#loai_quyet_dinh').val(),
-            _token: $('#token').val(),
-        };
-        $.ajax({
-            type: "POST",
-            dataType: "json",
-            url: "{{route('quyet-dinh.add')}}",
-            data: dataPost,
-            success: function (response) {
+            _token: $('#token').val()
+        },
+            success: function(response) {
                 var htmldata = '<option selected disabled>---Chọn quyết định---</option>'
                 response.data.forEach(element => {
                     htmldata += `<option value="${element.id}">${element.ten}</option>`
                 });
                 $('#quyet_dinh_id').html(htmldata);
-                $('#messageqd').html(response.messageqd)
+
+                $('#co_quan_chu_quan_id').html(htmldata);
+                Swal.fire({
+                title: response.messageqd,
+                icon: 'success'
+                });
             },
-            errors: function (dataErr) {
-                var errors = dataErr.responseJSON;
-                console.log(errors);
-                // if($.isEmptyObject(errors) == false){
-                //     $.each(errors.errors, function(key, value){
-                //         console.log(value);
-                //         var ErrorID = '#Err-' + key;
-                //         $(ErrorID).removeClass('d-none');
-                //         $(ErrorID).text(value);
-                //     })
-                // }
+            error: function(data) {
+                var errors = data.responseJSON;
+                if($.isEmptyObject(errors) == false){
+                    $.each(errors.errors, function(key, value){
+                        var ErrorID = '#Err_' + key;
+                        $(ErrorID).removeClass('d-none');
+                        $(ErrorID).text(value);
+                        console.log(ErrorID);
+                    })
+                }
             }
         });
     });
