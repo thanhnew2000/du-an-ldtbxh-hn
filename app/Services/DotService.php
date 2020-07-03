@@ -24,8 +24,7 @@ class DotService extends AppService
     }
 
     public function findById($id){
-         $data = DB::table('dot')->where('id', $id)->first();
-         return $data;
+        return $this->repository->findById($id);
     }
 
     public function updateDot($arrayData,$id){

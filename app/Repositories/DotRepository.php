@@ -33,6 +33,11 @@ class DotRepository extends BaseRepository implements DotRepositoryInterface
         return $data;
     }
 
+    public function findById($id){
+        $data = $this->model->where('id', $id)->first();
+        return $data;
+    }
+
     public function createDot($arrayAdd){
        return  $this->model->create($arrayAdd);
     }
