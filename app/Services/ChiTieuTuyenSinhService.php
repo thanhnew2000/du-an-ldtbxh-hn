@@ -383,7 +383,7 @@ class ChiTieuTuyenSinhService extends AppService
     {
         $returnData = $this->chiTieuTuyenSinhRepository->store($data);
         if($returnData){
-            $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($getdata['co_so_id']);
+            $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($data['co_so_id']);
             $tieude = 'Thêm mới ( '.$thongTinCoSo->ten.' )';
             $noidung = 'Thêm mới số liệu chỉ tiêu tuyển sinh';
             $route = route('xuatbc.chi-tiet-dang-ky-chi-tieu-tuyen-sinh',['co_so_id' => $data['co_so_id']]);
