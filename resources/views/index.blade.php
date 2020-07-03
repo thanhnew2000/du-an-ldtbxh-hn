@@ -630,7 +630,8 @@
                             <h3 class="m-portlet__head-text">
                                 <font style="vertical-align: inherit;">
                                     <font style="vertical-align: inherit;">
-                                        Biểu đồ thống kê kết quả tuyển sinh hiện tại
+                                 Biểu đồ thống kê số lượng trường đào tạo
+                                 
                                     </font>
                                 </font>
                             </h3>
@@ -655,7 +656,8 @@
                             <h3 class="m-portlet__head-text">
                                 <font style="vertical-align: inherit;">
                                     <font style="vertical-align: inherit;">
-                                        Biểu đồ thống kê sinh viên đang theo học hiện tại
+                                        Biểu đồ thống kê kết quả tuyển sinh trong 4 năm gần nhất
+
                                     </font>
                                 </font>
                             </h3>
@@ -663,7 +665,7 @@
                     </div>
                 </div>
                 <div class="m-portlet__body">
-                    <canvas id="pieChart" width="400" height="400"></canvas>
+                    <canvas id="lineChart" width="400" height="400"></canvas>
                 </div>
             </div>
 
@@ -685,18 +687,18 @@
 <script>
     var ctx = document.getElementById('barChart');
     var barChart= new Chart(ctx, {
-      type: 'bar',
+      type: 'pie',
       data: {
-        labels: ["Hệ Cao Đẳng", "Hệ Trung Cấp", "Hệ Sơ Cấp", "Hệ Khác"],
+        labels: ["Hệ Cao Đẳng", "Hệ Trung Cấp"],
         datasets: [
           {
             label: "Hệ cao đẳng ",
             backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9"],
             data: [
-                {{ $dataCTTS['so_luong_sv_Cao_dang']}},
-                {{ $dataCTTS['so_luong_sv_Trung_cap']}},
-                {{ $dataCTTS['so_luong_sv_So_cap']}},
-                {{ $dataCTTS['so_luong_sv_he_khac']}}
+                {{ $kq2["cao_dang"] }},
+                {{ $kq2["trung_cap"] }},
+
+
             ],
             borderWidth:1
           }
@@ -706,7 +708,85 @@
         legend: { display: true },
         title: {
           display: true,
-          text:'Biểu đồ kết quả tuyển sinh',
+          text:'Biểu đồ tổng số lượng trường',
+          fontSize: 16,
+        },
+        scales: {
+                
+                ticks: {
+                    beginAtZero: true
+                }
+            
+        },
+        
+      }
+    });
+  
+
+</script>
+<script>
+    var ctx = document.getElementById('lineChart');
+    var lineChart= new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: [{{$kq[0]->nam}}, {{$kq[1]->nam}}, {{$kq[2]->nam}}, {{$kq[3]->nam}}],
+        datasets: [
+          {
+            label: "Hệ cao đẳng ",
+            backgroundColor: "#3e95cd",
+            data: [
+                {{ $kq[0]->so_luong_sv_Cao_dang }},
+                {{ $kq[1]->so_luong_sv_Cao_dang }},
+                {{ $kq[2]->so_luong_sv_Cao_dang }},
+                {{ $kq[3]->so_luong_sv_Cao_dang }}
+            ],
+            borderWidth:1
+          },
+          
+          {
+            label: "Hệ trung cấp ",
+            backgroundColor: "#8e5ea2",
+            data: [
+                {{ $kq[0]->so_luong_sv_Trung_cap }},
+                {{ $kq[1]->so_luong_sv_Trung_cap }},
+                {{ $kq[2]->so_luong_sv_Trung_cap }},
+                {{ $kq[3]->so_luong_sv_Trung_cap }}
+              
+            ],
+            borderWidth:1
+          },
+          
+          {
+            label: "Hệ sơ cấp ",
+            backgroundColor: "#3cba9f",
+            data: [
+                {{ $kq[0]->so_luong_sv_So_cap }},
+                {{ $kq[1]->so_luong_sv_So_cap }},
+                {{ $kq[2]->so_luong_sv_So_cap }},
+                {{ $kq[3]->so_luong_sv_So_cap }}
+               
+            ],
+            borderWidth:1
+          },
+          {
+            label: "Hệ khác",
+            backgroundColor: "#e8c3b9",
+            data: [
+                {{ $kq[0]->so_luong_sv_he_khac }},
+                {{ $kq[1]->so_luong_sv_he_khac }},
+                {{ $kq[2]->so_luong_sv_he_khac }},
+                {{ $kq[3]->so_luong_sv_he_khac }}
+               
+            ],
+            borderWidth:1
+          },
+        ]
+      },
+      options: {
+        legend: { display: true },
+        title: {
+          display: true,
+          text:'Biểu đồ tổng kết quả tuyển sinh 4 năm gần nhất',
           fontSize: 16,
         },
         scales: {
@@ -723,56 +803,6 @@
 
 </script>
 
-<script>
-    var ctx = document.getElementById('pieChart');
-    var pieChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ["Hệ Cao Đẳng", "Hệ Trung Cấp", "Hệ Sơ Cấp", "Hệ Khác"],
-            datasets: [{
-                label: 'Lượng sinh viên đang theo học hệ Cao Đẳng',
-                data: [
-                {{ $dataSVdanghoc['so_luong_sv_Cao_dang']}},
-                {{ $dataSVdanghoc['so_luong_sv_Trung_cap']}},
-                {{ $dataSVdanghoc['so_luong_sv_So_cap']}},
-                {{ $dataSVdanghoc['so_luong_sv_he_khac']}}
-                ],
-                backgroundColor: [
-                    'rgba(255, 99, 132)',
-                    'rgba(54, 162, 235)',
-                    'rgba(255, 206, 86)',
-                    'rgba(75, 192, 192)'
-                   
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)'
-                 
-                ],
-                borderWidth: 1
-            },
-            ]
-        },
-        options: {
-            legend: { display: true},
-            title:{
-                display:true,
-                text:'Biểu đồ sinh viên đang theo học',
-                fontSize: 16,
-            },
-            scales: {
-                
-                    ticks: {
-                        beginAtZero: true
-                    }
-                
-            }
-        }
-    });
-   
-    </script>
 
 {{-- endhieupt --}}
 @endsection

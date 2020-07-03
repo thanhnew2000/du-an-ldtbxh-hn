@@ -14,19 +14,20 @@ class ChartKetQuaTuyenSinhRepository extends BaseRepository
 	}
 
     public function getKetQuaTuyenSinhChart($params){
+        
         $query = $this->table;
         if (isset($params['dot']) && $params['dot'] != 0) {
             $query->where('tuyen_sinh.dot', $params['dot']);
             }
-            if (isset($params['nam']) && $params['nam'] != 0) {
+        if (isset($params['nam']) && $params['nam'] != 0) {
                 $query->where('tuyen_sinh.nam', $params['nam']);
             }
-            if (isset($params['co_so_id']) && $params['co_so_id'] != 0) {
+        if (isset($params['co_so_id']) && $params['co_so_id'] != 0) {
                 $query->where('tuyen_sinh.co_so_id', $params['co_so_id']);
             }
-            $data = (array)$query->first();
+        $data = (array)$query->first();
 
-            if($data == []){
+        if($data == []){
                 $data = [
                     'so_luong_sv_Cao_dang'=> 0,
                     'so_luong_sv_Trung_cap'=> 0,
@@ -43,4 +44,8 @@ class ChartKetQuaTuyenSinhRepository extends BaseRepository
             }
         return $data;
     }
+
+   
+   
+
 } 

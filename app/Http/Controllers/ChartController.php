@@ -4,15 +4,25 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Services\ChartKetQuaTuyenSinhService;
+use App\Services\ChartTongKetQuaTuyenSinhService;
+use App\Services\ChartTongSoLuongTruongService;
+use App\Services\ChartSoLuongTruongService;
 
 class ChartController extends Controller
 {
 
     protected $ChartKetQuaTuyenSinhService;
-    public function __construct(ChartKetQuaTuyenSinhService $ChartKetQuaTuyenSinhService)
+    protected $ChartTongKetQuaTuyenSinhService;
+    protected $ChartTongSoLuongTruongService;
+
+
+    public function __construct(
+        ChartKetQuaTuyenSinhService $ChartKetQuaTuyenSinhService,
+        ChartTongSoLuongTruongService $ChartTongSoLuongTruongService
+    )
     {
         $this->ChartKetQuaTuyenSinhService = $ChartKetQuaTuyenSinhService;
+        $this->ChartTongSoLuongTruongService = $ChartTongSoLuongTruongService;
     }
     public function bdbaocaongansach()
     {
@@ -162,4 +172,6 @@ $data = $this->ChartKetQuaTuyenSinhService->getKetQuaTuyenSinhChart($params);
         $coSo = DB::table('co_so_dao_tao')->get();
         return view('chart.bieu_do_hop_tac_quoc_te',compact('coSo','data','params'));
     }
+
+    
 }
