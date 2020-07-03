@@ -97,13 +97,12 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Tên ngành nghề</label>
                                 <div class="col-lg-10">
-                                    <select name="nghe_id" id="" class="form-control select2">
-                                        <option value="">-----Chọn ngành nghề-----</option>
+                                    <select name="nghe_id[]" id="nghe_id" class="form-control select2" multiple="multiple">
                                         @forelse ($params['get_nganh_nghe_theo_co_so'] as $item)
-                                        <option value="{{ $item->id }}" @if(isset($params['nghe_id']) &&
-                                            $params['nghe_id']==$item->id)
-                                            selected
-                                            @endif>
+                                        <option 
+                                        @if (isset($params['nghe_id'])) @foreach ($params['nghe_id'] as
+                                        $params4) {{($params4 ==  $item->id ) ? 'selected' : ''}} @endforeach @endif
+                                             value="{{ $item->id }}">
 
                                             {{ $item->id }} --- {{ $item->ten_nganh_nghe }}
                                         </option>
@@ -134,9 +133,11 @@
                     <div class="col-lg-2">
                         <select class="form-control" id="page-size">
                             @foreach(config('common.paginate_size.list') as $size)
-                            <option @if($params['page_size']==$size) selected @endif value="{{$size}}">{{$size}}</option>
+                            <option @if (isset($params['page_size']))
+                                {{( $params['page_size'] ==  $size ) ? 'selected' : ''}} @endif value="{{$size}}">
+                                {{$size}}
+                            </option>
                             @endforeach
-    
                         </select>
                     </div>
                 </div>
@@ -207,21 +208,10 @@
     </div>
 @endsection
 @section('script')
+<script src="{!! asset('page_size/page_size.js') !!}"></script>
 <script>
-    var currentUrl = `{{route($route_name,['co_so_id'=>$thongtincoso[0]->id])}}`;
-    $(document).ready(function () {
-        $('#page-size').change(function () {
-            var dot = $('[name="dot"]').val();
-            var nam = $('[name="nam"]').val();
-            var nghe_id = $('[name="nghe_id"]').val();
-            var page_size = $(this).val();
-            var reloadUrl =
-                `${currentUrl}?dot=${dot}&nam=${nam}&nghe_id=${nghe_id}&page_size=${page_size}`;
-            window.location.href = reloadUrl;
-        });
-
+   $(document).ready(function () {
         $('.select2').select2();
-
     });
 </script>
 @if (session('success'))

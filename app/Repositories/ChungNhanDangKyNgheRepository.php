@@ -13,63 +13,6 @@ class ChungNhanDangKyNgheRepository extends BaseRepository implements ChungNhanD
     {
         return 'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao';
     }
-
-    /*public function getNganhNghe($params){
-        $queryBuilder = $this->table
-            ->select(
-                'id',
-                'ten_nganh_nghe',
-                'bac_nghe',
-                DB::raw('(select count(dk.id) 
-                                from giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao dk 
-                                where dk.nghe_id = nganh_nghe.id) as csdt_count')
-            )
-            ->where('bac_nghe', $params['bac_nghe']);
-        if(isset($params['keyword']) && $params['keyword'] != null){
-            $queryBuilder->where(function($query) use ($params) {
-
-                $query->orWhere('ten_nganh_nghe', 'like', "%".$params['keyword']."%")
-                    ->orwhere('id', $params['keyword']);
-            });
-        }
-//        dd($queryBuilder->get());
-        return $queryBuilder->paginate($params['page_size']);
-    }*/
-
-    /*  select
-            csdt.id,
-            csdt.ten,
-            csdt.ma_don_vi,
-
-            csdt.logo,
-            lhcs.loai_hinh_co_so,
-            cqcq.ten as ten_chu_quan,
-
-            qh.name as ten_qh,
-            xptt.name as ten_xptt
-        from giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao cndk
-        join co_so_dao_tao csdt
-            on cndk.co_so_id = csdt.id
-        join loai_hinh_co_so lhcs
-            on csdt.ma_loai_hinh_co_so = lhcs.id
-        join co_quan_chu_quan cqcq
-            on cqcq.id = csdt.co_quan_chu_quan_id
-        join devvn_quanhuyen qh
-            on qh.maqh = csdt.maqh
-        join devvn_xaphuongthitran xptt
-            on xptt.xaid = csdt.xaid
-        where cndk.nghe_id = 6140201
-    */
-    /* Lấy danh sách cơ sở đào tạo theo mã nghề
-     * @author: thienth
-     * @date: 2020-06-03
-     * @params: []
-     * - ma_nghe: int - mã nghề nghiệp
-     * - keyword: string - nullable - Tên cơ sở đào tạo
-     * - ma_quan_huyen: int - nullable - Mã quận huyện
-     * - ma_phuong_xa: int - nullable - Mã xã phường
-     * - page_size: int - Page size
-     * */
     public function getCoSoDaoTaoTheoNghe($params)
     {
         $queryBuilder = $this->table
@@ -125,7 +68,6 @@ class ChungNhanDangKyNgheRepository extends BaseRepository implements ChungNhanD
             ->join('nganh_nghe', 'nganh_nghe.id', '=', 'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.nghe_id')
             ->join('giay_phep', 'giay_phep.id', '=', 'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.giay_phep_id')
             ->where('giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.co_so_id', $params['co_so_id']);
-        // dd($queryBuilder->toSql());
         return $queryBuilder->paginate($params['page_size']);
     }
 
@@ -151,5 +93,19 @@ class ChungNhanDangKyNgheRepository extends BaseRepository implements ChungNhanD
             ->where('giay_phep_id', $params['giay_phep_id'])
             ->where('nghe_id', $params['nghe_id'])
             ->delete();
+    }
+    public function getTongSoTuyenSinhTheoNghe($params)
+    {
+        $queryBuilder = $this->table->select(
+            'co_so_dao_tao.ten',
+            DB::raw('SUM(tuyen_sinh.tong_so_tuyen_sinh) as tong_so_tuyen_sinh')
+        )->join('co_so_dao_tao', 'co_so_dao_tao.id', '=', 'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.co_so_id')
+        ->leftJoin('tuyen_sinh', function ($join) {
+            $join->on('tuyen_sinh.co_so_id', '=', 'co_so_dao_tao.id')
+            ->on('tuyen_sinh.nghe_id', '=', 'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.nghe_id');
+        })
+        ->where('giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.nghe_id', $params['ma_nghe'])
+        ->groupBy('co_so_dao_tao.ten');
+        return $queryBuilder->orderByDesc('tong_so_tuyen_sinh')->paginate($params['page_size']);
     }
 }

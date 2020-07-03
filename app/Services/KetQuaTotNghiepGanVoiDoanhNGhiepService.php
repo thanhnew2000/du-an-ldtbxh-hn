@@ -13,19 +13,27 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
 use Storage;
 use Carbon\Carbon;
+use App\Repositories\CoSoDaoTaoRepositoryInterface;
+use App\Services\StoreUpdateNotificationService;
 
 class KetQuaTotNghiepGanVoiDoanhNGhiepService extends AppService
 {   
 
     protected $SoLieuTuyenSinhInterface;
+    protected $CoSoDaoTaoRepository;
+    protected $StoreUpdateNotificationService;
     use ExcelTraitService;
 
     public function __construct(
-        SoLieuTuyenSinhInterface $soLieuTuyenSinhRepository
+        SoLieuTuyenSinhInterface $soLieuTuyenSinhRepository,
+        CoSoDaoTaoRepositoryInterface $coSoDaoTao,
+        StoreUpdateNotificationService $StoreUpdateNotificationService
 
     ) {
         parent::__construct();
         $this->soLieuTuyenSinhRepository = $soLieuTuyenSinhRepository;
+        $this ->CoSoDaoTaoRepository = $coSoDaoTao;
+        $this->StoreUpdateNotificationService = $StoreUpdateNotificationService;
     }
 
 
@@ -91,6 +99,24 @@ class KetQuaTotNghiepGanVoiDoanhNGhiepService extends AppService
         return $data;
     }
 
+    public function PostKetQuaTotNghiepGanVoiDoanhNghiep($getdata)
+    {
+        unset($getdata['_token']);
+        $dateTime = Carbon::now();
+        $getdata['thoi_gian_cap_nhat'] = $dateTime->format('Y-m-d H:i:s');
+        
+        $data = $this->repository->PostKetQuaTotNghiepGanVoiDoanhNghiep($getdata);
+        if($data){
+            $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($getdata['co_so_id']);
+            $tieude = 'Thêm mới ( '.$thongTinCoSo->ten.' )';
+            $noidung = 'Thêm mới số liệu kết quả tốt nghiệp gắn với doanh nghiệp';
+            $route = route('xuatbc.chi-tiet-ket-qua-tot-nghiep-voi-doanh-nghiep', ['co_so_id' => $getdata['co_so_id']]);
+            $this->StoreUpdateNotificationService->addContentUp($getdata['nam'],$getdata['dot'],$getdata['co_so_id'],$tieude,$noidung,$route);
+
+        }
+        return $data;
+    }
+
 
     public function getCheckTonTai($data, $requestParams)
     {
@@ -101,7 +127,7 @@ class KetQuaTotNghiepGanVoiDoanhNGhiepService extends AppService
             $message = 'Số liệu đã tồn tại !';
         }
         if (!isset($checkResult)) {
-            $data = $this->repository->PostKetQuaTotNghiepGanVoiDoanhNghiep($requestParams);
+            $data = $this->PostKetQuaTotNghiepGanVoiDoanhNghiep($requestParams);
             $message = 'Thêm số liệu thành công';
             $route = route('xuatbc.ket-qua-tot-nghiep-voi-doanh-nghiep');
         }
@@ -126,6 +152,25 @@ class KetQuaTotNghiepGanVoiDoanhNGhiepService extends AppService
         }
 
         return $conditionData;
+    }
+
+    public function updateData($id,$request)
+    {
+        $attributes = $request->all();
+        $findata = $this->repository->findById($id);
+        $getdata=(array)$findata;
+        unset($attributes['_token']);
+        $resurt = $this->repository->update($id, $attributes);
+        $dataFindId = $this->repository->findById($id);
+        $getdata = (array)$dataFindId;
+        $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($getdata['co_so_id']);
+        if($resurt){         
+            $tieude = 'Cập nhật ( '.$thongTinCoSo->ten.' )';
+            $noidung = 'Cập nhật số liệu kết quả tốt nghiệp gắn với doanh nghiệp';
+			$route = route('xuatbc.chi-tiet-ket-qua-tot-nghiep-voi-doanh-nghiep', ['co_so_id' => $getdata['co_so_id']]);
+			$this->StoreUpdateNotificationService->addContentUp($getdata['nam'],$getdata['dot'],$getdata['co_so_id'],$tieude,$noidung,$route);
+        }
+        return $resurt;
     }
 
 
@@ -184,7 +229,7 @@ class KetQuaTotNghiepGanVoiDoanhNGhiepService extends AppService
 
         $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="file-form-nhap.xlsx"');
+        header('Content-Disposition: attachment; filename="File-nhap-tot-nghiep-doanh-nghiep.xlsx"');
         $writer->save("php://output");
     }
 
@@ -227,10 +272,15 @@ class KetQuaTotNghiepGanVoiDoanhNGhiepService extends AppService
         $worksheet->setCellValue('A'.$row,$sothuTu);
         $this->exportFillRow($worksheet, $row , $dttn_dn);
         }
-         $writer =IOFactory::createWriter($spreadsheet, "Xlsx");
-         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-         header('Content-Disposition: attachment; filename="file-xuat.xlsx"');
-         $writer->save("php://output");
+         
+        $ngayBatDau = date("d-m-Y", strtotime($fromDate));
+        $ngayDen = date("d-m-Y", strtotime($toDate));
+
+        $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
+        $file_xuat_name="[{$ngayBatDau} - {$ngayDen}] File-xuat-tot-nghiep-doanh-nghiep.xlsx";
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename='.$file_xuat_name);
+        $writer->save("php://output");
     }
     
 
@@ -337,6 +387,12 @@ class KetQuaTotNghiepGanVoiDoanhNGhiepService extends AppService
                     $this->repository->createTotNghiepVoiDoanhNghiep($insertData);
                 }    
 
+                $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($id_truong);
+                $bm = 'Kết quả tốt nghiệp gắn với doanh nghiệp';
+                $tencoso = $thongTinCoSo->ten;
+                $route = route('xuatbc.chi-tiet-ket-qua-tot-nghiep-voi-doanh-nghiep', ['co_so_id' => $id_truong]);
+                $this->StoreUpdateNotificationService->addContentUpExecl($year,$dot,$id_truong,count($insertData),count($updateData),$bm,$route,$tencoso);
+
                 $message='ok';
                 return $message;  
             }
@@ -389,11 +445,8 @@ class KetQuaTotNghiepGanVoiDoanhNGhiepService extends AppService
 
         $writer = IOFactory::createWriter($spreadsheet2, "Xlsx"); 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="error.xlsx"');
+        header('Content-Disposition: attachment; filename="Error-file-nhap-tot-nghiep-doanh-nghiep.xlsx"');
         $writer->save("php://output");
     } 
-
-
-
 
 }

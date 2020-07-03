@@ -114,4 +114,12 @@ class SoLieuCanBoQuanLyRepository extends BaseRepository
         public function updateSoLieuCanBoQl($key,$arrayData){
             return $this->model->where('id',$key)->update($arrayData);
         }
+        
+        public function getSlCanBoQuanLyFromTo($id_truong, $fromDate,$toDate){
+            $data =  DB::table('so_lieu_can_bo_quan_ly')->where('so_lieu_can_bo_quan_ly.co_so_dao_tao_id', '=',$id_truong)
+            ->where('created_at','>=',$fromDate)
+            ->where('created_at','<=',$toDate)
+            ->get();
+            return $data;
+        }
 }

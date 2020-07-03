@@ -100,23 +100,6 @@ class DaoTaoNgheVoiDoanhNghiepRepository extends BaseRepository implements DaoTa
 		return $data;
 	}
 
-	public function getThongTinCoSo($coSoId)
-	{
-		$data = DB::table('co_so_dao_tao')
-		->where('co_so_dao_tao.id', '=', $coSoId)
-		->join('loai_hinh_co_so', 'co_so_dao_tao.ma_loai_hinh_co_so', '=', 'loai_hinh_co_so.id')
-		->join('devvn_quanhuyen', 'co_so_dao_tao.maqh', '=', 'devvn_quanhuyen.maqh')
-		->join('devvn_xaphuongthitran', 'co_so_dao_tao.xaid', '=', 'devvn_xaphuongthitran.xaid')
-		->select(
-					'co_so_dao_tao.ten',
-					'co_so_dao_tao.dia_chi',
-					'loai_hinh_co_so.loai_hinh_co_so',
-					'devvn_quanhuyen.name as ten_quan_huyen',
-					'devvn_xaphuongthitran.name as ten_xa_phuong'
-				)
-		->first();
-		return $data;
-    }
 
     public function show($coSoId,$limit,$queryData)
 	{
@@ -207,6 +190,7 @@ class DaoTaoNgheVoiDoanhNghiepRepository extends BaseRepository implements DaoTa
 		->where('thoi_gian_cap_nhat','>=',$fromDate)
 		->where('thoi_gian_cap_nhat','<=',$toDate)
 		->join('nganh_nghe','nganh_nghe.id','=','ket_qua_tuyen_sinh_gan_voi_doanh_nghiep.nghe_id')
+		->orderBy('nganh_nghe.id','desc')
 		->get();
 		return $data;
 	}

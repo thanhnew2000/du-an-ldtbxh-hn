@@ -1,5 +1,6 @@
 
 @extends('layouts.admin')
+@section('title', 'Chi tiết ngành nghề')
 @section('content')
 <div class="m-content container-fluid">
     <div class="m-portlet">
@@ -15,8 +16,8 @@
                 </div>
             </div>
         </div>
+
         <form action="" method="get" class="m-form">
-            <input type="hidden" name="page_size" value="{{$params['page_size']}}">
             <div class="m-portlet__body">
                 <div class="m-form__section m-form__section--first">
                     <div class="m-form__heading">
@@ -25,46 +26,20 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group m-form__group row">
-                                <label class="col-lg-2 col-form-label">Loại hình cơ sở:</label>
+                                <label class="col-lg-2 col-form-label">Tên cơ sở:</label>
                                 <div class="col-lg-8">
-                                    <select name="loai_hinh_co_so" class="form-control ">
-                                        <option value="">------------- Lựa chọn loại hình cơ sở -------------</option>
-                                        @foreach($dsLoaiHinhCoSo as $cursor)
-                                            <option
-                                                    @if(isset($params['loai_hinh_co_so']) && $params['loai_hinh_co_so'] == $cursor->id)
-                                                    selected
-                                                    @endif
-                                                    value="{{$cursor->id}}">{{$cursor->loai_hinh_co_so}}</option>
-                                        @endforeach
-                                    </select>
+                                    <input type="text" value="" name="ten_co_so"
+                                        class="form-control m-input" placeholder="từ khóa tên cơ sở">
                                 </div>
-                            </div>
-                            <div class="form-group m-form__group row">
-                                <label class="col-lg-2 col-form-label">Từ khóa:</label>
-                                <div class="col-lg-8">
-                                    <input type="text" class="form-control m-input"
-                                           @if(isset($params['keyword']))
-                                           value="{{$params['keyword']}}"
-                                           @endif
-                                           placeholder="Nhập tên cơ sở đào tạo cần tìm" name="keyword">
-                                </div>
-
                             </div>
                         </div>
-                        <div class="col-md-6">
 
+                        <div class="col-md-6">
                             <div class="form-group m-form__group row">
-                                <label class="col-lg-2 col-form-label">Quận/Huyện:</label>
+                                <label class="col-lg-2 col-form-label">Năm</label>
                                 <div class="col-lg-8">
-                                    <select name="ma_quan_huyen" class="form-control ">
-                                        <option value="">------------- Lựa chọn quận/huyện -------------</option>
-                                        @foreach($dsQuanHuyen as $cursor)
-                                            <option
-                                                    @if(isset($params['ma_quan_huyen']) && $params['ma_quan_huyen'] == $cursor->ma_quan_huyen)
-                                                    selected
-                                                    @endif
-                                                    value="{{$cursor->ma_quan_huyen}}">{{$cursor->ten_quan_huyen}}</option>
-                                        @endforeach
+                                    <select class="form-control" id="page-size">
+                                       <option value="">2019</option>
                                     </select>
                                 </div>
                             </div>
@@ -82,60 +57,58 @@
     </div>
     <div class="m-portlet">
         <div class="m-portlet__body">
-            <div class="col-12 form-group m-form__group d-flex justify-content-end">
-                <label class="col-lg-2 col-form-label">Kích thước:</label>
-                <div class="col-lg-2">
-                    <select class="form-control" id="page-size">
-                        @foreach(config('common.paginate_size.list') as $size)
-                            <option
-                                    @if($params['page_size'] == $size)
-                                        selected
-                                    @endif
-                                    value="{{$size}}">{{$size}}</option>
-                        @endforeach
-                    </select>
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="m-portlet__head-caption col-lg-6">
+                    <div class="m-portlet__head-title">
+                        <h5 class="m-portlet__head-text">
+                            Tên nghề: 
+                        </h5>
+                    </div>
+                </div>
+
+                <div class="col-5 form-group m-form__group d-flex justify-content-end">
+                    <label class="col-lg-4 col-form-label">Kích thước:</label>
+                    <div class="col-lg-7">
+                        <select class="form-control" id="page-size">
+                            @foreach(config('common.paginate_size.list') as $size)
+                                <option
+                                        @if($params['page_size'] == $size)
+                                            selected
+                                        @endif
+                                        value="{{$size}}">{{$size}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
             </div>
             <table class="table m-table m-table--head-bg-brand">
                 <thead>
-                    <th>Tên cơ sở <br> đào tạo</th>
-                    <th>Mã cơ sở <br/> đào tạo</th>
-                    <th>Logo</th>
-                    <th>Quyết định</th>
-                    <th>Ngày ban hành</th>
-                    <th>Loại hình <br> cơ sở</th>
-                    <th>Đơn vị <br> chủ quản</th>
-                    <th>Quận/huyện</th>
-                    <th>Phường/xã</th>
-                    <th>
-                        <a href="" class="btn btn-success btn-sm">Thêm mới</a>
-                    </th>
+                    <th>Tên cơ sở đào tạo</th>
+                    <th>Loại hình cơ sở</th>
+                    <th>Quy mô tuyển sinh</th>
+                    <th>Tổng số sinh viên đã tuyển</th>
                 </thead>
                 <tbody>
-                @foreach($data as $cursor)
+                    @forelse ($data as $item)
                     <tr>
-                        <td>{{$cursor->ten_co_so}}</td>
-                        <td>{{$cursor->ma_don_vi}}</td>
-                        <td>
-                            <img src="{{asset($cursor->logo)}}" style="width: 75px;" class="m--img-rounded m--marginless">
-                        </td>
-                        <td>{{$cursor->ten_quyet_dinh}}</td>
-                        <td>{{$cursor->ngay_ban_hanh}}</td>
-                        <td>{{$cursor->loai_hinh_co_so}}</td>
-                        <td>{{$cursor->ten_chu_quan}}</td>
-                        <td>{{$cursor->ten_qh}}</td>
-                        <td>{{$cursor->ten_xptt}}</td>
-                        <td>
-                            <a href="" class="btn btn-primary btn-sm">Cập nhật</a>
-                            <a href="" class="btn btn-danger btn-sm">Thu hồi</a>
+                        <td>{{ $item->ten }}</td>
+                        <td></td>
+                        <td></td>
+                        <td>@if($item->tong_so_tuyen_sinh != null)
+                            <b>{{ $item->tong_so_tuyen_sinh }}</b>
+                            @else
+                            <span class="text-danger">Không tìm thấy số liệu</span>
+                            @endif
                         </td>
                     </tr>
-                @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="2" class="text-center text-danger">Không tìm thấy dữ liệu cho nghề này !</td>
+                        </tr>
+                    @endforelse
+                    
                 </tbody>
             </table>
-        </div>
-        <div class="m-portlet__foot d-flex justify-content-end">
-            {{$data->links()}}
         </div>
     </div>
 </div>

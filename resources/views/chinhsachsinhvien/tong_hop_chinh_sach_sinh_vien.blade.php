@@ -399,7 +399,19 @@
 <script src="{!! asset('excel-js/js-form.js') !!}"></script>
 {{-- end --}}
 
-<script src="{{ asset('chinh_sach_sinh_vien/chinh_sach_sinh_vien.js') }}"></script>
+<script src="{!! asset('chinh_sach_sinh_vien/tong_hop_so_lieu.js') !!}"></script>
+<script>
+    $(function() {
+  const queryString = new URLSearchParams(window.location.search);
+  const nam = queryString.get('nam') ? queryString.get('nam') : (new Date()).getFullYear();
+  const dot = queryString.get('dot') ? queryString.get('dot') :
+    ((new Date()).getMonth()+1 < 6 ? 1 : 2);
+  $("#nam").val(nam);
+  $("#dot").val(dot);
+  $("#loai_hinh").val("");
+  $("#chinhsach").val("1");
+});
+</script>
 <script type="text/javascript">
     $(document).ready(function() {
     $('.select2').select2();
