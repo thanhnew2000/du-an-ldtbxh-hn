@@ -438,6 +438,7 @@
                 title: response.message,
                 icon: 'success'
                 });
+                $('#m_modal_5').modal('hide');
             },
             error: function(data) {
                 var errors = data.responseJSON;
@@ -494,6 +495,7 @@
                 title: response.messageqd,
                 icon: 'success'
                 });
+                $('#m_modal_6').modal('hide');
             },
             error: function(data) {
                 var errors = data.responseJSON;
