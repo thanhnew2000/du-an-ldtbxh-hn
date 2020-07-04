@@ -507,8 +507,6 @@
                     htmldata += `<option value="${element.id}">${element.ten}</option>`
                 });
                 $('#quyet_dinh_id').html(htmldata);
-
-                $('#co_quan_chu_quan_id').html(htmldata);
                 Swal.fire({
                 title: response.messageqd,
                 icon: 'success'
