@@ -82,80 +82,87 @@
                     </select>
                 </div>
             </div>
-            <table class="table m-table m-table--head-bg-brand">
-                <thead>
-                    <th>STT</th>
-                    <th>Họ và Tên</th>
-                    <th>Ảnh đại diện</th>
-                    <th>Email</th>
-                    <th>Số điện thoại</th>
-                    <th>Cơ sở đào tạo</th>
-                    <th>Tên quyền</th>
-                    <th>Trạng thái</th>
-                    <th>
-                        @can('them_tai_khoan')
-                        <a target="_blank" href="{{ route('account.tao-tk') }}" class="btn btn-success btn-sm">Thêm mới</a>
-                        @endcan
-                    </th>
-                </thead>
-                <tbody>
-                    @php
-                    $i = 1;
-                    function displayAvatar($avatarImg)
-                    {
-                    if($avatarImg != null) {
-                        return asset('storage/'.$avatarImg);
-                    }
-                        return asset('images/avatardefault.jpg');
-                    }
-                    @endphp
-
-                    @foreach ($users as $user)
-
-
-                    <tr>
-                        <th scope="row" class="vertical-middle">{{ $i }}</th>
-                        @php
-                        $i++;
-                        @endphp
-                        <td>{{ $user->name }}</td>
-                        <td><img width="60" class="td_show-avatar" src="{!! displayAvatar($user->avatar) !!}"
-                                alt="avatar">
-                        </td>
-                        <td>{{ $user->email }}</td>
-
-                        <td>{{ $user->phone_number }}</td>
-                        <td>{{ $user->ten }}</td>
-                        <td>{{ $user->role_name }}</td>
-                        @can('vo_hieu_hoa_tai_khoan')
-                        <td>
-                            <form class="m-form">
-
-                                <span class="m-switch m-switch--outline m-switch--icon m-switch--success">
-                                    <label>
-                                        <input type="checkbox" onclick="editstatus(this)" user-id="{{ $user->id }}"
-                                            name="" @if ($user->status ==
-                                        1)
-                                        checked
-                                        @endif>
-                                        <span></span>
-                                    </label>
-                                </span>
-
-                            </form>
-                        </td>
-                        @endcan
-                        <td>
-                            @can('sua_tai_khoan')
-                            <a target="_blank" class="btn btn-primary btn-sm"
-                                href="{{ route('account.edit',['id'=>$user->id]) }}">Sửa</a>
+            @if (\Session::has('mess'))
+            <div class="alert alert-success" role="alert">
+                <strong>{!! \Session::get('mess') !!}</strong>
+            </div>
+            <div class="m-portlet">
+                @endif
+                <table class="table m-table m-table--head-bg-brand">
+                    <thead>
+                        <th>STT</th>
+                        <th>Họ và Tên</th>
+                        <th>Ảnh đại diện</th>
+                        <th>Email</th>
+                        <th>Số điện thoại</th>
+                        <th>Cơ sở đào tạo</th>
+                        <th>Tên quyền</th>
+                        <th>Trạng thái</th>
+                        <th>
+                            @can('them_tai_khoan')
+                            <a target="_blank" href="{{ route('account.tao-tk') }}" class="btn btn-success btn-sm">Thêm mới</a>
                             @endcan
-                        </td>
-                    </tr>
-                    @endforeach
+                        </th>
+                    </thead>
+                    <tbody>
+                        @php
+                        $i = 1;
+                        function displayAvatar($avatarImg)
+                        {
+                        if($avatarImg != null) {
+                            return asset('storage/'.$avatarImg);
+                        }
+                            return asset('images/avatardefault.jpg');
+                        }
+                        @endphp
 
-                </tbody>
-            </table>
+                        @foreach ($users as $user)
+
+
+                        <tr>
+                            <th scope="row" class="vertical-middle">{{ $i }}</th>
+                            @php
+                            $i++;
+                            @endphp
+                            <td>{{ $user->name }}</td>
+                            <td><img width="60" class="td_show-avatar" src="{!! displayAvatar($user->avatar) !!}"
+                                    alt="avatar">
+                            </td>
+                            <td>{{ $user->email }}</td>
+
+                            <td>{{ $user->phone_number }}</td>
+                            <td>{{ $user->ten }}</td>
+                            <td>{{ $user->role_name }}</td>
+                            @can('vo_hieu_hoa_tai_khoan')
+                            <td>
+                                <form class="m-form">
+
+                                    <span class="m-switch m-switch--outline m-switch--icon m-switch--success">
+                                        <label>
+                                            <input type="checkbox" onclick="editstatus(this)" user-id="{{ $user->id }}"
+                                                name="" @if ($user->status ==
+                                            1)
+                                            checked
+                                            @endif>
+                                            <span></span>
+                                        </label>
+                                    </span>
+
+                                </form>
+                            </td>
+                            @endcan
+                            <td>
+                                @can('sua_tai_khoan')
+                                <a target="_blank" class="btn btn-primary btn-sm"
+                                    href="{{ route('account.edit',['id'=>$user->id]) }}">Sửa</a>
+                                @endcan
+                            </td>
+                        </tr>
+                        @endforeach
+
+                    </tbody>
+                </table>
+            </div>    
             <div>
 
                 @if (count($users) == 0)

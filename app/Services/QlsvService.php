@@ -115,6 +115,11 @@ class QlsvService extends AppService
         return $this->repository->getMaNganhNghe();
     }
 
+    public function getThongTinCoSo()
+    {
+        return $this->repository->getThongTinCoSo();
+    }
+
     // thanhv update 6/25/2020
 
     public function exportFillRow($worksheet, $row , $sv_d_ql){

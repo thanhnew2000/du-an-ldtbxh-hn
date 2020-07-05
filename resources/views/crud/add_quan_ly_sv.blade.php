@@ -42,7 +42,7 @@
                                     <label class="col-lg-2 col-form-label">Nghề : <span class="batbuoc">*</span>
                                     </label>
                                     <div class="col-lg-8">
-                                        <select class="form-control" required name="nghe_id" id="nghe_id">
+                                        <select class="form-control"  name="nghe_id" id="nghe_id">
                                             <option value="{{ old('nghe_id') }}">Chọn </option>
                                             @foreach ($nganhNghe as $item)
                                             <option class="form-control " value="{{$item->id}}">
@@ -58,7 +58,7 @@
                                     <label class="col-lg-2 col-form-label">Tên cơ sở: <span class="batbuoc">*</span>
                                     </label>
                                     <div class="col-lg-8">
-                                        <select name="co_so_id" class="form-control " required name="co_so_id"
+                                        <select name="co_so_id" class="form-control "  name="co_so_id"
                                             id="co_so_id">
                                             <option value="{{ old('co_so_id') }}">Chọn </option>
                                             @foreach ($coso as $item)
@@ -75,7 +75,7 @@
                                     <label class="col-lg-2 col-form-label">Loại Hình Cơ Sở : <span
                                             class="batbuoc">*</span> </label>
                                     <div class="col-lg-8">
-                                        <select name="id_loai_hinh" class="form-control" required name="id_loai_hinh">
+                                        <select name="id_loai_hinh" class="form-control" name="id_loai_hinh">
                                             <option value="{{ old('id_loai_hinh') }}">Chọn </option>
                                             @foreach ($loaiHinh as $item)
                                             <option value="{{$item->id}}">{{$item->loai_hinh_co_so}}</option>
@@ -88,7 +88,7 @@
                                 <div class="form-group m-form__group row">
                                     <label class="col-lg-2 col-form-label">Năm : <span class="batbuoc">*</span> </label>
                                     <div class="col-lg-8">
-                                        <select name="nam" class="form-control" required name="nam">
+                                        <select name="nam" class="form-control" name="nam">
                                             <option value="{{ old('nam') }}">Chọn </option>
                                             @foreach (config('common.nam_tuyen_sinh.list') as $item)
                                             <option @if (isset($params['nam']))
@@ -106,7 +106,7 @@
                                 <div class="form-group m-form__group row">
                                     <label class="col-lg-2 col-form-label">Đợt : <span class="batbuoc">*</span> </label>
                                     <div class="col-lg-8">
-                                        <select class="form-control " required onchange="getdatacheck(this)" name="dot"
+                                        <select class="form-control "  onchange="getdatacheck(this)" name="dot"
                                             id="dot">
                                             <option value="" selected>Chọn</option>
                                             <option value="1">Đợt 1</option>

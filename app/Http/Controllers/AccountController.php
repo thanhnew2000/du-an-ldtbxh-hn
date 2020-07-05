@@ -54,7 +54,7 @@ class AccountController extends Controller
 
     public function create()
     {
-        return view('account.create_account');
+        return route('account.create_account');
     }
 
 
@@ -83,12 +83,13 @@ class AccountController extends Controller
         $user->co_so_dao_tao_id = $request->co_so_dao_tao_id;
         $user->roles()->sync(['role_id' => $request->role]);
         $user->save();
-
-
-    public function checkName(Request $request)
-
+        return redirect()->route('account.list' , ['user' => $user->id])->withInput()->with('mess', 'Cập nhật tài khoản thành công');
+    }
+    public function checkName(Request $request){
         $name = $request->name;
         $pattern = '/^[\pL\s\-]+$/u';
         $kq = preg_match($pattern, $name);
         echo $kq == 1 ? "true" : "false";
+    }
+       
 }

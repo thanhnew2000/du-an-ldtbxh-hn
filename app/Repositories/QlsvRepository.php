@@ -134,7 +134,7 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
             $data->where('sv_dang_quan_ly.nghe_id', $queryData['nghe_id']);
         }
         // dd($queryData);
-        return $data->orderByDesc('sv_dang_quan_ly.co_so_id')->paginate($queryData['page_size']);
+        return $data->orderByDesc('sv_dang_quan_ly.nam')->paginate($queryData['page_size']);
     }
 
     public function getNamDaoTao()
