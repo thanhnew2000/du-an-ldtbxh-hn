@@ -24,7 +24,8 @@ class PheDuyetBaoCao extends Model
         'dot_id',
         'thoi_gian_nop',
         'thoi_gian_phe_duyet_1',
-        'thoi_gian_phe_duyet_2',
+		'thoi_gian_phe_duyet_2',
+		'dot_number',
     ];
 
     public function pheDuyetBaoCao()
