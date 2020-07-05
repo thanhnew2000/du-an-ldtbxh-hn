@@ -24,16 +24,20 @@ class NganhNgheRepository extends BaseRepository implements NganhNgheRepositoryI
     public function getNganhNghe($params)
     {
         $queryBuilder = $this->table
-            ->select(
-                'id',
-                'ten_nganh_nghe',
-                'bac_nghe',
-                DB::raw('(select count(dk.id)
-                                from giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao dk
-                                where dk.nghe_id = nganh_nghe.id) as csdt_count')
-            )
-            ->where('bac_nghe', $params['bac_nghe'])
-            ->where('ma_cap_nghe', 4);
+        ->select(
+            'id',
+            'ten_nganh_nghe',
+            'bac_nghe',
+            DB::raw('(SELECT
+                            count( DISTINCT csdt.ten ) 
+                        FROM
+                            giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao dk
+                            INNER JOIN co_so_dao_tao csdt ON dk.co_so_id = csdt.id 
+                        WHERE
+                            dk.nghe_id = nganh_nghe.id) as csdt_count')
+        )
+        ->where('bac_nghe', $params['bac_nghe'])
+        ->where('ma_cap_nghe', 4);
         if (isset($params['keyword']) && $params['keyword'] != null) {
             $queryBuilder->where(function ($query) use ($params) {
 
@@ -41,7 +45,6 @@ class NganhNgheRepository extends BaseRepository implements NganhNgheRepositoryI
                     ->orwhere('id', $params['keyword']);
             });
         }
-        //        dd($queryBuilder->get());
         return $queryBuilder->paginate($params['page_size']);
     }
 
@@ -161,7 +164,6 @@ class NganhNgheRepository extends BaseRepository implements NganhNgheRepositoryI
         ->select('nganh_nghe.*')
         ->get();
         return $nganhnghe;
-
     }
     
 }

@@ -1,5 +1,5 @@
 @extends('layouts.admin');
-
+@section('title', 'Danh sách giấy phép')
 @section('content')
 <div class="m-content container-fluid">
     <div class="m-portlet">
@@ -15,6 +15,19 @@
                 </div>
             </div>
         </div>
+        @if (count($defaultCsdt) > 0)
+        <div class="m-portlet__body">
+            <div class="m-portlet__head-caption">
+                <div class="m-portlet__head-title">
+                    <h5 class="m-portlet__head-text">
+                        Thông tin cơ sở: <b>
+                            {{ $defaultCsdt['text'] }}
+                        </b>
+                    </h5>
+                </div>
+            </div>
+        </div>
+        @endif
     </div>
     <div class="m-portlet">
         <div class="m-portlet__body">
@@ -31,7 +44,6 @@
                 <thead>
                     <tr>
                         <th>STT</th>
-                        <th>Tên trường</th>
                         <th>Tên giấy phép</th>
                         <th>Ngày ban hành</th>
                         <th>Ngày hiệu lực</th>
@@ -50,7 +62,6 @@
                     @forelse ($data as $item)
                     <tr>
                         <td>{{ $id++ }}</td>
-                        <td>{{ $item->ten_co_so }}</td>
                         <td>{{ $item->ten_giay_phep }}</td>
                         <td>{{ \Carbon\Carbon::parse($item->ngay_ban_hanh)->format('d-m-Y') }}</td>
                         <td>{{ \Carbon\Carbon::parse($item->ngay_hieu_luc)->format('d-m-Y') }}</td>

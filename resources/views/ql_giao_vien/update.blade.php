@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+@section('title', "Chỉnh sửa giáo viên")
 @section('content')
 <div class="m-content">
     <div class="m-portlet">

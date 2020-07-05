@@ -1,5 +1,5 @@
 @extends('layouts.admin');
-
+@section('title', 'Thêm mới giấy phép')
 @section('content')
 <div class="m-content container-fluid">
     <div class="m-portlet">
@@ -10,7 +10,7 @@
                         <i class="m-menu__link-icon flaticon-web"></i>
                     </span>
                     <h3 class="m-portlet__head-text">
-                        Thêm giấy phép
+                        Thêm mới giấy phép
                     </h3>
                 </div>
             </div>

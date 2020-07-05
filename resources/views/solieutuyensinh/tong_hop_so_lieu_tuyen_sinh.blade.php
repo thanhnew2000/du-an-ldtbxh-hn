@@ -221,10 +221,17 @@
                     class="fa fa-upload" aria-hidden="true"></i>
                 Tải lên file Excel</a>
         </div>
-        <div class="col-lg-8">
+        <div class="col-lg-2">
             <a href="javascript:" data-toggle="modal" data-target="#moDalExportData"><i class="fa fa-file-excel"
                     aria-hidden="true"></i>
                 Xuất dữ liệu ra Excel</a>
+        </div>
+
+        <div class="col-lg-6 " style="text-align: right">
+            @can('them_moi_tong_hop_ket_qua_tuyen_sinh')
+            <a href="{{route('themsolieutuyensinh')}}"><button type="button" class="btn btn-info .bg-info">Thêm
+                    mới</button></a>
+            @endcan
         </div>
     </div>
     <div class="m-portlet">
@@ -258,12 +265,7 @@
                         <th scope="col">Kế hoạch tuyển sinh</th>
                         <th scope="col">Trạng thái</th>
                         <!-- <th scope="col">Chỉnh sửa</th> -->
-                        <th scope="col"> 
-                            @can('them_moi_tong_hop_ket_qua_tuyen_sinh')
-                            <a href="{{route('themsolieutuyensinh')}}" class="btn btn-success btn-sm">Thêm
-                                mới</a>
-                            @endcan
-                        </th>
+                        <th scope="col"> Thao tác</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -284,13 +286,13 @@
                         <td>{{$item->tong_so_tuyen_sinh_cac_trinh_do}}</td>
                         <td>{{$item->tong_so_tuyen_sinh}}</td>
                         <td>{{$item->trang_thai}}</td>
-                       
+
                         <td>
                             @can('xem_chi_tiet_tong_hop_ket_qua_tuyen_sinh')
-                                <a href="{{route('chitietsolieutuyensinh',['co_so_id' => $item->id,])}}">Chi tiết</a>
+                            <a href="{{route('chitietsolieutuyensinh',['co_so_id' => $item->id,])}}">Chi tiết</a>
                             @endcan
                         </td>
-                        
+
                     </tr>
                     @endforeach
 
@@ -310,11 +312,11 @@
     @endphp
 
     @include('layouts.formExcel.from', [
-        'routeLayFormBieuMau' => $routeLayFormBieuMau,
-        'routeImportError' => $routeImportError,
-        'routeExportData' => $routeExportData
+    'routeLayFormBieuMau' => $routeLayFormBieuMau,
+    'routeImportError' => $routeImportError,
+    'routeExportData' => $routeExportData
     ])
-   
+
 </div>
 @endsection
 @section('script')

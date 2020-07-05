@@ -3,11 +3,14 @@
 @section('style')
 {{-- <link href="{!! asset('tuyensinh/css/chitiettuyensinh.css') !!}" rel="stylesheet" type="text/css" /> --}}
 <style>
-    .m-table.m-table--border-danger, .m-table.m-table--border-danger th, .m-table.m-table--border-danger td{
-        border-color: #BCB1B1 ;
+    .m-table.m-table--border-danger,
+    .m-table.m-table--border-danger th,
+    .m-table.m-table--border-danger td {
+        border-color: #BCB1B1;
     }
-    table thead th[colspan="4"]{
-        border-bottom-width:1px;
+
+    table thead th[colspan="4"] {
+        border-bottom-width: 1px;
         border-bottom: 1px solid #BCB1B1 !important;
     }
 </style>
@@ -22,7 +25,7 @@
                         <i class="m-menu__link-icon flaticon-web"></i>
                     </span>
                     <h3 class="m-portlet__head-text">
-                        Tổng  hợp<small>số lượng đăng ký chỉ tiêu tuyển sinh</small>
+                        Tổng hợp<small>số lượng đăng ký chỉ tiêu tuyển sinh</small>
                     </h3>
                 </div>
             </div>
@@ -139,7 +142,7 @@
     </div>
 
     <section class="action-nav d-flex align-items-center justify-content-between mt-4 mb-4">
-    
+
         <div class="col-lg-2">
             <a href="javascript:" data-toggle="modal" data-target="#exportBieuMauModal">
                 <i class="fa fa-download" aria-hidden="true"></i>
@@ -158,22 +161,25 @@
         </div>
         <div class="col-lg-2 text-center">
             @can('them_moi_tong_hop_dang_ky_chi_tieu_tuyen_sinh')
-                <a target="_blank" href="{{ route('xuatbc.them-dang-ky-chi-tieu-tuyen-sinh') }}" class="btn btn-success btn-sm">Thêm mới</a>
+            <a target="_blank" href="{{ route('xuatbc.them-dang-ky-chi-tieu-tuyen-sinh') }}"
+                class="btn btn-success btn-sm">Thêm mới</a>
             @endcan
         </div>
-</section>
+    </section>
 
     <div class="m-portlet">
         <div class="m-portlet__body table-responsive">
-            <table class="table table-bordered m-table m-table--border-danger m-table--head-bg-primary table-boder-white">
+            <table
+                class="table table-bordered m-table m-table--border-danger m-table--head-bg-primary table-boder-white">
                 <div class="col-12 form-group m-form__group d-flex justify-content-end">
                     <label class="col-lg-2 col-form-label">Kích thước:</label>
                     <div class="col-lg-2">
                         <select class="form-control" id="page-size">
                             @foreach(config('common.paginate_size.list') as $size)
-                            <option @if($params['page_size']==$size) selected @endif value="{{$size}}">{{$size}}</option>
+                            <option @if($params['page_size']==$size) selected @endif value="{{$size}}">{{$size}}
+                            </option>
                             @endforeach
-    
+
                         </select>
                     </div>
                 </div>
@@ -199,7 +205,7 @@
                     @php
                     $i = !isset($_GET['page']) ? 1 : ($params['page_size'] * ($_GET['page']-1) + 1);
                     @endphp
-                  @foreach ($data as $item)
+                    @foreach ($data as $item)
                     <tr>
                         <td>{{ $i++ }}</td>
                         <td>{{ $item->ten }}</td>
@@ -213,7 +219,7 @@
                         <td>{{ $item->tong }}</td>
                         <td>{{ $item->so_dang_ki_CD }}</td>
                         <td>{{ $item->so_dang_ki_TC }}</td>
-                      
+
                         <td>
                             @can('chi_tiet_tong_hop_dang_ky_chi_tieu_tuyen_sinh')
                             <a target="_blank"
@@ -223,8 +229,8 @@
                             @endcan
                         </td>
                     </tr>
-                      
-                  @endforeach
+
+                    @endforeach
                 </tbody>
             </table>
             <div>
@@ -243,16 +249,16 @@
     </div>
 
     @include('layouts.formExcel.from', [
-        'routeLayFormBieuMau' => 'layformbieumau-dang-ky-chi-tieu-tuyen-sinh',
-        'routeImportError' => 'import.error.dang-ky-chi-tieu-tuyen-sinh',
-        'routeExportData' => 'exportdata-dang-ky-chi-tieu-tuyen-sinh'
+    'routeLayFormBieuMau' => 'layformbieumau-dang-ky-chi-tieu-tuyen-sinh',
+    'routeImportError' => 'import.error.dang-ky-chi-tieu-tuyen-sinh',
+    'routeExportData' => 'exportdata-dang-ky-chi-tieu-tuyen-sinh'
     ])
-    
 
-@endsection
-@section('script')
-<script>
-    var currentUrl = '{{route($route_name)}}';
+
+    @endsection
+    @section('script')
+    <script>
+        var currentUrl = '{{route($route_name)}}';
     $(document).ready(function () {
         $('#page-size').change(function () {
             var loaihinhcoso = $('[name="loaihinhcoso"]').val();
@@ -273,23 +279,23 @@
         });
 
     });
-</script>
-@if (session('success'))
-<script>
-    Swal.fire({
+    </script>
+    @if (session('success'))
+    <script>
+        Swal.fire({
         position: 'center',
         icon: 'success',
         title: 'Thêm mới thành công !',
         showConfirmButton: false,
         timer: 3500
     })
-</script>
-@endif
-{{-- thanhnv update change to service 6/26/2020 --}}
-<script>
-    var routeImport = "{{route('import.dang-ky-chi-tieu-tuyen-sinh')}}" ;
-</script>
-<script src="{!! asset('excel-js/js-xuat-time.js') !!}"></script>
-<script src="{!! asset('excel-js/js-form.js') !!}"></script>
-{{-- end --}}
-@endsection
+    </script>
+    @endif
+    {{-- thanhnv update change to service 6/26/2020 --}}
+    <script>
+        var routeImport = "{{route('import.dang-ky-chi-tieu-tuyen-sinh')}}" ;
+    </script>
+    <script src="{!! asset('excel-js/js-xuat-time.js') !!}"></script>
+    <script src="{!! asset('excel-js/js-form.js') !!}"></script>
+    {{-- end --}}
+    @endsection
