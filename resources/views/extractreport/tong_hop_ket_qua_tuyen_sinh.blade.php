@@ -40,7 +40,7 @@
                                 <label class="col-lg-2 col-form-label">Tên cơ sở</label>
                                 <div class="col-lg-10">
                                     <select name="co_so_id" class="form-control select2">
-                                        <option value="">-----Chọn cơ sở-----</option>
+                                        <option value="">Chọn</option>
                                         @foreach ($params['get_co_so'] as $item)
                                         <option value="{{ $item->id }}" @if(isset($params['co_so_id']) &&
                                             $params['co_so_id']==$item->id)
@@ -57,8 +57,8 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Năm</label>
                                 <div class="col-lg-10">
-                                    <select name="nam" class="form-control select2">
-                                        <option value="">-----Chọn năm-----</option>
+                                    <select name="nam" id="nam" class="form-control select2">
+                                        <option value="">Chọn</option>
 
                                         @foreach(config('common.nam.list') as $nam)
                                         <option @if(isset($params['nam']) && $params['nam']==$nam) selected @endif
@@ -76,14 +76,14 @@
                                 <label class="col-lg-2 col-form-label">Tên ngành nghề</label>
                                 <div class="col-lg-10">
                                     <select name="nghe_id" id="" class="form-control select2">
-                                        <option value="">-----Chọn ngành nghề-----</option>
+                                        <option value="">Chọn</option>
                                         @forelse ($params['get_nganh_nghe'] as $item)
                                         <option value="{{ $item->id }}" @if(isset($params['nghe_id']) &&
                                             $params['nghe_id']==$item->id)
                                             selected
                                             @endif>
 
-                                            {{ $item->id }} --- {{ $item->ten_nganh_nghe }}
+                                            {{ $item->id }} - {{ $item->ten_nganh_nghe }}
                                         </option>
                                         @empty
                                         @endforelse
@@ -95,8 +95,8 @@
                             <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Đợt</label>
                                 <div class="col-lg-10">
-                                    <select name="dot" class="form-control select2">
-                                        <option value="">-----Chọn đợt-----</option>
+                                    <select name="dot" id="dot" class="form-control select2">
+                                        <option value="">Chọn</option>
                                         <option @if(isset($params['dot']) && $params['dot']==config('common.dot.1'))
                                             selected @endif value="{{config('common.dot.1')}}">
                                             {{config('common.dot.1')}}</option>
@@ -115,7 +115,7 @@
                                 <label class="col-lg-2 col-form-label">Loại hình cơ sở</label>
                                 <div class="col-lg-10">
                                     <select name="loaihinhcoso" class="form-control select2">
-                                        <option value="">-----Chọn loại hình cơ sở-----</option>
+                                        <option value="">Chọn</option>
                                         @foreach ($params['get_loai_hinh_co_so'] as $item)
                                         <option value="{{ $item->id }}" @if(isset($params['loaihinhcoso']) &&
                                             $params['loaihinhcoso']==$item->id)
@@ -188,18 +188,19 @@
                         <th rowspan="2">STT</th>
                         <th rowspan="2">Tên cơ sở</th>
                         <th rowspan="2">Loại hình cơ sở</th>
-                        <th rowspan="2">Mã nghề</th>
-                        <th rowspan="2">Tên nghề</th>
+
                         <th rowspan="2">Năm</th>
                         <th rowspan="2">Đợt</th>
                         <th colspan="3">Đăng ký chỉ tiêu tuyển sinh</th>
-                        <th rowspan="2"></th>
+                        <th rowspan="2">Thao tác</th>
                     </tr>
                     <tr class="text-center">
                         <th rowspan="2">Tổng số</th>
                         <th rowspan="2">Cao đẳng</th>
                         <th rowspan="2">Trung cấp</th>
+
                     </tr>
+
                 </thead>
                 <tbody>
                     @php
@@ -210,15 +211,14 @@
                         <td>{{ $i++ }}</td>
                         <td>{{ $item->ten }}</td>
                         <td>{{ $item->ten_loai_hinh_co_so }}</td>
-                        <td>{{ $item->ma_nghe }}</td>
-                        <td>{{ $item->ten_nghe }}</td>
+
 
                         <td>{{ $item->nam }}</td>
                         <td>{{ $item->dot }}</td>
 
-                        <td>{{ $item->tong }}</td>
-                        <td>{{ $item->so_dang_ki_CD }}</td>
-                        <td>{{ $item->so_dang_ki_TC }}</td>
+                        <td>{{ $item->tong_dang_ki_chi_tieu }}</td>
+                        <td>{{ $item->tong_so_dang_ki_CD }}</td>
+                        <td>{{ $item->tong_so_dang_ki_TC }}</td>
 
                         <td>
                             @can('chi_tiet_tong_hop_dang_ky_chi_tieu_tuyen_sinh')
@@ -278,6 +278,15 @@
             $( "#datepickerTo" ).datepicker();
         });
 
+    });
+    </script>
+    <script>
+        $(function() {
+      const queryString = new URLSearchParams(window.location.search);
+      const nam = queryString.get('nam') ? queryString.get('nam') : (new Date()).getFullYear();
+      const dot = queryString.get('dot') ? queryString.get('dot') : ((new Date()).getMonth()+1 < 6 ? 1 : 2);
+      $("#nam").val(nam);
+      $("#dot").val(dot);
     });
     </script>
     @if (session('success'))
