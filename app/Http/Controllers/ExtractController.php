@@ -331,7 +331,8 @@ class ExtractController extends Controller
         $nghe_cap_2 = $this->QlsvService->getNganhNghe(2);
         $nghe_cap_3 = $this->QlsvService->getNganhNghe(3);
         $nghe_cap_4 = $this->QlsvService->getNganhNghe(4);
-        //  dd($data);
+        $data_coso = $this->QlsvService->ChiTietCoSo($coSoId);
+
         return view('extractreport.lich_su_sinh_vien_dang_theo_hoc', [
             'data' => $data,
             'loaiHinh' => $loaiHinhCs,
@@ -343,6 +344,7 @@ class ExtractController extends Controller
             'nghe_cap_2' => $nghe_cap_2,
             'nghe_cap_3' => $nghe_cap_3,
             'nghe_cap_4' => $nghe_cap_4,
+            'data_coso' => $data_coso
         ]);
     }
 

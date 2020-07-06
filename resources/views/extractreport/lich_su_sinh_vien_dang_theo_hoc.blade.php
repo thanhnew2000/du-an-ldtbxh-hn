@@ -25,11 +25,23 @@
                         <i class="m-menu__link-icon flaticon-web"></i>
                     </span>
                     <h3 class="m-portlet__head-text">
-                        Chi tiết <small>Danh sách tuyển sinh</small>
+                        Chi tiết số liệu học sinh sinh viên
                     </h3>
                 </div>
             </div>
         </div>
+        <div class="m-portlet__body">
+            <h3>Cơ sở đào tạo: {{$data_coso->ten}}</h3>
+            <p>
+                Loại hình cơ sở: {{$data_coso->loai_hinh_co_so}}
+            </p>
+            <p>Địa chỉ: {{$data_coso->dia_chi}}</p>
+            <p>Phường/Xã: {{$data_coso->ten_xa_phuong}}</p>
+            <p>Quận/Huyện: {{$data_coso->ten_quan_huyen}}</p>
+        </div>
+    </div>
+    <div class="m-portlet">
+
         <form action="" method="GET" class="m-form">
             {{-- <input type="hidden" name="page_size" value="{{$params['page_size']}}"> --}}
             <div class="m-portlet__body">
@@ -160,19 +172,27 @@
                         <td>{{$item->tong_so_nu}}</td>
                         <td>{{$item->tong_so_ho_khau_HN}}</td>
                         <td>{{$item->tong_so_dan_toc_thieu_so}}</td>
-                        <td>{{$item->so_luong_sv_Cao_dang}}</td>
+
+                        <td><b>{{$item->so_luong_sv_Cao_dang}}</b></td>
+
                         <td>{{$item->so_luong_sv_nu_Cao_dang}}</td>
                         <td>{{$item->so_luong_sv_ho_khau_HN_Cao_dang}}</td>
                         <td>{{$item->so_luong_sv_dan_toc_Cao_dang}}</td>
-                        <td>{{$item->so_luong_sv_Trung_cap}}</td>
+
+                        <td><b>{{$item->so_luong_sv_Trung_cap}}</b></td>
+
                         <td>{{$item->so_luong_sv_nu_Trung_cap}}</td>
                         <td>{{$item->so_luong_sv_ho_khau_HN_Trung_cap}}</td>
                         <td>{{$item->so_luong_sv_dan_toc_Trung_cap}}</td>
-                        <td>{{$item->so_luong_sv_Trung_cap}}</td>
+
+                        <td><b>{{$item->so_luong_sv_So_cap}}</b></td>
+
                         <td>{{$item->so_luong_sv_nu_So_cap}}</td>
                         <td>{{$item->so_luong_sv_ho_khau_HN_So_cap}}</td>
                         <td>{{$item->so_luong_sv_dan_toc_So_cap}}</td>
-                        <td>{{$item->so_luong_sv_he_khac}}</td>
+
+                        <td><b>{{$item->so_luong_sv_he_khac}}</b></td>
+
                         <td>{{$item->so_luong_sv_nu_khac}}</td>
                         <td>{{$item->so_luong_sv_ho_khau_HN_khac}}</td>
                         <td>{{$item->so_luong_sv_dan_toc_khac}}</td>
