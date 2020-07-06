@@ -24,8 +24,6 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'co_so_dao_tao_id' => 'required|integer|exists:co_so_dao_tao,id',
-            'loai_hinh_co_so_id' => 'required|integer|exists:loai_hinh_co_so,id',
             'nam' => "required|integer|in:" . implode(',', config('common.nam.list')),
             'dot' => "required|integer|in:" . implode(',', config('common.dot')),
             'tong_so_quan_ly' => 'required|integer|min:0',
@@ -61,8 +59,6 @@ class UpdateRequest extends FormRequest
     public function attributes()
     {
         return [
-            'co_so_dao_tao_id' => 'Tên cơ sở đào tạo',
-            'loai_hinh_co_so_id' => 'Loại hình đào tạo',
             'nam' => 'Năm',
             'dot' => 'Đợt',
             'tong_so_quan_ly' => 'Tổng số quản lý',
