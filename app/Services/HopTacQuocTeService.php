@@ -271,7 +271,7 @@ class HopTacQuocTeService extends AppService
                                 }
                             }
                             else{
-                                 array_push($insertData,$arrayData);
+                                  $this->repository->createHopTacQuocTe($arrayData);
                            }
                 //  }
                  if (count($updateData) > 0) {
@@ -281,11 +281,6 @@ class HopTacQuocTeService extends AppService
 
                  }
 
-                 if (count($insertData) > 0) {
-                    $this->repository->createHopTacQuocTe($insertData);
-
-                    //  DB::table('ket_qua_hop_tac_quoc_te')->insert($insertData);
-                 }
                 $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($id_truong);
                 $bm = 'Hợp tác quốc tế';
                 $tencoso = $thongTinCoSo->ten;

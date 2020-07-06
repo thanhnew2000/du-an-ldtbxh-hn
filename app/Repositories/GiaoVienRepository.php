@@ -29,8 +29,6 @@ class GiaoVienRepository extends BaseRepository implements GiaoVienRepositoryInt
                 'giao_vien.id',
                 'giao_vien.ten',
                 'giao_vien.trinh_do_nghiep_vu_su_pham',
-                'trinh_do_gv.ten as trinh_do',
-                'trinh_do_gv.id as id_trinh_do',
                 'co_so_dao_tao.ten as ten_co_so',
                 'co_so_dao_tao.id as id_co_so',
             ])

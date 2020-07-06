@@ -478,7 +478,7 @@ class SoLieuTuyenSinhService extends AppService
                         if(array_key_exists($id_nghe_nhap,$id_nghe_tuyen_sinh_gan_da_co)){
                             $updateData[$id_nghe_tuyen_sinh_gan_da_co[$id_nghe_nhap]]=$arrayData;
                         }else{
-                            array_push($insertData,$arrayData); 
+                            $this->repository->createTuyenSinh($arrayData);
                         }
                     }else if(in_array($id_nghe_nhap,$id_nghe_of_cs) == false){
                         $message='ngheKoThuocTruong';
@@ -488,14 +488,9 @@ class SoLieuTuyenSinhService extends AppService
                 }   
                 if (count($updateData) > 0) {
                 foreach($updateData as $key => $value)
-                    // DB::table('tuyen_sinh')->where('id',$key)->update($value);
-                $this->repository->updateTuyenSinh($key,$value);
+                  $this->repository->updateTuyenSinh($key,$value);
+                }  
 
-                }  
-                if (count($insertData) > 0) {
-                    $this->repository->createTuyenSinh($insertData);
-                    // DB::table('tuyen_sinh')->insert($insertData);
-                }  
                 $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($id_truong);
                 $bm = 'Tuyển sinh';
                 $tencoso = $thongTinCoSo->ten;
