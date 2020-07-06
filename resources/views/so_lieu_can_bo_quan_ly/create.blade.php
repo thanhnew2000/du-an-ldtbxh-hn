@@ -398,4 +398,22 @@
         $("#loai_hinh_co_so_id").val(coSo.loai_hinh_co_so);
     });
 </script>
+@if (session('edit'))
+<script>
+    Swal.fire({
+        title: 'Dữ liệu đã tồn tại',
+        text: "Bạn có thể chuyển tới Chỉnh sửa!",
+        icon: 'warning',
+        showCancelButton: true,
+        showconfirmButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Edit'
+        }).then((result) => {
+            if (result.value) {
+                window.location.href = '{{ route('so-lieu-can-bo-quan-ly.edit',['so_lieu_can_bo_quan_ly'=> session('edit')]) }}';
+            }
+        })
+</script>
+@endif
 @endsection

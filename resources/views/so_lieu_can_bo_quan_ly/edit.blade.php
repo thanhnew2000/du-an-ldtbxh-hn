@@ -9,7 +9,7 @@
                         <i class="m-menu__link-icon flaticon-web"></i>
                     </span>
                     <h3 class="m-portlet__head-text">
-                        Tạo mới danh sách đội ngũ cán bộ quản lý
+                        Cập nhật danh sách đội ngũ cán bộ quản lý
                     </h3>
                 </div>
             </div>
@@ -378,7 +378,7 @@
 </div>
 @endsection
 
-@section('title', "Tạo mới danh sách đội ngũ cán bộ quản lý")
+@section('title', "Cập nhật danh sách đội ngũ cán bộ quản lý")
 
 @section('style')
 <style>
