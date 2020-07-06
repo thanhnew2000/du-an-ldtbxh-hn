@@ -53,7 +53,7 @@ class QuanLiSinhVienDangTheoHoc extends Model
             app(PheDuyetBaoCao::class)->create([
                 'trang_thai' => 1,
                 'ban_ghi_duoc_phe_duyet_id' => $baoCao->id,
-                'loai_ban_ghi' => TuyenSinh::class,
+                'loai_ban_ghi' => QuanLiSinhVienDangTheoHoc::class,
                 'dot_id' => 1,
                 'thoi_gian_phe_duyet_1' => null,
                 'thoi_gian_phe_duyet_2' => null,
