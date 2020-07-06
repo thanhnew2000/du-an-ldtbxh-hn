@@ -3,14 +3,15 @@
 namespace App\Repositories;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\BaseRepository;
-use App\Models\GiayPhepDangKyNghe;
+use App\CoSoDaoTao;
+
 use Carbon\Carbon;
 
 class ChartTongSoLuongTruongRepository extends BaseRepository
 {
     protected $model;
 
-    public function __construct(GiayPhepDangKyNghe $model)
+    public function __construct(CoSoDaoTao $model)
     {
         parent::__construct();
         $this->model = $model;
@@ -18,19 +19,25 @@ class ChartTongSoLuongTruongRepository extends BaseRepository
 
     public function getTable(){
         
-        return 'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao';
+        return 'co_so_dao_tao';
     }
     
 
     public function getTongSoLuongTruongChart(){
-        $cao_dang = 6;
-        $trung_cap = 5;
+        $cao_dang = 1;
+        $trung_cap = 2;
+        $he_khac = 3;
         $query['cao_dang'] = $this->model
-        ->where('nghe_id','like', $cao_dang .'%')->count();
+        ->where('loai_truong','like', $cao_dang .'%')->count();
 
         $query['trung_cap'] = $this->model
-        ->where('nghe_id','like', $trung_cap .'%')->count();
+        ->where('loai_truong','like', $trung_cap .'%')->count();
+
+        $query['he_khac'] = $this->model
+        ->where('loai_truong','like', $he_khac .'%')->count();
+        
        
+
         return $query;
     }
 }

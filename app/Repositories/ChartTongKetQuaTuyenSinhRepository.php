@@ -43,7 +43,22 @@ class ChartTongKetQuaTuyenSinhRepository extends BaseRepository
                 DB::raw('SUM(so_luong_sv_he_khac) as so_luong_sv_he_khac'))
                 ->groupBy('nam')
                 ->get();
-        
+                // if($query == []){
+                //             $query = [
+                //                 'so_luong_sv_Cao_dang'=> 0,
+                //                 'so_luong_sv_Trung_cap'=> 0,
+                //                 'so_luong_sv_So_cap'=> 0,
+                //                 'so_luong_sv_he_khac'=> 0
+                //             ];
+                //         }
+                //         else{
+                     
+                //             $query['so_luong_sv_Cao_dang'] = isset($query['so_luong_sv_Cao_dang'])  ?  $query['so_luong_sv_Cao_dang'] : 0 ;
+                //             $query['so_luong_sv_Trung_cap'] = isset($query['so_luong_sv_Trung_cap'])  ?  $query['so_luong_sv_Trung_cap'] : 0 ;
+                //             $query['so_luong_sv_So_cap'] = isset($query['so_luong_sv_So_cap'])  ?  $query['so_luong_sv_So_cap'] : 0 ;
+                //             $query['so_luong_sv_he_khac'] = isset($query['so_luong_sv_he_khac'])  ?  $query['so_luong_sv_he_khac'] : 0 ;
+                //         }
+                        
         return  $query;
         
         

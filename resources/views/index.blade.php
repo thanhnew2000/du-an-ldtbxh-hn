@@ -689,14 +689,16 @@
     var barChart= new Chart(ctx, {
       type: 'pie',
       data: {
-        labels: ["Hệ Cao Đẳng", "Hệ Trung Cấp"],
+        labels: ["Hệ Cao Đẳng", "Hệ Trung Cấp","Hệ Khác"],
         datasets: [
           {
             label: "Hệ cao đẳng ",
             backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9"],
             data: [
-                {{ $kq2["cao_dang"] }},
-                {{ $kq2["trung_cap"] }},
+                {{ $tongsoluongtruong["cao_dang"] }},
+                {{ $tongsoluongtruong["trung_cap"] }},
+                {{ $tongsoluongtruong["he_khac"] }},
+                
 
 
             ],
@@ -729,16 +731,16 @@
     var lineChart= new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: [{{$kq[0]->nam}}, {{$kq[1]->nam}}, {{$kq[2]->nam}}, {{$kq[3]->nam}}],
+        labels: [{{$tongkqtuyensinh[0]->nam}}, {{$tongkqtuyensinh[1]->nam}}, {{$tongkqtuyensinh[2]->nam}}, {{$tongkqtuyensinh[3]->nam}}],
         datasets: [
           {
             label: "Hệ cao đẳng ",
             backgroundColor: "#3e95cd",
             data: [
-                {{ $kq[0]->so_luong_sv_Cao_dang }},
-                {{ $kq[1]->so_luong_sv_Cao_dang }},
-                {{ $kq[2]->so_luong_sv_Cao_dang }},
-                {{ $kq[3]->so_luong_sv_Cao_dang }}
+                {{ $tongkqtuyensinh[0]->so_luong_sv_Cao_dang }},
+                {{ $tongkqtuyensinh[1]->so_luong_sv_Cao_dang }},
+                {{ $tongkqtuyensinh[2]->so_luong_sv_Cao_dang }},
+                {{ $tongkqtuyensinh[3]->so_luong_sv_Cao_dang }}
             ],
             borderWidth:1
           },
@@ -747,10 +749,10 @@
             label: "Hệ trung cấp ",
             backgroundColor: "#8e5ea2",
             data: [
-                {{ $kq[0]->so_luong_sv_Trung_cap }},
-                {{ $kq[1]->so_luong_sv_Trung_cap }},
-                {{ $kq[2]->so_luong_sv_Trung_cap }},
-                {{ $kq[3]->so_luong_sv_Trung_cap }}
+                {{ $tongkqtuyensinh[0]->so_luong_sv_Trung_cap }},
+                {{ $tongkqtuyensinh[1]->so_luong_sv_Trung_cap }},
+                {{ $tongkqtuyensinh[2]->so_luong_sv_Trung_cap }},
+                {{ $tongkqtuyensinh[3]->so_luong_sv_Trung_cap }}
               
             ],
             borderWidth:1
@@ -760,10 +762,10 @@
             label: "Hệ sơ cấp ",
             backgroundColor: "#3cba9f",
             data: [
-                {{ $kq[0]->so_luong_sv_So_cap }},
-                {{ $kq[1]->so_luong_sv_So_cap }},
-                {{ $kq[2]->so_luong_sv_So_cap }},
-                {{ $kq[3]->so_luong_sv_So_cap }}
+                {{ $tongkqtuyensinh[0]->so_luong_sv_So_cap }},
+                {{ $tongkqtuyensinh[1]->so_luong_sv_So_cap }},
+                {{ $tongkqtuyensinh[2]->so_luong_sv_So_cap }},
+                {{ $tongkqtuyensinh[3]->so_luong_sv_So_cap }}
                
             ],
             borderWidth:1
@@ -772,10 +774,10 @@
             label: "Hệ khác",
             backgroundColor: "#e8c3b9",
             data: [
-                {{ $kq[0]->so_luong_sv_he_khac }},
-                {{ $kq[1]->so_luong_sv_he_khac }},
-                {{ $kq[2]->so_luong_sv_he_khac }},
-                {{ $kq[3]->so_luong_sv_he_khac }}
+                {{ $tongkqtuyensinh[0]->so_luong_sv_he_khac }},
+                {{ $tongkqtuyensinh[1]->so_luong_sv_he_khac }},
+                {{ $tongkqtuyensinh[2]->so_luong_sv_he_khac }},
+                {{ $tongkqtuyensinh[3]->so_luong_sv_he_khac }}
                
             ],
             borderWidth:1

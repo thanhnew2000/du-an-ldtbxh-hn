@@ -10,6 +10,7 @@ use App\Services\ChartTongKetQuaTuyenSinhService;
 
 class AnalysisController extends Controller
 {
+    // hieupt chart 
     protected $ChartTongSoLuongTruongService;
     protected $ChartTongKetQuaTuyenSinhService;
     
@@ -26,7 +27,7 @@ class AnalysisController extends Controller
 
 
     }
-
+    // end hieupt chart
 
     function index(){
         
@@ -97,8 +98,8 @@ class AnalysisController extends Controller
 
 
         // HIEUPT CHART 7/2/2020
-        $kq = $this->ChartTongKetQuaTuyenSinhService->getTongKetQuaTuyenSinhChart();
-        $kq2 = $this->ChartTongSoLuongTruongService->getTongSoLuongTruongChart();
+        $tongkqtuyensinh = $this->ChartTongKetQuaTuyenSinhService->getTongKetQuaTuyenSinhChart();
+        $tongsoluongtruong = $this->ChartTongSoLuongTruongService->getTongSoLuongTruongChart();
   
         // dd($kq[0]->so_luong_sv_So_cap);
        
@@ -106,6 +107,6 @@ class AnalysisController extends Controller
        
 
 
-        return view('index',['data'=>$data_return],compact('kq','kq2'));
+        return view('index',['data'=>$data_return],compact('tongkqtuyensinh','tongsoluongtruong'));
     }
 }
