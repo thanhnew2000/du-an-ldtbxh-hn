@@ -122,4 +122,11 @@ class SoLieuCanBoQuanLyRepository extends BaseRepository
             ->get();
             return $data;
         }
+
+        public function checkTonTaiKhiThem($params){
+            return $this->model::where('co_so_dao_tao_id',$params['co_so_dao_tao_id'])
+           ->where('nam',$params['nam'])
+           ->where('dot',$params['dot'])
+           ->first();
+        }
 }
