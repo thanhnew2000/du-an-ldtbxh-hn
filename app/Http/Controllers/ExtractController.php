@@ -23,6 +23,8 @@ use App\Http\Requests\HopTacQuocTe\UpdateHopTacQuocTeRequest;
 use App\Http\Requests\ChiTieuTuyenSinh\StoreChiTieuTuyenSinhRequest;
 use App\Http\Requests\ChiTieuTuyenSinh\UpdateChiTieuTuyenSinhRequest;
 
+use App\Http\Requests\validateCreateSinhVienDangQuanLi;
+use App\Http\Requests\validateUpdateSinhVienDangQuanLi;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
@@ -242,7 +244,7 @@ class ExtractController extends Controller
         //  dd($coso);
     }
 
-    public function saveAdd(Request $request)
+    public function saveAdd(validateCreateSinhVienDangQuanLi $request)
     {
 
         $dateTime = Carbon::now();
@@ -266,7 +268,7 @@ class ExtractController extends Controller
             'nghe_cap_4' => $nghe_cap_4
         ]);
     }
-    public function saveEdit($id, Request $request)
+    public function saveEdit($id, validateUpdateSinhVienDangQuanLi $request)
     {
         $dateTime = Carbon::now();
         $request->request->set('thoi_gian_cap_nhat', $dateTime->format('Y-m-d H:i:s'));
