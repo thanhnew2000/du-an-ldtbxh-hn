@@ -165,7 +165,8 @@
         </div>
         <div class="col-lg-6 " style="text-align: right">
             @can('them_moi_tong_hop_thuc_hien_chinh_sach_cho_sv')
-            <a href="{{route('xuatbc.them-chinh-sach-sinh-vien')}}"><button type="button" class="btn btn-secondary">Thêm
+            <a href="{{route('xuatbc.them-chinh-sach-sinh-vien')}}"><button type="button"
+                    class="btn btn-info .bg-info">Thêm
                     mới</button></a>
             @endcan
         </div>
@@ -404,12 +405,11 @@
     $(function() {
   const queryString = new URLSearchParams(window.location.search);
   const nam = queryString.get('nam') ? queryString.get('nam') : (new Date()).getFullYear();
-  const dot = queryString.get('dot') ? queryString.get('dot') :
-    ((new Date()).getMonth()+1 < 6 ? 1 : 2);
+  const dot = queryString.get('dot') ? queryString.get('dot') : ((new Date()).getMonth()+1 < 6 ? 1 : 2);
+  const chinhsach = queryString.get('chinhsach') ? queryString.get('chinhsach') : 1
   $("#nam").val(nam);
   $("#dot").val(dot);
-  $("#loai_hinh").val("");
-  $("#chinhsach").val("1");
+  $("#chinhsach").val(chinhsach);
 });
 </script>
 <script type="text/javascript">

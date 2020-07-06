@@ -91,10 +91,14 @@ class SoLieuCanBoQuanLyController extends Controller
             '_token',
             'loai_hinh_co_so_id',
         ]);
+        $kq = $this->soLieuCBQLService->checkTonTaiKhiThem($params);
+        if($kq){
+            return redirect()->route('so-lieu-can-bo-quan-ly.create')->with(['edit'=> $kq->id])->withInput();
+        }
 
         $soLieuQL = $this->soLieuCBQLService->store($params);
 
-        return redirect()->route('so-lieu-can-bo-quan-ly.index');
+        return redirect()->route('so-lieu-can-bo-quan-ly.index')->with(['success'=> 'them  thanh cong']);
     }
 
     /**
@@ -161,7 +165,7 @@ class SoLieuCanBoQuanLyController extends Controller
         ]);
 
         $result = $this->soLieuCBQLService->updateSoLieu($id, $params);
-        return redirect()->route('so-lieu-can-bo-quan-ly.index');
+        return redirect()->route('so-lieu-can-bo-quan-ly.index')->with(['update'=> 'cap nhat thanh cong']);
     }
 
     /**
