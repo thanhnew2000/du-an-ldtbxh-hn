@@ -440,7 +440,7 @@ class DaoTaoNgheChoNguoiKhuyetTatService extends AppService
                            if(array_key_exists($id_nghe_nhap,$id_nghe_nguoi_khuyet_tat_da_co)){
                              $updateData[$id_nghe_nguoi_khuyet_tat_da_co[$id_nghe_nhap]]=$arrayData;
                            }else{
-                             array_push($insertData,$arrayData); 
+                                $this->repository->createDtNguoiKhuyetTat($arrayData);
                            }
                     }else if(in_array($id_nghe_nhap,$id_nghe_of_cs) == false){
                         $message='ngheKoThuocTruong';
@@ -455,10 +455,6 @@ class DaoTaoNgheChoNguoiKhuyetTatService extends AppService
 
                  }  
  
-                 if (count($insertData) > 0) {
-                    $this->repository->createDtNguoiKhuyetTat($insertData);
-                    //  DB::table('ket_qua_dao_tao_nguoi_khuyet_tat')->insert($insertData);
-                 }    
                  $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($id_truong);
                 $bm = 'Đào tạo nghề cho người khuyết tật';
                 $tencoso = $thongTinCoSo->ten;

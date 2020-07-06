@@ -494,7 +494,7 @@ class DaoTaoNgheChoThanhNienService extends AppService
                            if(array_key_exists($id_nghe_nhap,$id_nghe_tn_da_co)){
                              $updateData[$id_nghe_tn_da_co[$id_nghe_nhap]]=$arrayData;
                            }else{
-                             array_push($insertData,$arrayData); 
+                            $this->repository->createNgheThanhNien($arrayData);
                            }
                     }else if(in_array($id_nghe_nhap,$id_nghe_of_cs) == false){
                         $message='ngheKoThuocTruong';
@@ -508,10 +508,6 @@ class DaoTaoNgheChoThanhNienService extends AppService
                     //  DB::table('ket_qua_dao_tao_cho_thanh_nien')->where('id',$key)->update($value);
                  }  
  
-                 if (count($insertData) > 0) {
-                    $this->repository->createNgheThanhNien($insertData);
-                    //  DB::table('ket_qua_dao_tao_cho_thanh_nien')->insert($insertData);
-                 }    
                 $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($id_truong);
                 $bm = 'Đào tạo nghề cho thanh niên';
                 $tencoso = $thongTinCoSo->ten;

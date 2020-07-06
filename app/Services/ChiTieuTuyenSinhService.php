@@ -328,7 +328,8 @@ class ChiTieuTuyenSinhService extends AppService
                         if (array_key_exists($id_nghe_nhap, $id_nghe_dkct_da_co)) {
                             $updateData[$id_nghe_dkct_da_co[$id_nghe_nhap]] = $arrayData;
                         } else {
-                            array_push($insertData, $arrayData);
+                            $this->repository->createChiTieuTuyenSinh($arrayData);
+
                         }
                     } else if (in_array($id_nghe_nhap, $id_nghe_of_cs) == false) {
                         $message = 'ngheKoThuocTruong';
@@ -340,11 +341,7 @@ class ChiTieuTuyenSinhService extends AppService
                         $this->repository->updateChiTieuTuyenSinh($key, $value);
                     //  DB::table('dang_ki_chi_tieu_tuyen_sinh')->where('id',$key)->update($value);
                 }
-
-                if (count($insertData) > 0) {
-                    $this->repository->createChiTieuTuyenSinh($insertData);
-                    //  DB::table('dang_ki_chi_tieu_tuyen_sinh')->insert($insertData);
-                }
+                
                 $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($id_truong);
                 $bm = 'Chỉ tiêu tuyển sinh';
                 $tencoso = $thongTinCoSo->ten;
