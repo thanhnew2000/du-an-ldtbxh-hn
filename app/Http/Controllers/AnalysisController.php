@@ -62,40 +62,6 @@ class AnalysisController extends Controller
 
         // return view('index',['data'=>$data_return,'data_json_tot_nghiep'=>$data_json_tot_nghiep,'data_json_tuyen_sinh'=>$data_json_tuyen_sinh]);
         
-        
-        
-
-
-
-        // $query = DB::table('tuyen_sinh')
-        // ->where('nam', Carbon::now()->year) 
-        // ->select('nam',
-        // DB::raw('SUM(so_luong_sv_Cao_dang) as so_luong_sv_Cao_dang'),
-        // DB::raw('SUM(so_luong_sv_Trung_cap) as so_luong_sv_Trung_cap'),
-        // DB::raw('SUM(so_luong_sv_So_cap) as so_luong_sv_So_cap'),
-        // DB::raw('SUM(so_luong_sv_he_khac) as so_luong_sv_he_khac')
-        // );
-       
-        // $dataCTTS = (array)$query->first();
-        
-
-        // if($dataCTTS ==[]){
-        //     $dataCTTS = [
-        //         'so_luong_sv_Cao_dang'=> 0,
-        //         'so_luong_sv_Trung_cap'=> 0,
-        //         'so_luong_sv_So_cap'=> 0,
-        //         'so_luong_sv_he_khac'=> 0
-        //     ];
-        // }
-        // else{
-        //     $dataCTTS['so_luong_sv_Cao_dang'] = isset($dataCTTS['so_luong_sv_Cao_dang'])  ?  $dataCTTS['so_luong_sv_Cao_dang'] : 0 ;
-        //     $dataCTTS['so_luong_sv_Trung_cap'] = isset($dataCTTS['so_luong_sv_Trung_cap'])  ?  $dataCTTS['so_luong_sv_Trung_cap'] : 0 ;
-        //     $dataCTTS['so_luong_sv_So_cap'] = isset($dataCTTS['so_luong_sv_So_cap'])  ?  $dataCTTS['so_luong_sv_So_cap'] : 0 ;
-        //     $dataCTTS['so_luong_sv_he_khac'] = isset($dataCTTS['so_luong_sv_he_khac'])  ?  $dataCTTS['so_luong_sv_he_khac'] : 0 ;
-        // }   
-
-
-
 
         // HIEUPT CHART 7/2/2020
         $tongkqtuyensinh = $this->ChartTongKetQuaTuyenSinhService->getTongKetQuaTuyenSinhChart();
