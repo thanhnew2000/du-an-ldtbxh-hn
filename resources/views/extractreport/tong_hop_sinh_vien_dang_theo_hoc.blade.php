@@ -156,6 +156,11 @@
                     </select>
                 </div>
             </div>
+            @if (session('thongbao'))
+            <div class="alert alert-success" role="alert">
+                <strong>{{session('thongbao')}}</strong>
+            </div>
+            @endif
             <table class="table m-table m-table--head-bg-brand">
                 <thead>
                     @csrf
@@ -208,23 +213,23 @@
 {{-- thanhnv form nhập xuất --}}
 
 @include('layouts.formExcel.from', [
-    'routeLayFormBieuMau' => 'export.bieumau.hsdql',
-    'routeImportError' => 'import.error.hssv-ql',
-    'routeExportData' => 'export.data.hsql'
-]) 
+'routeLayFormBieuMau' => 'export.bieumau.hsdql',
+'routeImportError' => 'import.error.hssv-ql',
+'routeExportData' => 'export.data.hsql'
+])
 
 @endsection
 @section('script')
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
-    {{-- thanhvn update js 6/25/2020 --}}
-    <script>
-        var routeImport = "{{route('import.hssv.ql')}}";
-    </script>
-    <script src="{!! asset('excel-js/js-xuat-time.js') !!}"></script>
-    <script src="{!! asset('excel-js/js-form.js') !!}"></script>
-    {{-- end --}}
+{{-- thanhvn update js 6/25/2020 --}}
+<script>
+    var routeImport = "{{route('import.hssv.ql')}}";
+</script>
+<script src="{!! asset('excel-js/js-xuat-time.js') !!}"></script>
+<script src="{!! asset('excel-js/js-form.js') !!}"></script>
+{{-- end --}}
 
 <script>
     $(document).ready(function(){

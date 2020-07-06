@@ -253,7 +253,7 @@ class ExtractController extends Controller
         // $request->request->set('dot', 1);
         $co_so_id = $request->co_so_id;
         $this->QlsvService->create($request);
-        return redirect()->route('xuatbc.chi-tiet-so-lieu', ['co_so_id' => $co_so_id]);
+        return redirect()->route('xuatbc.ds-sv-dang-hoc')->with('thongbao', 'Thêm số liệu thành công');
     }
     public function edit($id)
     {

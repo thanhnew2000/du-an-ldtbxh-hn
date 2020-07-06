@@ -11,16 +11,16 @@ use Dotenv\Result\Result;
 
 class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
 {
- 
+
     // thanhnv 6/26/2020 thêm model 
     protected $model;
     protected $table;
-	public function __construct(QuanLiSinhVienDangTheoHoc $models)
-	{
-		parent::__construct();
-		$this->model = $models;
+    public function __construct(QuanLiSinhVienDangTheoHoc $models)
+    {
+        parent::__construct();
+        $this->model = $models;
     }
-    
+
 
     public function getTable()
     {
@@ -134,7 +134,7 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
             $data->where('sv_dang_quan_ly.nghe_id', $queryData['nghe_id']);
         }
         // dd($queryData);
-        return $data->orderByDesc('sv_dang_quan_ly.co_so_id')->paginate($queryData['page_size']);
+        return $data->orderByDesc('sv_dang_quan_ly.created_at')->paginate($queryData['page_size']);
     }
 
     public function getNamDaoTao()
@@ -182,33 +182,37 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
         return $maNganhNghe;
     }
     // thanhnv 6/25/2020
-    public function getSvdqlJoinNganhNgheNamDot($id_truong,$nam_muon_xuat,$dot_muon_xuat){
-       $data = DB::table('sv_dang_quan_ly')->where('sv_dang_quan_ly.co_so_id','=',$id_truong)
-        ->join('nganh_nghe','nganh_nghe.id','=','sv_dang_quan_ly.nghe_id')
-        ->where('sv_dang_quan_ly.nam','=',$nam_muon_xuat)
-        ->where('sv_dang_quan_ly.dot','=',$dot_muon_xuat)
-       ->orderBy('sv_dang_quan_ly.nghe_id', 'asc')->get();
-       return $data;
+    public function getSvdqlJoinNganhNgheNamDot($id_truong, $nam_muon_xuat, $dot_muon_xuat)
+    {
+        $data = DB::table('sv_dang_quan_ly')->where('sv_dang_quan_ly.co_so_id', '=', $id_truong)
+            ->join('nganh_nghe', 'nganh_nghe.id', '=', 'sv_dang_quan_ly.nghe_id')
+            ->where('sv_dang_quan_ly.nam', '=', $nam_muon_xuat)
+            ->where('sv_dang_quan_ly.dot', '=', $dot_muon_xuat)
+            ->orderBy('sv_dang_quan_ly.nghe_id', 'asc')->get();
+        return $data;
     }
 
 
     // thanhnv 6/26/2020 sửa model create update
-	public function createQlSinhVienDangTheoHoc($arrayData){
-		return $this->model->insert($arrayData);
-	}
-	public function updateQlSinhVienDangTheoHoc($key,$arrayData){
-		return $this->model->where('id',$key)->update($arrayData);
+    public function createQlSinhVienDangTheoHoc($arrayData)
+    {
+        return $this->model->insert($arrayData);
     }
-    
-        // thanhnv 6/30/2020 change to xuat theo time
+    public function updateQlSinhVienDangTheoHoc($key, $arrayData)
+    {
+        return $this->model->where('id', $key)->update($arrayData);
+    }
 
-    public function getSvDangTheoHocFromTo($id_truong, $fromDate,$toDate){
-		$data =  DB::table('sv_dang_quan_ly')->where('sv_dang_quan_ly.co_so_id', '=',$id_truong)
-		->where('thoi_gian_cap_nhat','>=',$fromDate)
-		->where('thoi_gian_cap_nhat','<=',$toDate)
-        ->join('nganh_nghe','nganh_nghe.id','=','sv_dang_quan_ly.nghe_id')
-		->orderBy('nganh_nghe.id','desc')
-		->get();
-		return $data;
-	}
+    // thanhnv 6/30/2020 change to xuat theo time
+
+    public function getSvDangTheoHocFromTo($id_truong, $fromDate, $toDate)
+    {
+        $data =  DB::table('sv_dang_quan_ly')->where('sv_dang_quan_ly.co_so_id', '=', $id_truong)
+            ->where('thoi_gian_cap_nhat', '>=', $fromDate)
+            ->where('thoi_gian_cap_nhat', '<=', $toDate)
+            ->join('nganh_nghe', 'nganh_nghe.id', '=', 'sv_dang_quan_ly.nghe_id')
+            ->orderBy('nganh_nghe.id', 'desc')
+            ->get();
+        return $data;
+    }
 }

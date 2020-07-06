@@ -3,11 +3,14 @@
 @section('style')
 {{-- <link href="{!! asset('tuyensinh/css/chitiettuyensinh.css') !!}" rel="stylesheet" type="text/css" /> --}}
 <style>
-    .m-table.m-table--border-danger, .m-table.m-table--border-danger th, .m-table.m-table--border-danger td{
-        border-color: #bcb1b1 ;
-    } 
-    table thead th[colspan="4"]{
-        border-bottom-width:1px;
+    .m-table.m-table--border-danger,
+    .m-table.m-table--border-danger th,
+    .m-table.m-table--border-danger td {
+        border-color: #bcb1b1;
+    }
+
+    table thead th[colspan="4"] {
+        border-bottom-width: 1px;
         border-bottom: 1px solid #bcb1b1 !important;
     }
 </style>
@@ -35,17 +38,15 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group m-form__group row">
-                                    <label class="col-lg-2 col-form-label">Năm:  </label>
+                                    <label class="col-lg-2 col-form-label">Năm: </label>
                                     <div class="col-lg-8">
                                         <select name="nam" class="form-control" id="nam">
-                                            <option value="" >Chọn </option>
+                                            <option value="">Chọn </option>
                                             @foreach (config('common.nam.list') as $item)
-                                            <option 
-                                            @if (isset($params['nam']))
-                                                    {{( $params['nam'] ==  $item ) ? 'selected' : ''}}  
-                                                    @endif
-                                                    value="{{$item}}"> {{$item}}
-                                                </option>
+                                            <option @if (isset($params['nam']))
+                                                {{( $params['nam'] ==  $item ) ? 'selected' : ''}} @endif
+                                                value="{{$item}}"> {{$item}}
+                                            </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -56,17 +57,12 @@
                                     <label class="col-lg-2 col-form-label">Đợt: </label>
                                     <div class="col-lg-8">
                                         <select class="form-control" name="dot" id="dot">
-                                            <option value="" >Chọn</option>
-                                            <option
-                                            @if (isset($params['dot']))
-                                                {{( $params['dot'] ==  1 ) ? 'selected' : ''}}  
-                                            @endif
-                                            value="1" >Đợt 1</option>
-                                            <option value="2"
-                                            @if (isset($params['dot']))
-                                            {{( $params['dot'] ==  2 ) ? 'selected' : ''}}  
-                                            @endif
-                                            >Đợt 2</option>
+                                            <option value="">Chọn</option>
+                                            <option @if (isset($params['dot']))
+                                                {{( $params['dot'] ==  1 ) ? 'selected' : ''}} @endif value="1">Đợt 1
+                                            </option>
+                                            <option value="2" @if (isset($params['dot']))
+                                                {{( $params['dot'] ==  2 ) ? 'selected' : ''}} @endif>Đợt 2</option>
                                         </select>
                                     </div>
                                 </div>
@@ -78,12 +74,11 @@
                                     <label class="col-lg-2 col-form-label">Ngành Nghề: </label>
                                     <div class="col-lg-8">
                                         <select name="nghe_id" class="form-control" id="nghe_id">
-                                            <option value="" >Chọn </option>
+                                            <option value="">Chọn </option>
                                             @foreach ($nganhNghe as $item)
-                                            <option 
-                                            @if(isset($params['nghe_id']) && $params['nghe_id'] == $item->id)
+                                            <option @if(isset($params['nghe_id']) && $params['nghe_id']==$item->id)
                                                 selected
-                                            @endif value="{{ $item->id }}">{{$item->id}} - {{$item->ten_nganh_nghe}}
+                                                @endif value="{{ $item->id }}">{{$item->id}} - {{$item->ten_nganh_nghe}}
                                             </option>
                                             @endforeach
                                         </select>
@@ -98,12 +93,13 @@
                         <button type="submit" class="btn btn-primary">Tìm kiếm</button>
                     </div>
                 </div>
-        </div>
+            </div>
         </form>
     </div>
     <div class="m-portlet">
         <div class="m-portlet__body table-responsive">
-            <table class="table table-bordered m-table m-table--border-danger m-table--head-bg-primary table-boder-white">
+            <table
+                class="table table-bordered m-table m-table--border-danger m-table--head-bg-primary table-boder-white">
                 <thead>
                     <tr class="text-center">
                         <th rowspan="2">STT</th>
@@ -117,10 +113,10 @@
                         <th rowspan="2">Đợt</th>
                         <th rowspan="2">Tổng Số HSSV <br> Các Trình Độ</th>
                         <th colspan="3">Tổng Số</th>
-                        <th colspan="3">Cao Đẳng</th>
-                        <th colspan="3">Trung Cấp</th>
-                        <th colspan="3">Sơ Cấp</th>
-                        <th colspan="3">Khác</th>
+                        <th colspan="4">Cao Đẳng</th>
+                        <th colspan="4">Trung Cấp</th>
+                        <th colspan="4">Sơ Cấp</th>
+                        <th colspan="4">Khác</th>
                         @can('sua_so_luong_sinh_vien_dang_theo_hoc')
                         <th rowspan="2">Chức năng</th>
                         @endcan
@@ -129,15 +125,19 @@
                         <th>Nữ</th>
                         <th>Hộ khẩu Hà Nội</th>
                         <th>Dân tộc thiểu số</th>
+                        <th>Tổng số sinh viên theo học Cao Đẳng</th>
                         <th>Nữ</th>
                         <th>Hộ khẩu Hà Nội</th>
                         <th>Dân tộc thiểu số</th>
+                        <th>Tổng số sinh viên theo học Trung Cấp</th>
                         <th>Nữ</th>
                         <th>Hộ khẩu Hà Nội</>
                         <th>Dân tộc thiểu số</th>
+                        <th>Tổng số sinh viên theo học Sơ Cấp</th>
                         <th>Nữ</th>
                         <th>Hộ khẩu Hà Nội</th>
                         <th>Dân tộc thiểu số</th>
+                        <th>Tổng số sinh viên theo học khác</th>
                         <th>Nữ</th>
                         <th>Hộ khẩu Hà Nội</th>
                         <th>Dân tộc thiểu số</th>
@@ -156,25 +156,30 @@
                         <td>{{$item->loai_hinh_co_so}}</td>
                         <td>{{$item->nam}}</td>
                         <td>{{$item->dot}}</td>
-                        <td>{{$item->tong_so_HSSV_co_mat_cac_trinh_do}}</td>
+                        <td><b>{{$item->tong_so_HSSV_co_mat_cac_trinh_do}}</b></td>
                         <td>{{$item->tong_so_nu}}</td>
                         <td>{{$item->tong_so_ho_khau_HN}}</td>
                         <td>{{$item->tong_so_dan_toc_thieu_so}}</td>
+                        <td>{{$item->so_luong_sv_Cao_dang}}</td>
                         <td>{{$item->so_luong_sv_nu_Cao_dang}}</td>
                         <td>{{$item->so_luong_sv_ho_khau_HN_Cao_dang}}</td>
                         <td>{{$item->so_luong_sv_dan_toc_Cao_dang}}</td>
+                        <td>{{$item->so_luong_sv_Trung_cap}}</td>
                         <td>{{$item->so_luong_sv_nu_Trung_cap}}</td>
                         <td>{{$item->so_luong_sv_ho_khau_HN_Trung_cap}}</td>
                         <td>{{$item->so_luong_sv_dan_toc_Trung_cap}}</td>
+                        <td>{{$item->so_luong_sv_Trung_cap}}</td>
                         <td>{{$item->so_luong_sv_nu_So_cap}}</td>
                         <td>{{$item->so_luong_sv_ho_khau_HN_So_cap}}</td>
                         <td>{{$item->so_luong_sv_dan_toc_So_cap}}</td>
+                        <td>{{$item->so_luong_sv_he_khac}}</td>
                         <td>{{$item->so_luong_sv_nu_khac}}</td>
                         <td>{{$item->so_luong_sv_ho_khau_HN_khac}}</td>
                         <td>{{$item->so_luong_sv_dan_toc_khac}}</td>
                         @can('sua_so_luong_sinh_vien_dang_theo_hoc')
-                        <td> 
-                            <a href="{{ route('xuatbc.sua-so-sv', ['id'=>$item->sv_id])}}" class="btn btn-primary btn-sm">Cập nhật</a>
+                        <td>
+                            <a href="{{ route('xuatbc.sua-so-sv', ['id'=>$item->sv_id])}}"
+                                class="btn btn-primary btn-sm">Cập nhật</a>
                         </td>
                         @endcan
                     </tr>
@@ -195,8 +200,7 @@
 @section('script')
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 <script>
-
-$(document).ready(function(){
+    $(document).ready(function(){
     $('#nghe_id').select2();
     $('#co_so_id').select2();
     $('#nghe_cap_4').select2();
