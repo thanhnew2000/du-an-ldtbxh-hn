@@ -173,7 +173,7 @@ class ExtractController extends Controller
         $request->request->set('created_at', $dateTime->format('Y-m-d H:i:s'));
 
         $this->DoiNguNhaGiaoService->store($request->except('_token'));
-        return redirect()->route('xuatbc.ds-nha-giao')->with(['success'=> 'thêm thành công']);
+        return redirect()->route('xuatbc.ds-nha-giao')->with(['success' => 'thêm thành công']);
     }
 
     /* Màn hình cập nhật dữ liệu Danh sách đội ngũ nhà giáo.
@@ -213,7 +213,7 @@ class ExtractController extends Controller
         $request->request->set('updated_at', $dateTime->format('Y-m-d H:i:s'));
         $this->DoiNguNhaGiaoService->updateData($id, $request);
 
-        return redirect()->route('xuatbc.chi-tiet-theo-co-so',['co_so_id' => $data->co_so_id])->with(['success'=>'Cập nhật thành công !']);
+        return redirect()->route('xuatbc.chi-tiet-theo-co-so', ['co_so_id' => $data->co_so_id])->with(['success' => 'Cập nhật thành công !']);
     }
     // phunv - end
 
@@ -436,12 +436,12 @@ class ExtractController extends Controller
         $params = $request->all();
 
         $kq = $this->HopTacQuocTeService->checkTonTaiKhiThem($params);
-        if($kq){
-            return redirect()->route('xuatbc.them-ds-hop-tac-qte')->with(['edit'=> $kq->id])->withInput();
+        if ($kq) {
+            return redirect()->route('xuatbc.them-ds-hop-tac-qte')->with(['edit' => $kq->id])->withInput();
         }
 
         $this->HopTacQuocTeService->store($request->except(['_token']));
-        return redirect()->route('xuatbc.them-ds-hop-tac-qte')->with(['success'=> 'thêm thành công']);
+        return redirect()->route('xuatbc.them-ds-hop-tac-qte')->with(['success' => 'thêm thành công']);
     }
 
 
@@ -474,8 +474,8 @@ class ExtractController extends Controller
 
         $dateTime = Carbon::now();
         $request->request->set('thoi_gian_cap_nhat', $dateTime->format('Y-m-d H:i:s'));
-        $this->HopTacQuocTeService->updateData($id,$request);
-        return redirect()->route('xuatbc.chi-tiet-ds-hop-tac-qte',['co_so_id' => $data->co_so_id])->with(['success'=> 'thêm thành công']);
+        $this->HopTacQuocTeService->updateData($id, $request);
+        return redirect()->route('xuatbc.chi-tiet-ds-hop-tac-qte', ['co_so_id' => $data->co_so_id])->with(['success' => 'thêm thành công']);
     }
 
     //phucnv end BM:13
@@ -528,7 +528,9 @@ class ExtractController extends Controller
         $route_name = Route::current()->action['as'];
 
         $data = $this->ChiTieuTuyenSinhService->getDanhSachChiTieuTuyenSinh($params);
+
         $params['get_loai_hinh_co_so'] = $this->LoaiHinhCoSoService->getAll();
+
         $params['get_nganh_nghe'] = $this->NganhNgheService->getAll();
         $params['get_co_so'] = $this->CoSoDaoTaoService->getAll();
 
@@ -579,7 +581,7 @@ class ExtractController extends Controller
         $dateTime = Carbon::now();
         $request->request->set('thoi_gian_cap_nhat', $dateTime->format('Y-m-d H:i:s'));
         $this->ChiTieuTuyenSinhService->store($request->except('_token'));
-        return redirect()->route('xuatbc.ds-chi-tieu-ts')->with(['success'=> 'thêm thành công']);
+        return redirect()->route('xuatbc.ds-chi-tieu-ts')->with(['success' => 'thêm thành công']);
     }
 
     /* Màn hình sửa chỉ tiêu tuyển sinh.
@@ -608,8 +610,8 @@ class ExtractController extends Controller
 
         $dateTime = Carbon::now();
         $request->request->set('thoi_gian_cap_nhat', $dateTime->format('Y-m-d H:i:s'));
-        $this->ChiTieuTuyenSinhService->updateData($id,$request);
-        return redirect()->route('xuatbc.chi-tiet-dang-ky-chi-tieu-tuyen-sinh',['co_so_id' => $data->co_so_id])->with(['success'=>'Cập nhật thành công !']);
+        $this->ChiTieuTuyenSinhService->updateData($id, $request);
+        return redirect()->route('xuatbc.chi-tiet-dang-ky-chi-tieu-tuyen-sinh', ['co_so_id' => $data->co_so_id])->with(['success' => 'Cập nhật thành công !']);
     }
 
     public function chitietChiTieuTuyenSinh($co_so_id, Request $request)
@@ -690,7 +692,8 @@ class ExtractController extends Controller
         $this->ChiTieuTuyenSinhService->exportBieuMau($id_co_so);
     }
 
-    public function exportDataBm8(ExportDuLieu $request){
+    public function exportDataBm8(ExportDuLieu $request)
+    {
         $listCoSoId = $request->truong_id;
         $dateFrom = $request->dateFrom;
         $dateTo = $request->dateTo;
@@ -717,7 +720,7 @@ class ExtractController extends Controller
             $request->file('file_import')
         );
         // $path = str_replace('/', '\\', $pathLoad);
-        $this->ChiTieuTuyenSinhService->importError($fileRead, $duoiFile,$pathLoad);
+        $this->ChiTieuTuyenSinhService->importError($fileRead, $duoiFile, $pathLoad);
     }
 
     public function importFilebm8(Request $request)
@@ -753,7 +756,8 @@ class ExtractController extends Controller
         $id_co_so = $request->id_cs;
         $this->HopTacQuocTeService->exportBieuMau($id_co_so);
     }
-    public function exportDatabm13(ExportDuLieu $request){
+    public function exportDatabm13(ExportDuLieu $request)
+    {
         $listCoSoId = $request->truong_id;
         $dateFrom = $request->dateFrom;
         $dateTo = $request->dateTo;
@@ -800,16 +804,18 @@ class ExtractController extends Controller
             $request->file('file_import')
         );
         // $path = str_replace('/', '\\', $pathLoad);
-        $this->HopTacQuocTeService->importError($fileRead, $duoiFile,$pathLoad);
+        $this->HopTacQuocTeService->importError($fileRead, $duoiFile, $pathLoad);
     }
 
     // thanhnv update change service bm4 6/25/2020
 
-    public function exportBieuMaubm4(Request $request){
+    public function exportBieuMaubm4(Request $request)
+    {
         $id_co_so = $request->id_cs;
         $this->QlsvService->exportBieuMau($id_co_so);
     }
-    public function exportDatabm4(Request $request){
+    public function exportDatabm4(Request $request)
+    {
         $listCoSoId = $request->truong_id;
         $dateFrom = $request->dateFrom;
         $dateTo = $request->dateTo;
@@ -821,37 +827,39 @@ class ExtractController extends Controller
         $toDate = date("Y-m-d", $changeTo);
         $this->QlsvService->exportData($listCoSoId, $fromDate, $toDate);
     }
-    public function importFilebm4(Request $request){
-        $dot=$request->dot;
-        $year=$request->nam;
-        $nameFile=$request->file->getClientOriginalName();
-        $nameFileArr=explode('.',$nameFile);
-        $duoiFile=end($nameFileArr);
+    public function importFilebm4(Request $request)
+    {
+        $dot = $request->dot;
+        $year = $request->nam;
+        $nameFile = $request->file->getClientOriginalName();
+        $nameFileArr = explode('.', $nameFile);
+        $duoiFile = end($nameFileArr);
 
         $fileRead = $_FILES['file']['tmp_name'];
         $kq =  $this->QlsvService->importFile($fileRead, $duoiFile, $year, $dot);
 
-        if($kq=='errorkitu'){
-                return response()->json('exportError',200);
-        }else if($kq=='ok'){
-                return response()->json('ok',200);
-        }else if($kq=='NgheUnsign'){
-                return response()->json(['messageError' => ' Số lượng nghề nhập không phù hợp với lượng nghề đã đăng kí' ],200);
-        }else if($kq=='noCorrectIdTruong'){
-            return response()->json(['messageError' => ' Trường không đúng hãy nhập lại' ],200);
-        }else if($kq=='ngheKoThuocTruong'){
-            return response()->json(['messageError' => 'Có nghề không thuộc trong trường' ],200);
-        }else{
-            return response()->json(['messageError' => $kq ],200);
+        if ($kq == 'errorkitu') {
+            return response()->json('exportError', 200);
+        } else if ($kq == 'ok') {
+            return response()->json('ok', 200);
+        } else if ($kq == 'NgheUnsign') {
+            return response()->json(['messageError' => ' Số lượng nghề nhập không phù hợp với lượng nghề đã đăng kí'], 200);
+        } else if ($kq == 'noCorrectIdTruong') {
+            return response()->json(['messageError' => ' Trường không đúng hãy nhập lại'], 200);
+        } else if ($kq == 'ngheKoThuocTruong') {
+            return response()->json(['messageError' => 'Có nghề không thuộc trong trường'], 200);
+        } else {
+            return response()->json(['messageError' => $kq], 200);
         }
     }
 
-    public function importErrorbm4(Request $request){
-        $dot=$request->dot;
-        $year=$request->nam;
-        $nameFile=$request->file_import->getClientOriginalName();
-        $nameFileArr=explode('.',$nameFile);
-        $duoiFile=end($nameFileArr);
+    public function importErrorbm4(Request $request)
+    {
+        $dot = $request->dot;
+        $year = $request->nam;
+        $nameFile = $request->file_import->getClientOriginalName();
+        $nameFileArr = explode('.', $nameFile);
+        $duoiFile = end($nameFileArr);
 
         $fileRead = $_FILES['file_import']['tmp_name'];
         $pathLoad = Storage::putFile(
@@ -859,6 +867,6 @@ class ExtractController extends Controller
             $request->file('file_import')
         );
         // $path = str_replace('/', '\\', $pathLoad);
-        $this->QlsvService->importError($fileRead, $duoiFile,$pathLoad);
+        $this->QlsvService->importError($fileRead, $duoiFile, $pathLoad);
     }
 }
