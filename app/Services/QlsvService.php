@@ -115,6 +115,13 @@ class QlsvService extends AppService
         return $this->repository->getMaNganhNghe();
     }
 
+    public function createPost($request)
+    {
+        $attributes = $request->all();
+        unset($attributes['_token']);
+        return $this->repository->createPost($attributes);
+    }
+
     // thanhv update 6/25/2020
 
     public function exportFillRow($worksheet, $row , $sv_d_ql){
