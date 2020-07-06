@@ -181,6 +181,12 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
         // dd($maNganhNghe);
         return $maNganhNghe;
     }
+
+    public function createPost($request)
+    {
+        return $this->model->create($request);
+    }
+
     // thanhnv 6/25/2020
     public function getSvdqlJoinNganhNgheNamDot($id_truong,$nam_muon_xuat,$dot_muon_xuat){
        $data = DB::table('sv_dang_quan_ly')->where('sv_dang_quan_ly.co_so_id','=',$id_truong)

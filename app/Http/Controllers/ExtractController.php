@@ -250,7 +250,8 @@ class ExtractController extends Controller
         // $request->request->set('nam', $dateTime->year);
         // $request->request->set('dot', 1);
         $co_so_id = $request->co_so_id;
-        $this->QlsvService->create($request);
+        $this->QlsvService->createPost($request);
+      
         return redirect()->route('xuatbc.chi-tiet-so-lieu', ['co_so_id' => $co_so_id]);
     }
     public function edit($id)

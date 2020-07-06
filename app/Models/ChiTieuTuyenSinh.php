@@ -28,6 +28,7 @@ class ChiTieuTuyenSinh extends Model
                 'dot_id' => 1,
                 'thoi_gian_phe_duyet_1' => null,
                 'thoi_gian_phe_duyet_2' => null,
+                'dot_number' => $baoCao->nam*1000 + $baoCao->dot,
             ]);
         });
     }
