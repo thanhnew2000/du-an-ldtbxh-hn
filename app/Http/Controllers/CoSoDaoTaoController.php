@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Route;
 
 class CoSoDaoTaoController extends Controller
 {
@@ -26,10 +27,13 @@ class CoSoDaoTaoController extends Controller
         if (!isset($params['ma_don_vi'])) $params['ma_don_vi'] = null;
         if (!isset($params['loai_hinh_co_so'])) $params['loai_hinh_co_so'] = null;
         if (!isset($params['quanhuyen'])) $params['quanhuyen'] = null;
+        if (!isset($params['page_size'])) $params['page_size'] = config('common.paginate_size.default');
         $data = $this->CoSoDaoTaoService->getCsdt($params);
         $loaihinh = DB::table('loai_hinh_co_so')->get();
         $quanhuyen = DB::table('devvn_quanhuyen')->get();
-        return view('co-so-dao-tao.danh_sach_co_so_dao_tao', compact('data', 'loaihinh', 'quanhuyen', 'params'));
+        $data->appends(request()->input())->links();
+        $route_name = Route::current()->action['as'];
+        return view('co-so-dao-tao.danh_sach_co_so_dao_tao', compact('data', 'loaihinh', 'quanhuyen', 'params', 'route_name'));
     }
 
     public function chitietCSDT($id)
