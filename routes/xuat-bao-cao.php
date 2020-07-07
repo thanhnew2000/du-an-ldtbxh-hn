@@ -144,17 +144,18 @@ Route::group(['middleware' => ['permission:xem_chi_tiet_tong_hop_ket_qua_tuyen_s
     Route::get('/chi-tiet-so-lieu-tuyen-sinh/{co_so_id}', 'SoLieuTuyenSinhController@chitietsolieutuyensinh')->name('chitietsolieutuyensinh');
 });
 
-Route::group(['prefix' => 'ket-qua-tuyen-sinh','middleware' => ['permission:danh_sach_tong_hop_ket_qua_tuyen_sinh']], function () {
+Route::group(['prefix' => 'ket-qua-tuyen-sinh'], function () {
     Route::post('/co-so-tuyen-sinh-theo-loai-hinh', 'SoLieuTuyenSinhController@getCoSoTuyenSinhTheoLoaiHinh')->name('csTuyenSinhTheoLoaiHinh');
     Route::post('/xa-phuong-theo-quan-huyen', 'SoLieuTuyenSinhController@getXaPhuongTheoQuanHuyen')->name('getXaPhuongTheoQuanHuyen'); 
     Route::post('/get-ma-nganh-nghe', 'SoLieuTuyenSinhController@getmanganhnghe')->name('get_ma_nganh_nghe');
     Route::post('/check-them-so-lieu-tuyen-sinh', 'SoLieuTuyenSinhController@getCheckTonTaiSoLieuTuyenSinh')->name('so_lieu_tuyen_sinh.check_so_lieu');
     Route::post('/get-nghe-theo-cap-bac', 'SoLieuTuyenSinhController@getNgheTheoCapBac')->name('getNgheTheoCapBac');
+    Route::post('form-nhap-sv', 'SoLieuTuyenSinhController@exportBieuMau')->name('layformbieumausinhvien');
+    Route::post('export-data-sv', 'SoLieuTuyenSinhController@exportData')->name('exportdatatuyensinh');
 });
     // Route::post('/get-nghe-cap-4-theo-cap-3','SoLieuTuyenSinhController@getNgheCap4TheoCap3')->name('getNgheCap4TheoCap3');
     // thanhnv update tuyensinh 6/25/2020
-    Route::post('form-nhap-sv', 'SoLieuTuyenSinhController@exportBieuMau')->name('layformbieumausinhvien');
-    Route::post('export-data-sv', 'SoLieuTuyenSinhController@exportData')->name('exportdatatuyensinh');
+    
 //End - CườngNC - Updatemiddleware - Kể quả tuyển sinh
 
 
@@ -409,17 +410,20 @@ Route::group(['prefix' => 'hop-tac-quoc-te', 'middleware' => ['permission: ap_nh
 Route::group(['prefix' => 'hop-tac-quoc-te', 'middleware' => ['permission:chi_tiet_tong_hop_hop_tac_quoc_te']], function () {
     Route::get('/chi-tiet/{co_so_id}', 'ExtractController@chiTietTongHopHopTacQuocTe')->name('xuatbc.chi-tiet-ds-hop-tac-qte');
 });
-    
-    
 
-    
-
+Route::group(['prefix' => 'hop-tac-quoc-te'], function () {
     // thanhnv 6/21/2020
-
     Route::post('export-bieu-mau-hop-tac-quoc-te', 'ExtractController@exportBieuMaubm13')
         ->name('layformbieumau.hop-tac-quoc-te');
     Route::post('export-data-chinh-sach-sv', 'ExtractController@exportDatabm13')
         ->name('exportdata.bieumau.hop-tac-quoc-ten');
+});
+    
+
+    
+
+    
+    
 
 //phucnv end BM:13
 

@@ -60,6 +60,7 @@ class PheDuyetBaoCaoService extends AppService
     {
         $trangThai = config('common.phe_duyet.trang_thai');
         $listTrangThaiId = [];
+        $user->hasPermission('');
         switch ($trangThaiBaoCao) {
             case $trangThai['cho_phe_duyet']:
                 $listTrangThaiId = Arr::only($trangThai, [

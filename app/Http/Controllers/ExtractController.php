@@ -627,7 +627,7 @@ class ExtractController extends Controller
         $params['get_nganh_nghe_theo_co_so'] = $this->ChiTieuTuyenSinhService->getNganhNgheTheoCoSo($co_so_id);
         $thongtincoso = $this->CoSoDaoTaoService->getSingleCsdt($co_so_id);
 
-        $data->appends(request()->input())->links();
+        $data->withPath("?nghe_id=$request->nghe_id&dot=$request->dot&nam=$request->nam&page_size=$request->page_size");
 
         if ($data->count() < 1) {
             return view(
