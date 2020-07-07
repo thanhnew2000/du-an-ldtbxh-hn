@@ -18,7 +18,7 @@
                         <i class="m-menu__link-icon flaticon-web"></i>
                     </span>
                     <h3 class="m-portlet__head-text">
-                        Tổng hợp liên kết đào tạo
+                        Tổng hợp liên kết liên thông trình độ
                     </h3>
                 </div>
             </div>
@@ -469,7 +469,15 @@
 <script src="{!! asset('excel-js/js-xuat-time.js') !!}"></script>
 <script src="{!! asset('excel-js/js-form.js') !!}"></script>
 {{-- end --}}
-
+<script>
+    $(function() {
+  const queryString = new URLSearchParams(window.location.search);
+  const nam = queryString.get('nam') ? queryString.get('nam') : (new Date()).getFullYear();
+  const dot = queryString.get('dot') ? queryString.get('dot') : ((new Date()).getMonth()+1 < 6 ? 1 : 2);
+  $("#nam").val(nam);
+  $("#dot").val(dot);
+});
+</script>
 <script type="text/javascript">
     var url_tuyen_sinh_theo_loai_hinh = "{{route('csTuyenSinhTheoLoaiHinh')}}"
     var url_xa_phuong_theo_quan_huyen = "{{route('getXaPhuongTheoQuanHuyen')}}"

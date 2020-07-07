@@ -197,7 +197,7 @@ class DaoTaoNgheVoiDoanhNghiepRepository extends BaseRepository implements DaoTa
 
 	// thanhnv 6/26/2020 sửa model create update
 	public function createNgheVoiDoanhNghiep($arrayData){
-		return $this->model->insert($arrayData);
+		return $this->model->create($arrayData);
 	}
 	public function updateNgheVoiDoanhNghiep($key,$arrayData){
 		return $this->model->where('id',$key)->update($arrayData);

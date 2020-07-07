@@ -19,7 +19,7 @@
                     </span>
                     <h3 class="m-portlet__head-text">
 
-                        Tổng hợp liên kết đào tạo Trung Cấp
+                        Tổng hợp liên kết liên thông trình độ Trung Cấp lên Đại Học
 
                     </h3>
                 </div>
@@ -455,6 +455,17 @@
 @endsection
 @section('script')
 <script src="{{ asset('js/lien_ket_dao_tao/tong_hop_so_lieu.js') }}"></script>
+<script>
+    $(function() {
+  const queryString = new URLSearchParams(window.location.search);
+  const nam = queryString.get('nam') ? queryString.get('nam') : (new Date()).getFullYear();
+  const dot = queryString.get('dot') ? queryString.get('dot') : ((new Date()).getMonth()+1 < 6 ? 1 : 2);
+ 
+  $("#nam").val(nam);
+  $("#dot").val(dot);
+
+});
+</script>
 <script>
     $(document).ready(function(){
         

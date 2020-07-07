@@ -115,9 +115,11 @@ class QlsvService extends AppService
         return $this->repository->getMaNganhNghe();
     }
 
-    public function getThongTinCoSo()
+    public function createPost($request)
     {
-        return $this->repository->getThongTinCoSo();
+        $attributes = $request->all();
+        unset($attributes['_token']);
+        return $this->repository->createPost($attributes);
     }
 
     // thanhv update 6/25/2020
@@ -367,7 +369,7 @@ public function importFile($fileRead, $duoiFile, $year, $dot){
                     if(array_key_exists($data[$i][1],$id_nghe_svql_da_co)){
                         $updateData[$id_nghe_svql_da_co[$data[$i][1]]]=$arrayData;
                     }else{
-                        array_push($insertData,$arrayData); 
+                     $this->repository->createQlSinhVienDangTheoHoc($arrayData);
                     }
                 }else if(in_array($id_nghe_nhap,$id_nghe_of_cs) == false){
                     $message='ngheKoThuocTruong';
@@ -379,10 +381,6 @@ public function importFile($fileRead, $duoiFile, $year, $dot){
                  $this->repository->updateQlSinhVienDangTheoHoc($key,$value);
                 // DB::table('sv_dang_quan_ly')->where('id',$key)->update($value);
             }  
-            if (count($insertData) > 0) {
-                $this->repository->createQlSinhVienDangTheoHoc($insertData);
-                // DB::table('sv_dang_quan_ly')->insert($insertData);
-            }    
             $message='ok';
             return $message;  
         }

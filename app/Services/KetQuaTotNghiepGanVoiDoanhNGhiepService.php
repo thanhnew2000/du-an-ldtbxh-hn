@@ -370,7 +370,7 @@ class KetQuaTotNghiepGanVoiDoanhNGhiepService extends AppService
                         if(array_key_exists($id_nghe_nhap,$id_nghe_dttndn_gan_dn_da_co)){
                             $updateData[$id_nghe_dttndn_gan_dn_da_co[$id_nghe_nhap]]=$arrayData;
                         }else{
-                            array_push($insertData,$arrayData); 
+                             $this->repository->createTotNghiepVoiDoanhNghiep($arrayData);
                         }
                     }else if(in_array($id_nghe_nhap,$id_nghe_of_cs) == false){
                         $message='ngheKoThuocTruong';
@@ -383,10 +383,7 @@ class KetQuaTotNghiepGanVoiDoanhNGhiepService extends AppService
                 foreach($updateData as $key => $value)
                     $this->repository->updateTotNghiepVoiDoanhNghiep($key,$value);
                 }  
-                if (count($insertData) > 0) {
-                    $this->repository->createTotNghiepVoiDoanhNghiep($insertData);
-                }    
-
+         
                 $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($id_truong);
                 $bm = 'Kết quả tốt nghiệp gắn với doanh nghiệp';
                 $tencoso = $thongTinCoSo->ten;

@@ -590,7 +590,7 @@ class LienKetDaoTaoService extends AppService
                     if (array_key_exists($id_nghe_nhap, $id_nghe_lkdt_da_co)) {
                         $updateData[$id_nghe_lkdt_da_co[$id_nghe_nhap]] = $arrayData;
                     } else {
-                        array_push($insertData, $arrayData);
+                       $this->repository->createLienKetDaoTao($arrayData);
                     }
                 } else if (in_array($id_nghe_nhap, $id_nghe_of_cs) == false) {
                     $message = 'ngheKoThuocTruong';
@@ -602,10 +602,7 @@ class LienKetDaoTaoService extends AppService
                     $this->repository->updateLienKetDaoTao($key, $value);
                 }
             }
-            if (count($insertData) > 0) {
-                $this->repository->createLienKetDaoTao($insertData);
-            }
-
+     
             $message = 'ok';
             return $message;
         }

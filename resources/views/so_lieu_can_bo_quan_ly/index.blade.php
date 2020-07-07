@@ -72,5 +72,26 @@ $routeExportData = 'exportdata.solieucanbo.quanly';
 <script src="{!! asset('excel-js/js-xuat-time.js') !!}"></script>
 <script src="{!! asset('excel-js/js-form.js') !!}"></script>
 {{-- end --}}
-
+@if (session('success'))
+<script>
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Thêm thành công !',
+        showConfirmButton: false,
+        timer: 3500
+    })
+</script>
+@endif
+@if (session('update'))
+<script>
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Cập nhật thành công !',
+        showConfirmButton: false,
+        timer: 3500
+    })
+</script>
+@endif
 @endsection

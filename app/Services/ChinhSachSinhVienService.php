@@ -287,7 +287,7 @@ class ChinhSachSinhVienService extends AppService
                     if (array_key_exists($id_chinhsach, $chinh_sach_da_co_id)) {
                         $updateData[$chinh_sach_da_co_id[$id_chinhsach]] = $arrayData;
                     } else {
-                        array_push($arrayToInsert, $arrayData);
+                         $this->repository->createChinhSachSv($arrayData);
                     }
                 }
                 if (count($updateData) > 0) {
@@ -295,10 +295,7 @@ class ChinhSachSinhVienService extends AppService
                         $this->repository->updateChinhSachSv($key, $value);
                     // DB::table('tong_hop_chinh_sach_voi_hssv')->where('id',$key)->update($value);
                 }
-                if (count($arrayToInsert) > 0) {
-                    $this->repository->createChinhSachSv($arrayToInsert);
-                    // DB::table('tong_hop_chinh_sach_voi_hssv')->insert($arrayToInsert);
-                }
+           
                 $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($id_truong);
                 $bm = 'Chính sách sinh viên';
                 $tencoso = $thongTinCoSo->ten;

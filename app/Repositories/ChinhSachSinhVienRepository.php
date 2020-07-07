@@ -95,7 +95,7 @@ class ChinhSachSinhVienRepository extends BaseRepository implements ChinhSachSin
 
     // thanhnv 6/26/2020 sửa model create update
     public function createChinhSachSv($arrayData){
-        return $this->model->insert($arrayData);
+        return $this->model->create($arrayData);
     }
     public function updateChinhSachSv($key,$arrayData){
         return $this->model->where('id',$key)->update($arrayData);

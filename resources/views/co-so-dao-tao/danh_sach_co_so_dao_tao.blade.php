@@ -16,6 +16,7 @@
             </div>
         </div>
         <form action="" method="get" class="m-form">
+            <input type="hidden" name="page_size" value="{{$params['page_size']}}">
             <div class="m-portlet__body">
                 <div class="m-form__section m-form__section--first">
                     <div class="m-form__heading">
@@ -36,7 +37,7 @@
                                 <label class="col-lg-2 col-form-label">Loại hình cơ sở:</label>
                                 <div class="col-lg-8">
                                     <select name="loai_hinh_co_so" class="form-control ">
-                                        <option disabled selected>chọn loại hình cơ sở</option>
+                                        <option selected value="">Chọn loại hình cơ sở</option>
                                         @foreach ($loaihinh as $lh)
                                         <option value="{{ $lh->id }}" @if ($params['loai_hinh_co_so']==$lh->id )
                                             {{ 'selected' }}
@@ -64,7 +65,7 @@
                                 <label class="col-lg-2 col-form-label">Quận</label>
                                 <div class="col-lg-8">
                                     <select name="quanhuyen" class="form-control" id="devvn_quanhuyen">
-                                        <option disabled selected>Quận / Huyện</option>
+                                        <option selected value="">Quận / Huyện</option>
                                         @foreach ($quanhuyen as $qh)
                                         <option value="{{ $qh->maqh}}" @if ($params['quanhuyen']==$qh->maqh )
                                             {{ 'selected' }}
@@ -92,6 +93,16 @@
                 <strong>{!! \Session::get('mess') !!}</strong>
             </div>
             @endif
+                <div class="col-12 form-group m-form__group d-flex justify-content-end">
+                    <label class="col-lg-2 col-form-label">Kích thước:</label>
+                    <div class="col-lg-2">
+                        <select class="form-control" id="page-size">
+                            @foreach(config('common.paginate_size.list') as $size)
+                                <option @if($params['page_size']==$size) selected @endif value="{{$size}}">{{$size}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
             <table class="table m-table m-table--head-bg-brand">
                 <thead>
                     <th>STT</th>
@@ -163,8 +174,22 @@
 @section('script')
 <script>
     $(document).ready(function() {
-            $('#devvn_quanhuyen').select2();
+        $('#devvn_quanhuyen').select2();
+
+        var currentUrl = '{{route($route_name)}}';
+        $(document).ready(function(){
+            $('#page-size').change(function(){
+                var ten_co_so = $('[name="ten_co_so"]').val();
+                var ma_don_vi = $('[name="ma_don_vi"]').val();
+                var loai_hinh_co_so = $('[name="loai_hinh_co_so"]').val();
+                var quanhuyen = $('[name="quanhuyen"]').val();
+                var page_size = $(this).val();
+                debugger;
+                var reloadUrl = `${currentUrl}?ten_co_so=${ten_co_so}&ma_don_vi=${ma_don_vi}&loai_hinh_co_so=${loai_hinh_co_so}&quanhuyen=${quanhuyen}&page_size=${page_size}`;
+                window.location.href = reloadUrl;
+            });
         });
+    });
 </script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 @endsection
