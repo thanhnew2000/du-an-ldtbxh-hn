@@ -156,6 +156,8 @@
                             </td>
                             <td>{{$items->ma_chung_nhan_dang_ki_hoat_dong}}</td>
                             <td class="d-flex">
+                                <a href="{{route('chi-nhanh.chi-tiet', ['id'=> $items->id])}}"
+                                    class="btn btn-info btn-sm mr-3">Chi tiết</a>
                                 @can('cap_nhat_dia_diem_dao_tao')
                                 <a href="{{route('chi-nhanh.cap-nhat', ['id'=> $items->id])}}"
                                     class="btn btn-primary btn-sm mr-3">Cập nhật</a>

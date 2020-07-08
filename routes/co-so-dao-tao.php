@@ -43,6 +43,14 @@ Route::group(['middleware' => ['permission:cap_nhat_dia_diem_dao_tao']], functio
 Route::group(['middleware' => ['permission:xoa_dia_diem_dao_tao']], function () {
     Route::post('/xoa-dia-diem-dao-tao/{id}', 'ChiNhanhController@xoachinhanh')->name('chi-nhanh.xoa');
     
-});  
+});
 
- 
+Route::get('chi-tiet-dia-diem-dao-tao/{id}', 'ChiNhanhController@chiTietChiNhanh')->name('chi-nhanh.chi-tiet');
+
+Route::get('danh-sach-nghe-cua-dia-diem-dao-tao/{id}', 'ChiNhanhController@getNgheChiNhanh')->name('chi-nhanh.danh-sach-nghe');
+
+Route::get('bo-sung-nghe-vao-dia-diem-dao-tao/{id}', 'ChiNhanhController@boSungNgheVaoChiNhanh')->name('chi-nhanh.bo-sung-nghe');
+
+Route::post('nganh-nghe-trong-giay-phep', 'ChiNhanhController@getNgheTheoGiayPhep')->name('chi-nhanh.get-nganh-nghe');
+
+Route::post('bo-sung-nghe-dia-diem-dao-tao', 'ChiNhanhController@boSungNgheVaoChiNhanh')->name('chi-nhanh-luu-bo-sung-nghe');

@@ -65,8 +65,8 @@
                             @endif
                         </td>
                         <td>{{ $cursor->ten_giay_phep }}</td>
-                        <td>{{ $cursor->ngay_ban_hanh }}</td>
-                        <td>{{ $cursor->ngay_het_han }}</td>
+                        <td>{{ \Carbon\Carbon::parse($cursor->ngay_ban_hanh)->format('d-m-Y') }}</td>
+                        <td>{{ \Carbon\Carbon::parse($cursor->ngay_het_han)->format('d-m-Y') }}</td>
                         <td>
                             @if ($cursor->trang_thai == 1)
                             Hoạt động

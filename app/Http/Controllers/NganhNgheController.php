@@ -103,7 +103,7 @@ class NganhNgheController extends Controller
         $allNgheCD = $this->nganhNgheService->getAllNganhNghe(6, $csdtid);
 
         return view(
-            'nganh-nghe.chon-co-so-dao-tao',
+            'nganh-nghe.danh-sach-nghe-cua-co-so',
             compact('defaultCsdt', 'route_name', 'dsNghe', 'params', 'allNgheCD', 'allNgheTC')
         );
     }

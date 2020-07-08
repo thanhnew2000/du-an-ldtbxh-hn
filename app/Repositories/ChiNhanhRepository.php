@@ -37,6 +37,7 @@ class ChiNhanhRepository extends BaseRepository implements ChiNhanhRepositoryInt
             ->join('devvn_xaphuongthitran', 'chi_nhanh_dao_tao.xaid', '=', 'devvn_xaphuongthitran.xaid')
             ->where('chi_nhanh_dao_tao.id', $id)
             ->select(
+                'co_so_dao_tao.ten as ten_co_so',
                 'chi_nhanh_dao_tao.*',
                 DB::raw('co_so_dao_tao.id as csdt_id'),
                 DB::raw('co_so_dao_tao.ten as csdt_ten'),

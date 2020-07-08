@@ -47,4 +47,14 @@ class GiayPhepRepository extends BaseRepository implements GiayPhepRepositoryInt
     {
         return $this->model->find($id)->update($params);
     }
+
+    public function getGiayPhepThepCoSo($params){
+        return $this->model->select(
+            'giay_phep.id as giay_phep_id',
+            'co_so_id',
+            'ten_giay_phep'
+            )->join('co_so_dao_tao', 'co_so_dao_tao.id', '=', 'giay_phep.co_so_id')
+            ->where('co_so_dao_tao.id' , $params)
+            ->get();
+    }
 }

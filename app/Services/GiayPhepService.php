@@ -30,4 +30,8 @@ class GiayPhepService extends AppService
     {
         return $this->repository->updateGiayPhep($id, $params);
     }
+
+    public function getGiayPhepThepCoSo($params){
+        return $this->repository->getGiayPhepThepCoSo($params);
+    }
 }

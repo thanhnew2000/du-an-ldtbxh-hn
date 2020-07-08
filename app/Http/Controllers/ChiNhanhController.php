@@ -3,20 +3,33 @@
 namespace App\Http\Controllers;
 
 use App\Services\ChiNhanhService;
+use App\Services\ChungNhanDangKyService;
 use App\Services\CoSoDaoTaoService;
+use App\Services\GiayPhepService;
+use App\Services\NganhNgheChiNhanhService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redis;
 
 class ChiNhanhController extends Controller
 {
     protected $ChiNhanhService;
+    protected $chungNhanDangKyService;
     protected $coSoDaoTaoService;
-    public function __construct(ChiNhanhService $ChiNhanhService,
-    CoSoDaoTaoService $coSoDaoTaoService
-    )
-    {
+    protected $GiayPhepService;
+    protected $NganhNgheChiNhanhService;
+    public function __construct(
+        ChiNhanhService $ChiNhanhService,
+        CoSoDaoTaoService $coSoDaoTaoService,
+        ChungNhanDangKyService $chungNhanDangKyService,
+        GiayPhepService $GiayPhepService,
+        NganhNgheChiNhanhService $nganhNgheChiNhanhService
+    ) {
         $this->coSoDaoTaoService = $coSoDaoTaoService;
         $this->ChiNhanhService = $ChiNhanhService;
+        $this->chungNhanDangKyService = $chungNhanDangKyService;
+        $this->GiayPhepService = $GiayPhepService;
+        $this->NganhNgheChiNhanhService = $nganhNgheChiNhanhService;
     }
 
     public function danhsachchinhanh(Request $request, $id = null)
@@ -32,19 +45,25 @@ class ChiNhanhController extends Controller
         }
         $chiNhanhDefault = $this->coSoDaoTaoService->findById($id);
         $quanhuyen = DB::table('devvn_quanhuyen')->get();
-        return view('co-so-dao-tao.chi_nhanh.danh_sach_chi_nhanh', compact('data', 'quanhuyen', 'params', 'chiNhanhDefault'));
+        return view('co-so-dao-tao.chi_nhanh.danh-sach-chi-nhanh', compact('data', 'quanhuyen', 'params', 'chiNhanhDefault'));
     }
 
     public function themchinhanh(Request $request)
     {
         $params = [];
-        if(isset($request->co_so_id)){
+        if (isset($request->co_so_id)) {
             $params['co_so_id'] = $request->co_so_id;
         }
         $csdt = DB::table('co_so_dao_tao')->get();
         $quanhuyen = DB::table('devvn_quanhuyen')->get();
         $xaphuong = DB::table('devvn_xaphuongthitran')->get();
         return view('co-so-dao-tao.chi_nhanh.them_chi_nhanh', compact('csdt', 'quanhuyen', 'xaphuong', 'params'));
+    }
+
+    public function chiTietChiNhanh($id)
+    {
+        $data = $this->ChiNhanhService->getSingleChiNhanh($id);
+        return view('co-so-dao-tao.chi_nhanh.chi-tiet-chi-nhanh', compact('data'));
     }
 
     public function savethemchinhanh(Request $request)
@@ -75,9 +94,9 @@ class ChiNhanhController extends Controller
 
         $this->ChiNhanhService->create($request, ['_token']);
 
-        if(isset($request->csdt_id)){
+        if (isset($request->csdt_id)) {
             return redirect()->route('csdt.chi-nhanh', ['id' => $request->csdt_id])->withInput()->with('mess-success', 'Đã thêm thành công');
-        } else{
+        } else {
             return redirect()->route('csdt.chi-nhanh')->withInput()->with('mess-success', 'Đã thêm thành công');
         }
     }
@@ -124,5 +143,38 @@ class ChiNhanhController extends Controller
     {
         $this->ChiNhanhService->delete($id);
         return redirect()->route('csdt.chi-nhanh')->with('mess', 'Đã xóa chi nhánh');
+    }
+
+    public function getNgheChiNhanh($id)
+    {
+        $chiNhanh = $this->ChiNhanhService->getSingleChiNhanh($id);
+        $params = [];
+        if (isset($chiNhanh)) {
+            $params['chi_nhanh_id'] = $chiNhanh[0]->id;
+            $params['co_so_id'] = $chiNhanh[0]->co_so_id;
+            $params['ten_co_so'] = $chiNhanh[0]->ten_co_so;
+            $params['dia_chi'] = $chiNhanh[0]->dia_chi;
+            $params['page_size'] = 20;
+        }
+        $dsGiayPhep = $this->GiayPhepService->getGiayPhepThepCoSo($params['co_so_id']);
+        $dsNgheChiNhanh = $this->NganhNgheChiNhanhService->getNgheTheoChiNhanh($params['chi_nhanh_id']);
+        return view('co-so-dao-tao.chi_nhanh.danh-sach-nghe-chi-nhanh', compact('params', 'dsGiayPhep', 'chiNhanh', 'dsNgheChiNhanh'));
+    }
+
+    public function getNgheTheoGiayPhep(Request $request)
+    {
+        $params = $request->all();
+        $dsNgheCD = $this->chungNhanDangKyService->getNgheTheoGiayPhep($params, config('common.bac_nghe.cao_dang.ma_bac'));
+        $dsNgheTC = $this->chungNhanDangKyService->getNgheTheoGiayPhep($params, config('common.bac_nghe.trung_cap.ma_bac'));
+        return response()->json([
+            'ngheCD' => $dsNgheCD,
+            'ngheTC' => $dsNgheTC
+        ]);
+    }
+
+    public function boSungNgheVaoChiNhanh(Request $request)
+    {
+        $data = $request->all();
+        return $this->NganhNgheChiNhanhService->boSungNgheVaoChiNhanh($data);
     }
 }

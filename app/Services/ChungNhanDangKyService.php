@@ -25,21 +25,26 @@ class ChungNhanDangKyService extends AppService
         return $this->repository->getCoSoDaoTaoTheoNghe($params);
     }
 
-    public function getNgheTheoCoSoDaoTao($params)
+    public function getNgheTheoCoSoDaoTao($params, $bac_nghe = null)
     {
 
-        return $this->repository->getNgheTheoCoSoDaoTao($params);
+        return $this->repository->getNgheTheoCoSoDaoTao($params, $bac_nghe);
     }
 
-    public function getNgheTheoGiayPhep($id)
+    public function getNgheTheoGiayPhep($params, $bac_nghe = null)
     {
-        return $this->repository->getNgheTheoGiayPhep($id);
+        return $this->repository->getNgheTheoGiayPhep($params, $bac_nghe);
     }
     public function xoaNgheTrongGiayPhep($params)
     {
         return $this->repository->xoaNgheTrongGiayPhep($params);
     }
-    public function getTongSoTuyenSinhTheoNghe($params){
+    public function getTongSoTuyenSinhTheoNghe($params)
+    {
         return $this->repository->getTongSoTuyenSinhTheoNghe($params);
+    }
+    public function getNgheTheoChiNhanh($id)
+    {
+        return $this->repository->getNgheTheoChiNhanh($id);
     }
 }
