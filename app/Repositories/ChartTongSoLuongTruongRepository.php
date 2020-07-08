@@ -37,6 +37,7 @@ class ChartTongSoLuongTruongRepository extends BaseRepository
         ->where('loai_truong','like', $he_khac .'%')->count();
         
        
+        
 
         return $query;
     }
