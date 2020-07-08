@@ -77,21 +77,21 @@
                 </div>
                 <table class="table m-table m-table--head-bg-brand table-scrollable table-responsive">
                     <thead>
-                        <tr>
-                            <th class="mw-10">STT</th>
-                            <th class="mw-90">Tên cơ sở</th>
-                            <th class="mw-90">Loại báo cáo</th>
-                            <th class="mw-90">Trạng thái</th>
-                            <th class="mw-200">Lí do từ chối</th>
-                            <th class="mw-90">Thời gian nộp</th>
-                            <th class="mw-90">Người phê duyệt 1</th>
-                            <th class="mw-90">Thời gian phê duyệt lần 1</th>
-                            <th class="mw-90">Người phê duyệt 2</th>
-                            <th class="mw-90">Thời gian phê duyệt lần 2</th>
-                            <th class="mw-90">Đợt báo cáo</th>
-                            <th class="mw-240" scope="col">Thao tác</th>
-                        </tr>
-                    </thead>
+                            <tr>
+                                <th class="mw-10">STT</th>
+                                <th class="mw-90">Tên cơ sở</th>
+                                <th class="mw-90">Loại báo cáo</th>
+                                <th class="mw-90">Trạng thái</th>
+                                <th class="mw-200">Lí do từ chối</th>
+                                <th class="mw-90">Thời gian nộp</th>
+                                <th class="mw-90">Người phê duyệt 1</th>
+                                <th class="mw-90">Thời gian phê duyệt lần 1</th>
+                                <th class="mw-90">Người phê duyệt 2</th>
+                                <th class="mw-90">Thời gian phê duyệt lần 2</th>
+                                <th class="mw-90">Đợt báo cáo</th>
+                                <th class="mw-240" scope="col">Thao tác</th>
+                            </tr>
+                    </thead>`
                     <tbody>
                         @php($i = 1)
                         @foreach ($danhSachBaoCao as $baoCao)
@@ -172,7 +172,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                                                        <button type="submit" class="btn btn-primary">Submit</a>
+                                                        <button type="submit" class="btn btn-primary">Submit</a>                           
                                                     </div>
                                                 </div>
                                             </div>
@@ -226,6 +226,7 @@
         const id = url.substring(url.lastIndexOf('/') + 1);
         const trangThai = $("#trang_thai_" + id).val();
         const liDoTuChoi = $("#li_do_tu_choi_" + id).val();
+        console.log('-----', id, $("#li_do_tu_choi_" + id));
         axios({
             method: 'POST',
             url: url,

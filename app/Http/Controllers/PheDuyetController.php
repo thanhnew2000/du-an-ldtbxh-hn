@@ -51,7 +51,7 @@ class PheDuyetController extends Controller
             'id',
             DB::raw('ten_trang_thai AS text'),
         ];
-
+        
         $listTrangThai = $this->pheDuyetBaoCaoService->getListTrangThai($baoCao, $selects);
 
         return response()->json([

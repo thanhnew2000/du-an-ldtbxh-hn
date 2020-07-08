@@ -7,7 +7,7 @@ return [
         '94' => 'Danh sách sinh viên đang theo học',
         '1' => 'Thêm số lượng sinh viên đang theo học',
         '2' => 'Sửa số lượng sinh viên đang theo học',
-        '3' => 'Xem số lượng sinh viên đang theo học'
+        '3' => 'Xem số lượng sinh viên đang theo học',
     ],
     'quan_ly_quyen' => [
         '69' => 'Danh sách quyền',
@@ -19,12 +19,11 @@ return [
         '4' => 'Thêm tài khoản',
         '5' => 'Sửa tài khoản',
         '33' => 'Vô hiệu hóa tài khoản'
-        
     ],
     'quan_ly_co_so_dao_tao' => [
-        '95' => 'Phê duyệt 1 cơ sở đào tạo',
-        '96' => 'Phê duyệt 2 cơ sở đào tạo',
-        '72' => 'Danh sách cơ sở đào tạo',
+        '95'=> 'Phê duyệt 1 cơ sở đào tạo',
+        '96'=> 'Phê duyệt 2 cơ sở đào tạo',
+        '72'=> 'Danh sách cơ sở đào tạo',
         '6' => 'Thêm mới cơ sở đào tạo',
         '7' => 'Xem chi tiết cơ sở đào tạo',
         '8' => 'Cập nhật cơ sở đào tạo',
@@ -70,7 +69,7 @@ return [
         '22' => 'Xem chi tiết danh sách đội ngũ quản lý',
     ],
     'quan_ly_tong_hop_chinh_sach' => [
-        '107' => 'Phê duyệt 1 thực hiện chính sách cho sinh viên', 
+        '107' => 'Phê duyệt 1 thực hiện chính sách cho sinh viên',
         '108' => 'Phê duyệt 2 thực hiện chính sách cho sinh viên',
         '77' => 'Danh sách thực hiện chính sách cho sinh viên',
         '23' => 'Thêm mới tổng hợp chính sách sinh viên',
