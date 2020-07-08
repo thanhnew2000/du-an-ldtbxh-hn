@@ -224,9 +224,7 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
 	public function createQlSinhVienDangTheoHoc($arrayData){
 		return $this->model->create($arrayData);
 	}
-	public function updateQlSinhVienDangTheoHoc($key,$arrayData){
-		return $this->model->where('id',$key)->update($arrayData);
-    }
+
     public function updateQlSinhVienDangTheoHoc($key, $arrayData)
     {
         return $this->model->where('id', $key)->update($arrayData);
