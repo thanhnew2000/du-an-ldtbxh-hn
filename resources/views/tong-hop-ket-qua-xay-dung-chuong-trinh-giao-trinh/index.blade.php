@@ -143,8 +143,7 @@
                     <tr class="text-center">
                         <th rowspan="3">STT</th>
                         <th rowspan="3">Tên cơ sở</th>
-                        <th rowspan="3">Mã nghề</th>
-                        <th rowspan="3">Tên nghề</th>
+                        
                         <th rowspan="3">Năm</th>
                         <th rowspan="3">Đợt</th>
                         <th colspan="9">Xây dựng mới</th>
@@ -194,37 +193,36 @@
                    <tr>
                        <td>{{ $i++ }}</td>
                        <td>{{ $item->ten }}</td>
-                       <td>{{ $item->ma_nghe }}</td>
-                       <td>{{ $item->ten_nghe }}</td>
+                     
                        <td>{{ $item->nam }}</td>
                        <td>{{ $item->dot }}</td>
                        
                        {{-- Xây dựng --}}
-                       <td>{{ $item->tong_so_XD_chuong_trinh_moi }}</td>
-                       <td>{{ $item->XD_chuong_trinh_moi_CD }}</td>
-                       <td>{{ $item->XD_chuong_trinh_moi_TC }}</td>
-                       <td>{{ $item->XD_chuong_trinh_moi_SC }}</td>
+                       <td>{{ $item->total_tong_so_XD_chuong_trinh_moi }}</td>
+                       <td>{{ $item->total_XD_chuong_trinh_moi_CD }}</td>
+                       <td>{{ $item->total_XD_chuong_trinh_moi_TC }}</td>
+                       <td>{{ $item->total_XD_chuong_trinh_moi_SC }}</td>
 
-                       <td>{{ $item->tong_so_XD_giao_trinh_moi }}</td>
-                       <td>{{ $item->XD_giao_trinh_moi_CD }}</td>
-                       <td>{{ $item->XD_giao_trinh_moi_TC }}</td>
-                       <td>{{ $item->XD_giao_trinh_moi_SC }}</td>
+                       <td>{{ $item->total_tong_so_XD_giao_trinh_moi }}</td>
+                       <td>{{ $item->total_XD_giao_trinh_moi_CD }}</td>
+                       <td>{{ $item->total_XD_giao_trinh_moi_TC }}</td>
+                       <td>{{ $item->total_XD_giao_trinh_moi_SC }}</td>
 
-                       <td>{{ ($item->kinh_phi_thuc_hien_xd_moi / 1000000) }}</td>
+                       <td>{{ ($item->total_kinh_phi_thuc_hien_xd_moi / 1000000) }}</td>
 
 
                        {{-- Chỉnh sửa --}}
-                       <td>{{ $item->tong_so_chuong_trinh_chinh_sua }}</td>
-                       <td>{{ $item->sua_chuong_trinh_CD }}</td>
-                       <td>{{ $item->sua_chuong_trinh_TC }}</td>
-                       <td>{{ $item->sua_chuong_trinh_SC }}</td>
+                       <td>{{ $item->total_tong_so_chuong_trinh_chinh_sua }}</td>
+                       <td>{{ $item->total_sua_chuong_trinh_CD }}</td>
+                       <td>{{ $item->total_sua_chuong_trinh_TC }}</td>
+                       <td>{{ $item->total_sua_chuong_trinh_SC }}</td>
 
-                       <td>{{ $item->tong_so_giao_trinh_chinh_sua }}</td>
-                       <td>{{ $item->sua_giao_trinh_CD }}</td>
-                       <td>{{ $item->sua_giao_trinh_TC }}</td>
-                       <td>{{ $item->sua_giao_trinh_SC }}</td>
+                       <td>{{ $item->total_tong_so_giao_trinh_chinh_sua }}</td>
+                       <td>{{ $item->total_sua_giao_trinh_CD }}</td>
+                       <td>{{ $item->total_sua_giao_trinh_TC }}</td>
+                       <td>{{ $item->total_sua_giao_trinh_SC }}</td>
 
-                       <td>{{ ($item->kinh_phi_thuc_hien_chinh_sua / 1000000) }}</td>
+                       <td>{{ ($item->total_kinh_phi_thuc_hien_chinh_sua / 1000000) }}</td>
                         @can('chi_tiet_tong_hop_xay_dung_chuong_trinh_giao_trinh')
                             <td>
                                 <a class="btn btn-info" href="{{ route('xuatbc.show-ds-xd-giao-trinh',['co_so_id' => $item->co_so_id]) }}" target="_blank">Chi tiết</a>

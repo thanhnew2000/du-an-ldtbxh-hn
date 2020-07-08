@@ -2,6 +2,7 @@
 namespace App\Services;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\Services\AppService;
 use App\Repositories\XayDungChuongTrinhGiaoTrinhReponsitory;
 use App\Repositories\NganhNgheRepository;
@@ -38,7 +39,15 @@ class XayDungChuongTrinhGiaoTrinhService extends AppService
 
     public function getDanhSachXayDungChuongTrinhGiaoTrinh($params)
     {
-        return $this->repository->getDanhSachXayDungChuongTrinhGiaoTrinh($params);
+        $queryData = [];
+        $queryData['dot'] = isset($params['dot']) ? $params['dot'] : (Carbon::now()->month < 6 ? 1 : 2);
+        $queryData['nam'] = isset($params['nam']) ? $params['nam'] : Carbon::now()->year;
+        $queryData['loai_hinh'] = isset($params['loai_hinh']) ? $params['loai_hinh'] : null;
+        $queryData['co_so_id'] = isset($params['co_so_id']) ? $params['co_so_id'] : null;
+        $queryData['devvn_quanhuyen'] = isset($params['devvn_quanhuyen']) ? $params['devvn_quanhuyen'] : null;
+        $queryData['nganh_nghe'] = isset($params['nganh_nghe']) ? $params['nganh_nghe'] : null;
+        $queryData['page_size'] = 20;
+        return $this->repository->getDanhSachXayDungChuongTrinhGiaoTrinh($queryData);
     }
 
     public function getNganhNghe()
