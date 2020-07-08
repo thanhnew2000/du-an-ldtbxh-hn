@@ -26,40 +26,6 @@ class DaoTaoNgheChoNguoiKhuyetTatRepository extends BaseRepository implements Da
 
     public function index($params, $limit)
     {
-		// select tdpd2.*, tdpdx.co_so_id
-		// from tien_do_phe_duyet tdpd2 
-		// join (
-		// 		select 
-		// 			dtkt.co_so_id,
-		// 			max(tdpd.dot_number) as max_dot
-
-		// 		from ket_qua_dao_tao_nguoi_khuyet_tat dtkt
-		// 		join tien_do_phe_duyet tdpd
-		// 		on dtkt.id = tdpd.ban_ghi_duoc_phe_duyet_id and tdpd.loai_ban_ghi = 'App\\Models\\DaoTaoNguoiKhuyetTat'
-		// 		where tdpd.thoi_gian_phe_duyet_2 between '2015-01-01' and '2020-12-31'
-		// 		group by dtkt.co_so_id
-		// ) as tdpdx
-		// 	on tdpd2.dot_number = tdpdx.max_dot
-		// join ket_qua_dao_tao_nguoi_khuyet_tat
-		// 	ON ban_ghi_duoc_phe_duyet_id = ket_qua_dao_tao_nguoi_khuyet_tat.id
-		// 	AND tdpdx.co_so_id = ket_qua_dao_tao_nguoi_khuyet_tat.co_so_id
-
-		$query = $this->model
-			->join(DB::raw('tien_do_phe_duyet tdpd2'), 'tdpd2.ban_ghi_duoc_phe_duyet_id', '=', 'ket_qua_dao_tao_nguoi_khuyet_tat.id')
-			->join(DB::raw("(
-					select 
-						dtkt.co_so_id,
-						max(tdpd.dot_number) as max_dot
-					from ket_qua_dao_tao_nguoi_khuyet_tat dtkt
-					join tien_do_phe_duyet tdpd
-					on dtkt.id = tdpd.ban_ghi_duoc_phe_duyet_id and tdpd.loai_ban_ghi = 'App\\Models\\DaoTaoNguoiKhuyetTat'
-					where tdpd.thoi_gian_phe_duyet_2 between '2015-01-01' and '2020-12-31'
-					group by dtkt.co_so_id
-				) as tdpdx"
-			), 'tdpd2.dot_number', '=', 'tdpdx.max_dot')
-			->get();
-
-		dd($query);
         $query = $this->table
         ->join('co_so_dao_tao', 'ket_qua_dao_tao_nguoi_khuyet_tat.co_so_id', '=', 'co_so_dao_tao.id')
         ->join('loai_hinh_co_so', 'co_so_dao_tao.ma_loai_hinh_co_so', '=', 'loai_hinh_co_so.id')
