@@ -136,10 +136,10 @@
                         <th rowspan="3">STT</th>
                         <th rowspan="3">Năm</th>
                         <th rowspan="3">Đợt</th>
-                        <th rowspan="3">Tên đơn vị</th>
+                       
                         <th rowspan="3">Mã Nghề</th>
-                        <th colspan="8">Xây dựng mới</th>
-                        <th colspan="8">Chỉnh sửa</th>
+                        <th colspan="10">Xây dựng mới</th>
+                        <th colspan="10">Chỉnh sửa</th>
                         @can('cap_nhat_tong_hop_xay_dung_chuong_trinh_giao_trinh')
                             <th rowspan="3">Thao tác</th>
                         @endcan
@@ -149,25 +149,29 @@
                     <tr class="text-center">
 
                         <th rowspan="2">Tên nghề</th>
-                        <th colspan="3">Xây dựng mới<br>chương trình</th>
-                        <th colspan="3">Xây dựng mới<br>giáo trình</th>
+                        <th colspan="4">Xây dựng mới<br>chương trình</th>
+                        <th colspan="4">Xây dựng mới<br>giáo trình</th>
                         <th rowspan="2">Kinh phí thực hiện xây dựng mới <br> (triệu đồng)</th>
 
                         <th rowspan="2">Tên nghề</th>
-                        <th colspan="3">Chỉnh sửa<br>chương trình</th>
-                        <th colspan="3">Chỉnh sửa<br>giáo trình</th>
+                        <th colspan="4">Chỉnh sửa<br>chương trình</th>
+                        <th colspan="4">Chỉnh sửa<br>giáo trình</th>
                         <th rowspan="2">Kinh phí thực hiện chỉnh sửa <br> (triệu đồng)</th>
                     </tr>
                     <tr class="text-center">
+                        <th rowspan="1">Tổng</th>
                         <th rowspan="1">CĐ</th>
                         <th rowspan="1">TC</th>
                         <th rowspan="1">SC</th>
+                        <th rowspan="1">Tổng</th>
                         <th rowspan="1">CĐ</th>
                         <th rowspan="1">TC</th>
                         <th rowspan="1">SC</th>
+                        <th rowspan="1">Tổng</th>
                         <th rowspan="1">CĐ</th>
                         <th rowspan="1">TC</th>
                         <th rowspan="1">SC</th>
+                        <th rowspan="1">Tổng</th>
                         <th rowspan="1">CĐ</th>
                         <th rowspan="1">TC</th>
                         <th rowspan="1">SC</th>
@@ -183,24 +187,27 @@
                         <td>{{ $i++ }}</td>
                         <td>{{ $item->nam }}</td>
                         <td>{{ $item->dot }}</td>
-                        <td>{{ $item->ten }}</td>
                         <td>{{ $item->ma_nghe }}</td>  
 
                         <td>{{ $item->ten_nghe }}</td>
+                        <td>{{ $item->tong_so_XD_chuong_trinh_moi }}</td>
                         <td>{{ $item->XD_chuong_trinh_moi_CD }}</td>
                         <td>{{ $item->XD_chuong_trinh_moi_TC }}</td>
                         <td>{{ $item->XD_chuong_trinh_moi_SC }}</td>
                         
+                        <td>{{ $item->tong_so_XD_giao_trinh_moi }}</td>
                         <td>{{ $item->XD_giao_trinh_moi_CD }}</td>
                         <td>{{ $item->XD_giao_trinh_moi_TC }}</td>
                         <td>{{ $item->XD_giao_trinh_moi_SC }}</td>
                         <td>{{ ($item->kinh_phi_thuc_hien_xd_moi/1000000) }}</td>
-
+                        
                         <td>{{ $item->ten_nghe }}</td>
+                        <td>{{ $item->tong_so_chuong_trinh_chinh_sua }}</td>
                         <td>{{ $item->sua_chuong_trinh_CD }}</td>
                         <td>{{ $item->sua_chuong_trinh_TC }}</td>
                         <td>{{ $item->sua_chuong_trinh_SC }}</td>
                         
+                        <td>{{ $item->tong_so_giao_trinh_chinh_sua }}</td>
                         <td>{{ $item->sua_giao_trinh_CD }}</td>
                         <td>{{ $item->sua_giao_trinh_TC }}</td>
                         <td>{{ $item->sua_giao_trinh_SC }}</td>

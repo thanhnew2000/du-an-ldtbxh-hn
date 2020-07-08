@@ -148,14 +148,12 @@ class ChiTieuTuyenSinhRepository extends BaseRepository implements ChiTieuTuyenS
         return $data;
     }
 
-    // thanhnv 6/26/2020 sửa model create update
-    public function createChiTieuTuyenSinh($arrayData)
-    {
-        return $this->model->insert($arrayData);
-    }
-    public function updateChiTieuTuyenSinh($key, $arrayData)
-    {
-        return $this->model->where('id', $key)->update($arrayData);
+       	// thanhnv 6/26/2020 sửa model create update
+	public function createChiTieuTuyenSinh($arrayData){
+		return $this->model->create($arrayData);
+	}
+	public function updateChiTieuTuyenSinh($key,$arrayData){
+		return $this->model->where('id',$key)->update($arrayData);
     }
 
     public function store($data)

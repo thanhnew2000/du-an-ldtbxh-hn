@@ -58,8 +58,8 @@ class SoLieuCanBoQuanLyRepository extends BaseRepository
             $queryBuilder->where('co_so_dao_tao.id', $params['co_so_dao_tao_id']);
         }
 
-        if (isset($params['loai_hinh_co_so_id']) && !empty($params['loai_hinh_co_so_id'])) {
-            $queryBuilder->where('loai_hinh_co_so.id', $params['loai_hinh_co_so_id']);
+        if (isset($params['loai_hinh_id']) && !empty($params['loai_hinh_id'])) {
+            $queryBuilder->where('loai_hinh_co_so.id', $params['loai_hinh_id']);
         }
 
         if (isset($params['nam']) && !empty($params['nam'])) {
@@ -109,7 +109,7 @@ class SoLieuCanBoQuanLyRepository extends BaseRepository
 
         // thanhnv 6/26/2020 sửa model create update
         public function createSoLieuCanBoQl($arrayData){
-            return $this->model->insert($arrayData);
+            return $this->model->create($arrayData);
         }
         public function updateSoLieuCanBoQl($key,$arrayData){
             return $this->model->where('id',$key)->update($arrayData);

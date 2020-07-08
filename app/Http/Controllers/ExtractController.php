@@ -23,6 +23,8 @@ use App\Http\Requests\HopTacQuocTe\UpdateHopTacQuocTeRequest;
 use App\Http\Requests\ChiTieuTuyenSinh\StoreChiTieuTuyenSinhRequest;
 use App\Http\Requests\ChiTieuTuyenSinh\UpdateChiTieuTuyenSinhRequest;
 
+use App\Http\Requests\validateCreateSinhVienDangQuanLi;
+use App\Http\Requests\validateUpdateSinhVienDangQuanLi;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
@@ -224,7 +226,6 @@ class ExtractController extends Controller
     public function add()
     {
         $data = $this->QlsvService->getQlsv();
-        $loaiHinhCs = $this->QlsvService->getLoaiHinh();
         $coso = $this->QlsvService->getCoSo();
         $nganhNghe = $this->QlsvService->getMaNganhNghe();
         $nghe_cap_2 = $this->QlsvService->getNganhNghe(2);
@@ -232,25 +233,58 @@ class ExtractController extends Controller
         $nghe_cap_4 = $this->QlsvService->getNganhNghe(4);
         return view('crud.add_quan_ly_sv', [
             'data' => $data,
-            'loaiHinh' => $loaiHinhCs,
             'nganhNghe' => $nganhNghe,
             'coso' => $coso,
             'nghe_cap_2' => $nghe_cap_2,
             'nghe_cap_3' => $nghe_cap_3,
             'nghe_cap_4' => $nghe_cap_4
         ]);
-        //  dd($coso);
     }
-
-    public function saveAdd(Request $request)
+    public function checkTonTai(Request $request)
     {
-        $dateTime = Carbon::now();
-        $request->request->set('thoi_gian_cap_nhat', $dateTime->format('Y-m-d H:i:s'));
-        // $request->request->set('nam', $dateTime->year);
-        // $request->request->set('dot', 1);
-        $co_so_id = $request->co_so_id;
-        $this->QlsvService->create($request);
-        return redirect()->route('xuatbc.chi-tiet-so-lieu', ['co_so_id' => $co_so_id]);
+        $datacheck =  $request->datacheck;
+        $getdata = $this->QlsvService->getSoLieu($datacheck);
+        if ($getdata == 'tontai') {
+            return response()->json([
+                'result' => 1,
+            ]);
+        } else if ($getdata == null) {
+            return response()->json([
+                'result' => 2,
+            ]);
+        } else {
+            return response()->json([
+                'result' => route('xuatbc.sua-so-sv', ['id' => $getdata->id]),
+            ]);
+        }
+    }
+    public function saveAdd(validateCreateSinhVienDangQuanLi $request)
+    {
+
+        $requestParams = $request->all();
+
+        $data = [
+            [
+                'id' => "co_so_id",
+                'value' => $requestParams["co_so_id"],
+            ],
+            [
+                'id' => 'nghe_id',
+                'value' => $requestParams["nghe_id"]
+            ],
+            [
+                'id' => 'nam',
+                'value' => $requestParams["nam"]
+            ],
+            [
+                'id' => 'dot',
+                'value' => $requestParams["dot"]
+            ],
+        ];
+
+        $result = $this->QlsvService->checkTonTai($data, $requestParams);
+
+        return redirect($result['route'])->with('thongbao', $result['mess']);
     }
     public function edit($id)
     {
@@ -265,7 +299,7 @@ class ExtractController extends Controller
             'nghe_cap_4' => $nghe_cap_4
         ]);
     }
-    public function saveEdit($id, Request $request)
+    public function saveEdit($id, validateUpdateSinhVienDangQuanLi $request)
     {
         $dateTime = Carbon::now();
         $request->request->set('thoi_gian_cap_nhat', $dateTime->format('Y-m-d H:i:s'));
@@ -275,7 +309,7 @@ class ExtractController extends Controller
         $this->QlsvService->update($id, $request);
         $dataqlsv = $this->QlsvService->findById($id);
         // dd( $this->QlsvService->update($id, $request));
-        return redirect()->route('xuatbc.chi-tiet-so-lieu', ['co_so_id' => $dataqlsv->co_so_id]);
+        return redirect()->route('xuatbc.chi-tiet-so-lieu', ['co_so_id' => $dataqlsv->co_so_id])->with('mess', 'dd');
     }
     public function tonghopsvdanghoc()
     {
@@ -296,7 +330,7 @@ class ExtractController extends Controller
         $loaiHinhCs = $this->QlsvService->getLoaiHinh();
         $coso = $this->QlsvService->getCoSo();
         $route_name = Route::current();
-        return view('extractreport.tong_hop_sinh_vien_dang_theo_hoc', [
+        return view('crud.tong_hop_sinh_vien_dang_theo_hoc', [
             // 'limit'=>$limit,
             'route_name' => $route_name,
             'data' => $data,
@@ -328,8 +362,9 @@ class ExtractController extends Controller
         $nghe_cap_2 = $this->QlsvService->getNganhNghe(2);
         $nghe_cap_3 = $this->QlsvService->getNganhNghe(3);
         $nghe_cap_4 = $this->QlsvService->getNganhNghe(4);
-        //  dd($data);
-        return view('extractreport.lich_su_sinh_vien_dang_theo_hoc', [
+        $data_coso = $this->QlsvService->ChiTietCoSo($coSoId);
+
+        return view('crud.lich_su_sinh_vien_dang_theo_hoc', [
             'data' => $data,
             'loaiHinh' => $loaiHinhCs,
             'nganhNghe' => $nganhNghe,
@@ -340,6 +375,7 @@ class ExtractController extends Controller
             'nghe_cap_2' => $nghe_cap_2,
             'nghe_cap_3' => $nghe_cap_3,
             'nghe_cap_4' => $nghe_cap_4,
+            'data_coso' => $data_coso
         ]);
     }
 

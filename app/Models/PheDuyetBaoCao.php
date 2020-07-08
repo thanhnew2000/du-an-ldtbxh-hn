@@ -24,7 +24,8 @@ class PheDuyetBaoCao extends Model
         'dot_id',
         'thoi_gian_nop',
         'thoi_gian_phe_duyet_1',
-        'thoi_gian_phe_duyet_2',
+		'thoi_gian_phe_duyet_2',
+		'dot_number',
     ];
 
     public function pheDuyetBaoCao()
@@ -200,13 +201,13 @@ class PheDuyetBaoCao extends Model
 
             case KetQuaDaoTaoChoThanhNien::class:
                 $url = route('nhapbc.dao-tao-thanh-nien.show', [
-                    $this->ban_ghi_duoc_phe_duyet_id,
+                    'co_so_id' => $this->pheDuyetBaoCao->coSoDaoTao->id,
                 ]);
                 break;
 
             case DaoTaoNguoiKhuyetTat::class:
                 $url = route('nhapbc.dao-tao-khuyet-tat.show', [
-                    $this->ban_ghi_duoc_phe_duyet_id,
+                    'co_so_id' => $this->pheDuyetBaoCao->coSoDaoTao->id,
                 ]);
                 break;
 
@@ -224,12 +225,18 @@ class PheDuyetBaoCao extends Model
 
             case KetQuaTuyenSinhVoiDoanhNghiep::class:
                 $url = route('xuatbc.dao-tao-nghe-doanh-nghiep.show', [
-                    $this->ban_ghi_duoc_phe_duyet_id,
+                    'co_so_id' => $this->pheDuyetBaoCao->coSoDaoTao->id,
                 ]);
                 break;
 
             case KetQuaTotNghiepVoiDoanhNghiep::class:
                 $url = route('xuatbc.chi-tiet-ket-qua-tot-nghiep-voi-doanh-nghiep', [
+                    'co_so_id' => $this->pheDuyetBaoCao->coSoDaoTao->id,
+                ]);
+                break;
+
+            case QuanLiSinhVienDangTheoHoc::class:
+                $url = route('xuatbc.chi-tiet-so-lieu', [
                     'co_so_id' => $this->pheDuyetBaoCao->coSoDaoTao->id,
                 ]);
                 break;

@@ -24,14 +24,11 @@ class GiaoVienRepository extends BaseRepository implements GiaoVienRepositoryInt
     public function getFilterData()
     {
         return $this->model
-            ->join('trinh_do_gv', 'trinh_do_gv.id', '=', 'giao_vien.trinh_do_id')
             ->join('co_so_dao_tao', 'co_so_dao_tao.id', '=', 'giao_vien.co_so_id')
             ->select([
                 'giao_vien.id',
                 'giao_vien.ten',
                 'giao_vien.trinh_do_nghiep_vu_su_pham',
-                'trinh_do_gv.ten as trinh_do',
-                'trinh_do_gv.id as id_trinh_do',
                 'co_so_dao_tao.ten as ten_co_so',
                 'co_so_dao_tao.id as id_co_so',
             ])
@@ -41,7 +38,6 @@ class GiaoVienRepository extends BaseRepository implements GiaoVienRepositoryInt
     public function getList($params = [], $limit = 10)
     {
         $queryBuilder = $this->model
-            ->join('trinh_do_gv', 'trinh_do_gv.id', '=', 'giao_vien.trinh_do_id')
             ->join('co_so_dao_tao', 'co_so_dao_tao.id', '=', 'giao_vien.co_so_id')
             ->select([
                 'giao_vien.id',
