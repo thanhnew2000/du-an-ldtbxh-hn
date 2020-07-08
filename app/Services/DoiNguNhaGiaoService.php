@@ -237,7 +237,12 @@ class DoiNguNhaGiaoService extends AppService
 
         // Đọc cell B11 để lấy id cơ sở
         $coSoCellData = $worksheet->getCell('B11')->getValue();
-        $coSoId = trim(explode('-', $coSoCellData)[1]);
+        // $coSoId = trim(explode('-', $coSoCellData)[1]);
+
+        // thanhnv fix bug loi 153
+        $truongAll = explode(' - ', $coSoCellData);
+        $coSoId = trim(array_pop($truongAll));
+
         $coSo = $this->csdtRepository->find($coSoId);
         $coSo->load([
             'nganhNghe'

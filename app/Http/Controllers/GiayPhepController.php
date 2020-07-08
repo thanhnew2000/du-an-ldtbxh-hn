@@ -192,6 +192,14 @@ class GiayPhepController extends Controller
 
     public function capNhatNgheTrongGiayPhep($id, Request $request)
     {
+        $request->validate([
+                'quy_mo_tuyen_sinh' => 'required|integer|min:0'
+            ],
+            [
+                'quy_mo_tuyen_sinh.required' => "Hãy nhập quy mô tuyển sinh",
+                'quy_mo_tuyen_sinh.integer' => "Quy mô tuyển sinh phải là số nguyên dương",
+                'quy_mo_tuyen_sinh.min' => "Quy mô tuyển sinh phải là số nguyên dương",
+            ]);
         $params['giay_phep_id'] = $request->giay_phep_id;
         $params['co_so_id'] = $request->co_so_id;
         $this->chungNhanDangKyService->update($id, $request);

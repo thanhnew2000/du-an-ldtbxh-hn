@@ -18,6 +18,7 @@ use PhpOffice\PhpSpreadsheet\Style\Protection;
 use Storage;
 use App\Services\StoreUpdateNotificationService;
 use App\Repositories\CoSoDaoTaoRepositoryInterface;
+use Carbon\Carbon;
 
 class ChiTieuTuyenSinhService extends AppService
 {
@@ -47,7 +48,15 @@ class ChiTieuTuyenSinhService extends AppService
 
     public function getDanhSachChiTieuTuyenSinh($params)
     {
-        return $this->repository->getDanhSachChiTieuTuyenSinh($params);
+        $queryData = [];
+        $queryData['dot'] = isset($params['dot']) ? $params['dot'] : (Carbon::now()->month < 6 ? 1 : 2);
+        $queryData['nam'] = isset($params['nam']) ? $params['nam'] : Carbon::now()->year;
+        $queryData['loai_hinh'] = isset($params['loai_hinh']) ? $params['loai_hinh'] : null;
+        $queryData['co_so_id'] = isset($params['co_so_id']) ? $params['co_so_id'] : null;
+        $queryData['devvn_quanhuyen'] = isset($params['devvn_quanhuyen']) ? $params['devvn_quanhuyen'] : null;
+        $queryData['nghe_id'] = isset($params['nghe_id']) ? $params['nghe_id'] : null;
+        $queryData['page_size'] = isset($params['page_size']) ? $params['page_size'] : null;
+        return $this->repository->getDanhSachChiTieuTuyenSinh($queryData);
     }
 
     public function checkTonTaiKhiThem($params)
@@ -328,7 +337,8 @@ class ChiTieuTuyenSinhService extends AppService
                         if (array_key_exists($id_nghe_nhap, $id_nghe_dkct_da_co)) {
                             $updateData[$id_nghe_dkct_da_co[$id_nghe_nhap]] = $arrayData;
                         } else {
-                            array_push($insertData, $arrayData);
+                            $this->repository->createChiTieuTuyenSinh($arrayData);
+
                         }
                     } else if (in_array($id_nghe_nhap, $id_nghe_of_cs) == false) {
                         $message = 'ngheKoThuocTruong';
@@ -340,11 +350,7 @@ class ChiTieuTuyenSinhService extends AppService
                         $this->repository->updateChiTieuTuyenSinh($key, $value);
                     //  DB::table('dang_ki_chi_tieu_tuyen_sinh')->where('id',$key)->update($value);
                 }
-
-                if (count($insertData) > 0) {
-                    $this->repository->createChiTieuTuyenSinh($insertData);
-                    //  DB::table('dang_ki_chi_tieu_tuyen_sinh')->insert($insertData);
-                }
+                
                 $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($id_truong);
                 $bm = 'Chỉ tiêu tuyển sinh';
                 $tencoso = $thongTinCoSo->ten;

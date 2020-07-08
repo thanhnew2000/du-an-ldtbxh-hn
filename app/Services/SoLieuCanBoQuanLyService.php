@@ -386,4 +386,9 @@ public function importError($fileRead,$duoiFile,$path){
     $writer->save("php://output");
 } 
 
+
+    public function checkTonTaiKhiThem($params){
+        return $this->soLieuCBQLRepository->checkTonTaiKhiThem($params);
+    }
+
 }

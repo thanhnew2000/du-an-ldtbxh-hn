@@ -44,7 +44,9 @@
                             <div class="">
                                 <input type="number" value="{{ $data->quy_mo_tuyen_sinh }}" name="quy_mo_tuyen_sinh"
                                     class="form-control">
-                                <span class="text-danger" id="Err-chon_nghe_trung_cap"></span>
+                                @error('quy_mo_tuyen_sinh')
+                                <span class="text-danger" id="Err-quy_mo_tuyen_sinh">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
 

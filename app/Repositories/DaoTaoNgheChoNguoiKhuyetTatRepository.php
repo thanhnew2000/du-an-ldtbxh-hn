@@ -217,7 +217,7 @@ class DaoTaoNgheChoNguoiKhuyetTatRepository extends BaseRepository implements Da
 
 	// thanhnv 6/26/2020 sửa model create update
 	public function createDtNguoiKhuyetTat($arrayData){
-		return $this->model->insert($arrayData);
+		return $this->model->create($arrayData);
 	}
 	public function updateDtNguoiKhuyetTat($key,$arrayData){
 		return $this->model->where('id',$key)->update($arrayData);

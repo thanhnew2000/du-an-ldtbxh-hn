@@ -109,7 +109,7 @@ class SoLieuCanBoQuanLyRepository extends BaseRepository
 
         // thanhnv 6/26/2020 sửa model create update
         public function createSoLieuCanBoQl($arrayData){
-            return $this->model->insert($arrayData);
+            return $this->model->create($arrayData);
         }
         public function updateSoLieuCanBoQl($key,$arrayData){
             return $this->model->where('id',$key)->update($arrayData);
@@ -121,5 +121,12 @@ class SoLieuCanBoQuanLyRepository extends BaseRepository
             ->where('created_at','<=',$toDate)
             ->get();
             return $data;
+        }
+
+        public function checkTonTaiKhiThem($params){
+            return $this->model::where('co_so_dao_tao_id',$params['co_so_dao_tao_id'])
+           ->where('nam',$params['nam'])
+           ->where('dot',$params['dot'])
+           ->first();
         }
 }

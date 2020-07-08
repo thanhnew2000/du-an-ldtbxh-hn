@@ -17,7 +17,12 @@
                     class="fa fa-upload" aria-hidden="true"></i>
                 Tải lên file Excel</a>
         </div>
-        <div class="col-lg-8 " style="text-align: right">
+        <div class="col-lg-2">
+            <a href="javascript:" data-toggle="modal" data-target="#exampleModalExportData"><i class="fa fa-file-excel"
+                    aria-hidden="true"></i>
+                Xuất dữ liệu ra Excel</a>
+        </div>
+        <div class="col-lg-6 " style="text-align: right">
             @can('them_moi_quan_ly_giao_vien')
             <a href="{{ route('ql-giao-vien.create') }}"><button type="button" class="btn btn-secondary">Thêm
                     mới</button></a>
@@ -116,7 +121,7 @@
                     <p class="pt-1" style="color:red;margin-right: 119px" id="echoLoiXuat">
                     </p>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                    <button type="submit" class="btn btn-primary" onclick="closeModal('closeXuatDuLieu')"
+                    <button type="submit" class="btn btn-primary" onclick="closeModalModel()"
                         id="submitXuatData">Tải</a>
                 </div>
             </div>
@@ -144,6 +149,9 @@
 
 {{-- thanhvn update js 6/26/2020 --}}
 <script>
+  function closeModalModel(){
+       $('#closeXuatDuLieu').trigger('click');
+  }
     var routeImport = "{{route('import-quan-ly-giao-vien')}}";
 </script>
 <script src="{!! asset('excel-js/js-form.js') !!}"></script>

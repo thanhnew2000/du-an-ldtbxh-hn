@@ -357,7 +357,7 @@ class DaoTaoNgheVoiDoanhNghiepService extends AppService
                         if(array_key_exists($id_nghe_nhap,$id_nghe_dtts_gan_dn_da_co)){
                             $updateData[$id_nghe_dtts_gan_dn_da_co[$id_nghe_nhap]]=$arrayData;
                         }else{
-                            array_push($insertData,$arrayData);
+                             $this->repository->createNgheVoiDoanhNghiep($arrayData);
                         }
                     }else if(in_array($id_nghe_nhap,$id_nghe_of_cs) == false){
                         $message='ngheKoThuocTruong';
@@ -368,14 +368,10 @@ class DaoTaoNgheVoiDoanhNghiepService extends AppService
                 //    dd($updateData,$insertData);
                 if (count($updateData) > 0) {
                 foreach($updateData as $key => $value)
-                     DB::table('ket_qua_tuyen_sinh_gan_voi_doanh_nghiep')->where('id',$key)->update($value);
-                    // $this->repository->updateNgheVoiDoanhNghiep($key,$value);
+                    //  DB::table('ket_qua_tuyen_sinh_gan_voi_doanh_nghiep')->where('id',$key)->update($value);
+                    $this->repository->updateNgheVoiDoanhNghiep($key,$value);
                 }
-                if (count($insertData) > 0) {
-                     DB::table('ket_qua_tuyen_sinh_gan_voi_doanh_nghiep')->insert($insertData);
-                //    $this->repository->createNgheVoiDoanhNghiep($insertData);
-                }
-
+         
                 
                 $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($id_truong);
                 $bm = 'Đào tạo nghề với doanh nghiệp';

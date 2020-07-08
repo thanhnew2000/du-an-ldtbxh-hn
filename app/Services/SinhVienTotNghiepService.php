@@ -511,7 +511,7 @@ class SinhVienTotNghiepService extends AppService
                         if(array_key_exists($id_nghe_nhap,$id_nghe_tot_nghiep_gan_da_co)){
                             $updateData[$id_nghe_tot_nghiep_gan_da_co[$id_nghe_nhap]]=$arrayData;
                         }else{
-                            array_push($insertData,$arrayData); 
+                            $this->repository->createTotNghiep($arrayData);
                         }
                     }else if(in_array($id_nghe_nhap,$id_nghe_of_cs) == false){
                         $message='ngheKoThuocTruong';
@@ -521,13 +521,10 @@ class SinhVienTotNghiepService extends AppService
                 }   
                 if (count($updateData) > 0) {
                 foreach($updateData as $key => $value)
-                $this->repository->updateTotNghiep($key,$value);
+                   $this->repository->updateTotNghiep($key,$value);
                     // DB::table('sv_tot_nghiep')->where('id',$key)->update($value);
                 }  
-                if (count($insertData) > 0) {
-                    $this->repository->createTotNghiep($insertData);
-                    // DB::table('sv_tot_nghiep')->insert($insertData);
-                } 
+         
                 $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($id_truong);
                 $bm = 'Tốt nghiệp';
                 $tencoso = $thongTinCoSo->ten;
