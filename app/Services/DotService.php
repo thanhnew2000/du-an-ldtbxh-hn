@@ -15,22 +15,22 @@ class DotService extends AppService
         return \App\Repositories\DotRepository::class;
     }
 
-    public function index(){
-        return $this->repository->index();
+    public function index($limit){
+        return $this->repository->index($limit);
     }
     
     public function createDot($arrayAdd){
         return $this->repository->createDot($arrayAdd);
     }
+
     public function findById($id){
-        $data = DB::table('dot')->where('id', $id)->first();
-         return $data;
+        return $this->repository->findById($id);
     }
 
     public function updateDot($arrayData,$id){
         $data = $arrayData->all();
-         unset($data['_token']);
-          $this->repository->updateDot($data, $id);
+        unset($data['_token']);
+        $this->repository->updateDot($data, $id);
     }
 }
 ?>

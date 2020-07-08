@@ -57,7 +57,7 @@ $("#file_import_id").change(function() {
                                    showConfirmButton: false,
                                    timer: 1700
                                })
-                        //    window.location.reload();
+                           window.location.reload();
                            console.log('Đã insert vào database');
                        }else if(response.data == 'exportError'){
                            $('.loading').css('display','none');

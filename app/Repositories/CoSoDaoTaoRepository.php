@@ -49,7 +49,7 @@ class CoSoDaoTaoRepository extends BaseRepository implements CoSoDaoTaoRepositor
             $query->where('co_so_dao_tao.maqh', $params['quanhuyen']);
         }
         return $query->orderByDesc('co_so_dao_tao.id')
-            ->paginate(10);
+            ->paginate($params['page_size']);
     }
 
     public function getSingleCsdt($id)

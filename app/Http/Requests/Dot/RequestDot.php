@@ -26,9 +26,10 @@ class RequestDot extends FormRequest
             'time_start' => 
             [  
                 'required',
-                 app()->make(CheckDotCreate::class)
+                 app()->make(CheckDotCreate::class),
             ],
             'time_end' => 'required|after_or_equal:time_start',
+            
          ];
     }
 

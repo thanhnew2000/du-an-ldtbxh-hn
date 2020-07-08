@@ -455,6 +455,7 @@
                 title: response.message,
                 icon: 'success'
                 });
+                $('#m_modal_5').modal('hide');
             },
             error: function(data) {
                 var errors = data.responseJSON;
@@ -507,12 +508,11 @@
                     htmldata += `<option value="${element.id}">${element.ten}</option>`
                 });
                 $('#quyet_dinh_id').html(htmldata);
-
-                $('#co_quan_chu_quan_id').html(htmldata);
                 Swal.fire({
                 title: response.messageqd,
                 icon: 'success'
                 });
+                $('#m_modal_6').modal('hide');
             },
             error: function(data) {
                 var errors = data.responseJSON;

@@ -290,7 +290,7 @@ class LienKetDaoTaoRepository extends BaseRepository implements LienKetDaoTaoRep
     // thanhnv 6/26/2020 sửa model create update
     public function createLienKetDaoTao($arrayData)
     {
-        return $this->model->insert($arrayData);
+        return $this->model->create($arrayData);
     }
     public function updateLienKetDaoTao($key, $arrayData)
     {

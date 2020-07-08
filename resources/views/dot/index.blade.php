@@ -18,6 +18,18 @@
     </div>
 
     <table class="table table-bordered m-table  m-table--head-bg-primary">
+        <div class="col-12 form-group m-form__group d-flex justify-content-end">
+            <label class="col-lg-2 col-form-label">Kích thước:</label>
+            <div class="col-lg-2">
+                <select class="form-control" id="page-size">
+                    @foreach(config('common.paginate_size.list') as $size)
+                    <option @if (isset($params['page_size']))
+                        {{( $params['page_size'] ==  $size ) ? 'selected' : ''}} @endif value="{{$size}}">{{$size}}
+                    </option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
         <thead>
             <tr>
                 <th scope="col">STT</th>
@@ -29,9 +41,12 @@
             </tr>
         </thead>
         <tbody>
+            @php
+            $i = !isset($_GET['page']) ? 1 : ($limit * ($_GET['page']-1) + 1);
+            @endphp
             @foreach ($data as $item)
             <tr>
-                <td>{{$item->id}}</td>
+                <td>{{$i++}}</td>
                 <td>{{ \Carbon\Carbon::parse($item->time_start)->format('d-m-Y') }}</td>
                 <td>{{ \Carbon\Carbon::parse($item->time_end)->format('d-m-Y') }}</td>
                 <td>{{$item->mo_ta}}</td>
@@ -68,12 +83,24 @@
                 </div>
             </div>
         </div>
-</div>
 
+<div class="d-flex justify-content-end ">{{$data->links()}}</div>
+</div>
 @endsection
 
 {{-- @section('style')
 
 @endsection --}}
 @section('script')
+<script>
+     $("#page-size").change(function(){  
+        var url = new URL(window.location.href);
+        var search_params = url.searchParams;
+        search_params.set('page_size', $('#page-size').val());
+        search_params.set('page',1);
+        url.search = search_params.toString();
+        var new_url = url.toString();
+        window.location.href = new_url
+      });
+</script>
 @endsection
