@@ -28,15 +28,13 @@ class validateCreateSinhVienDangQuanLi extends FormRequest
             'co_so_id',
             'nghe_id',
             'nam',
-            'dot',
-            'id_loai_hinh'
+            'dot'
         ]);
         $getDataCheck = [];
         $getDataCheck['co_so_id'] = 'required|';
         $getDataCheck['nghe_id'] = 'required|';
         $getDataCheck['nam'] = 'required|';
         $getDataCheck['dot'] = 'required|';
-        $getDataCheck['id_loai_hinh'] = 'required|';
         foreach ($data as $item => $value) {
             if ($value == null) {
                 $getDataCheck[$item] = 'min:0|';

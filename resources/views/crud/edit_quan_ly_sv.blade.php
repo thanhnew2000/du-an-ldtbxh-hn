@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', "Sửa số liệu học sinh sinh viên")
+@section('title', "Cập nhật sinh viên đang theo học")
 @section('style')
 {{-- <link href="{!! asset('tuyensinh/css/suatuyensinh.css') !!}" rel="stylesheet" type="text/css" /> --}}
 <style>
@@ -33,7 +33,7 @@
               <i class="m-menu__link-icon flaticon-web"></i>
             </span>
             <h3 class="m-portlet__head-text">
-              Cập nhật<small>Tuyển sinh</small>
+              Cập nhật<small>Sinh viên đang theo học</small>
             </h3>
           </div>
         </div>
@@ -46,11 +46,7 @@
                 <label class="col-lg-2 col-form-label">Năm </label>
                 <div class="col-lg-8">
                   <select disabled class=" form-control col-7 ">
-
-                    <option {{( $item->nam == '2020' ) ? 'selected' : ''}} value="2020">2020</option>
-                    <option {{( $item->nam == '2019' ) ? 'selected' : ''}} value="2019">2019</option>
-                    <option {{( $item->nam == '2018' ) ? 'selected' : ''}} value="2018">2018</option>
-
+                    <option value="{{$item->nam}}">{{$item->nam}}</option>
                   </select>
                 </div>
               </div>
@@ -74,9 +70,7 @@
                 <label disabled class="col-lg-2 col-form-label">Ngành Nghề </label>
                 <div class="col-lg-8">
                   <select disabled class="form-control col-7">
-
                     <option value="{{$item->nghe_id}}">{{$item->ten_nganh_nghe}} - {{$item->nghe_id}} </option>
-
                   </select>
                 </div>
               </div>

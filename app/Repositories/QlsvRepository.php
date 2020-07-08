@@ -33,7 +33,7 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
             ->join('nganh_nghe', 'nganh_nghe.id', '=', 'sv_dang_quan_ly.nghe_id')
             ->join('devvn_quanhuyen', 'co_so_dao_tao.maqh', '=', 'devvn_quanhuyen.maqh')
             ->join('devvn_xaphuongthitran', 'co_so_dao_tao.xaid', '=', 'devvn_xaphuongthitran.xaid')
-            ->join('loai_hinh_co_so', 'loai_hinh_co_so.id', '=', 'sv_dang_quan_ly.id_loai_hinh')
+
             ->select([
                 DB::raw("
             SUM(sv_dang_quan_ly.so_luong_sv_Cao_dang) as so_luong_cao_dang,
@@ -42,14 +42,13 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
             SUM(sv_dang_quan_ly.so_luong_sv_he_khac) as so_luong_He_khac,
             SUM(sv_dang_quan_ly.tong_so_HSSV_co_mat_cac_trinh_do) as tong_so_HSSV_co_mat"),
                 'sv_dang_quan_ly.*',
-                'loai_hinh_co_so.loai_hinh_co_so',
                 'co_so_dao_tao.id as cs_id',
                 'co_so_dao_tao.ten',
                 'nganh_nghe.ten_nganh_nghe',
                 'devvn_quanhuyen.name as ten_quan_huyen',
                 'devvn_xaphuongthitran.name as ten_xa_phuong'
             ]);
-        // dd($data);
+
         if (!empty($params['nam'])) {
             $data->where('sv_dang_quan_ly.nam', $params['nam']);
         }
@@ -89,11 +88,9 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
         return $this->table
             ->join('co_so_dao_tao', 'sv_dang_quan_ly.co_so_id', '=', 'co_so_dao_tao.id')
             ->join('nganh_nghe', 'nganh_nghe.id', '=', 'sv_dang_quan_ly.nghe_id')
-            ->join('loai_hinh_co_so', 'sv_dang_quan_ly.id_loai_hinh', '=', 'loai_hinh_co_so.id')
             ->where('sv_dang_quan_ly.id', '=', $id)
             ->select(
                 'sv_dang_quan_ly.*',
-                'loai_hinh_co_so.loai_hinh_co_so',
                 'co_so_dao_tao.ten',
                 'nganh_nghe.ten_nganh_nghe',
                 // DB::raw('co_so_dao_tao.ten as cs_ten'),
@@ -110,19 +107,18 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
             ->join('co_so_dao_tao', 'sv_dang_quan_ly.co_so_id', '=', 'co_so_dao_tao.id')
             ->join('devvn_quanhuyen', 'co_so_dao_tao.maqh', '=', 'devvn_quanhuyen.maqh')
             ->join('devvn_xaphuongthitran', 'co_so_dao_tao.xaid', '=', 'devvn_xaphuongthitran.xaid')
-            ->join('loai_hinh_co_so', 'sv_dang_quan_ly.id_loai_hinh', '=', 'loai_hinh_co_so.id')
+
             ->join('nganh_nghe', 'nganh_nghe.id', '=', 'sv_dang_quan_ly.nghe_id')
             ->select(
                 'sv_dang_quan_ly.*',
                 'co_so_dao_tao.ten',
-                'loai_hinh_co_so.loai_hinh_co_so',
                 'devvn_quanhuyen.name as ten_quan_huyen',
                 'devvn_xaphuongthitran.name as ten_xa_phuong',
                 'nganh_nghe.ten_nganh_nghe',
                 'nganh_nghe.id',
                 DB::raw('sv_dang_quan_ly.id as sv_id')
             );
-        //    dd($data);
+
         if ($queryData['nam'] != null) {
             $data->where('sv_dang_quan_ly.nam', $queryData['nam']);
         }
@@ -133,10 +129,15 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
         if (isset($queryData['nghe_id']) && !empty($queryData['nghe_id'])) {
             $data->where('sv_dang_quan_ly.nghe_id', $queryData['nghe_id']);
         }
-        // dd($queryData);
+
         return $data->orderByDesc('sv_dang_quan_ly.created_at')->paginate($queryData['page_size']);
     }
-
+    
+    public function checktontai($arraycheck)
+    {
+        $check = $this->table->where($arraycheck)->first();
+        return $check;
+    }
     public function getNamDaoTao()
     {
         $nam = DB::table('sv_dang_quan_ly')->select('id', 'nam')->get();
@@ -159,7 +160,6 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
             ->select(
                 'co_so_dao_tao.ten',
                 'co_so_dao_tao.dia_chi',
-                'loai_hinh_co_so.loai_hinh_co_so',
                 'devvn_quanhuyen.name as ten_quan_huyen',
                 'devvn_xaphuongthitran.name as ten_xa_phuong'
             )
@@ -184,7 +184,11 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
             return $data;
         }
     }
-
+    public function getMaLoaiHinh()
+    {
+        $data = DB::table('loai_hinh_co_so')->get();
+        return $data;
+    }
     public function getNganhNghe($ma_cap_nghe)
     {
         $nganhnghe = DB::table('nganh_nghe')->where('ma_cap_nghe', $ma_cap_nghe)->orderBy('ten_nganh_nghe')->get();
@@ -198,6 +202,13 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
         // dd($maNganhNghe);
         return $maNganhNghe;
     }
+
+    public function createPost($request)
+    {   
+        //dd($request);
+        return $this->model->create($request);
+    }
+
     // thanhnv 6/25/2020
     public function getSvdqlJoinNganhNgheNamDot($id_truong, $nam_muon_xuat, $dot_muon_xuat)
     {

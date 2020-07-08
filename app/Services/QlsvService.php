@@ -60,7 +60,7 @@ class QlsvService extends AppService
 
     public function getLoaiHinh()
     {
-        return $this->loaiHinhCoSoRepository->getAll();
+        return $this->repository->getMaLoaiHinh();
     }
     public function getCoSo()
     {
@@ -90,6 +90,46 @@ class QlsvService extends AppService
         $data = $this->repository->chiTietSoLieuQlsv($coSoId, $params);
         return $data;
     }
+    public function createPost($request){
+        unset($request['_token']);
+        return $this->repository->createPost($request);
+    }
+    public function checkTonTai($data, $requestParams)
+    {   
+        $kqkiemtra = $this->getSoLieu($data);
+       
+        unset($requestParams['_token']);
+        $route = route('xuatbc.them-so-sv');
+
+        if (!isset($kqkiemtra)) {
+           
+            $data = $this->createPost($requestParams);
+            $route = route('xuatbc.ds-sv-dang-hoc');
+            $mess = 'Thêm số liệu sinh viên đang theo học thành công';
+        }
+
+        return ['route' => $route, 'mess' => $mess ];
+    }
+    
+    protected function constructConditionParams($params)
+    {
+        $conditionData = [];
+        foreach ($params as $item) {
+            $conditionData[] = [
+                $item['id'],
+                '=',
+                $item['value'],
+            ];
+        }
+
+        return $conditionData;
+    }
+    public function getSoLieu($data)
+    {
+        $dataCheckNew = $this->constructConditionParams($data);
+
+        return $this->repository->checktontai($dataCheckNew);
+    }
     public function ChiTietCoSo($id)
     {
         return $this->repository->ChiTietCoSo($id);
@@ -116,6 +156,8 @@ class QlsvService extends AppService
     {
         return $this->repository->getMaNganhNghe();
     }
+
+    
 
     // thanhv update 6/25/2020
 

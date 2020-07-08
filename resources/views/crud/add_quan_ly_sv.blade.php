@@ -43,11 +43,31 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group m-form__group row">
+                                    <label class="col-lg-2 col-form-label">Tên cơ sở: <span class="batbuoc">*</span>
+                                    </label>
+                                    <div class="col-lg-8">
+                                        <select name="co_so_id" class="form-control select2"
+                                            onchange="getdatacheck(this)" name="co_so_id" id="co_so_id">
+                                            <option value="">Chọn </option>
+                                            @foreach ($coso as $item)
+                                            <option value="{{$item->id}}">{{$item->ten}}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('co_so_id')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                        <label id="co_so_dao_tao-error" class="error" for="co_so_id"></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group m-form__group row">
                                     <label class="col-lg-2 col-form-label">Nghề : <span class="batbuoc">*</span>
                                     </label>
                                     <div class="col-lg-8">
-                                        <select class="form-control select2" name="nghe_id" id="nghe_id">
-                                            <option value="{{ old('nghe_id') }}">Chọn </option>
+                                        <select class="form-control select2" disabled onchange="getdatacheck(this)"
+                                            name="nghe_id" id="nghe_id">
+                                            <option value="">Chọn </option>
                                             @foreach ($nganhNghe as $item)
                                             <option class="form-control " value="{{$item->id}}">
                                                 {{$item->ten_nganh_nghe}}
@@ -61,66 +81,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group m-form__group row">
-                                    <label class="col-lg-2 col-form-label">Tên cơ sở: <span class="batbuoc">*</span>
-                                    </label>
-                                    <div class="col-lg-8">
-                                        <select name="co_so_id" class="form-control select2" name="co_so_id"
-                                            id="co_so_id">
-                                            <option value="{{ old('co_so_id') }}">Chọn </option>
-                                            @foreach ($coso as $item)
-                                            <option value="{{$item->id}}">{{$item->ten}}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('co_so_id')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
-                                        <label id="co_so_id-error" class="error" for="co_so_id"></label>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group m-form__group row">
-                                    <label class="col-lg-2 col-form-label">Loại Hình Cơ Sở : <span
-                                            class="batbuoc">*</span> </label>
-                                    <div class="col-lg-8">
-                                        <select name="id_loai_hinh" class="form-control select2" name="id_loai_hinh">
-                                            <option value="{{ old('id_loai_hinh') }}">Chọn </option>
-                                            @foreach ($loaiHinh as $item)
-                                            <option value="{{$item->id}}">{{$item->loai_hinh_co_so}}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('id_loai_hinh')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
-                                        <label id="id_loai_hinh-error" class="error" for="id_loai_hinh"></label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group m-form__group row">
-                                    <label class="col-lg-2 col-form-label">Năm : <span class="batbuoc">*</span> </label>
-                                    <div class="col-lg-8">
-                                        <select name="nam" class="form-control select2" name="nam">
-                                            <option value="{{ old('nam') }}">Chọn </option>
-                                            @foreach (config('common.nam_tuyen_sinh.list') as $item)
-                                            <option @if (isset($params['nam']))
-                                                {{( $params['nam'] ==  $item ) ? 'selected' : ''}} @endif
-                                                value="{{$item}}"> {{$item}}
-                                            </option>
-                                            @endforeach
-                                        </select>
-                                        @error('nam')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
-                                        <label id="nam-error" class="error" for="nam"></label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group m-form__group row">
@@ -136,6 +99,27 @@
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
                                         <label id="dot-error" class="error" for="dot"></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group m-form__group row">
+                                    <label class="col-lg-2 col-form-label">Năm : <span class="batbuoc">*</span> </label>
+                                    <div class="col-lg-8">
+                                        <select name="nam" onchange="getdatacheck(this)" class="form-control select2"
+                                            name="nam">
+                                            <option value="">Chọn </option>
+                                            @foreach (config('common.nam_tuyen_sinh.list') as $item)
+                                            <option @if (isset($params['nam']))
+                                                {{( $params['nam'] ==  $item ) ? 'selected' : ''}} @endif
+                                                value="{{$item}}"> {{$item}}
+                                            </option>
+                                            @endforeach
+                                        </select>
+                                        @error('nam')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                        <label id="nam-error" class="error" for="nam"></label>
                                     </div>
                                 </div>
                             </div>
@@ -515,13 +499,17 @@
 </div>
 @endsection
 @section('script')
-<script src="{!! asset('lien_ket_dao_tao/lien_ket_dao_tao.js') !!}"></script>
-<script src="{!! asset('chinh_sach_sinh_vien/validate-number.js') !!}"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 <script>
+    var routeCheck = "{{ route('xuatbc.check-ton-tai-svdql') }}";
+    var routeGetMaNganhNghe = "{{ route('get_ma_nganh_nghe') }}";
     $(document).ready(function(){
   $('.select2').select2();
 });
-    
 </script>
+<script src="{!! asset('sinh_vien_dang_quan_li/sinh_vien_dang_quan_li.js') !!}"></script>
+<script src="{!! asset('chinh_sach_sinh_vien/validate-number.js') !!}"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 @endsection

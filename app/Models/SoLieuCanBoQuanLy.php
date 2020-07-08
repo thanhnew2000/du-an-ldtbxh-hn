@@ -31,6 +31,8 @@ class SoLieuCanBoQuanLy extends Model
         'so_trinh_do_cao_dang',
         'so_trinh_do_trung_cap',
         'so_trinh_do_khac',
+        'so_dan_toc',
+        'so_pho_phong'
     ];
 
     public function coSoDaoTao()

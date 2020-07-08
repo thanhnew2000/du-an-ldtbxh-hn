@@ -33,7 +33,7 @@
         <div class="m-portlet__body">
             <h3>Cơ sở đào tạo: {{$data_coso->ten}}</h3>
             <p>
-                Loại hình cơ sở: {{$data_coso->loai_hinh_co_so}}
+
             </p>
             <p>Địa chỉ: {{$data_coso->dia_chi}}</p>
             <p>Phường/Xã: {{$data_coso->ten_xa_phuong}}</p>
@@ -115,12 +115,9 @@
                 <thead>
                     <tr class="text-center">
                         <th rowspan="2">STT</th>
-                        <th rowspan="2">Tên cơ sở đào tạo</th>
-                        <th rowspan="2">Quận/Huyện</th>
-                        <th rowspan="2">Xã/Phường</th>
+
                         <th rowspan="2">Mã ngành nghề</th>
                         <th rowspan="2">Tên ngành nghề</th>
-                        <th rowspan="2">Loại hình cơ sở</th>
                         <th rowspan="2">Năm</th>
                         <th rowspan="2">Đợt</th>
                         <th rowspan="2">Tổng Số HSSV <br> Các Trình Độ</th>
@@ -160,12 +157,9 @@
                     @foreach ($data as $item)
                     <tr>
                         <td>{{$i++}}</td>
-                        <td>{{$item->ten}}</td>
-                        <td>{{$item->ten_quan_huyen}}</td>
-                        <td>{{$item->ten_xa_phuong}}</td>
+
                         <td>{{$item->nghe_id}}</td>
                         <td>{{$item->ten_nganh_nghe}}</td>
-                        <td>{{$item->loai_hinh_co_so}}</td>
                         <td>{{$item->nam}}</td>
                         <td>{{$item->dot}}</td>
                         <td><b>{{$item->tong_so_HSSV_co_mat_cac_trinh_do}}</b></td>
@@ -219,6 +213,17 @@
 
 @section('script')
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+@if (session('mess'))
+<script>
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Cập nhật thành công !',
+        showConfirmButton: false,
+        timer: 3500
+    })
+</script>
+@endif
 <script>
     $(document).ready(function(){
     $('#nghe_id').select2();
