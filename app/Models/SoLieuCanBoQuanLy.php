@@ -32,7 +32,7 @@ class SoLieuCanBoQuanLy extends Model
         'so_trinh_do_trung_cap',
         'so_trinh_do_khac',
         'so_dan_toc',
-        'so_pho_phong'
+        'so_pho_phong',
     ];
 
     public function coSoDaoTao()
@@ -50,6 +50,7 @@ class SoLieuCanBoQuanLy extends Model
                 'dot_id' => 1,
                 'thoi_gian_phe_duyet_1' => null,
                 'thoi_gian_phe_duyet_2' => null,
+                'dot_number' => $baoCao->nam*1000 + $baoCao->dot,
             ]);
         });
     }

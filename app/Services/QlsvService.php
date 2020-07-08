@@ -90,7 +90,7 @@ class QlsvService extends AppService
         $data = $this->repository->chiTietSoLieuQlsv($coSoId, $params);
         return $data;
     }
-    public function createPost($request){
+    public function create_Post($request){
         unset($request['_token']);
         return $this->repository->createPost($request);
     }
@@ -103,7 +103,7 @@ class QlsvService extends AppService
 
         if (!isset($kqkiemtra)) {
            
-            $data = $this->createPost($requestParams);
+            $data = $this->create_Post($requestParams);
             $route = route('xuatbc.ds-sv-dang-hoc');
             $mess = 'Thêm số liệu sinh viên đang theo học thành công';
         }
@@ -157,7 +157,12 @@ class QlsvService extends AppService
         return $this->repository->getMaNganhNghe();
     }
 
-    
+    public function createPost($request)
+    {
+        $attributes = $request->all();
+        unset($attributes['_token']);
+        return $this->repository->createPost($attributes);
+    }
 
     // thanhv update 6/25/2020
 
@@ -406,31 +411,23 @@ class QlsvService extends AppService
                             'thoi_gian_cap_nhat' => Carbon::now(),
                         ];
 
-                        if (array_key_exists($data[$i][1], $id_nghe_svql_da_co)) {
-                            $updateData[$id_nghe_svql_da_co[$data[$i][1]]] = $arrayData;
-                        } else {
-                            array_push($insertData, $arrayData);
-                        }
-                    } else if (in_array($id_nghe_nhap, $id_nghe_of_cs) == false) {
-                        $message = 'ngheKoThuocTruong';
-                        return $message;
-                    };
-                }
-                if (count($updateData) > 0) {
-                    foreach ($updateData as $key => $value)
-                        $this->repository->updateQlSinhVienDangTheoHoc($key, $value);
-                    // DB::table('sv_dang_quan_ly')->where('id',$key)->update($value);
-                }
-                if (count($insertData) > 0) {
-                    $this->repository->createQlSinhVienDangTheoHoc($insertData);
-                    // DB::table('sv_dang_quan_ly')->insert($insertData);
-                }
-                $message = 'ok';
-                return $message;
-            }
-        } else if ($soDongNgNhap != count($co_so_nghe)) {
-            $message = 'NgheUnsign';
-            return $message;
+                    if(array_key_exists($data[$i][1],$id_nghe_svql_da_co)){
+                        $updateData[$id_nghe_svql_da_co[$data[$i][1]]]=$arrayData;
+                    }else{
+                     $this->repository->createQlSinhVienDangTheoHoc($arrayData);
+                    }
+                }else if(in_array($id_nghe_nhap,$id_nghe_of_cs) == false){
+                    $message='ngheKoThuocTruong';
+                    return $message; 
+                };
+            } 
+            if (count($updateData) > 0) {
+            foreach($updateData as $key => $value)
+                 $this->repository->updateQlSinhVienDangTheoHoc($key,$value);
+                // DB::table('sv_dang_quan_ly')->where('id',$key)->update($value);
+            }  
+            $message='ok';
+            return $message;  
         }
     }
 

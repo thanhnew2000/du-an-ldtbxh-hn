@@ -20,8 +20,8 @@ class DangKyHoatDong extends Model
         'trang_thai',
     ];
 
-    const CREATED_AT = 'create_at';
-    const UPDATED_AT = 'update_at';
+    // const CREATED_AT = 'create_at';
+    // const UPDATED_AT = 'update_at';
 
     protected static function booted()
     {
@@ -33,6 +33,7 @@ class DangKyHoatDong extends Model
                 'dot_id' => 1,
                 'thoi_gian_phe_duyet_1' => null,
                 'thoi_gian_phe_duyet_2' => null,
+                'dot_number' => $baoCao->nam*1000 + $baoCao->dot,
             ]);
         });
     }

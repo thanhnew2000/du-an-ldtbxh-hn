@@ -204,8 +204,7 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
     }
 
     public function createPost($request)
-    {   
-        //dd($request);
+    {
         return $this->model->create($request);
     }
 
@@ -222,9 +221,11 @@ class QlsvRepository extends BaseRepository implements QlsvRepositoryInterface
 
 
     // thanhnv 6/26/2020 sửa model create update
-    public function createQlSinhVienDangTheoHoc($arrayData)
-    {
-        return $this->model->insert($arrayData);
+	public function createQlSinhVienDangTheoHoc($arrayData){
+		return $this->model->create($arrayData);
+	}
+	public function updateQlSinhVienDangTheoHoc($key,$arrayData){
+		return $this->model->where('id',$key)->update($arrayData);
     }
     public function updateQlSinhVienDangTheoHoc($key, $arrayData)
     {

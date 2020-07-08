@@ -182,7 +182,7 @@ class DaoTaoNgheChoThanhNienReponsitory extends BaseRepository implements DaoTao
 	}
 	// thanhnv 6/26/2020 sửa model create update
 	public function createNgheThanhNien($arrayData){
-		return $this->model->insert($arrayData);
+		return $this->model->create($arrayData);
 	}
 	public function updateNgheThanhNien($key,$arrayData){
 		return $this->model->where('id',$key)->update($arrayData);
