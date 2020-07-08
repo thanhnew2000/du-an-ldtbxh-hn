@@ -34,7 +34,6 @@ class PheDuyetController extends Controller
             'trang_thai' => $request->get('trang_thai'),
             'li_do_tu_choi' => $request->get('li_do_tu_choi') ?? '',
         ];
-
         $danhSachBaoCao = $this->pheDuyetBaoCaoService->pheDuyetBaoCao($baoCao, $params);
         if ($request->ajax()) {
             return response()->json([
@@ -51,7 +50,7 @@ class PheDuyetController extends Controller
             'id',
             DB::raw('ten_trang_thai AS text'),
         ];
-
+        
         $listTrangThai = $this->pheDuyetBaoCaoService->getListTrangThai($baoCao, $selects);
 
         return response()->json([
