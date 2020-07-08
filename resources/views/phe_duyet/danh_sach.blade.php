@@ -116,14 +116,14 @@
                                     </a>
                                     @endcan
 
-                                    @can('thay_doi_trang_thai_danh_sach_phe_duyet')
+                                    @if(auth()->user()->can('phe_duyet_1_' .  $baoCao->pheDuyetBaoCao->getTable()) || auth()->user()->can('phe_duyet_2_' .  $baoCao->pheDuyetBaoCao->getTable()) )
                                     <a
                                     href="javascript:"
                                     data-toggle="modal"
                                     data-target="#phe_duyet_{{ $baoCao->id }}"
                                     class="btn btn-success">Thay đổi trạng thái
                                     </a> 
-                                    @endcan
+                                    @endif
                                     
                                     <form
                                         action="{{ route('phe_duyet_bao_cao.phe_duyet', $baoCao->id) }}"
