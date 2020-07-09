@@ -543,7 +543,6 @@
             cache: true,
             dataType: 'json',
             processResults: function (data) {
-                console.log(data.data);
 
                 return {
                     results: data.data,
