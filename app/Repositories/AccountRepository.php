@@ -42,7 +42,7 @@ class AccountRepository extends BaseRepository implements AccountRepositoryInter
             $userQuery->where('model_has_roles.role_id', '=', $role);
         }
 
-        return $userQuery->paginate($params['page_size']);
+        return $userQuery->orderByDesc('id')->paginate($params['page_size']);
     }
 
     /* Thông tin Account và role_id

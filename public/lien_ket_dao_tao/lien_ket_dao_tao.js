@@ -48,6 +48,11 @@ $('[name="dot"]').change(function () {
     let mes = op != '' ? "" : "Vui lòng chọn đợt";
     $("#dot-error").html(mes);
 });
+$('[name="id_loai_hinh"]').change(function () {
+    let op = $(this).val();
+    let mes = op != '' ? "" : "Vui lòng chọn đợt";
+    $("#id_loai_hinh-error").html(mes);
+});
 
 let nodeList = document.querySelectorAll(".name-field");
 const listField = [];
@@ -73,6 +78,9 @@ let rules = {
     dot: {
         required: true,
     },
+    id_loai_hinh: {
+        required: true,
+    },
 };
 listField.forEach(function (value) {
     rules[value] = rule;
@@ -96,6 +104,9 @@ let messages = {
     },
     dot: {
         required: "Vui lòng chọn đợt",
+    },
+    id_loai_hinh: {
+        required: "Vui lòng chọn loại hình cơ sở",
     },
 };
 listField.forEach(function (value) {

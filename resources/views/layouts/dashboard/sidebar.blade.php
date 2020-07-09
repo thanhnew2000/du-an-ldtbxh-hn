@@ -423,9 +423,9 @@
 {{-- End Quản lý đào tạo nghề --}}
 
 {{-- Quản lý liên kết đào tạo --}}
-@canany(['them_moi_tong_hop_lien_ket_lien_thong_trinh_do','chi_tiet_tong_hop_lien_ket_lien_thong_trinh_do','cap_nhat_tong_hop_lien_ket_lien_thong_trinh_do',
-		'them_moi_lien_ket_dao_tao_trinh_do_cao_dang_len_dai_hoc','chi_tiet_lien_ket_dao_tao_trinh_do_cao_dang_len_dai_hoc',
-		'cap_nhat_lien_ket_dao_tao_trinh_do_cao_dang_len_dai_hoc','them_moi_lien_ket_dao_tao_trinh_do_trung_cap_len_dai_hoc',
+@canany(['danh_sach_tong_hop_lien_ket_lien_thong_trinh_do','them_moi_tong_hop_lien_ket_lien_thong_trinh_do','chi_tiet_tong_hop_lien_ket_lien_thong_trinh_do','cap_nhat_tong_hop_lien_ket_lien_thong_trinh_do',
+		'danh_sach_lien_ket_dao_tao_trinh_do_cao_dang_len_dai_hoc','them_moi_lien_ket_dao_tao_trinh_do_cao_dang_len_dai_hoc','chi_tiet_lien_ket_dao_tao_trinh_do_cao_dang_len_dai_hoc',
+		'danh_sach_lien_ket_dao_tao_trinh_do_trung_cap_len_dai_hoc','cap_nhat_lien_ket_dao_tao_trinh_do_cao_dang_len_dai_hoc','them_moi_lien_ket_dao_tao_trinh_do_trung_cap_len_dai_hoc',
 		'chi_tiet_lien_ket_dao_tao_trinh_do_trung_cap_len_dai_hoc','cap_nhat_lien_ket_dao_tao_trinh_do_trung_cap_len_dai_hoc'])
 <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;"
 		class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-globe"></i><span

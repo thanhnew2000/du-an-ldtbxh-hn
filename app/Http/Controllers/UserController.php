@@ -50,7 +50,7 @@ class UserController extends Controller
         Mail::send('account.email_dang_ky',$data,function($message) use ($email) {
             $message->to($email,'Reset password')->subject('Bạn đã được đăng ký tài khoản');
         });
-        return redirect()->back()->with('thongbao','Đăng ký tài khoản thành công');
+         return redirect()->back()->with('thongbao','Đăng ký tài khoản thành công');
     }
 
     public function getcapnhattaikhoan(){

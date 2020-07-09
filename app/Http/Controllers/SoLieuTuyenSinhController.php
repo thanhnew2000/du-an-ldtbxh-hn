@@ -238,4 +238,9 @@ class SoLieuTuyenSinhController extends Controller
             // $path = str_replace('/', '\\', $pathLoad);  
             $this->SoLieuTuyenSinhService->importError($fileRead, $duoiFile,$pathLoad);
         }
+
+        public function exportFollowSreach(Request $request){
+            $params = $request->all();
+            $data = $this->SoLieuTuyenSinhService->exportFollowSreach($params);
+        }
 }

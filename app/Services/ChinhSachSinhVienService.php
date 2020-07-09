@@ -70,7 +70,7 @@ class ChinhSachSinhVienService extends AppService
         if($data){
             $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($getdata['co_so_id']);
             $tieude = 'Thêm mới ( '.$thongTinCoSo->ten.' )';
-            $noidung = 'Thêm mới số liệu chính sách sinh viên';
+            $noidung = 'Thêm mới \số liệu chính sách sinh viên';
             $route = route('xuatbc.tong-hop-chinh-sach-sinh-vien');
             $this->StoreUpdateNotificationService->addContentUp($getdata['nam'],$getdata['dot'],$getdata['co_so_id'],$tieude,$noidung,$route);
 
@@ -159,9 +159,11 @@ class ChinhSachSinhVienService extends AppService
                     ->setBorderStyle(Border::BORDER_THIN);
             }
         }
+
+        $file_xuat_name="File-nhap-chinh-sach-sinh-vien ($co_so->ten).xlsx";
         $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="File-nhap-chinh-sach-sinh-vien.xlsx"');
+        header('Content-Disposition: attachment; filename='.$file_xuat_name);
         $writer->save("php://output");
     }
 

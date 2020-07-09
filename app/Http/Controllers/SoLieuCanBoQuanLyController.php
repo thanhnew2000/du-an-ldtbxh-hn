@@ -20,10 +20,10 @@ class SoLieuCanBoQuanLyController extends Controller
     ) {
         $this->soLieuCBQLService = $soLieuCanBoQuanLyService;
 
-        // $this->middleware('danh_sach_doi_ngu_quan_ly', ['only' => ['index']]);
-        // $this->middleware('them_moi_danh_sach_doi_ngu_quan_ly', ['only' => ['create','store']]);
-        // $this->middleware('cap_nhat_danh_sach_doi_ngu_quan_ly', ['only' => ['edit','update']]);
-        // $this->middleware('xem_chi_tiet_danh_sach_doi_ngu_quan_ly', ['only' => ['index']]);
+        $this->middleware('permission:danh_sach_doi_ngu_quan_ly', ['only' => ['index']]);
+        $this->middleware('permission:them_moi_danh_sach_doi_ngu_quan_ly', ['only' => ['create','store']]);
+        $this->middleware('permission:cap_nhat_danh_sach_doi_ngu_quan_ly', ['only' => ['edit','update']]);
+        $this->middleware('permission:xem_chi_tiet_danh_sach_doi_ngu_quan_ly', ['only' => ['index']]);
     }
 
     /**
@@ -71,7 +71,7 @@ class SoLieuCanBoQuanLyController extends Controller
         $listCoSo = $this->soLieuCBQLService->getListCoSo();
         $listNam = config('common.nam.list');
         $listDot = config('common.dot');
-
+        
         return view('so_lieu_can_bo_quan_ly.create', [
             'listCoSo' => $listCoSo,
             'listNam' => array_combine($listNam, $listNam),

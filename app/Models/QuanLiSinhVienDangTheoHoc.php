@@ -12,7 +12,6 @@ class QuanLiSinhVienDangTheoHoc extends Model
         'dot',
         'nghe_id',
         'co_so_id',
-        'id_loai_hinh',
 
         'tong_so_HSSV_co_mat_cac_trinh_do',
         'tong_so_nu',
@@ -33,7 +32,7 @@ class QuanLiSinhVienDangTheoHoc extends Model
         'so_luong_sv_nu_So_cap',
         'so_luong_sv_dan_toc_So_cap',
         'so_luong_sv_ho_khau_HN_So_cap',
-        
+
         'so_luong_sv_he_khac',
         'so_luong_sv_nu_khac',
         'so_luong_sv_dan_toc_khac',
