@@ -11,10 +11,10 @@ class ChiNhanhController extends Controller
 {
     protected $ChiNhanhService;
     protected $coSoDaoTaoService;
-    public function __construct(ChiNhanhService $ChiNhanhService,
-    CoSoDaoTaoService $coSoDaoTaoService
-    )
-    {
+    public function __construct(
+        ChiNhanhService $ChiNhanhService,
+        CoSoDaoTaoService $coSoDaoTaoService
+    ) {
         $this->coSoDaoTaoService = $coSoDaoTaoService;
         $this->ChiNhanhService = $ChiNhanhService;
     }
@@ -25,8 +25,9 @@ class ChiNhanhController extends Controller
         if (!isset($params['ten_co_so'])) $params['ten_co_so'] = null;
         if (!isset($params['ma_chung_nhan'])) $params['ma_chung_nhan'] = null;
         if (!isset($params['loai_chi_nhanh'])) $params['ma_don_vi'] = null;
+        if (!isset($params['page_size'])) $params['page_size'] = config('common.paginate_size.default');
         if (isset($id)) {
-            $data = $this->ChiNhanhService->getChiNhanhThuocCSDT($id);
+            $data = $this->ChiNhanhService->getChiNhanhThuocCSDT($id, $params);
         } else {
             $data = $this->ChiNhanhService->getChiNhanh($params);
         }
@@ -38,7 +39,7 @@ class ChiNhanhController extends Controller
     public function themchinhanh(Request $request)
     {
         $params = [];
-        if(isset($request->co_so_id)){
+        if (isset($request->co_so_id)) {
             $params['co_so_id'] = $request->co_so_id;
         }
         $csdt = DB::table('co_so_dao_tao')->get();
@@ -75,9 +76,9 @@ class ChiNhanhController extends Controller
 
         $this->ChiNhanhService->create($request, ['_token']);
 
-        if(isset($request->csdt_id)){
+        if (isset($request->csdt_id)) {
             return redirect()->route('csdt.chi-nhanh', ['id' => $request->csdt_id])->withInput()->with('mess-success', 'Đã thêm thành công');
-        } else{
+        } else {
             return redirect()->route('csdt.chi-nhanh')->withInput()->with('mess-success', 'Đã thêm thành công');
         }
     }

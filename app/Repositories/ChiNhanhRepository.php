@@ -46,11 +46,19 @@ class ChiNhanhRepository extends BaseRepository implements ChiNhanhRepositoryInt
             ->get();
     }
 
-    public function getChiNhanhThuocCSDT($id)
+    public function getChiNhanhThuocCSDT($id, $params)
     {
-        return $this->table->join('co_so_dao_tao', 'chi_nhanh_dao_tao.co_so_id', '=', 'co_so_dao_tao.id')
-            ->where('co_so_id', $id)
+        $query =  $this->table
             ->select('chi_nhanh_dao_tao.*', 'co_so_dao_tao.ten')
-            ->paginate(10);
+            ->join('co_so_dao_tao', 'chi_nhanh_dao_tao.co_so_id', '=', 'co_so_dao_tao.id')
+            ->where('co_so_id', $id);
+        if (isset($params['ma_chung_nhan']) && $params['ma_chung_nhan'] != null) {
+            $query->where('chi_nhanh_dao_tao.ma_chung_nhan_dang_ki_hoat_dong', $params['ma_chung_nhan']);
+        }
+        if (isset($params['loai_chi_nhanh']) && $params['loai_chi_nhanh'] != null) {
+            $query->where('chi_nhanh_dao_tao.chi_nhanh_chinh', $params['loai_chi_nhanh']);
+        }
+
+        return $query->paginate($params['page_size']);
     }
 }

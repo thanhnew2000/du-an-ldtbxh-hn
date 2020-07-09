@@ -48,22 +48,27 @@
                                 <label class="col-lg-2 col-form-label">Loại chi nhánh</label>
                                 <div class="col-lg-8">
                                     <select name="loai_chi_nhanh" class="form-control ">
-                                        <option disabled selected>chọn loại chi nhánh</option>
+                                        <option selected value="">Chọn loại chi nhánh</option>
                                         @if (isset($params['loai_chi_nhanh']))
                                         @if ($params['loai_chi_nhanh'] == 1)
-                                        <option value="1" selected>Chi nhánh chính</option>
-                                        <option value="0">Chi nhánh phụ</option>
+                                        <option value="{{config('common.loai_chi_nhanh.chi_nhanh_chinh')}}" selected>
+                                            Chi nhánh chính</option>
+                                        <option value="{{config('common.loai_chi_nhanh.chi_nhanh_phu')}}">
+                                            Chi nhánh phụ</option>
                                         @elseif($params['loai_chi_nhanh'] == 0)
-                                        <option value="0" selected>Chi nhánh phụ</option>
-                                        <option value="1">Chi nhánh chính</option>
+                                        <option value="{{config('common.loai_chi_nhanh.chi_nhanh_chinh')}}">
+                                            Chi nhánh chính</option>
+                                        <option value="{{config('common.loai_chi_nhanh.chi_nhanh_phu')}}" selected>
+                                            Chi nhánh phụ</option>
                                         @endif
                                         @else
-                                        <option value="0">Chi nhánh phụ</option>
-                                        <option value="1">Chi nhánh chính</option>
+                                        <option value="{{config('common.loai_chi_nhanh.chi_nhanh_chinh')}}">
+                                            Chi nhánh chính</option>
+                                        <option value="{{config('common.loai_chi_nhanh.chi_nhanh_phu')}}">
+                                            Chi nhánh phụ</option>
                                         @endif
                                     </select>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -130,14 +135,14 @@
                     <tbody>
                         @if (isset($chiNhanhDefault))
                         <tr>
-                            <td>0</td>
+                            <td>1</td>
                             <td>{{ $chiNhanhDefault->dia_chi }}</td>
                             <td>{{ $chiNhanhDefault->dien_thoai }}</td>
                             <td>Chi nhánh chính</td>
                         </tr>
                         @endif
 
-                        @php($i=1)
+                        @php($i=2)
 
                         @forelse($data as $items)
                         <tr>
@@ -171,6 +176,11 @@
                             </td>
                         </tr>
                         @empty
+                        <tr>
+                            <td>
+                            <td colspan="5" class="text-center text-danger">Không tìm thấy kết quả nào</td>
+                            </td>
+                        </tr>
                         @endforelse
                         <div class="modal fade" id="m_modal_3" tabindex="-1" role="dialog"
                             aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: none;">
