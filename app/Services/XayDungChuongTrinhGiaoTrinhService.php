@@ -94,7 +94,7 @@ class XayDungChuongTrinhGiaoTrinhService extends AppService
     {
         $returnData = $this->repository->store($data);
         if($returnData){
-            $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($getdata['co_so_id']);
+            $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($data['co_so_id']);
             $tieude = 'Thêm mới ( '.$thongTinCoSo->ten.' )';
             $noidung = 'Thêm mới số liệu xây dựng giáo trình';
             $route = route('xuatbc.show-ds-xd-giao-trinh',['co_so_id' => $data['co_so_id']]);
