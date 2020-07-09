@@ -17,10 +17,18 @@ return [
         'hoat_dong' => 1,
         'tam_dung' => 2
     ],
-    'bac_nghe' => [
-        'trung_cap' => ['ma_bac' => 5, 'ten_bac' => 'Trung Cấp'],
+    'bac_nghe' => [      
         'cao_dang' => ['ma_bac' => 6, 'ten_bac' => 'Cao Đẳng'],
+        'trung_cap' => ['ma_bac' => 5, 'ten_bac' => 'Trung Cấp'],
+        'so_cap' => ['ma_bac' => 4, 'ten_bac' => 'Sơ Cấp'],
     ],
+
+    'ma_cap_nghe' => [      
+        ['id_cap_nghe' => 4, 'ten_cap_nghe' => 'Mã cấp 4'],
+        ['id_cap_nghe' => 3, 'ten_cap_nghe' => 'Mã cấp 3'],
+        ['id_cap_nghe' => 2, 'ten_cap_nghe' => 'Mã cấp 2'],
+    ],
+
     'nam' => [
         'list' => [2016, 2017, 2018, 2019, 2020]
     ],

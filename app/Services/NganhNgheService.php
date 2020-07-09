@@ -59,4 +59,59 @@ class NganhNgheService extends AppService
             ->search($params, $selects)
             ->toArray();
     }
+    // Quanglx lấy nghề theo cấp độ
+    public function getNganhNgheTheoCapDo($length)
+    {
+       return $this->repository->getNganhNgheTheoCapDo($length);
+    }
+
+    public function store($request)
+    {
+       $data = $request->all();
+       $dataStore =[];
+       $dataStore['id']=$data['id'];
+       switch (strlen($dataStore['id'])) {
+           case '7':
+              $ma_cap_nghe = 4;
+               break;
+            case '5':
+                $ma_cap_nghe = 3;
+            break;
+            case '3':
+                $ma_cap_nghe = 2;
+                break;     
+           default:
+               break;
+       }
+       $dataStore['ten_nganh_nghe']= $data['ten_nganh_nghe'];
+       $dataStore['ma_cap_nghe'] = $ma_cap_nghe;
+       $dataStore['bac_nghe']= substr($dataStore['id'],0,1);
+
+       return $this->repository->create($dataStore);
+    }
+
+    public function updateData($request,$id)
+    {
+       $data = $request->all();
+    //    dd($data);
+       $dataStore =[];
+       $dataStore['id']=$data['id_nghe_4'];
+       switch (strlen($dataStore['id'])) {
+           case '7':
+              $ma_cap_nghe = 4;
+               break;
+            case '5':
+                $ma_cap_nghe = 3;
+            break;
+            case '3':
+                $ma_cap_nghe = 2;
+                break;     
+           default:
+               break;
+       }
+       $dataStore['ten_nganh_nghe']= $data['ten_nganh_nghe'];
+       $dataStore['ma_cap_nghe'] = $ma_cap_nghe;
+       $dataStore['bac_nghe']= substr($dataStore['id'],0,1);
+       return $this->repository->updateData($dataStore,$id);
+    }
 }

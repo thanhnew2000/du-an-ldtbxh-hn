@@ -19,4 +19,10 @@ Route::group(['middleware' => ['permission:them_moi_nganh_nghe|xem_chi_tiet_ngan
 
     Route::get('cap-nhat-nganh-nghe/{id}', 'NganhNgheController@capNhatNganhNghe')->name('nghe.cap-nhat');
     Route::get('search', 'NganhNgheController@search')->name('nghe.search');
+
+    // Quanglx 07/08/2020 thêm nghề
+    // Route::get('them-moi-nganh-nghe/', 'NganhNgheController@create')->name('nghe.them-moi');
+    Route::post('store/', 'NganhNgheController@store')->name('nghe.them-moi.store');
+    Route::post('update/{id}', 'NganhNgheController@updateData')->name('nghe.update');
+    Route::get('delete/{id}', 'NganhNgheController@delete')->name('nghe.delete');
 });

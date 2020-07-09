@@ -10,7 +10,8 @@ use App\Services\PhuongXaService;
 use App\Services\QuanHuyenService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Requests\NganhNghe\StoreRequest;
+use App\Http\Requests\NganhNghe\UpdateRequest;
 class NganhNgheController extends Controller
 {
     protected $nganhNgheService;
@@ -45,13 +46,17 @@ class NganhNgheController extends Controller
 
         $params = $request->all();
         if (!isset($params['bac_nghe'])) $params['bac_nghe'] = 6;
+        if (!isset($params['ma_cap_nghe'])) $params['ma_cap_nghe'] = 4;
         if (!isset($params['page_size'])) $params['page_size'] = config('common.paginate_size.default');
 
         $data = $this->nganhNgheService->getNganhNghe($params);
         $data->appends(request()->input())->links();
+    // Quanglx get nghe 8/7/2020
+        $nghe_cap_2 = $this->nganhNgheService->getNganhNgheTheoCapDo(3);
+        $nghe_cap_3 = $this->nganhNgheService->getNganhNgheTheoCapDo(5);
 
         $route_name = Route::current()->action['as'];
-        return view('nganh-nghe.danh-sach-nghe', compact('data', 'params', 'route_name'));
+        return view('nganh-nghe.danh-sach-nghe', compact('data', 'params', 'route_name','nghe_cap_2','nghe_cap_3'));
     }
 
     /* Danh sách chi tiết các cơ sở đào tạo được phép giảng dạy các nghề
@@ -132,7 +137,15 @@ class NganhNgheController extends Controller
     public function capNhatNganhNghe($id)
     {
         $data = $this->nganhNgheService->findById($id);
-        return view('nganh-nghe.cap-nhat-nganh-nghe', compact('data'));
+        $nghe_cap_2 = $this->nganhNgheService->getNganhNgheTheoCapDo(3);
+        $nghe_cap_3 = $this->nganhNgheService->getNganhNgheTheoCapDo(5);
+        return view('nganh-nghe.cap-nhat-nganh-nghe', compact('data','nghe_cap_2','nghe_cap_3'));
+    }
+
+    public function updateData(UpdateRequest $request,$id)
+    {
+        $data = $this->nganhNgheService->updateData($request,$id);
+        return redirect()->route('nghe.danh-sach')->with('thongbao', 'Sửa số liệu ngành nghề thành công');
     }
 
     public function search(Request $request)
@@ -142,5 +155,27 @@ class NganhNgheController extends Controller
         $data = $this->nganhNgheService->search($params);
 
         return response()->json($data);
+    }
+
+    public function delete($id)
+    {
+        $data = $this->nganhNgheService->delete($id);
+        return redirect()->route('nghe.danh-sach')->with('thongbao', 'Xóa số liệu ngành nghề thành công');
+    }
+
+    // Quanglx add nghề theo cấp độ
+    // public function create()
+    // {
+    //     $nghe_cap_2 = $this->nganhNgheService->getNganhNgheTheoCapDo(3);
+    //     $nghe_cap_3 = $this->nganhNgheService->getNganhNgheTheoCapDo(5);
+    //     return view('nganh-nghe.them-moi-nganh-nghe',[
+    //         'nghe_cap_2' => $nghe_cap_2,
+    //         'nghe_cap_3' => $nghe_cap_3,
+    //     ]);
+    // }
+    public function store(StoreRequest $request)
+    {
+        $data = $this->nganhNgheService->store($request);
+        return response()->json(true);
     }
 }
