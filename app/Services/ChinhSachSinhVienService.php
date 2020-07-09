@@ -70,7 +70,7 @@ class ChinhSachSinhVienService extends AppService
         if($data){
             $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($getdata['co_so_id']);
             $tieude = 'Thêm mới ( '.$thongTinCoSo->ten.' )';
-            $noidung = 'Thêm mới số liệu chính sách sinh viên';
+            $noidung = 'Thêm mới \số liệu chính sách sinh viên';
             $route = route('xuatbc.tong-hop-chinh-sach-sinh-vien');
             $this->StoreUpdateNotificationService->addContentUp($getdata['nam'],$getdata['dot'],$getdata['co_so_id'],$tieude,$noidung,$route);
 
