@@ -59,6 +59,7 @@ class ChungNhanDangKyNgheRepository extends BaseRepository implements ChungNhanD
 
     public function getNgheTheoCoSoDaoTao($params, $bac_nghe = null)
     {
+        // dd($params);
         $queryBuilder = $this->model
             ->select(
                 'nganh_nghe.ten_nganh_nghe as ten_nghe',
@@ -78,6 +79,15 @@ class ChungNhanDangKyNgheRepository extends BaseRepository implements ChungNhanD
             ->where('giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.co_so_id', $params['co_so_id']);
         if (isset($bac_nghe)) {
             $queryBuilder->where('nganh_nghe.bac_nghe', $bac_nghe);
+        }
+        if (isset($params['bac_nghe'])) {
+            $queryBuilder->where('nganh_nghe.bac_nghe', $params['bac_nghe']);
+        }
+        if (isset($params['ten_nghe'])) {
+            $queryBuilder->where('nganh_nghe.ten_nganh_nghe', $params['ten_nghe']);
+        }
+        if (isset($params['ma_nghe'])) {
+            $queryBuilder->where('nganh_nghe.id', $params['ma_nghe']);
         }
         return $queryBuilder->paginate($params['page_size']);
     }
@@ -134,7 +144,7 @@ class ChungNhanDangKyNgheRepository extends BaseRepository implements ChungNhanD
         return $queryBuilder->orderByDesc('tong_so_tuyen_sinh')->paginate($params['page_size']);
     }
 
-    public function getNgheTheoChiNhanh($id)
+    public function getNgheTheoChiNhanh($params)
     {
     }
 }

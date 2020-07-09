@@ -44,8 +44,9 @@ class NganhNgheChiNhanhRepository extends BaseRepository implements NganhNgheChi
         return $this->model->insert($arrayInsert);
     }
 
-    public function getNgheTheoChiNhanh($id)
+    public function getNgheTheoChiNhanh($params)
     {
+        // dd($params);
         $queryBuilder = $this->model->select(
             'nganh_nghe.ten_nganh_nghe',
             'nganh_nghe.id as nghe_id',
@@ -64,7 +65,16 @@ class NganhNgheChiNhanhRepository extends BaseRepository implements NganhNgheChi
             ->join('giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao', 'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.id', '=', 'nganh_nghe_chi_nhanh.giay_chung_nhan_id')
             ->join('nganh_nghe', 'nganh_nghe.id', '=', 'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.nghe_id')
             ->join('giay_phep', 'giay_phep.id', '=', 'giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.giay_phep_id')
-            ->where('nganh_nghe_chi_nhanh.chi_nhanh_id', $id);
-        return $queryBuilder->paginate(20);
+            ->where('nganh_nghe_chi_nhanh.chi_nhanh_id', $params['chi_nhanh_id']);
+        if (isset($params['ten_nghe'])) {
+            $queryBuilder->where('nganh_nghe.ten_nganh_nghe', $params['ten_nghe']);
+        }
+        if (isset($params['ma_nghe'])) {
+            $queryBuilder->where('nganh_nghe.id', $params['ma_nghe']);
+        }
+        if (isset($params['bac_nghe'])) {
+            $queryBuilder->where('nganh_nghe.bac_nghe', $params['bac_nghe']);
+        }
+        return $queryBuilder->paginate($params['page_size']);
     }
 }

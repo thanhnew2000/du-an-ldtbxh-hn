@@ -31,18 +31,82 @@
         @endif
     </div>
     <div class="m-portlet">
+
+        <form action="" method="get" class="m-form">
+            <input type="hidden" name="page_size" value="{{$params['page_size']}}">
+            <div class="m-portlet__body">
+                <div class="m-form__section m-form__section--first">
+                    <div class="m-form__heading">
+                        <h3 class="m-form__heading-title">Bộ lọc:</h3>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-2 col-form-label">Tên tên nghề</label>
+                                <div class="col-lg-8">
+                                    <input type="text" value="{{$params['ten_nghe']}}" name="ten_nghe"
+                                        class="form-control m-input" placeholder="từ khóa tên cơ sở">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-2 col-form-label">Bậc nghề:</label>
+                                <div class="col-lg-8">
+                                    <select name="bac_nghe" class="form-control">
+                                        <option selected value="">Chọn loại hình cơ sở</option>
+                                        @if ($params['bac_nghe'] == 6)
+                                        <option value="{{config('common.bac_nghe.cao_dang.ma_bac')}}" selected>
+                                            {{config('common.bac_nghe.cao_dang.ten_bac')}}</option>
+                                        <option value="{{config('common.bac_nghe.trung_cap.ma_bac')}}">
+                                            {{config('common.bac_nghe.trung_cap.ten_bac')}}</option>
+                                        @elseif($params['bac_nghe'] == 5)
+                                        <option value="{{config('common.bac_nghe.cao_dang.ma_bac')}}">
+                                            {{config('common.bac_nghe.cao_dang.ten_bac')}}</option>
+                                        <option value="{{config('common.bac_nghe.trung_cap.ma_bac')}}" selected>
+                                            {{config('common.bac_nghe.trung_cap.ten_bac')}}</option>
+                                        @else
+                                        <option value="{{config('common.bac_nghe.cao_dang.ma_bac')}}">
+                                            {{config('common.bac_nghe.cao_dang.ten_bac')}}</option>
+                                        <option value="{{config('common.bac_nghe.trung_cap.ma_bac')}}">
+                                            {{config('common.bac_nghe.trung_cap.ten_bac')}}</option>
+                                        @endif
+                                    </select>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-2 col-form-label">Mã nghề:</label>
+                                <div class="col-lg-8">
+                                    <input type="text" name="ma_nghe" value="{{$params['ma_nghe']}}"
+                                        class="form-control m-input" placeholder="mã đơn vị">
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-2">
+                        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
         <div class="m-portlet__body">
-            <div class="d-flex justify-content-between align-items-end">
-
-
-                <div class="col-7 form-group m-form__group d-flex justify-content-end">
+            <div class="d-flex justify-content-end align-items-end">
+                <div class="col-lg-7 form-group m-form__group d-flex justify-content-end">
                     <label class="col-lg-2 col-form-label">Kích thước:</label>
                     <div class="col-lg-4">
                         <select class="form-control" id="page-size">
-                            {{-- @foreach(config('common.paginate_size.list') as $size)
+                            @foreach(config('common.paginate_size.list') as $size)
                             <option @if($params['page_size']==$size) selected @endif value="{{$size}}">{{$size}}
                             </option>
-                            @endforeach --}}
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -173,36 +237,46 @@
                         </td>
                     </tr>
                     @empty
-
+                    <tr>
+                        <td colspan="10" class="text-center text-danger">Không tìm thấy kết quả phù hợp</td>
+                    </tr>
                     @endforelse
 
                 </tbody>
             </table>
         </div>
-        {{-- @if(!empty($dsNghe))
+        @if(!empty($dsNgheChiNhanh))
         <div class="m-portlet__foot d-flex justify-content-end">
-            {{$dsNghe->links()}}
+            {{$dsNgheChiNhanh->links()}}
+        </div>
+        @endif
     </div>
-    @endif --}}
-</div>
-{{-- @if($defaultCsdt['id'] > 0)
-    <input type="hidden" name="" id="co_so_id" value="{{$defaultCsdt['id']}}">
-@endif --}}
+    <input type="hidden" id="chi_nhanh_id" value="{{$params['chi_nhanh_id']}}">
 </div>
 @endsection
 @section('script')
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
+    var currentUrl = '{{route($route_name)}}';
     $(document).ready(function(){
         $('#chon-nghe-cao-dang').select2();
         $('#chon-nghe-trung-cap').select2();
         $('#chon-giay-phep-ajax').select2();
         $('#select-nghe').addClass('d-none');
         $('#loading-select-nghe').addClass('d-none');
+
+        $('#page-size').change(function(){
+            var chi_nhanh_id = $('#chi_nhanh_id').val();
+            var ten_nghe = $('input[name=ten_nghe]').val();
+            var ma_nghe = $('input[name=ma_nghe]').val();
+            var bac_nghe = $('select[name=bac_nghe]').val();
+            var page_size = $(this).val();
+            var reloadUrl = `${currentUrl}/${chi_nhanh_id}?ten_nghe=${ten_nghe}&ma_nghe=${ma_nghe}&bac_nghe=${bac_nghe}&page_size=${page_size}`;
+            window.location.href = reloadUrl;
+        });
     });
 
-    $('#chon-giay-phep-ajax').change(function(){
-        $(document).ajaxStart(function(){
+    $(document).ajaxStart(function(){
         $('#select-nghe').addClass('d-none');
         $('#loading-select-nghe').removeClass('d-none');
         $('#loading-select-nghe').css('display', 'block')
@@ -212,6 +286,9 @@
             $('#loading-select-nghe').addClass('d-none');
             $('#select-nghe').removeClass('d-none');
         });
+
+    $('#chon-giay-phep-ajax').change(function(){
+       
         $.ajax({
             type: "POST",
             dataType: "json",
@@ -244,7 +321,7 @@
     $('#btn-summit-nghe-ajax').click(function(event){
         event.preventDefault();
 
-        if($('#chon-nghe-cao-dang').val() == '' || $('#chon-nghe-trung-cap').val() == ''){
+        if($('#chon-nghe-cao-dang').val() == '' && $('#chon-nghe-trung-cap').val() == ''){
             $('#Err-chon-nghe').text('Vui lòng chọn ít nhất 1 nghề');
             return false;
         }
@@ -261,7 +338,12 @@
                 _token: '{{csrf_token()}}'
             },
             success: function(response){
-                console.log(response);
+                Swal.fire({
+                title: response.message,
+                icon: 'success'
+                });
+                $('#m_modal_6').modal('hide');
+                window.location.reload();
             },
             error: function(data){
                 var errors = data.responseJSON;

@@ -8,6 +8,7 @@ use App\Services\CoSoDaoTaoService;
 use App\Services\GiayPhepService;
 use App\Services\NganhNgheChiNhanhService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
 
@@ -145,20 +146,24 @@ class ChiNhanhController extends Controller
         return redirect()->route('csdt.chi-nhanh')->with('mess', 'Đã xóa chi nhánh');
     }
 
-    public function getNgheChiNhanh($id)
+    public function getNgheChiNhanh($id, Request $request)
     {
         $chiNhanh = $this->ChiNhanhService->getSingleChiNhanh($id);
-        $params = [];
+        $params = $request->all();
+        if (!isset($params['page_size'])) $params['page_size'] = config('common.paginate_size.default');
+        if (!isset($params['bac_nghe'])) $params['bac_nghe'] = null;
+        if (!isset($params['ma_nghe'])) $params['ma_nghe'] = null;
+        if (!isset($params['ten_nghe'])) $params['ten_nghe'] = null;
         if (isset($chiNhanh)) {
             $params['chi_nhanh_id'] = $chiNhanh[0]->id;
             $params['co_so_id'] = $chiNhanh[0]->co_so_id;
             $params['ten_co_so'] = $chiNhanh[0]->ten_co_so;
             $params['dia_chi'] = $chiNhanh[0]->dia_chi;
-            $params['page_size'] = 20;
         }
         $dsGiayPhep = $this->GiayPhepService->getGiayPhepThepCoSo($params['co_so_id']);
-        $dsNgheChiNhanh = $this->NganhNgheChiNhanhService->getNgheTheoChiNhanh($params['chi_nhanh_id']);
-        return view('co-so-dao-tao.chi_nhanh.danh-sach-nghe-chi-nhanh', compact('params', 'dsGiayPhep', 'chiNhanh', 'dsNgheChiNhanh'));
+        $dsNgheChiNhanh = $this->NganhNgheChiNhanhService->getNgheTheoChiNhanh($params);
+        $route_name = Route::current()->action['as'];
+        return view('co-so-dao-tao.chi_nhanh.danh-sach-nghe-chi-nhanh', compact('params', 'dsGiayPhep', 'chiNhanh', 'dsNgheChiNhanh', 'route_name'));
     }
 
     public function getNgheTheoGiayPhep(Request $request)
@@ -184,6 +189,9 @@ class ChiNhanhController extends Controller
                 'nghe_trung_cap.required_without' => 'Vui lòng chọn ít nhất 1 nghề'
             ]
         );
-        return $this->NganhNgheChiNhanhService->boSungNgheVaoChiNhanh($request);
+        $this->NganhNgheChiNhanhService->boSungNgheVaoChiNhanh($request);
+        return response()->json([
+            'message' => 'Thêm thành công'
+        ]);
     }
 }

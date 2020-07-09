@@ -23,8 +23,8 @@ class NganhNgheChiNhanhService extends AppService
         $this->repository->boSungNgheVaoChiNhanh($data, $nghe_cao_dang, $nghe_trung_cap);
     }
 
-    public function getNgheTheoChiNhanh($id)
+    public function getNgheTheoChiNhanh($params)
     {
-        return $this->repository->getNgheTheoChiNhanh($id);
+        return $this->repository->getNgheTheoChiNhanh($params);
     }
 }

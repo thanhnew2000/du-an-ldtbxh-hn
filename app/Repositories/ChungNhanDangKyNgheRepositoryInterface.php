@@ -10,5 +10,5 @@ interface ChungNhanDangKyNgheRepositoryInterface
     public function getNgheTheoGiayPhep($params, $bac_nghe = null);
     public function xoaNgheTrongGiayPhep($params);
     public function getTongSoTuyenSinhTheoNghe($params);
-    public function getNgheTheoChiNhanh($id);
+    public function getNgheTheoChiNhanh($params);
 }

@@ -89,6 +89,9 @@ class NganhNgheController extends Controller
         $dsNghe = [];
         $params = $request->all();
         if (!isset($params['page_size'])) $params['page_size'] = config('common.paginate_size.default');
+        if (!isset($params['bac_nghe'])) $params['bac_nghe'] = null;
+        if (!isset($params['ma_nghe'])) $params['ma_nghe'] = null;
+        if (!isset($params['ten_nghe'])) $params['ten_nghe'] = null;
 
         if (!empty($csdtid)) {
             $params['co_so_id'] = $csdtid;
