@@ -142,7 +142,7 @@
                                 {{-- <p id="helpId" class="form-text text-danger">
                                     @error('ten_quoc_te')
                                     {{ $message }}
-                                    @enderror
+                                @enderror
                                 </p> --}}
                             </div>
 

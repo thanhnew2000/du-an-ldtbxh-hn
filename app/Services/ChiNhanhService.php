@@ -23,8 +23,8 @@ class ChiNhanhService extends AppService
         return $this->repository->getSingleChiNhanh($id);
     }
 
-    public function getChiNhanhThuocCSDT($id)
+    public function getChiNhanhThuocCSDT($id, $params)
     {
-        return $this->repository->getChiNhanhThuocCSDT($id);
+        return $this->repository->getChiNhanhThuocCSDT($id, $params);
     }
 }

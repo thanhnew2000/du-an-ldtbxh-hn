@@ -11,6 +11,9 @@ class DoiNguNhaGiao extends Model
     protected $table = 'so_lieu_doi_ngu_nha_giao';
     protected $fillable = [
         'co_so_id',
+        'nghe_id',
+        'nam',
+        'dot',
         'tong_so_can_bo',
         'so_luong_nu',
         'dan_toc_it_nguoi',

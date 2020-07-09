@@ -76,7 +76,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-lg-2">
@@ -93,16 +92,16 @@
                 <strong>{!! \Session::get('mess') !!}</strong>
             </div>
             @endif
-                <div class="col-12 form-group m-form__group d-flex justify-content-end">
-                    <label class="col-lg-2 col-form-label">Kích thước:</label>
-                    <div class="col-lg-2">
-                        <select class="form-control" id="page-size">
-                            @foreach(config('common.paginate_size.list') as $size)
-                                <option @if($params['page_size']==$size) selected @endif value="{{$size}}">{{$size}}</option>
-                            @endforeach
-                        </select>
-                    </div>
+            <div class="col-12 form-group m-form__group d-flex justify-content-end">
+                <label class="col-lg-2 col-form-label">Kích thước:</label>
+                <div class="col-lg-2">
+                    <select class="form-control" id="page-size">
+                        @foreach(config('common.paginate_size.list') as $size)
+                        <option @if($params['page_size']==$size) selected @endif value="{{$size}}">{{$size}}</option>
+                        @endforeach
+                    </select>
                 </div>
+            </div>
             <table class="table m-table m-table--head-bg-brand">
                 <thead>
                     <th>STT</th>
@@ -112,12 +111,10 @@
                     {{-- <th>Logo</th> --}}
                     <th>Quyết định</th>
                     <th>Địa chỉ</th>
-                   @can('them_moi_co_so_dao_tao')
-                   <th><a href="{{route('csdt.tao-moi')}}" class="btn btn-success btn-sm mr-3">Thêm mới</a>
-                   </th>
-                   @endcan
-                    
-                    
+                    @can('them_moi_co_so_dao_tao')
+                    <th><a href="{{route('csdt.tao-moi')}}" class="btn btn-success btn-sm mr-3">Thêm mới</a>
+                    </th>
+                    @endcan
                 </thead>
                 <tbody>
                     @php($i=1)
@@ -133,7 +130,6 @@
                         <td>{{$csdt->dia_chi}}</td>
                         <td>
                             <div class="d-flex">
-                                
                                 <div>
                                     @can('xem_chi_tiet_co_so_dao_tao')
                                     <a href="{{route('csdt.chi-tiet', ['id'=> $csdt->id])}}"
@@ -141,8 +137,6 @@
                                         tiết</a>
                                     @endcan
                                 </div>
-                               
-                               
                                 <div>
                                     @can('cap_nhat_co_so_dao_tao')
                                     <a href="{{route('csdt.cap-nhat', ['id'=> $csdt->id])}}"
@@ -150,7 +144,6 @@
                                         nhật</a>
                                     @endcan
                                 </div>
-                                
                             </div>
                         </td>
                     </tr>

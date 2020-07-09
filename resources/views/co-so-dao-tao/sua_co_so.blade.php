@@ -62,7 +62,8 @@
                                 <div class="d-flex">
                                     <select class="form-control" name="co_quan_chu_quan_id" id="co_quan_chu_quan_id">
                                         @foreach ($parent as $cq)
-                                        <option @if($item->co_quan_chu_quan_id == $cq->id) selected @endif value="{{ $cq->id }}">{{ $cq->ten }}</option>
+                                        <option @if($item->co_quan_chu_quan_id == $cq->id) selected @endif
+                                            value="{{ $cq->id }}">{{ $cq->ten }}</option>
                                         @endforeach
                                     </select>
                                     <button class="col-2 btn btn-outline-metal" type="button" class="btn btn-danger"
@@ -96,7 +97,8 @@
                                 <div class="d-flex">
                                     <select class="form-control" name="quyet_dinh_id" id="quyet_dinh_id">
                                         @foreach ($qd as $quyetdinh)
-                                        <option @if($item->quyet_dinh_id == $quyetdinh->id) selected @endif value="{{ $quyetdinh->id }}">{{ $quyetdinh->ten }}</option>
+                                        <option @if($item->quyet_dinh_id == $quyetdinh->id) selected @endif
+                                            value="{{ $quyetdinh->id }}">{{ $quyetdinh->ten }}</option>
                                         @endforeach
                                     </select>
                                     <button class="col-2 btn btn-outline-metal" type="button" class="btn btn-danger"
@@ -135,7 +137,7 @@
                                 {{-- <p id="helpId" class="form-text text-danger">
                                     @error('ten_quoc_te')
                                     {{ $message }}
-                                    @enderror
+                                @enderror
                                 </p> --}}
                             </div>
                             <div class="form-group col-lg-12">
@@ -168,7 +170,8 @@
                                                 class="text-danger">(*)</span></label>
                                         <select class="form-control col-12" name="maqh" id="devvn_quanhuyen">
                                             @foreach ($quanhuyen as $qh)
-                                            <option @if($item->maqh == $qh->maqh) selected @endif value="{{ $qh->maqh }}">{{ $qh->name }}</option>
+                                            <option @if($item->maqh == $qh->maqh) selected @endif
+                                                value="{{ $qh->maqh }}">{{ $qh->name }}</option>
                                             @endforeach
                                         </select>
                                         <p id="helpId" class="form-text text-danger">
@@ -335,7 +338,7 @@
                                             <p class="text-danger" id="Err_ngay_het_han"></p>
                                         </div>
                                     </div>
-                                    
+
 
                                     <div class="form-group col-lg-12">
                                         <label class="form-name" for="">Loại quyết định <span
