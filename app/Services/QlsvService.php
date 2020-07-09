@@ -331,12 +331,12 @@ class QlsvService extends AppService
         $message = '';
         $spreadsheet = $this->createSpreadSheet($fileRead, $duoiFile);
         $data = $spreadsheet->getActiveSheet()->toArray();
-
         $truong = explode(' - ', $data[7][2]);
         $id_truong = trim(array_pop($truong));
 
 
         $csCheck = DB::table('co_so_dao_tao')->find($id_truong);
+        
         if ($csCheck == null) {
             $message = 'noCorrectIdTruong';
             return $message;
@@ -383,7 +383,6 @@ class QlsvService extends AppService
                             'dot' => $dot,
                             'nghe_id' => $data[$i][1],
                             'co_so_id' => $id_truong,
-                            'id_loai_hinh' => $csCheck->ma_loai_hinh_co_so,
 
                             'tong_so_HSSV_co_mat_cac_trinh_do' => $data[$i][7],
                             'tong_so_nu' => $data[$i][8],

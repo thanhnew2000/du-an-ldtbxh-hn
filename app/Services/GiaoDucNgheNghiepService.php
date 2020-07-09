@@ -315,10 +315,9 @@ class GiaoDucNgheNghiepService extends AppService
             }
      }
 
-         $file_xuat_name="File-nhap-giao-duc-nghe-nghiep ($co_so_loai->ten).xlsx";
         $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename='.$file_xuat_name);
+        header('Content-Disposition: attachment; filename="File-nhap-giao-duc-nghe-nghiep.xlsx"');
         $writer->save("php://output");
 
 
