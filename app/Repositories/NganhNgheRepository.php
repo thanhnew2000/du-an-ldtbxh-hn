@@ -37,12 +37,12 @@ class NganhNgheRepository extends BaseRepository implements NganhNgheRepositoryI
                             dk.nghe_id = nganh_nghe.id) as csdt_count')
         )
         ->where('bac_nghe', $params['bac_nghe'])
-        ->where('ma_cap_nghe', 4);
+        ->where('ma_cap_nghe', $params['ma_cap_nghe']);
         if (isset($params['keyword']) && $params['keyword'] != null) {
             $queryBuilder->where(function ($query) use ($params) {
 
                 $query->orWhere('ten_nganh_nghe', 'like', "%" . $params['keyword'] . "%")
-                    ->orwhere('id', $params['keyword']);
+                    ->orwhere('id',  'like', $params['keyword'] . "%");
             });
         }
         return $queryBuilder->paginate($params['page_size']);
@@ -168,5 +168,26 @@ class NganhNgheRepository extends BaseRepository implements NganhNgheRepositoryI
         ->get();
         return $nganhnghe;
     }
+
+    // Quanglx lấy nghề theo cấp độ
+    public function getNganhNgheTheoCapDo($length)
+    {
+        return $this->model->whereRaw('LENGTH(id) = ?',[$length])->get();
+    }
+
+    public function getNgheTheoCapBac($id, $cap_nghe)
+	{
+		$data = $this->model->where('id', 'like', $id.'%')->where('ma_cap_nghe', $cap_nghe)->orderBy('ten_nganh_nghe')->get();
+		return $data;
+    }
     
+    public function store($data)
+	{
+		return $this->model->insert($data);
+    }
+    
+    public function updateData($data,$id)
+    {
+        return $this->model->where('id',$id)->update($data);
+    }
 }
