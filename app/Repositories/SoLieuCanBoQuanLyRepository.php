@@ -26,7 +26,7 @@ class SoLieuCanBoQuanLyRepository extends BaseRepository
     {
         return $this->model
             ->join('co_so_dao_tao', 'co_so_dao_tao.id', '=', 'so_lieu_can_bo_quan_ly.co_so_dao_tao_id')
-            ->join('loai_hinh_co_so', 'loai_hinh_co_so.id', '=', 'so_lieu_can_bo_quan_ly.loai_hinh_co_so_id')
+            ->join('loai_hinh_co_so', 'loai_hinh_co_so.id', '=', 'co_so_dao_tao.ma_loai_hinh_co_so')
             // ->join('trang_thai', 'trang_thai.id', '=', 'so_lieu_can_bo_quan_ly.trang_thai_id')
             ->select([
                 'co_so_dao_tao.ten as ten_co_so',
@@ -45,7 +45,7 @@ class SoLieuCanBoQuanLyRepository extends BaseRepository
     {
         $queryBuilder = $this->model
             ->join('co_so_dao_tao', 'co_so_dao_tao.id', '=', 'so_lieu_can_bo_quan_ly.co_so_dao_tao_id')
-            ->join('loai_hinh_co_so', 'loai_hinh_co_so.id', '=', 'so_lieu_can_bo_quan_ly.loai_hinh_co_so_id')
+            ->join('loai_hinh_co_so', 'loai_hinh_co_so.id', '=', 'co_so_dao_tao.ma_loai_hinh_co_so')
             ->select([
                 'co_so_dao_tao.ten as ten_co_so',
                 'co_so_dao_tao.id as co_so_dao_tao_id',
@@ -58,8 +58,8 @@ class SoLieuCanBoQuanLyRepository extends BaseRepository
             $queryBuilder->where('co_so_dao_tao.id', $params['co_so_dao_tao_id']);
         }
 
-        if (isset($params['loai_hinh_co_so_id']) && !empty($params['loai_hinh_co_so_id'])) {
-            $queryBuilder->where('loai_hinh_co_so.id', $params['loai_hinh_co_so_id']);
+        if (isset($params['loai_hinh_id']) && !empty($params['loai_hinh_id'])) {
+            $queryBuilder->where('loai_hinh_co_so.id', $params['loai_hinh_id']);
         }
 
         if (isset($params['nam']) && !empty($params['nam'])) {

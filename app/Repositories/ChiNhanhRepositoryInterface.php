@@ -10,5 +10,5 @@ interface ChiNhanhRepositoryInterface
 
     public function getSingleChiNhanh($id);
 
-    public function getChiNhanhThuocCSDT($id);
+    public function getChiNhanhThuocCSDT($id, $params);
 }

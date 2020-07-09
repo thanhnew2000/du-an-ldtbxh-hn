@@ -284,7 +284,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group m-form__group row">
-                                        <label class="col-lg-7 col-form-label">Số lượng sửa chương chình CĐ</label>
+                                        <label class="col-lg-7 col-form-label">Số lượng sửa chương trình CĐ</label>
                                         <div class="col-lg-5">
                                             <input type="number" min="0" class="form-control m-input name-field"
                                                 placeholder="Nhập vào số" name="sua_chuong_trinh_CD"
@@ -296,7 +296,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group m-form__group row">
-                                        <label class="col-lg-7 col-form-label">Số lượng sửa chương chình CT</label>
+                                        <label class="col-lg-7 col-form-label">Số lượng sửa chương trình CT</label>
                                         <div class="col-lg-5">
                                             <input type="number" min="0" class="form-control m-input name-field"
                                                 placeholder="Nhập vào số" name="sua_chuong_trinh_TC"
@@ -308,7 +308,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group m-form__group row">
-                                        <label class="col-lg-7 col-form-label">Số lượng sửa chương chình SC</label>
+                                        <label class="col-lg-7 col-form-label">Số lượng sửa chương trình SC</label>
                                         <div class="col-lg-5">
                                             <input type="number" min="0" class="form-control m-input name-field"
                                                 placeholder="Nhập vào số" name="sua_chuong_trinh_SC"

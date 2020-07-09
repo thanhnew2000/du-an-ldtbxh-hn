@@ -48,7 +48,7 @@ class PheDuyetBaoCaoService extends AppService
 
     public function getListTrangThai($baoCao, $selects = ['*'])
     {
-        $listTrangThaiId = $this->getListTrangThaiCoTheThayDoi($baoCao->trang_thai);
+        $listTrangThaiId = $this->getListTrangThaiCoTheThayDoi($baoCao);
 
         return app(TrangThai::class)
             ->whereIn('id', $listTrangThaiId)
@@ -56,35 +56,52 @@ class PheDuyetBaoCaoService extends AppService
             ->get();
     }
 
-    public function getListTrangThaiCoTheThayDoi($trangThaiBaoCao)
+    public function getListTrangThaiCoTheThayDoi($baoCao)
     {
         $trangThai = config('common.phe_duyet.trang_thai');
+        $authUser = auth()->user();
+        $tblPheDuyet = $baoCao->pheDuyetBaoCao->getTable();
         $listTrangThaiId = [];
-        switch ($trangThaiBaoCao) {
+
+        switch ($baoCao->trang_thai) {
             case $trangThai['cho_phe_duyet']:
-                $listTrangThaiId = Arr::only($trangThai, [
-                    'tu_choi',
-                    'phe_duyet_lan_1',
-                    'phe_duyet_lan_2',
-                ]);
+                if ($authUser->can('phe_duyet_1_' . $tblPheDuyet)) {
+                    $listTrangThaiId = Arr::only($trangThai, [
+                        'tu_choi',
+                        'phe_duyet_lan_1',
+                    ]);
+                }
+
+                if ($authUser->can('phe_duyet_2_' . $tblPheDuyet)) {
+                    $listTrangThaiId = Arr::only($trangThai, [
+                        'tu_choi',
+                        'phe_duyet_lan_1',
+                        'phe_duyet_lan_2',
+                    ]);
+                }
+
+
                 break;
-            case $trangThai['tu_choi']:
-                $listTrangThaiId = Arr::only($trangThai, [
-                    'cho_phe_duyet',
-                ]);
-                break;
+
             case $trangThai['phe_duyet_lan_1']:
-                $listTrangThaiId = Arr::only($trangThai, [
-                    'tu_choi',
-                    'phe_duyet_lan_2',
-                ]);
+                if ($authUser->can('phe_duyet_2_' . $tblPheDuyet)) {
+                    $listTrangThaiId = Arr::only($trangThai, [
+                        'tu_choi',
+                        'phe_duyet_lan_2',
+                    ]);
+                }
+
                 break;
             case $trangThai['phe_duyet_lan_2']:
-                $listTrangThaiId = Arr::only($trangThai, [
-                    'cho_phe_duyet',
-                    'phe_duyet_lan_1',
-                    'phe_duyet_lan_2',
-                ]);
+                if ($authUser->can('phe_duyet_2_' . $tblPheDuyet)) {
+                    $listTrangThaiId = Arr::only($trangThai, [
+                        'cho_phe_duyet',
+                        'tu_choi',
+                        'phe_duyet_lan_1',
+                        'phe_duyet_lan_2',
+                    ]);
+                }
+
                 break;
             default:
                 $listTrangThaiId = Arr::only($trangThai, [

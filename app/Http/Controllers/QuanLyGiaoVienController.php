@@ -7,7 +7,6 @@ use App\Services\GiaoVienService;
 use App\Http\Requests\GiaoVien\StoreRequest;
 use App\Http\Requests\GiaoVien\UpdateRequest;
 use App\Models\GiaoVien;
-
 use Illuminate\Support\Facades\DB;
 
 class QuanLyGiaoVienController extends Controller

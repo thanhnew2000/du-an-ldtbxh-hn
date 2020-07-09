@@ -8,7 +8,7 @@
  */
 
 use Illuminate\Support\Facades\Route;
-Route::group(['middleware' => ['permission:danh_sach_quan_ly_giao_vien']], function () {
+Route::group(['prefix' => 'quan-ly-giao-vien','middleware' => ['permission:danh_sach_quan_ly_giao_vien']], function () {
         Route::get('/quan-ly-giao-vien', 'QuanLyGiaoVienController@index')->name('ql-giao-vien.index');
 });
 
@@ -24,12 +24,17 @@ Route::group([
         Route::get('edit/{giaoVien}', 'QuanLyGiaoVienController@edit')->name('ql-giao-vien.edit');
         Route::post('update/{giaoVien}', 'QuanLyGiaoVienController@update')->name('ql-giao-vien.update');
 });
-    
+
+Route::group(['prefix' => 'quan-ly-giao-vien'], function () {
     // thanhnv import export doi ngu nha giao bm-9
     Route::post('import-file-ql-giao-vien', 'QuanLyGiaoVienController@importFile')
-        ->name('import-quan-ly-giao-vien');
-    Route::post('import-error-ql-giao-vien', 'QuanLyGiaoVienController@importError')
-        ->name('import-error-quan-ly-giao-vien');
+    ->name('import-quan-ly-giao-vien');
+Route::post('import-error-ql-giao-vien', 'QuanLyGiaoVienController@importError')
+    ->name('import-error-quan-ly-giao-vien');
+});
+
+    
+   
 
 //CườngNC - Update Middleware - 
 Route::group(['middleware' => ['permission:danh_sach_doi_ngu_quan_ly|them_moi_danh_sach_doi_ngu_quan_ly|cap_nhat_danh_sach_doi_ngu_quan_ly|
@@ -43,21 +48,12 @@ xem_chi_tiet_danh_sach_doi_ngu_quan_ly']], function () {
     Route::post('so-lieu-can-bo-quan-ly/import-error-so-lieu-quan-ly', 'ImportSoLieuCanBoQlController@importError')
         ->name('import-error-so-lieu-quan-ly');
 
-
-// thanhnv import export
-Route::post('so-lieu-can-bo-quan-ly/import-so-lieu-quan-ly', 'SoLieuCanBoQuanLyController@importFile')
-    ->name('import-so-lieu-quan-ly');
-Route::post('so-lieu-can-bo-quan-ly/import-error-so-lieu-quan-ly', 'SoLieuCanBoQuanLyController@importError')
-    ->name('import-error-so-lieu-quan-ly');
-
 Route::group(['prefix' => 'can-bo-quan-ly'], function () {
     Route::get('/', 'ImportReportController@doingucanboquanly')->name('nhapbc.quan-ly');
 });
 
 Route::group(['prefix' => 'chinh-sach-cho-sinh-vien'], function () {
     Route::get('/', 'ImportReportController@chinhsachchosinhvien')->name('nhapbc.chinh-sach-sv');
-
-
     // thanhnv import export
     Route::post('import-bieu-mau-chinh-sach-sv','ChinhSachSinhVienController@importFile')
     ->name('import-chinh-sach-sinh-vien');
@@ -103,11 +99,13 @@ Route::group(['prefix' => 'dao-tao-nghe-cho-nguoi-khuyet-tat','middleware' => ['
     Route::get('/show/{id}', 'DaoTaoNgheChoNguoiKhuyetTatController@show')->name('nhapbc.dao-tao-khuyet-tat.show');
 });
 
-
+Route::group(['prefix' => 'dao-tao-nghe-cho-nguoi-khuyet-tat'], function () {
     Route::post('/check-them-dao-tao-cho-nguoi-khuyet-tat', 'DaoTaoNgheChoNguoiKhuyetTatController@getCheckTonTaiDaoTaoChoNguoiKhuyetTat')->name('nhapbc.dao-tao-khuyet-tat.check_so_lieu');
     //thanhnv import
     Route::post('import-kq-dao-tao-nguoi-khuyet-tat', 'DaoTaoNgheChoNguoiKhuyetTatController@importFile')->name('importketqua.dao-tao-nguoi-khuyet-tat');
     Route::post('import-error-kq-dao-tao-nguoi-khuyet-tat', 'DaoTaoNgheChoNguoiKhuyetTatController@importError')->name('import.error.kq-dao-tao-nguoi-khuyet-tat');
+});
+    
 // quảng đào tạo nghề cho thanh niên
 
 //Start - CườngNC - UpdateMiddleware - 30/062020 - Đào tạo thanh niên
@@ -127,11 +125,15 @@ Route::group(['prefix' => 'dao-tao-nghe-cho-thanh-nien','middleware' => ['permis
    
 Route::group(['prefix' => 'dao-tao-nghe-cho-thanh-nien','middleware' => ['permission:chi_tiet_tong_hop_nghe_cho_thanh_nien']], function () {
     Route::get('/show/{id}', 'DaoTaoNgheThanhNienController@show')->name('nhapbc.dao-tao-thanh-nien.show');
-});     
+});
+
+Route::group(['prefix' => 'dao-tao-nghe-cho-thanh-nien'], function () {
     Route::post('/check-them-dao-tao-thanh-nien', 'DaoTaoNgheThanhNienController@getCheckDaoTaoThanhNien')->name('nhapbc.dao-tao-thanh-nien.check_so_lieu');
     //thanhnv import
     Route::post('import-kq-dao-tao-thanh-nien', 'DaoTaoNgheThanhNienController@importFile')->name('importketqua.dao-tao-thanh-nien');
     Route::post('import-error-kq-dao-tao-thanh-nien', 'DaoTaoNgheThanhNienController@importError')->name('import.error.kq-dao-tao-thanh-nien');
+});
+   
 //End - CườngNC - UpdateMiddleware - 30/062020 - Đào tạo thanh niên
 
 Route::group(['prefix' => 'dao-tao-nghe-doanh-nghiep'], function () {

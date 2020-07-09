@@ -28,7 +28,7 @@ class PheDuyetRequest extends FormRequest
     {
         $baoCao = PheDuyetBaoCao::find($this->bao_cao_id);
         $listTrangThaiId = app(PheDuyetBaoCaoService::class)
-            ->getListTrangThaiCoTheThayDoi($baoCao->trang_thai);
+            ->getListTrangThaiCoTheThayDoi($baoCao);
 
         return [
             'bao_cao_id' => 'required|exists:tien_do_phe_duyet,id',

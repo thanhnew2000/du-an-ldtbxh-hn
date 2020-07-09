@@ -89,7 +89,7 @@ return [
     'firestore_notification_status' => [
         'unread' => 1,
         'read' => 2,
-        'read_detail'=>3
+        'read_detail' => 3
     ],
     'notify_module' => [
         'tu_van_ho_tro' => 'tu-van-ho-tro'
@@ -106,5 +106,10 @@ return [
             'phe_duyet_lan_2' => 4,
         ],
     ],
+    'loai_chi_nhanh' => [
+        'chi_nhanh_chinh' => 1,
+        'chi_nhanh_phu' => 0
+    ],
+
     'default_member_role' => 30
 ];

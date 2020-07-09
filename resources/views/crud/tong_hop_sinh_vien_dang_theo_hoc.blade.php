@@ -26,22 +26,6 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group m-form__group row">
-                                <label class="col-lg-2 col-form-label">Loại Hình Cơ Sở: </label>
-                                <div class="col-lg-8">
-                                    <select name="loai_hinh" class="form-control ">
-                                        <option value="">Chọn </option>
-                                        @foreach($loaiHinh as $item)
-                                        <option @if(isset($params['loai_hinh']) && $params['loai_hinh']==$item->id)
-                                            selected
-                                            @endif
-                                            value="{{ $item->id }}">{{ $item->loai_hinh_co_so }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group m-form__group row">
                                 <label class="col-lg-2 col-form-label">Tên Cơ Sở: </label>
                                 <div class="col-lg-8">
                                     <select name="cs_id" class="form-control" id="co_so_id">
@@ -56,6 +40,23 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group m-form__group row">
+                                <label class="col-lg-2 col-form-label">Loại Hình Cơ Sở: </label>
+                                <div class="col-lg-8">
+                                    <select name="loai_hinh" class="form-control ">
+                                        <option value="">Chọn </option>
+                                        @foreach($loaiHinh as $item)
+                                        <option @if(isset($params['loai_hinh']) && $params['loai_hinh']==$item->id)
+                                            selected
+                                            @endif
+                                            value="{{ $item->id }}">{{ $item->loai_hinh_co_so }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <div class="row">
@@ -156,12 +157,17 @@
                     </select>
                 </div>
             </div>
+            @if (session('thongbao'))
+            <div class="alert alert-success" role="alert">
+                <strong>{{session('thongbao')}}</strong>
+            </div>
+            @endif
             <table class="table m-table m-table--head-bg-brand">
                 <thead>
                     @csrf
                     <th>STT</th>
                     <th>Tên Cơ Sở</th>
-                    <th>Loại Hình Cơ Sở</th>
+
                     <th>Năm</th>
                     <th>Đợt</th>
                     <th>Tổng Số HS/SV <br> đang quản lý</th>
@@ -179,7 +185,7 @@
                 <tr>
                     <td>{{$i++}}</td>
                     <td>{{$qlsv->ten}}</td>
-                    <td>{{$qlsv->loai_hinh_co_so}}</td>
+
                     <td>{{$qlsv->nam}}</td>
                     <td>{{$qlsv->dot}}</td>
                     <td>{{$qlsv->tong_so_HSSV_co_mat}}</td>
@@ -208,23 +214,23 @@
 {{-- thanhnv form nhập xuất --}}
 
 @include('layouts.formExcel.from', [
-    'routeLayFormBieuMau' => 'export.bieumau.hsdql',
-    'routeImportError' => 'import.error.hssv-ql',
-    'routeExportData' => 'export.data.hsql'
-]) 
+'routeLayFormBieuMau' => 'export.bieumau.hsdql',
+'routeImportError' => 'import.error.hssv-ql',
+'routeExportData' => 'export.data.hsql'
+])
 
 @endsection
 @section('script')
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
-    {{-- thanhvn update js 6/25/2020 --}}
-    <script>
-        var routeImport = "{{route('import.hssv.ql')}}";
-    </script>
-    <script src="{!! asset('excel-js/js-xuat-time.js') !!}"></script>
-    <script src="{!! asset('excel-js/js-form.js') !!}"></script>
-    {{-- end --}}
+{{-- thanhvn update js 6/25/2020 --}}
+<script>
+    var routeImport = "{{route('import.hssv.ql')}}";
+</script>
+<script src="{!! asset('excel-js/js-xuat-time.js') !!}"></script>
+<script src="{!! asset('excel-js/js-form.js') !!}"></script>
+{{-- end --}}
 
 <script>
     $(document).ready(function(){

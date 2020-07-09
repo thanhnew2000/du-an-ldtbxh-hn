@@ -1,33 +1,33 @@
-$("#co_so_dao_tao").change(function () {
+$("#co_so_id").change(function () {
     var op = $("select option:selected").val();
     axios
         .post(routeGetMaNganhNghe, {
-            id: $("#co_so_dao_tao").val(),
+            id: $("#co_so_id").val(),
         })
         .then(function (response) {
             var htmldata = '<option value="" >Chọn</option>';
             response.data.forEach((element) => {
                 htmldata += `<option value="${element.id}" >${element.ten_nganh_nghe}-${element.id}</option>`;
             });
-            if ($("#co_so_dao_tao").val() == "") {
-                $("#ma_nganh_nghe").attr("disabled", true);
+            if ($("#co_so_id").val() == "") {
+                $("#nghe_id").attr("disabled", true);
             } else {
-                $("#ma_nganh_nghe").attr("disabled", false);
+                $("#nghe_id").attr("disabled", false);
             }
 
-            $("#ma_nganh_nghe").html(htmldata);
+            $("#nghe_id").html(htmldata);
         })
         .catch(function (error) {
             console.log(error);
         });
     if (op == '') {
-        $("#ma_nganh_nghe-error").html("");
+        $("#nghe_id-error").html("");
     } else {
-        $("#ma_nganh_nghe-error").html("");
+        $("#nghe_id-error").html("");
         $("#co_so_dao_tao-error").html("");
     }
 });
-//phuc validate js
+//Validate
 $('[name="co_so_id"]').change(function () {
     let op = $(this).val();
     let mes = op != '' ? "" : "Vui lòng chọn cơ sở";
@@ -116,10 +116,11 @@ $("#validate-form-add").validate({
     rules: rules,
     messages: messages,
 });
-//endphuc validate js
+//end validate
 var arrcheck = [];
 
 function getdatacheck(id) {
+
     var datacheck = {
         id: $(id).attr("name"),
         value: $(id).val(),

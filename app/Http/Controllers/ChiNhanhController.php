@@ -39,8 +39,9 @@ class ChiNhanhController extends Controller
         if (!isset($params['ten_co_so'])) $params['ten_co_so'] = null;
         if (!isset($params['ma_chung_nhan'])) $params['ma_chung_nhan'] = null;
         if (!isset($params['loai_chi_nhanh'])) $params['ma_don_vi'] = null;
+        if (!isset($params['page_size'])) $params['page_size'] = config('common.paginate_size.default');
         if (isset($id)) {
-            $data = $this->ChiNhanhService->getChiNhanhThuocCSDT($id);
+            $data = $this->ChiNhanhService->getChiNhanhThuocCSDT($id, $params);
         } else {
             $data = $this->ChiNhanhService->getChiNhanh($params);
         }
