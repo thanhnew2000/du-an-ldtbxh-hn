@@ -12,7 +12,7 @@ class PhanQuyenRepository extends AppRepository
 
     protected $fieldSearchable = [
         'name',
-        'permissions'
+        'permissions',
     ];
 
 
@@ -27,5 +27,15 @@ class PhanQuyenRepository extends AppRepository
     public function model()
     {
         return Role::class;
+    }
+
+
+    public function getQuyen($params)
+    {
+       $query = $this->model::query();
+        if(isset($params['role']) && $params['role'] != null){
+            $query->where('id','=',$params['role']);
+        }
+        return $query->get();
     }
 }
