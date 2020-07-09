@@ -4,10 +4,38 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+use App\Services\ChartTongSoLuongTruongService;
+use App\Services\ChartTongKetQuaTuyenSinhService;
+use App\Services\ChartSoLieuCanBoQuanLyService;
+
+
 class AnalysisController extends Controller
 {
-    function index(){
+    // hieupt chart 
+    protected $ChartTongSoLuongTruongService;
+    protected $ChartTongKetQuaTuyenSinhService;
+    protected $ChartSoLieuCanBoQuanLyService;
 
+
+    public function __construct(
+        ChartTongSoLuongTruongService $ChartTongSoLuongTruongService,
+        ChartTongKetQuaTuyenSinhService $ChartTongKetQuaTuyenSinhService,
+        ChartSoLieuCanBoQuanLyService $ChartSoLieuCanBoQuanLyService
+
+
+
+    ){
+        $this->ChartTongSoLuongTruongService = $ChartTongSoLuongTruongService;
+        $this->ChartTongKetQuaTuyenSinhService = $ChartTongKetQuaTuyenSinhService;
+        $this->ChartSoLieuCanBoQuanLyService = $ChartSoLieuCanBoQuanLyService;
+
+
+
+    }
+    // end hieupt chart
+
+    function index(){
         // thống kê cơ sở đào tạo
         $data=[];
         $cs_dao_tao = DB::table('loai_hinh_co_so')->get();
@@ -37,6 +65,19 @@ class AnalysisController extends Controller
 
 
         // return view('index',['data'=>$data_return,'data_json_tot_nghiep'=>$data_json_tot_nghiep,'data_json_tuyen_sinh'=>$data_json_tuyen_sinh]);
-        return view('index',['data'=>$data_return]);
+        
+
+        // HIEUPT CHART 7/2/2020
+        $tongkqtuyensinh = $this->ChartTongKetQuaTuyenSinhService->getTongKetQuaTuyenSinhChart();
+        $tongsoluongtruong = $this->ChartTongSoLuongTruongService->getTongSoLuongTruongChart();
+        $canboquanly = $this->ChartSoLieuCanBoQuanLyService->getSoLieuCanBoQuanLyChart();
+    
+        // dd($kq[0]->so_luong_sv_So_cap);
+       
+
+       
+
+
+        return view('index',['data'=>$data_return],compact('tongkqtuyensinh','tongsoluongtruong','canboquanly'));
     }
 }

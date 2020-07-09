@@ -136,6 +136,7 @@ class NganhNgheRepository extends BaseRepository implements NganhNgheRepositoryI
         if (!empty($listIds)) {
             $query->whereIn('id', $listIds);
         }
+        $query->where('ma_cap_nghe', 4);
 
         return $query->get();
     }
@@ -145,12 +146,14 @@ class NganhNgheRepository extends BaseRepository implements NganhNgheRepositoryI
         $limit = config('common.paginate_size.default');
         $queryBuilder = $this->model
             ->select($selects);
-
+        $queryBuilder->where('ma_cap_nghe', 4);
         if (
-            isset($params['keyword']) &&
-            ($params['keyword'] == 0 || !empty($params['keyword']))
+            isset($params['keyword']) && !empty($params['keyword'])
         ) {
-            $queryBuilder->whereLike('ten_nganh_nghe', $params['keyword']);
+            $queryBuilder->where(function ($query) use ($params) {
+                $query->where('ten_nganh_nghe', 'like', "%".$params['keyword']."%")
+                    ->orwhere('id', 'like', "%".$params['keyword']."%");
+            });
         }
 
         return $queryBuilder->paginate($limit);
