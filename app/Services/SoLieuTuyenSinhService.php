@@ -293,10 +293,10 @@ class SoLieuTuyenSinhService extends AppService
             $worksheet->getStyle('F'.$row)->getProtection()->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED);
             $worksheet->getStyle('G'.$row)->getProtection()->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED);
         };
-
+        $file_xuat_name="File-nhap-so-lieu-tuyen-sinh ($co_so->ten).xlsx";
         $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="File-nhap-so-lieu-tuyen-sinh.xlsx"');
+        header('Content-Disposition: attachment; filename='.$file_xuat_name);
         $writer->save("php://output");
     }
 

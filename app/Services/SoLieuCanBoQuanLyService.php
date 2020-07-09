@@ -168,9 +168,10 @@ class SoLieuCanBoQuanLyService extends AppService
         $arrayLock =['B9','C9','D9','E9','A9','A8'];
         $this->lockedCellInExcel($worksheet,$arrayLock);
 
+        $file_xuat_name="File-nhap-so-lieu-can-bo-quan-ly ($co_so->ten).xlsx";
         $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="File-nhap-so-lieu-can-bo-quan-ly.xlsx"');
+        header('Content-Disposition: attachment; filename='.$file_xuat_name);
         $writer->save("php://output");
     }
 

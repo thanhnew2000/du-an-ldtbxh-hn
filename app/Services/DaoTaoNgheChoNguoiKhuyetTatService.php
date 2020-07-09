@@ -272,10 +272,11 @@ class DaoTaoNgheChoNguoiKhuyetTatService extends AppService
             $worksheet->setCellValue('B'.$row, $cs_n->ten_nganh_nghe.' - '.$cs_n->id);
             $this->sumRowInExcel($worksheet,$row);
         };
-
+        
+        $file_xuat_name="File-nhap-dao-tao-nghe-khuyet-tat ($co_so->ten).xlsx";
         $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="File-nhap-dao-tao-nghe-khuyet-tat.xlsx"');
+        header('Content-Disposition: attachment; filename='.$file_xuat_name);
         $writer->save("php://output");
 
 

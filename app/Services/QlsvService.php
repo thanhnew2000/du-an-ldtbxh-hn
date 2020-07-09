@@ -233,9 +233,10 @@ class QlsvService extends AppService
             $this->lockedCellInExcel($worksheet, $arrayLock);
         };
 
+        $file_xuat_name="File-nhap-sinh-vien-dang-theo-hoc ($co_so->ten).xlsx";
         $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="File-nhap-sinh-vien-dang-theo-hoc.xlsx"');
+        header('Content-Disposition: attachment; filename='.$file_xuat_name);
         $writer->save("php://output");
     }
 

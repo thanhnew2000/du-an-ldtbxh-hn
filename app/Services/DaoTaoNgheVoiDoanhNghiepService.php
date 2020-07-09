@@ -261,9 +261,10 @@ class DaoTaoNgheVoiDoanhNghiepService extends AppService
             $worksheet->setCellValue("C{$row}", "=SUM(D{$row}:G{$row})");
         };
 
+        $file_xuat_name="File-nhap-dao-tao-tuyen-sinh-doanh-nghiep ($co_so->ten).xlsx";
         $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="File-nhap-dao-tao-tuyen-sinh-doanh-nghiep.xlsx"');
+        header('Content-Disposition: attachment; filename='.$file_xuat_name);
         $writer->save("php://output");
     }
 
