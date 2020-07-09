@@ -174,7 +174,16 @@ class ChiNhanhController extends Controller
 
     public function boSungNgheVaoChiNhanh(Request $request)
     {
-        $data = $request->all();
-        return $this->NganhNgheChiNhanhService->boSungNgheVaoChiNhanh($data);
+        $request->validate(
+            [
+                'nghe_cao_dang' => 'required_without:nghe_trung_cap|array',
+                'nghe_trung_cap' => 'required_without:nghe_cao_dang|array'
+            ],
+            [
+                'nghe_cao_dang.required_without' => 'Vui lòng chọn ít nhất 1 nghề',
+                'nghe_trung_cap.required_without' => 'Vui lòng chọn ít nhất 1 nghề'
+            ]
+        );
+        return $this->NganhNgheChiNhanhService->boSungNgheVaoChiNhanh($request);
     }
 }

@@ -97,6 +97,13 @@ class ChungNhanDangKyNgheRepository extends BaseRepository implements ChungNhanD
         if (isset($bac_nghe)) {
             $queryBuilder->where('nganh_nghe.bac_nghe', $bac_nghe);
         }
+        if (!empty($params['chi_nhanh_id'])) {
+            $queryBuilder->whereNotIn('giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.id', function ($q) use ($params) {
+                $q->select('nganh_nghe_chi_nhanh.giay_chung_nhan_id')
+                    ->from('nganh_nghe_chi_nhanh')
+                    ->where('nganh_nghe_chi_nhanh.chi_nhanh_id', $params['chi_nhanh_id']);
+            });
+        }
         if (isset($params['page_size'])) {
             return $queryBuilder->orderByDesc('giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao.id')->paginate($params['page_size']);
         } else {

@@ -14,9 +14,13 @@ class NganhNgheChiNhanhService extends AppService
         return NganhNgheChiNhanhRepository::class;
     }
 
-    public function boSungNgheVaoChiNhanh($data)
+    public function boSungNgheVaoChiNhanh($request)
     {
-        $this->repository->boSungNgheVaoChiNhanh($data);
+        $nghe_trung_cap = $request->get('nghe_trung_cap');
+        $nghe_cao_dang = $request->get('nghe_cao_dang');
+
+        $data = $request->all();
+        $this->repository->boSungNgheVaoChiNhanh($data, $nghe_cao_dang, $nghe_trung_cap);
     }
 
     public function getNgheTheoChiNhanh($id)

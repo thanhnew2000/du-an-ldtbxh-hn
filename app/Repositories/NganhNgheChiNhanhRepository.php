@@ -21,13 +21,10 @@ class NganhNgheChiNhanhRepository extends BaseRepository implements NganhNgheChi
         return 'nganh_nghe_chi_nhanh';
     }
 
-    public function boSungNgheVaoChiNhanh($data)
+    public function boSungNgheVaoChiNhanh($data, $nghe_cao_dang = [], $nghe_trung_cap = [])
     {
-        $nghe_cao_dang = $data['nghe_cao_dang'];
-        $nghe_trung_cap = $data['nghe_trung_cap'];
-
         $arrayInsert = [];
-        if (count($nghe_cao_dang) > 0) {
+        if (isset($nghe_cao_dang)) {
             for ($i = 0; $i < count($nghe_cao_dang); $i++) {
                 $arrayInsert[] = [
                     'chi_nhanh_id' => $data['chi_nhanh_id'],
@@ -36,7 +33,7 @@ class NganhNgheChiNhanhRepository extends BaseRepository implements NganhNgheChi
             }
         }
 
-        if (count($nghe_trung_cap)) {
+        if (isset($nghe_trung_cap) > 0) {
             for ($i = 0; $i < count($nghe_trung_cap); $i++) {
                 $arrayInsert[] = [
                     'chi_nhanh_id' => $data['chi_nhanh_id'],

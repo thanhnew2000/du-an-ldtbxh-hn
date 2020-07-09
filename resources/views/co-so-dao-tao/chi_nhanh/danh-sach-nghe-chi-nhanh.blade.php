@@ -15,21 +15,25 @@
                 </div>
             </div>
         </div>
+
+        @if (isset($chiNhanh))
+        <div class="m-portlet__body">
+            <div class="m-portlet__head-title mb-3">
+                <h5 class="m-portlet__head-text">
+                    Thông tin cơ sở
+                </h5>
+                <ul>
+                    <li class="m-portlet__head-text"><b>{{ $chiNhanh[0]->ten_co_so }}</b></li>
+                    <li class="m-portlet__head-text">Cơ sở: <b>{{ $chiNhanh[0]->dia_chi }}</b></li>
+                </ul>
+            </div>
+        </div>
+        @endif
     </div>
     <div class="m-portlet">
         <div class="m-portlet__body">
             <div class="d-flex justify-content-between align-items-end">
-                @if (isset($chiNhanh))
-                <div class="m-portlet__head-title mb-3">
-                    <h5 class="m-portlet__head-text">
-                        Thông tin cơ sở
-                    </h5>
-                    <ul>
-                        <li class="m-portlet__head-text"><b>{{ $chiNhanh[0]->ten_co_so }}</b></li>
-                        <li class="m-portlet__head-text">Cơ sở: <b>{{ $chiNhanh[0]->dia_chi }}</b></li>
-                    </ul>
-                </div>
-                @endif
+
 
                 <div class="col-7 form-group m-form__group d-flex justify-content-end">
                     <label class="col-lg-2 col-form-label">Kích thước:</label>
@@ -68,7 +72,7 @@
                                         <div class="form-group col-lg-12">
                                             <label class="form-name" for="">Chọn giấy phép:</label>
                                             <select class="form-control" name="giay_phep_id" id="chon-giay-phep-ajax">
-                                                <option selected>---------Chọn giấy phép---------</option>
+                                                <option selected disabled>---------Chọn giấy phép---------</option>
                                                 @forelse ($dsGiayPhep as $GP)
                                                 <option value="{{ $GP->giay_phep_id }}">{{ $GP->ten_giay_phep }}
                                                 </option>
@@ -97,6 +101,9 @@
                                                     id="chon-nghe-trung-cap">
                                                 </select>
                                             </div>
+                                            <div class="col-12">
+                                                <p id="Err-chon-nghe" class="text-danger"></p>
+                                            </div>
                                         </form>
                                     </div>
                                     <div class="loading-select-nghe" id="loading-select-nghe">
@@ -115,12 +122,13 @@
             </div>
 
             <table class="table m-table m-table--head-bg-brand">
-                <thead>
+                <thead class="thead-align-midle">
                     <th>STT</th>
                     <th>Tên nghề</th>
                     <th>Mã Nghề</th>
                     <th>Bậc nghề</th>
-                    <th>Quy mô tuyển sinh/năm</th>
+                    <th>Quy mô tuyển sinh <br>
+                        người/năm</th>
                     <th>Quyết định số</th>
                     <th>Ngày ban hành</th>
                     <th>Ngày hết hạn</th>
@@ -209,6 +217,7 @@
             dataType: "json",
             url: "{{route('chi-nhanh.get-nganh-nghe')}}",
             data: {
+                chi_nhanh_id: $('#chi-nhanh-id-ajax').val(),
                 co_so_id: $('#co-so-id-ajax').val(),
                 giay_phep_id: $('#chon-giay-phep-ajax').val(),
                 _token: '{{csrf_token()}}'
@@ -228,16 +237,18 @@
                         ${element.ten_nghe}</option>`
                 });
                 $('#chon-nghe-trung-cap').html(htmldata2);
-                console.log(response.ngheCD, response.ngheTC);
-            },
-            error: function() {
-                console.log('haha');
             }
         });
     });
 
     $('#btn-summit-nghe-ajax').click(function(event){
         event.preventDefault();
+
+        if($('#chon-nghe-cao-dang').val() == '' || $('#chon-nghe-trung-cap').val() == ''){
+            $('#Err-chon-nghe').text('Vui lòng chọn ít nhất 1 nghề');
+            return false;
+        }
+
         $.ajax({
             type: 'post',
             dataType: 'json',
@@ -248,9 +259,26 @@
                 nghe_cao_dang: $('#chon-nghe-cao-dang').val(),
                 nghe_trung_cap: $('#chon-nghe-trung-cap').val(),
                 _token: '{{csrf_token()}}'
+            },
+            success: function(response){
+                console.log(response);
+            },
+            error: function(data){
+                var errors = data.responseJSON;
+                if(errors.errors.nghe_cao_dang.length || errors.errors.nghe_trung_cap.length){
+                    $('#Err-chon-nghe').text('Vui lòng chọn ít nhất 1 nghề');
+                };
             }
         })
     });
+
+    $('#chon-nghe-cao-dang').change(function(){
+        $('#Err-chon-nghe').text('');
+    });
+
+    $('#chon-nghe-trung-cap').change(function(){
+        $('#Err-chon-nghe').text('');
+    })
 </script>
 
 
