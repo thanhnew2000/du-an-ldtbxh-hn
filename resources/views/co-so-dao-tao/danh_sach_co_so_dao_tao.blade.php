@@ -108,7 +108,7 @@
                     <th>Tên cơ sở đào tạo</th>
                     <th>Mã đơn vị</th>
                     <th>Loại hình cơ sở</th>
-                    <th>Logo</th>
+                    {{-- <th>Logo</th> --}}
                     <th>Quyết định</th>
                     <th>Địa chỉ</th>
                     @can('them_moi_co_so_dao_tao')
@@ -124,8 +124,8 @@
                         <td>{{$csdt->ten}}</td>
                         <td>{{$csdt->ma_don_vi}}</td>
                         <td>{{$csdt->loai_hinh_co_so}}</td>
-                        <td><img class="img-size-70" src="{!! asset('storage/' . $csdt->logo) !!}" alt="">
-                        </td>
+                        {{-- <td><img class="img-size-70" src="{!! asset('storage/' . $csdt->logo) !!}" alt="">
+                        </td> --}}
                         <td>{{$csdt->qd_ten}}</td>
                         <td>{{$csdt->dia_chi}}</td>
                         <td>
