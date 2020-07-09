@@ -169,6 +169,7 @@ class KetQuaTotNghiepGanVoiDoanhNGhiepController extends Controller
         $duoiFile = end($nameFileArr);
 
         $fileRead = $_FILES['file']['tmp_name'];
+
         $kq =  $this->KetQuaTotNghiepGanVoiDoanhNGhiepService->importFile($fileRead, $duoiFile, $year, $dot);
 
         if ($kq == 'errorkitu') {

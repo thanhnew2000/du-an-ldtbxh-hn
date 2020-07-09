@@ -9,7 +9,7 @@ class KetQuaTotNghiepVoiDoanhNghiep extends Model
 {
     protected $table = 'ket_qua_tot_nghiep_gan_voi_doanh_nghiep';
     protected $fillable = [
-         'nam',
+        'nam',
         'dot',
         'nghe_id',
         'co_so_id',

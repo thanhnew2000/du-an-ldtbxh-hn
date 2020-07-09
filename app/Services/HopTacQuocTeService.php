@@ -109,10 +109,10 @@ class HopTacQuocTeService extends AppService
         //     $arrayAphabe=['C'.$i,'D'.$i,'E'.$i,'F'.$i,'G'.$i,'H'.$i,'I'.$i,'J'.$i,'K'.$i,'L'.$i,'M'.$i,'N'.$i,'O'.$i,'P'.$i,'Q'.$i];
         //     $this->lockedCellInExcel($worksheet,$arrayAphabe);
         // }
-
+        $file_xuat_name="File-nhap-hop-tac-quoc-te ($co_so->ten).xlsx";
         $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="File-nhap-hop-tac-quoc-te.xlsx"');
+        header('Content-Disposition: attachment; filename='.$file_xuat_name);
         $writer->save("php://output");
 
     }
