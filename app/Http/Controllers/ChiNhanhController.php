@@ -40,6 +40,7 @@ class ChiNhanhController extends Controller
         if (!isset($params['ma_chung_nhan'])) $params['ma_chung_nhan'] = null;
         if (!isset($params['loai_chi_nhanh'])) $params['ma_don_vi'] = null;
         if (!isset($params['page_size'])) $params['page_size'] = config('common.paginate_size.default');
+        if (!isset($params['quanhuyen'])) $params['quanhuyen'] = null;
         if (isset($id)) {
             $data = $this->ChiNhanhService->getChiNhanhThuocCSDT($id, $params);
         } else {
@@ -47,7 +48,8 @@ class ChiNhanhController extends Controller
         }
         $chiNhanhDefault = $this->coSoDaoTaoService->findById($id);
         $quanhuyen = DB::table('devvn_quanhuyen')->get();
-        return view('co-so-dao-tao.chi_nhanh.danh-sach-chi-nhanh', compact('data', 'quanhuyen', 'params', 'chiNhanhDefault'));
+        $route_name = Route::current()->action['as'];
+        return view('co-so-dao-tao.chi_nhanh.danh-sach-chi-nhanh', compact('data', 'quanhuyen', 'params', 'chiNhanhDefault', 'route_name'));
     }
 
     public function themchinhanh(Request $request)

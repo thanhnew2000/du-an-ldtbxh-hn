@@ -16,6 +16,7 @@
             </div>
         </div>
         <form action="" method="get" class="m-form">
+            <input type="hidden" name="page_size" value="{{$params['page_size']}}">
             <div class="m-portlet__body">
                 <div class="m-form__section m-form__section--first">
                     <div class="m-form__heading">
@@ -39,36 +40,23 @@
                                         placeholder="Mã chứng nhận đăng kí hoạt động"
                                         value="{{ $params['ma_chung_nhan'] }}" class="form-control m-input">
                                 </div>
-
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group m-form__group row">
-                                <label class="col-lg-2 col-form-label">Loại chi nhánh</label>
+                                <label class="col-lg-2 col-form-label">Quận/Huyện</label>
                                 <div class="col-lg-8">
-                                    <select name="loai_chi_nhanh" class="form-control ">
-                                        <option selected value="">Chọn loại chi nhánh</option>
-                                        @if (isset($params['loai_chi_nhanh']))
-                                        @if ($params['loai_chi_nhanh'] == 1)
-                                        <option value="{{config('common.loai_chi_nhanh.chi_nhanh_chinh')}}" selected>
-                                            Chi nhánh chính</option>
-                                        <option value="{{config('common.loai_chi_nhanh.chi_nhanh_phu')}}">
-                                            Chi nhánh phụ</option>
-                                        @elseif($params['loai_chi_nhanh'] == 0)
-                                        <option value="{{config('common.loai_chi_nhanh.chi_nhanh_chinh')}}">
-                                            Chi nhánh chính</option>
-                                        <option value="{{config('common.loai_chi_nhanh.chi_nhanh_phu')}}" selected>
-                                            Chi nhánh phụ</option>
-                                        @endif
-                                        @else
-                                        <option value="{{config('common.loai_chi_nhanh.chi_nhanh_chinh')}}">
-                                            Chi nhánh chính</option>
-                                        <option value="{{config('common.loai_chi_nhanh.chi_nhanh_phu')}}">
-                                            Chi nhánh phụ</option>
-                                        @endif
+                                    <select name="quanhuyen" class="form-control" id="devvn_quanhuyen">
+                                        <option selected value="">Quận / Huyện</option>
+                                        @foreach ($quanhuyen as $qh)
+                                        <option value="{{$qh->maqh}}" @if($params['quanhuyen']==$qh->maqh)
+                                            {{'selected'}} @endif>
+                                            {{ $qh->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -107,7 +95,17 @@
                     </div>
                     @endif
                 </div>
-
+                <div class="col-12 form-group m-form__group d-flex justify-content-end">
+                    <label class="col-lg-2 col-form-label">Kích thước:</label>
+                    <div class="col-lg-2">
+                        <select class="form-control" id="page-size">
+                            @foreach(config('common.paginate_size.list') as $size)
+                            <option @if($params['page_size']==$size) selected @endif value="{{$size}}">{{$size}}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
                 <table class="table m-table m-table--head-bg-brand">
                     <thead>
                         <th>STT</th>
@@ -115,8 +113,8 @@
                         <th>Tên cơ sở</th>
                         @endif
                         <th>Địa chỉ</th>
+                        <th>Quận/huyện</th>
                         <th>Hotline</th>
-                        <th>Loại chi nhánh</th>
                         <th>Mã chứng nhận</th>
                         @can('them_moi_dia_diem_dao_tao')
                         <th>
@@ -137,8 +135,14 @@
                         <tr>
                             <td>1</td>
                             <td>{{ $chiNhanhDefault->dia_chi }}</td>
+                            <td>
+                                @foreach ($quanhuyen as $q)
+                                @if ($chiNhanhDefault->maqh == $q->maqh)
+                                {{$q->name}}
+                                @endif
+                                @endforeach
+                            </td>
                             <td>{{ $chiNhanhDefault->dien_thoai }}</td>
-                            <td>Chi nhánh chính</td>
                         </tr>
                         @endif
 
@@ -151,14 +155,8 @@
                             <td>{{$items->ten}}</td>
                             @endif
                             <td>{{$items->dia_chi}}</td>
+                            <td>{{$items->ten_quan_huyen}}</td>
                             <td>{{$items->hotline}}</td>
-                            <td>
-                                @if ($items->chi_nhanh_chinh == 1)
-                                Chi nhánh chính
-                                @elseif($items->chi_nhanh_chinh == 0)
-                                Chi nhánh phụ
-                                @endif
-                            </td>
                             <td>{{$items->ma_chung_nhan_dang_ki_hoat_dong}}</td>
                             <td class="d-flex">
                                 <a href="{{route('chi-nhanh.chi-tiet', ['id'=> $items->id])}}"
@@ -217,6 +215,21 @@
 @endsection
 @section('script')
 <script>
+    var currentUrl = '{{route($route_name)}}';
+    $($document).ready(function(){
+        $('#page-size').change(function(){
+            var ma_chung_nhan = $('input[name=ma_chung_nhan]').val();
+            var ma_nghe = $('input[name=ma_nghe]').val();
+            var quanhuyen = $('select[name=quanhuyen]').val();
+            var page_size = $(this).val();
+            var reloadUrl = `${currentUrl}/?ten_co_so=${ten_co_so}&ma_chung_nhan=${ma_chung_nhan}&quanhuyen=${quanhuyen}&page_size=${page_size}`;
+            window.location.href = reloadUrl;
+        });
+    })
+
+    $(document).ready(function(){
+        $('#devvn_quanhuyen').select2();
+    });
     var selectedId = -1;
     function Confirm(id){
         selectedId = id;
