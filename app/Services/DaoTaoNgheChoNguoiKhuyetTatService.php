@@ -313,11 +313,9 @@ class DaoTaoNgheChoNguoiKhuyetTatService extends AppService
             
             if ($co_s->loai_truong !== $bacDaoTaoId) {
                 $bacDaoTaoId = $co_s->loai_truong;
-
                 $bacDaoTao = $this->bacDaoTaoOfTruong($co_s->loai_truong);
 
-              $worksheet->setCellValue('B' . $row, $bacDaoTao);
-
+                $worksheet->setCellValue('B' . $row, $bacDaoTao);
                 $worksheet->getStyle("B{$row}")->getFont()->setBold(true);
                 $lockRange = "A{$row}:L{$row}";
                 $worksheet->getStyle($lockRange)
@@ -355,7 +353,6 @@ class DaoTaoNgheChoNguoiKhuyetTatService extends AppService
                 // fill data
                 $this->exportFillRow($worksheet, $row , $dt_nkhuyettat);
                 }
-                
          }
 
          $ngayBatDau = date("d-m-Y", strtotime($fromDate));

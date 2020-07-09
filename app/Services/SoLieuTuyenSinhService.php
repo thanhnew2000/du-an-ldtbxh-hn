@@ -532,6 +532,81 @@ class SoLieuTuyenSinhService extends AppService
         header('Content-Disposition: attachment; filename="Error-file-nhap-so-lieu-tuyen-sinh.xlsx"');
         $writer->save("php://output");
     } 
+
+
+
+    public function exportFollowSreach($params = [])
+    {
+        $queryData = [];
+        $queryData['dot'] = isset($params['dot']) ? $params['dot'] : (Carbon::now()->month < 6 ? 1 : 2);
+        $queryData['nam'] = isset($params['nam']) ? $params['nam'] : Carbon::now()->year;
+        $queryData['co_so_id'] = isset($params['co_so_id']) ? $params['co_so_id'] : null;
+        $queryData['loai_hinh'] = isset($params['loai_hinh']) ? $params['loai_hinh'] : null;
+        $queryData['devvn_quanhuyen'] = isset($params['devvn_quanhuyen']) ? $params['devvn_quanhuyen'] : null;
+        $queryData['devvn_xaphuongthitran'] = isset($params['devvn_xaphuongthitran']) ? $params['devvn_xaphuongthitran'] : null;
+        $queryData['nganh_nghe'] = isset($params['nganh_nghe']) ? $params['nganh_nghe'] : null;
+        
+        $data = $this->repository->getTuyenSinhExportSreach($queryData);
+
+        $spreadsheet = IOFactory::load('file_excel/tuyensinh/form-export-data-tuyen-sinh.xls');
+        $worksheet = $spreadsheet->getActiveSheet();
+        $spreadsheet->getActiveSheet()->getProtection()->setSheet(true);
+        $spreadsheet->getDefaultStyle()->getProtection()->setLocked(true);
+        $soThuTu=0;
+        $row=6;
+        $arrayAphabe=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK'];
+        $cs_id_truong = 0;
+        $bacDaoTaoId = 0;
+        $ten_truong = 'TRƯỜNG CAO ĐẲNG';
+        foreach($data as $ts){
+            $row++;
+            $soThuTu++;
+            // border cac o
+            if ($ts->id_co_so !== $cs_id_truong) {
+                $cs_id_truong = $ts->id_co_so;
+                $worksheet->setCellValue('B' . $row, $ts->ten);
+                $worksheet->getStyle("B{$row}")->getFont()->setBold(true);
+                $lockRange = "A{$row}:AK{$row}";
+                $worksheet->getStyle($lockRange)
+                    ->getFill()
+                    ->setFillType(Fill::FILL_SOLID)
+                    ->getStartColor()->setARGB('C7C7C7');
+
+                $row++;
+            }
+
+            // if ($ts->loai_truong !== $bacDaoTaoId) {
+            //     $bacDaoTaoId = $ts->loai_truong;
+            //     $bacDaoTao = $this->bacDaoTaoOfTruong($ts->loai_truong);
+
+            //     $worksheet->setCellValue('B' . $row, $bacDaoTao);
+            //     $worksheet->getStyle("B{$row}")->getFont()->setBold(true);
+            //     $lockRange = "A{$row}:AK{$row}";
+            //     $worksheet->getStyle($lockRange)
+            //         ->getFill()
+            //         ->setFillType(Fill::FILL_SOLID)
+            //         ->getStartColor()->setARGB('C7C7C7');
+            //     $row++;
+            // }
+
+             foreach($arrayAphabe as $apha){
+                $worksheet->getStyle($apha.$row)
+                ->getBorders()
+                ->getAllBorders()
+                ->setBorderStyle(Border::BORDER_THIN);
+            }
+            $worksheet->setCellValue("A{$row}",$soThuTu);
+            $keyDanhDau = $this->danhDauloaiHinhCoSo($ts->ma_loai_hinh_co_so);
+            $worksheet->setCellValue($keyDanhDau.$row, 'x');
+            // fill data
+            $this->exportFillRow($worksheet, $row , $ts);
+            }
+            $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            header('Content-Disposition: attachment; filename="File-xuat-theo-tim-kiem.xlsx"');
+            $writer->save("php://output");
+
+    }
     
 }
  ?>

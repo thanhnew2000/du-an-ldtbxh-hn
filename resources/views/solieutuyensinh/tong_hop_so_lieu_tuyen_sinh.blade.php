@@ -8,6 +8,13 @@
     .m-table.m-table--border-danger td {
         border-color: #bcb1b1;
     }
+    #buttonExport{
+        border:none;background:none;color:#5867dd;margin-top: -12px;
+    }
+    #textExport:hover{
+        border-bottom: 1px solid #3333FF
+    }
+    
 </style>
 @endsection
 @section('content')
@@ -223,11 +230,37 @@
         </div>
         <div class="col-lg-2">
             <a href="javascript:" data-toggle="modal" data-target="#moDalExportData"><i class="fa fa-file-excel"
-                    aria-hidden="true"></i>
-                Xuất dữ liệu ra Excel</a>
+                    aria-hidden="true"></i>Xuất dữ liệu ra Excel</a>
         </div>
 
-        <div class="col-lg-6 " style="text-align: right">
+        <div class="col-lg-4">
+            <form action="{{route('exportsreach')}}" method="POST">
+                @csrf
+                <input text="text" name="co_so_id" hidden
+                @if (isset($params['co_so_id'])) value="{{$params['co_so_id']}}" @endif>
+
+                <input text="text" name="devvn_quanhuyen" hidden
+                @if (isset($params['devvn_quanhuyen'])) value="{{$params['devvn_quanhuyen']}}" @endif>
+
+                <input text="text" name="dot" hidden
+                @if (isset($params['dot'])) value="{{$params['dot']}}" @endif>
+
+                <input text="text" name="loai_hinh" hidden
+                @if (isset($params['loai_hinh'])) value="{{$params['loai_hinh']}}" @endif>
+
+                <input text="text" name="nam" hidden
+                @if (isset($params['nam'])) value="{{$params['nam']}}" @endif>
+
+                <input text="text" name="nganh_nghe" hidden
+                @if (isset($params['nganh_nghe'])) value="{{$params['nganh_nghe']}}" @endif>
+
+                <button type="submit" id="buttonExport"  class="btn">
+                    <i class="fa fa-file-excel"></i> 
+                    <span id="textExport"> Xuất theo kết quả tìm kiếm</span></button>
+            </form>
+        </div>
+
+        <div class="col-lg-2" style="text-align: right">
             @can('them_moi_tong_hop_ket_qua_tuyen_sinh')
             <a href="{{route('themsolieutuyensinh')}}"><button type="button" class="btn btn-info .bg-info">Thêm
                     mới</button></a>
