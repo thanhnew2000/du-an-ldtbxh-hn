@@ -239,4 +239,47 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 	public function updateTuyenSinh($key,$arrayData){
 		return $this->model->where('id',$key)->update($arrayData);
 	}
+
+
+	
+	public function getTuyenSinhExportSreach($params)
+	{
+		$query = $this->table
+			->join('co_so_dao_tao', 'tuyen_sinh.co_so_id', '=', 'co_so_dao_tao.id')
+			->join('loai_hinh_co_so', 'co_so_dao_tao.ma_loai_hinh_co_so', '=', 'loai_hinh_co_so.id')
+			->join('trang_thai', 'tuyen_sinh.trang_thai', '=', 'trang_thai.id')
+			->join('devvn_quanhuyen', 'co_so_dao_tao.maqh', '=', 'devvn_quanhuyen.maqh')
+			->join('devvn_xaphuongthitran', 'co_so_dao_tao.xaid', '=', 'devvn_xaphuongthitran.xaid')
+			->join('nganh_nghe', 'tuyen_sinh.nghe_id', '=', 'nganh_nghe.id')
+			->select([
+				'nganh_nghe.ten_nganh_nghe as ten_nganh_nghe',
+				'co_so_dao_tao.id as id_co_so',
+				'co_so_dao_tao.loai_truong',
+				'co_so_dao_tao.ma_loai_hinh_co_so',
+				'co_so_dao_tao.ten',
+				'tuyen_sinh.*',
+			])
+			->where('tuyen_sinh.nam', $params['nam'])
+			->where('tuyen_sinh.dot', $params['dot']);
+
+		if (isset($params['loai_hinh']) && $params['loai_hinh'] != 0) {
+			$query->where('loai_hinh_co_so.id', $params['loai_hinh']);
+		}
+
+		if (isset($params['co_so_id']) && $params['co_so_id'] != null) {
+			$query->where('tuyen_sinh.co_so_id', $params['co_so_id']);
+		}
+		if (isset($params['devvn_quanhuyen']) && $params['devvn_quanhuyen'] != null) {
+			$query->where('co_so_dao_tao.maqh', $params['devvn_quanhuyen']);
+		}
+		if (isset($params['devvn_xaphuongthitran']) && $params['devvn_xaphuongthitran'] != null) {
+			$query->where('co_so_dao_tao.xaid', $params['devvn_xaphuongthitran']);
+		}
+		if (isset($params['nganh_nghe']) && $params['nganh_nghe'] != null) {
+			$query->where('tuyen_sinh.nghe_id', 'like', $params['nganh_nghe'].'%');
+		}
+
+		return $query->get();
+	}
+
 }

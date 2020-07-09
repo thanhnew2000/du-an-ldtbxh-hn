@@ -62,6 +62,10 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapNhapBaoCaoRoutes();
 
+        $this->mapChartRoutes();
+
+
+        //
         $this->mapHoTroRoutes();
 
         // 17/06/2020 Tuanbt - chia thêm Route Giấy phép
@@ -139,6 +143,14 @@ class RouteServiceProvider extends ServiceProvider
             ->group(base_path('routes/nhap-bao-cao.php'));
     }
 
+        // 2020-06-23 - hieupt - chia thêm route chart
+        protected function mapChartRoutes()
+        {
+            Route::middleware('web', 'auth')
+                ->prefix('chart')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/chart.php'));
+        }
     // 2020-05-30 - thienth - chia thêm route nhap-bao-cao
     protected function mapHoTroRoutes()
     {
