@@ -113,7 +113,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web', 'auth')
             ->prefix('co-so-dao-tao')
             ->namespace($this->namespace)
-            ->group(base_path('routes/co-so-dao-tao.php'));
+            ->group(base_path('routes/co-so-dao-tao-v1.php'));
     }
 
     // 2020-05-30 - thienth - chia thêm route nganh-nghe
@@ -122,7 +122,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web', 'auth')
             ->prefix('nganh-nghe')
             ->namespace($this->namespace)
-            ->group(base_path('routes/nganh-nghe.php'));
+            ->group(base_path('routes/nganh-nghe-v1.php'));
     }
 
     // 2020-05-30 - thienth - chia thêm route xuat-bao-cao
@@ -131,7 +131,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web', 'auth')
             ->prefix('xuat-bao-cao')
             ->namespace($this->namespace)
-            ->group(base_path('routes/xuat-bao-cao.php'));
+            ->group(base_path('routes/xuat-bao-cao-v1.php'));
     }
 
     // 2020-05-30 - thienth - chia thêm route nhap-bao-cao
@@ -140,7 +140,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web', 'auth')
             ->prefix('nhap-bao-cao')
             ->namespace($this->namespace)
-            ->group(base_path('routes/nhap-bao-cao.php'));
+            ->group(base_path('routes/nhap-bao-cao-v1.php'));
     }
 
         // 2020-06-23 - hieupt - chia thêm route chart
@@ -181,6 +181,6 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web', 'auth')
             ->prefix('giay-phep')
             ->namespace($this->namespace)
-            ->group(base_path('routes/giay-phep.php'));
+            ->group(base_path('routes/giay-phep-v1.php'));
     }
 }
