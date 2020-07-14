@@ -49,13 +49,7 @@ class CoSoDaoTaoController extends Controller
         $loaihinh = DB::table('loai_hinh_co_so')->get();
         $quanhuyen = DB::table('devvn_quanhuyen')->get();
         $xaphuong = DB::table('devvn_xaphuongthitran')->get();
-        return view('co-so-dao-tao.them_co_so', [
-            'qd' => $qd,
-            'coquan' => $coquan,
-            'loaihinh' => $loaihinh,
-            'quanhuyen' => $quanhuyen,
-            'xaphuong' => $xaphuong
-        ]);
+        return view('co-so-dao-tao.them_co_so', compact('qd', 'coquan', 'loaihinh', 'quanhuyen', 'xaphuong'));
     }
 
     public function taomoiCSDT(Request $request)
