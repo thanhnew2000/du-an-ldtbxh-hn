@@ -65,6 +65,7 @@
 		<script src="{!! asset('vendors/es6-promise-polyfill/promise.min.js') !!}" type="text/javascript"></script>
 		<script src="{!! asset('vendors/sweetalert2/dist/sweetalert2.min.js') !!}" type="text/javascript"></script>
 		<script src="{!! asset('vendors/js/framework/components/plugins/base/sweetalert2.init.js') !!}" type="text/javascript"></script>
+		<script src="{!! asset('vendors/wizard/wizard.js') !!}" type="text/javascript"></script>
 
 		<!--end:: Global Optional Vendors -->
 

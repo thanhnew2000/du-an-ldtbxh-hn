@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use App\Services\ChartTongSoLuongTruongService;
 use App\Services\ChartTongKetQuaTuyenSinhService;
 use App\Services\ChartSoLieuCanBoQuanLyService;
+use App\Services\ChartSinhVienTotNghiepService;
 
 
 class AnalysisController extends Controller
@@ -16,12 +17,14 @@ class AnalysisController extends Controller
     protected $ChartTongSoLuongTruongService;
     protected $ChartTongKetQuaTuyenSinhService;
     protected $ChartSoLieuCanBoQuanLyService;
+    protected $ChartSinhVienTotNghiepService;
 
 
     public function __construct(
         ChartTongSoLuongTruongService $ChartTongSoLuongTruongService,
         ChartTongKetQuaTuyenSinhService $ChartTongKetQuaTuyenSinhService,
-        ChartSoLieuCanBoQuanLyService $ChartSoLieuCanBoQuanLyService
+        ChartSoLieuCanBoQuanLyService $ChartSoLieuCanBoQuanLyService,
+        ChartSinhVienTotNghiepService $ChartSinhVienTotNghiepService
 
 
 
@@ -29,6 +32,7 @@ class AnalysisController extends Controller
         $this->ChartTongSoLuongTruongService = $ChartTongSoLuongTruongService;
         $this->ChartTongKetQuaTuyenSinhService = $ChartTongKetQuaTuyenSinhService;
         $this->ChartSoLieuCanBoQuanLyService = $ChartSoLieuCanBoQuanLyService;
+        $this->ChartSinhVienTotNghiepService = $ChartSinhVienTotNghiepService;
 
 
 
@@ -71,13 +75,13 @@ class AnalysisController extends Controller
         $tongkqtuyensinh = $this->ChartTongKetQuaTuyenSinhService->getTongKetQuaTuyenSinhChart();
         $tongsoluongtruong = $this->ChartTongSoLuongTruongService->getTongSoLuongTruongChart();
         $canboquanly = $this->ChartSoLieuCanBoQuanLyService->getSoLieuCanBoQuanLyChart();
-    
+        $sinhvientotnghiep = $this->ChartSinhVienTotNghiepService->getSinhVienTotNghiepChart();
         // dd($kq[0]->so_luong_sv_So_cap);
        
 
        
 
 
-        return view('index',['data'=>$data_return],compact('tongkqtuyensinh','tongsoluongtruong','canboquanly'));
+        return view('index',['data'=>$data_return],compact('tongkqtuyensinh','tongsoluongtruong','canboquanly','sinhvientotnghiep'));
     }
 }
