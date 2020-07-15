@@ -29,6 +29,7 @@ function getDataDiaDiem(id_co_so) {
 
 
 var arrayAdd = {};
+var ngheIdAdd = [];
 
 function addDuLieuGiayChungNhan() {
     var file_data = $("#customFileGiayPhep").prop("files")[0];
@@ -55,6 +56,7 @@ function addDuLieuGiayChungNhan() {
     // start get data nghề theo địa điểm
     chi_nhanh.forEach(element => {
         arrayAdd["diadiem" + element] = [];
+        ngheIdAdd["diadiem" + element]= [];
         var getChiNhanh = document.querySelectorAll(`.chi_nhanh${element}`);
         var getNghe = $(getChiNhanh).find(".add_nghe_dia_chi");
         // console.log('nghề'+getNghe.length)
@@ -71,6 +73,8 @@ function addDuLieuGiayChungNhan() {
                     .val()
             };
             arrayAdd["diadiem" + element].push(obj);
+            var nghe_id_add =  $(getNghe[index]) .find(".nganh_nghe") .val();
+            ngheIdAdd["diadiem" + element].push(nghe_id_add);
         }
     });
     var dataAddNghe = {
@@ -79,9 +83,34 @@ function addDuLieuGiayChungNhan() {
     };
     addGiayChungNhanNghe(dataAddNghe, form_data);
 }
-
+function hasDuplicates(arr) {
+    var counts = [];
+    for (var i = 0; i <= arr.length; i++) {
+        if (counts[arr[i]] === undefined) {
+            counts[arr[i]] = 1;
+        } else {
+            return true;
+        }
+    }
+    return false;
+}
 function addGiayChungNhanNghe(dataAddNghe, form_data) {
-    // console.log(dataAddNghe.data);
+    // var resultCheckDuplicate = false;
+    // var checkD = false;
+    // ngheIdAdd.forEach(e => {
+    //       resultCheckDuplicate = hasDuplicates(e);
+    //       if(resultCheckDuplicate == true){
+    //             checkD = true;
+    //       }
+    //       console.log(e);
+    // })
+    // console.log(ngheIdAdd);
+    // if(checkD){
+    //     alert('Have some duplicate');
+    // }else{
+    //     alert('No duplicate');
+    // }
+    
     axios
         .post(addGiayChungNhan, form_data)
         .then(function(response) {
