@@ -20,3 +20,9 @@ Route::post('cap-nhat-nghe-trong-giay-phep/{id}', 'GiayPhepController@capNhatNgh
 Route::post('bo-sung-nghe-vao-giay-phep', 'GiayPhepController@boSungNganhNgheVaoGiayPhep')->name('giay-phep.bo-sung-nghe');
 
 Route::post('xoa-nghe-trong-giay-phep', 'GiayPhepController@xoaNgheTrongGiayPhep')->name('giay-phep.xoa-nghe-trong-gp');
+
+// Route::get('/', 'GiayPhepDangKyController@test');
+Route::post('/get-dia-chi-cua-co-so', 'GiayPhepDangKyController@getDiaChiCoSo')->name('getDiaChiCoSo');
+Route::post('/get-nghe', 'GiayPhepDangKyController@getNghe')->name('getNghe');
+Route::post('/store-nganh-nghe', 'GiayPhepDangKyController@storeAddNghe')->name('store-nganh-nghe');
+Route::post('/add-giay-chung-nhan', 'GiayPhepDangKyController@addGiayChungNhan')->name('addGiayChungNhan');

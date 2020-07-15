@@ -20,6 +20,8 @@ return [
     'bac_nghe' => [
         'trung_cap' => ['ma_bac' => 5, 'ten_bac' => 'Trung Cấp'],
         'cao_dang' => ['ma_bac' => 6, 'ten_bac' => 'Cao Đẳng'],
+        'so_cap' => ['ma_bac' => 4, 'ten_bac' => 'Sơ Cấp'],
+        'duoi_3_thang' => ['ma_bac' => 3, 'ten_bac' => 'Dưới 3 tháng'],
     ],
     'nam' => [
         'list' => [2016, 2017, 2018, 2019, 2020]
