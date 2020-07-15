@@ -50,6 +50,8 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
+        $this->mapV2CoSoDaoTao();
+
         $this->mapAccountRoutes();
 
         $this->mapProfileRoutes();
@@ -143,14 +145,15 @@ class RouteServiceProvider extends ServiceProvider
             ->group(base_path('routes/nhap-bao-cao-v1.php'));
     }
 
-        // 2020-06-23 - hieupt - chia thêm route chart
-        protected function mapChartRoutes()
-        {
-            Route::middleware('web', 'auth')
-                ->prefix('chart')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/chart.php'));
-        }
+    // 2020-06-23 - hieupt - chia thêm route chart
+    protected function mapChartRoutes()
+    {
+        Route::middleware('web', 'auth')
+            ->prefix('chart')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/chart.php'));
+    }
+
     // 2020-05-30 - thienth - chia thêm route nhap-bao-cao
     protected function mapHoTroRoutes()
     {
@@ -182,5 +185,14 @@ class RouteServiceProvider extends ServiceProvider
             ->prefix('giay-phep')
             ->namespace($this->namespace)
             ->group(base_path('routes/giay-phep-v1.php'));
+    }
+
+
+    protected function mapV2CoSoDaoTao()
+    {
+        Route::middleware('web', 'auth')
+            ->prefix('v2/co-so-dao-tao')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/v2/co-so-dao-tao.php'));
     }
 }
