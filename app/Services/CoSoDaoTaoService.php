@@ -43,4 +43,9 @@ class CoSoDaoTaoService extends AppService
     {
         return $this->repository->checkTonTai($id);
     }
+    public function createCoSo($request)
+    {
+        $attributes = $request->all();
+        return $this->repository->createCoSo($attributes);
+    }
 }
