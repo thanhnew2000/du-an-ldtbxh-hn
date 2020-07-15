@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class CoSoDaoTaoController extends Controller
 {
-    public function index(){
-        return view('co-so-dao-tao.index');
+    public function create(){
+        return "Tạo mới cơ sở đào tạo!";
     }
 }

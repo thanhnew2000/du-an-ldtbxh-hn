@@ -49,37 +49,44 @@
 			</li>
 			@endcan
 
-			@canany(['danh_sach_co_so_dao_tao','them_moi_co_so_dao_tao','xem_chi_tiet_co_so_dao_tao','cap_nhat_co_so_dao_tao',
-					'danh_dia_diem_dao_tao','them_moi_dia_diem_dao_tao' , 'cap_nhat_dia_diem_dao_tao' , 'xoa_dia_diem_dao_tao'])
 			<li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a
 					href="javascript:;" class="m-menu__link m-menu__toggle"><i
-						class="m-menu__link-icon flaticon-share"></i><span class="m-menu__link-text">Quản lý cơ sở đào
-						tạo</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
+						class="m-menu__link-icon flaticon-share"></i><span class="m-menu__link-text">Quản lý mạng lưới</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
 				<div class="m-menu__submenu "><span class="m-menu__arrow"></span>
 					<ul class="m-menu__subnav">
-				@canany(['danh_sach_co_so_dao_tao','them_moi_co_so_dao_tao','xem_chi_tiet_co_so_dao_tao','cap_nhat_co_so_dao_tao'])
-						<li class="m-menu__item " aria-haspopup="true"><a href="{{route('csdt.danh-sach')}}"
+						<li class="m-menu__item " aria-haspopup="true"><a href="{{route('mang-luoi.index')}}"
 								class="m-menu__link "><i
 									class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
-									class="m-menu__link-text">Danh sách cơ sở đào tạo</span></a>
+									class="m-menu__link-text">Danh sách chức năng</span></a>
 						</li>
-				@endcan
-				@canany(['danh_dia_diem_dao_tao','them_moi_dia_diem_dao_tao' , 'cap_nhat_dia_diem_dao_tao' , 'xoa_dia_diem_dao_tao'])
-						<li class="m-menu__item " aria-haspopup="true"><a href="{{route('csdt.chi-nhanh')}}"
+						<li class="m-menu__item " aria-haspopup="true"><a href="{{route('mang-luoi.tao-csdt')}}"
 								class="m-menu__link "><i
 									class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
-									class="m-menu__link-text">Danh sách địa điểm đào tạo</span></a>
+									class="m-menu__link-text">Tạo mới cơ sở đào tạo</span></a>
 						</li>
-						<li class="m-menu__item " aria-haspopup="true"><a href="{{route('view-index-dot')}}"
-							class="m-menu__link "><i
-								class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
-								class="m-menu__link-text">Đợt</span></a></li>
+						<li class="m-menu__item " aria-haspopup="true"><a href="{{route('mang-luoi.tao-csdt')}}"
+																		  class="m-menu__link "><i
+										class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
+										class="m-menu__link-text">Quản lý giấy phép</span></a>
 						</li>
-				@endcan
+						<li class="m-menu__item " aria-haspopup="true"><a href="{{route('mang-luoi.tao-csdt')}}"
+																		  class="m-menu__link "><i
+										class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
+										class="m-menu__link-text">Quản lý chứng nhận đăng ký gdnn</span></a>
+						</li>
+						<li class="m-menu__item " aria-haspopup="true"><a href="{{route('mang-luoi.tao-csdt')}}"
+																		  class="m-menu__link "><i
+										class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
+										class="m-menu__link-text">Kết xuất dữ liệu</span></a>
+						</li>
+						<li class="m-menu__item " aria-haspopup="true"><a href="{{route('mang-luoi.tao-csdt')}}"
+																		  class="m-menu__link "><i
+										class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
+										class="m-menu__link-text">Thống kê/biểu đồ</span></a>
+						</li>
 					</ul>
 				</div>
 			</li>
-			@endcan
 
 			@canany(['them_moi_nganh_nghe' , 'xem_chi_tiet_nganh_nghe' , 'cap_nhat_nganh_nghe', 'xoa_nganh_nghe'])
 			<li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a

@@ -50,7 +50,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
-        $this->mapV2CoSoDaoTao();
+        $this->mapV2QuanLyMangLuoi();
 
         $this->mapAccountRoutes();
 
@@ -188,11 +188,11 @@ class RouteServiceProvider extends ServiceProvider
     }
 
 
-    protected function mapV2CoSoDaoTao()
+    protected function mapV2QuanLyMangLuoi()
     {
         Route::middleware('web', 'auth')
-            ->prefix('v2/co-so-dao-tao')
+            ->prefix('quan-ly-mang-luoi')
             ->namespace($this->namespace)
-            ->group(base_path('routes/v2/co-so-dao-tao.php'));
+            ->group(base_path('routes/v2/quan-ly-mang-luoi.php'));
     }
 }
