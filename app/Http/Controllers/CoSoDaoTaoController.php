@@ -8,11 +8,6 @@ use App\Services\ChiNhanhService;
 use App\Services\CoSoDaoTaoService;
 use App\Services\QuyetDinhService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Response;
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Route;
 
 class CoSoDaoTaoController extends Controller
 {
