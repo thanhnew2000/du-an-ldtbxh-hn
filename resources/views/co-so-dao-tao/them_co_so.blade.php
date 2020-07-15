@@ -989,44 +989,44 @@
 
     function addDiaChi() {
         var htmlDiachi = `
-        <div class="dia_diem_dao_tao row">
-                                    <div class="form-group col-md-4">
-                                        
-                                        <label class="form-name mr-3" for="">Địa chỉ <span
-                                                class="text-danger">(*)</span></label>
-                                        <input type="text" class="form-control dia_chi_chi_nhanh" name="dia_chi_chi_nhanh" value=""
-                                            class="form-text text-danger" placeholder="Nhập địa chỉ">
-                                        
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        
-                                        <label for="" class="form-name">Quận/Huyện <span
-                                            class="text-danger">(*)</span></label>
-                                    <select onchange ='changQuanHuyen(this)'  class="form-control maqh col-12 select2 devvn_quanhuyen" name="maqh">
-                                        <option disabled selected>Quận / Huyện</option>
-                                        @foreach ($quanhuyen as $qh)
-                                        <option value="{{ $qh->maqh }}" @if (old('maqh')==$qh->maqh )
-                                            {{ 'selected' }}
-                                            @endif>{{ $qh->name }}</option>
-                                        @endforeach
-                                    </select>
-                                        
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        
-                                        <label for="" class="form-name">Xã/ Phường <span
-                                            class="text-danger">(*)</span></label>
-                                    <select class="form-control col-12 xaid select2 devvn_xaphuongthitran" name="xaid">
-                                        <option disabled selected>Chọn</option>
-                                        @foreach ($xaphuong as $xp)
-                                        <option value="{{ $xp->xaid }}">{{ $xp->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    </div>
-                                    <div class="col-md-1 removediachi">
-                                        <i onclick='removeDiaChi(this)' class="fa fa-times"></i>
-                                    </div>
-                                </div>   
+            <div class="dia_diem_dao_tao row">
+                <div class="form-group col-md-4">
+                    
+                    <label class="form-name mr-3" for="">Địa chỉ <span
+                            class="text-danger">(*)</span></label>
+                    <input type="text" class="form-control dia_chi_chi_nhanh" name="dia_chi_chi_nhanh" value=""
+                        class="form-text text-danger" placeholder="Nhập địa chỉ">
+                    
+                </div>
+                <div class="form-group col-md-4">
+                    
+                    <label for="" class="form-name">Quận/Huyện <span
+                        class="text-danger">(*)</span></label>
+                <select onchange ='changQuanHuyen(this)'  class="form-control maqh col-12 select2 devvn_quanhuyen" name="maqh">
+                    <option disabled selected>Quận / Huyện</option>
+                    @foreach ($quanhuyen as $qh)
+                    <option value="{{ $qh->maqh }}" @if (old('maqh')==$qh->maqh )
+                        {{ 'selected' }}
+                        @endif>{{ $qh->name }}</option>
+                    @endforeach
+                </select>
+                    
+                </div>
+                <div class="form-group col-md-3">
+                    
+                    <label for="" class="form-name">Xã/ Phường <span
+                        class="text-danger">(*)</span></label>
+                <select class="form-control col-12 xaid select2 devvn_xaphuongthitran" name="xaid">
+                    <option disabled selected>Chọn</option>
+                    @foreach ($xaphuong as $xp)
+                    <option value="{{ $xp->xaid }}">{{ $xp->name }}</option>
+                    @endforeach
+                </select>
+                </div>
+                <div class="col-md-1 removediachi">
+                    <i onclick='removeDiaChi(this)' class="fa fa-times"></i>
+                </div>
+            </div>   
         `
         $('.list_dia_chi').append(htmlDiachi)
         $('.select2').select2();
