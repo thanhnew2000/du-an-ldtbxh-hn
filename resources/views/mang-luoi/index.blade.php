@@ -21,9 +21,9 @@
                 <div class="m-portlet__body">
                     <div class="row">
                         <div class="col-sm-3 offset-sm-3 ">
-                            <button type="button" class="btn m-btn--square  btn-success btn-block">
+                            <a href="{{route('mang-luoi.tao-csdt')}}" class="btn m-btn--square  btn-success btn-block">
                                 <i class="fas fa-plus"></i> Tạo mới cơ sở đào tạo
-                            </button>
+                            </a>
                         </div>
                         <div class="col-sm-3 ">
                             <button type="button" class="btn m-btn--square  btn-accent btn-block">
