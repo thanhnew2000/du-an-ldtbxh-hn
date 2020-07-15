@@ -9,4 +9,5 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('', 'MangLuoiController@index')->name('mang-luoi.index');
-Route::get('tao-moi-co-so-dao-tao', 'CoSoDaoTaoController@create')->name('mang-luoi.tao-csdt');
+Route::get('tao-moi-co-so-dao-tao', 'MangLuoiController@ViewTaoMoiCoSoDaoTao')->name('mang-luoi.tao-csdt');
+Route::post('tao-moi-co-so-dao-tao', 'MangLuoiController@SaveTaoMoiCoSoDaoTao');
