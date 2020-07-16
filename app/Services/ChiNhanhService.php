@@ -27,4 +27,10 @@ class ChiNhanhService extends AppService
     {
         return $this->repository->getChiNhanhThuocCSDT($id, $params);
     }
+
+    public function createChiNhanh($request)
+    {
+        $attributes = $request->all();
+        return $this->repository->createChiNhanh($attributes);
+    }
 }

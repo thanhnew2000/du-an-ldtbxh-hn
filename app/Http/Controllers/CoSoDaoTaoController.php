@@ -4,20 +4,27 @@ namespace App\Http\Controllers;
 
 use App\CoSoDaoTao;
 use App\Repositories;
+use App\Services\ChiNhanhService;
 use App\Services\CoSoDaoTaoService;
+use App\Services\QuyetDinhService;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Response;
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Route;
 
 class CoSoDaoTaoController extends Controller
 {
     protected $CoSoDaoTaoService;
-    public function __construct(CoSoDaoTaoService $CoSoDaoTaoService)
-    {
+    protected $QuyetDinhService;
+    protected $ChiNhanhService;
+    public function __construct(
+        CoSoDaoTaoService $CoSoDaoTaoService,
+        QuyetDinhService $QuyetDinhService,
+        ChiNhanhService $ChiNhanhService
+    ) {
         $this->CoSoDaoTaoService = $CoSoDaoTaoService;
+        $this->QuyetDinhService = $QuyetDinhService;
+        $this->ChiNhanhService = $ChiNhanhService;
     }
 
     public function danhsachCSDT(Request $request)
@@ -49,62 +56,77 @@ class CoSoDaoTaoController extends Controller
         $loaihinh = DB::table('loai_hinh_co_so')->get();
         $quanhuyen = DB::table('devvn_quanhuyen')->get();
         $xaphuong = DB::table('devvn_xaphuongthitran')->get();
-        return view('co-so-dao-tao.them_co_so', [
-            'qd' => $qd,
-            'coquan' => $coquan,
-            'loaihinh' => $loaihinh,
-            'quanhuyen' => $quanhuyen,
-            'xaphuong' => $xaphuong
-        ]);
+        $user = DB::table('users')->get();
+        return view('co-so-dao-tao.them_co_so', compact('qd', 'coquan', 'loaihinh', 'quanhuyen', 'xaphuong', 'user'));
     }
 
     public function taomoiCSDT(Request $request)
     {
-        
-        $request->validate(
-            [
-                'ten' => 'required|unique:co_so_dao_tao',
-                'ma_don_vi' => 'required|unique:co_so_dao_tao',
-                'upload_logo' => 'required|mimes:jpeg,png',
-                'dien_thoai' => 'required|numeric |digits_between:10,12',
-                'website' => 'required|url',
-                'dia_chi' => 'required|unique:co_so_dao_tao',
-                // 'ten_quoc_te' => 'required',
-                'co_quan_chu_quan_id' => 'required',
-                'ma_loai_hinh_co_so' => 'required',
-                'quyet_dinh_id' => 'required',
-                'maqh' => 'required',
-                'xaid' => 'required'
-            ],
-            [
-                'ten.required' => 'Tên cơ sở đào tạo không được để trống',
-                'ten.required' => 'Tên cơ sở đào tạo đã tồn tại',
-                'ma_don_vi.required' => 'Mã đơn vị không được để trống',
-                'upload_logo.required' => 'Logo không được để trống',
-                'upload_logo.mimes' => 'Logo không đúng định dạng file ảnh',
-                'dien_thoai.required' => 'Điện thoại không được để trống',
-                'dien_thoai.digits_between' => 'Số điện thoại sai định dạng',
-                'dien_thoai.numeric ' => 'Số điện thoại sai định dạng',
-                'website.url' => 'Website không đúng định dạng',
-                'website.required' => 'Website không được để trống',
-                'dia_chi.required' => 'địa chỉ không được để trống',
-                'dia_chi.mimes' => 'Địa chỉ đã tồn tại trong hệ thống',
-                // 'ten_quoc_te.required' => 'Vui lòng điền tên quốc tế của cơ sở',
-                'co_quan_chu_quan_id.required' => 'Vui lòng chọn cơ quan chủ quản',
-                'ma_loai_hinh_co_so.required' => 'Vui lòng chọn loại hình cơ sở',
-                'quyet_dinh_id.required' => 'Vui lòng chọn quyết định của cơ sở',
-                'maqh.required' => 'Vui lòng chọn Quận/huyện',
-                'xaid.required' => 'Vui lòng chọn Xã/phường'
-            ]
-        );
+        // dd($request->all());
+        // $request->validate(
+        //     [
+        //         'ten' => 'required|unique:co_so_dao_tao',
+        //         'ma_don_vi' => 'required|unique:co_so_dao_tao',
+        //         'upload_logo' => 'required|mimes:jpeg,png',
+        //         'dien_thoai' => 'required|numeric |digits_between:10,12',
+        //         'website' => 'required|url',
+        //         'dia_chi' => 'required|unique:co_so_dao_tao',
+        //         // 'ten_quoc_te' => 'required',
+        //         'co_quan_chu_quan_id' => 'required',
+        //         'ma_loai_hinh_co_so' => 'required',
+        //         'quyet_dinh_id' => 'required',
+        //         'maqh' => 'required',
+        //         'xaid' => 'required'
+        //     ],
+        //     [
+        //         'ten.required' => 'Tên cơ sở đào tạo không được để trống',
+        //         'ten.required' => 'Tên cơ sở đào tạo đã tồn tại',
+        //         'ma_don_vi.required' => 'Mã đơn vị không được để trống',
+        //         'upload_logo.required' => 'Logo không được để trống',
+        //         'upload_logo.mimes' => 'Logo không đúng định dạng file ảnh',
+        //         'dien_thoai.required' => 'Điện thoại không được để trống',
+        //         'dien_thoai.digits_between' => 'Số điện thoại sai định dạng',
+        //         'dien_thoai.numeric ' => 'Số điện thoại sai định dạng',
+        //         'website.url' => 'Website không đúng định dạng',
+        //         'website.required' => 'Website không được để trống',
+        //         'dia_chi.required' => 'địa chỉ không được để trống',
+        //         'dia_chi.mimes' => 'Địa chỉ đã tồn tại trong hệ thống',
+        //         // 'ten_quoc_te.required' => 'Vui lòng điền tên quốc tế của cơ sở',
+        //         'co_quan_chu_quan_id.required' => 'Vui lòng chọn cơ quan chủ quản',
+        //         'ma_loai_hinh_co_so.required' => 'Vui lòng chọn loại hình cơ sở',
+        //         'quyet_dinh_id.required' => 'Vui lòng chọn quyết định của cơ sở',
+        //         'maqh.required' => 'Vui lòng chọn Quận/huyện',
+        //         'xaid.required' => 'Vui lòng chọn Xã/phường'
+        //     ]
+        // );
 
-        if ($request->hasFile('upload_logo')) {
-            $filePath = $request->file('upload_logo')->store('uploads/logoCsdt');
-            $request->request->set('logo', $filePath);
+        if ($request->hasFile('anh_quyet_dinh')) {
+            $filePath = $request->file('anh_quyet_dinh')->store('uploads/anh-quyet-dinh');
+            $request->request->set('anhQuyetDinh', $filePath);
         }
+        $quyetDInh = $this->QuyetDinhService->createQuyetDinh($request);
+        if (isset($quyetDInh->id)) {
+            $request->request->set('quyet_dinh_id', $quyetDInh->id);
+        }
+        $CoSo =  $this->CoSoDaoTaoService->createCoSo($request);
 
-        $this->CoSoDaoTaoService->create($request, ['upload_logo']);
-        return redirect()->route('csdt.danh-sach')->withInput()->with('mess', 'Thêm cơ sở thành công');
+        if (isset($CoSo->id)) {
+            $request->request->set('co_so_id', $CoSo->id);
+        }
+        $ChiNhanh = $this->ChiNhanhService->createChiNhanh($request);
+        return response()->json([
+            'QuyetDinh' => $quyetDInh,
+            'CoSo' => $CoSo,
+            'ChiNhanh' => $ChiNhanh,
+            'message' => 'Thêm thành công'
+        ]);
+    }
+
+    public function test()
+    {
+        $quanhuyen = DB::table('devvn_quanhuyen')->get();
+        $xaphuong = DB::table('devvn_xaphuongthitran')->get();
+        return view('co-so-dao-tao.tao-moi-co-so', compact('quanhuyen', 'xaphuong'));
     }
 
     public function suaCSDT($id)
@@ -144,7 +166,7 @@ class CoSoDaoTaoController extends Controller
                 'upload_logo.mimes' => 'File ảnh không đúng định dạng',
                 'dien_thoai.required' => 'Điện thoại không được để trống',
                 'dien_thoai.digits_between' => 'Số điện thoại sai định dạng',
-                'dien_thoai.numeric ' => 'Số điện thoại sai định dạng',  
+                'dien_thoai.numeric ' => 'Số điện thoại sai định dạng',
                 'dia_chi.required' => 'Địa chỉ không được để trống',
                 'website.url' => 'Website không đúng định dạng',
                 'website.required' => 'Website không được để trống',
@@ -215,7 +237,7 @@ class CoSoDaoTaoController extends Controller
                 'ten.required' => 'Tên quyết định không được để trống',
                 'ten.unique' => 'Quyết định đã tồn tại',
                 'van_ban_url.required' => 'Đường dẫn văn bản không được để trống',
-                
+
                 'ngay_ban_hanh.date_format' => 'Ngày không đúng định dạng',
                 'ngay_ban_hanh.required' => 'Vui lòng chọn ngày ban hành',
 

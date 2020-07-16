@@ -26,4 +26,5 @@ interface CoSoDaoTaoRepositoryInterface
     public function getDoiNguNhaGiaoTheoCoSo(int $co_so_id, array $params = []);
     public function getListById($listId, $selects = ['*']);
     public function checkTonTai($id);
+    public function createCoSo($attributes = []);
 }
