@@ -2,13 +2,32 @@
 @section('title', 'Thêm mới cơ sở đào tạo')
 @section('style')
 <style>
-    .removediachi {
-        line-height: 90px
-    }
-</style>
+.removediachi{
+line-height: 90px
+}
 
+.fa-plus,
+.fa-times {
+    cursor: pointer;
+    /* font-size: 25px; */
+    color: rgb(90, 92, 211);
+    line-height: 40px;
+    text-align: center
+}
+.m-demo__preview{
+    border: none !important
+}
+.messageNoNghe{
+    color:red;
+}
+.messageNoTrinhDo{
+    color:red;
+}
+</style>
+<link href="{!! asset('css_loading/css_loading.css') !!}" rel="stylesheet" type="text/css" />
 @endsection
 @section('content')
+
 <div class="m-content container-fluid">
     <div class="m-portlet m-portlet--full-height">
 
@@ -73,28 +92,12 @@
                             </a>
                             <div class="m-wizard__step-info">
                                 <div class="m-wizard__step-title">
-                                    2. Account Setup
+                                    2. Giấy phép
                                 </div>
-                                <div class="m-wizard__step-desc">
-                                    Lorem ipsum doler amet elit<br>
-                                    sed eiusmod tempors
-                                </div>
+                                
                             </div>
                         </div>
-                        <div class="m-wizard__step" m-wizard-target="m_wizard_form_step_3">
-                            <a href="#" class="m-wizard__step-number">
-                                <span><i class="fa  flaticon-layers"></i></span>
-                            </a>
-                            <div class="m-wizard__step-info">
-                                <div class="m-wizard__step-title">
-                                    3. Confirmation
-                                </div>
-                                <div class="m-wizard__step-desc">
-                                    Lorem ipsum doler amet elit<br>
-                                    sed eiusmod tempors
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
 
@@ -388,153 +391,178 @@
                         <!--end: Form Wizard Step 1-->
 
                         <!--begin: Form Wizard Step 2-->
-                        <div class="m-wizard__form-step" id="m_wizard_form_step_2">
-                            <div class="row">
-                                <div class="col-xl-8 offset-xl-2">
-                                    <div class="m-form__section m-form__section--first">
-                                        <div class="m-form__heading">
-                                            <h3 class="m-form__heading-title">Account Details</h3>
-                                        </div>
-                                        <div class="form-group m-form__group row">
-                                            <div class="col-lg-12">
-                                                <label class="form-control-label">* URL:</label>
-                                                <input type="url" name="account_url" class="form-control m-input"
-                                                    placeholder="" value="http://sinortech.vertoffice.com">
-                                                <span class="m-form__help">Please enter your preferred URL to your
-                                                    dashboard</span>
-                                            </div>
-                                        </div>
-                                        <div class="form-group m-form__group row">
-                                            <div class="col-lg-6 m-form__group-sub">
-                                                <label class="form-control-label">* Username:</label>
-                                                <input type="text" name="account_username" class="form-control m-input"
-                                                    placeholder="" value="nick.stone">
-                                                <span class="m-form__help">Your username to login to your
-                                                    dashboard</span>
-                                            </div>
-                                            <div class="col-lg-6 m-form__group-sub">
-                                                <label class="form-control-label">* Password:</label>
-                                                <input type="password" name="account_password"
-                                                    class="form-control m-input" placeholder="" value="qwerty">
-                                                <span class="m-form__help">Please use letters and at least one number
-                                                    and symbol</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="m-separator m-separator--dashed m-separator--lg"></div>
-                                    <div class="m-form__section">
-                                        <div class="m-form__heading">
-                                            <h3 class="m-form__heading-title">Client Settings</h3>
-                                        </div>
-                                        <div class="form-group m-form__group row">
-                                            <div class="col-lg-6 m-form__group-sub">
-                                                <label class="form-control-label">* User Group:</label>
-                                                <div class="m-radio-inline">
-                                                    <label class="m-radio m-radio--solid m-radio--brand">
-                                                        <input type="radio" name="account_group" checked="" value="2">
-                                                        Sales Person
-                                                        <span></span>
-                                                    </label>
-                                                    <label class="m-radio m-radio--solid m-radio--brand">
-                                                        <input type="radio" name="account_group" value="2"> Customer
-                                                        <span></span>
-                                                    </label>
-                                                </div>
-                                                <span class="m-form__help">Please select user group</span>
-                                            </div>
-                                            <div class="col-lg-6 m-form__group-sub">
-                                                <label class="form-control-label">* Communications:</label>
-                                                <div class="m-checkbox-inline">
-                                                    <label class="m-checkbox m-checkbox--solid m-checkbox--brand">
-                                                        <input type="checkbox" name="account_communication[]" checked
-                                                            value="email">
-                                                        Email
-                                                        <span></span>
-                                                    </label>
-                                                    <label class="m-checkbox m-checkbox--solid  m-checkbox--brand">
-                                                        <input type="checkbox" name="account_communication[]"
-                                                            value="sms"> SMS
-                                                        <span></span>
-                                                    </label>
-                                                    <label class="m-checkbox m-checkbox--solid  m-checkbox--brand">
-                                                        <input type="checkbox" name="account_communication[]"
-                                                            value="phone"> Phone
-                                                        <span></span>
-                                                    </label>
-                                                </div>
-                                                <span class="m-form__help">Please select user communication
-                                                    options</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="m-separator m-separator--dashed m-separator--lg"></div>
-                                    <div class="m-form__section">
-                                        <div class="m-form__heading">
-                                            <h3 class="m-form__heading-title">Delivery Type</h3>
-                                        </div>
-                                        <div class="form-group m-form__group">
-                                            <div class="row">
-                                                <div class="col-lg-6">
-                                                    <label class="m-option">
-                                                        <span class="m-option__control">
-                                                            <span class="m-radio m-radio--state-brand">
-                                                                <input type="radio" name="billing_delivery" value="">
-                                                                <span></span>
-                                                            </span>
-                                                        </span>
-                                                        <span class="m-option__label">
-                                                            <span class="m-option__head">
-                                                                <span class="m-option__title">
-                                                                    Standart Delevery
-                                                                </span>
-                                                                <span class="m-option__focus">
-                                                                    Free
-                                                                </span>
-                                                            </span>
-                                                            <span class="m-option__body">
-                                                                Estimated 14-20 Day Shipping
-                                                                (&nbsp;Duties end taxes may be due
-                                                                upon delivery&nbsp;)
-                                                            </span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <label class="m-option">
-                                                        <span class="m-option__control">
-                                                            <span class="m-radio m-radio--state-brand">
-                                                                <input type="radio" name="billing_delivery" value="">
-                                                                <span></span>
-                                                            </span>
-                                                        </span>
-                                                        <span class="m-option__label">
-                                                            <span class="m-option__head">
-                                                                <span class="m-option__title">
-                                                                    Fast Delevery
-                                                                </span>
-                                                                <span class="m-option__focus">
-                                                                    $&nbsp;8.00
-                                                                </span>
-                                                            </span>
-                                                            <span class="m-option__body">
-                                                                Estimated 2-5 Day Shipping
-                                                                (&nbsp;Duties end taxes may be due
-                                                                upon delivery&nbsp;)
-                                                            </span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="m-form__help">
 
-                                                <!--must use this helper element to display error message for the options-->
+                        {{-- start quang add giay chung nhan nghe --}}
+                        <div class="m-wizard__form-step" id="m_wizard_form_step_2">
+                            <div class="m-content container-fluid">
+                                <div class="m-portlet">
+                                    <div class="m-portlet__head">
+                                        <div class="m-portlet__head-caption">
+                                            <div class="m-portlet__head-title">
+                                                <span class="m-portlet__head-icon">
+                                                    <i class="m-menu__link-icon flaticon-web"></i>
+                                                </span>
+                                                <h3 class="m-portlet__head-text">
+                                                    Thêm mới giấy chứng nhận
+                                                </h3>
                                             </div>
                                         </div>
+                                    </div>
+                            
+                                    <div class="m-portlet">
+                                        <div class="m-portlet__body">
+                                            <form action="" name="yourformname" id="giay_chung_nhan" method="POST"  enctype="multipart/form-data">
+                                                {{ csrf_field() }}
+                                                <div class="row">
+                                                    <div class="col-6 d-flex align-items-stretch">
+                                                        <div class="col-12">
+                                                            @if (isset($Csdt))
+                                                            <div class="form-group1 m-form__group mb-4">
+                                                                <label for="">Tên trường: <b></b></label>
+                                                                <input type="hidden" name="co_so_id" value="">
+                                                            </div>
+                                                            @endif
+                            
+                            
+                                                            <div class="form-group m-form__group mb-4">
+                                                                <label>Số quyết định <span class="text-danger">(*)</span></label>
+                                                                <input type="text" name="so_quyet_dinh_giay_phep" value="{{old('ten_giay_phep')}}"
+                                                                    class="form-control m-input" placeholder="Nhập số quết định">
+                                                            </div>
+                                                          
+                                                        <span  class="text-danger" id="so_quyet_dinh_error"></span>
+                                                        
+                                                            <div class="form-group m-form__group">
+                                                                <label for="exampleInputEmail1">Ảnh giấy phép <span
+                                                                        class="text-danger">(*)</span></label>
+                                                                <div class="custom-file">
+                                                                    <input type="file" value="{{old('anh-giay-phep')}}" name="anh_giay_phep"
+                                                                        class="custom-file-input"
+                                                                        onchange="showimages(this)"
+                                                                        id="customFileGiayPhep">
+                                                                    <label class="custom-file-label" for="customFileGiayPhep">Choose file</label>
+                                                                </div>
+                                                                <p class="text-danger text-small"  id="anh_giay_phep_error">
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                            
+                                                    </div>
+                            
+                                                    <div class="col-6">
+                                                        <div class="anh-giay-phep">
+                                                            <img src="" id="showimg" alt="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                            
+                                                <div class="row col-12 mt-3">
+                                                    <div class="col-4">
+                                                        <div class="form-group m-form__group mb-4">
+                                                            <label>Ngày ban hành <span class="text-danger">(*)</span></label>
+                                                            <div class="input-group date datepicker">
+                                                                <input type="text" name="ngay_ban_hanh_giay_phep" value="{{old('ngay_ban_hanh')}}"
+                                                                    placeholder="Ngày-tháng-năm" class="form-control">
+                                                                <div
+                                                                    class="input-group-addon form-control col-2 d-flex justify-content-center align-items-center">
+                                                                    <span><i class="flaticon-calendar-2"></i></span>
+                                                                </div>
+                                                            </div>
+                                                            <p class="text-danger text-small"  id="ngay_ban_hanh_giay_phep_error">
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                            
+                                                    <div class="col-4">
+                                                        <div class="form-group m-form__group mb-4">
+                                                            <label>Ngày hiệu lực <span class="text-danger">(*)</span></label>
+                                                            <div class="input-group date datepicker">
+                                                                <input type="text" name="ngay_hieu_luc_giay_phep" value="{{old('ngay_hieu_luc')}}"
+                                                                    placeholder="Ngày-tháng-năm" class="form-control">
+                                                                <div
+                                                                    class="input-group-addon form-control col-2 d-flex justify-content-center align-items-center">
+                                                                    <span><i class="flaticon-calendar-2"></i></span>
+                                                                </div>
+                                                            </div>
+                                                            <p class="text-danger text-small"  id="ngay_hieu_luc_giay_phep_error">
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                            
+                                                    <div class="col-4">
+                                                        <div class="form-group m-form__group mb-4">
+                                                            <label>Ngày hết hạn <span class="text-danger">(*)</span></label>
+                                                            <div class="input-group date datepicker">
+                                                                <input type="text" name="ngay_het_han_giay_phep" value="{{old('ngay_het_han')}}"
+                                                                    placeholder="Ngày-tháng-năm" class="form-control">
+                                                                <div
+                                                                    class="input-group-addon form-control col-2 d-flex justify-content-center align-items-center">
+                                                                    <span><i class="flaticon-calendar-2"></i></span>
+                                                                </div>
+                                                            </div>
+                                                            <p class="text-danger text-small"  id="ngay_het_han_giay_phep_error">
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                            
+                                                <div class="row col-12">
+                                                    <div class="col-12 form-group m-form__group">
+                                                        <label for="exampleTextarea">Mô tả quyết định</label>
+                                                        <textarea class="form-control m-input" id="summernote" name="mo_ta"
+                                                            placeholder="Mô tả ngắn gọn nội dung giấy phép hoặc ghi chú" rows="4"></textarea>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <p><span class="text-danger">(*)</span> Mục không được để trống</p>
+                                        </div>
+                            
+                                </div>
+                                <div id="preload" class="preload-container text-center" style="display: none">
+                                    <img id="gif-load" src="{!! asset('images/loading1.gif') !!}" alt="">
+                                </div>
+                                
+                                    <div class="m-portlet m-portlet--tab">
+                                        <div class="m-portlet__head">
+                                            <div class="m-portlet__head-caption">
+                                                <div class="m-portlet__head-title">
+                                                    <span class="m-portlet__head-icon m--hide">
+                                                        <i class="la la-gear"></i>
+                                                    </span>
+                                                    <h3 class="m-portlet__head-text">
+                                                        Thêm nghề cho cơ sở
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                            <div class="danh_sach_co_so">
+                                        <!--begin::Form-->
+                                        {{-- @foreach ($chi_nhanh as $item)
+                                        <div class="m-section__content chi_nhanh{{$item->id}}" chi_nhanh='{{$item->id}}'>
+                                            <div class="m-demo" data-code-preview="true" data-code-html="true" data-code-js="false">
+                                                <div class="m-demo__preview m-demo__preview--btn">
+                                                    <span class="btn btn-brand">{{$item->dia_chi}}</span> <i onclick="addForm(this)"
+                                                        class="fa fa-plus"></i>
+                                                    <div class="form_add_nghe">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endforeach --}}
+
+                                    </div>
+                                    <p class="text-danger ml-5" id="error_duplicate_nghe_id"></p> 
+                            
+                                        <!--end::Form-->
+                                    </div>
+                                    <div class="d-flex justify-content-end mr-5">
+                                        <button type="button" onclick="getDataDiaDiem(12)" class="btn btn-success">Địa Điểm</button>
+                                        {{-- <button type="button" onclick="addDuLieuGiayChungNhan()" class="btn btn-success">Đăng ký</button> --}}
                                     </div>
                                 </div>
                             </div>
                         </div>
-
+                       
                         <!--end: Form Wizard Step 2-->
 
                         <!--begin: Form Wizard Step 3-->
@@ -745,11 +773,10 @@
                                     </a>
                                 </div>
                                 <div class="col-lg-4 m--align-right">
-                                    <a href="#" class="btn btn-primary m-btn m-btn--custom m-btn--icon"
-                                        data-wizard-action="submit">
+                                    <span onclick="addDuLieuGiayChungNhan()" href="#" class="btn btn-primary m-btn m-btn--custom m-btn--icon" data-wizard-action="submit">
                                         <span>
                                             <i class="la la-check"></i>&nbsp;&nbsp;
-                                            <span>Submit</span>
+                                            <span>Đăng ký</span>
                                         </span>
                                     </a>
                                     <button class="btn btn-warning m-btn m-btn--custom m-btn--icon"
@@ -1037,4 +1064,18 @@
     }
 </script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+{{-- start quang-add-them-giay-phep-nghe --}}
+<script >
+$(document).ready(function() {
+    $(".select2").select2();
+});
+var getDiaChiCoSo = "{{route('getDiaChiCoSo')}}";
+var storeUrl = "{{route('store-nganh-nghe')}}";
+var addGiayChungNhan = "{{route('addGiayChungNhan')}}";
+var urlNganhNghe = "{{route('getNghe')}}";
+var config = <?php echo json_encode(config('common.bac_nghe')) ?>;
+</script>
+<script src="{!! asset('add_giay_chung_nhan_nghe/add_giay_chung_nhan_nghe.js') !!}"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+{{-- end quang-add-them-giay-phep-nghe --}}
 @endsection

@@ -21,6 +21,7 @@ return [
         'cao_dang' => ['ma_bac' => 6, 'ten_bac' => 'Cao Đẳng'],
         'trung_cap' => ['ma_bac' => 5, 'ten_bac' => 'Trung Cấp'],
         'so_cap' => ['ma_bac' => 4, 'ten_bac' => 'Sơ Cấp'],
+        'duoi_3_thang' => ['ma_bac' => 3, 'ten_bac' => 'Dưới 3 tháng'],
     ],
 
     'ma_cap_nghe' => [
