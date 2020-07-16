@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\CoSoDaoTao;
+use App\Models\CoSoDaoTao;
 use App\Repositories;
 use App\Services\ChiNhanhService;
 use App\Services\CoSoDaoTaoService;
@@ -143,41 +143,41 @@ class CoSoDaoTaoController extends Controller
 
     public function capnhatCSDT($id, Request $request)
     {
-        $request->validate(
-            [
-                'ten' => ['required', Rule::unique('co_so_dao_tao')->ignore($id)],
-                'ma_don_vi' => 'required',
-                'upload_logo' => 'mimes:jpeg,png',
-                'dien_thoai' => 'required|numeric|digits_between:10,12',
-                'dia_chi' => 'required',
-                'website' => 'required|url',
-                // 'ten_quoc_te' => 'required',
-                'co_quan_chu_quan_id' => 'required',
-                'ma_loai_hinh_co_so' => 'required',
-                'quyet_dinh_id' => 'required',
-                'maqh' => 'required',
-                'xaid' => 'required'
-            ],
-            [
-                'ten.required' => 'Tên cơ sở đào tạo không được để trống',
-                'ten.unique' => 'Tên cơ sở đào tạo đã tồn tại',
-                'ma_don_vi.required' => 'Mã đơn vị không được để trống',
-                'ma_don_vi.unique' => 'Mã đơn vị đã tồn tại',
-                'upload_logo.mimes' => 'File ảnh không đúng định dạng',
-                'dien_thoai.required' => 'Điện thoại không được để trống',
-                'dien_thoai.digits_between' => 'Số điện thoại sai định dạng',
-                'dien_thoai.numeric ' => 'Số điện thoại sai định dạng',
-                'dia_chi.required' => 'Địa chỉ không được để trống',
-                'website.url' => 'Website không đúng định dạng',
-                'website.required' => 'Website không được để trống',
-                // 'ten_quoc_te.required' => 'Tên quốc tế không được để trống',
-                'co_quan_chu_quan_id.required' => 'Vui lòng chọn cơ quan chủ quản',
-                'ma_loai_hinh_co_so.required' => 'Vui lòng chọn loại hình cơ sở',
-                'quyet_dinh_id.required' => 'Vui lòng chọn quyết định',
-                'maqh.required' => 'Vui lòng chọn Quận/huyện',
-                'xaid.required' => 'Vui lòng chọn Xã/phường'
-            ]
-        );
+        // $request->validate(
+        //     [
+        //         'ten' => ['required', Rule::unique('co_so_dao_tao')->ignore($id)],
+        //         'ma_don_vi' => 'required',
+        //         'upload_logo' => 'mimes:jpeg,png',
+        //         'dien_thoai' => 'required|numeric|digits_between:10,12',
+        //         'dia_chi' => 'required',
+        //         'website' => 'required|url',
+        //         // 'ten_quoc_te' => 'required',
+        //         'co_quan_chu_quan_id' => 'required',
+        //         'ma_loai_hinh_co_so' => 'required',
+        //         'quyet_dinh_id' => 'required',
+        //         'maqh' => 'required',
+        //         'xaid' => 'required'
+        //     ],
+        //     [
+        //         'ten.required' => 'Tên cơ sở đào tạo không được để trống',
+        //         'ten.unique' => 'Tên cơ sở đào tạo đã tồn tại',
+        //         'ma_don_vi.required' => 'Mã đơn vị không được để trống',
+        //         'ma_don_vi.unique' => 'Mã đơn vị đã tồn tại',
+        //         'upload_logo.mimes' => 'File ảnh không đúng định dạng',
+        //         'dien_thoai.required' => 'Điện thoại không được để trống',
+        //         'dien_thoai.digits_between' => 'Số điện thoại sai định dạng',
+        //         'dien_thoai.numeric ' => 'Số điện thoại sai định dạng',
+        //         'dia_chi.required' => 'Địa chỉ không được để trống',
+        //         'website.url' => 'Website không đúng định dạng',
+        //         'website.required' => 'Website không được để trống',
+        //         // 'ten_quoc_te.required' => 'Tên quốc tế không được để trống',
+        //         'co_quan_chu_quan_id.required' => 'Vui lòng chọn cơ quan chủ quản',
+        //         'ma_loai_hinh_co_so.required' => 'Vui lòng chọn loại hình cơ sở',
+        //         'quyet_dinh_id.required' => 'Vui lòng chọn quyết định',
+        //         'maqh.required' => 'Vui lòng chọn Quận/huyện',
+        //         'xaid.required' => 'Vui lòng chọn Xã/phường'
+        //     ]
+        // );
 
         if ($request->hasFile('upload_logo')) {
             $filePath = $request->file('upload_logo')->store('uploads/logoCsdt');

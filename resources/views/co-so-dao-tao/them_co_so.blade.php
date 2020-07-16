@@ -149,7 +149,7 @@
                                         <label class="form-name" for="">Cấp quản lý<span
                                                 class="text-danger">(*)</span></label>
                                         <select class="form-control col-12" name="cap_quan_ly" id="co_quan_chu_quan_id">
-                                            <option selected disabled>-----Chọn-----</option>
+                                            <option value="" selected>-----Chọn-----</option>
                                             @foreach (config('common.cap_quan_ly') as $cap)
                                             <option value="{{ $cap['ma_cap'] }}">
                                                 {{ $cap['ten_cap'] }}</option>
@@ -169,15 +169,13 @@
                                         <div class="form-group col-lg-12">
                                             <div class="form-group d-flex">
                                                 <div class="mr-5">
-                                                    <label for="" class="form-name">Số điện thoại <span
-                                                            class="text-danger">(*)</span></label>
+                                                    <label for="" class="form-name">Số điện thoại</label>
                                                     <input type="text" class="form-control" name="sdt_nguoi_dai_dien"
                                                         value="" placeholder="Số điện thoại người đại diện">
                                                 </div>
 
                                                 <div class="">
-                                                    <label for="" class="form-name">Email <span
-                                                            class="text-danger">(*)</span></label>
+                                                    <label for="" class="form-name">Email</label>
                                                     <input type="text" class="form-control" name="email_nguoi_dai_dien"
                                                         value="" placeholder="Email người đại diện">
                                                 </div>
@@ -194,14 +192,12 @@
                                                 class="text-danger">(*)</span></label>
                                         <div class="d-flex">
                                             <select class="form-control col-12" name="hinh_thuc_so_huu"
-                                                id="co_quan_chu_quan_id">
-                                                <option selected disabled>-----Chọn-----</option>
-
+                                                id="hinh_thuc_so_huu">
+                                                <option value="" selected>Chọn</option>
                                                 @foreach (config('common.hinh_thuc_so_huu') as $hinh_thuc)
                                                 <option value="{{ $hinh_thuc['ma_hinh_thuc'] }}">
                                                     {{ $hinh_thuc['ten_hinh_thuc'] }}</option>
                                                 @endforeach
-
                                             </select>
 
                                         </div>
@@ -214,7 +210,7 @@
                                         <div class="d-flex">
                                             <select class="form-control col-12" name="trinh_do_dao_tao"
                                                 id="co_quan_chu_quan_id">
-                                                <option selected disabled>-----Chọn-----</option>
+                                                <option value="">Chọn</option>
                                                 @foreach (config('common.trinh_do_dao_tao') as $trinh_do)
                                                 <option value="{{ $trinh_do['ma_trinh_do'] }}">
                                                     {{ $trinh_do['ten_trinh_do'] }}</option>
@@ -236,7 +232,7 @@
                                                 class="text-danger">(*)</span></label>
                                         <div class="d-flex">
                                             <select class="form-control col-12 select2" name="nguoi_phu_trach"
-                                                id="co_quan_chu_quan_id">
+                                                id="hinh_thuc_so_huu">
                                                 <option selected disabled>-----Chọn-----</option>
                                                 @foreach ($user as $u)
                                                 <option value="{{ $u->id }}">{{ $u->name }}</option>
@@ -285,8 +281,8 @@
                                         <div class="form-group m-form__group mb-4">
                                             <label>Ngày ban hành <span class="text-danger">(*)</span></label>
                                             <div class="input-group date datepicker">
-                                                <input type="text" name="ngay_ban_hanh" value="{{old('ngay_ban_hanh')}}"
-                                                    placeholder="Ngày-tháng-năm" class="form-control">
+                                                <input type="text" name="ngay_ban_hanh" value=""
+                                                    placeholder="Ngày-tháng-năm" class="form-control" onchange="hasValue(this.value)">
                                                 <div
                                                     class="input-group-addon form-control col-2 d-flex justify-content-center align-items-center">
                                                     <span><i class="flaticon-calendar-2"></i></span>
@@ -756,13 +752,13 @@
                                             <span>Submit</span>
                                         </span>
                                     </a>
-                                    <a href="#" class="btn btn-warning m-btn m-btn--custom m-btn--icon"
+                                    <button class="btn btn-warning m-btn m-btn--custom m-btn--icon"
                                         data-wizard-action="next" id="submit-co-so-ajax">
                                         <span>
                                             <span>Save & Continue</span>&nbsp;&nbsp;
                                             <i class="la la-arrow-right"></i>
                                         </span>
-                                    </a>
+                                    </button>
                                 </div>
                                 <div class="col-lg-2"></div>
                             </div>
@@ -822,28 +818,28 @@
 
     $('#submit-co-so-ajax').click(function(event){
         event.preventDefault();
+
+        ChiNhanhObj = {}
         let dia_chi_chi_nhanh = [];
-        let maqh = [];
-        let xaid = [];
-        let arr = [];
 
-        $('.dia_chi_chi_nhanh').map(function(index, value){
-            dia_chi_chi_nhanh.push($(value).val())
-
-        });
-        
-        $('.maqh').map(function(index, value){
-            
-            maqh.push($(value).val())
-        });
-
-        $('.xaid').map(function(index, value){
-            
-            xaid.push($(value).val())
-        });
-    console.log(arr)
+        let chi_nhanh = document.querySelectorAll('.dia_diem_dao_tao');
+        for (let i = 0; i < chi_nhanh.length; i++) {
+            ChiNhanhObj = {
+                dia_chi: $(chi_nhanh[i]).find('.dia_chi_chi_nhanh').val(),
+                maqh: $(chi_nhanh[i]).find('.devvn_quanhuyen').val(),
+                xaid: $(chi_nhanh[i]).find('.devvn_xaphuongthitran').val()    
+            }
+            dia_chi_chi_nhanh.push(ChiNhanhObj);
+        }
         let Data = new FormData();
         let anh_quyet_dinh = $('.anh_quyet_dinh')[0].files[0];
+
+        if(typeof(anh_quyet_dinh) != "undefined"){
+            anh_quyet_dinh = $('.anh_quyet_dinh')[0].files[0];
+        } else{
+            anh_quyet_dinh = ''
+        }
+        console.log(anh_quyet_dinh)
         Data.append('anh_quyet_dinh',anh_quyet_dinh);
         Data.append('ten', $('input[name=ten]').val());
         Data.append('ma_don_vi', $('input[name=ma_don_vi]').val());
@@ -851,31 +847,35 @@
         Data.append('ten_nguoi_dai_dien',$('input[name=ten_nguoi_dai_dien]').val());
         Data.append('sdt_nguoi_dai_dien',$('input[name=sdt_nguoi_dai_dien]').val());
         Data.append('email_nguoi_dai_dien',$('input[name=email_nguoi_dai_dien]').val());
-        Data.append('hinh_thuc_so_huu',$('select[name=hinh_thuc_so_huu]').val());
+        Data.append('hinh_thuc_so_huu',$('#hinh_thuc_so_huu').val());
         Data.append('trinh_do_dao_tao',$('select[name=trinh_do_dao_tao]').val());
         Data.append('hotline',$('input[name=hotline]').val());
         Data.append('so_quyet_dinh',$('input[name=so_quyet_dinh]').val());
         Data.append('ngay_ban_hanh',$('input[name=ngay_ban_hanh]').val());
         Data.append('ngay_hieu_luc',$('input[name=ngay_hieu_luc]').val());
         Data.append('ngay_het_han',$('input[name=ngay_het_han]').val());
-        Data.append('dia_chi_chi_nhanh',dia_chi_chi_nhanh);
-        Data.append('maqh_chi_nhanh',maqh);
-        Data.append('xaid_chi_nhanh',xaid);
+        Data.append('dia_chi_chi_nhanh',JSON.stringify(dia_chi_chi_nhanh));
         Data.append('_token', $('#token').val());
+        
         $.ajax({
             type: "Post",
             contentType: false,
             processData: false,
-            url: "{{route('csdt.tao-moi')}}",
+            url: "{{route('mang-luoi.tao-csdt')}}",
             data: Data,
             success: function(response){
                 console.log(response.CoSo.id)
             },
-            error: function(dataErr){
-                console.log(dataErr)
+            error: function(data){
+                var errors = data.responseJSON;
+                console.log(errors)
             }
         })
-    })
+    });
+
+    function hasValue(value){
+        $('input[name=ngay_hieu_luc]').val(value)
+    }
 
     $("#btn-them-co-quan").click(function(event) {
         event.preventDefault();

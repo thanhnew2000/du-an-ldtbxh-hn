@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-use App\CoSoDaoTao;
+use App\Models\CoSoDaoTao;
 use Illuminate\Database\Eloquent\Model;
 
 class TotNghiep extends Model

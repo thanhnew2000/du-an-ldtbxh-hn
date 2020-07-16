@@ -23,6 +23,8 @@ class QuyetDinh extends Model
 
     public function setNgayHetHanAttribute($value)
     {
-        $this->attributes['ngay_het_han'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+        if(isset($value)){
+            $this->attributes['ngay_het_han'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+        }
     }
 }

@@ -81,16 +81,14 @@ class ChiNhanhRepository extends BaseRepository implements ChiNhanhRepositoryInt
     }
     public function createChiNhanh($attributes = [])
     {
-        $dia_chi = explode(',', $attributes['dia_chi_chi_nhanh']);
-        $maqh = explode(',', $attributes['maqh_chi_nhanh']);
-        $xaid = explode(',', $attributes['xaid_chi_nhanh']);
+        $Chi_nhanh = json_decode($attributes['dia_chi_chi_nhanh']);
         $arrayInsert = [];
-        for ($i = 0; $i < count($dia_chi); $i++) {
+        for ($i = 0; $i < count($Chi_nhanh); $i++) {
             $arrayInsert[] = [
                 'co_so_id' => $attributes['co_so_id'],
-                'dia_chi' => $dia_chi[$i],
-                'maqh' => $maqh[$i],
-                'xaid' => $xaid[$i]
+                'dia_chi' => $Chi_nhanh[$i]->dia_chi,
+                'maqh' => $Chi_nhanh[$i]->maqh,
+                'xaid' => $Chi_nhanh[$i]->xaid
             ];
         }
         return $this->model->insert($arrayInsert);

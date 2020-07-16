@@ -123,8 +123,10 @@ return [
         ['ma_cap' => 1, 'ten_cap' => 'Địa phương']
     ],
     'hinh_thuc_so_huu' => [
-        ['ma_hinh_thuc' => 0, 'ten_hinh_thuc' => 'Tư Thục'],
-        ['ma_hinh_thuc' => 1, 'ten_hinh_thuc' => 'Có vốn đầu tư nước ngoài']
+        ['ma_hinh_thuc' => 0, 'ten_hinh_thuc' => 'Công'],
+        ['ma_hinh_thuc' => 1, 'ten_hinh_thuc' => 'Tư Thục'],
+        ['ma_hinh_thuc' => 2, 'ten_hinh_thuc' => 'Có vốn đầu tư nước ngoài'],
+        ['ma_hinh_thuc' => 3, 'ten_hinh_thuc' => 'Liên kết']
     ],
     'trinh_do_dao_tao' => [
         ['ma_trinh_do' => 0, 'ten_trinh_do' => 'Cao Đẳng'],

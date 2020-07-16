@@ -36,43 +36,55 @@ class MangLuoiController extends Controller
         return view('co-so-dao-tao.them_co_so', compact('qd', 'coquan', 'loaihinh', 'quanhuyen', 'xaphuong', 'user'));
     }
     public function SaveTaoMoiCoSoDaoTao(Request $request){
-        // dd($request->all());
-        // $request->validate(
-        //     [
-        //         'ten' => 'required|unique:co_so_dao_tao',
-        //         'ma_don_vi' => 'required|unique:co_so_dao_tao',
-        //         'upload_logo' => 'required|mimes:jpeg,png',
-        //         'dien_thoai' => 'required|numeric |digits_between:10,12',
-        //         'website' => 'required|url',
-        //         'dia_chi' => 'required|unique:co_so_dao_tao',
-        //         // 'ten_quoc_te' => 'required',
-        //         'co_quan_chu_quan_id' => 'required',
-        //         'ma_loai_hinh_co_so' => 'required',
-        //         'quyet_dinh_id' => 'required',
-        //         'maqh' => 'required',
-        //         'xaid' => 'required'
-        //     ],
-        //     [
-        //         'ten.required' => 'Tên cơ sở đào tạo không được để trống',
-        //         'ten.required' => 'Tên cơ sở đào tạo đã tồn tại',
-        //         'ma_don_vi.required' => 'Mã đơn vị không được để trống',
-        //         'upload_logo.required' => 'Logo không được để trống',
-        //         'upload_logo.mimes' => 'Logo không đúng định dạng file ảnh',
-        //         'dien_thoai.required' => 'Điện thoại không được để trống',
-        //         'dien_thoai.digits_between' => 'Số điện thoại sai định dạng',
-        //         'dien_thoai.numeric ' => 'Số điện thoại sai định dạng',
-        //         'website.url' => 'Website không đúng định dạng',
-        //         'website.required' => 'Website không được để trống',
-        //         'dia_chi.required' => 'địa chỉ không được để trống',
-        //         'dia_chi.mimes' => 'Địa chỉ đã tồn tại trong hệ thống',
-        //         // 'ten_quoc_te.required' => 'Vui lòng điền tên quốc tế của cơ sở',
-        //         'co_quan_chu_quan_id.required' => 'Vui lòng chọn cơ quan chủ quản',
-        //         'ma_loai_hinh_co_so.required' => 'Vui lòng chọn loại hình cơ sở',
-        //         'quyet_dinh_id.required' => 'Vui lòng chọn quyết định của cơ sở',
-        //         'maqh.required' => 'Vui lòng chọn Quận/huyện',
-        //         'xaid.required' => 'Vui lòng chọn Xã/phường'
-        //     ]
-        // );
+        dd($request->all());
+        $request->validate(
+            [
+                'ten' => 'required|unique:co_so_dao_tao',
+                'ma_don_vi' => 'required|unique:co_so_dao_tao',
+                'ten_nguoi_dai_dien' => 'required',
+                'hinh_thuc_so_huu' => 'required',
+                'trinh_do_dao_tao' => 'required',
+                'hotline' => 'required|numeric |digits_between:10,12',
+                'so_quyet_dinh', 'required|uniqie:quyet_dinh_thanh_lap_csdt',
+                'anh_quyet_dinh' => 'required|mimes:jpeg,png',
+                
+                'ngay_ban_hanh' => 'required|date_format:d-m-Y',
+                'ngay_hieu_luc' => 'required|date_format:d-m-Y|after_or_equal:ngay_ban_hanh',
+                'ngay_het_han' => 'after:ngay_hieu_luc',
+
+                'hotline' => 'required|numeric |digits_between:10,12',
+            ],
+            [
+                'ten.required' => 'Tên cơ sở đào tạo không được để trống',
+                'ten.unique' => 'Tên cơ sở đào tạo đã tồn tại',
+
+                'ma_don_vi.required' => 'Mã đơn vị không được để trống',
+                'ma_don_vi.unique' => 'Mã đơn vị này đã tồn tại',
+
+                'hotline.required' => 'Điện thoại không được để trống',
+                'hotline.digits_between' => 'Số điện thoại sai định dạng',
+                'hotline.numeric ' => 'Số điện thoại sai định dạng',
+                
+                'ten_nguoi_dai_dien.required' => 'Vui Lòng nhập tên người đại diện',
+                'hinh_thuc_so_huu.required' => 'Vui lòng chọn hình thức sở hữu của cơ sở',
+                'trinh_do_dao_tao.required' => 'Vui lòng chọn trình độ đào tạo của cơ sở',
+
+                'so_quyet_dinh.required' => 'Vui lòng nhập số quyết định',
+                'so_quyet_dinh.uniqie' => 'Quyết đinh này đã tồn tại',
+                
+                'anh_quyet_dinh.required' => 'Vui lòng tải lên ảnh quyết định',
+                'anh_quyet_dinh.mimes' => 'File không đúng định dạng ảnh',
+
+                'ngay_ban_hanh.date_format' => 'Ngày không đúng định dạng',
+                'ngay_ban_hanh.required' => 'Vui lòng chọn ngày ban hành',
+
+                'ngay_hieu_luc.date_format' => 'Ngày không đúng định dạng',
+                'ngay_hieu_luc.required' => 'Vui lòng chọn ngày ban hành',
+                'ngay_hieu_luc.after_or_equal' => 'Ngày hiệu lực phải sau hoặc bằng ngày ban hành',
+
+                'ngay_het_han.after' => 'Ngày hết hạn phải sau ngày ban hành',
+            ]
+        );
 
         if ($request->hasFile('anh_quyet_dinh')) {
             $filePath = $request->file('anh_quyet_dinh')->store('uploads/anh-quyet-dinh');

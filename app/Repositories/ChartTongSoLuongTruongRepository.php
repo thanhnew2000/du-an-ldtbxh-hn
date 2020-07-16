@@ -3,7 +3,7 @@
 namespace App\Repositories;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\BaseRepository;
-use App\CoSoDaoTao;
+use App\Models\CoSoDaoTao;
 
 use Carbon\Carbon;
 
