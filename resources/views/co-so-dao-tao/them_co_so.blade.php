@@ -430,7 +430,7 @@ line-height: 90px
                             
                                                             <div class="form-group m-form__group mb-4">
                                                                 <label>Số quyết định <span class="text-danger">(*)</span></label>
-                                                                <input type="text" name="so_quyet_dinh" value="{{old('ten_giay_phep')}}"
+                                                                <input type="text" name="so_quyet_dinh_giay_phep" value="{{old('ten_giay_phep')}}"
                                                                     class="form-control m-input" placeholder="Nhập số quết định">
                                                             </div>
                                                           

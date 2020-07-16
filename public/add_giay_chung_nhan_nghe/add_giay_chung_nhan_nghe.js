@@ -31,13 +31,14 @@ function getDataDiaDiem(id_co_so) {
 var arrayAdd = {};
 var ngheIdAdd = [];
 function addDuLieuGiayChungNhan() {
+    $("#preload").css("display", "block");
     var checkEmptySome=[];
     var file_data = $("#customFileGiayPhep").prop("files")[0];
 
     // data giấy chứng nhận
     var form_data = new FormData();
     form_data.append("anh_quyet_dinh", file_data);
-    form_data.append("so_quyet_dinh", $('[name ="so_quyet_dinh"]').val());
+    form_data.append("so_quyet_dinh", $('[name ="so_quyet_dinh_giay_phep"]').val());
     form_data.append("ngay_ban_hanh", $('[name ="ngay_ban_hanh_giay_phep"]').val());
     form_data.append("ngay_hieu_luc", $('[name ="ngay_hieu_luc_giay_phep"]').val());
     form_data.append("ngay_het_han", $('[name ="ngay_het_han_giay_phep"]').val());
@@ -104,6 +105,7 @@ function addDuLieuGiayChungNhan() {
     if(checkEmptySome.length <= 0){
         addGiayChungNhanNghe(dataAddNghe, form_data,ngheIdAdd);
     }else{
+        $("#preload").css("display", "none");
         console.log('Lỗi rồi nhé')
     }
 }
@@ -150,6 +152,7 @@ function addGiayChungNhanNghe(dataAddNghe, form_data,ngheIdAdd) {
                     $('#ngay_het_han_giay_phep_error').html('');
                 })
                 .catch(function(error) {
+                    $("#preload").css("display", "none");
                     console.log(error.response.data);
                     $('#so_quyet_dinh_error').html('');
                     $('#anh_giay_phep_error').html('');
@@ -174,6 +177,7 @@ function addNghe(dataNghe) {
         .post(storeUrl, dataNghe)
         .then(function(response) {
         console.log("thành công");
+        $("#preload").css("display", "none");
         Swal.fire({
             title: 'Thêm mới thành công',
             icon: 'success',
