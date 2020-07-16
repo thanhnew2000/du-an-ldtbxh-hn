@@ -30,7 +30,6 @@ function getDataDiaDiem(id_co_so) {
 
 var arrayAdd = {};
 var ngheIdAdd = [];
-var trinhDoAdd = [];
 function addDuLieuGiayChungNhan() {
     var checkEmptySome=[];
     var file_data = $("#customFileGiayPhep").prop("files")[0];
@@ -60,7 +59,6 @@ function addDuLieuGiayChungNhan() {
         soIndex++;
         arrayAdd["diadiem" + element] = [];
         ngheIdAdd[soIndex]= [];
-        trinhDoAdd[soIndex]= [];
         var getChiNhanh = document.querySelectorAll(`.chi_nhanh${element}`);
         var getNghe = $(getChiNhanh).find(".add_nghe_dia_chi");
         // console.log('nghề'+getNghe.length)
@@ -96,7 +94,6 @@ function addDuLieuGiayChungNhan() {
             }
 
             ngheIdAdd[soIndex].push(nghe_id_add);
-            trinhDoAdd[soIndex].push(trinhdo_id_add);
         }
     });
     var dataAddNghe = {
@@ -105,7 +102,7 @@ function addDuLieuGiayChungNhan() {
     };
    
     if(checkEmptySome.length <= 0){
-        addGiayChungNhanNghe(dataAddNghe, form_data,ngheIdAdd,trinhDoAdd);
+        addGiayChungNhanNghe(dataAddNghe, form_data,ngheIdAdd);
     }else{
         console.log('Lỗi rồi nhé')
     }
@@ -121,7 +118,7 @@ function hasDuplicates(arr) {
     }
     return false;
 }
-function addGiayChungNhanNghe(dataAddNghe, form_data,ngheIdAdd,trinhDoAdd) {
+function addGiayChungNhanNghe(dataAddNghe, form_data,ngheIdAdd) {
         console.log('hello soemthing');
         var resultCheckDuplicate = false;
         var checkD = false;
@@ -181,7 +178,7 @@ function addNghe(dataNghe) {
             title: 'Thêm mới thành công',
             icon: 'success',
             showConfirmButton: false,
-            time:1000
+            timer: 1500
             });
         })
         .catch(function(error) {
