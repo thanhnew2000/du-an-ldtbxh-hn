@@ -17,6 +17,12 @@ line-height: 90px
 .m-demo__preview{
     border: none !important
 }
+.messageNoNghe{
+    color:red;
+}
+.messageNoTrinhDo{
+    color:red;
+}
 </style>
 <link href="{!! asset('css_loading/css_loading.css') !!}" rel="stylesheet" type="text/css" />
 @endsection
@@ -647,8 +653,9 @@ line-height: 90px
                                             </div>
                                         </div>
                                         @endforeach --}}
+
                                     </div>
-                            
+                                    <p class="text-danger ml-5" id="error_duplicate_nghe_id"></p> 
                             
                                         <!--end::Form-->
                                     </div>

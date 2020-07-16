@@ -30,7 +30,7 @@ function getDataDiaDiem(id_co_so) {
 
 var arrayAdd = {};
 var ngheIdAdd = [];
-
+var trinhDoAdd = [];
 function addDuLieuGiayChungNhan() {
     var file_data = $("#customFileGiayPhep").prop("files")[0];
 
@@ -54,9 +54,12 @@ function addDuLieuGiayChungNhan() {
     //end list chi nhánh
 
     // start get data nghề theo địa điểm
+    var soIndex = -1;
     chi_nhanh.forEach(element => {
+        soIndex++;
         arrayAdd["diadiem" + element] = [];
-        ngheIdAdd["diadiem" + element]= [];
+        ngheIdAdd[soIndex]= [];
+        trinhDoAdd[soIndex]= [];
         var getChiNhanh = document.querySelectorAll(`.chi_nhanh${element}`);
         var getNghe = $(getChiNhanh).find(".add_nghe_dia_chi");
         // console.log('nghề'+getNghe.length)
@@ -72,16 +75,32 @@ function addDuLieuGiayChungNhan() {
                     .find(".so_luong")
                     .val()
             };
+
+
             arrayAdd["diadiem" + element].push(obj);
-            var nghe_id_add =  $(getNghe[index]) .find(".nganh_nghe") .val();
-            ngheIdAdd["diadiem" + element].push(nghe_id_add);
+            var nghe_id_add =  $(getNghe[index]) .find(".nganh_nghe").val();
+            var trinhdo_id_add =  $(getNghe[index]) .find(".cap_nghe").val();
+
+            if(trinhdo_id_add == 'no'){
+              $(getNghe[index]).find(".messageNoNghe").text('');
+              $(getNghe[index]).find(".messageNoTrinhDo").text('Bạn chưa trình độ');
+            }else if(nghe_id_add == 'no'){
+              $(getNghe[index]).find(".messageNoTrinhDo").text('');
+              $(getNghe[index]).find(".messageNoNghe").text('Bạn chưa chọn nghề');
+            }else{
+              $(getNghe[index]).find(".messageNoTrinhDo").text('');
+              $(getNghe[index]).find(".messageNoNghe").text('');
+            }
+
+            ngheIdAdd[soIndex].push(nghe_id_add);
+            trinhDoAdd[soIndex].push(trinhdo_id_add);
         }
     });
     var dataAddNghe = {
         co_so_id: 12,
         data: arrayAdd
     };
-    addGiayChungNhanNghe(dataAddNghe, form_data);
+    addGiayChungNhanNghe(dataAddNghe, form_data,ngheIdAdd,trinhDoAdd);
 }
 function hasDuplicates(arr) {
     var counts = [];
@@ -94,52 +113,72 @@ function hasDuplicates(arr) {
     }
     return false;
 }
-function addGiayChungNhanNghe(dataAddNghe, form_data) {
-    // var resultCheckDuplicate = false;
-    // var checkD = false;
-    // ngheIdAdd.forEach(e => {
-    //       resultCheckDuplicate = hasDuplicates(e);
-    //       if(resultCheckDuplicate == true){
-    //             checkD = true;
-    //       }
-    //       console.log(e);
-    // })
-    // console.log(ngheIdAdd);
-    // if(checkD){
-    //     alert('Have some duplicate');
-    // }else{
-    //     alert('No duplicate');
-    // }
-    
-    axios
-        .post(addGiayChungNhan, form_data)
-        .then(function(response) {
-            if (response.data > 0) {
-                dataAddNghe.id_giay_chung_nhan = response.data;
-                addNghe(dataAddNghe);
-                console.log(dataAddNghe);
+function addGiayChungNhanNghe(dataAddNghe, form_data,ngheIdAdd,trinhDoAdd) {
+        var checkNgheEmpty = false;
+        var checkTrinhDoEmpty = false;
+        var resultCheckDuplicate = false;
+        var checkD = false;
        
+            ngheIdAdd.forEach((element,index)=>{
+                resultCheckDuplicate = hasDuplicates(element); 
+                if(resultCheckDuplicate){
+                  checkD = true;
+                }
+                for (var j = 0; j <  element.length; j++) {
+                    console.log(ngheIdAdd[index][j],trinhDoAdd[index][j])
+                    if(ngheIdAdd[index][j] == 'no'){
+                        checkNgheEmpty = true;
+                    }
+                    if(trinhDoAdd[index][j] == 'no' ){
+                        checkTrinhDoEmpty = true;
+                    }
+                }
+            })
+      
+        if(checkD){
+            console.log('Have some duplicate');
+            $('#error_duplicate_nghe_id').text('Lỗi có chi nhánh bị trùng nghề');
+        }else{
+            $('#error_duplicate_nghe_id').text('');
+            if(checkTrinhDoEmpty == true || checkNgheEmpty == true){
+                // $('#error_duplicate_nghe_id').text('Có trình độ chưa nhập');
+                console.log('Lỗi chưa nhập đủ');
+            // }else if(checkNgheEmpty){
+            //     $('#error_duplicate_nghe_id').text('Có nghề chưa nhập ');
+            }else{
+                axios
+                .post(addGiayChungNhan, form_data)
+                .then(function(response) {
+                    if (response.data > 0) {
+                        dataAddNghe.id_giay_chung_nhan = response.data;
+                        addNghe(dataAddNghe);
+                        console.log(dataAddNghe);
+                    }
+                    $('#so_quyet_dinh_error').html('');
+                    $('#anh_giay_phep_error').html('');
+                    $('#ngay_ban_hanh_giay_phep_error').html('');
+                    $('#ngay_hieu_luc_giay_phep_error').html('');
+                    $('#ngay_het_han_giay_phep_error').html('');
+                })
+                .catch(function(error) {
+                    console.log(error.response.data);
+                    $('#so_quyet_dinh_error').html('');
+                    $('#anh_giay_phep_error').html('');
+                    $('#ngay_ban_hanh_giay_phep_error').html('');
+                    $('#ngay_hieu_luc_giay_phep_error').html('');
+                    $('#ngay_het_han_giay_phep_error').html('');
+                    $('#so_quyet_dinh_error').html(error.response.data.errors.so_quyet_dinh);
+                    $('#anh_giay_phep_error').html(error.response.data.errors.anh_quyet_dinh);
+                    $('#ngay_ban_hanh_giay_phep_error').html(error.response.data.errors.ngay_ban_hanh);
+                    $('#ngay_hieu_luc_giay_phep_error').html(error.response.data.errors.ngay_hieu_luc);
+                    $('#ngay_het_han_giay_phep_error').html(error.response.data.errors.ngay_het_han);
+                });
             }
-            $('#so_quyet_dinh_error').html('');
-            $('#anh_giay_phep_error').html('');
-            $('#ngay_ban_hanh_giay_phep_error').html('');
-            $('#ngay_hieu_luc_giay_phep_error').html('');
-            $('#ngay_het_han_giay_phep_error').html('');
-        })
-        .catch(function(error) {
-            // error.response.data
-            console.log(error.response.data);
-            $('#so_quyet_dinh_error').html('');
-            $('#anh_giay_phep_error').html('');
-            $('#ngay_ban_hanh_giay_phep_error').html('');
-            $('#ngay_hieu_luc_giay_phep_error').html('');
-            $('#ngay_het_han_giay_phep_error').html('');
-            $('#so_quyet_dinh_error').html(error.response.data.errors.so_quyet_dinh);
-            $('#anh_giay_phep_error').html(error.response.data.errors.anh_quyet_dinh);
-            $('#ngay_ban_hanh_giay_phep_error').html(error.response.data.errors.ngay_ban_hanh);
-            $('#ngay_hieu_luc_giay_phep_error').html(error.response.data.errors.ngay_hieu_luc);
-            $('#ngay_het_han_giay_phep_error').html(error.response.data.errors.ngay_het_han);
-        });
+
+         
+        }
+    
+  
 }
 
 function addNghe(dataNghe) {
@@ -167,14 +206,17 @@ let addForm = e => {
         ` <div class="row add_nghe_dia_chi mt-4">
 				<div class="col-4">
 					<select onchange="getNgheTheoCapBac(this)" class="form-control  m-input cap_nghe" >
-						<option>Chọn cấp nghề</option>
+						<option value="no">Chọn cấp nghề</option>
 					${html}
-					</select>
+                    </select>
+                    <span class="messageNoTrinhDo"></span>
+
 				</div>
 				<div class="col-4">
 					<select disabled class="form-control nganh_nghe  m-input " >
-						<option>Chọn nghề</option>
-					</select>
+						<option value="no">Chọn nghề</option>
+                    </select>
+                    <span class="messageNoNghe"></span>
 				</div>
 				<div class="col-3">
 					<input type="text"  class="form-control m-input m-input--square so_luong"
@@ -195,7 +237,7 @@ function getNgheTheoCapBac(e) {
         })
         .then(function(response) {
             if ($(e).val() >= 5) {
-                var htmldata = '<option value="" selected  >Chọn nghề</option>';
+                var htmldata = '<option value="no" selected  >Chọn nghề</option>';
                 response.data.forEach(element => {
                     htmldata += `<option value="${element.id}">${element.id}-${element.ten_nganh_nghe}</option>`;
                 });
@@ -204,7 +246,7 @@ function getNgheTheoCapBac(e) {
                     .find(".nganh_nghe")
                     .select2();
             } else {
-                var htmldata = '<option value="" selected  >Chọn nghề</option>';
+                var htmldata = '<option value="no" selected  >Chọn nghề</option>';
                 response.data.forEach(element => {
                     htmldata += `<option value="${element.ten_nganh_nghe}">${element.ten_nganh_nghe}</option>`;
                 });
