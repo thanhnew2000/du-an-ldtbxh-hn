@@ -34,9 +34,9 @@
                     <br>
                     <div class="row">
                         <div class="col-sm-3 offset-sm-3 ">
-                            <button type="button" class="btn m-btn--square  btn-success btn-block">
+                            <a href="{{route('giay-phep-hoat-dong.index')}}" class="btn m-btn--square  btn-success btn-block">
                                 <i class="fab fa-empire"></i> Quản lý giấy phép hoạt động
-                            </button>
+                            </a>
                         </div>
                         <div class="col-sm-3 ">
                             <button type="button" class="btn m-btn--square  btn-accent btn-block">
