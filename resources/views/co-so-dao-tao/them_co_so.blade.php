@@ -2,7 +2,6 @@
 @section('title', 'Thêm mới cơ sở đào tạo')
 @section('style')
 <style>
-<<<<<<< HEAD
 .removediachi{
 line-height: 90px
 }
@@ -29,15 +28,6 @@ line-height: 90px
 @endsection
 @section('content')
 
-=======
-    .removediachi {
-        line-height: 90px
-    }
-</style>
-
-@endsection
-@section('content')
->>>>>>> fb008b1b91616ebe4802157892ac14a25dfcd5d3
 <div class="m-content container-fluid">
     <div class="m-portlet m-portlet--full-height">
 
@@ -141,48 +131,6 @@ line-height: 90px
                             </div>
 
                             <div class="main-form row d-flex justify-content-around">
-<<<<<<< HEAD
-                                
-                            <div class="col-left col-lg-5">
-                                
-                                <div class="form-group col-lg-12">
-                                    
-                                    <label class="form-name mr-3" for="">Tên cơ sở đào tạo <span
-                                            class="text-danger">(*)</span></label>
-                                    <input type="text" class="form-control" name="ten" value="{{ old('ten') }}"
-                                        class="form-text text-danger" placeholder="Nhập tên cơ sở đào tạo">
-                                    <p id="helpId" class="form-text text-danger">
-                                        @error('ten')
-                                        {{ $message }}
-                                        @enderror
-                                    </p>
-                                </div>
-    
-                                <div class="form-group col-lg-12">
-                                    <label class="form-name" for="">Mã đơn vị <span class="text-danger">(*)</span></label>
-                                    <input type="text" class="form-control" name="ma_don_vi" value="{{ old('ma_don_vi') }}"
-                                        placeholder="Nhập mã đơn vị">
-                                    <p id="helpId" class="form-text text-danger">
-                                        @error('ma_don_vi')
-                                        {{ $message }}
-                                        @enderror
-                                    </p>
-                                </div>
-                                <div class="form-group col-lg-12">
-                                    <label class="form-name" for="">Cấp quản lý<span
-                                            class="text-danger">(*)</span></label>
-                                    <div class="d-flex">
-                                        <select class="form-control col-12" name=""
-                                            id="co_quan_chu_quan_id">
-                                            <option selected disabled>-----Chọn-----</option>
-                                            
-                                            <option value="" >Trung ương</option>
-                                            <option value="" >Địa phương</option>
-                                                
-                                           
-                                        </select>
-                                        
-=======
                                 <div class="col-left col-lg-5">
                                     <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
 
@@ -284,7 +232,6 @@ line-height: 90px
                                                 class="text-danger">(*)</span></label>
                                         <input type="text" class="form-control" name="hotline"
                                             value="{{ old('ma_don_vi') }}" placeholder="Nhập số điện thoại">
->>>>>>> fb008b1b91616ebe4802157892ac14a25dfcd5d3
                                     </div>
 
                                     <div class="form-group col-lg-12">
@@ -314,37 +261,12 @@ line-height: 90px
                                 </div>
                             </div>
                             <div class="main-form row d-flex justify-content-around">
-<<<<<<< HEAD
-                                
-                                
-                            <div class="col-left col-lg-5">
-                                
-                                <div class="form-group col-lg-12">
-                                    
-                                    <label class="form-name mr-3" for="">Số quyết định <span
-                                            class="text-danger">(*)</span></label>
-                                    <input type="text" class="form-control" name="ten" value=""
-                                        class="form-text text-danger" placeholder="Nhập quyết định">
-                                    <p id="helpId" class="form-text text-danger">
-                                        @error('ten')
-                                        {{ $message }}
-                                        @enderror
-                                    </p>
-
-                                </div>
-    
-                                <div class="form-group col-lg-12">
-                                    <label for="" class="form-name">Ảnh quyết định <span class="text-danger">(*)</span></label>
-                                    <div class="form-group col-lg-12 mt-2">
-                                        <img id="logo-co-so" class="col-6" src="" alt="">
-=======
                                 <div class="col-left col-lg-5">
                                     <div class="form-group col-lg-12">
                                         <label class="form-name mr-3" for="">Số quyết định <span
                                                 class="text-danger">(*)</span></label>
                                         <input type="text" class="form-control" name="so_quyet_dinh" value=""
                                             class="form-text text-danger" placeholder="Nhập quyết định">
->>>>>>> fb008b1b91616ebe4802157892ac14a25dfcd5d3
                                     </div>
 
                                     <div class="form-group col-lg-12">
@@ -360,17 +282,6 @@ line-height: 90px
                                             <label class="custom-file-label" for="customFile">Choose file</label>
                                         </div>
                                     </div>
-<<<<<<< HEAD
-                                    <p id="helpId" class="form-text text-danger">
-                                        @error('upload_logo')
-                                        {{ $message }}
-                                        @enderror
-                                    </p>
-
-                                    <span class="text-danger" id="anh_quyet_dinh_error"></span>
-
-=======
->>>>>>> fb008b1b91616ebe4802157892ac14a25dfcd5d3
                                 </div>
                                 <div class="col-lg-5">
                                     <div class="">
@@ -487,7 +398,6 @@ line-height: 90px
 
                         {{-- start quang add giay chung nhan nghe --}}
                         <div class="m-wizard__form-step" id="m_wizard_form_step_2">
-<<<<<<< HEAD
                             <div class="m-content container-fluid">
                                 <div class="m-portlet">
                                     <div class="m-portlet__head">
@@ -606,117 +516,6 @@ line-height: 90px
                                                         <textarea class="form-control m-input" id="summernote" name="mo_ta"
                                                             placeholder="Mô tả ngắn gọn nội dung giấy phép hoặc ghi chú" rows="4"></textarea>
                                                     </div>
-=======
-                            <div class="row">
-                                <div class="col-xl-8 offset-xl-2">
-                                    <div class="m-form__section m-form__section--first">
-                                        <div class="m-form__heading">
-                                            <h3 class="m-form__heading-title">Account Details</h3>
-                                        </div>
-                                        <div class="form-group m-form__group row">
-                                            <div class="col-lg-12">
-                                                <label class="form-control-label">* URL:</label>
-                                                <input type="url" name="account_url" class="form-control m-input"
-                                                    placeholder="" value="http://sinortech.vertoffice.com">
-                                                <span class="m-form__help">Please enter your preferred URL to your
-                                                    dashboard</span>
-                                            </div>
-                                        </div>
-                                        <div class="form-group m-form__group row">
-                                            <div class="col-lg-6 m-form__group-sub">
-                                                <label class="form-control-label">* Username:</label>
-                                                <input type="text" name="account_username" class="form-control m-input"
-                                                    placeholder="" value="nick.stone">
-                                                <span class="m-form__help">Your username to login to your
-                                                    dashboard</span>
-                                            </div>
-                                            <div class="col-lg-6 m-form__group-sub">
-                                                <label class="form-control-label">* Password:</label>
-                                                <input type="password" name="account_password"
-                                                    class="form-control m-input" placeholder="" value="qwerty">
-                                                <span class="m-form__help">Please use letters and at least one number
-                                                    and symbol</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="m-separator m-separator--dashed m-separator--lg"></div>
-                                    <div class="m-form__section">
-                                        <div class="m-form__heading">
-                                            <h3 class="m-form__heading-title">Client Settings</h3>
-                                        </div>
-                                        <div class="form-group m-form__group row">
-                                            <div class="col-lg-6 m-form__group-sub">
-                                                <label class="form-control-label">* User Group:</label>
-                                                <div class="m-radio-inline">
-                                                    <label class="m-radio m-radio--solid m-radio--brand">
-                                                        <input type="radio" name="account_group" checked="" value="2">
-                                                        Sales Person
-                                                        <span></span>
-                                                    </label>
-                                                    <label class="m-radio m-radio--solid m-radio--brand">
-                                                        <input type="radio" name="account_group" value="2"> Customer
-                                                        <span></span>
-                                                    </label>
-                                                </div>
-                                                <span class="m-form__help">Please select user group</span>
-                                            </div>
-                                            <div class="col-lg-6 m-form__group-sub">
-                                                <label class="form-control-label">* Communications:</label>
-                                                <div class="m-checkbox-inline">
-                                                    <label class="m-checkbox m-checkbox--solid m-checkbox--brand">
-                                                        <input type="checkbox" name="account_communication[]" checked
-                                                            value="email">
-                                                        Email
-                                                        <span></span>
-                                                    </label>
-                                                    <label class="m-checkbox m-checkbox--solid  m-checkbox--brand">
-                                                        <input type="checkbox" name="account_communication[]"
-                                                            value="sms"> SMS
-                                                        <span></span>
-                                                    </label>
-                                                    <label class="m-checkbox m-checkbox--solid  m-checkbox--brand">
-                                                        <input type="checkbox" name="account_communication[]"
-                                                            value="phone"> Phone
-                                                        <span></span>
-                                                    </label>
-                                                </div>
-                                                <span class="m-form__help">Please select user communication
-                                                    options</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="m-separator m-separator--dashed m-separator--lg"></div>
-                                    <div class="m-form__section">
-                                        <div class="m-form__heading">
-                                            <h3 class="m-form__heading-title">Delivery Type</h3>
-                                        </div>
-                                        <div class="form-group m-form__group">
-                                            <div class="row">
-                                                <div class="col-lg-6">
-                                                    <label class="m-option">
-                                                        <span class="m-option__control">
-                                                            <span class="m-radio m-radio--state-brand">
-                                                                <input type="radio" name="billing_delivery" value="">
-                                                                <span></span>
-                                                            </span>
-                                                        </span>
-                                                        <span class="m-option__label">
-                                                            <span class="m-option__head">
-                                                                <span class="m-option__title">
-                                                                    Standart Delevery
-                                                                </span>
-                                                                <span class="m-option__focus">
-                                                                    Free
-                                                                </span>
-                                                            </span>
-                                                            <span class="m-option__body">
-                                                                Estimated 14-20 Day Shipping
-                                                                (&nbsp;Duties end taxes may be due
-                                                                upon delivery&nbsp;)
-                                                            </span>
-                                                        </span>
-                                                    </label>
->>>>>>> fb008b1b91616ebe4802157892ac14a25dfcd5d3
                                                 </div>
                                             </form>
                                             <p><span class="text-danger">(*)</span> Mục không được để trống</p>
@@ -978,24 +777,13 @@ line-height: 90px
                                     </a>
                                 </div>
                                 <div class="col-lg-4 m--align-right">
-<<<<<<< HEAD
                                     <span onclick="addDuLieuGiayChungNhan()" href="#" class="btn btn-primary m-btn m-btn--custom m-btn--icon" data-wizard-action="submit">
-=======
-                                    <a href="#" class="btn btn-primary m-btn m-btn--custom m-btn--icon"
-                                        data-wizard-action="submit">
->>>>>>> fb008b1b91616ebe4802157892ac14a25dfcd5d3
                                         <span>
                                             <i class="la la-check"></i>&nbsp;&nbsp;
                                             <span>Đăng ký</span>
                                         </span>
-<<<<<<< HEAD
                                     </span>
-                                    <a href="#" class="btn btn-warning m-btn m-btn--custom m-btn--icon" data-wizard-action="next">
-=======
-                                    </a>
-                                    <a href="#" class="btn btn-warning m-btn m-btn--custom m-btn--icon"
-                                        data-wizard-action="next" id="submit-co-so-ajax">
->>>>>>> fb008b1b91616ebe4802157892ac14a25dfcd5d3
+                                    <a href="#" class="btn btn-warning m-btn m-btn--custom m-btn--icon" id="submit-co-so-ajax" data-wizard-action="next">
                                         <span>
                                             <span>Save & Continue</span>&nbsp;&nbsp;
                                             <i class="la la-arrow-right"></i>
