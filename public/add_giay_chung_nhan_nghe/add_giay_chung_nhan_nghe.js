@@ -30,8 +30,8 @@ function getDataDiaDiem(id_co_so) {
 
 var arrayAdd = {};
 var ngheIdAdd = [];
-var trinhDoAdd = [];
 function addDuLieuGiayChungNhan() {
+    var checkEmptySome=[];
     var file_data = $("#customFileGiayPhep").prop("files")[0];
 
     // data giấy chứng nhận
@@ -59,7 +59,6 @@ function addDuLieuGiayChungNhan() {
         soIndex++;
         arrayAdd["diadiem" + element] = [];
         ngheIdAdd[soIndex]= [];
-        trinhDoAdd[soIndex]= [];
         var getChiNhanh = document.querySelectorAll(`.chi_nhanh${element}`);
         var getNghe = $(getChiNhanh).find(".add_nghe_dia_chi");
         // console.log('nghề'+getNghe.length)
@@ -83,24 +82,30 @@ function addDuLieuGiayChungNhan() {
 
             if(trinhdo_id_add == 'no'){
               $(getNghe[index]).find(".messageNoNghe").text('');
-              $(getNghe[index]).find(".messageNoTrinhDo").text('Bạn chưa trình độ');
+              $(getNghe[index]).find(".messageNoTrinhDo").text('Bạn chưa chọn trình độ');
+              checkEmptySome.push(trinhdo_id_add);
             }else if(nghe_id_add == 'no'){
               $(getNghe[index]).find(".messageNoTrinhDo").text('');
-              $(getNghe[index]).find(".messageNoNghe").text('Bạn chưa chọn nghề');
+              $(getNghe[index]).find(".messageNoNghe").text('Bạn chưa chọn chọn nghề');
+              checkEmptySome.push(trinhdo_id_add);
             }else{
               $(getNghe[index]).find(".messageNoTrinhDo").text('');
               $(getNghe[index]).find(".messageNoNghe").text('');
             }
 
             ngheIdAdd[soIndex].push(nghe_id_add);
-            trinhDoAdd[soIndex].push(trinhdo_id_add);
         }
     });
     var dataAddNghe = {
         co_so_id: 12,
         data: arrayAdd
     };
-    addGiayChungNhanNghe(dataAddNghe, form_data,ngheIdAdd,trinhDoAdd);
+   
+    if(checkEmptySome.length <= 0){
+        addGiayChungNhanNghe(dataAddNghe, form_data,ngheIdAdd);
+    }else{
+        console.log('Lỗi rồi nhé')
+    }
 }
 function hasDuplicates(arr) {
     var counts = [];
@@ -113,39 +118,23 @@ function hasDuplicates(arr) {
     }
     return false;
 }
-function addGiayChungNhanNghe(dataAddNghe, form_data,ngheIdAdd,trinhDoAdd) {
-        var checkNgheEmpty = false;
-        var checkTrinhDoEmpty = false;
+function addGiayChungNhanNghe(dataAddNghe, form_data,ngheIdAdd) {
+        console.log('hello soemthing');
         var resultCheckDuplicate = false;
         var checkD = false;
        
-            ngheIdAdd.forEach((element,index)=>{
-                resultCheckDuplicate = hasDuplicates(element); 
-                if(resultCheckDuplicate){
-                  checkD = true;
-                }
-                for (var j = 0; j <  element.length; j++) {
-                    console.log(ngheIdAdd[index][j],trinhDoAdd[index][j])
-                    if(ngheIdAdd[index][j] == 'no'){
-                        checkNgheEmpty = true;
-                    }
-                    if(trinhDoAdd[index][j] == 'no' ){
-                        checkTrinhDoEmpty = true;
-                    }
-                }
-            })
+        ngheIdAdd.forEach((element)=>{
+            resultCheckDuplicate = hasDuplicates(element); 
+            if(resultCheckDuplicate){
+                checkD = true;
+            }
+        })
       
         if(checkD){
             console.log('Have some duplicate');
             $('#error_duplicate_nghe_id').text('Lỗi có chi nhánh bị trùng nghề');
         }else{
             $('#error_duplicate_nghe_id').text('');
-            if(checkTrinhDoEmpty == true || checkNgheEmpty == true){
-                // $('#error_duplicate_nghe_id').text('Có trình độ chưa nhập');
-                console.log('Lỗi chưa nhập đủ');
-            // }else if(checkNgheEmpty){
-            //     $('#error_duplicate_nghe_id').text('Có nghề chưa nhập ');
-            }else{
                 axios
                 .post(addGiayChungNhan, form_data)
                 .then(function(response) {
@@ -179,13 +168,18 @@ function addGiayChungNhanNghe(dataAddNghe, form_data,ngheIdAdd,trinhDoAdd) {
         }
     
   
-}
 
 function addNghe(dataNghe) {
     axios
         .post(storeUrl, dataNghe)
         .then(function(response) {
-            console.log("thành công");
+        console.log("thành công");
+        Swal.fire({
+            title: 'Thêm mới thành công',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1500
+            });
         })
         .catch(function(error) {
             console.log(error);
