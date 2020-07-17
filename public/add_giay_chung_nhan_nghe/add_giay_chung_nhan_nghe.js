@@ -35,6 +35,7 @@ function addDuLieuGiayChungNhan() {
     var checkEmptySome=[];
     var file_data = $("#customFileGiayPhep").prop("files")[0];
 
+    console.log($('input[name=co_so_id]').val());
     // data giấy chứng nhận
     var form_data = new FormData();
     form_data.append("anh_quyet_dinh", file_data);
@@ -43,7 +44,7 @@ function addDuLieuGiayChungNhan() {
     form_data.append("ngay_hieu_luc", $('[name ="ngay_hieu_luc_giay_phep"]').val());
     form_data.append("ngay_het_han", $('[name ="ngay_het_han_giay_phep"]').val());
     form_data.append("mo_ta", $('[name ="mo_ta"]').val());
-    form_data.append("co_so_id", 12);
+    form_data.append("co_so_id", $('input[name=co_so_id]').val());
     console.log(Array.from(form_data));
 
     //  get list chi nhánh
@@ -98,7 +99,7 @@ function addDuLieuGiayChungNhan() {
         }
     });
     var dataAddNghe = {
-        co_so_id: 12,
+        co_so_id: $('input[name=co_so_id]').val(),
         data: arrayAdd
     };
    

@@ -138,6 +138,7 @@
                                     @if (isset($activeUser))
                                         <input type="hidden" name="id_nguoi_them" value="{{$activeUser}}">
                                     @endif
+                                    <input type="hidden" name="co_so_id">
                                     <div class="form-group col-lg-12">
 
                                         <label class="form-name mr-3" for="">Tên cơ sở đào tạo <span
@@ -425,7 +426,6 @@
                                                             @if (isset($Csdt))
                                                             <div class="form-group1 m-form__group mb-4">
                                                                 <label for="">Tên trường: <b></b></label>
-                                                                <input type="hidden" name="co_so_id" value="">
                                                             </div>
                                                             @endif
 
@@ -795,20 +795,19 @@
                             </a>
                         </div>
                         <div class="col-lg-4 m--align-right">
-                            <a href="#" class="btn btn-primary m-btn m-btn--custom m-btn--icon"
-                                data-wizard-action="submit">
+                            <span onclick="addDuLieuGiayChungNhan()" href="#" class="btn btn-primary m-btn m-btn--custom m-btn--icon" data-wizard-action="submit">
                                 <span>
                                     <i class="la la-check"></i>&nbsp;&nbsp;
-                                    <span>Submit</span>
+                                    <span>Đăng ký</span>
                                 </span>
-                            </a>
+                            </span>
                             <a href="#" id="submit-co-so-ajax" class="btn btn-warning m-btn m-btn--custom m-btn--icon">
                                 <span>
                                     <span>Save &amp; Continue</span>&nbsp;&nbsp;
                                     <i class="la la-arrow-right"></i>
                                 </span>
                             </a>
-                            <button class="d-none" id="btn-next-wizard" data-wizard-action="next"></button>
+                            <button class="d-none" id="btn-next-wizard" data-wizard-action="next">next</button>
                         </div>
                         <div class="col-lg-2"></div>
                     </div>
@@ -967,6 +966,9 @@
             data: Data,
             success: function(response){
                 $('#btn-next-wizard').trigger('click');
+                console.log(response.CoSo.id);
+                getDataDiaDiem(response.CoSo.id);
+                $('input[name=co_so_id]').val(response.CoSo.id);
             },
             error: function(data){
                 var errors = data.responseJSON;
