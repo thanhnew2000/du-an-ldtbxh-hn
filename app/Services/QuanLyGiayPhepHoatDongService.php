@@ -18,10 +18,18 @@ class QuanLyGiayPhepHoatDongService extends AppService
     {
         $queryData = [];
         $queryData['co_so_id'] = isset($params['co_so_id']) ? $params['co_so_id'] : null;
-        $queryData['loai_hinh'] = isset($params['loai_hinh']) ? $params['loai_hinh'] : null;
-        $queryData['devvn_quanhuyen'] = isset($params['devvn_quanhuyen']) ? $params['devvn_quanhuyen'] : null;
-        $queryData['devvn_xaphuongthitran'] = isset($params['devvn_xaphuongthitran']) ? $params['devvn_xaphuongthitran'] : null;
-        $data = $this->repository->index($params,$limit);
+        $queryData['so_quyet_dinh'] = isset($params['so_quyet_dinh']) ? $params['so_quyet_dinh'] : null;
+        return $this->repository->index($queryData,$limit);
+    }
+
+    public function get_co_so()
+    {
+        return $this->repository->get_co_so();
+    }
+
+    public function createGiayPhep($data)
+    {
+        return $this->repository->createGiayPhep($data);
     }
 }
 

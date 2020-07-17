@@ -19,8 +19,14 @@ class QuanLyGiayPhepHoatDongController extends Controller
     public function index()
     {
         $params = request()->all();
+        $limit =20;
+        $co_so = $this->QuanLyGiayPhepHoatDongService->get_co_so();
         $data = $this->QuanLyGiayPhepHoatDongService->index($params,$limit);
-        return view('quan_ly_giay_phep_hoat_dong.index',['data'=>$data]);
+        return view('quan_ly_giay_phep_hoat_dong.index',[
+            'data'=>$data,
+            'co_so'=>$co_so,
+            'params'=>$params
+        ]);
     }
 
     /**
@@ -28,9 +34,10 @@ class QuanLyGiayPhepHoatDongController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $co_so = $this->QuanLyGiayPhepHoatDongService->get_co_so();
+        return view('quan_ly_giay_phep_hoat_dong.create',['co_so'=>$co_so]);
     }
 
     /**
@@ -40,8 +47,15 @@ class QuanLyGiayPhepHoatDongController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {  
+        $data = $request->all();
+        $img_giay_phep_hoat_dong =$request->file("anh_quyet_dinh");
+        if($img_giay_phep_hoat_dong){
+        $path = $request->file('anh_quyet_dinh')->store('uploads/giay-phep-hoat-dong');
+        $data['anh_quyet_dinh']=$path;
+        }
+        $this->QuanLyGiayPhepHoatDongService->createGiayPhep($data);
+        return response()->json('thanh_cong', 200);
     }
 
     /**
@@ -61,9 +75,10 @@ class QuanLyGiayPhepHoatDongController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        //
+        $co_so = $this->QuanLyGiayPhepHoatDongService->get_co_so();
+        return view('quan_ly_giay_phep_hoat_dong.edit',['co_so'=>$co_so]);
     }
 
     /**
@@ -73,19 +88,13 @@ class QuanLyGiayPhepHoatDongController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update()
     {
-        //
+      return view('quan_ly_giay_phep_hoat_dong.update');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function thuHoi()
     {
-        //
+       dd('thu hồi');
     }
 }

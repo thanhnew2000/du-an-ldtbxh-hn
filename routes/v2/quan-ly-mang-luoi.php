@@ -13,4 +13,10 @@ Route::get('tao-moi-co-so-dao-tao', 'CoSoDaoTaoController@create')->name('mang-l
 
 Route::group(['prefix' => 'giay-phep-hoat-dong'], function () {
     Route::get('/', 'QuanLyGiayPhepHoatDongController@index')->name('giay-phep-hoat-dong.index');
+    Route::get('/create', 'QuanLyGiayPhepHoatDongController@create')->name('giay-phep-hoat-dong.create');
+    Route::get('/edit', 'QuanLyGiayPhepHoatDongController@edit')->name('giay-phep-hoat-dong.edit');
+    Route::get('/thu-hoi', 'QuanLyGiayPhepHoatDongController@thuHoi')->name('giay-phep-hoat-dong.thuhoi');
+
+    Route::post('/store', 'QuanLyGiayPhepHoatDongController@store')->name('giay-phep-hoat-dong.store');
+    Route::post('/update/{id}', 'QuanLyGiayPhepHoatDongController@update')->name('giay-phep-hoat-dong.update');
 });

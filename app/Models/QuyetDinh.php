@@ -1,35 +1,25 @@
 <?php
-
 namespace App\Models;
-
-use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
-
-class GiayPhep extends Model
+use Illuminate\Database\Eloquent\Model;
+class QuyetDinh extends Model
 {
-    protected $table = 'giay_phep';
-
+    protected $table = 'quyet_dinh_thanh_lap_csdt';
     protected $fillable = [
-        'co_so_id',
-        'so_quyet_dinh',
-        'anh_giay_phep',
-        'ngay_ban_hanh',
-        'ngay_hieu_luc',
-        'ngay_het_han',
-        'mo_ta'
+        'so_quyet_dinh', 'ngay_ban_hanh', 'ngay_hieu_luc', 'ngay_het_han', 'anh_quyet_dinh', 'co_so_id'
     ];
     public function setNgayBanHanhAttribute($value)
     {
         $this->attributes['ngay_ban_hanh'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
     }
-
     public function setNgayHieuLucAttribute($value)
     {
         $this->attributes['ngay_hieu_luc'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
     }
-
     public function setNgayHetHanAttribute($value)
     {
-        $this->attributes['ngay_het_han'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+        if(isset($value)){
+            $this->attributes['ngay_het_han'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+        }
     }
 }
