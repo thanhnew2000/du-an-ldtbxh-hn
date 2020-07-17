@@ -249,7 +249,6 @@
                                             </select>
                                         </div>
                                         <p class="text-danger" id="Err_nguoi_phu_trach"></p>
-
                                     </div>
                                 </div>
                             </div>
@@ -285,7 +284,7 @@
                                                 class="custom-file-input anh_quyet_dinh" value="" id="customFile">
                                             <label class="custom-file-label" for="customFile">Choose file</label>
                                         </div>
-                                        <p class="text-danger" id="Err_anh_quyet_dinh"></p>
+                                        <p class="text-danger mt-3" id="Err_anh_quyet_dinh"></p>
                                     </div>
                                 </div>
                                 <div class="col-lg-5">
@@ -337,7 +336,6 @@
                                 </div>
                             </div>
 
-
                             {{-- begin: Địa điểm đào tạo --}}
                             <div class="m-portlet__head mb-5">
                                 <div class="m-portlet__head-caption">
@@ -349,24 +347,19 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- <div class="m-form__heading">
-                                <h3 class="m-form__heading-title">Địa điểm đào tạo <i onclick="addDiaChi()"
-                                        class="fa fa-plus"></i></h3>
-                            </div> --}}
-                            <div class="main-form list_dia_chi ">
 
+                            <div class="main-form list_dia_chi ">
+                                <p class="text-danger" id="Err_chi_nhanh"></p>
                                 <div class="dia_diem_dao_tao row">
                                     <div class="form-group col-md-4">
-
                                         <label class="form-name mr-3" for="">Địa chỉ <span
                                                 class="text-danger">(*)</span></label>
                                         <input type="text" class="form-control dia_chi_chi_nhanh"
                                             name="dia_chi_chi_nhanh" value="" class="form-text text-danger"
                                             placeholder="Nhập địa chỉ">
-
+                                        <p class="text-danger Err-dia_chi"></p>
                                     </div>
                                     <div class="form-group col-md-4">
-
                                         <label for="" class="form-name">Quận/Huyện <span
                                                 class="text-danger">(*)</span></label>
                                         <select onchange='changQuanHuyen(this)'
@@ -376,7 +369,7 @@
                                             <option value="{{ $qh->maqh }}">{{ $qh->name }}</option>
                                             @endforeach
                                         </select>
-
+                                        <p class="text-danger Err-quan_huyen"></p>
                                     </div>
                                     <div class="form-group col-md-3">
 
@@ -389,16 +382,12 @@
                                             <option value="{{ $xp->xaid }}">{{ $xp->name }}</option>
                                             @endforeach
                                         </select>
-
+                                        <p class="text-danger Err-xa_phuong"></p>
                                     </div>
                                     <div class="col-md-1 removediachi">
                                         <i onclick='removeDiaChi(this)' class="fa fa-times"></i>
                                     </div>
                                 </div>
-
-
-
-
                             </div>
                             {{-- End: Địa điểm đào tạo --}}
                         </div>
@@ -792,7 +781,7 @@
 
             <!--begin: Form Actions -->
             <div class="m-portlet__foot m-portlet__foot--fit m--margin-top-40">
-                <div class="m-form__actions">
+                <div class="m-form__actions p-5">
                     <div class="row">
                         <div class="col-lg-2"></div>
                         <div class="col-lg-4 m--align-left">
@@ -805,20 +794,20 @@
                             </a>
                         </div>
                         <div class="col-lg-4 m--align-right">
-                            <span onclick="addDuLieuGiayChungNhan()" href="#"
-                                class="btn btn-primary m-btn m-btn--custom m-btn--icon" data-wizard-action="submit">
+                            <a href="#" class="btn btn-primary m-btn m-btn--custom m-btn--icon"
+                                data-wizard-action="submit">
                                 <span>
                                     <i class="la la-check"></i>&nbsp;&nbsp;
-                                    <span>Đăng ký</span>
+                                    <span>Submit</span>
                                 </span>
-                            </span>
-                            <a href="#" id="submit-co-so-ajax" class="btn btn-warning m-btn m-btn--custom m-btn--icon"
-                                id="submit-co-so-ajax" data-wizard-action="next">
+                            </a>
+                            <a href="#" id="submit-co-so-ajax" class="btn btn-warning m-btn m-btn--custom m-btn--icon">
                                 <span>
-                                    <span>Save & Continue</span>&nbsp;&nbsp;
+                                    <span>Save &amp; Continue</span>&nbsp;&nbsp;
                                     <i class="la la-arrow-right"></i>
                                 </span>
                             </a>
+                            <button class="d-none" id="btn-next-wizard" data-wizard-action="next"></button>
                         </div>
                         <div class="col-lg-2"></div>
                     </div>
@@ -879,11 +868,51 @@
     $('#submit-co-so-ajax').click(function(event){
         event.preventDefault();
 
+        $('#Err_ten').addClass('d-none');
+        $('#Err_ma_don_vi').addClass('d-none');
+        $('#Err_cap_quan_ly').addClass('d-none');
+        $('#Err_ten_nguoi_dai_dien').addClass('d-none');
+        $('#Err_hinh_thuc_so_huu').addClass('d-none');
+        $('#Err_trinh_do_dao_tao').addClass('d-none');
+        $('#Err_hotline').addClass('d-none');
+        $('#Err_nguoi_phu_trach').addClass('d-none');
+
+        $('#Err_so_quyet_dinh').addClass('d-none');
+        $('#Err_anh_quyet_dinh').addClass('d-none');
+        $('#Err_ngay_ban_hanh').addClass('d-none');
+        $('#Err_ngay_hieu_luc').addClass('d-none');
+        $('#Err_ngay_het_han').addClass('d-none');
+        $('#Err_chi_nhanh').addClass('d-none');
+
         ChiNhanhObj = {}
         let dia_chi_chi_nhanh = [];
 
         let chi_nhanh = document.querySelectorAll('.dia_diem_dao_tao');
+        
         for (let i = 0; i < chi_nhanh.length; i++) {
+
+            let checkDiaChi = $(chi_nhanh[i]).find('.dia_chi_chi_nhanh').val();
+            let checkQuanHuyen = $(chi_nhanh[i]).find('.devvn_quanhuyen').val();
+            let checkXaPhuong = $(chi_nhanh[i]).find('.devvn_xaphuongthitran').val();
+
+            if(checkDiaChi == ''){
+                $(chi_nhanh[i]).find('.Err-dia_chi').text('Vui lòng nhập địa chỉ');
+            }else{
+                $(chi_nhanh[i]).find('.Err-dia_chi').text('');
+            }
+                
+            if(checkQuanHuyen == null){
+                $(chi_nhanh[i]).find('.Err-quan_huyen').text('Vui lòng chọn quận/huyện');
+            }else{
+                $(chi_nhanh[i]).find('.Err-quan_huyen').text('');
+            }
+                    
+            if(checkXaPhuong == null){
+                $(chi_nhanh[i]).find('.Err-xa_phuong').text('Vui lòng chọn xã/phường');
+            } else{
+                $(chi_nhanh[i]).find('.Err-xa_phuong').text('');
+            }
+            
             ChiNhanhObj = {
                 dia_chi: $(chi_nhanh[i]).find('.dia_chi_chi_nhanh').val(),
                 maqh: $(chi_nhanh[i]).find('.devvn_quanhuyen').val(),
@@ -891,6 +920,9 @@
             }
             dia_chi_chi_nhanh.push(ChiNhanhObj);
         }
+
+
+        
         let Data = new FormData();
         let anh_quyet_dinh = $('.anh_quyet_dinh')[0].files[0];
 
@@ -899,7 +931,6 @@
         } else{
             anh_quyet_dinh = ''
         }
-        console.log(anh_quyet_dinh)
         Data.append('anh_quyet_dinh',anh_quyet_dinh);
         Data.append('ten', $('input[name=ten]').val());
         Data.append('ma_don_vi', $('input[name=ma_don_vi]').val());
@@ -918,17 +949,13 @@
         Data.append('dia_chi_chi_nhanh',JSON.stringify(dia_chi_chi_nhanh));
         Data.append('_token', $('#token').val());
 
-        $('#Err_ten').addClass('d-none');
-        $('#Err_ma_don_vi').addClass('d-none');
-        $('#Err_cap_quan_ly').addClass('d-none');
-        $('#Err_ten_nguoi_dai_dien').addClass('d-none');
-        $('#Err_hinh_thuc_so_huu').addClass('d-none');
-        $('#Err_trinh_do_dao_tao').addClass('d-none');
-        $('#Err_hotline').addClass('d-none');
-        $('#Err_nguoi_phu_trach').addClass('d-none');
-        $('#Err_trinh_do_dao_tao').addClass('d-none');
-        $('#Err_anh_quyet_dinh').addClass('d-none');
+        $(document).ajaxStart(function(){
+        $(".loading").css("display", "block");
+        });
 
+        $(document).ajaxComplete(function(){
+            $(".loading").css("display", "none");
+        });
         
         $.ajax({
             type: "Post",
@@ -937,7 +964,7 @@
             url: "{{route('mang-luoi.tao-csdt')}}",
             data: Data,
             success: function(response){
-                console.log(response.CoSo.id)
+                $('#btn-next-wizard').trigger('click');
             },
             error: function(data){
                 var errors = data.responseJSON;
@@ -946,7 +973,6 @@
                         var ErrorID = '#Err_' + key;
                         $(ErrorID).removeClass('d-none');
                         $(ErrorID).text(value);
-                        console.log(ErrorID)
                     })
                 }
             }
@@ -956,111 +982,6 @@
     function hasValue(value){
         $('input[name=ngay_hieu_luc]').val(value)
     }
-
-    $("#btn-them-co-quan").click(function(event) {
-        event.preventDefault();
-        $('#Err-ten').addClass('d-none');
-        $('#Err-ma').addClass('d-none');
-
-        $(document).ajaxStart(function(){
-        $(".loading").css("display", "block");
-        });
-
-        $(document).ajaxComplete(function(){
-            $(".loading").css("display", "none");
-        });
-
-        $.ajax({
-            type: "POST",
-            dataType: "json",
-            url: "{{route('co-quan-chu-quan.them')}}",
-            data: {
-                ten: $('#ten-co-quan-chu-quan').val(),
-                ma: $('#ma-co-quan-chu-quan').val(),
-                _token: '{{csrf_token()}}'
-            },
-            success: function(response) {
-                var htmldata = '<option selected disabled>---Chọn cơ quan---</option>'
-                response.data.forEach(element => {
-                    htmldata += `<option value="${element.id}">${element.ten}</option>`
-                });
-                $('#co_quan_chu_quan_id').html(htmldata);
-                Swal.fire({
-                title: response.message,
-                icon: 'success'
-                });
-                $('#m_modal_5').modal('hide');
-            },
-            error: function(data) {
-                var errors = data.responseJSON;
-                if ($.isEmptyObject(errors) == false) {
-                    $.each(errors.errors, function(key, value) {
-                        console.log(value);
-                        var ErrorID = '#Err-' + key;
-                        $(ErrorID).removeClass('d-none');
-                        $(ErrorID).text(value);
-                    })
-                }
-            }
-        });
-    });
-
-    $("#btn-them-quyet-dinh-ajax").click(function(event) {
-        event.preventDefault();
-        
-        $('#Err_ten').addClass('d-none');
-        $('#Err_ngay_ban_hanh').addClass('d-none');
-        $('#Err_van_ban_url').addClass('d-none');
-        $('#Err_ngay_hieu_luc').addClass('d-none');
-        $('#Err_ngay_het_han').addClass('d-none');
-        $('#Err_loai_quyet_dinh').addClass('d-none');
-
-
-        $(document).ajaxStart(function(){
-        $(".loading").css("display", "block");
-        });
-
-        $(document).ajaxComplete(function(){
-            $(".loading").css("display", "none");
-        });
-        $.ajax({
-            type: "POST",
-            dataType: "json",
-            url: "{{route('quyet-dinh.add')}}",
-            data: {
-            ten: $('#ten_quyet_dinh').val(),
-            van_ban_url: $('#url_van_ban').val(),
-            ngay_ban_hanh: $('#ngay_ban_hanh').val(),
-            ngay_hieu_luc: $('#ngay_hieu_luc').val(),
-            ngay_het_han: $('#ngay_het_han').val(),
-            loai_quyet_dinh: $('#loai_quyet_dinh').val(),
-            _token: $('#token').val()
-        },
-            success: function(response) {
-                var htmldata = '<option selected disabled>---Chọn quyết định---</option>'
-                response.data.forEach(element => {
-                    htmldata += `<option value="${element.id}">${element.ten}</option>`
-                });
-                $('#quyet_dinh_id').html(htmldata);
-                Swal.fire({
-                title: response.messageqd,
-                icon: 'success'
-                });
-                $('#m_modal_6').modal('hide');
-            },
-            error: function(data) {
-                var errors = data.responseJSON;
-                if($.isEmptyObject(errors) == false){
-                    $.each(errors.errors, function(key, value){
-                        var ErrorID = '#Err_' + key;
-                        $(ErrorID).removeClass('d-none');
-                        $(ErrorID).text(value);
-                        console.log(ErrorID);
-                    })
-                }
-            }
-        });
-    });
 
     $(document).ready(function() {
         var logoImgUrl = $('#logo-co-so').attr('src');
@@ -1076,7 +997,7 @@
                             class="text-danger">(*)</span></label>
                     <input type="text" class="form-control dia_chi_chi_nhanh" name="dia_chi_chi_nhanh" value=""
                         class="form-text text-danger" placeholder="Nhập địa chỉ">
-                    
+                        <p class="text-danger Err-dia_chi"></p>
                 </div>
                 <div class="form-group col-md-4">
                     
@@ -1090,7 +1011,7 @@
                         @endif>{{ $qh->name }}</option>
                     @endforeach
                 </select>
-                    
+                <p class="text-danger Err-quan_huyen"></p>
                 </div>
                 <div class="form-group col-md-3">
                     
@@ -1102,6 +1023,7 @@
                     <option value="{{ $xp->xaid }}">{{ $xp->name }}</option>
                     @endforeach
                 </select>
+                <p class="text-danger Err-xa_phuong"></p>
                 </div>
                 <div class="col-md-1 removediachi">
                     <i onclick='removeDiaChi(this)' class="fa fa-times"></i>

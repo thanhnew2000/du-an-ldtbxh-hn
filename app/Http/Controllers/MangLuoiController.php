@@ -38,8 +38,6 @@ class MangLuoiController extends Controller
         return view('co-so-dao-tao.them_co_so', compact('qd', 'coquan', 'loaihinh', 'quanhuyen', 'xaphuong', 'user'));
     }
     public function SaveTaoMoiCoSoDaoTao(SaveCoSoRequest $request){
-        dd($request->all());
-        // $request->except('1');
         if ($request->hasFile('anh_quyet_dinh')) {
             $filePath = $request->file('anh_quyet_dinh')->store('uploads/anh-quyet-dinh');
             $request->request->set('anhQuyetDinh', $filePath);
