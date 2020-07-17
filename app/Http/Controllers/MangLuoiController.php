@@ -8,7 +8,7 @@ use App\Services\QuyetDinhService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\CoSoDaoTao\SaveCoSoRequest;
-
+use Illuminate\Support\Facades\Auth;
 
 class MangLuoiController extends Controller
 {
@@ -35,22 +35,20 @@ class MangLuoiController extends Controller
         $quanhuyen = DB::table('devvn_quanhuyen')->get();
         $xaphuong = DB::table('devvn_xaphuongthitran')->get();
         $user = DB::table('users')->get();
-        return view('co-so-dao-tao.them_co_so', compact('qd', 'coquan', 'loaihinh', 'quanhuyen', 'xaphuong', 'user'));
+        $activeUser = Auth::user()->id;
+        return view('co-so-dao-tao.them_co_so', compact('activeUser','qd', 'coquan', 'loaihinh', 'quanhuyen', 'xaphuong', 'user'));
     }
     public function SaveTaoMoiCoSoDaoTao(SaveCoSoRequest $request){
         if ($request->hasFile('anh_quyet_dinh')) {
             $filePath = $request->file('anh_quyet_dinh')->store('uploads/anh-quyet-dinh');
             $request->request->set('anhQuyetDinh', $filePath);
         }
-        $quyetDInh = $this->QuyetDinhService->createQuyetDinh($request);
-        if (isset($quyetDInh->id)) {
-            $request->request->set('quyet_dinh_id', $quyetDInh->id);
-        }
         $CoSo =  $this->CoSoDaoTaoService->createCoSo($request);
-
         if (isset($CoSo->id)) {
             $request->request->set('co_so_id', $CoSo->id);
         }
+        $quyetDInh = $this->QuyetDinhService->createQuyetDinh($request);
+
         $ChiNhanh = $this->ChiNhanhService->createChiNhanh($request);
         return response()->json([
             'QuyetDinh' => $quyetDInh,

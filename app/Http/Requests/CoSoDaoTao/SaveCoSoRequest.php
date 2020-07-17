@@ -68,7 +68,7 @@ class SaveCoSoRequest extends FormRequest
             'nguoi_phu_trach.required' => 'Vui lòng chọn người phụ trách',
 
             'so_quyet_dinh.required' => 'Vui lòng nhập số quyết định',
-            'so_quyet_dinh.uniqie' => 'Quyết đinh này đã tồn tại',
+            'so_quyet_dinh.unique' => 'Quyết đinh này đã tồn tại',
 
             'anh_quyet_dinh.required' => 'Vui lòng tải lên ảnh quyết định',
             'anh_quyet_dinh.mimes' => 'File không đúng định dạng ảnh',

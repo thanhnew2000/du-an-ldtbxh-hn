@@ -9,7 +9,7 @@ class QuyetDinh extends Model
 {
     protected $table = 'quyet_dinh_thanh_lap_csdt';
     protected $fillable = [
-        'so_quyet_dinh', 'ngay_ban_hanh', 'ngay_hieu_luc', 'ngay_het_han', 'anh_quyet_dinh'
+        'so_quyet_dinh', 'ngay_ban_hanh', 'ngay_hieu_luc', 'ngay_het_han', 'anh_quyet_dinh', 'co_so_id'
     ];
     public function setNgayBanHanhAttribute($value)
     {

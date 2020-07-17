@@ -29,7 +29,8 @@ class QuyetDinhRepository extends BaseRepository implements QuyetDinhRepositoryI
             'ngay_ban_hanh' => $attributes['ngay_ban_hanh'],
             'ngay_hieu_luc' => $attributes['ngay_hieu_luc'],
             'ngay_het_han' => $attributes['ngay_het_han'],
-            'anh_quyet_dinh' => $attributes['anhQuyetDinh']
+            'anh_quyet_dinh' => $attributes['anhQuyetDinh'],
+            'co_so_id' => $attributes['co_so_id']
         ];
         return $this->model->create($arrayInsert);
     }

@@ -40,7 +40,6 @@
                 <div class="m-portlet__head-title">
                     <h3 class="m-portlet__head-text">
                         Thêm mới cơ sở đào tạo
-
                     </h3>
                 </div>
             </div>
@@ -136,7 +135,9 @@
                             <div class="main-form row d-flex justify-content-around">
                                 <div class="col-left col-lg-5">
                                     <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
-
+                                    @if (isset($activeUser))
+                                        <input type="hidden" name="id_nguoi_them" value="{{$activeUser}}">
+                                    @endif
                                     <div class="form-group col-lg-12">
 
                                         <label class="form-name mr-3" for="">Tên cơ sở đào tạo <span
@@ -946,6 +947,7 @@
         Data.append('ngay_hieu_luc',$('input[name=ngay_hieu_luc]').val());
         Data.append('ngay_het_han',$('input[name=ngay_het_han]').val());
         Data.append('nguoi_phu_trach', $('select[name=nguoi_phu_trach]').val());
+        Data.append('id_nguoi_them', $('input[name=id_nguoi_them]').val());
         Data.append('dia_chi_chi_nhanh',JSON.stringify(dia_chi_chi_nhanh));
         Data.append('_token', $('#token').val());
 

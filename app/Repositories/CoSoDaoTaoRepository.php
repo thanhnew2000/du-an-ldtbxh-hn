@@ -27,7 +27,6 @@ class CoSoDaoTaoRepository extends BaseRepository implements CoSoDaoTaoRepositor
         // dd($attributes['trinh_do_dao_tao']);
         $arrayInsert = [
             'ten' => $attributes['ten'],
-            'quyet_dinh_id' => $attributes['quyet_dinh_id'],
             'hinh_thuc_so_huu' => $attributes['hinh_thuc_so_huu'],
             'ma_don_vi' => $attributes['ma_don_vi'],
             'dien_thoai' => $attributes['hotline'],
@@ -35,7 +34,8 @@ class CoSoDaoTaoRepository extends BaseRepository implements CoSoDaoTaoRepositor
             'trinh_do_dao_tao' => $attributes['trinh_do_dao_tao'],
             'ten_nguoi_dai_dien' => $attributes['ten_nguoi_dai_dien'],
             'sdt_nguoi_dai_dien' => $attributes['sdt_nguoi_dai_dien'],
-            'email_nguoi_dai_dien' => $attributes['email_nguoi_dai_dien']
+            'email_nguoi_dai_dien' => $attributes['email_nguoi_dai_dien'],
+            'id_nguoi_them' => $attributes['id_nguoi_them']
         ];
         return $this->model->create($arrayInsert);
     }
