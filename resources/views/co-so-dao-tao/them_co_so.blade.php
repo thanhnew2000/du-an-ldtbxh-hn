@@ -2,27 +2,30 @@
 @section('title', 'Thêm mới cơ sở đào tạo')
 @section('style')
 <style>
-.removediachi{
-line-height: 90px
-}
+    .removediachi {
+        line-height: 90px
+    }
 
-.fa-plus,
-.fa-times {
-    cursor: pointer;
-    /* font-size: 25px; */
-    color: rgb(90, 92, 211);
-    line-height: 40px;
-    text-align: center
-}
-.m-demo__preview{
-    border: none !important
-}
-.messageNoNghe{
-    color:red;
-}
-.messageNoTrinhDo{
-    color:red;
-}
+    .fa-plus,
+    .fa-times {
+        cursor: pointer;
+        /* font-size: 25px; */
+        color: rgb(90, 92, 211);
+        line-height: 40px;
+        text-align: center
+    }
+
+    .m-demo__preview {
+        border: none !important
+    }
+
+    .messageNoNghe {
+        color: red;
+    }
+
+    .messageNoTrinhDo {
+        color: red;
+    }
 </style>
 <link href="{!! asset('css_loading/css_loading.css') !!}" rel="stylesheet" type="text/css" />
 @endsection
@@ -94,10 +97,10 @@ line-height: 90px
                                 <div class="m-wizard__step-title">
                                     2. Giấy phép
                                 </div>
-                                
+
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
 
@@ -140,6 +143,7 @@ line-height: 90px
                                                 class="text-danger">(*)</span></label>
                                         <input type="text" class="form-control" name="ten" value="{{ old('ten') }}"
                                             class="form-text text-danger" placeholder="Nhập tên cơ sở đào tạo">
+                                        <p class="text-danger" id="Err_ten"></p>
                                     </div>
 
                                     <div class="form-group col-lg-12">
@@ -147,6 +151,7 @@ line-height: 90px
                                                 class="text-danger">(*)</span></label>
                                         <input type="text" class="form-control" name="ma_don_vi"
                                             value="{{ old('ma_don_vi') }}" placeholder="Nhập mã đơn vị">
+                                        <p class="text-danger" id="Err_ma_don_vi"></p>
                                     </div>
                                     <div class="form-group col-lg-12">
                                         <label class="form-name" for="">Cấp quản lý<span
@@ -158,6 +163,7 @@ line-height: 90px
                                                 {{ $cap['ten_cap'] }}</option>
                                             @endforeach
                                         </select>
+                                        <p class="text-danger" id="Err_cap_quan_ly"></p>
                                     </div>
 
                                     <fieldset class="scheduler-border">
@@ -167,7 +173,7 @@ line-height: 90px
                                                     class="text-danger">(*)</span></label>
                                             <input type="text" class="form-control" name="ten_nguoi_dai_dien" value=""
                                                 placeholder="Người đại diện">
-                                            <p id="helpId" class="form-text text-danger">
+                                            <p class="text-danger" id="Err_ten_nguoi_dai_dien"></p>
                                         </div>
                                         <div class="form-group col-lg-12">
                                             <div class="form-group d-flex">
@@ -202,8 +208,8 @@ line-height: 90px
                                                     {{ $hinh_thuc['ten_hinh_thuc'] }}</option>
                                                 @endforeach
                                             </select>
-
                                         </div>
+                                        <p class="text-danger" id="Err_hinh_thuc_so_huu"></p>
                                     </div>
 
 
@@ -219,30 +225,31 @@ line-height: 90px
                                                     {{ $trinh_do['ten_trinh_do'] }}</option>
                                                 @endforeach
                                             </select>
-
                                         </div>
+                                        <p class="text-danger" id="Err_trinh_do_dao_tao"></p>
                                     </div>
 
                                     <div class="form-group col-lg-12">
                                         <label class="form-name" for="">Hotline <span
                                                 class="text-danger">(*)</span></label>
-                                        <input type="text" class="form-control" name="hotline"
-                                            value="{{ old('ma_don_vi') }}" placeholder="Nhập số điện thoại">
+                                        <input type="text" class="form-control" name="hotline" value=""
+                                            placeholder="Nhập số điện thoại">
+                                        <p class="text-danger" id="Err_hotline"></p>
                                     </div>
 
                                     <div class="form-group col-lg-12">
                                         <label class="form-name" for="">Người phụ trách<span
                                                 class="text-danger">(*)</span></label>
                                         <div class="d-flex">
-                                            <select class="form-control col-12 select2" name="nguoi_phu_trach"
-                                                id="hinh_thuc_so_huu">
-                                                <option selected disabled>-----Chọn-----</option>
+                                            <select class="form-control col-12 select2" name="nguoi_phu_trach">
+                                                <option value="" selected>-----Chọn-----</option>
                                                 @foreach ($user as $u)
                                                 <option value="{{ $u->id }}">{{ $u->name }}</option>
                                                 @endforeach
                                             </select>
-
                                         </div>
+                                        <p class="text-danger" id="Err_nguoi_phu_trach"></p>
+
                                     </div>
                                 </div>
                             </div>
@@ -263,6 +270,7 @@ line-height: 90px
                                                 class="text-danger">(*)</span></label>
                                         <input type="text" class="form-control" name="so_quyet_dinh" value=""
                                             class="form-text text-danger" placeholder="Nhập quyết định">
+                                        <p class="text-danger" id="Err_so_quyet_dinh"></p>
                                     </div>
 
                                     <div class="form-group col-lg-12">
@@ -277,6 +285,7 @@ line-height: 90px
                                                 class="custom-file-input anh_quyet_dinh" value="" id="customFile">
                                             <label class="custom-file-label" for="customFile">Choose file</label>
                                         </div>
+                                        <p class="text-danger" id="Err_anh_quyet_dinh"></p>
                                     </div>
                                 </div>
                                 <div class="col-lg-5">
@@ -285,12 +294,14 @@ line-height: 90px
                                             <label>Ngày ban hành <span class="text-danger">(*)</span></label>
                                             <div class="input-group date datepicker">
                                                 <input type="text" name="ngay_ban_hanh" value=""
-                                                    placeholder="Ngày-tháng-năm" class="form-control" onchange="hasValue(this.value)">
+                                                    placeholder="Ngày-tháng-năm" class="form-control"
+                                                    onchange="hasValue(this.value)">
                                                 <div
                                                     class="input-group-addon form-control col-2 d-flex justify-content-center align-items-center">
                                                     <span><i class="flaticon-calendar-2"></i></span>
                                                 </div>
                                             </div>
+                                            <p class="text-danger" id="Err_ngay_ban_hanh"></p>
                                         </div>
                                     </div>
 
@@ -298,13 +309,14 @@ line-height: 90px
                                         <div class="form-group m-form__group mb-4">
                                             <label>Ngày hiệu lực <span class="text-danger">(*)</span></label>
                                             <div class="input-group date datepicker">
-                                                <input type="text" name="ngay_hieu_luc" value="{{old('ngay_hieu_luc')}}"
+                                                <input type="text" name="ngay_hieu_luc" value=""
                                                     placeholder="Ngày-tháng-năm" class="form-control">
                                                 <div
                                                     class="input-group-addon form-control col-2 d-flex justify-content-center align-items-center">
                                                     <span><i class="flaticon-calendar-2"></i></span>
                                                 </div>
                                             </div>
+                                            <p class="text-danger" id="Err_ngay_hieu_luc"></p>
                                         </div>
                                     </div>
 
@@ -312,13 +324,14 @@ line-height: 90px
                                         <div class="form-group m-form__group mb-4">
                                             <label>Ngày hết hạn</label>
                                             <div class="input-group date datepicker">
-                                                <input type="text" name="ngay_het_han" value="{{old('ngay_het_han')}}"
+                                                <input type="text" name="ngay_het_han" value=""
                                                     placeholder="Ngày-tháng-năm" class="form-control">
                                                 <div
                                                     class="input-group-addon form-control col-2 d-flex justify-content-center align-items-center">
                                                     <span><i class="flaticon-calendar-2"></i></span>
                                                 </div>
                                             </div>
+                                            <p class="text-danger" id="Err_ngay_het_han"></p>
                                         </div>
                                     </div>
                                 </div>
@@ -356,7 +369,8 @@ line-height: 90px
 
                                         <label for="" class="form-name">Quận/Huyện <span
                                                 class="text-danger">(*)</span></label>
-                                        <select onchange ='changQuanHuyen(this)' class="form-control col-12 maqh select2 devvn_quanhuyen" name="maqh">
+                                        <select onchange='changQuanHuyen(this)'
+                                            class="form-control col-12 maqh select2 devvn_quanhuyen" name="maqh">
                                             <option disabled selected>Quận / Huyện</option>
                                             @foreach ($quanhuyen as $qh)
                                             <option value="{{ $qh->maqh }}">{{ $qh->name }}</option>
@@ -368,7 +382,8 @@ line-height: 90px
 
                                         <label for="" class="form-name">Xã/ Phường <span
                                                 class="text-danger">(*)</span></label>
-                                        <select class="form-control col-12 xaid select2 devvn_xaphuongthitran" name="xaid">
+                                        <select class="form-control col-12 xaid select2 devvn_xaphuongthitran"
+                                            name="xaid">
                                             <option disabled selected>Chọn</option>
                                             @foreach ($xaphuong as $xp)
                                             <option value="{{ $xp->xaid }}">{{ $xp->name }}</option>
@@ -408,10 +423,11 @@ line-height: 90px
                                             </div>
                                         </div>
                                     </div>
-                            
+
                                     <div class="m-portlet">
                                         <div class="m-portlet__body">
-                                            <form action="" name="yourformname" id="giay_chung_nhan" method="POST"  enctype="multipart/form-data">
+                                            <form action="" name="yourformname" id="giay_chung_nhan" method="POST"
+                                                enctype="multipart/form-data">
                                                 {{ csrf_field() }}
                                                 <div class="row">
                                                     <div class="col-6 d-flex align-items-stretch">
@@ -422,106 +438,122 @@ line-height: 90px
                                                                 <input type="hidden" name="co_so_id" value="">
                                                             </div>
                                                             @endif
-                            
-                            
+
+
                                                             <div class="form-group m-form__group mb-4">
-                                                                <label>Số quyết định <span class="text-danger">(*)</span></label>
-                                                                <input type="text" name="so_quyet_dinh_giay_phep" value="{{old('ten_giay_phep')}}"
-                                                                    class="form-control m-input" placeholder="Nhập số quết định">
+                                                                <label>Số quyết định <span
+                                                                        class="text-danger">(*)</span></label>
+                                                                <input type="text" name="so_quyet_dinh_giay_phep"
+                                                                    value="{{old('ten_giay_phep')}}"
+                                                                    class="form-control m-input"
+                                                                    placeholder="Nhập số quết định">
                                                             </div>
-                                                          
-                                                        <span  class="text-danger" id="so_quyet_dinh_error"></span>
-                                                        
+
+                                                            <span class="text-danger" id="so_quyet_dinh_error"></span>
+
                                                             <div class="form-group m-form__group">
                                                                 <label for="exampleInputEmail1">Ảnh giấy phép <span
                                                                         class="text-danger">(*)</span></label>
                                                                 <div class="custom-file">
-                                                                    <input type="file" value="{{old('anh-giay-phep')}}" name="anh_giay_phep"
-                                                                        class="custom-file-input"
+                                                                    <input type="file" value="{{old('anh-giay-phep')}}"
+                                                                        name="anh_giay_phep" class="custom-file-input"
                                                                         onchange="showimages(this)"
                                                                         id="customFileGiayPhep">
-                                                                    <label class="custom-file-label" for="customFileGiayPhep">Choose file</label>
+                                                                    <label class="custom-file-label"
+                                                                        for="customFileGiayPhep">Choose file</label>
                                                                 </div>
-                                                                <p class="text-danger text-small"  id="anh_giay_phep_error">
+                                                                <p class="text-danger text-small"
+                                                                    id="anh_giay_phep_error">
                                                                 </p>
                                                             </div>
                                                         </div>
-                            
+
                                                     </div>
-                            
+
                                                     <div class="col-6">
                                                         <div class="anh-giay-phep">
                                                             <img src="" id="showimg" alt="">
                                                         </div>
                                                     </div>
                                                 </div>
-                            
+
                                                 <div class="row col-12 mt-3">
                                                     <div class="col-4">
                                                         <div class="form-group m-form__group mb-4">
-                                                            <label>Ngày ban hành <span class="text-danger">(*)</span></label>
+                                                            <label>Ngày ban hành <span
+                                                                    class="text-danger">(*)</span></label>
                                                             <div class="input-group date datepicker">
-                                                                <input type="text" name="ngay_ban_hanh_giay_phep" value="{{old('ngay_ban_hanh')}}"
+                                                                <input type="text" name="ngay_ban_hanh_giay_phep"
+                                                                    value="{{old('ngay_ban_hanh')}}"
                                                                     placeholder="Ngày-tháng-năm" class="form-control">
                                                                 <div
                                                                     class="input-group-addon form-control col-2 d-flex justify-content-center align-items-center">
                                                                     <span><i class="flaticon-calendar-2"></i></span>
                                                                 </div>
                                                             </div>
-                                                            <p class="text-danger text-small"  id="ngay_ban_hanh_giay_phep_error">
+                                                            <p class="text-danger text-small"
+                                                                id="ngay_ban_hanh_giay_phep_error">
                                                             </p>
                                                         </div>
                                                     </div>
-                            
+
                                                     <div class="col-4">
                                                         <div class="form-group m-form__group mb-4">
-                                                            <label>Ngày hiệu lực <span class="text-danger">(*)</span></label>
+                                                            <label>Ngày hiệu lực <span
+                                                                    class="text-danger">(*)</span></label>
                                                             <div class="input-group date datepicker">
-                                                                <input type="text" name="ngay_hieu_luc_giay_phep" value="{{old('ngay_hieu_luc')}}"
+                                                                <input type="text" name="ngay_hieu_luc_giay_phep"
+                                                                    value="{{old('ngay_hieu_luc')}}"
                                                                     placeholder="Ngày-tháng-năm" class="form-control">
                                                                 <div
                                                                     class="input-group-addon form-control col-2 d-flex justify-content-center align-items-center">
                                                                     <span><i class="flaticon-calendar-2"></i></span>
                                                                 </div>
                                                             </div>
-                                                            <p class="text-danger text-small"  id="ngay_hieu_luc_giay_phep_error">
+                                                            <p class="text-danger text-small"
+                                                                id="ngay_hieu_luc_giay_phep_error">
                                                             </p>
                                                         </div>
                                                     </div>
-                            
+
                                                     <div class="col-4">
                                                         <div class="form-group m-form__group mb-4">
-                                                            <label>Ngày hết hạn <span class="text-danger">(*)</span></label>
+                                                            <label>Ngày hết hạn <span
+                                                                    class="text-danger">(*)</span></label>
                                                             <div class="input-group date datepicker">
-                                                                <input type="text" name="ngay_het_han_giay_phep" value="{{old('ngay_het_han')}}"
+                                                                <input type="text" name="ngay_het_han_giay_phep"
+                                                                    value="{{old('ngay_het_han')}}"
                                                                     placeholder="Ngày-tháng-năm" class="form-control">
                                                                 <div
                                                                     class="input-group-addon form-control col-2 d-flex justify-content-center align-items-center">
                                                                     <span><i class="flaticon-calendar-2"></i></span>
                                                                 </div>
                                                             </div>
-                                                            <p class="text-danger text-small"  id="ngay_het_han_giay_phep_error">
+                                                            <p class="text-danger text-small"
+                                                                id="ngay_het_han_giay_phep_error">
                                                             </p>
                                                         </div>
                                                     </div>
                                                 </div>
-                            
+
                                                 <div class="row col-12">
                                                     <div class="col-12 form-group m-form__group">
                                                         <label for="exampleTextarea">Mô tả quyết định</label>
-                                                        <textarea class="form-control m-input" id="summernote" name="mo_ta"
-                                                            placeholder="Mô tả ngắn gọn nội dung giấy phép hoặc ghi chú" rows="4"></textarea>
+                                                        <textarea class="form-control m-input" id="summernote"
+                                                            name="mo_ta"
+                                                            placeholder="Mô tả ngắn gọn nội dung giấy phép hoặc ghi chú"
+                                                            rows="4"></textarea>
                                                     </div>
                                                 </div>
                                             </form>
                                             <p><span class="text-danger">(*)</span> Mục không được để trống</p>
                                         </div>
-                            
-                                </div>
-                                <div id="preload" class="preload-container text-center" style="display: none">
-                                    <img id="gif-load" src="{!! asset('images/loading1.gif') !!}" alt="">
-                                </div>
-                                
+
+                                    </div>
+                                    <div id="preload" class="preload-container text-center" style="display: none">
+                                        <img id="gif-load" src="{!! asset('images/loading1.gif') !!}" alt="">
+                                    </div>
+
                                     <div class="m-portlet m-portlet--tab">
                                         <div class="m-portlet__head">
                                             <div class="m-portlet__head-caption">
@@ -535,14 +567,16 @@ line-height: 90px
                                                 </div>
                                             </div>
                                         </div>
-                            <div class="danh_sach_co_so">
-                                        <!--begin::Form-->
-                                        {{-- @foreach ($chi_nhanh as $item)
-                                        <div class="m-section__content chi_nhanh{{$item->id}}" chi_nhanh='{{$item->id}}'>
-                                            <div class="m-demo" data-code-preview="true" data-code-html="true" data-code-js="false">
+                                        <div class="danh_sach_co_so">
+                                            <!--begin::Form-->
+                                            {{-- @foreach ($chi_nhanh as $item)
+                                        <div class="m-section__content chi_nhanh{{$item->id}}"
+                                            chi_nhanh='{{$item->id}}'>
+                                            <div class="m-demo" data-code-preview="true" data-code-html="true"
+                                                data-code-js="false">
                                                 <div class="m-demo__preview m-demo__preview--btn">
-                                                    <span class="btn btn-brand">{{$item->dia_chi}}</span> <i onclick="addForm(this)"
-                                                        class="fa fa-plus"></i>
+                                                    <span class="btn btn-brand">{{$item->dia_chi}}</span> <i
+                                                        onclick="addForm(this)" class="fa fa-plus"></i>
                                                     <div class="form_add_nghe">
                                                     </div>
                                                 </div>
@@ -551,256 +585,255 @@ line-height: 90px
                                         @endforeach --}}
 
                                     </div>
-                                    <p class="text-danger ml-5" id="error_duplicate_nghe_id"></p> 
-                            
-                                        <!--end::Form-->
-                                    </div>
-                                    <div class="d-flex justify-content-end mr-5">
-                                        <button type="button" onclick="getDataDiaDiem(12)" class="btn btn-success">Địa Điểm</button>
-                                        {{-- <button type="button" onclick="addDuLieuGiayChungNhan()" class="btn btn-success">Đăng ký</button> --}}
-                                    </div>
+                                    <p class="text-danger ml-5" id="error_duplicate_nghe_id"></p>
+
+                                    <!--end::Form-->
                                 </div>
-                            </div>
-                        </div>
-                       
-                        <!--end: Form Wizard Step 2-->
-
-                        <!--begin: Form Wizard Step 3-->
-                        <div class="m-wizard__form-step" id="m_wizard_form_step_3">
-                            <div class="row">
-                                <div class="col-xl-8 offset-xl-2">
-
-                                    <!--begin::Section-->
-                                    <ul class="nav nav-tabs m-tabs-line--2x m-tabs-line m-tabs-line--danger"
-                                        role="tablist">
-                                        <li class="nav-item m-tabs__item">
-                                            <a class="nav-link m-tabs__link active" data-toggle="tab"
-                                                href="#m_form_confirm_1" role="tab">1. Client Information</a>
-                                        </li>
-                                        <li class="nav-item m-tabs__item">
-                                            <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_form_confirm_2"
-                                                role="tab">2.
-                                                Account Setup</a>
-                                        </li>
-                                        <li class="nav-item m-tabs__item">
-                                            <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_form_confirm_3"
-                                                role="tab">3.
-                                                Billing Setup</a>
-                                        </li>
-                                    </ul>
-                                    <div class="tab-content m--margin-top-40">
-                                        <div class="tab-pane active" id="m_form_confirm_1" role="tabpanel">
-                                            <div class="m-form__section m-form__section--first">
-                                                <div class="m-form__heading">
-                                                    <h4 class="m-form__heading-title">Client Details</h4>
-                                                </div>
-                                                <div class="form-group m-form__group m-form__group--sm row">
-                                                    <label class="col-xl-3 col-lg-3 col-form-label">Name:</label>
-                                                    <div class="col-xl-9 col-lg-9">
-                                                        <span class="m-form__control-static">Nick Stone</span>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group m-form__group m-form__group--sm row">
-                                                    <label class="col-xl-3 col-lg-3 col-form-label">Email:</label>
-                                                    <div class="col-xl-9 col-lg-9">
-                                                        <span class="m-form__control-static">nick.stone@gmail.com</span>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group m-form__group m-form__group--sm row">
-                                                    <label class="col-xl-3 col-lg-3 col-form-label">Phone</label>
-                                                    <div class="col-xl-9 col-lg-9">
-                                                        <span class="m-form__control-static">+206-78-55034890</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="m-separator m-separator--dashed m-separator--lg"></div>
-                                            <div class="m-form__section">
-                                                <div class="m-form__heading">
-                                                    <h4 class="m-form__heading-title">Corresponding Address <i
-                                                            data-toggle="m-tooltip" data-width="auto"
-                                                            class="m-form__heading-help-icon flaticon-info"
-                                                            title="Some help text goes here"></i></h4>
-                                                </div>
-                                                <div class="form-group m-form__group m-form__group--sm row">
-                                                    <label class="col-xl-3 col-lg-3 col-form-label">Address Line
-                                                        1:</label>
-                                                    <div class="col-xl-9 col-lg-9">
-                                                        <span class="m-form__control-static">Headquarters 1120 N Street
-                                                            Sacramento 916-654-5266</span>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group m-form__group m-form__group--sm row">
-                                                    <label class="col-xl-3 col-lg-3 col-form-label">Address Line
-                                                        2:</label>
-                                                    <div class="col-xl-9 col-lg-9">
-                                                        <span class="m-form__control-static">P.O. Box 942873 Sacramento,
-                                                            CA 94273-0001</span>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group m-form__group m-form__group--sm row">
-                                                    <label class="col-xl-3 col-lg-3 col-form-label">City:</label>
-                                                    <div class="col-xl-9 col-lg-9">
-                                                        <span class="m-form__control-static">Polo Alto</span>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group m-form__group m-form__group--sm row">
-                                                    <label class="col-xl-3 col-lg-3 col-form-label">State:</label>
-                                                    <div class="col-xl-9 col-lg-9">
-                                                        <span class="m-form__control-static">California</span>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group m-form__group m-form__group--sm row">
-                                                    <label class="col-xl-3 col-lg-3 col-form-label">Country:</label>
-                                                    <div class="col-xl-9 col-lg-9">
-                                                        <span class="m-form__control-static">USA</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="tab-pane" id="m_form_confirm_2" role="tabpanel">
-                                            <div class="m-form__section m-form__section--first">
-                                                <div class="m-form__heading">
-                                                    <h4 class="m-form__heading-title">Account Details</h4>
-                                                </div>
-                                                <div class="form-group m-form__group m-form__group--sm row">
-                                                    <label class="col-xl-3 col-lg-3 col-form-label">URL:</label>
-                                                    <div class="col-xl-9 col-lg-9">
-                                                        <span
-                                                            class="m-form__control-static">sinortech.vertoffice.com</span>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group m-form__group m-form__group--sm row">
-                                                    <label class="col-xl-3 col-lg-3 col-form-label">Username:</label>
-                                                    <div class="col-xl-9 col-lg-9">
-                                                        <span class="m-form__control-static">sinortech.admin</span>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group m-form__group m-form__group--sm row">
-                                                    <label class="col-xl-3 col-lg-3 col-form-label">Password:</label>
-                                                    <div class="col-xl-9 col-lg-9">
-                                                        <span class="m-form__control-static">*********</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="m-separator m-separator--dashed m-separator--lg"></div>
-                                            <div class="m-form__section">
-                                                <div class="m-form__heading">
-                                                    <h4 class="m-form__heading-title">Account Details</h4>
-                                                </div>
-                                                <div class="form-group m-form__group m-form__group--sm row">
-                                                    <label class="col-xl-3 col-lg-3 col-form-label">URL:</label>
-                                                    <div class="col-xl-9 col-lg-9">
-                                                        <span
-                                                            class="m-form__control-static">sinortech.vertoffice.com</span>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group m-form__group m-form__group--sm row">
-                                                    <label class="col-xl-3 col-lg-3 col-form-label">Username:</label>
-                                                    <div class="col-xl-9 col-lg-9">
-                                                        <span class="m-form__control-static">sinortech.admin</span>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group m-form__group m-form__group--sm row">
-                                                    <label class="col-xl-3 col-lg-3 col-form-label">Password:</label>
-                                                    <div class="col-xl-9 col-lg-9">
-                                                        <span class="m-form__control-static">*********</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="tab-pane" id="m_form_confirm_3" role="tabpanel">
-                                            <div class="m-form__section m-form__section--first">
-                                                <div class="m-form__section">
-                                                    <div class="m-form__heading">
-                                                        <h4 class="m-form__heading-title">Client Settings</h4>
-                                                    </div>
-                                                    <div class="form-group m-form__group m-form__group--sm row">
-                                                        <label class="col-xl-3 col-lg-3 col-form-label">User
-                                                            Group:</label>
-                                                        <div class="col-xl-9 col-lg-9">
-                                                            <span class="m-form__control-static">Customer</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group m-form__group m-form__group--sm row">
-                                                        <label
-                                                            class="col-xl-3 col-lg-3 col-form-label">Communications:</label>
-                                                        <div class="col-xl-9 col-lg-9">
-                                                            <span class="m-form__control-static">Phone, Email</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!--end::Section-->
-
-                                    <!--end::Section-->
-                                    <div class="m-separator m-separator--dashed m-separator--lg"></div>
-                                    <div class="form-group m-form__group m-form__group--sm row">
-                                        <div class="col-xl-12">
-                                            <div class="m-checkbox-inline">
-                                                <label class="m-checkbox m-checkbox--solid m-checkbox--brand">
-                                                    <input type="checkbox" name="accept" value="1">
-                                                    Click here to indicate that you have read and agree to the terms
-                                                    presented in the Terms and Conditions agreement
-                                                    <span></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="d-flex justify-content-end mr-5">
+                                    <button type="button" onclick="getDataDiaDiem(12)" class="btn btn-success">Địa
+                                        Điểm</button>
+                                    {{-- <button type="button" onclick="addDuLieuGiayChungNhan()" class="btn btn-success">Đăng ký</button> --}}
                                 </div>
-                            </div>
-                        </div>
-
-                        <!--end: Form Wizard Step 3-->
-                    </div>
-
-                    <!--end: Form Body -->
-
-                    <!--begin: Form Actions -->
-                    <div class="m-portlet__foot m-portlet__foot--fit m--margin-top-40">
-                        <div class="m-form__actions">
-                            <div class="row">
-                                <div class="col-lg-2"></div>
-                                <div class="col-lg-4 m--align-left">
-                                    <a href="#" class="btn btn-secondary m-btn m-btn--custom m-btn--icon"
-                                        data-wizard-action="prev">
-                                        <span>
-                                            <i class="la la-arrow-left"></i>&nbsp;&nbsp;
-                                            <span>Back</span>
-                                        </span>
-                                    </a>
-                                </div>
-                                <div class="col-lg-4 m--align-right">
-                                    <span onclick="addDuLieuGiayChungNhan()" href="#" class="btn btn-primary m-btn m-btn--custom m-btn--icon" data-wizard-action="submit">
-                                        <span>
-                                            <i class="la la-check"></i>&nbsp;&nbsp;
-                                            <span>Đăng ký</span>
-                                        </span>
-                                    </a>
-                                    <button class="btn btn-warning m-btn m-btn--custom m-btn--icon"
-                                        data-wizard-action="next" id="submit-co-so-ajax">
-                                        <span>
-                                            <span>Save & Continue</span>&nbsp;&nbsp;
-                                            <i class="la la-arrow-right"></i>
-                                        </span>
-                                    </button>
-                                </div>
-                                <div class="col-lg-2"></div>
                             </div>
                         </div>
                     </div>
 
-                    <!--end: Form Actions -->
-                </form>
+                    <!--end: Form Wizard Step 2-->
+
+                    <!--begin: Form Wizard Step 3-->
+                    <div class="m-wizard__form-step" id="m_wizard_form_step_3">
+                        <div class="row">
+                            <div class="col-xl-8 offset-xl-2">
+
+                                <!--begin::Section-->
+                                <ul class="nav nav-tabs m-tabs-line--2x m-tabs-line m-tabs-line--danger" role="tablist">
+                                    <li class="nav-item m-tabs__item">
+                                        <a class="nav-link m-tabs__link active" data-toggle="tab"
+                                            href="#m_form_confirm_1" role="tab">1. Client Information</a>
+                                    </li>
+                                    <li class="nav-item m-tabs__item">
+                                        <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_form_confirm_2"
+                                            role="tab">2.
+                                            Account Setup</a>
+                                    </li>
+                                    <li class="nav-item m-tabs__item">
+                                        <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_form_confirm_3"
+                                            role="tab">3.
+                                            Billing Setup</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content m--margin-top-40">
+                                    <div class="tab-pane active" id="m_form_confirm_1" role="tabpanel">
+                                        <div class="m-form__section m-form__section--first">
+                                            <div class="m-form__heading">
+                                                <h4 class="m-form__heading-title">Client Details</h4>
+                                            </div>
+                                            <div class="form-group m-form__group m-form__group--sm row">
+                                                <label class="col-xl-3 col-lg-3 col-form-label">Name:</label>
+                                                <div class="col-xl-9 col-lg-9">
+                                                    <span class="m-form__control-static">Nick Stone</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group m-form__group--sm row">
+                                                <label class="col-xl-3 col-lg-3 col-form-label">Email:</label>
+                                                <div class="col-xl-9 col-lg-9">
+                                                    <span class="m-form__control-static">nick.stone@gmail.com</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group m-form__group--sm row">
+                                                <label class="col-xl-3 col-lg-3 col-form-label">Phone</label>
+                                                <div class="col-xl-9 col-lg-9">
+                                                    <span class="m-form__control-static">+206-78-55034890</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="m-separator m-separator--dashed m-separator--lg"></div>
+                                        <div class="m-form__section">
+                                            <div class="m-form__heading">
+                                                <h4 class="m-form__heading-title">Corresponding Address <i
+                                                        data-toggle="m-tooltip" data-width="auto"
+                                                        class="m-form__heading-help-icon flaticon-info"
+                                                        title="Some help text goes here"></i></h4>
+                                            </div>
+                                            <div class="form-group m-form__group m-form__group--sm row">
+                                                <label class="col-xl-3 col-lg-3 col-form-label">Address Line
+                                                    1:</label>
+                                                <div class="col-xl-9 col-lg-9">
+                                                    <span class="m-form__control-static">Headquarters 1120 N Street
+                                                        Sacramento 916-654-5266</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group m-form__group--sm row">
+                                                <label class="col-xl-3 col-lg-3 col-form-label">Address Line
+                                                    2:</label>
+                                                <div class="col-xl-9 col-lg-9">
+                                                    <span class="m-form__control-static">P.O. Box 942873 Sacramento,
+                                                        CA 94273-0001</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group m-form__group--sm row">
+                                                <label class="col-xl-3 col-lg-3 col-form-label">City:</label>
+                                                <div class="col-xl-9 col-lg-9">
+                                                    <span class="m-form__control-static">Polo Alto</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group m-form__group--sm row">
+                                                <label class="col-xl-3 col-lg-3 col-form-label">State:</label>
+                                                <div class="col-xl-9 col-lg-9">
+                                                    <span class="m-form__control-static">California</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group m-form__group--sm row">
+                                                <label class="col-xl-3 col-lg-3 col-form-label">Country:</label>
+                                                <div class="col-xl-9 col-lg-9">
+                                                    <span class="m-form__control-static">USA</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="m_form_confirm_2" role="tabpanel">
+                                        <div class="m-form__section m-form__section--first">
+                                            <div class="m-form__heading">
+                                                <h4 class="m-form__heading-title">Account Details</h4>
+                                            </div>
+                                            <div class="form-group m-form__group m-form__group--sm row">
+                                                <label class="col-xl-3 col-lg-3 col-form-label">URL:</label>
+                                                <div class="col-xl-9 col-lg-9">
+                                                    <span class="m-form__control-static">sinortech.vertoffice.com</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group m-form__group--sm row">
+                                                <label class="col-xl-3 col-lg-3 col-form-label">Username:</label>
+                                                <div class="col-xl-9 col-lg-9">
+                                                    <span class="m-form__control-static">sinortech.admin</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group m-form__group--sm row">
+                                                <label class="col-xl-3 col-lg-3 col-form-label">Password:</label>
+                                                <div class="col-xl-9 col-lg-9">
+                                                    <span class="m-form__control-static">*********</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="m-separator m-separator--dashed m-separator--lg"></div>
+                                        <div class="m-form__section">
+                                            <div class="m-form__heading">
+                                                <h4 class="m-form__heading-title">Account Details</h4>
+                                            </div>
+                                            <div class="form-group m-form__group m-form__group--sm row">
+                                                <label class="col-xl-3 col-lg-3 col-form-label">URL:</label>
+                                                <div class="col-xl-9 col-lg-9">
+                                                    <span class="m-form__control-static">sinortech.vertoffice.com</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group m-form__group--sm row">
+                                                <label class="col-xl-3 col-lg-3 col-form-label">Username:</label>
+                                                <div class="col-xl-9 col-lg-9">
+                                                    <span class="m-form__control-static">sinortech.admin</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group m-form__group--sm row">
+                                                <label class="col-xl-3 col-lg-3 col-form-label">Password:</label>
+                                                <div class="col-xl-9 col-lg-9">
+                                                    <span class="m-form__control-static">*********</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="m_form_confirm_3" role="tabpanel">
+                                        <div class="m-form__section m-form__section--first">
+                                            <div class="m-form__section">
+                                                <div class="m-form__heading">
+                                                    <h4 class="m-form__heading-title">Client Settings</h4>
+                                                </div>
+                                                <div class="form-group m-form__group m-form__group--sm row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">User
+                                                        Group:</label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <span class="m-form__control-static">Customer</span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group m-form__group m-form__group--sm row">
+                                                    <label
+                                                        class="col-xl-3 col-lg-3 col-form-label">Communications:</label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <span class="m-form__control-static">Phone, Email</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--end::Section-->
+
+                                <!--end::Section-->
+                                <div class="m-separator m-separator--dashed m-separator--lg"></div>
+                                <div class="form-group m-form__group m-form__group--sm row">
+                                    <div class="col-xl-12">
+                                        <div class="m-checkbox-inline">
+                                            <label class="m-checkbox m-checkbox--solid m-checkbox--brand">
+                                                <input type="checkbox" name="accept" value="1">
+                                                Click here to indicate that you have read and agree to the terms
+                                                presented in the Terms and Conditions agreement
+                                                <span></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--end: Form Wizard Step 3-->
             </div>
 
-            <!--end: Form Wizard Form-->
+            <!--end: Form Body -->
+
+            <!--begin: Form Actions -->
+            <div class="m-portlet__foot m-portlet__foot--fit m--margin-top-40">
+                <div class="m-form__actions">
+                    <div class="row">
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-4 m--align-left">
+                            <a href="#" class="btn btn-secondary m-btn m-btn--custom m-btn--icon"
+                                data-wizard-action="prev">
+                                <span>
+                                    <i class="la la-arrow-left"></i>&nbsp;&nbsp;
+                                    <span>Back</span>
+                                </span>
+                            </a>
+                        </div>
+                        <div class="col-lg-4 m--align-right">
+                            <span onclick="addDuLieuGiayChungNhan()" href="#"
+                                class="btn btn-primary m-btn m-btn--custom m-btn--icon" data-wizard-action="submit">
+                                <span>
+                                    <i class="la la-check"></i>&nbsp;&nbsp;
+                                    <span>Đăng ký</span>
+                                </span>
+                            </span>
+                            <a href="#" id="submit-co-so-ajax" class="btn btn-warning m-btn m-btn--custom m-btn--icon"
+                                id="submit-co-so-ajax" data-wizard-action="next">
+                                <span>
+                                    <span>Save & Continue</span>&nbsp;&nbsp;
+                                    <i class="la la-arrow-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                        <div class="col-lg-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!--end: Form Actions -->
+            </form>
         </div>
 
-        <!--end: Form Wizard-->
+        <!--end: Form Wizard Form-->
     </div>
+
+    <!--end: Form Wizard-->
+</div>
 </div>
 </div>
 @endsection
@@ -881,8 +914,21 @@ line-height: 90px
         Data.append('ngay_ban_hanh',$('input[name=ngay_ban_hanh]').val());
         Data.append('ngay_hieu_luc',$('input[name=ngay_hieu_luc]').val());
         Data.append('ngay_het_han',$('input[name=ngay_het_han]').val());
+        Data.append('nguoi_phu_trach', $('select[name=nguoi_phu_trach]').val());
         Data.append('dia_chi_chi_nhanh',JSON.stringify(dia_chi_chi_nhanh));
         Data.append('_token', $('#token').val());
+
+        $('#Err_ten').addClass('d-none');
+        $('#Err_ma_don_vi').addClass('d-none');
+        $('#Err_cap_quan_ly').addClass('d-none');
+        $('#Err_ten_nguoi_dai_dien').addClass('d-none');
+        $('#Err_hinh_thuc_so_huu').addClass('d-none');
+        $('#Err_trinh_do_dao_tao').addClass('d-none');
+        $('#Err_hotline').addClass('d-none');
+        $('#Err_nguoi_phu_trach').addClass('d-none');
+        $('#Err_trinh_do_dao_tao').addClass('d-none');
+        $('#Err_anh_quyet_dinh').addClass('d-none');
+
         
         $.ajax({
             type: "Post",
@@ -895,7 +941,14 @@ line-height: 90px
             },
             error: function(data){
                 var errors = data.responseJSON;
-                console.log(errors)
+                if ($.isEmptyObject(errors) == false) {
+                    $.each(errors.errors, function(key, value) {
+                        var ErrorID = '#Err_' + key;
+                        $(ErrorID).removeClass('d-none');
+                        $(ErrorID).text(value);
+                        console.log(ErrorID)
+                    })
+                }
             }
         })
     });
@@ -1065,8 +1118,8 @@ line-height: 90px
 </script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 {{-- start quang-add-them-giay-phep-nghe --}}
-<script >
-$(document).ready(function() {
+<script>
+    $(document).ready(function() {
     $(".select2").select2();
 });
 var getDiaChiCoSo = "{{route('getDiaChiCoSo')}}";
