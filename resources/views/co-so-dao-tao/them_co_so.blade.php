@@ -888,7 +888,7 @@
         let dia_chi_chi_nhanh = [];
 
         let chi_nhanh = document.querySelectorAll('.dia_diem_dao_tao');
-        
+        let flag = true;
         for (let i = 0; i < chi_nhanh.length; i++) {
 
             let checkDiaChi = $(chi_nhanh[i]).find('.dia_chi_chi_nhanh').val();
@@ -897,20 +897,26 @@
 
             if(checkDiaChi == ''){
                 $(chi_nhanh[i]).find('.Err-dia_chi').text('Vui lòng nhập địa chỉ');
+                flag = false;
             }else{
                 $(chi_nhanh[i]).find('.Err-dia_chi').text('');
             }
                 
             if(checkQuanHuyen == null){
                 $(chi_nhanh[i]).find('.Err-quan_huyen').text('Vui lòng chọn quận/huyện');
+                flag = false;
             }else{
                 $(chi_nhanh[i]).find('.Err-quan_huyen').text('');
             }
                     
             if(checkXaPhuong == null){
                 $(chi_nhanh[i]).find('.Err-xa_phuong').text('Vui lòng chọn xã/phường');
+                flag = false;
             } else{
                 $(chi_nhanh[i]).find('.Err-xa_phuong').text('');
+            }
+            if(flag == false){
+                return false;
             }
             
             ChiNhanhObj = {
@@ -965,10 +971,26 @@
             url: "{{route('mang-luoi.tao-csdt')}}",
             data: Data,
             success: function(response){
-                $('#btn-next-wizard').trigger('click');
-                console.log(response.CoSo.id);
+                
                 getDataDiaDiem(response.CoSo.id);
                 $('input[name=co_so_id]').val(response.CoSo.id);
+
+                Swal.fire({
+                title: 'Thêm mới thành công',
+                text: "Tiếp tục thêm giấy phép",
+                icon: 'success',
+                showCancelButton: true,
+                showConfirmButton: true,
+                cancelButtonText: 'Quay lại',
+                confirmButtonText: 'Thêm giấy phép',
+                reverseButtons: true
+                }).then((dd)=>{
+                    if(dd.dismiss == "cancel"){
+                        console.log('haha')
+                    } else{
+                        $('#btn-next-wizard').trigger('click')
+                    }
+                })
             },
             error: function(data){
                 var errors = data.responseJSON;
