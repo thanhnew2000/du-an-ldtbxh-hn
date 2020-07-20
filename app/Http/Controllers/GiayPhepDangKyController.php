@@ -5,12 +5,24 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Requests\CoSoDaoTao\StoreRequest;
 use App\Giay_chung_nhan;
+use App\Services\GiayPhepDangKyService;
+
 class GiayPhepDangKyController extends Controller
 {
+
+    protected $GiayPhepDangKyService;
+
+    public function __construct(GiayPhepDangKyService $GiayPhepDangKyService)
+    {
+        $this->GiayPhepDangKyService = $GiayPhepDangKyService;
+    }
+
+
    public function getDiaChiCoSo(Request $request)
    {
        $data = $request->all();
-       $chi_nhanh =DB::table('chi_nhanh_dao_tao')->where('co_so_id',$data['id'])->get();
+    //    DB::table('chi_nhanh_dao_tao')->where('co_so_id',$data['id'])->get();
+       $chi_nhanh = $this->GiayPhepDangKyService->getChiNhanhTheoCoSo($data['id']);
        return $chi_nhanh;
    }
 
@@ -18,9 +30,9 @@ class GiayPhepDangKyController extends Controller
    {
        $id = $request->id;
        if($id>4){
-       $data = DB::table('nganh_nghe')->where('id', 'like', $id.'%')->where('ma_cap_nghe', 4)->orderBy('ten_nganh_nghe')->get();
+             $data = $this->GiayPhepDangKyService->getNganhNgheMaCap($id,4);
        }else{
-        $data = DB::table('nganh_nghe')->where('id', 'like', '6%')->where('ma_cap_nghe', 4)->orderBy('ten_nganh_nghe')->get();
+             $data = $this->GiayPhepDangKyService->getNganhNgheMaCap(6,4);
        }
        return $data;
    }
@@ -40,14 +52,15 @@ class GiayPhepDangKyController extends Controller
                     'giay_chung_nhan_id'=>$getData['id_giay_chung_nhan'],
                     'quy_mo'=>$data['quy_mo_tuyen_sinh']
                 ];
-            DB::table('giay_chung_nhan_chi_tiet')->insert($dataPost);
+            // DB::table('giay_chung_nhan_chi_tiet')->insert($dataPost);
+            $this->GiayPhepDangKyService->insertToGiayChungNhanChiTiet($dataPost);
         }else{
             $dataPost = [
                 'bac_nghe'=>$data['trinh_do'],
                 'ten_nganh_nghe'=> $data['nghe_id'],
                 'ma_cap_nghe'=>4
             ];
-            $id_nghe = DB::table('nganh_nghe_2')->insertGetId($dataPost);
+            $id_nghe =  $this->GiayPhepDangKyService->insertNganhNghe2AndGetId($dataPost);
             $dataPost2 = [
                 'co_so_id'=>$getData['co_so_id'],
                 'chi_nhanh_id'=> (int)substr($key,7),
@@ -55,7 +68,7 @@ class GiayPhepDangKyController extends Controller
                 'giay_chung_nhan_id'=>$getData['id_giay_chung_nhan'],
                 'quy_mo'=>$data['quy_mo_tuyen_sinh']
             ];
-            DB::table('giay_chung_nhan_chi_tiet')->insert($dataPost2);
+            $this->GiayPhepDangKyService->insertToGiayChungNhanChiTiet($dataPost2);
         }
         }
           
