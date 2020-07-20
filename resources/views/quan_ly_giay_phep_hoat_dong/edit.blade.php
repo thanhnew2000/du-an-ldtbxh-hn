@@ -1,14 +1,22 @@
 @extends('layouts.admin')
-@section('title', 'Danh sách giấy phép')
+@section('title', 'Cập nhật giấy phép')
 @section('style')
 <style>
     .modal-xl {
         max-width: 1140px;
     }
+    .error{
+        color: red;
+        margin-top: 5px;
+    }
 </style>
+<link href="{!! asset('css_loading/css_loading.css') !!}" rel="stylesheet" type="text/css" />
 @endsection
 @section('content')
 <div class="m-content container-fluid">
+    <div id="preload" class="preload-container text-center" style="display: none">
+        <img id="gif-load" src="{!! asset('images/loading1.gif') !!}" alt="">
+    </div>
     <div class="m-portlet">
         <div class="m-portlet__head">
             <div class="m-portlet__head-caption">
@@ -46,11 +54,6 @@
                                     <select disabled onchange="setValueQuyetDinh(this)" class="form-control col-12"
                                     name="so_quyet_dinh" id="so_quyet_dinh">
                                     <option value="0" selected disabled>Chọn quyết định</option>
-                                    @foreach ($co_so as $item)
-                                    <option @if (isset($params['co_so_id']))
-                                        {{ $params['co_so_id'] ==$item->id? 'selected' : '' }} @endif
-                                        value="{{$item->id}}">{{$item->ten}}</option>
-                                    @endforeach
                                 </select>
                                 </div>
 
@@ -87,19 +90,19 @@
                             <div class="row">
                                 <div class="col-6 d-flex align-items-stretch">
                                     <div class="col-12">
-                                        @if (isset($params['co_so_id']))
+
                                         <div class="form-group1 m-form__group mb-4">
-                                            <input type="hidden" name="co_so_id" value="{{$params['co_so_id']}}">
+                                            <input type="hidden" id="get_giay_phep_id" name="get_giay_phep_id" value="">
                                         </div>
-                                        @endif
-
-
+                                        
                                         <div class="form-group m-form__group mb-4">
                                             <label>Số quết định<span class="text-danger">(*)</span></label>
                                             <input type="text" name="so_quyet_dinh" value="" class="form-control m-input"
                                                 placeholder="Nhập số quết định">
-                                        </div>
+                                                <p class="error so-quyet-dinh"></p>
 
+                                        </div>
+                                       
                                         <div class="form-group m-form__group">
                                             <label for="exampleInputEmail1">Ảnh giấy phép <span
                                                     class="text-danger">(*)</span></label>
@@ -109,7 +112,9 @@
                                                     id="customFile">
                                                 <label class="custom-file-label" for="customFile">Choose file</label>
                                             </div>
+                                            <p class="error anh-quyet-dinh"></p>
                                         </div>
+                                      
                                     </div>
 
                                 </div>
@@ -133,11 +138,7 @@
                                                 <span><i class="flaticon-calendar-2"></i></span>
                                             </div>
                                         </div>
-                                        <p class="text-danger text-small">
-                                            @error('ngay_ban_hanh')
-                                            {{$message}}
-                                            @enderror
-                                        </p>
+                                        <p class="error ngay-ban-hanh"></p>
                                     </div>
                                 </div>
 
@@ -152,11 +153,7 @@
                                                 <span><i class="flaticon-calendar-2"></i></span>
                                             </div>
                                         </div>
-                                        <p class="text-danger text-small">
-                                            @error('ngay_hieu_luc')
-                                            {{$message}}
-                                            @enderror
-                                        </p>
+                                        <p class="error ngay-hieu-luc"></p>
                                     </div>
                                 </div>
 
@@ -171,7 +168,7 @@
                                                 <span><i class="flaticon-calendar-2"></i></span>
                                             </div>
                                         </div>
-
+                                        <p class="error ngay-het-han"></p>
                                     </div>
                                 </div>
                             </div>
@@ -182,7 +179,7 @@
                     <!-- Modal footer -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light" data-dismiss="modal">Hủy</button>
-                        <button type="button" onclick="themGiayPhep()" class="btn btn-danger">Thêm mới</button>
+                        <button type="button" onclick="suaGiayPhep()" class="btn btn-danger">Cập nhật</button>
                     </div>
                 </form>
             </div>
@@ -195,15 +192,24 @@
 <script>
      $('#co_so_id').select2()
      $('#so_quyet_dinh').select2()
+     const getGiayPhepUrl = "{{route('giay-phep-hoat-dong.get-giay-phep')}}"
+     const capNhatGiayPhepUrl = "{{route('giay-phep-hoat-dong.update')}}"
+     const getGiayPhepIdUrl = "{{route('giay-phep-hoat-dong.get-giay-phep-id')}}"
      function setValueQuyetDinh(e) {
-        if ($(e).attr('name') == 'co_so_id' ) {
-            if ($(e).val()>0 ) {
+        if ($(e).attr('name') == 'co_so_id' ) 
+        {
+            getGiayPhep($(e).val())
+            if ($(e).val()>0 ) 
+            {
                 $('#so_quyet_dinh').attr('disabled',false)
             }else{
                 $('#so_quyet_dinh').attr('disabled',true)
             }      
         }else{
-            if ($(e).val()>0 ) {
+            getGIayPhepId($(e).val())
+            $('#get_giay_phep_id').val($(e).val())
+            if ($(e).val()>0 ) 
+            {
                 $('#cap_nhat').attr('disabled',false)
             }else{
                 $('#cap_nhat').attr('disabled',true)
@@ -211,5 +217,117 @@
         }
 
     }
+
+
+    let getGiayPhep = (id) =>{
+        $("#preload").css("display", "block");
+        axios.post(getGiayPhepUrl,{
+                'id': id
+            })
+            .then(function (response) {
+                   $("#preload").css("display", "none");
+                let html = ' <option value="0" selected disabled>Chọn quyết định</option>'
+                response.data.forEach(element => {
+                    html+= ` <option value=${element.id} selected >${element.so_quyet_dinh}</option>`
+                });
+
+               $('#so_quyet_dinh').html(html)
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+            .then(function () {
+                // always executed
+            });
+    }
+
+    let getGIayPhepId = (id) => {
+        $("#preload").css("display", "block");
+        let urlImg = "{!! asset('storage/') !!}"+"/"
+        axios.post(getGiayPhepIdUrl,{
+                'id': id
+            })
+            .then(function (response) {
+                $("#preload").css("display", "none");
+                $('#get_giay_phep_id').val(response.data.id)
+                $("[name=so_quyet_dinh]").val(response.data.so_quyet_dinh)
+                $(".anh-giay-phep-hoat-dong").attr('src',urlImg+response.data.anh_quyet_dinh)
+                $("[name=ngay_ban_hanh]").val(moment(response.data.ngay_ban_hanh).format('DD-MM-YYYY'))
+                $("[name=ngay_hieu_luc]").val(moment(response.data.ngay_hieu_luc).format('DD-MM-YYYY'))
+                $("[name=ngay_het_han]").val(moment(response.data.ngay_het_han).format('DD-MM-YYYY'))
+            })
+            .catch(function (error) {
+               
+            })
+            .then(function () {
+                // always executed
+            });
+    }
+
+
+    let suaGiayPhep = () => {
+    $("#preload").css("display", "block");
+    let myForm = document.getElementById('myForm');
+    var formData = new FormData(myForm)
+    axios.post(capNhatGiayPhepUrl,formData)
+    .then(function (response) {
+        $("#preload").css("display", "none");
+        $('#myModalThemMoi').modal('hide')
+        Swal.fire({
+            title: 'Cập nhật thành công',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 2000
+        }).then(() => {
+            location.reload();
+        });
+    })
+    .catch(function (error) {
+        $('.error').html('')
+        $('.so-quyet-dinh').html(error.response.data.errors.so_quyet_dinh);
+        $('.anh-quyet-dinh').html(error.response.data.errors.anh_quyet_dinh);
+        $('.ngay-ban-hanh').html(error.response.data.errors.ngay_ban_hanh);
+        $('.ngay-hieu-luc').html(error.response.data.errors.ngay_hieu_luc);
+        $('.ngay-het-han').html(error.response.data.errors.ngay_het_han);
+        $("#preload").css("display", "none");
+    })
+    .then(function () {
+        // always executed
+    });
+}
+$('#summernote').summernote({
+            height: 150,
+            toolbar: 
+            [
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['fontname', ['fontname']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link']],
+                ['view', ['fullscreen']],
+            ]
+        });
+        $('.datepicker').datepicker({
+        format: 'dd-mm-yyyy',
+        icons: {
+            time: "fa fa-clock-o",
+            date: "fa fa-calendar",
+            up: "fa fa-arrow-up",
+            down: "fa fa-arrow-down"
+        }
+    });
+    function showimages(element) {
+    var file = element.files[0];
+    var reader = new FileReader();
+    reader.onloadend = function() {
+       $(element).parents('.modal-body').find('.anh-giay-phep-hoat-dong').attr("src", reader.result);
+        // console.log('RESULT', reader.result)
+    };
+    reader.readAsDataURL(file);
+}
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/locale/af.min.js"></script>
 @endsection

@@ -31,6 +31,23 @@ class QuanLyGiayPhepHoatDongService extends AppService
     {
         return $this->repository->createGiayPhep($data);
     }
+
+    public function getGiayPhep($id)
+    {
+        return $this->repository->getGiayPhep($id);
+    }
+
+    public function getGiayPhepId($id)
+    {
+        return $this->repository->getGiayPhepId($id);
+    }
+
+    public function updateData($data)
+    {
+        $id = $data['get_giay_phep_id'];
+        unset($data['get_giay_phep_id']);
+        return $this->repository->updateData($id,$data);
+    }
 }
 
  ?>

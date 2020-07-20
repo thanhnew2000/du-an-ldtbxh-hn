@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 use App\Services\QuanLyGiayPhepHoatDongService;
 use Illuminate\Http\Request;
-
+use App\Http\Requests\QuanLyGiayPhepQuyetDinh\storeQuyetDinh;
+use App\Http\Requests\QuanLyGiayPhepQuyetDinh\updateQuyetDinh;
 class QuanLyGiayPhepHoatDongController extends Controller
 {
     private $QuanLyGiayPhepHoatDongService;
@@ -46,7 +47,7 @@ class QuanLyGiayPhepHoatDongController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(storeQuyetDinh $request)
     {  
         $data = $request->all();
         $img_giay_phep_hoat_dong =$request->file("anh_quyet_dinh");
@@ -88,13 +89,33 @@ class QuanLyGiayPhepHoatDongController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update()
+    public function update(updateQuyetDinh $request)
     {
-      return view('quan_ly_giay_phep_hoat_dong.update');
+        $data = $request->all();
+        $img_giay_phep_hoat_dong =$request->file("anh_quyet_dinh");
+        if($img_giay_phep_hoat_dong){
+        $path = $request->file('anh_quyet_dinh')->store('uploads/giay-phep-hoat-dong');
+        $data['anh_quyet_dinh']=$path;
+        }else{
+            unset($data['anh_quyet_dinh']);
+        }
+      return $this->QuanLyGiayPhepHoatDongService->updateData($data);
     }
 
     public function thuHoi()
     {
        dd('thu hồi');
+    }
+
+    public function getGiayPhep(Request $request)
+    {
+        $id = $request->all();
+        return $this->QuanLyGiayPhepHoatDongService->getGiayPhep($id);
+    }
+
+    public function getGiayPhepId(Request $request)
+    {
+        $id = $request->all();
+        return $this->QuanLyGiayPhepHoatDongService->getGiayPhepId($id);
     }
 }

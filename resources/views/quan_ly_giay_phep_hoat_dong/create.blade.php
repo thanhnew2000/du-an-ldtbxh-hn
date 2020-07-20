@@ -1,14 +1,22 @@
 @extends('layouts.admin')
-@section('title', 'Danh sách giấy phép')
+@section('title', 'Thêm mới giấy phép')
 @section('style')
 <style>
     .modal-xl {
         max-width: 1140px;
     }
+    .error{
+        color: red;
+        margin-top: 5px !important;
+    }
 </style>
+<link href="{!! asset('css_loading/css_loading.css') !!}" rel="stylesheet" type="text/css" />
 @endsection
 @section('content')
 <div class="m-content container-fluid">
+    <div id="preload" class="preload-container text-center" style="display: none">
+        <img id="gif-load" src="{!! asset('images/loading1.gif') !!}" alt="">
+    </div>
     <div class="m-portlet">
         <div class="m-portlet__head">
             <div class="m-portlet__head-caption">
@@ -89,6 +97,7 @@
                                             <label>Số quết định<span class="text-danger">(*)</span></label>
                                             <input type="text" name="so_quyet_dinh" value=""
                                                 class="form-control m-input" placeholder="Nhập số quết định">
+                                                <p class="error so-quyet-dinh"></p>
                                         </div>
 
                                         <div class="form-group m-form__group">
@@ -100,6 +109,7 @@
                                                     id="customFile">
                                                 <label class="custom-file-label" for="customFile">Choose file</label>
                                             </div>
+                                            <p class="error anh-quyet-dinh"></p>
                                         </div>
                                     </div>
 
@@ -124,11 +134,7 @@
                                                 <span><i class="flaticon-calendar-2"></i></span>
                                             </div>
                                         </div>
-                                        <p class="text-danger text-small">
-                                            @error('ngay_ban_hanh')
-                                            {{$message}}
-                                            @enderror
-                                        </p>
+                                        <p class="error ngay-ban-hanh"></p>
                                     </div>
                                 </div>
 
@@ -143,11 +149,7 @@
                                                 <span><i class="flaticon-calendar-2"></i></span>
                                             </div>
                                         </div>
-                                        <p class="text-danger text-small">
-                                            @error('ngay_hieu_luc')
-                                            {{$message}}
-                                            @enderror
-                                        </p>
+                                        <p class="error ngay-hieu-luc"></p>
                                     </div>
                                 </div>
 
@@ -161,8 +163,9 @@
                                                 class="input-group-addon form-control col-2 d-flex justify-content-center align-items-center">
                                                 <span><i class="flaticon-calendar-2"></i></span>
                                             </div>
+                                          
                                         </div>
-
+                                        <p class="error ngay-het-han"></p>
                                     </div>
                                 </div>
                             </div>
@@ -207,16 +210,31 @@
 
     }
 let themGiayPhep = () => {
+    $("#preload").css("display", "block");
     let myForm = document.getElementById('myForm');
     var formData = new FormData(myForm)
     axios.post(themGiayPhepUrl,formData)
     .then(function (response) {
-        alert('thành công')
-        console.log(response);
+        $("#preload").css("display", "none");
+        $('#myModalThemMoi').modal('hide')
+        Swal.fire({
+            title: 'Bổ sung thành công',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 2000
+        }).then(() => {
+            location.reload();
+        })
+           
     })
     .catch(function (error) {
-        // handle error
-        console.log(error);
+        $('.error').html('')
+        $('.so-quyet-dinh').html(error.response.data.errors.so_quyet_dinh);
+        $('.anh-quyet-dinh').html(error.response.data.errors.anh_quyet_dinh);
+        $('.ngay-ban-hanh').html(error.response.data.errors.ngay_ban_hanh);
+        $('.ngay-hieu-luc').html(error.response.data.errors.ngay_hieu_luc);
+        $('.ngay-het-han').html(error.response.data.errors.ngay_het_han);
+        $("#preload").css("display", "none");
     })
     .then(function () {
         // always executed

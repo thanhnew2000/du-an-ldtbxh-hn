@@ -50,5 +50,21 @@ class QuanLyGiayPhepHoatDongRepository extends BaseRepository implements QuanLyG
         $this->model::create($data);
     }
 
+    public function getGiayPhep($id)
+    {
+       return $this->model->where('co_so_id',$id)->get();
+    }
+
+    public function getGiayPhepId($id)
+    {
+        return $this->model->find($id)->first();
+    }
+
+    public function updateData($id,$data)
+    {
+        return $this->model->find($id)->update($data);
+    }
+
+
     
 }

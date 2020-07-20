@@ -17,6 +17,8 @@ Route::group(['prefix' => 'giay-phep-hoat-dong'], function () {
     Route::get('/edit', 'QuanLyGiayPhepHoatDongController@edit')->name('giay-phep-hoat-dong.edit');
     Route::get('/thu-hoi', 'QuanLyGiayPhepHoatDongController@thuHoi')->name('giay-phep-hoat-dong.thuhoi');
 
+    Route::post('/get-giay-phep', 'QuanLyGiayPhepHoatDongController@getGiayPhep')->name('giay-phep-hoat-dong.get-giay-phep');
+    Route::post('/get-giay-phep-id', 'QuanLyGiayPhepHoatDongController@getGiayPhepId')->name('giay-phep-hoat-dong.get-giay-phep-id');
     Route::post('/store', 'QuanLyGiayPhepHoatDongController@store')->name('giay-phep-hoat-dong.store');
-    Route::post('/update/{id}', 'QuanLyGiayPhepHoatDongController@update')->name('giay-phep-hoat-dong.update');
+    Route::post('/update', 'QuanLyGiayPhepHoatDongController@update')->name('giay-phep-hoat-dong.update');
 });
