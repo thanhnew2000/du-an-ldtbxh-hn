@@ -22,4 +22,9 @@ class QuanHuyenService extends AppService
     public function getAll(){
         return $this->repository->getAll();
     }
+
+    public function getXaPhuongTheoQuanHuyen($id)
+    {
+        return  $this->repository->getXaPhuongTheoQuanHuyen($id);
+    }
 }

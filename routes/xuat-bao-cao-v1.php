@@ -150,7 +150,7 @@ Route::group(['middleware' => ['permission:xem_chi_tiet_tong_hop_ket_qua_tuyen_s
 
 Route::group(['prefix' => 'ket-qua-tuyen-sinh', 'middleware' => ['permission:danh_sach_tong_hop_ket_qua_tuyen_sinh']], function () {
     Route::post('/co-so-tuyen-sinh-theo-loai-hinh', 'SoLieuTuyenSinhController@getCoSoTuyenSinhTheoLoaiHinh')->name('csTuyenSinhTheoLoaiHinh');
-    Route::post('/xa-phuong-theo-quan-huyen', 'SoLieuTuyenSinhController@getXaPhuongTheoQuanHuyen')->name('getXaPhuongTheoQuanHuyen');
+    Route::post('/xa-phuong-theo-quan-huyen', 'QuanHuyenController@getXaPhuongTheoQuanHuyen')->name('getXaPhuongTheoQuanHuyen');
     Route::post('/get-ma-nganh-nghe', 'SoLieuTuyenSinhController@getmanganhnghe')->name('get_ma_nganh_nghe');
     Route::post('/check-them-so-lieu-tuyen-sinh', 'SoLieuTuyenSinhController@getCheckTonTaiSoLieuTuyenSinh')->name('so_lieu_tuyen_sinh.check_so_lieu');
     Route::post('/get-nghe-theo-cap-bac', 'SoLieuTuyenSinhController@getNgheTheoCapBac')->name('getNgheTheoCapBac');

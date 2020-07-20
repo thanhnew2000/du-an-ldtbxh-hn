@@ -6,5 +6,6 @@ namespace App\Repositories;
 
 interface QuanHuyenRepositoryInterface
 {
-//    public function getCsdt();
+    public function getXaPhuongTheoQuanHuyen($id);
+
 }

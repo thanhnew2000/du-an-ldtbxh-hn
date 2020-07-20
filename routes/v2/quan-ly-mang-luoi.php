@@ -22,3 +22,5 @@ Route::group(['prefix' => 'giay-phep-hoat-dong'], function () {
     Route::post('/store', 'QuanLyGiayPhepHoatDongController@store')->name('giay-phep-hoat-dong.store');
     Route::post('/update', 'QuanLyGiayPhepHoatDongController@update')->name('giay-phep-hoat-dong.update');
 });
+Route::get('tao-moi-co-so-dao-tao', 'MangLuoiController@ViewTaoMoiCoSoDaoTao')->name('mang-luoi.tao-csdt');
+Route::post('tao-moi-co-so-dao-tao', 'MangLuoiController@SaveTaoMoiCoSoDaoTao');

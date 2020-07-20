@@ -3,9 +3,9 @@
 
 namespace App\Repositories;
 
+use App\Models\CoSoDaoTao;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
-use App\CoSoDaoTao;
 
 class CoSoDaoTaoRepository extends BaseRepository implements CoSoDaoTaoRepositoryInterface
 {
@@ -20,6 +20,24 @@ class CoSoDaoTaoRepository extends BaseRepository implements CoSoDaoTaoRepositor
     public function getTable()
     {
         return 'co_so_dao_tao';
+    }
+
+    public function createCoSo($attributes = [])
+    {
+        // dd($attributes['trinh_do_dao_tao']);
+        $arrayInsert = [
+            'ten' => $attributes['ten'],
+            'hinh_thuc_so_huu' => $attributes['hinh_thuc_so_huu'],
+            'ma_don_vi' => $attributes['ma_don_vi'],
+            'dien_thoai' => $attributes['hotline'],
+            'cap_quan_ly' => $attributes['cap_quan_ly'],
+            'trinh_do_dao_tao' => $attributes['trinh_do_dao_tao'],
+            'ten_nguoi_dai_dien' => $attributes['ten_nguoi_dai_dien'],
+            'sdt_nguoi_dai_dien' => $attributes['sdt_nguoi_dai_dien'],
+            'email_nguoi_dai_dien' => $attributes['email_nguoi_dai_dien'],
+            'id_nguoi_them' => $attributes['id_nguoi_them']
+        ];
+        return $this->model->create($arrayInsert);
     }
 
     public function getCsdt($params)
@@ -179,6 +197,6 @@ class CoSoDaoTaoRepository extends BaseRepository implements CoSoDaoTaoRepositor
 
     public function getThongTinCoSo($co_so_id)
     {
-       return $this->model->find($co_so_id);
+        return $this->model->find($co_so_id);
     }
 }

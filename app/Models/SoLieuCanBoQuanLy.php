@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\CoSoDaoTao;
+use App\Models\CoSoDaoTao;
 
 class SoLieuCanBoQuanLy extends Model
 {

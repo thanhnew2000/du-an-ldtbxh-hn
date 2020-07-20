@@ -5,7 +5,7 @@ namespace App\Rules\DoiNguNhaGiao;
 use Illuminate\Contracts\Validation\Rule;
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
-use App\CoSoDaoTao;
+use App\Models\CoSoDaoTao;
 use App\Repositories\CoSoDaoTaoRepositoryInterface;
 use App\Repositories\DoiNguNhaGiaoInterface;
 
