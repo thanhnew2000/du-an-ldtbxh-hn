@@ -168,6 +168,15 @@
                                         <p class="error ngay-het-han"></p>
                                     </div>
                                 </div>
+                                <div class="row col-12">
+                                    <div class="col-12 form-group m-form__group">
+                                        <label for="exampleTextarea">Mô tả quyết định</label>
+                                        <textarea class="form-control m-input" id="summernote"
+                                            name="mo_ta"
+                                            placeholder="Mô tả ngắn gọn nội dung giấy phép hoặc ghi chú"
+                                            rows="4"></textarea>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
@@ -198,7 +207,7 @@
        
     }
     //them mới giấy phép
-    const themGiayPhepUrl = "{{route('giay-phep-hoat-dong.store')}}"
+    const themGiayPhepUrl = "{{route('giay-chung-nhan-dao-tao-nghe.store')}}"
     function showimages(element) {
     var file = element.files[0];
     var reader = new FileReader();
@@ -213,6 +222,7 @@ let themGiayPhep = () => {
     $("#preload").css("display", "block");
     let myForm = document.getElementById('myForm');
     var formData = new FormData(myForm)
+    console.log(formData);
     axios.post(themGiayPhepUrl,formData)
     .then(function (response) {
         $("#preload").css("display", "none");

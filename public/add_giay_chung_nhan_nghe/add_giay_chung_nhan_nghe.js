@@ -324,3 +324,6 @@ $(".datepicker").datepicker({
         down: "fa fa-arrow-down"
     }
 });
+chuyenNgayHieuLuc = (e) => {
+    $("[name=ngay_hieu_luc_giay_phep]").val($(e).val())
+}

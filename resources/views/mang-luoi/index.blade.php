@@ -44,7 +44,7 @@
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" x-placement="top-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 0px, 0px);">
                                     <a href="{{route('giay-phep-hoat-dong.create')}}" class="dropdown-item" href="#"><i class="la la-bell"></i>Bổ sung</a>
                                     <a href="{{route('giay-phep-hoat-dong.edit')}}" class="dropdown-item" href="#"><i class="la la-cloud-upload"></i>Cập nhật</a>
-                                    <a href="{{route('giay-phep-hoat-dong.thuhoi')}}" class="dropdown-item" href="#"><i class="la la-cog"></i>Thu hồi</a>
+                                    {{-- <a href="{{route('giay-phep-hoat-dong.thuhoi')}}" class="dropdown-item" href="#"><i class="la la-cog"></i>Thu hồi</a> --}}
                                 </div>
                             </div>
                         </div>
@@ -53,9 +53,9 @@
                                 <i class="fa fa-bookmark"></i> Quản lý giấy chứng nhận đào tạo nghề
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2" x-placement="top-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 0px, 0px);">
-                                <a href="{{route('giay-phep-hoat-dong.create')}}" class="dropdown-item" href="#"><i class="la la-bell"></i>Bổ sung</a>
-                                <a href="{{route('giay-phep-hoat-dong.edit')}}" class="dropdown-item" href="#"><i class="la la-cloud-upload"></i>Cập nhật</a>
-                                <a href="{{route('giay-phep-hoat-dong.thuhoi')}}" class="dropdown-item" href="#"><i class="la la-cog"></i>Thu hồi</a>
+                                <a href="{{route('giay-chung-nhan-dao-tao-nghe.create')}}" class="dropdown-item" href="#"><i class="la la-bell"></i>Bổ sung</a>
+                                <a href="{{route('giay-chung-nhan-dao-tao-nghe.edit')}}" class="dropdown-item" href="#"><i class="la la-cloud-upload"></i>Cập nhật</a>
+                                {{-- <a href="{{route('giay-phep-hoat-dong.thuhoi')}}" class="dropdown-item" href="#"><i class="la la-cog"></i>Thu hồi</a> --}}
                             </div>
                         </div>
                     </div>

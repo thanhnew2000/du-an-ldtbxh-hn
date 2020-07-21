@@ -40,7 +40,7 @@ class GiayPhepDangKyRepository extends BaseRepository implements GiayPhepDangKyR
      }
 
      public function insertNganhNghe2AndGetId($dataInsert){
-        $data =  DB::table('nganh_nghe_2')->insertGetId($dataInsert);
+        $data =  DB::table('nganh_nghe_tc_sc')->insertGetId($dataInsert);
         return $data;
      }
 }

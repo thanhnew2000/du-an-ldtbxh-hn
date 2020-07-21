@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\QuanLyGiayPhepQuyetDinh;
+namespace App\Http\Requests\QuanLyGiayPhepNghe;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class storeQuyetDinh extends FormRequest
+class updateQuyetDinh extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,11 +23,12 @@ class storeQuyetDinh extends FormRequest
      */
     public function rules()
     {   
+        // dd(request()->so_quyet_dinh);
         $rule = [
-            'so_quyet_dinh' => 'required|unique:quyet_dinh_thanh_lap_csdt',
-            'anh_quyet_dinh' => 'required|mimes:jpeg,bmp,png,jpg',
+            'so_quyet_dinh' => 'required|unique:giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao,so_quyet_dinh,'.request()->get_giay_phep_id,
+            'anh_quyet_dinh' => 'mimes:jpeg,bmp,png,jpg',
             'ngay_ban_hanh' => 'required',
-            'ngay_hieu_luc' => 'required|after_or_equal:ngay_ban_hanh'
+            'ngay_hieu_luc' => 'required|after_or_equal:ngay_ban_hanh',
         ];
         $ngayhethan = request('ngay_het_han');
         if($ngayhethan != null){
@@ -41,7 +42,6 @@ class storeQuyetDinh extends FormRequest
         return [
             'so_quyet_dinh.required' => 'Chưa nhập số quyết định',
             'so_quyet_dinh.unique' => 'Số quyết định đã tồn tại',
-            'anh_quyet_dinh.required' => 'Chưa nhập nhập ảnh',
             'anh_quyet_dinh.mimes' => 'Hãy nhập ảnh đuổi jpeg, bmp, png, jpg',
             'ngay_ban_hanh.required' => 'Chưa nhập ngày ban hành ',
             'ngay_hieu_luc.required' => 'Chưa nhập hiệu lực ',

@@ -130,8 +130,8 @@
                                 <div class="col-4">
                                     <div class="form-group m-form__group mb-4">
                                         <label>Ngày ban hành <span class="text-danger">(*)</span></label>
-                                        <div class="input-group date datepicker">
-                                            <input type="text" name="ngay_ban_hanh" value=""
+                                        <div class="input-group date datepicker" >
+                                            <input type="text" name="ngay_ban_hanh" onchange="chuyenNgayHieuLuc(this)" value=""
                                                 placeholder="Ngày-tháng-năm" class="form-control">
                                             <div
                                                 class="input-group-addon form-control col-2 d-flex justify-content-center align-items-center">
@@ -324,10 +324,14 @@ $('#summernote').summernote({
     var reader = new FileReader();
     reader.onloadend = function() {
        $(element).parents('.modal-body').find('.anh-giay-phep-hoat-dong').attr("src", reader.result);
-        // console.log('RESULT', reader.result)
     };
     reader.readAsDataURL(file);
 }
+
+chuyenNgayHieuLuc = (e) => {
+    $("[name=ngay_hieu_luc]").val($(e).val())
+}
+
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/locale/af.min.js"></script>
 @endsection

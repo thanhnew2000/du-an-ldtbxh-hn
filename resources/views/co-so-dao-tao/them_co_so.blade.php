@@ -5,7 +5,6 @@
     .removediachi {
         line-height: 90px
     }
-
     .fa-plus,
     .fa-times {
         cursor: pointer;
@@ -14,15 +13,12 @@
         line-height: 40px;
         text-align: center
     }
-
     .m-demo__preview {
         border: none !important
     }
-
     .messageNoNghe {
         color: red;
     }
-
     .messageNoTrinhDo {
         color: red;
     }
@@ -473,7 +469,7 @@
                                                             <label>Ngày ban hành <span
                                                                     class="text-danger">(*)</span></label>
                                                             <div class="input-group date datepicker">
-                                                                <input type="text" name="ngay_ban_hanh_giay_phep"
+                                                                <input  onchange="chuyenNgayHieuLuc(this)" type="text" name="ngay_ban_hanh_giay_phep"
                                                                     value="{{old('ngay_ban_hanh')}}"
                                                                     placeholder="Ngày-tháng-năm" class="form-control">
                                                                 <div
@@ -511,7 +507,7 @@
                                                             <label>Ngày hết hạn <span
                                                                     class="text-danger">(*)</span></label>
                                                             <div class="input-group date datepicker">
-                                                                <input type="text" name="ngay_het_han_giay_phep"
+                                                                <input type="text"  name="ngay_het_han_giay_phep"
                                                                     value="{{old('ngay_het_han')}}"
                                                                     placeholder="Ngày-tháng-năm" class="form-control">
                                                                 <div
@@ -833,10 +829,8 @@
 <script>
     $(document).ready(function() {
         $('.select2').select2();
-
         $('.form-control').attr('autocomplete', 'off');
     });
-
     $('.datepicker').datepicker({
         format: 'dd-mm-yyyy',
         icons: {
@@ -846,9 +840,7 @@
             down: "fa fa-arrow-down"
         }
     });
-
     $('.datepicker').css('width', '100%');
-
     let changQuanHuyen = function(e) {
         axios.post('/xuat-bao-cao/ket-qua-tuyen-sinh/xa-phuong-theo-quan-huyen', {
                 id: $(e).val(),
@@ -864,10 +856,8 @@
                 console.log(error);
             });
     };
-
     $('#submit-co-so-ajax').click(function(event){
         event.preventDefault();
-
         $('#Err_ten').addClass('d-none');
         $('#Err_ma_don_vi').addClass('d-none');
         $('#Err_cap_quan_ly').addClass('d-none');
@@ -876,25 +866,20 @@
         $('#Err_trinh_do_dao_tao').addClass('d-none');
         $('#Err_hotline').addClass('d-none');
         $('#Err_nguoi_phu_trach').addClass('d-none');
-
         $('#Err_so_quyet_dinh').addClass('d-none');
         $('#Err_anh_quyet_dinh').addClass('d-none');
         $('#Err_ngay_ban_hanh').addClass('d-none');
         $('#Err_ngay_hieu_luc').addClass('d-none');
         $('#Err_ngay_het_han').addClass('d-none');
         $('#Err_chi_nhanh').addClass('d-none');
-
         ChiNhanhObj = {}
         let dia_chi_chi_nhanh = [];
-
         let chi_nhanh = document.querySelectorAll('.dia_diem_dao_tao');
         let flag = true;
         for (let i = 0; i < chi_nhanh.length; i++) {
-
             let checkDiaChi = $(chi_nhanh[i]).find('.dia_chi_chi_nhanh').val();
             let checkQuanHuyen = $(chi_nhanh[i]).find('.devvn_quanhuyen').val();
             let checkXaPhuong = $(chi_nhanh[i]).find('.devvn_xaphuongthitran').val();
-
             if(checkDiaChi == ''){
                 $(chi_nhanh[i]).find('.Err-dia_chi').text('Vui lòng nhập địa chỉ');
                 flag = false;
@@ -926,12 +911,9 @@
             }
             dia_chi_chi_nhanh.push(ChiNhanhObj);
         }
-
-
         
         let Data = new FormData();
         let anh_quyet_dinh = $('.anh_quyet_dinh')[0].files[0];
-
         if(typeof(anh_quyet_dinh) != "undefined"){
             anh_quyet_dinh = $('.anh_quyet_dinh')[0].files[0];
         } else{
@@ -955,11 +937,9 @@
         Data.append('id_nguoi_them', $('input[name=id_nguoi_them]').val());
         Data.append('dia_chi_chi_nhanh',JSON.stringify(dia_chi_chi_nhanh));
         Data.append('_token', $('#token').val());
-
         $(document).ajaxStart(function(){
         $(".loading").css("display", "block");
         });
-
         $(document).ajaxComplete(function(){
             $(".loading").css("display", "none");
         });
@@ -974,7 +954,6 @@
                 
                 getDataDiaDiem(response.CoSo.id);
                 $('input[name=co_so_id]').val(response.CoSo.id);
-
                 Swal.fire({
                 title: 'Thêm mới thành công',
                 text: "Tiếp tục thêm giấy phép",
@@ -1004,16 +983,13 @@
             }
         })
     });
-
     function hasValue(value){
         $('input[name=ngay_hieu_luc]').val(value)
     }
-
     $(document).ready(function() {
         var logoImgUrl = $('#logo-co-so').attr('src');
         SystemUtil.defaultImgUrl(logoImgUrl, '#logo-co-so', "{!! asset('uploads/avatars/default-img.png') !!}");
     });
-
     function addDiaChi() {
         var htmlDiachi = `
             <div class="dia_diem_dao_tao row">
@@ -1059,7 +1035,6 @@
         $('.list_dia_chi').append(htmlDiachi)
         $('.select2').select2();
     }
-
     function removeDiaChi(e) {
         $(e).parents('.dia_diem_dao_tao').remove()
     }

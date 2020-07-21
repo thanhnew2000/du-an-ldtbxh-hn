@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\QuanLyGiayPhepQuyetDinh;
+namespace App\Http\Requests\QuanLyGiayPhepNghe;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,10 +24,10 @@ class storeQuyetDinh extends FormRequest
     public function rules()
     {   
         $rule = [
-            'so_quyet_dinh' => 'required|unique:quyet_dinh_thanh_lap_csdt',
+            'so_quyet_dinh' => 'required|unique:giay_chung_nhan_dang_ky_nghe_duoc_phep_dao_tao',
             'anh_quyet_dinh' => 'required|mimes:jpeg,bmp,png,jpg',
             'ngay_ban_hanh' => 'required',
-            'ngay_hieu_luc' => 'required|after_or_equal:ngay_ban_hanh'
+            'ngay_hieu_luc' => 'required|after_or_equal:ngay_ban_hanh',
         ];
         $ngayhethan = request('ngay_het_han');
         if($ngayhethan != null){

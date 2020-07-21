@@ -28,7 +28,9 @@ class Giay_chung_nhan extends Model
     }
     public function setNgayHetHanAttribute($value)
     {
+        if(isset($value)){
         $this->attributes['ngay_het_han'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+        }
     }
         
     }
