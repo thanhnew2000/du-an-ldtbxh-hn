@@ -79,7 +79,8 @@ class QuanLyGiayChungNhanDaoTaoNgheController extends Controller
     public function edit()
     {
         $co_so = $this->QuanLyGiayChungNhanDaoTaoNgheService->get_co_so();
-        return view('quan_ly_giay_chung_nhan_dao_tao_nghe.edit',['co_so'=>$co_so]);
+        $bac_nghe = config('common.bac_nghe');
+        return view('quan_ly_giay_chung_nhan_dao_tao_nghe.edit',['co_so'=>$co_so,'bac_nghe'=>$bac_nghe]);
     }
 
     // /**
@@ -117,5 +118,53 @@ class QuanLyGiayChungNhanDaoTaoNgheController extends Controller
     {
         $id = $request->all();
         return $this->QuanLyGiayChungNhanDaoTaoNgheService->getGiayPhepId($id);
+    }
+
+    public function updateNghe(Request $request)
+    {
+       $dataNghe = $request->all();
+       $diaDiem = $dataNghe['data'];
+       $id_giay_chung_nhan = $dataNghe['id_giay_chung_nhan'];
+       $chi_tiet_giay_chung_nhan = $this->QuanLyGiayChungNhanDaoTaoNgheService->giayPhepChiTiet($id_giay_chung_nhan);
+       foreach ($chi_tiet_giay_chung_nhan as $item) {
+           if($item->phan_loai_nghe==1){
+             
+             $datatest = $this->QuanLyGiayChungNhanDaoTaoNgheService->deleteDataNgheTcSc((int)$item->nghe_id);
+           }
+
+           $this->QuanLyGiayChungNhanDaoTaoNgheService->deleteDataNgheChiTiet((int)$item->id);
+       }
+       foreach ($diaDiem as $key => $listNghe){
+        foreach ($listNghe as $key1 => $data){
+         if($data['trinh_do']>=5){
+             $dataPost = [
+                 'co_so_id'=>$dataNghe['co_so_id'],
+                 'chi_nhanh_id'=> (int)substr($key,7),
+                 'nghe_id'=> $data['nghe_id'],
+                 'giay_chung_nhan_id'=>$id_giay_chung_nhan,
+                 'quy_mo'=>$data['quy_mo'],
+                 'phan_loai_nghe'=>0
+             ];
+         // DB::table('giay_chung_nhan_chi_tiet')->insert($dataPost);
+                $this->QuanLyGiayChungNhanDaoTaoNgheService->insertToGiayChungNhanChiTiet($dataPost);
+                }else{
+                $dataPost = [
+                    'bac_nghe'=>$data['trinh_do'],
+                    'ten_nganh_nghe'=> $data['nghe_id'],
+                    'ma_cap_nghe'=>4
+                ];
+                $id_nghe =  $this->QuanLyGiayChungNhanDaoTaoNgheService->insertNganhNghe2AndGetId($dataPost);
+                $dataPost2 = [
+                'co_so_id'=>$dataNghe['co_so_id'],
+                'chi_nhanh_id'=> (int)substr($key,7),
+                'nghe_id'=> $id_nghe,
+                'giay_chung_nhan_id'=>$id_giay_chung_nhan,
+                'quy_mo'=>$data['quy_mo'],
+                'phan_loai_nghe'=>1,
+                ];
+                $this->QuanLyGiayChungNhanDaoTaoNgheService->insertToGiayChungNhanChiTiet($dataPost2);
+             }
+            }
+        }     
     }
 }

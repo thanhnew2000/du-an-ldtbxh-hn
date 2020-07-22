@@ -249,13 +249,18 @@
                 'id': id
             })
             .then(function (response) {
+                var get_ngay_het_han = ""
+                console.log(response.data.ngay_het_han)
                 $("#preload").css("display", "none");
                 $('#get_giay_phep_id').val(response.data.id)
                 $("[name=so_quyet_dinh]").val(response.data.so_quyet_dinh)
                 $(".anh-giay-phep-hoat-dong").attr('src',urlImg+response.data.anh_quyet_dinh)
                 $("[name=ngay_ban_hanh]").val(moment(response.data.ngay_ban_hanh).format('DD-MM-YYYY'))
                 $("[name=ngay_hieu_luc]").val(moment(response.data.ngay_hieu_luc).format('DD-MM-YYYY'))
-                $("[name=ngay_het_han]").val(moment(response.data.ngay_het_han).format('DD-MM-YYYY'))
+                if(response.data.ngay_het_han != null){
+                     get_ngay_het_han = moment(response.data.ngay_het_han).format('DD-MM-YYYY')
+                }
+                $("[name=ngay_het_han]").val(get_ngay_het_han)
             })
             .catch(function (error) {
                

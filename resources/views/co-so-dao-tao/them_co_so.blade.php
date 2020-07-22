@@ -554,31 +554,11 @@
                                             </div>
                                         </div>
                                         <div class="danh_sach_co_so">
-                                            <!--begin::Form-->
-                                            {{-- @foreach ($chi_nhanh as $item)
-                                        <div class="m-section__content chi_nhanh{{$item->id}}"
-                                            chi_nhanh='{{$item->id}}'>
-                                            <div class="m-demo" data-code-preview="true" data-code-html="true"
-                                                data-code-js="false">
-                                                <div class="m-demo__preview m-demo__preview--btn">
-                                                    <span class="btn btn-brand">{{$item->dia_chi}}</span> <i
-                                                        onclick="addForm(this)" class="fa fa-plus"></i>
-                                                    <div class="form_add_nghe">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        @endforeach --}}
 
                                     </div>
                                     <p class="text-danger ml-5" id="error_duplicate_nghe_id"></p>
 
                                     <!--end::Form-->
-                                </div>
-                                <div class="d-flex justify-content-end mr-5">
-                                    <button type="button" onclick="getDataDiaDiem(12)" class="btn btn-success">Địa
-                                        Điểm</button>
-                                    {{-- <button type="button" onclick="addDuLieuGiayChungNhan()" class="btn btn-success">Đăng ký</button> --}}
                                 </div>
                             </div>
                         </div>
@@ -1053,5 +1033,4 @@ var config = <?php echo json_encode(config('common.bac_nghe')) ?>;
 </script>
 <script src="{!! asset('add_giay_chung_nhan_nghe/add_giay_chung_nhan_nghe.js') !!}"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-{{-- end quang-add-them-giay-phep-nghe --}}
 @endsection

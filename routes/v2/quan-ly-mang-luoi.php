@@ -33,6 +33,7 @@ Route::group(['prefix' => 'giay-chung-nhan-dao-tao-nghe'], function () {
     Route::post('/get-giay-phep-id', 'QuanLyGiayChungNhanDaoTaoNgheController@getGiayPhepId')->name('giay-chung-nhan-dao-tao-nghe.get-giay-phep-id');
     Route::post('/store', 'QuanLyGiayChungNhanDaoTaoNgheController@store')->name('giay-chung-nhan-dao-tao-nghe.store');
     Route::post('/update', 'QuanLyGiayChungNhanDaoTaoNgheController@update')->name('giay-chung-nhan-dao-tao-nghe.update');
+    Route::post('/update-nghe', 'QuanLyGiayChungNhanDaoTaoNgheController@updateNghe')->name('giay-chung-nhan-dao-tao-nghe.update-nghe');
 });
 
 

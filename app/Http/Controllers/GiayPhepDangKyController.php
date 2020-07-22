@@ -50,7 +50,8 @@ class GiayPhepDangKyController extends Controller
                     'chi_nhanh_id'=> (int)substr($key,7),
                     'nghe_id'=> $data['nghe_id'],
                     'giay_chung_nhan_id'=>$getData['id_giay_chung_nhan'],
-                    'quy_mo'=>$data['quy_mo_tuyen_sinh']
+                    'quy_mo'=>$data['quy_mo_tuyen_sinh'],
+                    'phan_loai_nghe'=>0
                 ];
             // DB::table('giay_chung_nhan_chi_tiet')->insert($dataPost);
             $this->GiayPhepDangKyService->insertToGiayChungNhanChiTiet($dataPost);
@@ -66,7 +67,8 @@ class GiayPhepDangKyController extends Controller
                 'chi_nhanh_id'=> (int)substr($key,7),
                 'nghe_id'=> $id_nghe,
                 'giay_chung_nhan_id'=>$getData['id_giay_chung_nhan'],
-                'quy_mo'=>$data['quy_mo_tuyen_sinh']
+                'quy_mo'=>$data['quy_mo_tuyen_sinh'],
+                'phan_loai_nghe'=>1,
             ];
             $this->GiayPhepDangKyService->insertToGiayChungNhanChiTiet($dataPost2);
         }

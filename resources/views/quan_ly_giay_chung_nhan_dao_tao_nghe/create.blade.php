@@ -84,90 +84,116 @@
                 <form action="" method="POST" id="myForm" enctype="multipart/form-data">
                     <div class="m-portlet">
                         <div class="m-portlet__body">
-                            <div class="row">
-                                <div class="col-6 d-flex align-items-stretch">
-                                    <div class="col-12">
+                            <form action="" name="yourformname" id="giay_chung_nhan" method="POST"
+                                enctype="multipart/form-data">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="co_so_id">
+                                <div class="row">
+                                    <div class="col-6 d-flex align-items-stretch">
+                                        <div class="col-12">
+                                            @if (isset($Csdt))
+                                            <div class="form-group1 m-form__group mb-4">
+                                                <label for="">Tên trường: <b></b></label>
+                                            </div>
+                                            @endif
 
-                                        <div class="form-group1 m-form__group mb-4">
-                                            <input type="hidden" id="get_co_so_id" name="co_so_id" value="">
+
+                                            <div class="form-group m-form__group mb-4">
+                                                <label>Số quyết định <span
+                                                        class="text-danger">(*)</span></label>
+                                                <input type="text" name="so_quyet_dinh_giay_phep"
+                                                    value="{{old('ten_giay_phep')}}"
+                                                    class="form-control m-input"
+                                                    placeholder="Nhập số quết định">
+                                            </div>
+
+                                            <span class="text-danger" id="so_quyet_dinh_error"></span>
+
+                                            <div class="form-group m-form__group">
+                                                <label for="exampleInputEmail1">Ảnh giấy phép <span
+                                                        class="text-danger">(*)</span></label>
+                                                <div class="custom-file">
+                                                    <input type="file" value="{{old('anh-giay-phep')}}"
+                                                        name="anh_giay_phep" class="custom-file-input"
+                                                        onchange="showimages(this)"
+                                                        id="customFileGiayPhep">
+                                                    <label class="custom-file-label"
+                                                        for="customFileGiayPhep">Choose file</label>
+                                                </div>
+                                                <p class="text-danger text-small"
+                                                    id="anh_giay_phep_error">
+                                                </p>
+                                            </div>
                                         </div>
 
+                                    </div>
 
+                                    <div class="col-6">
+                                        <div class="anh-giay-phep">
+                                            <img src="" id="showimg" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row col-12 mt-3">
+                                    <div class="col-4">
                                         <div class="form-group m-form__group mb-4">
-                                            <label>Số quết định<span class="text-danger">(*)</span></label>
-                                            <input type="text" name="so_quyet_dinh" value=""
-                                                class="form-control m-input" placeholder="Nhập số quết định">
-                                                <p class="error so-quyet-dinh"></p>
-                                        </div>
-
-                                        <div class="form-group m-form__group">
-                                            <label for="exampleInputEmail1">Ảnh giấy phép <span
+                                            <label>Ngày ban hành <span
                                                     class="text-danger">(*)</span></label>
-                                            <div class="custom-file">
-                                                <input type="file" value="" name="anh_quyet_dinh"
-                                                    class="custom-file-input" onchange="showimages(this)"
-                                                    id="customFile">
-                                                <label class="custom-file-label" for="customFile">Choose file</label>
+                                            <div class="input-group date datepicker">
+                                                <input  onchange="chuyenNgayHieuLuc(this)" type="text" name="ngay_ban_hanh_giay_phep"
+                                                    value="{{old('ngay_ban_hanh')}}"
+                                                    placeholder="Ngày-tháng-năm" class="form-control">
+                                                <div
+                                                    class="input-group-addon form-control col-2 d-flex justify-content-center align-items-center">
+                                                    <span><i class="flaticon-calendar-2"></i></span>
+                                                </div>
                                             </div>
-                                            <p class="error anh-quyet-dinh"></p>
+                                            <p class="text-danger text-small"
+                                                id="ngay_ban_hanh_giay_phep_error">
+                                            </p>
                                         </div>
                                     </div>
 
-                                </div>
-
-                                <div class="col-6">
-                                    <div class="anh-giay-phep">
-                                        <img src="" class="anh-giay-phep-hoat-dong" alt="">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row col-12 mt-3">
-                                <div class="col-4">
-                                    <div class="form-group m-form__group mb-4">
-                                        <label>Ngày ban hành <span class="text-danger">(*)</span></label>
-                                        <div class="input-group date datepicker">
-                                            <input type="text" name="ngay_ban_hanh" onchange="chuyenNgayHieuLuc(this)" value=""
-                                                placeholder="Ngày-tháng-năm" class="form-control">
-                                            <div
-                                                class="input-group-addon form-control col-2 d-flex justify-content-center align-items-center">
-                                                <span><i class="flaticon-calendar-2"></i></span>
+                                    <div class="col-4">
+                                        <div class="form-group m-form__group mb-4">
+                                            <label>Ngày hiệu lực <span
+                                                    class="text-danger">(*)</span></label>
+                                            <div class="input-group date datepicker">
+                                                <input type="text" name="ngay_hieu_luc_giay_phep"
+                                                    value="{{old('ngay_hieu_luc')}}"
+                                                    placeholder="Ngày-tháng-năm" class="form-control">
+                                                <div
+                                                    class="input-group-addon form-control col-2 d-flex justify-content-center align-items-center">
+                                                    <span><i class="flaticon-calendar-2"></i></span>
+                                                </div>
                                             </div>
+                                            <p class="text-danger text-small"
+                                                id="ngay_hieu_luc_giay_phep_error">
+                                            </p>
                                         </div>
-                                        <p class="error ngay-ban-hanh"></p>
+                                    </div>
+
+                                    <div class="col-4">
+                                        <div class="form-group m-form__group mb-4">
+                                            <label>Ngày hết hạn <span
+                                                    class="text-danger">(*)</span></label>
+                                            <div class="input-group date datepicker">
+                                                <input type="text"  name="ngay_het_han_giay_phep"
+                                                    value="{{old('ngay_het_han')}}"
+                                                    placeholder="Ngày-tháng-năm" class="form-control">
+                                                <div
+                                                    class="input-group-addon form-control col-2 d-flex justify-content-center align-items-center">
+                                                    <span><i class="flaticon-calendar-2"></i></span>
+                                                </div>
+                                            </div>
+                                            <p class="text-danger text-small"
+                                                id="ngay_het_han_giay_phep_error">
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div class="col-4">
-                                    <div class="form-group m-form__group mb-4">
-                                        <label>Ngày hiệu lực <span class="text-danger">(*)</span></label>
-                                        <div class="input-group date datepicker">
-                                            <input type="text" name="ngay_hieu_luc" value=""
-                                                placeholder="Ngày-tháng-năm" class="form-control">
-                                            <div
-                                                class="input-group-addon form-control col-2 d-flex justify-content-center align-items-center">
-                                                <span><i class="flaticon-calendar-2"></i></span>
-                                            </div>
-                                        </div>
-                                        <p class="error ngay-hieu-luc"></p>
-                                    </div>
-                                </div>
-
-                                <div class="col-4">
-                                    <div class="form-group m-form__group mb-4">
-                                        <label>Ngày hết hạn <span class="text-danger">(*)</span></label>
-                                        <div class="input-group date datepicker">
-                                            <input type="text" name="ngay_het_han" value="" placeholder="Ngày-tháng-năm"
-                                                class="form-control">
-                                            <div
-                                                class="input-group-addon form-control col-2 d-flex justify-content-center align-items-center">
-                                                <span><i class="flaticon-calendar-2"></i></span>
-                                            </div>
-                                          
-                                        </div>
-                                        <p class="error ngay-het-han"></p>
-                                    </div>
-                                </div>
                                 <div class="row col-12">
                                     <div class="col-12 form-group m-form__group">
                                         <label for="exampleTextarea">Mô tả quyết định</label>
@@ -177,15 +203,31 @@
                                             rows="4"></textarea>
                                     </div>
                                 </div>
-                            </div>
-
+                            </form>
+                            <p><span class="text-danger">(*)</span> Mục không được để trống</p>
                         </div>
-                    </div>
 
+                    </div>
+                    <div class="m-portlet m-portlet--tab">
+                        <div class="m-portlet__head">
+                            <div class="m-portlet__head-caption">
+                                <div class="m-portlet__head-title">
+                                    <span class="m-portlet__head-icon m--hide">
+                                        <i class="la la-gear"></i>
+                                    </span>
+                                    <h3 class="m-portlet__head-text">
+                                        Thêm nghề cho cơ sở
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="danh_sach_co_so">
+
+                    </div>
                     <!-- Modal footer -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light" data-dismiss="modal">Hủy</button>
-                        <button type="button" onclick="themGiayPhep()" class="btn btn-danger">Thêm mới</button>
+                        <button type="button" onclick="addDuLieuGiayChungNhan()" class="btn btn-danger">Thêm mới</button>
                     </div>
                 </form>
             </div>
@@ -199,7 +241,9 @@
     $('#co_so_id').select2()
      function setValueQuyetDinh(e) {
         if ($(e).val()>0) {
-            $('#get_co_so_id').val($(e).val())
+            // $('input[name=co_so_id]').val(response.CoSo.id);
+            $('input[name=co_so_id]').val($(e).val())
+            getDataDiaDiem($(e).val())
             $('#bo_sung').attr('disabled',false)
         }else{
             $('#bo_sung').attr('disabled',true)
@@ -207,75 +251,81 @@
        
     }
     //them mới giấy phép
-    const themGiayPhepUrl = "{{route('giay-chung-nhan-dao-tao-nghe.store')}}"
-    function showimages(element) {
-    var file = element.files[0];
-    var reader = new FileReader();
-    reader.onloadend = function() {
-       $(element).parents('.modal-body').find('.anh-giay-phep-hoat-dong').attr("src", reader.result);
-        // console.log('RESULT', reader.result)
-    };
-    reader.readAsDataURL(file);
-
-    }
-let themGiayPhep = () => {
-    $("#preload").css("display", "block");
-    let myForm = document.getElementById('myForm');
-    var formData = new FormData(myForm)
-    console.log(formData);
-    axios.post(themGiayPhepUrl,formData)
-    .then(function (response) {
-        $("#preload").css("display", "none");
-        $('#myModalThemMoi').modal('hide')
-        Swal.fire({
-            title: 'Bổ sung thành công',
-            icon: 'success',
-            showConfirmButton: false,
-            timer: 2000
-        }).then(() => {
-            location.reload();
-        })
+//     const themGiayPhepUrl = "{{route('giay-chung-nhan-dao-tao-nghe.store')}}"
+//     function showimages(element) {
+//     var file = element.files[0];
+//     var reader = new FileReader();
+//     reader.onloadend = function() {
+//        $(element).parents('.modal-body').find('.anh-giay-phep-hoat-dong').attr("src", reader.result);
+//         // console.log('RESULT', reader.result)
+//     };
+//     reader.readAsDataURL(file);
+//     }
+// let themGiayPhep = () => {
+//     $("#preload").css("display", "block");
+//     let myForm = document.getElementById('myForm');
+//     var formData = new FormData(myForm)
+//     console.log(formData);
+//     axios.post(themGiayPhepUrl,formData)
+//     .then(function (response) {
+//         $("#preload").css("display", "none");
+//         $('#myModalThemMoi').modal('hide')
+//         Swal.fire({
+//             title: 'Bổ sung thành công',
+//             icon: 'success',
+//             showConfirmButton: false,
+//             timer: 2000
+//         }).then(() => {
+//             location.reload();
+//         })
            
-    })
-    .catch(function (error) {
-        $('.error').html('')
-        $('.so-quyet-dinh').html(error.response.data.errors.so_quyet_dinh);
-        $('.anh-quyet-dinh').html(error.response.data.errors.anh_quyet_dinh);
-        $('.ngay-ban-hanh').html(error.response.data.errors.ngay_ban_hanh);
-        $('.ngay-hieu-luc').html(error.response.data.errors.ngay_hieu_luc);
-        $('.ngay-het-han').html(error.response.data.errors.ngay_het_han);
-        $("#preload").css("display", "none");
-    })
-    .then(function () {
-        // always executed
-    });
-}
- //end them mới giấy phép
- $('#summernote').summernote({
-            height: 150,
-            toolbar: 
-            [
-                ['style', ['bold', 'italic', 'underline', 'clear']],
-                ['fontname', ['fontname']],
-                ['fontsize', ['fontsize']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link']],
-                ['view', ['fullscreen']],
-            ]
-        });
-        $('.datepicker').datepicker({
-        format: 'dd-mm-yyyy',
-        icons: {
-            time: "fa fa-clock-o",
-            date: "fa fa-calendar",
-            up: "fa fa-arrow-up",
-            down: "fa fa-arrow-down"
-        }
-    });
-    chuyenNgayHieuLuc = (e) => {
-    $("[name=ngay_hieu_luc]").val($(e).val())
-}
+//     })
+//     .catch(function (error) {
+//         $('.error').html('')
+//         $('.so-quyet-dinh').html(error.response.data.errors.so_quyet_dinh);
+//         $('.anh-quyet-dinh').html(error.response.data.errors.anh_quyet_dinh);
+//         $('.ngay-ban-hanh').html(error.response.data.errors.ngay_ban_hanh);
+//         $('.ngay-hieu-luc').html(error.response.data.errors.ngay_hieu_luc);
+//         $('.ngay-het-han').html(error.response.data.errors.ngay_het_han);
+//         $("#preload").css("display", "none");
+//     })
+//     .then(function () {
+//         // always executed
+//     });
+// }
+//  //end them mới giấy phép
+//  $('#summernote').summernote({
+//             height: 150,
+//             toolbar: 
+//             [
+//                 ['style', ['bold', 'italic', 'underline', 'clear']],
+//                 ['fontname', ['fontname']],
+//                 ['fontsize', ['fontsize']],
+//                 ['color', ['color']],
+//                 ['para', ['ul', 'ol', 'paragraph']],
+//                 ['table', ['table']],
+//                 ['insert', ['link']],
+//                 ['view', ['fullscreen']],
+//             ]
+//         });
+//         $('.datepicker').datepicker({
+//         format: 'dd-mm-yyyy',
+//         icons: {
+//             time: "fa fa-clock-o",
+//             date: "fa fa-calendar",
+//             up: "fa fa-arrow-up",
+//             down: "fa fa-arrow-down"
+//         }
+//     });
+//     chuyenNgayHieuLuc = (e) => {
+//     $("[name=ngay_hieu_luc]").val($(e).val())
+// }
+var getDiaChiCoSo = "{{route('getDiaChiCoSo')}}";
+var storeUrl = "{{route('store-nganh-nghe')}}";
+var addGiayChungNhan = "{{route('addGiayChungNhan')}}";
+var urlNganhNghe = "{{route('getNghe')}}";
+var config = <?php echo json_encode(config('common.bac_nghe')) ?>;
 </script>
+<script src="{!! asset('add_giay_chung_nhan_nghe/add_giay_chung_nhan_nghe.js') !!}"></script>
+
 @endsection
