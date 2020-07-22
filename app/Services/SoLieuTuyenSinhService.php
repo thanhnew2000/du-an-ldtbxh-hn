@@ -55,12 +55,13 @@ class SoLieuTuyenSinhService extends AppService
     {
         $queryData = [];
         $queryData['dot'] = isset($params['dot']) ? $params['dot'] : (Carbon::now()->month < 6 ? 1 : 2);
-        $queryData['nam'] = isset($params['nam']) ? $params['nam'] : Carbon::now()->year;
+        $queryData['nam'] = isset($params['nam']) ? $params['nam'] : [Carbon::now()->year];
         $queryData['co_so_id'] = isset($params['co_so_id']) ? $params['co_so_id'] : null;
         $queryData['loai_hinh'] = isset($params['loai_hinh']) ? $params['loai_hinh'] : null;
         $queryData['devvn_quanhuyen'] = isset($params['devvn_quanhuyen']) ? $params['devvn_quanhuyen'] : null;
         $queryData['devvn_xaphuongthitran'] = isset($params['devvn_xaphuongthitran']) ? $params['devvn_xaphuongthitran'] : null;
         $queryData['nganh_nghe'] = isset($params['nganh_nghe']) ? $params['nganh_nghe'] : null;
+        // dd(  $queryData);
         $data = $this->repository->getSoLuongTuyenSinh($queryData, $limit);
 
         return $data;
@@ -389,6 +390,7 @@ class SoLieuTuyenSinhService extends AppService
         $truong = explode(' - ', $data[7][2]);
         $id_truong = trim(array_pop($truong));
 
+        
         $arrayApha=['H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK'];
 
         $csCheck = DB::table('co_so_dao_tao')->find($id_truong);
@@ -406,12 +408,18 @@ class SoLieuTuyenSinhService extends AppService
         }
 
         // checkDaCoChua
-        $tuyen_sinh_nam_dot_da_co = $this->repository->getTuyenSinhCsNamDot($id_truong,$year,$dot);
+        // $tuyen_sinh_nam_dot_da_co = $this->repository->getTuyenSinhCsNamDot($id_truong,$year,$dot);
 
-        $id_nghe_tuyen_sinh_gan_da_co=[];
-        for($i=0;$i < count($tuyen_sinh_nam_dot_da_co); $i++){
-            $id_nghe_tuyen_sinh_gan_da_co[$tuyen_sinh_nam_dot_da_co[$i]->nghe_id] = $tuyen_sinh_nam_dot_da_co[$i]->id;
-        }
+        $timeNow = Carbon::now();
+        $yearNow = $timeNow->year;
+        $monthNow = $timeNow->month;
+        $dayNow = $timeNow->day;
+
+        $tuyen_sinh_dau_nam = $this->repository->getBieuMauTuyenSinhDauNam($id_truong,$yearNow);
+        $tuyen_sinh_cuoi_nam = $this->repository->getBieuMauTuyenSinhCuoiNam($id_truong,$yearNow);
+
+        $tuyen_sinh_nam_dot_da_co = [];
+
         
         $vitri=[];
         $vitri=$this->checkError($data, $arrayApha, 8 , 7, 36);
@@ -419,6 +427,33 @@ class SoLieuTuyenSinhService extends AppService
         if(count($vitri) > 0 ){
                 $message='errorkitu';
                 return $message;  
+        }
+
+        $endDauNam = $yearNow.'-06-31';
+        $bieu_mau_id = '';
+        if($timeNow < $endDauNam){
+            // dd(1);
+            if($tuyen_sinh_dau_nam == null){
+                 $updateTuyenSinh = false;
+            }else{
+                 $updateTuyenSinh = true;
+                 $tuyen_sinh_nam_dot_da_co = $this->repository->getTuyenSinhFromIdBieuMau($tuyen_sinh_dau_nam->id);
+                 $bieu_mau_id = $tuyen_sinh_dau_nam->id;
+            }
+        }else if ($timeNow > $endDauNam){
+            // dd(2);
+            if($tuyen_sinh_cuoi_nam == null){
+                $updateTuyenSinh = false;
+            }else{
+                $updateTuyenSinh = true;
+                $tuyen_sinh_nam_dot_da_co = $this->repository->getTuyenSinhFromIdBieuMau($tuyen_sinh_cuoi_nam->id);
+                $bieu_mau_id = $tuyen_sinh_cuoi_nam->id;
+            }
+        }
+
+        $id_nghe_tuyen_sinh_gan_da_co=[];
+        for($i=0;$i < count($tuyen_sinh_nam_dot_da_co); $i++){
+            $id_nghe_tuyen_sinh_gan_da_co[$tuyen_sinh_nam_dot_da_co[$i]->nghe_id] = $tuyen_sinh_nam_dot_da_co[$i]->id;
         }
 
         $arrayData=[];
@@ -432,10 +467,7 @@ class SoLieuTuyenSinhService extends AppService
                     $id_nghe_nhap = $data[$i][1];
                     if(in_array($id_nghe_nhap,$id_nghe_of_cs)){
                         $arrayData=[
-                            'nam'=>$year,
-                            'dot'=>$dot,
                             'nghe_id'=>$data[$i][1],
-                            'co_so_id'=>$id_truong,
                             'tong_so_tuyen_sinh'=>$data[$i][7],
                             'ke_hoach_tuyen_sinh_cao_dang'=>$data[$i][8],
                             'ke_hoach_tuyen_sinh_trung_cap'=>$data[$i][9],
@@ -471,31 +503,45 @@ class SoLieuTuyenSinhService extends AppService
                             'so_luong_sv_he_khac'=>$data[$i][33],
                             'so_luong_sv_nu_khac'=>$data[$i][34],
                             'so_luong_sv_dan_toc_khac'=>$data[$i][35],
-                            'so_luong_sv_ho_khau_HN_khac'=>$data[$i][36],
-                            'thoi_gian_cap_nhat'=>Carbon::now(),
-    
+                            ' '=>$data[$i][36],
                         ];
-                        if(array_key_exists($id_nghe_nhap,$id_nghe_tuyen_sinh_gan_da_co)){
-                            $updateData[$id_nghe_tuyen_sinh_gan_da_co[$id_nghe_nhap]]=$arrayData;
-                        }else{
+                        if($bieu_mau_id == ''){
+                            $id_bieu_mau = $this->repository->createBieuMau($id_truong);
+                            $arrayData['bieu_mau_id']=$id_bieu_mau;
+                            $bieu_mau_id=$id_bieu_mau;
                             $this->repository->createTuyenSinh($arrayData);
+                        }else if($bieu_mau_id != ''){
+                            if(array_key_exists($id_nghe_nhap,$id_nghe_tuyen_sinh_gan_da_co)){
+                            // dd(2);
+                                $updateData[$id_nghe_tuyen_sinh_gan_da_co[$id_nghe_nhap]]=$arrayData;
+                            // dd($updateData);
+                            }else{
+                            // dd(1232);
+                                $arrayData['bieu_mau_id']=$bieu_mau_id;
+                                $this->repository->createTuyenSinh($arrayData);
+                            }
                         }
-                    }else if(in_array($id_nghe_nhap,$id_nghe_of_cs) == false){
+
+                    }
+                    else if(in_array($id_nghe_nhap,$id_nghe_of_cs) == false){
+                        // dd(20);
                         $message='ngheKoThuocTruong';
                         return $message; 
-                    };
-
+                    }
                 }   
-                if (count($updateData) > 0) {
-                foreach($updateData as $key => $value)
-                  $this->repository->updateTuyenSinh($key,$value);
-                }  
 
-                $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($id_truong);
-                $bm = 'Tuyển sinh';
-                $tencoso = $thongTinCoSo->ten;
-                $route = route('chitietsolieutuyensinh',['co_so_id' => $id_truong]);
-                $this->StoreUpdateNotificationService->addContentUpExecl($year,$dot,$id_truong,count($insertData),count($updateData),$bm,$route,$tencoso);
+                if (count($updateData) > 0) {
+                    foreach($updateData as $key => $value){
+                        // dd($value);
+                        $this->repository->updateTuyenSinh($bieu_mau_id,$key,$value);
+                    }
+                 }  
+
+                // $thongTinCoSo = $this->CoSoDaoTaoRepository->getThongTinCoSo($id_truong);
+                // $bm = 'Tuyển sinh';
+                // $tencoso = $thongTinCoSo->ten;
+                // $route = route('chitietsolieutuyensinh',['co_so_id' => $id_truong]);
+                // $this->StoreUpdateNotificationService->addContentUpExecl($year,$dot,$id_truong,count($insertData),count($updateData),$bm,$route,$tencoso);
 
                 $message='ok';
                 return $message;  
@@ -539,14 +585,15 @@ class SoLieuTuyenSinhService extends AppService
     {
         $queryData = [];
         $queryData['dot'] = isset($params['dot']) ? $params['dot'] : (Carbon::now()->month < 6 ? 1 : 2);
-        $queryData['nam'] = isset($params['nam']) ? $params['nam'] : Carbon::now()->year;
+        $queryData['nam'] = isset($params['nam']) ? $params['nam'] : [Carbon::now()->year];
         $queryData['co_so_id'] = isset($params['co_so_id']) ? $params['co_so_id'] : null;
         $queryData['loai_hinh'] = isset($params['loai_hinh']) ? $params['loai_hinh'] : null;
         $queryData['devvn_quanhuyen'] = isset($params['devvn_quanhuyen']) ? $params['devvn_quanhuyen'] : null;
         $queryData['devvn_xaphuongthitran'] = isset($params['devvn_xaphuongthitran']) ? $params['devvn_xaphuongthitran'] : null;
         $queryData['nganh_nghe'] = isset($params['nganh_nghe']) ? $params['nganh_nghe'] : null;
         
-        $data = $this->repository->getTuyenSinhExportSreach($queryData);
+        // $data = $this->repository->getTuyenSinhExportSreach($queryData);
+        // dd($data);
 
         $spreadsheet = IOFactory::load('file_excel/tuyensinh/form-export-data-tuyen-sinh.xls');
         $worksheet = $spreadsheet->getActiveSheet();
@@ -558,49 +605,87 @@ class SoLieuTuyenSinhService extends AppService
         $cs_id_truong = 0;
         $bacDaoTaoId = 0;
         $ten_truong = 'TRƯỜNG CAO ĐẲNG';
-        foreach($data as $ts){
+        // dd($data);
+        $namShow=0;
+        foreach($queryData['nam'] as $oneYear){
             $row++;
-            $soThuTu++;
-            // border cac o
-            if ($ts->id_co_so !== $cs_id_truong) {
-                $cs_id_truong = $ts->id_co_so;
-                $worksheet->setCellValue('B' . $row, $ts->ten);
-                $worksheet->getStyle("B{$row}")->getFont()->setBold(true);
-                $lockRange = "A{$row}:AK{$row}";
-                $worksheet->getStyle($lockRange)
-                    ->getFill()
-                    ->setFillType(Fill::FILL_SOLID)
-                    ->getStartColor()->setARGB('C7C7C7');
+            $worksheet->setCellValue('B' . $row, $oneYear);
+            $worksheet->getStyle("B{$row}")->getFont()->setBold(true);
+            $lockRange = "A{$row}:C{$row}";
+            $worksheet->getStyle($lockRange)
+            ->getFill()
+            ->setFillType(Fill::FILL_SOLID)
+            ->getStartColor()->setARGB('C7C7C7');
+            $data = $this->repository->getTuyenSinhExportSreach($queryData,$oneYear);
+            foreach($data as $ts){
+                        $row++;
+                        $soThuTu++;
+                        // border cac o
+                        if ($ts->id_co_so !== $cs_id_truong ||  $namShow !== $oneYear) {
+                              $namShow = $oneYear;
+                            $cs_id_truong = $ts->id_co_so;
+                            $worksheet->setCellValue('B' . $row, $ts->ten);
+                            $worksheet->getStyle("B{$row}")->getFont()->setBold(true);
+                            $lockRange = "A{$row}:AK{$row}";
+                            $worksheet->getStyle($lockRange)
+                                ->getFill()
+                                ->setFillType(Fill::FILL_SOLID)
+                                ->getStartColor()->setARGB('C7C7C7');
+                            $row++;
+                        }
+                        foreach($arrayAphabe as $apha){
+                            $worksheet->getStyle($apha.$row)
+                            ->getBorders()
+                            ->getAllBorders()
+                            ->setBorderStyle(Border::BORDER_THIN);
+                        }
+                        $worksheet->setCellValue("A{$row}",$soThuTu);
+                        $keyDanhDau = $this->danhDauloaiHinhCoSo($ts->ma_loai_hinh_co_so);
+                        $worksheet->setCellValue($keyDanhDau.$row, 'x');
+                        // fill data
+                        $this->exportFillRow($worksheet, $row , $ts);
+                    }
+                    //   dd($data);
 
-                $row++;
-            }
-
-            // if ($ts->loai_truong !== $bacDaoTaoId) {
-            //     $bacDaoTaoId = $ts->loai_truong;
-            //     $bacDaoTao = $this->bacDaoTaoOfTruong($ts->loai_truong);
-
-            //     $worksheet->setCellValue('B' . $row, $bacDaoTao);
-            //     $worksheet->getStyle("B{$row}")->getFont()->setBold(true);
-            //     $lockRange = "A{$row}:AK{$row}";
-            //     $worksheet->getStyle($lockRange)
-            //         ->getFill()
-            //         ->setFillType(Fill::FILL_SOLID)
-            //         ->getStartColor()->setARGB('C7C7C7');
-            //     $row++;
-            // }
-
-             foreach($arrayAphabe as $apha){
-                $worksheet->getStyle($apha.$row)
-                ->getBorders()
-                ->getAllBorders()
-                ->setBorderStyle(Border::BORDER_THIN);
-            }
-            $worksheet->setCellValue("A{$row}",$soThuTu);
-            $keyDanhDau = $this->danhDauloaiHinhCoSo($ts->ma_loai_hinh_co_so);
-            $worksheet->setCellValue($keyDanhDau.$row, 'x');
-            // fill data
-            $this->exportFillRow($worksheet, $row , $ts);
-            }
+        }
+        // foreach($data as $namYear => $value){
+        //     // dd($index);
+        //         $row++;
+        //         $worksheet->setCellValue('B' . $row, $namYear);
+        //         $worksheet->getStyle("B{$row}")->getFont()->setBold(true);
+        //         $lockRange = "A{$row}:C{$row}";
+        //         $worksheet->getStyle($lockRange)
+        //         ->getFill()
+        //         ->setFillType(Fill::FILL_SOLID)
+        //         ->getStartColor()->setARGB('C7C7C7');
+        //     foreach($value as $ts){
+        //         $row++;
+        //         $soThuTu++;
+        //         // border cac o
+        //         if ($ts->id_co_so !== $cs_id_truong) {
+        //             $cs_id_truong = $ts->id_co_so;
+        //             $worksheet->setCellValue('B' . $row, $ts->ten);
+        //             $worksheet->getStyle("B{$row}")->getFont()->setBold(true);
+        //             $lockRange = "A{$row}:AK{$row}";
+        //             $worksheet->getStyle($lockRange)
+        //                 ->getFill()
+        //                 ->setFillType(Fill::FILL_SOLID)
+        //                 ->getStartColor()->setARGB('C7C7C7');
+        //             $row++;
+        //         }
+        //         foreach($arrayAphabe as $apha){
+        //             $worksheet->getStyle($apha.$row)
+        //             ->getBorders()
+        //             ->getAllBorders()
+        //             ->setBorderStyle(Border::BORDER_THIN);
+        //         }
+        //         $worksheet->setCellValue("A{$row}",$soThuTu);
+        //         $keyDanhDau = $this->danhDauloaiHinhCoSo($ts->ma_loai_hinh_co_so);
+        //         $worksheet->setCellValue($keyDanhDau.$row, 'x');
+        //         // fill data
+        //         $this->exportFillRow($worksheet, $row , $ts);
+        //     }
+        //   }
             $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
             header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
             header('Content-Disposition: attachment; filename="File-xuat-theo-tim-kiem.xlsx"');
