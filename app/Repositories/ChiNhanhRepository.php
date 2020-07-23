@@ -3,19 +3,27 @@
 
 namespace App\Repositories;
 
-
+use App\Models\ChiNhanh;
 use Illuminate\Support\Facades\DB;
 
 class ChiNhanhRepository extends BaseRepository implements ChiNhanhRepositoryInterface
 {
+    protected $model;
+    public function __construct(
+        ChiNhanh $model
+    ) {
+        parent::__construct();
+        $this->model = $model;
+    }
+
     public function getTable()
     {
-        return 'chi_nhanh_dao_tao';
+        return 'co_so_dao_tao';
     }
 
     public function getChiNhanh($params)
     {
-        $query = $this->table
+        $query = $this->model
             ->select('chi_nhanh_dao_tao.*', 'co_so_dao_tao.ten', 'devvn_quanhuyen.name as ten_quan_huyen')
             ->join('co_so_dao_tao', 'chi_nhanh_dao_tao.co_so_id', '=', 'co_so_dao_tao.id')
             ->join('devvn_quanhuyen', 'devvn_quanhuyen.maqh', '=', 'chi_nhanh_dao_tao.maqh');
@@ -37,7 +45,7 @@ class ChiNhanhRepository extends BaseRepository implements ChiNhanhRepositoryInt
     }
     public function getSingleChiNhanh($id)
     {
-        return $this->table->join('co_so_dao_tao', 'co_so_dao_tao.id', '=', 'chi_nhanh_dao_tao.co_so_id')
+        return $this->model->join('co_so_dao_tao', 'co_so_dao_tao.id', '=', 'chi_nhanh_dao_tao.co_so_id')
             ->join('devvn_quanhuyen', 'chi_nhanh_dao_tao.maqh', '=', 'devvn_quanhuyen.maqh')
             ->join('devvn_xaphuongthitran', 'chi_nhanh_dao_tao.xaid', '=', 'devvn_xaphuongthitran.xaid')
             ->where('chi_nhanh_dao_tao.id', $id)
@@ -54,7 +62,7 @@ class ChiNhanhRepository extends BaseRepository implements ChiNhanhRepositoryInt
 
     public function getChiNhanhThuocCSDT($id, $params)
     {
-        $query =  $this->table
+        $query =  $this->model
             ->select('chi_nhanh_dao_tao.*', 'co_so_dao_tao.ten', 'devvn_quanhuyen.name as ten_quan_huyen')
             ->join('co_so_dao_tao', 'chi_nhanh_dao_tao.co_so_id', '=', 'co_so_dao_tao.id')
             ->join('devvn_quanhuyen', 'devvn_quanhuyen.maqh', '=', 'chi_nhanh_dao_tao.maqh')
@@ -70,5 +78,24 @@ class ChiNhanhRepository extends BaseRepository implements ChiNhanhRepositoryInt
         }
 
         return $query->paginate($params['page_size']);
+    }
+    public function createChiNhanh($attributes = [])
+    {
+        $Chi_nhanh = json_decode($attributes['dia_chi_chi_nhanh']);
+        $arrayInsert = [];
+        for ($i = 0; $i < count($Chi_nhanh); $i++) {
+            $arrayInsert[] = [
+                'co_so_id' => $attributes['co_so_id'],
+                'dia_chi' => $Chi_nhanh[$i]->dia_chi,
+                'maqh' => $Chi_nhanh[$i]->maqh,
+                'xaid' => $Chi_nhanh[$i]->xaid
+            ];
+        }
+        return $this->model->insert($arrayInsert);
+    }
+
+    public function getChiNhanhCoSo($co_so_id)
+    {
+        return $this->model->where('co_so_id',$co_so_id)->get();
     }
 }

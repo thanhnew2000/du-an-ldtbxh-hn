@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\LoaiHinhCoSo;
@@ -8,14 +8,14 @@ use App\Models\SoLieuCanBoQuanLy;
 use App\Models\DoiNguNhaGiao;
 use App\Models\NganhNghe;
 use App\Models\GiayPhepDangKyNghe;
+use Carbon\Carbon;
 
 class CoSoDaoTao extends Model
 {
     protected $table = 'co_so_dao_tao';
     protected $fillable = [
-        // 'ten', 'ma_don_vi', 'dien_thoai', 'fax', 'website', 'dia_chi',
-        // 'ten_quoc_te', 'ghi_chu', 'co_quan_chu_quan_id', 'ma_loai_hinh_co_so',
-        // 'quyet_dinh_id'
+        'ten', 'hinh_thuc_so_huu', 'ma_don_vi', 'dien_thoai', 'cap_quan_ly',
+        'trinh_do_dao_tao', 'ten_nguoi_dai_dien', 'sdt_nguoi_dai_dien', 'email_nguoi_dai_dien', 'id_nguoi_phu_trach'
     ];
 
     public function loaiHinhCoSo()

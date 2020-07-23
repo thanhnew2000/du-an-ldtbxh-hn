@@ -27,4 +27,17 @@ class QuanHuyenRepository extends BaseRepository implements QuanHuyenRepositoryI
             );
         return $queryBuilder->get();
     }
+    public function getXaPhuongTheoQuanHuyen($id)
+	{
+		if($id==0){
+			$data = DB::table('devvn_xaphuongthitran')
+			->select('devvn_xaphuongthitran.xaid', 'devvn_xaphuongthitran.name')->get();
+			return $data;
+		}else{
+			$data = DB::table('devvn_xaphuongthitran')
+			->where('maqh', '=', $id)
+			->select('devvn_xaphuongthitran.xaid', 'devvn_xaphuongthitran.name')->get();
+			return $data;
+		}
+	}
 }

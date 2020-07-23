@@ -191,4 +191,9 @@ class NganhNgheRepository extends BaseRepository implements NganhNgheRepositoryI
     {
         return $this->model->where('id',$id)->update($data);
     }
+
+    public function getNgheTcCd($id)
+    {
+        return $this->model->select(['nganh_nghe.ten_nganh_nghe','nganh_nghe.bac_nghe'])->where('id',$id)->first();
+    }
 }

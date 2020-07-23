@@ -11,7 +11,7 @@ class GiayPhep extends Model
 
     protected $fillable = [
         'co_so_id',
-        'ten_giay_phep',
+        'so_quyet_dinh',
         'anh_giay_phep',
         'ngay_ban_hanh',
         'ngay_hieu_luc',
@@ -30,6 +30,8 @@ class GiayPhep extends Model
 
     public function setNgayHetHanAttribute($value)
     {
-        $this->attributes['ngay_het_han'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+        if(isset($value)){
+            $this->attributes['ngay_het_han'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+        }
     }
 }
