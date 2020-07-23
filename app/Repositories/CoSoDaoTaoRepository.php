@@ -35,7 +35,7 @@ class CoSoDaoTaoRepository extends BaseRepository implements CoSoDaoTaoRepositor
             'ten_nguoi_dai_dien' => $attributes['ten_nguoi_dai_dien'],
             'sdt_nguoi_dai_dien' => $attributes['sdt_nguoi_dai_dien'],
             'email_nguoi_dai_dien' => $attributes['email_nguoi_dai_dien'],
-            'id_nguoi_them' => $attributes['id_nguoi_them']
+            'id_nguoi_phu_trach' => $attributes['id_nguoi_phu_trach']
         ];
         return $this->model->create($arrayInsert);
     }
@@ -198,5 +198,11 @@ class CoSoDaoTaoRepository extends BaseRepository implements CoSoDaoTaoRepositor
     public function getThongTinCoSo($co_so_id)
     {
         return $this->model->find($co_so_id);
+    }
+
+    public function get_co_so()
+    {
+        return $this->model->get();
+        
     }
 }

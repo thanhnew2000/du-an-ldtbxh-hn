@@ -23,7 +23,6 @@ class QuanLyGiayPhepHoatDongRepository extends BaseRepository implements QuanLyG
         return 'giay_phep';
     }
 
-
     public function index($params,$limit)
     {
         $queryBulder = $this->model::query();
@@ -38,11 +37,6 @@ class QuanLyGiayPhepHoatDongRepository extends BaseRepository implements QuanLyG
 			$queryBulder->where('so_quyet_dinh', 'like', '%'.$params['so_quyet_dinh'].'%');
         }
         return $queryBulder->orderBy("id")->paginate($limit);
-    }
-
-    public function get_co_so()
-    {
-       return DB::table('co_so_dao_tao')->get();
     }
 
     public function createGiayPhep($data)

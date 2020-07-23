@@ -103,11 +103,6 @@ class QuanLyGiayChungNhanDaoTaoNgheController extends Controller
       return $this->QuanLyGiayChungNhanDaoTaoNgheService->updateData($data);
     }
 
-    // public function thuHoi()
-    // {
-    //    dd('thu hồi');
-    // }
-
     public function getGiayPhep(Request $request)
     {
         $id = $request->all();
@@ -147,7 +142,8 @@ class QuanLyGiayChungNhanDaoTaoNgheController extends Controller
              ];
          // DB::table('giay_chung_nhan_chi_tiet')->insert($dataPost);
                 $this->QuanLyGiayChungNhanDaoTaoNgheService->insertToGiayChungNhanChiTiet($dataPost);
-                }else{
+                }else
+                {
                 $dataPost = [
                     'bac_nghe'=>$data['trinh_do'],
                     'ten_nganh_nghe'=> $data['nghe_id'],
@@ -163,7 +159,7 @@ class QuanLyGiayChungNhanDaoTaoNgheController extends Controller
                 'phan_loai_nghe'=>1,
                 ];
                 $this->QuanLyGiayChungNhanDaoTaoNgheService->insertToGiayChungNhanChiTiet($dataPost2);
-             }
+                }
             }
         }     
     }

@@ -5,14 +5,6 @@
     .removediachi {
         line-height: 90px
     }
-    .fa-plus,
-    .fa-times {
-        cursor: pointer;
-        /* font-size: 25px; */
-        color: rgb(90, 92, 211);
-        line-height: 40px;
-        text-align: center
-    }
     .m-demo__preview {
         border: none !important
     }
@@ -21,6 +13,14 @@
     }
     .messageNoTrinhDo {
         color: red;
+    }
+    .name_address{
+        font-size: 15px;
+        color: #df3333
+    }
+    .fa-plus:before,.fa-times{
+        color: blue;
+        cursor: pointer;
     }
 </style>
 <link href="{!! asset('css_loading/css_loading.css') !!}" rel="stylesheet" type="text/css" />
@@ -132,7 +132,7 @@
                                 <div class="col-left col-lg-5">
                                     <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
                                     @if (isset($activeUser))
-                                        <input type="hidden" name="id_nguoi_them" value="{{$activeUser}}">
+                                        <input type="hidden" name="id_nguoi_phu_trach" value="{{$activeUser}}">
                                     @endif
                                     <input type="hidden" name="co_so_id">
                                     <div class="form-group col-lg-12">
@@ -914,7 +914,7 @@
         Data.append('ngay_hieu_luc',$('input[name=ngay_hieu_luc]').val());
         Data.append('ngay_het_han',$('input[name=ngay_het_han]').val());
         Data.append('nguoi_phu_trach', $('select[name=nguoi_phu_trach]').val());
-        Data.append('id_nguoi_them', $('input[name=id_nguoi_them]').val());
+        Data.append('id_nguoi_phu_trach', $('input[name=id_nguoi_phu_trach]').val());
         Data.append('dia_chi_chi_nhanh',JSON.stringify(dia_chi_chi_nhanh));
         Data.append('_token', $('#token').val());
         $(document).ajaxStart(function(){

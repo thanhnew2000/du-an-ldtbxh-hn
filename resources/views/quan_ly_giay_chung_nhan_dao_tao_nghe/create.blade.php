@@ -9,6 +9,14 @@
         color: red;
         margin-top: 5px !important;
     }
+    .name_address{
+        font-size: 15px;
+        color: #df3333
+    }
+    .fa-plus:before,.fa-times{
+        color: blue;
+        cursor: pointer;
+    }
 </style>
 <link href="{!! asset('css_loading/css_loading.css') !!}" rel="stylesheet" type="text/css" />
 @endsection
@@ -177,7 +185,7 @@
                                     <div class="col-4">
                                         <div class="form-group m-form__group mb-4">
                                             <label>Ngày hết hạn <span
-                                                    class="text-danger">(*)</span></label>
+                                                    class="text-danger"></span></label>
                                             <div class="input-group date datepicker">
                                                 <input type="text"  name="ngay_het_han_giay_phep"
                                                     value="{{old('ngay_het_han')}}"
@@ -239,91 +247,50 @@
 @section('script')
 <script>
     $('#co_so_id').select2()
-     function setValueQuyetDinh(e) {
+    async function setValueQuyetDinh(e) {
         if ($(e).val()>0) {
-            // $('input[name=co_so_id]').val(response.CoSo.id);
             $('input[name=co_so_id]').val($(e).val())
-            getDataDiaDiem($(e).val())
+             getDataDiaDiemChon($(e).val())
+            console.log(2)
             $('#bo_sung').attr('disabled',false)
         }else{
             $('#bo_sung').attr('disabled',true)
         }
        
     }
-    //them mới giấy phép
-//     const themGiayPhepUrl = "{{route('giay-chung-nhan-dao-tao-nghe.store')}}"
-//     function showimages(element) {
-//     var file = element.files[0];
-//     var reader = new FileReader();
-//     reader.onloadend = function() {
-//        $(element).parents('.modal-body').find('.anh-giay-phep-hoat-dong').attr("src", reader.result);
-//         // console.log('RESULT', reader.result)
-//     };
-//     reader.readAsDataURL(file);
-//     }
-// let themGiayPhep = () => {
-//     $("#preload").css("display", "block");
-//     let myForm = document.getElementById('myForm');
-//     var formData = new FormData(myForm)
-//     console.log(formData);
-//     axios.post(themGiayPhepUrl,formData)
-//     .then(function (response) {
-//         $("#preload").css("display", "none");
-//         $('#myModalThemMoi').modal('hide')
-//         Swal.fire({
-//             title: 'Bổ sung thành công',
-//             icon: 'success',
-//             showConfirmButton: false,
-//             timer: 2000
-//         }).then(() => {
-//             location.reload();
-//         })
-           
-//     })
-//     .catch(function (error) {
-//         $('.error').html('')
-//         $('.so-quyet-dinh').html(error.response.data.errors.so_quyet_dinh);
-//         $('.anh-quyet-dinh').html(error.response.data.errors.anh_quyet_dinh);
-//         $('.ngay-ban-hanh').html(error.response.data.errors.ngay_ban_hanh);
-//         $('.ngay-hieu-luc').html(error.response.data.errors.ngay_hieu_luc);
-//         $('.ngay-het-han').html(error.response.data.errors.ngay_het_han);
-//         $("#preload").css("display", "none");
-//     })
-//     .then(function () {
-//         // always executed
-//     });
-// }
-//  //end them mới giấy phép
-//  $('#summernote').summernote({
-//             height: 150,
-//             toolbar: 
-//             [
-//                 ['style', ['bold', 'italic', 'underline', 'clear']],
-//                 ['fontname', ['fontname']],
-//                 ['fontsize', ['fontsize']],
-//                 ['color', ['color']],
-//                 ['para', ['ul', 'ol', 'paragraph']],
-//                 ['table', ['table']],
-//                 ['insert', ['link']],
-//                 ['view', ['fullscreen']],
-//             ]
-//         });
-//         $('.datepicker').datepicker({
-//         format: 'dd-mm-yyyy',
-//         icons: {
-//             time: "fa fa-clock-o",
-//             date: "fa fa-calendar",
-//             up: "fa fa-arrow-up",
-//             down: "fa fa-arrow-down"
-//         }
-//     });
-//     chuyenNgayHieuLuc = (e) => {
-//     $("[name=ngay_hieu_luc]").val($(e).val())
-// }
 var getDiaChiCoSo = "{{route('getDiaChiCoSo')}}";
 var storeUrl = "{{route('store-nganh-nghe')}}";
 var addGiayChungNhan = "{{route('addGiayChungNhan')}}";
 var urlNganhNghe = "{{route('getNghe')}}";
+async function getDataDiaDiemChon(id_co_so) {
+    $("#preload").css("display", "block"); 
+	let htmldata= ''
+   axios
+	.post(getDiaChiCoSo, {
+		id : id_co_so
+	})
+	.then(function(response) {
+		// console.log(response.data)
+     response.data.forEach(element=>{
+		htmldata+=	`  <div class="m-section__content chi_nhanh${element.id}" chi_nhanh='${element.id}'>
+			<div class="m-demo" data-code-preview="true" data-code-html="true" data-code-js="false">
+				<div class="m-demo__preview m-demo__preview--btn">
+					<span class="name_address mr-3">${element.dia_chi}</span> <i onclick="addForm(this)"
+						class="fa fa-plus"></i>
+					<div class="form_add_nghe">
+					</div>
+				</div>
+			</div>
+		</div>`
+		})
+        $('.danh_sach_co_so').html(htmldata)
+        $("#preload").css("display", "none");
+        console.log(1)
+	})
+	.catch(function(error) {
+		console.log(error);
+	});
+}
 var config = <?php echo json_encode(config('common.bac_nghe')) ?>;
 </script>
 <script src="{!! asset('add_giay_chung_nhan_nghe/add_giay_chung_nhan_nghe.js') !!}"></script>

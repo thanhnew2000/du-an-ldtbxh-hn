@@ -14,6 +14,13 @@
     .note-editable {
         padding: 40px;
     }
+    .name_address{
+        font-size: 15px;
+        color: #df3333
+    }
+    .fa-plus:before,.fa-times{
+        color: blue;
+    }
 </style>
 <link href="{!! asset('css_loading/css_loading.css') !!}" rel="stylesheet" type="text/css" />
 @endsection
@@ -176,7 +183,7 @@
 
                                     <div class="col-4">
                                         <div class="form-group m-form__group mb-4">
-                                            <label>Ngày hết hạn <span class="text-danger">(*)</span></label>
+                                            <label>Ngày hết hạn <span class="text-danger"></span></label>
                                             <div class="input-group date datepicker">
                                                 <input type="text" name="ngay_het_han" value="{{old('ngay_het_han')}}"
                                                     placeholder="Ngày-tháng-năm" class="form-control">
@@ -248,8 +255,7 @@
         { $('input[name=co_so_id]').val($(e).val())
             getGiayPhep($(e).val())
             if ($(e).val()>0 ) 
-            {
-               
+            {          
                 $('#so_quyet_dinh').attr('disabled',false)
             }else{
                 $('#so_quyet_dinh').attr('disabled',true)
@@ -404,7 +410,7 @@ function showDataDiaDiem(dataChiNhanh) {
 		htmldata+=	`  <div class="m-section__content chi_nhanh${element.id}" chi_nhanh='${element.id}'>
 			<div class="m-demo" data-code-preview="true" data-code-html="true" data-code-js="false">
 				<div class="m-demo__preview m-demo__preview--btn">
-					<span class="btn btn-brand">${element.dia_chi}</span> <i onclick="addForm(this)"
+					<span class="name_address mr-3">${element.dia_chi}</span> <i onclick="addForm(this)"
 						class="fa fa-plus"></i>
                     <div class="form_add_nghe">
                         ${
@@ -519,14 +525,6 @@ function addDuLieuGiayChungNhan() {
     // data giấy chứng nhận
     let myForm = document.getElementById('myForm');
     var form_data = new FormData(myForm);
-    // form_data.append("anh_quyet_dinh", file_data);
-    // form_data.append("get_giay_phep_id", $('[name ="get_giay_phep_id"]').val());
-    // form_data.append("so_quyet_dinh", $('[name ="so_quyet_dinh"]').val());
-    // form_data.append("ngay_ban_hanh", $('[name ="ngay_ban_hanh"]').val());
-    // form_data.append("ngay_hieu_luc", $('[name ="ngay_hieu_luc"]').val());
-    // form_data.append("ngay_het_han", $('[name ="ngay_het_han"]').val());
-    // form_data.append("mo_ta", $('[name ="mo_ta"]').val());
-    // form_data.append("co_so_id", $('input[name=co_so_id]').val());
 
     //  get list chi nhánh
     var list = document.querySelectorAll(".m-section__content");

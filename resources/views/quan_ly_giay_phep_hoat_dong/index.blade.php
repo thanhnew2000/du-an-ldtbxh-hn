@@ -192,7 +192,7 @@
                 
                                                 <div class="col-4">
                                                     <div class="form-group m-form__group mb-4">
-                                                        <label>Ngày hết hạn <span class="text-danger">(*)</span></label>
+                                                        <label>Ngày hết hạn <span class="text-danger"></span></label>
                                                         <div class="input-group date datepicker">
                                                             <input type="text" name="ngay_het_han" value="{{ \Carbon\Carbon::parse($item->ngay_het_han)->format('d-m-Y') }}" placeholder="Ngày-tháng-năm"
                                                                 class="form-control">
@@ -331,7 +331,7 @@
 
                                 <div class="col-4">
                                     <div class="form-group m-form__group mb-4">
-                                        <label>Ngày hết hạn <span class="text-danger">(*)</span></label>
+                                        <label>Ngày hết hạn <span class="text-danger"></span></label>
                                         <div class="input-group date datepicker">
                                             <input type="text" name="ngay_het_han" value="" placeholder="Ngày-tháng-năm"
                                                 class="form-control">

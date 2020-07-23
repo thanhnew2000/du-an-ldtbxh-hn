@@ -6,10 +6,18 @@ use Illuminate\Http\Request;
 use App\Services\AppService;
 use App\Repositories\QuanLyGiayPhepHoatDongRepository;
 use Carbon\Carbon;
+use App\Repositories\CoSoDaoTaoRepositoryInterface;
 
 class QuanLyGiayPhepHoatDongService extends AppService
 {
 
+    public function __construct(
+        CoSoDaoTaoRepositoryInterface $csdtRepository
+
+
+    ) {
+        $this->csdtRepository = $csdtRepository;
+    }
     public function getRepository()
     {
         return QuanLyGiayPhepHoatDongRepository::class;
@@ -24,7 +32,7 @@ class QuanLyGiayPhepHoatDongService extends AppService
 
     public function get_co_so()
     {
-        return $this->repository->get_co_so();
+        return $this->csdtRepository->get_co_so();
     }
 
     public function createGiayPhep($data)

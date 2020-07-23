@@ -93,4 +93,9 @@ class ChiNhanhRepository extends BaseRepository implements ChiNhanhRepositoryInt
         }
         return $this->model->insert($arrayInsert);
     }
+
+    public function getChiNhanhCoSo($co_so_id)
+    {
+        return $this->model->where('co_so_id',$co_so_id)->get();
+    }
 }

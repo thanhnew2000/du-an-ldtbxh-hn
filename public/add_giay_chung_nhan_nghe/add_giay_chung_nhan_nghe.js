@@ -12,7 +12,7 @@ function getDataDiaDiem(id_co_so) {
 		htmldata+=	`  <div class="m-section__content chi_nhanh${element.id}" chi_nhanh='${element.id}'>
 			<div class="m-demo" data-code-preview="true" data-code-html="true" data-code-js="false">
 				<div class="m-demo__preview m-demo__preview--btn">
-					<span class="btn btn-brand">${element.dia_chi}</span> <i onclick="addForm(this)"
+					<span class="name_address mr-3">${element.dia_chi}</span> <i onclick="addForm(this)"
 						class="fa fa-plus"></i>
 					<div class="form_add_nghe">
 					</div>
@@ -184,6 +184,8 @@ function addNghe(dataNghe) {
             icon: 'success',
             showConfirmButton: false,
             timer: 1500
+            }).then(()=>{
+                $("#myModalThemMoi").modal('hide');
             });
         })
         .catch(function(error) {

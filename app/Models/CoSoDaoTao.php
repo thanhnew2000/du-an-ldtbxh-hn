@@ -15,7 +15,7 @@ class CoSoDaoTao extends Model
     protected $table = 'co_so_dao_tao';
     protected $fillable = [
         'ten', 'hinh_thuc_so_huu', 'ma_don_vi', 'dien_thoai', 'cap_quan_ly',
-        'trinh_do_dao_tao', 'ten_nguoi_dai_dien', 'sdt_nguoi_dai_dien', 'email_nguoi_dai_dien', 'id_nguoi_them'
+        'trinh_do_dao_tao', 'ten_nguoi_dai_dien', 'sdt_nguoi_dai_dien', 'email_nguoi_dai_dien', 'id_nguoi_phu_trach'
     ];
 
     public function loaiHinhCoSo()
