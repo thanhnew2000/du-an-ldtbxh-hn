@@ -191,4 +191,10 @@ class NganhNgheRepository extends BaseRepository implements NganhNgheRepositoryI
     {
         return $this->model->where('id',$id)->update($data);
     }
+
+    public function getNganhNgheCaoDangTrungCap($arrayNghe){
+		$data = $this->model->whereIn('nganh_nghe.id',$arrayNghe)
+		->get()->groupBy('bac_nghe');
+		return $data;
+	}
 }

@@ -7,6 +7,9 @@ use App\Services\AppService;
 use App\Services\StoreUpdateNotificationService;
 use App\Repositories\SoLieuTuyenSinhRepository;
 use App\Repositories\LoaiHinhCoSoRepositoryInterface;
+use App\Repositories\BieuMauRepositoryInterface;
+use App\Repositories\NganhNgheRepositoryInterface;
+// use App\Repositories\NganhNgheSoCapDuoi3ThangRepositoryInterface;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Illuminate\Support\Facades\DB;
@@ -26,17 +29,27 @@ class SoLieuTuyenSinhService extends AppService
     protected $soLieuTuyenSinhRepository;
     protected $StoreUpdateNotificationService;
     protected $CoSoDaoTaoRepository;
+    protected $bieuMauRepository;
+    protected $nganhNgheRepository;
+    // protected $NganhNgheSoCapDuoi3ThangRepository;
+
     use ExcelTraitService;
 
     public function __construct(
         LoaiHinhCoSoRepositoryInterface $loaiHinhCoSoRepository,
         StoreUpdateNotificationService $StoreUpdateNotificationService,
-        CoSoDaoTaoRepositoryInterface $coSoDaoTao
+        CoSoDaoTaoRepositoryInterface $coSoDaoTao,
+        BieuMauRepositoryInterface $bieuMauRepository,
+        NganhNgheRepositoryInterface $nganhNgheRepository
+        // NganhNgheSoCapDuoi3ThangRepositoryInterface $NganhNgheSoCapDuoi3ThangRepository
     ) {
         parent::__construct();
         $this->loaiHinhCoSoRepository = $loaiHinhCoSoRepository;
         $this->StoreUpdateNotificationService = $StoreUpdateNotificationService;
-        $this ->CoSoDaoTaoRepository = $coSoDaoTao;
+        $this->CoSoDaoTaoRepository = $coSoDaoTao;
+        $this->bieuMauRepository = $bieuMauRepository;
+        $this->nganhNgheRepository = $nganhNgheRepository;
+        // $this->NganhNgheSoCapDuoi3ThangRepository = $NganhNgheSoCapDuoi3ThangRepository;
         // $this->soLieuTuyenSinhRepository = $soLieuTuyenSinhRepository;
     }
 
@@ -267,7 +280,9 @@ class SoLieuTuyenSinhService extends AppService
         $worksheet->getStyle("A7:AK7")->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('C7C7C7');
         $worksheet->getStyle("A8:AK8")->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('C7C7C7');
 
-        $co_so_nghe = $this->repository->getmanganhnghe($id_coso);
+        $phan_loai_co_so_nghe = $this->getNganhNgheHavePhanLoaiFolowCoSo($id_coso);
+        $co_so_nghe = array_merge($phan_loai_co_so_nghe['cao_dang'],$phan_loai_co_so_nghe['trung_cap'],$phan_loai_co_so_nghe['so_cap'],$phan_loai_co_so_nghe['nghe_duoi_3_thang']);
+        // dd($co_so_nghe_all);
 
         //  tạo khóa đê khóa các dòng
         $spreadsheet->getActiveSheet()->getProtection()->setSheet(true);
@@ -390,12 +405,13 @@ class SoLieuTuyenSinhService extends AppService
         $truong = explode(' - ', $data[7][2]);
         $id_truong = trim(array_pop($truong));
 
-        
         $arrayApha=['H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK'];
 
         $csCheck = DB::table('co_so_dao_tao')->find($id_truong);
 
-        $co_so_nghe = $this->repository->getmanganhnghe($id_truong);
+        // $co_so_nghe = $this->repository->getmanganhnghe($id_truong);
+        $phan_loai_co_so_nghe = $this->getNganhNgheHavePhanLoaiFolowCoSo($id_truong);
+        $co_so_nghe = array_merge($phan_loai_co_so_nghe['cao_dang'],$phan_loai_co_so_nghe['trung_cap'],$phan_loai_co_so_nghe['so_cap'],$phan_loai_co_so_nghe['nghe_duoi_3_thang']);
 
         if($csCheck == null){
             $message='noCorrectIdTruong';
@@ -407,20 +423,35 @@ class SoLieuTuyenSinhService extends AppService
         array_push($id_nghe_of_cs,$csn->id);
         }
 
-        // checkDaCoChua
-        // $tuyen_sinh_nam_dot_da_co = $this->repository->getTuyenSinhCsNamDot($id_truong,$year,$dot);
+   
+        $timeInsert= '';
+        if($dot== 1){
+            $timeInsert = $year.'-01-01';
+        }else if($dot == 2){
+            $timeInsert = $year.'-07-02';
+        }
 
-        $timeNow = Carbon::now();
-        $yearNow = $timeNow->year;
-        $monthNow = $timeNow->month;
-        $dayNow = $timeNow->day;
 
-        $tuyen_sinh_dau_nam = $this->repository->getBieuMauTuyenSinhDauNam($id_truong,$yearNow);
-        $tuyen_sinh_cuoi_nam = $this->repository->getBieuMauTuyenSinhCuoiNam($id_truong,$yearNow);
+
+
+        $check_have_bieu_mau =  $this->repository->getBieuMauTuyenSinh($id_truong,$year,$dot);
+      
+        $bieu_mau_id = '';
+        if($check_have_bieu_mau !== null){
+            $bieu_mau_id = $this->getIdBieuMauCsTimeNow($id_truong,$year,$dot);
+        }
+     
 
         $tuyen_sinh_nam_dot_da_co = [];
+        $tuyen_sinh_nam_dot_da_co =  $this->getNganhNgheDaNhapOfCoSo($id_truong,$dot,$year);
+        $id_nghe_tuyen_sinh_gan_da_co=[];
 
-        
+        if($tuyen_sinh_nam_dot_da_co !== false){
+            for($i=0;$i < count($tuyen_sinh_nam_dot_da_co); $i++){
+                $id_nghe_tuyen_sinh_gan_da_co[$tuyen_sinh_nam_dot_da_co[$i]->nghe_id] = $tuyen_sinh_nam_dot_da_co[$i]->id;
+            }
+        }
+       
         $vitri=[];
         $vitri=$this->checkError($data, $arrayApha, 8 , 7, 36);
 
@@ -429,32 +460,6 @@ class SoLieuTuyenSinhService extends AppService
                 return $message;  
         }
 
-        $endDauNam = $yearNow.'-06-31';
-        $bieu_mau_id = '';
-        if($timeNow < $endDauNam){
-            // dd(1);
-            if($tuyen_sinh_dau_nam == null){
-                 $updateTuyenSinh = false;
-            }else{
-                 $updateTuyenSinh = true;
-                 $tuyen_sinh_nam_dot_da_co = $this->repository->getTuyenSinhFromIdBieuMau($tuyen_sinh_dau_nam->id);
-                 $bieu_mau_id = $tuyen_sinh_dau_nam->id;
-            }
-        }else if ($timeNow > $endDauNam){
-            // dd(2);
-            if($tuyen_sinh_cuoi_nam == null){
-                $updateTuyenSinh = false;
-            }else{
-                $updateTuyenSinh = true;
-                $tuyen_sinh_nam_dot_da_co = $this->repository->getTuyenSinhFromIdBieuMau($tuyen_sinh_cuoi_nam->id);
-                $bieu_mau_id = $tuyen_sinh_cuoi_nam->id;
-            }
-        }
-
-        $id_nghe_tuyen_sinh_gan_da_co=[];
-        for($i=0;$i < count($tuyen_sinh_nam_dot_da_co); $i++){
-            $id_nghe_tuyen_sinh_gan_da_co[$tuyen_sinh_nam_dot_da_co[$i]->nghe_id] = $tuyen_sinh_nam_dot_da_co[$i]->id;
-        }
 
         $arrayData=[];
         $insertData=[];
@@ -503,20 +508,18 @@ class SoLieuTuyenSinhService extends AppService
                             'so_luong_sv_he_khac'=>$data[$i][33],
                             'so_luong_sv_nu_khac'=>$data[$i][34],
                             'so_luong_sv_dan_toc_khac'=>$data[$i][35],
-                            ' '=>$data[$i][36],
+                            'so_luong_sv_ho_khau_HN_khac'=>$data[$i][36],
                         ];
+
                         if($bieu_mau_id == ''){
-                            $id_bieu_mau = $this->repository->createBieuMau($id_truong);
-                            $arrayData['bieu_mau_id']=$id_bieu_mau;
-                            $bieu_mau_id=$id_bieu_mau;
+                            $bieu_mau_id =  $this->bieuMauRepository->createBieuMau($id_truong,$timeInsert,$dot,2);
+                            $arrayData['bieu_mau_id']=$bieu_mau_id;
+                            $bieu_mau_id=$bieu_mau_id;
                             $this->repository->createTuyenSinh($arrayData);
                         }else if($bieu_mau_id != ''){
                             if(array_key_exists($id_nghe_nhap,$id_nghe_tuyen_sinh_gan_da_co)){
-                            // dd(2);
                                 $updateData[$id_nghe_tuyen_sinh_gan_da_co[$id_nghe_nhap]]=$arrayData;
-                            // dd($updateData);
                             }else{
-                            // dd(1232);
                                 $arrayData['bieu_mau_id']=$bieu_mau_id;
                                 $this->repository->createTuyenSinh($arrayData);
                             }
@@ -524,7 +527,6 @@ class SoLieuTuyenSinhService extends AppService
 
                     }
                     else if(in_array($id_nghe_nhap,$id_nghe_of_cs) == false){
-                        // dd(20);
                         $message='ngheKoThuocTruong';
                         return $message; 
                     }
@@ -692,6 +694,138 @@ class SoLieuTuyenSinhService extends AppService
             $writer->save("php://output");
 
     }
+    public function getNganhNgheHavePhanLoaiFolowCoSo($id_co_so){
+        $arrayNganhNghe=[];
+        $ngheDuoi3Thang=[];
+        $ngheSoCap=[];
+        $ngheTrungCap=[];
+        $ngheCaoDang=[];
+
+        $allNghe =  $this->repository->getNgheCoSo($id_co_so);
+        $arrayCaoDangTc = [];
+        $arraySoCap3thang = [];
+        
+		foreach($allNghe as $nn){
+				if($nn->phan_loai_nghe == 0){
+					array_push($arrayCaoDangTc,$nn->nghe_id);
+				}else if($nn->phan_loai_nghe == 1){
+					array_push($arraySoCap3thang,$nn->nghe_id);
+				}
+        }
+        
+        $ngheCaoDangTrungCap = $this->repository->getNganhNgheCaoDangTrungCap($arrayCaoDangTc);
+        $ngheCaoDangSoCapDuoi3Thang = $this->repository->getNganhNgheSoCapDuoi3Thang($arraySoCap3thang);
+        // dd($ngheCaoDangTrungCap);
+
+        foreach($ngheCaoDangTrungCap as $arraynn){
+            foreach($arraynn as $nn){
+                // dd()
+                if($nn->bac_nghe == 6){
+                    array_push($ngheCaoDang,$nn);
+                }else if($nn->bac_nghe == 5){
+                    array_push($ngheTrungCap,$nn);
+                }
+             }
+         }
+
+         foreach($ngheCaoDangSoCapDuoi3Thang as $arraynn){
+                foreach($arraynn as $nn){
+                    if($nn->bac_nghe == 4){
+                        array_push($ngheSoCap,$nn);
+                    }else if($nn->bac_nghe == 3){
+                        array_push($ngheDuoi3Thang,$nn);
+                    }
+                  }
+         }
+
+
+         $arrayNganhNghe['cao_dang']=$ngheCaoDang;
+         $arrayNganhNghe['trung_cap']=$ngheTrungCap;
+         $arrayNganhNghe['so_cap']=$ngheSoCap;
+         $arrayNganhNghe['nghe_duoi_3_thang']=$ngheDuoi3Thang;
+         return $arrayNganhNghe;
+    }
+
+    public function getNganhNgheDaNhapOfCoSo($id_co_so,$dot,$year){
+        // $timeNow = Carbon::now();
+		// $yearNow = $timeNow->year;
+		// $timeCheck =  $yearNow.'06-31';
+
+		// if($timeNow >= $timeCheck){
+		// 	$data =  $this->repository->getBieuMauTuyenSinhDauNam($id_co_so,$yearNow);
+		// }else if($timeNow < $timeCheck){
+        $data =  $this->bieuMauRepository->getBieuMauTuyenSinh($id_co_so,$year,$dot);
+        // }
+        if($data !== null){
+        $nganh_nghe =  $this->repository->getTuyenSinhFromIdBieuMau($data->id);
+        return $nganh_nghe;
+        }else{
+            return false;
+        }
+    }
+
+    public function getNganhNgheOneOfCoSo($id_co_so,$id_nghe,$year,$dot){
+     
+        $data =  $this->repository->getBieuMauTuyenSinh($id_co_so,$year,$dot);
+        if($data !== null){
+            $nganh_nghe =  $this->repository->getTuyenSinhFromIdBieuMauOnlyOneNghe($data->id,$id_nghe);
+            return  $nganh_nghe;
+        }else{
+            return false;
+        }
+    }
+
+    public function getIdBieuMauCsTimeNow($id_co_so,$year,$dot){
+        $data =  $this->repository->getBieuMauTuyenSinh($id_co_so,$year,$dot);
+		// if($timeNow >= $timeCheck){
+		// 	$data =  $this->repository->getBieuMauTuyenSinhDauNam($id_co_so,$yearNow);
+        // }
+        $id_bieu_mau = $data->id;
+        return $id_bieu_mau;
+    }
+
+    public function createTuyenSinh($attributes){
+       $result =  $this->repository->createTuyenSinh($attributes);
+       return  $result;
+    }
+
+    public function createBieuMau($id_co_so,$thoi_gian){
+        $id_bieu_mau =  $this->bieuMauR->createBieuMau($id_co_so,$thoi_gian);
+        return  $id_bieu_mau;
+     }
+
+
+     public function updateAndCreateTuyenSinh($id_co_so,$nghe_id,$year,$dot,$attributes){
+        if($attributes['dot'] == 1){
+            $attributes['thoi_gian'] = $year.'-01-01';
+        }else if($attributes['dot'] == 2){
+            $attributes['thoi_gian'] = $year.'-07-02';
+        }
+        if( $attributes['check_have_bieu_mau'] == 0){
+            $id_bieu_mau =  $this->bieuMauRepository->createBieuMau($id_co_so, $attributes['thoi_gian'],$dot,2);
+        }else if($attributes['check_have_bieu_mau'] == 1){
+            $id_bieu_mau = $this->getIdBieuMauCsTimeNow($id_co_so,$year,$dot);
+        }
+        $attributes['bieu_mau_id']= $id_bieu_mau;
+        unset($attributes['_token']);
+        unset($attributes['page_size']);
+        unset($attributes['co_so_id']);
+        unset($attributes['year']);
+        unset($attributes['thoi_gian']);
+        unset($attributes['check_have_bieu_mau']);
+        unset($attributes['dot']);
+        $checkHaveNghe =  $this->getNganhNgheOneOfCoSo($id_co_so,$nghe_id,$year,$dot);
+        if(count($checkHaveNghe) <= 0){
+            $resurt = $this->repository->createTuyenSinh($attributes);
+        }else{
+            $resurt = $this->repository->updateTuyenSinh($id_bieu_mau,$checkHaveNghe[0]->id,$attributes);
+        }
+        
+        return $resurt;
+     }
+
+    
+    
     
 }
  ?>

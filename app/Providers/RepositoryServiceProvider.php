@@ -27,6 +27,10 @@ use App\Repositories\ChiTieuTuyenSinhRepository;
 use App\Repositories\ChiTieuTuyenSinhRepositoryInterface;
 use App\Repositories\AccountRepository;
 use App\Repositories\AccountRepositoryInterface;
+use App\Repositories\BieuMauRepository;
+use App\Repositories\BieuMauRepositoryInterface;
+use App\Repositories\NganhNgheSoCapDuoi3ThangRepository;
+use App\Repositories\NganhNgheSoCapDuoi3ThangRepositoryInterface;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -49,6 +53,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(PheDuyetBaoCaoRepositoryInterface::class, PheDuyetBaoCaoRepository::class);
         $this->app->bind(ChiTieuTuyenSinhRepositoryInterface::class, ChiTieuTuyenSinhRepository::class);
         $this->app->bind(AccountRepositoryInterface::class, AccountRepository::class);
+        $this->app->bind(BieuMauRepositoryInterface::class, BieuMauRepository::class);
+        // $this->app->bind(NganhNgheSoCapDuoi3ThangRepository::class, NganhNgheSoCapDuoi3ThangRepositoryInterface::class);
     }
 
     /**

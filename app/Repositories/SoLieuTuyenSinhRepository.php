@@ -253,12 +253,6 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 		->get();
 
 		dd($data);
-		// $data =  DB::table('tuyen_sinh')->where('tuyen_sinh.co_so_id', '=',$id_truong)
-		// ->where('thoi_gian_cap_nhat','>=',$fromDate)
-		// ->where('thoi_gian_cap_nhat','<=',$toDate)
-		// ->join('nganh_nghe','nganh_nghe.id','=','tuyen_sinh.nghe_id')
-		// ->orderBy('nganh_nghe.id','desc')
-		// ->get();
 		// return $data;
 	}
 	public function getTuyenSinhCsNamDot($id_truong, $year,$dot)
@@ -278,20 +272,23 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 	// 	return $this->model->where('id',$key)->update($arrayData);
 	// }
 
-	public function createBieuMau($id_co_so){
-		return DB::table('bieu_mau')->insertGetId([
-				'co_so_id' => $id_co_so,
-				'type' => 2,
-				'thoi_gian' => Carbon::now(),
-		]);
-	}
+	// public function createBieuMau($id_co_so,$thoi_gian,$dot){
+	// 	return DB::table('bieu_mau')->insertGetId([
+	// 			'co_so_id' => $id_co_so,
+	// 			'type' => 2,
+	// 			'dot' =>$dot,
+	// 			'thoi_gian' =>$thoi_gian,
+	// 	]);
+	// }
+	
 	public function createTuyenSinh($arrayData){
 		// return $this->model->create($arrayData);
-		return DB::table('chi_tiet_tuyen_sinh')->insert($arrayData);
+		// return DB::table('chi_tiet_tuyen_sinh')->insert($arrayData);
+		return $this->model->insert($arrayData);
 	}
 	public function updateTuyenSinh($bieu_mau_id,$key,$arrayData){
 		// return $this->model->where('id',$key)->update($arrayData);
-		return DB::table('chi_tiet_tuyen_sinh')->where('bieu_mau_id',$bieu_mau_id)->where('id',$key)->update($arrayData);
+		return $this->model->where('bieu_mau_id',$bieu_mau_id)->where('id',$key)->update($arrayData);
 	}
 	
 
@@ -393,23 +390,15 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 
 
 
-	public function getBieuMauTuyenSinhDauNam($id_truong, $year)
-	{
-		$data =  DB::table('bieu_mau')->where('co_so_id', '=', $id_truong)
-		->where('type', '=', 2)
-		->whereBetween('thoi_gian', [$year.'-01-01', $year.'-06-31'])
-		->first();
-		return $data;
-	}
-
-	public function getBieuMauTuyenSinhCuoiNam($id_truong, $year)
-	{
-		$data =  DB::table('bieu_mau')->where('co_so_id', '=', $id_truong)
-		->where('type', '=', 2)
-		->whereBetween('thoi_gian', [$year.'-07-01', $year.'-12-30'])
-		->first();
-		return $data;
-	}
+	// public function getBieuMauTuyenSinh($id_truong, $year,$dot)
+	// {
+	// 	$data =  DB::table('bieu_mau')->where('co_so_id', '=', $id_truong)
+	// 	->where('type', '=', 2)
+	// 	->where(DB::raw('YEAR(bieu_mau.thoi_gian)'),$year)
+	// 	->where('dot',$dot)
+	// 	->first();
+	// 	return $data;
+	// }
 
 
 	public function getTuyenSinhFromIdBieuMau($id_bieu_mau)
@@ -417,6 +406,36 @@ class SoLieuTuyenSinhRepository extends BaseRepository implements SoLieuTuyenSin
 		$data =  DB::table('chi_tiet_tuyen_sinh')->where('bieu_mau_id', '=', $id_bieu_mau)
 		->select('id','nghe_id')
 		->get();
+		return $data;
+	}
+
+	public function getTuyenSinhFromIdBieuMauOnlyOneNghe($id_bieu_mau,$nghe_id)
+	{
+		$data =  DB::table('chi_tiet_tuyen_sinh')->where('bieu_mau_id', '=', $id_bieu_mau)
+		->where('nghe_id','=',$nghe_id)
+		->get();
+		return $data;
+	}
+
+
+	public function getNgheCoSo($id_co_so){
+		$manganhnghe = DB::table('giay_chung_nhan_chi_tiet')->where('giay_chung_nhan_chi_tiet.co_so_id', '=', $id_co_so)
+		->groupBy('giay_chung_nhan_chi_tiet.nghe_id')
+		->orderBy('giay_chung_nhan_chi_tiet.phan_loai_nghe','asc')	
+		->select('giay_chung_nhan_chi_tiet.id','giay_chung_nhan_chi_tiet.nghe_id','giay_chung_nhan_chi_tiet.phan_loai_nghe')
+		->get();
+		return $manganhnghe;
+	}
+
+	public function getNganhNgheCaoDangTrungCap($arrayNghe){
+		$data = DB::table('nganh_nghe')->whereIn('nganh_nghe.id',$arrayNghe)
+		->get()->groupBy('bac_nghe');
+		return $data;
+	}
+
+	public function getNganhNgheSoCapDuoi3Thang($arrayNghe){
+		$data = DB::table('nganh_nghe_tc_sc')->whereIn('nganh_nghe_tc_sc.id',$arrayNghe)
+		->get()->groupBy('bac_nghe');
 		return $data;
 	}
 

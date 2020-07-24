@@ -51,6 +51,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapWebRoutes();
 
         $this->mapV2QuanLyMangLuoi();
+        
+        $this->mapV2TuyenSinh();
 
         $this->mapAccountRoutes();
 
@@ -194,5 +196,13 @@ class RouteServiceProvider extends ServiceProvider
             ->prefix('quan-ly-mang-luoi')
             ->namespace($this->namespace)
             ->group(base_path('routes/v2/quan-ly-mang-luoi.php'));
+    }
+
+    protected function mapV2TuyenSinh()
+    {
+        Route::middleware('web', 'auth')
+            ->prefix('tuyen-sinh')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/v2/tuyen-sinh.php'));
     }
 }

@@ -24,12 +24,11 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         $data = $this->all();
-        unset($data['_token'],$data['co_so_id'],$data['nghe_id'],$data['nam'],$data['dot'],$data['bao_cao_url']);
         $getDataCheck=[];
         $getDataCheck['co_so_id'] = 'required|';
         $getDataCheck['nghe_id'] = 'required|';
-        $getDataCheck['nam'] = 'required|';
         $getDataCheck['dot'] = 'required|';
+        unset($data['_token'],$data['nghe_id'],$data['check_have_bieu_mau'],$data['co_so_id'],$data['dot']);
         foreach ($data as $item=>$value) {
             if($value == null){
                 $getDataCheck[$item] = 'min:0|';
@@ -43,6 +42,9 @@ class StoreRequest extends FormRequest
     public function messages()
     {
         return [
+            'nghe_id.required'=>'Chưa chọn nghề',
+            'co_so_id.required'=>'Chưa chọn trường',
+            'dot.required'=>'Chưa chọn đợt',
             'required'=>'Không được để trống',
             'min' => ':attribute không được nhỏ hơn 0',
             'integer' => ':attribute nguyên',
@@ -52,7 +54,7 @@ class StoreRequest extends FormRequest
     public function attributes()
     {
         $data = $this->all();
-        unset($data['_token']);
+        unset($data['_token'],$data['check_have_bieu_mau']);
         $attributes=[];
         foreach ($data as $item=>$value) {
             $attributes[$item]="Nhập số";

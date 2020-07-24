@@ -128,6 +128,54 @@ class SoLieuTuyenSinhController extends Controller
         $data = $this->SoLieuTuyenSinhService->exportFollowSreach($params);
     }
 
+    public function themSoLieuTuyenSinh(){
+        $co_so = $this->SoLieuTuyenSinhService->getTenCoSoDaoTao();
+        return view('solieutuyensinh.them_so_lieu_tuyen_sinh',compact('co_so'));
+    }
+
+    public function getNganhNgheHavePhanLoaiFolowCoSo(Request $request){
+        $id = $request->id;
+        $datanghe = $this->SoLieuTuyenSinhService->getNganhNgheHavePhanLoaiFolowCoSo($id);
+        // dd($datanghe);
+        return $datanghe;
+    }
+
+    public function getNganhNgheDaNhapOfCoSo(Request $request){
+        $id_co_so = $request->id;
+        $dot = $request->dot;
+        $year = $request->year;
+        $datanghe =  $this->SoLieuTuyenSinhService->getNganhNgheDaNhapOfCoSo($id_co_so,$dot,$year);
+        return $datanghe;
+    }
+
+    public function getNganhNgheOneOfCoSo(Request $request){
+        $id_co_so = $request->id;
+        $nghe_id = $request->id_nghe_chon;
+        $year = $request->year;
+        $dot = $request->dot;
+        $datanghe =  $this->SoLieuTuyenSinhService->getNganhNgheOneOfCoSo($id_co_so,$nghe_id,$year,$dot);
+        return $datanghe;
+    }
+
+    public function store(StoreRequest $request){
+        // dd($request->all());
+        $id_co_so = $request->co_so_id;
+        $nghe_id = $request->nghe_id;
+        $year = $request->year;
+        $dot = $request->dot;
+        $attributes = $request->all();
+
+        $resurt = $this->SoLieuTuyenSinhService->updateAndCreateTuyenSinh($id_co_so,$nghe_id,$year,$dot,$attributes);
+        // $co_so = $this->SoLieuTuyenSinhService->getTenCoSoDaoTao();
+        return redirect()->route('tuyen-sinh.them-so-lieu-tuyen-sinh')->with('thongbao', 'Cập nhập thành công');;
+        // return view('solieutuyensinh.them_so_lieu_tuyen_sinh',compact('co_so'));
+    }
+
+    public function getTuyenSinhByNghe(Request $request){
+        $id_co_so = $request->id;
+        $datanghe =  $this->SoLieuTuyenSinhService->getNganhNgheDaNhapOfCoSo($id_co_so);
+        return $datanghe;
+    }
 
 
 }

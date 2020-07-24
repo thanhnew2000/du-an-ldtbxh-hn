@@ -57,10 +57,10 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="">Chọn đợt</label>
+                        <label for="">Chọn đọt</label>
                         <select name="dot" id="dot_id" class="form-control">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
+                            <option value="1">6 tháng đầu năm</option>
+                            <option value="2">6 tháng cuối năm</option>
                         </select>
                     </div>
 

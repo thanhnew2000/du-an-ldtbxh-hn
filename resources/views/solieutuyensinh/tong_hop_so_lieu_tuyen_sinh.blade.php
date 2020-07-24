@@ -280,7 +280,7 @@
 
         <div class="col-lg-2" style="text-align: right">
             @can('them_moi_tong_hop_ket_qua_tuyen_sinh')
-            <a href="{{route('themsolieutuyensinh')}}"><button type="button" class="btn btn-info .bg-info">Thêm
+            <a href="{{route('tuyen-sinh.them-so-lieu-tuyen-sinh')}}"><button type="button" class="btn btn-info .bg-info">Thêm
                     mới</button></a>
             @endcan
         </div>
