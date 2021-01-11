@@ -79,17 +79,20 @@
                                 <label class="col-lg-2 col-form-label">Năm</label>
                                 <div class="col-lg-8">
                                     <select multiple class="form-control select2" name="nam[]" id="nam" >
-                                        {{-- <option value="" selected disabled>Chọn năm</option> --}}
-                                         {{-- @foreach ((new \App\util\helpers)->getCurrentTenYear(); as $item)
+                                 
+                                     {{-- @foreach (getCurrentTenYear() as $item)
                                               <option  value="{{$item}}"> {{$item}}  </option> 
-                                         @endforeach --}}
-                                        @foreach (config('common.nam_tuyen_sinh.list') as $item) 
+                                     @endforeach  --}}
+                                         {{-- {{getCurrentTenYear()}} --}}
+
+                                        @foreach (getCurrentYear(5)  as $item) 
                                             <option @if (isset($params['nam']))
                                             @foreach ($params['nam'] as $paramsNam) {{($paramsNam ==  $item ) ? 'selected' : ''}}
                                            @endforeach @endif
                                                 value="{{$item}}">{{$item}}
                                             </option>
                                         @endforeach
+
                                     </select>
                                 </div>
                             </div>
@@ -121,9 +124,10 @@
                                 <div class="col-lg-8">
                                     <select class="form-control" name="dot" id="dot">
                                         {{-- <option value="" selected disabled>Chọn</option> --}}
-                                        <option value="1" >6 tháng đầu năm</option>
-                                        <option value="2" >6 tháng cuối năm</option>
-                                        <option value="3" selected>Cả năm</option>
+                                        <option value="1" @if (isset($params['dot']))
+                                        {{( $params['dot'] ==  1 ) ? 'selected' : ''}} @endif selected>6 tháng đầu năm</option>
+                                        <option value="2" @if (isset($params['dot']))
+                                        {{( $params['dot'] ==  2 ) ? 'selected' : ''}} @endif >6 tháng cuối năm</option>
                                         {{-- <option @if (isset($params['dot']))
                                             {{( $params['dot'] ==  1 ) ? 'selected' : ''}} @endif value="1">Đợt 1
                                         </option>
@@ -240,7 +244,7 @@
                     aria-hidden="true"></i>Xuất dữ liệu ra Excel</a>
         </div> --}}
 
-        <div class="col-lg-4">
+        <div class="col-lg-6">
             <form action="{{route('exportsreach')}}" method="POST">
                 @csrf
                 <input text="text" name="co_so_id" hidden

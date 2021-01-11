@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Http\Requests\SoLieuTuyenSinh\StoreRequest;
+use App\Http\Requests\SoLieuTuyenSinh\CapNhapKeHoachTuyenSinh;
+use App\Http\Requests\SoLieuTuyenSinh\CapNhapRequest;
 use App\Http\Requests\SoLieuTuyenSinh\UpdateRequest;
 use App\Services\SoLieuTuyenSinhService;
 
@@ -104,7 +106,7 @@ class SoLieuTuyenSinhController extends Controller
         }else{
             return response()->json(['messageError' => $kq ],200);   
         }
-    }
+    } 
 
     public function importError(Request $request){
         $dot=$request->dot;
@@ -157,7 +159,7 @@ class SoLieuTuyenSinhController extends Controller
         return $datanghe;
     }
 
-    public function store(StoreRequest $request){
+    public function store(CapNhapRequest $request){
         // dd($request->all());
         $id_co_so = $request->co_so_id;
         $nghe_id = $request->nghe_id;
@@ -177,5 +179,36 @@ class SoLieuTuyenSinhController extends Controller
         return $datanghe;
     }
 
+    // Kế hoạch tuyển sinh
+    public function keHoachTuyenSinh(){
+        $co_so = $this->SoLieuTuyenSinhService->getTenCoSoDaoTao();
+        $time = Carbon::now();
+        $yearNow = $time->year;
+        return view('solieutuyensinh.ke_hoach_tuyen_sinh',compact('co_so','yearNow')); 
+    }
 
+    public function getDataKeHoachTuyenSinhCs(Request $request){
+        $id_co_so = $request->id;
+        $year = $request->year;
+        $data = $this->SoLieuTuyenSinhService->getDataKeHoachTuyenSinhCs($id_co_so,$year);
+        if($data == null){
+            return false;
+        }
+        $data;
+        return $data;
+    }
+
+    public function getOneChiTietKeHoachTuyenSinh(Request $request){
+        $id_ke_hoach_ts=$request->id;
+        $data = $this->SoLieuTuyenSinhService->getOneChiTietKeHoachTuyenSinh($id_ke_hoach_ts);
+        return $data;
+    }
+
+    public function storeKeHoachTuyenSinh(CapNhapKeHoachTuyenSinh $request){
+        $attributes = $request->all();
+        // dd( $attributes);
+        $data = $this->SoLieuTuyenSinhService->updateAndCreateKeHoachTuyenSinh($attributes);
+        return $data;
+
+    }
 }

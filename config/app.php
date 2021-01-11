@@ -178,7 +178,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
 
         // 2020-06-18 thienth thêm provider thư viện tương tác với firebase
-        Kreait\Laravel\Firebase\ServiceProvider::class,
+//        Kreait\Laravel\Firebase\ServiceProvider::class,
         // 2020-06-21 thienth thêm composer provider
         App\Providers\ComposerServiceProvider::class
     ],

@@ -9,7 +9,11 @@ use App\Repositories\SoLieuTuyenSinhRepository;
 use App\Repositories\LoaiHinhCoSoRepositoryInterface;
 use App\Repositories\BieuMauRepositoryInterface;
 use App\Repositories\NganhNgheRepositoryInterface;
-// use App\Repositories\NganhNgheSoCapDuoi3ThangRepositoryInterface;
+use App\Repositories\NganhNgheTcScRepositoryInterface;
+use App\Repositories\GiayChungNhanChiTietRepositoryInterface;
+use App\Repositories\GiayPhepDangKyRepositoryInterface;
+use App\Repositories\KeHoachTuyenSinhRepositoryInterface;
+use App\Repositories\ChiTietKeHoachTuyenSinhRepositoryInterface;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Illuminate\Support\Facades\DB;
@@ -31,8 +35,11 @@ class SoLieuTuyenSinhService extends AppService
     protected $CoSoDaoTaoRepository;
     protected $bieuMauRepository;
     protected $nganhNgheRepository;
-    // protected $NganhNgheSoCapDuoi3ThangRepository;
-
+    protected $nganhNgheTcScRepository;
+    protected $giayChungNhanChiTietRepository;
+    protected $giayPhepDangKyRepository;
+    protected $keHoachTuyenSinhRepository;
+    protected $chiTietKeHoachTuyenSinhRepository;
     use ExcelTraitService;
 
     public function __construct(
@@ -40,8 +47,12 @@ class SoLieuTuyenSinhService extends AppService
         StoreUpdateNotificationService $StoreUpdateNotificationService,
         CoSoDaoTaoRepositoryInterface $coSoDaoTao,
         BieuMauRepositoryInterface $bieuMauRepository,
-        NganhNgheRepositoryInterface $nganhNgheRepository
-        // NganhNgheSoCapDuoi3ThangRepositoryInterface $NganhNgheSoCapDuoi3ThangRepository
+        NganhNgheRepositoryInterface $nganhNgheRepository,
+        NganhNgheTcScRepositoryInterface $nganhNgheTcScRepository,
+        GiayChungNhanChiTietRepositoryInterface $giayChungNhanChiTietRepository,
+        GiayPhepDangKyRepositoryInterface $giayPhepDangKyRepository,
+        KeHoachTuyenSinhRepositoryInterface $keHoachTuyenSinhRepository,
+        ChiTietKeHoachTuyenSinhRepositoryInterface $chiTietKeHoachTuyenSinhRepository
     ) {
         parent::__construct();
         $this->loaiHinhCoSoRepository = $loaiHinhCoSoRepository;
@@ -49,7 +60,11 @@ class SoLieuTuyenSinhService extends AppService
         $this->CoSoDaoTaoRepository = $coSoDaoTao;
         $this->bieuMauRepository = $bieuMauRepository;
         $this->nganhNgheRepository = $nganhNgheRepository;
-        // $this->NganhNgheSoCapDuoi3ThangRepository = $NganhNgheSoCapDuoi3ThangRepository;
+        $this->nganhNgheTcScRepository = $nganhNgheTcScRepository;
+        $this->giayChungNhanChiTietRepository = $giayChungNhanChiTietRepository;
+        $this->giayPhepDangKyRepository = $giayPhepDangKyRepository;
+        $this->keHoachTuyenSinhRepository = $keHoachTuyenSinhRepository;
+        $this->chiTietKeHoachTuyenSinhRepository = $chiTietKeHoachTuyenSinhRepository;
         // $this->soLieuTuyenSinhRepository = $soLieuTuyenSinhRepository;
     }
 
@@ -206,7 +221,7 @@ class SoLieuTuyenSinhService extends AppService
 
     public function getNganhNghe($ma_cap_nghe)
     {
-        return  $this->repository->getNganhNghe($ma_cap_nghe);
+        return  $this->nganhNgheRepository->getNganhNgheFromMaCap($ma_cap_nghe);
     }
 
     public function getThongTinCoSo($coSoId)
@@ -215,15 +230,14 @@ class SoLieuTuyenSinhService extends AppService
     }
     public function getNgheTheoCapBac($id, $cap_nghe)
     {
-        return  $this->repository->getNgheTheoCapBac($id, $cap_nghe);
+        return  $this->nganhNgheRepository->getNgheTheoCapBac($id, $cap_nghe);
     }
 
     // thanhnv 6/25/2020 update to service
 
     public function exportFillRow($worksheet, $row, $tn_cs){
         $worksheet->setCellValue('B'.$row, $tn_cs->nghe_id);
-        $worksheet->setCellValue('C'.$row, $tn_cs->ten_nganh_nghe);
-
+        // $worksheet->setCellValue('C'.$row, $tn_cs->ten_nganh_nghe);
         $worksheet->setCellValue('H'.$row, $tn_cs->tong_so_tuyen_sinh);
         $worksheet->setCellValue('I'.$row, $tn_cs->ke_hoach_tuyen_sinh_cao_dang);
         $worksheet->setCellValue('J'.$row, $tn_cs->ke_hoach_tuyen_sinh_trung_cap );
@@ -300,7 +314,7 @@ class SoLieuTuyenSinhService extends AppService
             
             $keyDanhDau = $this->danhDauloaiHinhCoSo($co_so->ma_loai_hinh_co_so);
             $worksheet->setCellValue($keyDanhDau.$row, 'x');
-
+            
             //  khóa dòng ko cho chọn
             $worksheet->getStyle('B'.$row)->getProtection()->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED);
             $worksheet->getStyle('C'.$row)->getProtection()->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED);
@@ -308,6 +322,7 @@ class SoLieuTuyenSinhService extends AppService
             $worksheet->getStyle('E'.$row)->getProtection()->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED);
             $worksheet->getStyle('F'.$row)->getProtection()->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED);
             $worksheet->getStyle('G'.$row)->getProtection()->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED);
+       
         };
         $file_xuat_name="File-nhap-so-lieu-tuyen-sinh ($co_so->ten).xlsx";
         $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
@@ -423,7 +438,6 @@ class SoLieuTuyenSinhService extends AppService
         array_push($id_nghe_of_cs,$csn->id);
         }
 
-   
         $timeInsert= '';
         if($dot== 1){
             $timeInsert = $year.'-01-01';
@@ -431,17 +445,13 @@ class SoLieuTuyenSinhService extends AppService
             $timeInsert = $year.'-07-02';
         }
 
-
-
-
-        $check_have_bieu_mau =  $this->repository->getBieuMauTuyenSinh($id_truong,$year,$dot);
+        $check_have_bieu_mau =  $this->bieuMauRepository->getBieuMauTuyenSinh($id_truong,$year,$dot);
       
         $bieu_mau_id = '';
         if($check_have_bieu_mau !== null){
             $bieu_mau_id = $this->getIdBieuMauCsTimeNow($id_truong,$year,$dot);
         }
      
-
         $tuyen_sinh_nam_dot_da_co = [];
         $tuyen_sinh_nam_dot_da_co =  $this->getNganhNgheDaNhapOfCoSo($id_truong,$dot,$year);
         $id_nghe_tuyen_sinh_gan_da_co=[];
@@ -459,7 +469,6 @@ class SoLieuTuyenSinhService extends AppService
                 $message='errorkitu';
                 return $message;  
         }
-
 
         $arrayData=[];
         $insertData=[];
@@ -499,7 +508,6 @@ class SoLieuTuyenSinhService extends AppService
     
                             'so_Tot_nghiep_THCS'=>$data[$i][27],
                             'so_Tot_nghiep_THPT'=>$data[$i][28],
-    
         
                             'so_luong_sv_So_cap'=>$data[$i][29],
                             'so_luong_sv_nu_So_cap'=>$data[$i][30],
@@ -563,7 +571,6 @@ class SoLieuTuyenSinhService extends AppService
             
         $truong = explode(' - ', $data[7][2]);
         $id_truong = trim(array_pop($truong));
-
     
         $arrayApha=['H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK'];
  
@@ -594,8 +601,35 @@ class SoLieuTuyenSinhService extends AppService
         $queryData['devvn_xaphuongthitran'] = isset($params['devvn_xaphuongthitran']) ? $params['devvn_xaphuongthitran'] : null;
         $queryData['nganh_nghe'] = isset($params['nganh_nghe']) ? $params['nganh_nghe'] : null;
         
-        // $data = $this->repository->getTuyenSinhExportSreach($queryData);
-        // dd($data);
+        $nganh_nghe = [];
+        $nganh_nghe_khac = [];
+        
+        if($queryData['co_so_id'] == null){
+            $allNghe =  $this->giayPhepDangKyRepository->getNgheofAllCoSo();
+        }else{
+            $allNghe =  $this->giayPhepDangKyRepository->getNgheCoSo($queryData['co_so_id']);
+        }
+
+        foreach($allNghe as $value){
+            if($value->phan_loai_nghe == 1){
+                array_push($nganh_nghe_khac,$value->nghe_id);
+            }else if($value->phan_loai_nghe == 0){
+                array_push($nganh_nghe,$value->nghe_id);
+            }
+        }
+
+       $arrayAllNghe = [];
+       $nghe_cdang_trungcap = $this->nganhNgheRepository->getNganhNgheCaoDangName($nganh_nghe);
+       $nghe_sc_3thang= $this->nganhNgheTcScRepository->getNganhNgheSoCapDuoi3ThangName($nganh_nghe_khac);
+       
+        // dd($nghe_cdang_trungcap);
+        foreach($nghe_cdang_trungcap as $value){
+            $arrayAllNghe[$value->id] = $value->ten_nganh_nghe;
+        }
+        foreach($nghe_sc_3thang as $value){
+            $arrayAllNghe[$value->id] = $value->ten_nganh_nghe;
+        }
+
 
         $spreadsheet = IOFactory::load('file_excel/tuyensinh/form-export-data-tuyen-sinh.xls');
         $worksheet = $spreadsheet->getActiveSheet();
@@ -609,6 +643,7 @@ class SoLieuTuyenSinhService extends AppService
         $ten_truong = 'TRƯỜNG CAO ĐẲNG';
         // dd($data);
         $namShow=0;
+
         foreach($queryData['nam'] as $oneYear){
             $row++;
             $worksheet->setCellValue('B' . $row, $oneYear);
@@ -619,12 +654,13 @@ class SoLieuTuyenSinhService extends AppService
             ->setFillType(Fill::FILL_SOLID)
             ->getStartColor()->setARGB('C7C7C7');
             $data = $this->repository->getTuyenSinhExportSreach($queryData,$oneYear);
-            foreach($data as $ts){
+            // dd($data);
+                foreach($data as $ts){
                         $row++;
                         $soThuTu++;
                         // border cac o
                         if ($ts->id_co_so !== $cs_id_truong ||  $namShow !== $oneYear) {
-                              $namShow = $oneYear;
+                            $namShow = $oneYear;
                             $cs_id_truong = $ts->id_co_so;
                             $worksheet->setCellValue('B' . $row, $ts->ten);
                             $worksheet->getStyle("B{$row}")->getFont()->setBold(true);
@@ -646,48 +682,12 @@ class SoLieuTuyenSinhService extends AppService
                         $worksheet->setCellValue($keyDanhDau.$row, 'x');
                         // fill data
                         $this->exportFillRow($worksheet, $row , $ts);
+                          $worksheet->setCellValue('C' . $row, $arrayAllNghe[$ts->nghe_id]);
+
                     }
                     //   dd($data);
 
         }
-        // foreach($data as $namYear => $value){
-        //     // dd($index);
-        //         $row++;
-        //         $worksheet->setCellValue('B' . $row, $namYear);
-        //         $worksheet->getStyle("B{$row}")->getFont()->setBold(true);
-        //         $lockRange = "A{$row}:C{$row}";
-        //         $worksheet->getStyle($lockRange)
-        //         ->getFill()
-        //         ->setFillType(Fill::FILL_SOLID)
-        //         ->getStartColor()->setARGB('C7C7C7');
-        //     foreach($value as $ts){
-        //         $row++;
-        //         $soThuTu++;
-        //         // border cac o
-        //         if ($ts->id_co_so !== $cs_id_truong) {
-        //             $cs_id_truong = $ts->id_co_so;
-        //             $worksheet->setCellValue('B' . $row, $ts->ten);
-        //             $worksheet->getStyle("B{$row}")->getFont()->setBold(true);
-        //             $lockRange = "A{$row}:AK{$row}";
-        //             $worksheet->getStyle($lockRange)
-        //                 ->getFill()
-        //                 ->setFillType(Fill::FILL_SOLID)
-        //                 ->getStartColor()->setARGB('C7C7C7');
-        //             $row++;
-        //         }
-        //         foreach($arrayAphabe as $apha){
-        //             $worksheet->getStyle($apha.$row)
-        //             ->getBorders()
-        //             ->getAllBorders()
-        //             ->setBorderStyle(Border::BORDER_THIN);
-        //         }
-        //         $worksheet->setCellValue("A{$row}",$soThuTu);
-        //         $keyDanhDau = $this->danhDauloaiHinhCoSo($ts->ma_loai_hinh_co_so);
-        //         $worksheet->setCellValue($keyDanhDau.$row, 'x');
-        //         // fill data
-        //         $this->exportFillRow($worksheet, $row , $ts);
-        //     }
-        //   }
             $writer = IOFactory::createWriter($spreadsheet, "Xlsx");
             header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
             header('Content-Disposition: attachment; filename="File-xuat-theo-tim-kiem.xlsx"');
@@ -701,7 +701,7 @@ class SoLieuTuyenSinhService extends AppService
         $ngheTrungCap=[];
         $ngheCaoDang=[];
 
-        $allNghe =  $this->repository->getNgheCoSo($id_co_so);
+        $allNghe =  $this->giayPhepDangKyRepository->getNgheCoSo($id_co_so);
         $arrayCaoDangTc = [];
         $arraySoCap3thang = [];
         
@@ -713,9 +713,8 @@ class SoLieuTuyenSinhService extends AppService
 				}
         }
         
-        $ngheCaoDangTrungCap = $this->repository->getNganhNgheCaoDangTrungCap($arrayCaoDangTc);
-        $ngheCaoDangSoCapDuoi3Thang = $this->repository->getNganhNgheSoCapDuoi3Thang($arraySoCap3thang);
-        // dd($ngheCaoDangTrungCap);
+        $ngheCaoDangTrungCap = $this->nganhNgheRepository->getNganhNgheCaoDangTrungCap($arrayCaoDangTc);
+        $ngheCaoDangSoCapDuoi3Thang = $this->nganhNgheTcScRepository->getNganhNgheSoCapDuoi3Thang($arraySoCap3thang);
 
         foreach($ngheCaoDangTrungCap as $arraynn){
             foreach($arraynn as $nn){
@@ -747,26 +746,17 @@ class SoLieuTuyenSinhService extends AppService
     }
 
     public function getNganhNgheDaNhapOfCoSo($id_co_so,$dot,$year){
-        // $timeNow = Carbon::now();
-		// $yearNow = $timeNow->year;
-		// $timeCheck =  $yearNow.'06-31';
-
-		// if($timeNow >= $timeCheck){
-		// 	$data =  $this->repository->getBieuMauTuyenSinhDauNam($id_co_so,$yearNow);
-		// }else if($timeNow < $timeCheck){
         $data =  $this->bieuMauRepository->getBieuMauTuyenSinh($id_co_so,$year,$dot);
-        // }
-        if($data !== null){
-        $nganh_nghe =  $this->repository->getTuyenSinhFromIdBieuMau($data->id);
-        return $nganh_nghe;
+        if($data != null){
+            $nganh_nghe =  $this->repository->getTuyenSinhFromIdBieuMau($data->id);
+            return $nganh_nghe;
         }else{
-            return false;
+            return 'NoHaveBieuMau';
         }
     }
 
     public function getNganhNgheOneOfCoSo($id_co_so,$id_nghe,$year,$dot){
-     
-        $data =  $this->repository->getBieuMauTuyenSinh($id_co_so,$year,$dot);
+        $data =  $this->bieuMauRepository->getBieuMauTuyenSinh($id_co_so,$year,$dot);
         if($data !== null){
             $nganh_nghe =  $this->repository->getTuyenSinhFromIdBieuMauOnlyOneNghe($data->id,$id_nghe);
             return  $nganh_nghe;
@@ -776,24 +766,22 @@ class SoLieuTuyenSinhService extends AppService
     }
 
     public function getIdBieuMauCsTimeNow($id_co_so,$year,$dot){
-        $data =  $this->repository->getBieuMauTuyenSinh($id_co_so,$year,$dot);
-		// if($timeNow >= $timeCheck){
-		// 	$data =  $this->repository->getBieuMauTuyenSinhDauNam($id_co_so,$yearNow);
-        // }
-        $id_bieu_mau = $data->id;
+        $data =  $this->bieuMauRepository->getBieuMauTuyenSinh($id_co_so,$year,$dot);
+        if($data !== null){
+            $id_bieu_mau = $data->id;
+        }
         return $id_bieu_mau;
     }
 
-    public function createTuyenSinh($attributes){
-       $result =  $this->repository->createTuyenSinh($attributes);
-       return  $result;
-    }
+    // public function createTuyenSinh($attributes){
+    //    $result =  $this->repository->createTuyenSinh($attributes);
+    //    return  $result;
+    // }
 
-    public function createBieuMau($id_co_so,$thoi_gian){
-        $id_bieu_mau =  $this->bieuMauR->createBieuMau($id_co_so,$thoi_gian);
-        return  $id_bieu_mau;
-     }
-
+    // public function createBieuMau($id_co_so,$thoi_gian){
+    //     $id_bieu_mau =  $this->bieuMauRepository->createBieuMau($id_co_so,$thoi_gian);
+    //     return  $id_bieu_mau;
+    //  }
 
      public function updateAndCreateTuyenSinh($id_co_so,$nghe_id,$year,$dot,$attributes){
         if($attributes['dot'] == 1){
@@ -824,8 +812,71 @@ class SoLieuTuyenSinhService extends AppService
         return $resurt;
      }
 
-    
-    
-    
+
+    //  KẾ HOẠCH TUYỂN SINH 
+
+     public function getDataKeHoachTuyenSinhCs($id_co_so,$year){
+        // $timeNow = Carbon::now();
+        // $year=$timeNow->year;
+          $ke_hoach = $this->keHoachTuyenSinhRepository->getKeHoachTuyenSinhofCoSo($id_co_so,$year);
+          if($ke_hoach !== null){
+            $data = $this->chiTietKeHoachTuyenSinhRepository->getChiTietKeHoachTuyenSinh($ke_hoach->id);
+           return $data;
+          }else{
+              return 'No';
+          }
+     }
+
+     public function getOneChiTietKeHoachTuyenSinh($id_chi_tiet_ke_hoach){
+        $data = $this->chiTietKeHoachTuyenSinhRepository->getOneChiTietKeHoachTuyenSinh($id_chi_tiet_ke_hoach);
+        return $data;
+     }
+
+     public function getIdKeHoachTsCsTimeNow($id_co_so,$year,$dot){
+        $data =  $this->bieuMauRepository->getBieuMauTuyenSinh($id_co_so,$year,$dot);
+        if($data !== null){
+            $id_bieu_mau = $data->id;
+        }
+        return $id_bieu_mau;
+    }
+
+
+
+     public function updateAndCreateKeHoachTuyenSinh($attributes){
+         $timeNow = Carbon::now();
+         $year=$timeNow->year;
+
+         $check_have_ke_hoach = $this->keHoachTuyenSinhRepository->getKeHoachTuyenSinhofCoSo($attributes['co_so_id'],$year);
+
+        if($check_have_ke_hoach == null ){
+            $id_kehoach =  $this->keHoachTuyenSinhRepository->createKeHoach($attributes['co_so_id'],$year);
+        }else{
+            $id_kehoach = $check_have_ke_hoach->id;   
+        }
+        
+        $check_have_id = $this->getOneChiTietKeHoachTuyenSinh($attributes['nghe_id']);
+
+        $attributes['ke_hoach_tuyen_sinh_id']= $id_kehoach;
+        $attributes['nghe']= $attributes['nghe_id'];
+        unset($attributes['_token']);
+        unset($attributes['page_size']);
+        unset($attributes['co_so_id']);
+        unset($attributes['nghe_id']);
+
+        if($check_have_id == null){
+            // unset($attributes['nghe']);
+            $resurt = $this->chiTietKeHoachTuyenSinhRepository->createCtKeHoachTuyenSinh($attributes);
+            // dd($resurt);
+        }else{
+            $id_row = $attributes['nghe'];
+             unset($attributes['nghe']);
+             $this->chiTietKeHoachTuyenSinhRepository->updateCtKeHoachTuyenSinh($id_kehoach,$id_row,$attributes);
+             $resurt ='update';
+        }
+        return $resurt;
+     }
+
+
+
 }
  ?>

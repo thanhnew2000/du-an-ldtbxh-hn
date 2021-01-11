@@ -28,6 +28,7 @@ class StoreRequest extends FormRequest
         $getDataCheck['co_so_id'] = 'required|';
         $getDataCheck['nghe_id'] = 'required|';
         $getDataCheck['dot'] = 'required|';
+        $getDataCheck['so_'] = 'required|';
         unset($data['_token'],$data['nghe_id'],$data['check_have_bieu_mau'],$data['co_so_id'],$data['dot']);
         foreach ($data as $item=>$value) {
             if($value == null){

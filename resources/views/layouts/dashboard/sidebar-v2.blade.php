@@ -333,9 +333,9 @@
 					class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span
 						class="m-menu__link-text">Kết quả tuyển sinh</span></a></li>
 			<li class="m-menu__item " aria-haspopup="true">
-				<a href="{{route('nhapbc.ket-qua-ts')}}" class="m-menu__link ">
+				<a href="{{route('tuyen-sinh.ke_hoach_tuyen_sinh')}}" class="m-menu__link ">
 					<i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i>
-					<span class="m-menu__link-text">Tổng hợp kết quả tuyển sinh</span>
+					<span class="m-menu__link-text">Kế hoạch tuyển sinh</span>
 				</a>
 			</li>
 		</ul>

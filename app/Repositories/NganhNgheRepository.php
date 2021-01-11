@@ -192,9 +192,28 @@ class NganhNgheRepository extends BaseRepository implements NganhNgheRepositoryI
         return $this->model->where('id',$id)->update($data);
     }
 
+    public function getNgheTcCd($id)
+    {
+        return $this->model->select(['nganh_nghe.ten_nganh_nghe','nganh_nghe.bac_nghe'])->where('id',$id)->first();
+    }
+    
     public function getNganhNgheCaoDangTrungCap($arrayNghe){
 		$data = $this->model->whereIn('nganh_nghe.id',$arrayNghe)
 		->get()->groupBy('bac_nghe');
 		return $data;
+    }
+
+    public function getNganhNgheCaoDangName($arrayNghe){
+        $data = $this->model->whereIn('nganh_nghe.id',$arrayNghe)
+        ->select('nganh_nghe.ten_nganh_nghe','nganh_nghe.id')
+		->get();
+		return $data;
+    }
+    
+    public function getNganhNgheFromMaCap($ma_cap_nghe){
+		$data =$this->model->where('ma_cap_nghe',$ma_cap_nghe)->orderBy('ten_nganh_nghe')->get();
+		return $data;
 	}
+
+
 }

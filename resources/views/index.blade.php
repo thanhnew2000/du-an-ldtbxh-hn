@@ -248,7 +248,7 @@
                             <h3 class="m-portlet__head-text">
                                 <font style="vertical-align: inherit;">
                                     <font style="vertical-align: inherit;">
-                                 Biểu đồ thống kê tỉ lệ ngành nghề
+                                 Biểu đồ thống kê sinh viên tốt nghiệp
                                  
                                     </font>
                                 </font>
@@ -257,7 +257,7 @@
                     </div>
                 </div>
                 <div class="m-portlet__body">
-                    <canvas id="bieudonganhnghe" width="400" height="400"></canvas>
+                    <canvas id="bieudosinhvientotnghiep" width="400" height="400"></canvas>
                 </div>
             </div>
 
@@ -424,23 +424,75 @@
 </script>
 
 <script>
-    var ctx = document.getElementById('bieudonganhnghe');
+    var ctx = document.getElementById('bieudosinhvientotnghiep');
     var barChart= new Chart(ctx, {
-      type: 'polarArea',
+      type: 'line',
       data: {
-        labels: ["Công nghệ thông tin", "Kế toán","Kinh doanh","Báo chí","Mỹ thuật","Đào tạo giáo viên","Nghệ thuật trình diễn"],
+        labels: [@forEach($sinhvientotnghiep as $key => $item)
+                {{ $item->nam }},
+                @endforeach],
         datasets: [
           {
             label: "Hệ cao đẳng ",
-            backgroundColor: ["#e96f28", "#3367b1","#54b14d","#B066FE","#FF6A6A","#FFB6C1","#DDC488"],
-
+            backgroundColor: "rgba(238, 173, 14, 0.2)",
+            borderColor: "#e96f28",
             data: [
-               50,23,55,22,34,44,37
+                @forEach($sinhvientotnghiep as $key => $item)
+                {{ $item->SoSv_TN_TrinhDoCD }},
+                @endforeach
                 
 
 
             ],
             borderWidth:1
+          },
+          {
+            label: "Hệ trung cấp ",
+            backgroundColor: "rgba(67, 110, 238, 0.2)",
+            borderColor: "#1C86EE",
+            
+            data: [
+                @forEach($sinhvientotnghiep as $key => $item)
+                {{ $item->SoSv_TN_TrinhDoTC }},
+                @endforeach
+                
+
+
+            ],
+            borderWidth:1,
+            type:'line'
+          },{
+            label: "Hệ sơ cấp ",
+            backgroundColor: "rgba(0, 255, 127, 0.2)",
+            borderColor: "#43CD80",
+            
+
+            data: [
+                @forEach($sinhvientotnghiep as $key => $item)
+                {{ $item->SoSv_TN_TrinhDoSC }},
+                @endforeach
+                
+
+
+            ],
+            borderWidth:1,
+            type:'line'
+          },{
+            label: "Hệ khác ",
+            backgroundColor: "rgba(145, 44, 238, 0.2)",
+            borderColor: "#BA55D3",
+            
+
+            data: [
+                @forEach($sinhvientotnghiep as $key => $item)
+                {{ $item->SoSv_TN_NgheKhac }},
+                @endforeach
+                
+
+
+            ],
+            borderWidth:1,
+            type:'line'
           }
         ]
       },
@@ -448,7 +500,7 @@
         legend: { display: true },
         title: {
           display: true,
-          text:'Biểu đồ tỉ lệ ngành nghề',
+          text:'Biểu đồ sinh viên tốt nghiệp',
           fontSize: 16,
         },
         scales: {

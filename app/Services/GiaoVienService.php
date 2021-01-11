@@ -192,7 +192,7 @@ class GiaoVienService extends AppService
                 for($j=1;$j <= 35;$j++){
                         $key_aphabel++;
                         if($j != 1 && $j != 4 && $j !=5 && $j !=34 && $j !=35 && $j !=14 && $j !=15 && $j !=16 && $j !=17 && $j !=18 && $j !=19) {
-                            if(is_string($data[$i][$j]) || ($data[$i][$j] < 0) || ($data[$i][$j] < 0 || $data[$i][$j] > 1 ) ){
+                            if(is_string($data[$i][$j]) || ($data[$i][$j] < 0) || ($data[$i][$j] < 0 || $data[$i][$j] > 1 )){
                                   array_push($vitri,$arrayApha[$key_aphabel].$rowNumber);
                             }
                         }

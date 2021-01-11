@@ -54,3 +54,5 @@ Route::get('bo-sung-nghe-vao-dia-diem-dao-tao/{id}', 'ChiNhanhController@boSungN
 Route::post('nganh-nghe-trong-giay-phep', 'ChiNhanhController@getNgheTheoGiayPhep')->name('chi-nhanh.get-nganh-nghe');
 
 Route::post('bo-sung-nghe-dia-diem-dao-tao', 'ChiNhanhController@boSungNgheVaoChiNhanh')->name('chi-nhanh-luu-bo-sung-nghe');
+
+Route::get('test', 'CoSoDaoTaoController@test')->name('test');

@@ -17,7 +17,7 @@ abstract  class AppService
         $this->setRepository();
     }
 
-    //Lay repository tuong ung
+    //Lay repository tuong ung bỏ
     public function getRepository()
     {
         return $this->repository->getRepository();

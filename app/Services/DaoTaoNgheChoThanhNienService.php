@@ -147,7 +147,6 @@ class DaoTaoNgheChoThanhNienService extends AppService
         $message = $checkResult == 'tontai' ?
             'Số liệu tuyển sinh đã tồn tại và được phê duyệt' :
             'Số liệu tuyển sinh đã tồn tại';
-        
         if (!isset($checkResult)) {
             $data = $this->store($requestParams);
             $message = 'Thêm số liệu tuyển sinh thành công';
@@ -155,7 +154,6 @@ class DaoTaoNgheChoThanhNienService extends AppService
                 'id' => $requestParams['co_so_id'],
             ]);
         }
-
         return [
             'route' => $route,
             'message' => $message,

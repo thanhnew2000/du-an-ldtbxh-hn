@@ -11,10 +11,7 @@
         "php": "^7.2.5",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
-        "google/cloud-firestore": "^1.13",
         "guzzlehttp/guzzle": "^6.3",
-        "kreait/firebase-php": "^4.33",
-        "kreait/laravel-firebase": "*",
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
         "laravelcollective/html": "^6.1",
@@ -50,11 +47,11 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
-        }
+        },
+        "files": [
+            "util/helpers.php"
+        ]
     },
-    "files": [
-        "util/helpers.php"
-    ],
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {

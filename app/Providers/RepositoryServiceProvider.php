@@ -29,8 +29,16 @@ use App\Repositories\AccountRepository;
 use App\Repositories\AccountRepositoryInterface;
 use App\Repositories\BieuMauRepository;
 use App\Repositories\BieuMauRepositoryInterface;
-use App\Repositories\NganhNgheSoCapDuoi3ThangRepository;
-use App\Repositories\NganhNgheSoCapDuoi3ThangRepositoryInterface;
+use App\Repositories\NganhNgheTcScRepository;
+use App\Repositories\NganhNgheTcScRepositoryInterface;
+use App\Repositories\GiayChungNhanChiTietRepository;
+use App\Repositories\GiayChungNhanChiTietRepositoryInterface;
+use App\Repositories\GiayPhepDangKyRepository;
+use App\Repositories\GiayPhepDangKyRepositoryInterface;
+use App\Repositories\ChiTietKeHoachTuyenSinhRepository;
+use App\Repositories\ChiTietKeHoachTuyenSinhRepositoryInterface;
+use App\Repositories\KeHoachTuyenSinhRepository;
+use App\Repositories\KeHoachTuyenSinhRepositoryInterface;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -54,7 +62,11 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(ChiTieuTuyenSinhRepositoryInterface::class, ChiTieuTuyenSinhRepository::class);
         $this->app->bind(AccountRepositoryInterface::class, AccountRepository::class);
         $this->app->bind(BieuMauRepositoryInterface::class, BieuMauRepository::class);
-        // $this->app->bind(NganhNgheSoCapDuoi3ThangRepository::class, NganhNgheSoCapDuoi3ThangRepositoryInterface::class);
+        $this->app->bind(NganhNgheTcScRepositoryInterface::class, NganhNgheTcScRepository::class);
+        $this->app->bind(GiayChungNhanChiTietRepositoryInterface::class, GiayChungNhanChiTietRepository::class);
+        $this->app->bind(GiayPhepDangKyRepositoryInterface::class, GiayPhepDangKyRepository::class);
+        $this->app->bind(ChiTietKeHoachTuyenSinhRepositoryInterface::class, ChiTietKeHoachTuyenSinhRepository::class);
+        $this->app->bind(KeHoachTuyenSinhRepositoryInterface::class, KeHoachTuyenSinhRepository::class);
     }
 
     /**

@@ -127,7 +127,7 @@ Route::group(['prefix' => 'chinh-sach-sinh-vien'], function () {
 //Start - CườngNC - Updatemiddleware - Kể quả tuyển sinh
 Route::group(['prefix' => 'ket-qua-tuyen-sinh', 'middleware' => ['permission:danh_sach_tong_hop_ket_qua_tuyen_sinh']], function () {
     Route::get('/tong-hop', 'ExtractController@tonghopkqtuyensinh')->name('xuatbc.ds-ket-qua-ts');
-    Route::get('/tong-hop-so-lieu-tuyen-sinh', 'SoLieuTuyenSinhController@index')->name('solieutuyensinh');
+    // Route::get('/tong-hop-so-lieu-tuyen-sinh', 'SoLieuTuyenSinhController@index')->name('solieutuyensinh');
 });
 
 Route::group([
@@ -149,14 +149,14 @@ Route::group(['middleware' => ['permission:xem_chi_tiet_tong_hop_ket_qua_tuyen_s
 });
 
 Route::group(['prefix' => 'ket-qua-tuyen-sinh', 'middleware' => ['permission:danh_sach_tong_hop_ket_qua_tuyen_sinh']], function () {
-    Route::post('/co-so-tuyen-sinh-theo-loai-hinh', 'SoLieuTuyenSinhController@getCoSoTuyenSinhTheoLoaiHinh')->name('csTuyenSinhTheoLoaiHinh');
-    Route::post('/xa-phuong-theo-quan-huyen', 'SoLieuTuyenSinhController@getXaPhuongTheoQuanHuyen')->name('getXaPhuongTheoQuanHuyen');
-    Route::post('/get-ma-nganh-nghe', 'SoLieuTuyenSinhController@getmanganhnghe')->name('get_ma_nganh_nghe');
-    Route::post('/check-them-so-lieu-tuyen-sinh', 'SoLieuTuyenSinhController@getCheckTonTaiSoLieuTuyenSinh')->name('so_lieu_tuyen_sinh.check_so_lieu');
-    Route::post('/get-nghe-theo-cap-bac', 'SoLieuTuyenSinhController@getNgheTheoCapBac')->name('getNgheTheoCapBac');
-    Route::post('export-sreach', 'SoLieuTuyenSinhController@exportFollowSreach')->name('exportsreach');
-    Route::post('form-nhap-sv', 'SoLieuTuyenSinhController@exportBieuMau')->name('layformbieumausinhvien');
-    Route::post('export-data-sv', 'SoLieuTuyenSinhController@exportData')->name('exportdatatuyensinh');
+    // Route::post('/co-so-tuyen-sinh-theo-loai-hinh', 'SoLieuTuyenSinhController@getCoSoTuyenSinhTheoLoaiHinh')->name('csTuyenSinhTheoLoaiHinh');
+    // Route::post('/xa-phuong-theo-quan-huyen', 'QuanHuyenController@getXaPhuongTheoQuanHuyen')->name('getXaPhuongTheoQuanHuyen');
+    // Route::post('/get-ma-nganh-nghe', 'SoLieuTuyenSinhController@getmanganhnghe')->name('get_ma_nganh_nghe');
+    // Route::post('/check-them-so-lieu-tuyen-sinh', 'SoLieuTuyenSinhController@getCheckTonTaiSoLieuTuyenSinh')->name('so_lieu_tuyen_sinh.check_so_lieu');
+    // Route::post('/get-nghe-theo-cap-bac', 'SoLieuTuyenSinhController@getNgheTheoCapBac')->name('getNgheTheoCapBac');
+    // Route::post('export-sreach', 'SoLieuTuyenSinhController@exportFollowSreach')->name('exportsreach');
+    // Route::post('form-nhap-sv', 'SoLieuTuyenSinhController@exportBieuMau')->name('layformbieumausinhvien');
+    // Route::post('export-data-sv', 'SoLieuTuyenSinhController@exportData')->name('exportdatatuyensinh');
 });
 // Route::post('/get-nghe-cap-4-theo-cap-3','SoLieuTuyenSinhController@getNgheCap4TheoCap3')->name('getNgheCap4TheoCap3');
 // thanhnv update tuyensinh 6/25/2020
